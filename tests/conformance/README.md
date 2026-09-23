@@ -115,3 +115,14 @@ type or option that is not implemented yet, or contains a value the target canno
 e.g. `$function` before Perl callbacks exist or `$enum`. As validators are ported, their
 cases become active automatically. Skipped cases are listed with the reason; an active case
 that does not match is a failure.
+
+Two runners replay the cases:
+
+- `crates/perldantic-core/tests/conformance.rs` against the Rust core;
+- `t/conformance.t` through the Perl library (Perldantic::FFI and the wire codec). It reads the
+  files with an order-preserving parser (`t/lib/Perldantic/Test/CaseJSON.pm`) and sends dicts in
+  their recorded order with `Perldantic::Wire::ordered`, so outputs and errors compare exactly.
+  It skips what the core cannot build yet ("Unknown schema type", "is not supported yet"), the
+  same divergences as the Rust runner, and outcomes that only reflect the recorder (an exception
+  about `RecordingSerializer`). Sets compare without order. Run it with
+  `prove -b -v t/conformance.t` to see the summary.
