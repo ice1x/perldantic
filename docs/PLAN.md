@@ -179,14 +179,14 @@ pydantic's schema types internally.
 | `Any` | `any` | |
 | `Undef` | `none` | Python `None` is Perl `undef` |
 | `Maybe[T]` | `nullable` | Python `Optional[T]` |
-| `Optional[T]` | a field or item that may be left out | Types::Standard meaning, inside `Dict[]` / `Tuple[]`; not Python's `Optional` (that is `Maybe[T]`) |
+| `Optional[T]` | a field that may be left out | Types::Standard meaning, inside `Dict[]` (Types::Standard also allows trailing `Tuple[]` items; not supported yet); not Python's `Optional` (that is `Maybe[T]`) |
 | `Bool` | `bool` | |
 | `Int` | `int` | Arbitrary size; big values as `Math::BigInt` |
 | `Num` | `float` | |
 | `Str` | `str` | |
 | `Bytes` | `bytes` | |
 | `ArrayRef[T]` | `list` | Python `list[T]` |
-| `Tuple[A, B]` | `tuple` (positional) | A Perl array; accepted in strict mode, like a JSON array |
+| `Tuple[A, B]`, `Tuple[A, slurpy ArrayRef[B]]` | `tuple` (positional, variadic tail) | A Perl array; accepted in strict mode, like a JSON array |
 | `HashRef[V]` | `dict` with `str` keys | Python `dict[str, V]` |
 | `Map[K, V]` | `dict` | Python `dict[K, V]`; keys arrive as strings and are validated leniently |
 | `Dict[k => T, ...]` | `typed-dict` | Same meaning as Types::Standard `Dict`, **not** Python `dict` |
