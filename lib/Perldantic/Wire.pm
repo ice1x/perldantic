@@ -28,10 +28,49 @@ sub ordered (@pairs) {
 
 sub encode ($value) {
     my $tagged = _tag($value);
-    my $json   = eval { $JSON->encode($tagged) };
+    my $json   = eval { _write($tagged) };
     Perldantic::InternalError->throw(message => "Cannot encode a value for the core: $@", cause => $@)
         if !defined $json;
     return $json;
+}
+
+# Strings only: JSON escaping and UTF-8 encoding.
+my $STRING = Cpanel::JSON::XS->new->utf8->allow_nonref;
+
+# The shortest decimal form that reads back as the same double, always with a fraction or an
+# exponent so that the core sees a float. (JSON modules print 15 significant digits, which
+# changes values such as 0.1 + 0.2.)
+sub _float ($value) {
+    my $text;
+    for my $digits (1 .. 17) {
+        $text = sprintf "%.${digits}g", $value;
+        last if $text == $value;
+    }
+    return $text =~ /[.eE]/ ? $text : "$text.0";
+}
+
+# Write tagged data (see _tag) as JSON: hashes with sorted keys, scalars by their Perl kind.
+sub _write ($data) {
+    return 'null' if !defined $data;
+    if (my $class = blessed $data) {
+        return $data ? 'true' : 'false'
+            if $data->isa('JSON::PP::Boolean') || $data->isa('Types::Serialiser::Boolean');
+        return $data->bstr if $data->isa('Math::BigInt');
+        if ($data->isa('Math::BigFloat')) {
+            my $text = $data->bstr;
+            return $text =~ /[.eE]/ ? $text : "$text.0";
+        }
+        die "unexpected $class object\n";
+    }
+    my $type = ref $data;
+    return '[' . join(',', map { _write($_) } @$data) . ']' if $type eq 'ARRAY';
+    return '{' . join(',', map { $STRING->encode("$_") . ':' . _write($data->{$_}) } sort keys %$data) . '}'
+        if $type eq 'HASH';
+    return $data ? 'true' : 'false' if builtin::is_bool($data);
+    my $flags = B::svref_2object(\$data)->FLAGS;
+    return $STRING->encode("$data") if $flags & B::SVf_POK || !($flags & (B::SVf_IOK | B::SVf_NOK));
+    return "$data" if $flags & B::SVf_IOK;
+    return _float($data);
 }
 
 sub decode ($json) {
@@ -57,8 +96,6 @@ sub _special_float ($value) {
 sub _tag ($value) {
     if (!ref $value) {
         return $value if !defined $value;
-        # Native booleans become JSON booleans whatever the JSON module knows about them.
-        return $value ? $Cpanel::JSON::XS::true : $Cpanel::JSON::XS::false if builtin::is_bool($value);
         my $special = _special_float($value);
         return defined $special ? {'$float' => $special} : $value;
     }
@@ -69,7 +106,7 @@ sub _tag ($value) {
         return {'$model' => $value->_wire}              if $class eq 'Perldantic::Wire::Model';
         if ($class eq 'Perldantic::Wire::Ordered') {
             my @pairs = @$value;
-            return {'$dict' => [map { [$pairs[2 * $_], _tag($pairs[2 * $_ + 1])] } 0 .. @pairs / 2 - 1]};
+            return {'$dict' => [map { [_tag($pairs[2 * $_]), _tag($pairs[2 * $_ + 1])] } 0 .. @pairs / 2 - 1]};
         }
         return _tag($value->_perldantic_wire) if $value->can('_perldantic_wire');
         return $value if $value->isa('JSON::PP::Boolean') || $value->isa('Types::Serialiser::Boolean');
@@ -91,11 +128,14 @@ my %UNTAG = (
     set   => sub ($items) { [map { _untag($_) } @$items] },
     bytes => sub ($text)  { decode_base64($text) },
     float => sub ($name)  { $name eq 'nan' ? 9**9**9 / 9**9**9 : $name eq 'inf' ? 9**9**9 : -9**9**9 },
-    dict  => sub ($pairs) { +{map { ($_->[0] => _untag($_->[1])) } @$pairs} },
+    dict  => sub ($pairs) { +{map { ((ref $_->[0] ? $JSON->encode($_->[0]) : $_->[0] // '') => _untag($_->[1])) } @$pairs} },
     model => sub ($model) { Perldantic::Wire::Model->new(%{_untag($model)}) },
 );
 
 sub _untag ($value) {
+    # allow_bignum keeps big integers exact, but also turns floats it cannot hold exactly into
+    # Math::BigFloat; the core's floats are f64, so they come back as plain numbers.
+    return $value->numify + 0 if blessed $value && $value->isa('Math::BigFloat');
     my $type = reftype $value // '';
     return [map { _untag($_) } @$value] if $type eq 'ARRAY' && !blessed $value;
     return $value if $type ne 'HASH' || blessed $value;
@@ -183,7 +223,9 @@ C<ordered(key =E<gt> value, ...)>, which keeps the given key order;
 
 =back
 
-Decoding turns tuples and sets into array references and bytes into byte strings, and returns
+Decoding turns tuples and sets into array references and bytes into byte strings (a dict key
+that is none of string or number is keyed by its wire JSON, and a C<null> key by the empty
+string), and returns
 native booleans and C<Math::BigInt> for big integers.
 
 A value with no wire form (a code reference, an unknown object) raises

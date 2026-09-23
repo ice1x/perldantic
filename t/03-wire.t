@@ -11,6 +11,13 @@ subtest 'plain values are written as JSON' => sub {
     is Perldantic::Wire::encode(undef), 'null';
     is Perldantic::Wire::encode([1, 2.5, 'x', !!1, !!0, undef]), '[1,2.5,"x",true,false,null]';
     is Perldantic::Wire::encode(3.0), '3.0', 'integral floats stay floats';
+    is Perldantic::Wire::encode([1.7976931348623157e308, 0.1, 0.1 + 0.2, 1e20, -2.5e-12, 5e-324]),
+        '[1.7976931348623157e+308,0.1,0.30000000000000004,1e+20,-2.5e-12,5e-324]',
+        'floats keep full precision in their shortest form';
+    my $n = 7;
+    my $s = "$n";
+    is Perldantic::Wire::encode(["5", 5, $s, 18446744073709551615, -9223372036854775808]),
+        '["5",5,"7",18446744073709551615,-9223372036854775808]', 'strings and integers keep their kind';
     is Perldantic::Wire::encode({b => 1, a => {}}), '{"a":{},"b":1}', 'keys are sorted';
     is Perldantic::Wire::encode("caf\x{e9}"), qq{"caf\xc3\xa9"}, 'text is UTF-8 encoded';
     is Perldantic::Wire::encode(Math::BigInt->new('123456789012345678901234567890')),
@@ -33,6 +40,8 @@ subtest 'values JSON cannot express are tagged' => sub {
 subtest 'ordered dicts and objects with a wire form' => sub {
     is Perldantic::Wire::encode(ordered(b => 1, a => tuple(2))), '{"$dict":[["b",1],["a",{"$tuple":[2]}]]}',
         'ordered() keeps the given key order';
+    is Perldantic::Wire::encode(ordered(tuple(1), 2, 3.5, 'x')), '{"$dict":[[{"$tuple":[1]},2],[3.5,"x"]]}',
+        'keys may be any value';
     package Test::WireObject { sub new { bless {}, shift } sub _perldantic_wire { Perldantic::Wire::tuple(7) } }
     is Perldantic::Wire::encode([Test::WireObject->new]), '[{"$tuple":[7]}]',
         'objects can provide their wire form';
@@ -54,8 +63,15 @@ subtest 'wire JSON is decoded into Perl data' => sub {
     is $data->{b}, 'hi', 'bytes become byte strings';
     is $data->{f}, -$inf;
     is $data->{d}, {1 => 'one', '$x' => 2};
+    is Perldantic::Wire::decode('{"$dict":[[{"$tuple":[1,2]},"t"]]}'), {'{"$tuple":[1,2]}' => 't'},
+        'a key that is not a string or number is keyed by its wire JSON';
+    is Perldantic::Wire::decode('{"$dict":[[null,1]]}'), {'' => 1}, 'a null key is the empty string';
     is $data->{u}, "caf\x{e9}", 'strings are decoded text';
     isa_ok $data->{big}, 'Math::BigInt';
+    my $floats = Perldantic::Wire::decode('[0.01, 1e-12, 1.7976931348623157e+308, 9.223372036854776e+18]');
+    is [map { ref } @$floats], ['', '', '', ''], 'floats are plain numbers, never Math::BigFloat';
+    is $floats->[0], 0.01;
+    is $floats->[1], 1e-12;
     is "$data->{big}", '123456789012345678901234567890';
 };
 
