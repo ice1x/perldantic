@@ -17,6 +17,12 @@ pub(crate) struct SerializationState {
     pub warnings: CollectWarnings,
     pub rec_guard: RecursionState,
     pub config: SerializationConfig,
+    /// The model being serialized, if any.
+    pub model: Option<Value>,
+    /// Fields of that model not set from input, which `exclude_unset` drops (upstream masks them
+    /// with its `MISSING` sentinel). The fields serializer takes them, so nested serializers do
+    /// not see them.
+    pub unset_fields: Option<Vec<String>>,
     field_name: Option<String>,
     pub check: SerCheck,
     pub include_exclude: IncludeExclude,
@@ -52,6 +58,8 @@ impl SerializationState {
             warnings: CollectWarnings::new(warnings_mode),
             rec_guard: RecursionState::default(),
             config,
+            model: None,
+            unset_fields: None,
             field_name: None,
             check: SerCheck::None,
             include_exclude: IncludeExclude { include, exclude },
@@ -114,6 +122,18 @@ impl SerializationState {
         }
     }
 
+    pub fn scoped_set_field_name(&mut self, new_value: Option<String>) -> ScopedFieldNameState<'_> {
+        self.scoped_set(Self::field_name_mut, new_value)
+    }
+
+    pub fn field_name(&self) -> Option<&str> {
+        self.field_name.as_deref()
+    }
+
+    fn field_name_mut(&mut self) -> &mut Option<String> {
+        &mut self.field_name
+    }
+
     pub fn scoped_include_exclude(
         &mut self,
         next_include_exclude: IncludeExclude,
@@ -143,25 +163,17 @@ impl ContainsRecursionState for SerializationState {
 /// Options of one serialization call that stay the same throughout it.
 #[derive(Debug, Clone)]
 #[allow(clippy::struct_excessive_bools)]
-// Temporary: the field options are read by the model serializers (task 00033).
-#[allow(dead_code)]
 pub(crate) struct Extra {
     pub mode: SerMode,
     pub by_alias: Option<bool>,
     pub exclude_unset: bool,
     pub exclude_defaults: bool,
     pub exclude_none: bool,
-    pub exclude_computed_fields: bool,
-    pub round_trip: bool,
     pub serialize_unknown: bool,
     pub serialize_as_any: bool,
-    pub polymorphic_serialization: Option<bool>,
-    pub context: Option<Value>,
 }
 
 impl Extra {
-    // Temporary: used by the model serializers (task 00033).
-    #[allow(dead_code)]
     pub fn serialize_by_alias_or(&self, serialize_by_alias: Option<bool>) -> bool {
         self.by_alias.or(serialize_by_alias).unwrap_or(false)
     }
@@ -370,4 +382,5 @@ where
 type ScopedSetStateT<'scope, T> =
     ScopedSetState<'scope, for<'s> fn(&'s mut SerializationState) -> &'s mut T, T>;
 
+pub(crate) type ScopedFieldNameState<'scope> = ScopedSetStateT<'scope, Option<String>>;
 pub(crate) type ScopedIncludeExcludeState<'scope> = ScopedSetStateT<'scope, IncludeExclude>;

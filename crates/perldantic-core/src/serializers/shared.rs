@@ -63,6 +63,8 @@ serializers! {
     super::type_serializers::float::FloatSerializer,
     super::type_serializers::list::ListSerializer,
     super::type_serializers::literal::LiteralSerializer,
+    super::type_serializers::model::ModelFieldsBuilder,
+    super::type_serializers::model::ModelSerializer,
     super::type_serializers::nullable::NullableSerializer,
     super::type_serializers::set::SetSerializer,
     super::type_serializers::simple::BoolSerializer,
@@ -99,7 +101,9 @@ pub enum CombinedSerializer {
     Float(super::type_serializers::float::FloatSerializer),
     Int(super::type_serializers::simple::IntSerializer),
     List(super::type_serializers::list::ListSerializer),
+    Fields(super::fields::GeneralFieldsSerializer),
     Literal(super::type_serializers::literal::LiteralSerializer),
+    Model(super::type_serializers::model::ModelSerializer),
     None(super::type_serializers::simple::NoneSerializer),
     Nullable(super::type_serializers::nullable::NullableSerializer),
     Recursive(super::type_serializers::definitions::DefinitionRefSerializer),
@@ -302,8 +306,6 @@ pub(crate) trait TypeSerializer: Send + Sync + Debug {
         false
     }
 
-    // Temporary: read by the model fields serializer for `exclude_defaults` (task 00033).
-    #[allow(dead_code)]
     fn get_default(&self) -> CoreResult<Option<Value>> {
         Ok(None)
     }
@@ -336,8 +338,6 @@ impl<'slf> PydanticSerializer<'slf> {
     }
 
     /// Same as above but will not fall back to type inference when `serialize_as_any` is set
-    // Temporary: used by the model fields serializer (task 00033).
-    #[allow(dead_code)]
     pub(crate) fn new_no_infer(
         value: &'slf Value,
         serializer: &'slf CombinedSerializer,

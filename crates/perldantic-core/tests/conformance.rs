@@ -373,11 +373,7 @@ fn serializer_options(json: &Json) -> Result<(SerializeOptions, JsonOptions), Sk
             "exclude_unset" => opts.exclude_unset = bool_opt(key, value)?,
             "exclude_defaults" => opts.exclude_defaults = bool_opt(key, value)?,
             "exclude_none" => opts.exclude_none = bool_opt(key, value)?,
-            "exclude_computed_fields" => opts.exclude_computed_fields = bool_opt(key, value)?,
-            "round_trip" => opts.round_trip = bool_opt(key, value)?,
             "serialize_as_any" => opts.serialize_as_any = bool_opt(key, value)?,
-            "polymorphic_serialization" => opts.polymorphic_serialization = value.as_bool(),
-            "context" => opts.context = (!value.is_null()).then(|| decode(value)).transpose()?,
             "warnings" => {
                 opts.warnings = match value {
                     Json::Bool(b) => WarningsMode::from(*b),
@@ -387,6 +383,9 @@ fn serializer_options(json: &Json) -> Result<(SerializeOptions, JsonOptions), Sk
                     _ => return Err(Skip(format!("option warnings={value}"))),
                 }
             }
+            // Only their defaults are supported (see `SerializeOptions`).
+            "exclude_computed_fields" | "round_trip" if value == &Json::Bool(false) => {}
+            "polymorphic_serialization" | "context" if value.is_null() => {}
             "indent" => json_opts.indent = value.as_u64().map(|i| i as usize),
             "ensure_ascii" => json_opts.ensure_ascii = bool_opt(key, value)?,
             _ => return Err(Skip(format!("option {key}"))),
