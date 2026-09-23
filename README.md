@@ -14,12 +14,12 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
 - [ ] 00008 — Python-free core foundation
   - [x] 00009 — `Value` neutral data model
   - [x] 00010 — `CoreError` / `CoreResult` replacing `PyErr` / `PyResult`
-  - [ ] 00011 — `CoreSchema` serde enum, pydantic `core_schema` wire-compatible (P0 types)
+  - [x] 00011 — Schema as a `core_schema`-compatible dict (`Value`) read via `SchemaDict` accessors, like upstream; JSON → `Value` parsing (jiter)
   - [x] 00012 — Port `errors/`: `ErrorType` codes & message templates, `ValLineError`, `Location`
   - [x] 00013 — `ValidationError` output identical to pydantic `errors()` / `json()`
   - [ ] 00014 — Port `Input` trait without `'py`; `input_json.rs` on jiter without `python`
   - [ ] 00015 — `input_value.rs`: `Input` for `Value`
-  - [ ] 00016 — `ValidationState`, `RecursionGuard`, `Definitions`
+  - [x] 00016 — `ValidationState`, `RecursionGuard`, `Definitions`
 - [ ] 00017 — Conformance suite
   - [ ] 00018 — Case format spec: schema + input + mode → output | errors
   - [ ] 00019 — Extractor of cases from `pydantic-core/tests/validators`

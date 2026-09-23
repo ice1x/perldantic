@@ -90,7 +90,7 @@ Makefile.PL, cpanfile, NOTICE
 | pyo3 | perldantic-core |
 |---|---|
 | `Py<PyAny>` / `Bound<PyAny>` (result) | `Value` (neutral data model, see below) |
-| `&Bound<PyDict>` (schema) | `CoreSchema`: a serde enum tagged by `type`, using pydantic's wire format |
+| `&Bound<PyDict>` (schema) | `Dict` in pydantic's `core_schema` wire format, read through `SchemaDict` accessors exactly as upstream validators do |
 | `PyErr` / `PyResult` | `CoreError` / `CoreResult` (`thiserror`) |
 | `Python<'py>` + `'py` lifetimes | removed; host access goes through `&dyn Host` where needed |
 | `input_python.rs` | `input_value.rs` (`impl Input for Value`) |

@@ -35,7 +35,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | Upstream file | Perldantic file | Priority | Status | Notes |
 |---|---|---|---|---|
 | `argument_markers.rs` | - | drop | dropped | Python argument marker classes |
-| `build_tools.rs` | `crates/perldantic-core/src/build_tools.rs` | P0 | pending |  |
+| `build_tools.rs` | `crates/perldantic-core/src/build_tools.rs` | P0 | ported | `SchemaError` class belongs to the host; `SchemaDict` merged in from `tools.rs` |
 | `common/counter.rs` | - | drop | dropped | Python-only type |
 | `common/deque.rs` | - | drop | dropped | Python-only type |
 | `common/frozendict.rs` | - | drop | dropped | Python-only type |
@@ -44,7 +44,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `common/ordered_dict.rs` | - | drop | dropped | Python-only type |
 | `common/prebuilt.rs` | - | drop | dropped | reuses validators attached to Python classes |
 | `common/union.rs` | `crates/perldantic-core/src/common/union.rs` | P0 | pending |  |
-| `definitions.rs` | `crates/perldantic-core/src/definitions.rs` | P0 | pending |  |
+| `definitions.rs` | `crates/perldantic-core/src/definitions.rs` | P0 | ported | GC traversal and prebuilt flag dropped |
 | `errors/line_error.rs` | `crates/perldantic-core/src/errors/line_error.rs` | P0 | ported |  |
 | `errors/location.rs` | `crates/perldantic-core/src/errors/location.rs` | P0 | ported |  |
 | `errors/mod.rs` | `crates/perldantic-core/src/errors/mod.rs` | P0 | ported |  |
@@ -62,7 +62,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `lib.rs` | `crates/perldantic-core/src/lib.rs` | P0 | pending | rewrite: public Rust API, no #[pymodule] |
 | `lookup_key.rs` | `crates/perldantic-core/src/lookup_key.rs` | P0 | pending |  |
 | `py_gc.rs` | - | drop | dropped | Python GC integration |
-| `recursion_guard.rs` | `crates/perldantic-core/src/recursion_guard.rs` | P0 | pending |  |
+| `recursion_guard.rs` | `crates/perldantic-core/src/recursion_guard.rs` | P0 | ported | safe inline array instead of `MaybeUninit` |
 | `schema_gather.rs` | `crates/perldantic-core/src/schema_gather.rs` | P1 | pending | schema traversal for cleaning |
 | `self_schema.py` | - | drop | dropped | Python-generated self schema; replaced by serde CoreSchema |
 | `serializers/computed_fields.rs` | `crates/perldantic-core/src/serializers/computed_fields.rs` | P0 | pending |  |
@@ -117,7 +117,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `serializers/type_serializers/url.rs` | `crates/perldantic-core/src/serializers/type_serializers/url.rs` | P1 | pending |  |
 | `serializers/type_serializers/uuid.rs` | `crates/perldantic-core/src/serializers/type_serializers/uuid.rs` | P1 | pending |  |
 | `serializers/type_serializers/with_default.rs` | `crates/perldantic-core/src/serializers/type_serializers/with_default.rs` | P0 | pending |  |
-| `tools.rs` | `crates/perldantic-core/src/tools.rs` | P0 | partial | truncation helpers ported |
+| `tools.rs` | `crates/perldantic-core/src/tools.rs` | P0 | partial | truncation helpers ported; `SchemaDict` lives in `build_tools.rs` |
 | `url.rs` | `crates/perldantic-core/src/url.rs` | P1 | pending |  |
 | `validators/any.rs` | `crates/perldantic-core/src/validators/any.rs` | P0 | pending |  |
 | `validators/arguments.rs` | `crates/perldantic-core/src/validators/arguments.rs` | P2 | pending |  |
@@ -155,7 +155,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/list.rs` | `crates/perldantic-core/src/validators/list.rs` | P0 | pending |  |
 | `validators/literal.rs` | `crates/perldantic-core/src/validators/literal.rs` | P0 | pending |  |
 | `validators/missing_sentinel.rs` | - | drop | dropped | Python-only type |
-| `validators/mod.rs` | `crates/perldantic-core/src/validators/mod.rs` | P0 | pending |  |
+| `validators/mod.rs` | `crates/perldantic-core/src/validators/mod.rs` | P0 | partial | `Extra` ported |
 | `validators/model.rs` | `crates/perldantic-core/src/validators/model.rs` | P0 | pending |  |
 | `validators/model_fields.rs` | `crates/perldantic-core/src/validators/model_fields.rs` | P0 | pending |  |
 | `validators/named_tuple.rs` | - | drop | dropped | Python-only type |
@@ -174,5 +174,5 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/union.rs` | `crates/perldantic-core/src/validators/union.rs` | P0 | pending |  |
 | `validators/url.rs` | `crates/perldantic-core/src/validators/url.rs` | P1 | pending |  |
 | `validators/uuid.rs` | `crates/perldantic-core/src/validators/uuid.rs` | P1 | pending |  |
-| `validators/validation_state.rs` | `crates/perldantic-core/src/validators/validation_state.rs` | P0 | pending |  |
+| `validators/validation_state.rs` | `crates/perldantic-core/src/validators/validation_state.rs` | P0 | ported | `self_instance` and the Python string cache dropped |
 | `validators/with_default.rs` | `crates/perldantic-core/src/validators/with_default.rs` | P0 | pending |  |

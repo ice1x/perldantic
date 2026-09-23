@@ -8,6 +8,9 @@
 
 use std::fmt::Write as _;
 
+use crate::core_error::{CoreError, CoreResult};
+
+use jiter::JsonValue;
 use num_bigint::BigInt;
 use serde::ser::{SerializeMap, SerializeSeq};
 use serde::{Serialize, Serializer};
@@ -28,6 +31,16 @@ pub enum Value {
 }
 
 impl Value {
+    /// Parse JSON text. Duplicate object keys keep their first position and last value,
+    /// as in Python.
+    pub fn from_json(json: &str) -> CoreResult<Self> {
+        JsonValue::parse(json.as_bytes(), false)
+            .map(|parsed| Self::from(&parsed))
+            .map_err(|e| {
+                CoreError::Value(format!("Invalid JSON: {}", e.description(json.as_bytes())))
+            })
+    }
+
     /// Python's `type(value).__name__`.
     pub fn type_name(&self) -> &'static str {
         match self {
@@ -374,5 +387,25 @@ impl FromIterator<(Value, Value)> for Dict {
             dict.insert(k, v);
         }
         dict
+    }
+}
+
+impl From<&JsonValue<'_>> for Value {
+    fn from(json: &JsonValue<'_>) -> Self {
+        match json {
+            JsonValue::Null => Self::None,
+            JsonValue::Bool(b) => Self::Bool(*b),
+            JsonValue::Int(i) => Self::Int(*i),
+            JsonValue::BigInt(i) => Self::BigInt(i.clone()),
+            JsonValue::Float(f) => Self::Float(*f),
+            JsonValue::Str(s) => Self::Str(s.to_string()),
+            JsonValue::Array(items) => Self::List(items.iter().map(Self::from).collect()),
+            JsonValue::Object(entries) => Self::Dict(
+                entries
+                    .iter()
+                    .map(|(k, v)| (Self::Str(k.to_string()), Self::from(v)))
+                    .collect(),
+            ),
+        }
     }
 }
