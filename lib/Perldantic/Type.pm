@@ -4,8 +4,6 @@ use v5.36;
 
 our $VERSION = '0.01';
 
-use Storable ();
-
 use Perldantic::Error;
 
 use overload
@@ -42,7 +40,14 @@ sub is_slurpy ($self)   { !!$self->{slurpy} }
 
 sub core_schema ($self) {
     return $self->{wrap}->($self->{inner}->core_schema) if $self->{inner};
-    return Storable::dclone($self->{schema});
+    return _clone($self->{schema});
+}
+
+# A deep copy of plain data. Unlike Storable::dclone on Perl 5.36, it keeps booleans booleans.
+sub _clone ($data) {
+    return {map { $_ => _clone($data->{$_}) } keys %$data} if ref $data eq 'HASH';
+    return [map { _clone($_) } @$data] if ref $data eq 'ARRAY';
+    return $data;
 }
 
 sub with ($self, %constraints) {
