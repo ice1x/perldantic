@@ -48,7 +48,13 @@ sub _usage ($message) { Perldantic::UsageError->throw(message => $message) }
 
 sub _meta ($class) { $META{$class} //= {fields => [], config => {}} }
 
-sub _changed () { %VALIDATOR = %SERIALIZER = () }
+# Bumped by every declaration, so that other caches (TypeAdapter) know to rebuild.
+our $GENERATION = 0;
+
+sub _changed () {
+    %VALIDATOR = %SERIALIZER = ();
+    $GENERATION++;
+}
 
 sub _is_model ($class) { !ref $class && defined $class && exists $META{$class} }
 
@@ -218,9 +224,14 @@ sub _config ($class) {
 }
 
 sub _core_config ($class) {
-    my $config = _config($class);
+    return _core_config_from(_config($class), 'model_config');
+}
+
+# pydantic config settings as core config, rejecting unknown names.
+sub _core_config_from ($config, $what) {
     my %core;
-    for my $key (keys %$config) {
+    for my $key (sort keys %$config) {
+        _usage("$what: unknown setting '$key'") if !$CONFIG_KEY{$key};
         my $value = $config->{$key};
         $core{$CONFIG_KEY{$key}} = $CONFIG_FLAG{$key} ? ($value ? !!1 : !!0) : $value;
     }
@@ -280,19 +291,21 @@ sub _model_schema ($class, $visit, $for_json_schema) {
 
 # The core schema of a class: its model and every model it refers to, as definitions.
 sub core_schema ($class, %options) {
-    my $for_json_schema = !!$options{for_json_schema};
+    return _linked_schema({type => 'is-instance', cls => $class}, $options{for_json_schema});
+}
+
+# A core schema in which model classes (`is-instance` of a model) refer to definitions of their
+# model schemas, collected with every model they reach in turn.
+sub _linked_schema ($schema, $for_json_schema = 0) {
     my (%seen, @definitions);
-    my $visit;
-    $visit = sub ($model) {
+    # __SUB__ rather than a closure over $visit, which would be a reference cycle.
+    my $visit = sub ($model) {
         return if $seen{$model}++;
-        push @definitions, _model_schema($model, $visit, $for_json_schema);
+        push @definitions, _model_schema($model, __SUB__, !!$for_json_schema);
     };
-    $visit->($class);
-    return {
-        type        => 'definitions',
-        schema      => {type => 'definition-ref', schema_ref => _ref($class)},
-        definitions => \@definitions,
-    };
+    my $linked = _link($schema, $visit);
+    return $linked if !@definitions;
+    return {type => 'definitions', schema => $linked, definitions => \@definitions};
 }
 
 sub _validator ($class) {
