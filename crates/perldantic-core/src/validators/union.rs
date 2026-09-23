@@ -1,16 +1,20 @@
-//! `union` schema. Port of upstream `validators/union.rs` (smart and left-to-right modes).
+//! `union` and `tagged-union` schemas. Port of upstream `validators/union.rs` and
+//! `common/union.rs`.
 
+use std::fmt;
 use std::str::FromStr;
 use std::sync::Arc;
 
-use crate::build_tools::{SchemaDict, schema_err};
+use crate::build_tools::{SchemaDict, schema_err, schema_or_config};
 use crate::core_error::{CoreError, CoreResult};
 use crate::definitions::DefinitionsBuilder;
-use crate::errors::{ToErrorValue, ValError, ValLineError, ValResult};
-use crate::input::Input;
+use crate::errors::{ErrorType, ToErrorValue, ValError, ValLineError, ValResult};
+use crate::input::{BorrowInput, Input, ValidatedDict};
+use crate::lookup_key::{LookupPath, validation_alias_paths};
 use crate::value::{Dict, Value};
 
 use super::custom_error::CustomError;
+use super::literal::LiteralLookup;
 use super::validation_state::{Exactness, ValidationState};
 use super::{BuildValidator, CombinedValidator, Validator, as_dict, build_validator};
 
@@ -277,6 +281,144 @@ impl<'a> MaybeErrors<'a> {
                         },
                     )
                     .collect(),
+            ),
+        }
+    }
+}
+
+/// How a tagged union finds the tag. Upstream also accepts a function, which needs host
+/// callbacks.
+#[derive(Debug)]
+struct Discriminator(Vec<LookupPath>);
+
+impl Discriminator {
+    fn new(raw: &Value) -> CoreResult<Self> {
+        Ok(Self(validation_alias_paths(raw)?))
+    }
+}
+
+impl fmt::Display for Discriminator {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let paths: Vec<String> = self.0.iter().map(ToString::to_string).collect();
+        f.write_str(&paths.join(" | "))
+    }
+}
+
+#[derive(Debug)]
+pub struct TaggedUnionValidator {
+    discriminator: Discriminator,
+    lookup: LiteralLookup<Arc<CombinedValidator>>,
+    from_attributes: bool,
+    custom_error: Option<CustomError>,
+    tags_repr: String,
+    discriminator_repr: String,
+    name: String,
+}
+
+impl BuildValidator for TaggedUnionValidator {
+    const EXPECTED_TYPE: &'static str = "tagged-union";
+
+    fn build(
+        schema: &Dict,
+        config: Option<&Dict>,
+        definitions: &mut DefinitionsBuilder<Arc<CombinedValidator>>,
+    ) -> CoreResult<Arc<CombinedValidator>> {
+        let discriminator = Discriminator::new(&schema.get_as_req::<Value>("discriminator")?)?;
+        let discriminator_repr = discriminator.to_string();
+
+        let schema_choices: Dict = schema.get_as_req("choices")?;
+        let mut tags_repr = Vec::with_capacity(schema_choices.len());
+        let mut descr = Vec::with_capacity(schema_choices.len());
+        let mut lookup_map = Vec::with_capacity(schema_choices.len());
+        for (choice_key, choice_schema) in schema_choices.iter() {
+            let validator = build_validator(as_dict(choice_schema)?, config, definitions)?;
+            tags_repr.push(choice_key.repr());
+            // no spaces in get_name() output to make loc easy to read
+            descr.push(validator.get_name().to_owned());
+            lookup_map.push((choice_key, validator));
+        }
+
+        let lookup = LiteralLookup::new(lookup_map.into_iter())?;
+
+        let from_attributes =
+            schema_or_config(schema, config, "from_attributes", "from_attributes")?.unwrap_or(true);
+
+        Ok(Arc::new(CombinedValidator::TaggedUnion(Box::new(Self {
+            discriminator,
+            lookup,
+            from_attributes,
+            custom_error: CustomError::build(schema, config, definitions)?,
+            tags_repr: tags_repr.join(", "),
+            discriminator_repr,
+            name: format!("{}[{}]", Self::EXPECTED_TYPE, descr.join(",")),
+        }))))
+    }
+}
+
+impl Validator for TaggedUnionValidator {
+    fn validate(
+        &self,
+        input: &(impl Input + ?Sized),
+        state: &mut ValidationState<'_>,
+    ) -> ValResult<Value> {
+        let from_attributes = state
+            .extra()
+            .from_attributes
+            .unwrap_or(self.from_attributes);
+        let dict = input.validate_model_fields(state.strict_or(false), from_attributes)?;
+        let Some(tag_result) = self
+            .discriminator
+            .0
+            .iter()
+            .find_map(|path| dict.get_item(path).transpose())
+        else {
+            return Err(self.tag_not_found(input));
+        };
+        let tag = tag_result?;
+        self.find_call_validator(&tag.borrow_input().to_value(), input, state)
+    }
+
+    fn get_name(&self) -> &str {
+        &self.name
+    }
+}
+
+impl TaggedUnionValidator {
+    fn find_call_validator(
+        &self,
+        tag: &Value,
+        input: &(impl Input + ?Sized),
+        state: &mut ValidationState<'_>,
+    ) -> ValResult<Value> {
+        if let Ok(Some((tag, validator))) = self.lookup.validate(tag) {
+            return match validator.validate(input, state) {
+                Ok(res) => Ok(res),
+                Err(err) => Err(err.with_outer_location(tag)),
+            };
+        }
+        match self.custom_error {
+            Some(ref custom_error) => Err(custom_error.as_val_error(input)),
+            None => Err(ValError::new(
+                ErrorType::UnionTagInvalid {
+                    discriminator: self.discriminator_repr.clone(),
+                    tag: tag.py_str(),
+                    expected_tags: self.tags_repr.clone(),
+                    context: None,
+                },
+                input,
+            )),
+        }
+    }
+
+    fn tag_not_found(&self, input: &(impl Input + ?Sized)) -> ValError {
+        match self.custom_error {
+            Some(ref custom_error) => custom_error.as_val_error(input),
+            None => ValError::new(
+                ErrorType::UnionTagNotFound {
+                    discriminator: self.discriminator_repr.clone(),
+                    context: None,
+                },
+                input,
             ),
         }
     }

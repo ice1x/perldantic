@@ -4,12 +4,14 @@
 //! Python objects of the corresponding types (`str`, `bytes`, `bool`, `int`, `float`, `list`,
 //! `tuple`, `dict`).
 
+use std::borrow::Cow;
 use std::str::from_utf8;
 
 use num_traits::cast::ToPrimitive;
 
 use crate::core_error::CoreResult;
 use crate::errors::{ErrorType, ErrorTypeDefaults, LocItem, ValError, ValResult};
+use crate::lookup_key::LookupPath;
 use crate::validators::config::ValBytesMode;
 use crate::value::{Dict, Value};
 
@@ -176,6 +178,19 @@ impl Input for Value {
         }
     }
 
+    fn validate_model_fields(&self, strict: bool, from_attributes: bool) -> ValResult<&Dict> {
+        if from_attributes {
+            // Host data has no objects with attributes yet, so only a dict qualifies; the
+            // error hints at `from_attributes` like upstream's.
+            match self {
+                Value::Dict(d) => Ok(d),
+                _ => Err(ValError::new(ErrorTypeDefaults::ModelAttributesType, self)),
+            }
+        } else {
+            self.validate_dict(strict)
+        }
+    }
+
     type List<'a> = &'a [Value];
 
     fn validate_list(&self, strict: bool) -> ValMatch<&[Value]> {
@@ -204,6 +219,13 @@ impl BorrowInput for Value {
     }
 }
 
+impl BorrowInput for Cow<'_, Value> {
+    type Input = Value;
+    fn borrow_input(&self) -> &Self::Input {
+        self
+    }
+}
+
 impl ValidatedDict for &'_ Dict {
     type Key<'a>
         = &'a Value
@@ -214,6 +236,15 @@ impl ValidatedDict for &'_ Dict {
         = &'a Value
     where
         Self: 'a;
+
+    type PathItem<'a>
+        = Cow<'a, Value>
+    where
+        Self: 'a;
+
+    fn get_item<'a>(&'a self, key: &LookupPath) -> ValResult<Option<Self::PathItem<'a>>> {
+        Ok(key.value_get(self))
+    }
 
     fn iterate<'a, R>(
         &'a self,

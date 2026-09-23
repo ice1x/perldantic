@@ -50,7 +50,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `common/mod.rs` | `crates/perldantic-core/src/common/mod.rs` | P0 | pending |  |
 | `common/ordered_dict.rs` | - | drop | dropped | Python-only type |
 | `common/prebuilt.rs` | - | drop | dropped | reuses validators attached to Python classes |
-| `common/union.rs` | `crates/perldantic-core/src/common/union.rs` | P0 | pending |  |
+| `common/union.rs` | `crates/perldantic-core/src/validators/union.rs` | P0 | partial | `Discriminator` merged into `union.rs`; lookup paths only, function discriminators wait for host callbacks |
 | `definitions.rs` | `crates/perldantic-core/src/definitions.rs` | P0 | ported | GC traversal and prebuilt flag dropped |
 | `errors/line_error.rs` | `crates/perldantic-core/src/errors/line_error.rs` | P0 | ported |  |
 | `errors/location.rs` | `crates/perldantic-core/src/errors/location.rs` | P0 | ported |  |
@@ -67,7 +67,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `input/return_enums.rs` | `crates/perldantic-core/src/input/return_enums.rs` | P0 | partial | `ValidationMatch`, `Either*`, `Int`, `MaxLengthCheck`, vec iteration helpers; set helpers and Python iterators pending/dropped |
 | `input/shared.rs` | `crates/perldantic-core/src/input/shared.rs` | P0 | ported | decimal/fraction helpers belong to P1/dropped types |
 | `lib.rs` | `crates/perldantic-core/src/lib.rs` | P0 | pending | rewrite: public Rust API, no #[pymodule] |
-| `lookup_key.rs` | `crates/perldantic-core/src/lookup_key.rs` | P0 | pending |  |
+| `lookup_key.rs` | `crates/perldantic-core/src/lookup_key.rs` | P0 | partial | alias parsing and path lookups in host data and JSON; `LookupPathCollection`/`LookupType` come with models; no attribute lookups |
 | `py_gc.rs` | - | drop | dropped | Python GC integration |
 | `recursion_guard.rs` | `crates/perldantic-core/src/recursion_guard.rs` | P0 | ported | safe inline array instead of `MaybeUninit` |
 | `schema_gather.rs` | `crates/perldantic-core/src/schema_gather.rs` | P1 | pending | schema traversal for cleaning |
@@ -178,7 +178,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/timedelta.rs` | `crates/perldantic-core/src/validators/timedelta.rs` | P1 | pending |  |
 | `validators/tuple.rs` | `crates/perldantic-core/src/validators/tuple.rs` | P0 | ported | out-of-range `variadic_item_index` is a schema error (DIVERGENCES #11) |
 | `validators/typed_dict.rs` | `crates/perldantic-core/src/validators/typed_dict.rs` | P1 | pending |  |
-| `validators/union.rs` | `crates/perldantic-core/src/validators/union.rs` | P0 | partial | smart and left-to-right `union`; `tagged-union` pending |
+| `validators/union.rs` | `crates/perldantic-core/src/validators/union.rs` | P0 | partial | `union` and `tagged-union`; function discriminators wait for host callbacks |
 | `validators/url.rs` | `crates/perldantic-core/src/validators/url.rs` | P1 | pending |  |
 | `validators/uuid.rs` | `crates/perldantic-core/src/validators/uuid.rs` | P1 | pending |  |
 | `validators/validation_state.rs` | `crates/perldantic-core/src/validators/validation_state.rs` | P0 | ported | `self_instance` and the Python string cache dropped |
