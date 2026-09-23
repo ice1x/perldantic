@@ -118,24 +118,93 @@ pub enum Value {
 
 ## 4. Perl API (target)
 
+Two rules shape the public API:
+
+1. **Declarations look like Moo/Moose**, so moving a class to Perldantic is cheap: replace
+   `use Moo;` with `use Perldantic;` and keep the `has` lines. Validation happens in `new`.
+2. **Pydantic's method names are kept** (`model_validate`, `model_dump`, `model_json_schema`,
+   `TypeAdapter`, ...). They do not clash with anything in Perl and they match the pydantic docs.
+   **Python's type vocabulary is not kept**: types use Type::Tiny / Types::Standard names and
+   error messages use Perl words (see below).
+
 ```perl
 package Ticket;
-use Perldantic;
+use Perldantic;                        # instead of `use Moo;`
 
-field id       => Int,  gt => 0;
-field title    => Str,  min_length => 1, max_length => 200;
-field status   => Enum[qw(open in_progress done)], default => 'open';
-field tags     => ArrayRef[Str], default => sub { [] };
-field due      => Optional[Date];
+has id       => (is => 'ro', isa => Int, required => 1, gt => 0);
+has title    => (is => 'ro', isa => Str, required => 1, min_length => 1, max_length => 200);
+has status   => (is => 'ro', isa => Enum[qw(open in_progress done)], default => 'open');
+has tags     => (is => 'ro', isa => ArrayRef[Str], default => sub { [] });
+has due      => (is => 'ro', isa => Maybe[Date]);
+has meta     => (is => 'ro', isa => HashRef[Any], alias => 'metadata');
+
 validator title => after => sub ($v, $info) { ucfirst $v };
 model_config extra => 'forbid';
 
 package main;
-my $t = Ticket->model_validate({ id => "42", title => "bug" });  # lax: "42" → 42
+my $t  = Ticket->new(id => "42", title => "bug");               # Moo-style; lax: "42" -> 42
+my $t2 = Ticket->model_validate({ id => 42, title => "bug" });  # pydantic-style, same result
+my $t3 = Ticket->model_validate_json($json);
 say $t->model_dump_json(exclude_none => 1);
+my $h  = $t->model_dump;                                        # plain hashref
 say encode_json(Ticket->model_json_schema);
 my $ints = Perldantic::TypeAdapter->new(ArrayRef[Int])->validate_python([1, "2"]);
 ```
+
+### Moo/Moose compatibility
+
+- `has` takes Moo/Moose options: `is` (`ro`, `rw`, `rwp`, `lazy`), `isa`, `required`,
+  `default`, `builder`, `lazy`, `predicate`, `clearer`, `init_arg`, `trigger`, `coerce`,
+  `documentation`. Perldantic constraints (`gt`, `min_length`, `pattern`, `alias`, `strict`, ...)
+  go in the same list. An option Perldantic does not support is a `Perldantic::UsageError`
+  that names it, never a silently ignored key.
+- `isa` accepts Perldantic types and existing Type::Tiny constraints; a foreign constraint runs
+  as a validator callback.
+- `new` accepts a hash or a hashref like Moo, validates, and throws `Perldantic::ValidationError`.
+  `BUILDARGS`, `BUILD` and `DEMOLISH` work as in Moo.
+- `extends`, `with` (roles) and method modifiers follow Moo semantics where they apply to models.
+- `use Perldantic;` enables `strict` and `warnings`, like Moo.
+
+### Type vocabulary
+
+Perl users see Perl names with their Perl meaning, taken from Types::Standard. The core keeps
+pydantic's schema types internally.
+
+| Perldantic type | Core schema (pydantic) | Note |
+|---|---|---|
+| `Any` | `any` | |
+| `Undef` | `none` | Python `None` is Perl `undef` |
+| `Maybe[T]` | `nullable` | Python `Optional[T]` |
+| `Bool` | `bool` | |
+| `Int` | `int` | Arbitrary size; big values as `Math::BigInt` |
+| `Num` | `float` | |
+| `Str` | `str` | |
+| `Bytes` | `bytes` | |
+| `ArrayRef[T]` | `list` | Python `list[T]` |
+| `Tuple[A, B]` | `tuple` (positional) | A Perl array; accepted in strict mode, like a JSON array |
+| `HashRef[V]` | `dict` with `str` keys | Python `dict[str, V]` |
+| `Map[K, V]` | `dict` | Python `dict[K, V]`; keys arrive as strings and are validated leniently |
+| `Dict[k => T, ...]` | `typed-dict` | Same meaning as Types::Standard `Dict`, **not** Python `dict` |
+| `Enum[...]`, `Literal[...]` | `literal` / `enum` | |
+| `InstanceOf['Class']` | `is-instance` | |
+
+### Perl data and messages
+
+- Error codes stay pydantic's (`dict_type`, `list_type`, `none_required`, ...): they are stable
+  identifiers, shared with the pydantic documentation.
+- Error messages for Perl input use Perl words: "Input should be a hash reference" instead of
+  "a valid dictionary", "an array reference" instead of "a valid list", "undef" instead of
+  "None". The core gets a `Perl` input type with its own message templates, as upstream already
+  has for JSON. Recorded as divergence #8.
+- Perl arrays satisfy `Tuple` in strict mode, as JSON arrays do in pydantic.
+- Hash keys are strings. Keys of `Map[Int, ...]` are validated from strings, and integer keys
+  come back as strings.
+- Hash order is random. Perl hashes are converted with sorted keys, so outputs and error order
+  are deterministic (divergence #9). Model fields keep schema order.
+- Self-referencing input data is reported as a `Perldantic::ValidationError`
+  (`recursion_loop`), never a crash.
+- Blessed references are objects: they are validated as models or through `InstanceOf`, not as
+  plain arrays or hashes.
 
 ### Errors are exception objects
 
@@ -148,7 +217,7 @@ and every class documents in POD when it is thrown.
 | `Perldantic::Error` | Base class, never thrown directly | `message`, `throw`, stringification via `overload` |
 | `Perldantic::ValidationError` | Input does not match the schema | `errors` (list of `{type, loc, msg, input, ctx}`, same codes as pydantic), `error_count`, `title`, `json`; stringifies like pydantic's `str(ValidationError)` |
 | `Perldantic::SchemaError` | A model or type definition is invalid, or uses an unsupported schema type | `message`, `schema_path` |
-| `Perldantic::UsageError` | The API is called incorrectly, e.g. an unknown `field` option or a bad argument | `message`, the caller's file and line |
+| `Perldantic::UsageError` | The API is called incorrectly, e.g. an unknown `has` option or a bad argument | `message`, the caller's file and line |
 | `Perldantic::InternalError` | The Rust core panics or the FFI boundary fails | `message`, `cause` |
 
 Messages name what failed and where, in Perl terms: the model package, the field and the
@@ -162,7 +231,7 @@ Perl-specific decisions:
 | Booleans | Accept `builtin::true`/`false`, `JSON::PP::Boolean`, `Types::Serialiser`. Lax coercions follow pydantic |
 | Dates | Accept ISO strings, `Time::Moment` and `DateTime`. The output class is configurable |
 | Decimal / BigInt | `Math::BigFloat` / `Math::BigInt`, passed across FFI as strings |
-| Accessors | Generated read-only accessors, no hard dependency on Moo/Moose |
+| Accessors | Generated like Moo (`is => 'ro'/'rw'/...`), without a hard dependency on Moo/Moose |
 | Minimum Perl | 5.36 (signatures, `builtin`) |
 
 ## 5. Perl ↔ Rust transport
@@ -188,7 +257,7 @@ implementation, then integration tests. `cargo fmt --check`, `cargo clippy -- -D
 | 4. P0 validators | 00021–00030 | 1.5–2 weeks |
 | 5. Serialization & JSON Schema | 00031–00035 | 1 week |
 | 6. FFI (C ABI) | 00036–00039 | 3 days |
-| 7. Perl MVP | 00040–00049 | 1–1.5 weeks |
+| 7. Perl MVP | 00040–00049, 00076 | 1–1.5 weeks |
 | 8. P1 types & callbacks | 00050–00056 | 1.5 weeks |
 | 9. Native SV bridge | 00057–00060 | 1.5–2 weeks |
 | 10. Integration scenarios | 00061–00066 | 3–4 days |
