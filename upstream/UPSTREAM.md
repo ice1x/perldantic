@@ -158,7 +158,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/is_subclass.rs` | - | drop | dropped | Python-only type |
 | `validators/json.rs` | `crates/perldantic-core/src/validators/json.rs` | P1 | pending |  |
 | `validators/json_or_python.rs` | - | drop | dropped | Python-only type |
-| `validators/lax_or_strict.rs` | `crates/perldantic-core/src/validators/lax_or_strict.rs` | P0 | pending |  |
+| `validators/lax_or_strict.rs` | `crates/perldantic-core/src/validators/lax_or_strict.rs` | P0 | ported |  |
 | `validators/list.rs` | `crates/perldantic-core/src/validators/list.rs` | P0 | ported |  |
 | `validators/literal.rs` | `crates/perldantic-core/src/validators/literal.rs` | P0 | partial | hash lookups replaced by Python-equality tables (`Value::py_eq`); enum lookups come with `enum` |
 | `validators/missing_sentinel.rs` | - | drop | dropped | Python-only type |

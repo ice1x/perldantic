@@ -23,6 +23,7 @@ mod definitions;
 mod dict;
 mod float;
 mod int;
+mod lax_or_strict;
 mod list;
 pub(crate) mod literal;
 mod model;
@@ -286,6 +287,7 @@ validators! {
     dict::DictValidator,
     float::FloatBuilder,
     int::IntValidator,
+    lax_or_strict::LaxOrStrictValidator,
     list::ListValidator,
     literal::LiteralValidator,
     model::ModelValidator,
@@ -333,6 +335,7 @@ pub enum CombinedValidator {
     Int(int::IntValidator),
     // Boxed: much larger than most validators.
     ConstrainedInt(Box<int::ConstrainedIntValidator>),
+    LaxOrStrict(lax_or_strict::LaxOrStrictValidator),
     List(list::ListValidator),
     Literal(literal::LiteralValidator),
     Model(model::ModelValidator),
