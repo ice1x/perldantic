@@ -19,6 +19,7 @@ mod bool;
 mod bytes;
 pub(crate) mod config;
 mod custom_error;
+mod definitions;
 mod dict;
 mod float;
 mod int;
@@ -280,6 +281,8 @@ validators! {
     bool::BoolValidator,
     bytes::BytesValidator,
     custom_error::CustomErrorValidator,
+    definitions::DefinitionRefValidator,
+    definitions::DefinitionsValidatorBuilder,
     dict::DictValidator,
     float::FloatBuilder,
     int::IntValidator,
@@ -323,6 +326,7 @@ pub enum CombinedValidator {
     Bytes(bytes::BytesValidator),
     ConstrainedBytes(bytes::BytesConstrainedValidator),
     CustomError(custom_error::CustomErrorValidator),
+    DefinitionRef(definitions::DefinitionRefValidator),
     Dict(dict::DictValidator),
     Float(float::FloatValidator),
     ConstrainedFloat(float::ConstrainedFloatValidator),

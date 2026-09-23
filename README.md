@@ -32,7 +32,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00026 — `ArrayRef[]`, `Tuple[]`, `HashRef[]` / `Map[]` (core: `list`, `tuple`, `dict`)
   - [x] 00027 — Unions: smart, left-to-right, tagged (core: `union`, `tagged-union`)
   - [x] 00028 — Models: fields, fields set, extra keys (core: `model-fields`, `model`)
-  - [ ] 00029 — Recursive types (core: `definitions`, `definition-ref`)
+  - [x] 00029 — Recursive types (core: `definitions`, `definition-ref`)
   - [ ] 00030 — Lax-or-strict switch, custom errors (core: `lax-or-strict`, `custom-error`)
 - [ ] 00031 — Serialization & JSON Schema
   - [ ] 00032 — Serializer `Value` → JSON (serde)
