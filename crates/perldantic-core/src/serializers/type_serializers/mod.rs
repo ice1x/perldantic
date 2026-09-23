@@ -2,6 +2,7 @@
 
 pub(crate) mod any;
 pub(crate) mod bytes;
+pub(crate) mod datetime_etc;
 pub(crate) mod definitions;
 pub(crate) mod dict;
 pub(crate) mod float;
@@ -12,6 +13,7 @@ pub(crate) mod nullable;
 pub(crate) mod set;
 pub(crate) mod simple;
 pub(crate) mod string;
+pub(crate) mod timedelta;
 pub(crate) mod tuple;
 pub(crate) mod union;
 pub(crate) mod with_default;

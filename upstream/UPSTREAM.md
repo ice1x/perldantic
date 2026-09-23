@@ -93,7 +93,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `serializers/type_serializers/complex.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/counter.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/dataclass.rs` | - | drop | dropped | Python-only type |
-| `serializers/type_serializers/datetime_etc.rs` | `crates/perldantic-core/src/serializers/type_serializers/datetime_etc.rs` | P1 | pending |  |
+| `serializers/type_serializers/datetime_etc.rs` | `crates/perldantic-core/src/serializers/type_serializers/datetime_etc.rs` | P1 | done | the `*_to_seconds` helpers and temporal modes live in `serializers/config.rs` |
 | `serializers/type_serializers/decimal.rs` | `crates/perldantic-core/src/serializers/type_serializers/decimal.rs` | P1 | pending |  |
 | `serializers/type_serializers/definitions.rs` | `crates/perldantic-core/src/serializers/type_serializers/definitions.rs` | P0 | ported |  |
 | `serializers/type_serializers/deque.rs` | - | drop | dropped | Python-only type |
@@ -120,7 +120,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `serializers/type_serializers/set_frozenset.rs` | `crates/perldantic-core/src/serializers/type_serializers/set.rs` | P1 | partial | `set`; `frozenset` comes with `Value` frozensets |
 | `serializers/type_serializers/simple.rs` | `crates/perldantic-core/src/serializers/type_serializers/simple.rs` | P0 | ported |  |
 | `serializers/type_serializers/string.rs` | `crates/perldantic-core/src/serializers/type_serializers/string.rs` | P0 | ported |  |
-| `serializers/type_serializers/timedelta.rs` | `crates/perldantic-core/src/serializers/type_serializers/timedelta.rs` | P1 | pending |  |
+| `serializers/type_serializers/timedelta.rs` | `crates/perldantic-core/src/serializers/type_serializers/timedelta.rs` | P1 | done |  |
 | `serializers/type_serializers/tuple.rs` | `crates/perldantic-core/src/serializers/type_serializers/tuple.rs` | P0 | ported | out-of-range `variadic_item_index` is a schema error (DIVERGENCES #11) |
 | `serializers/type_serializers/typed_dict.rs` | `crates/perldantic-core/src/serializers/type_serializers/typed_dict.rs` | P1 | pending |  |
 | `serializers/type_serializers/union.rs` | `crates/perldantic-core/src/serializers/type_serializers/union.rs` | P0 | partial | function discriminators wait for host callbacks |
@@ -196,4 +196,4 @@ plus every JSON Schema pydantic's own test suite generates.
 
 | Upstream file | Perldantic file | Priority | Status | Notes |
 |---|---|---|---|---|
-| `pydantic/json_schema.py` | `crates/perldantic-core/src/json_schema/` | P0 | partial | `GenerateJsonSchema.generate` for the P0 schema types; `generate_definitions` (`models_json_schema`), P1 types and callables later; model config from the schema (DIVERGENCES #15) |
+| `pydantic/json_schema.py` | `crates/perldantic-core/src/json_schema/` | P0 | partial | `GenerateJsonSchema.generate` for the P0 schema types and dates/times/datetimes/timedeltas; `generate_definitions` (`models_json_schema`), other P1 types and callables later; model config from the schema (DIVERGENCES #15) |
