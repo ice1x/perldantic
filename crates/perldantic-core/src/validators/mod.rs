@@ -15,7 +15,9 @@ use crate::recursion_guard::RecursionState;
 use crate::value::{Dict, Value};
 
 mod any;
+mod bool;
 pub(crate) mod config;
+mod none;
 pub(crate) mod validation_state;
 
 use validation_state::ValidationState;
@@ -257,7 +259,7 @@ macro_rules! validators {
     };
 }
 
-validators!(any::AnyValidator,);
+validators!(any::AnyValidator, bool::BoolValidator, none::NoneValidator,);
 
 /// Build the validator for a schema dict.
 pub(crate) fn build_validator(
@@ -282,6 +284,8 @@ fn failed_to_build_validator(val_type: &str, err: &CoreError) -> CoreError {
 #[enum_dispatch]
 pub enum CombinedValidator {
     Any(any::AnyValidator),
+    Bool(bool::BoolValidator),
+    None(none::NoneValidator),
 }
 
 /// Implemented by all validators.

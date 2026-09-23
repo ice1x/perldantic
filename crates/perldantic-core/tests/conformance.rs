@@ -15,7 +15,8 @@ use std::path::{Path, PathBuf};
 use base64::Engine;
 use base64::engine::general_purpose::STANDARD;
 use perldantic_core::{
-    ErrorDetails, ErrorsOptions, LocItem, SchemaValidator, ValidateError, ValidateOptions, Value,
+    ErrorDetails, ErrorsOptions, ExtraBehavior, LocItem, PartialMode, SchemaValidator,
+    ValidateError, ValidateOptions, Value,
 };
 use serde_json::Value as Json;
 
@@ -110,11 +111,37 @@ fn schema_types(json: &Json, out: &mut Vec<String>) {
 }
 
 fn options(json: &Json) -> Result<ValidateOptions, Skip> {
+    let bool_opt = |key: &str, value: &Json| -> Result<Option<bool>, Skip> {
+        match value {
+            Json::Null => Ok(None),
+            Json::Bool(b) => Ok(Some(*b)),
+            _ => Err(Skip(format!("option {key}={value}"))),
+        }
+    };
     let mut opts = ValidateOptions::default();
     for (key, value) in json.as_object().unwrap() {
-        match (key.as_str(), value) {
-            ("strict", Json::Bool(b)) => opts.strict = Some(*b),
-            ("strict", Json::Null) => {}
+        match key.as_str() {
+            "strict" => opts.strict = bool_opt(key, value)?,
+            "from_attributes" => opts.from_attributes = bool_opt(key, value)?,
+            "by_alias" => opts.by_alias = bool_opt(key, value)?,
+            "by_name" => opts.by_name = bool_opt(key, value)?,
+            "context" => opts.context = (!value.is_null()).then(|| decode(value)).transpose()?,
+            "extra" => {
+                opts.extra_behavior = match value {
+                    Json::Null => None,
+                    Json::String(s) => {
+                        Some(s.parse().map_err(|_| Skip(format!("option extra={s}")))?)
+                    }
+                    _ => return Err(Skip(format!("option extra={value}"))),
+                }
+            }
+            "allow_partial" => {
+                opts.allow_partial = match value {
+                    Json::Bool(b) => (*b).into(),
+                    Json::String(s) if s == "trailing-strings" => PartialMode::TrailingStrings,
+                    _ => return Err(Skip(format!("option allow_partial={value}"))),
+                }
+            }
             _ => return Err(Skip(format!("option {key}"))),
         }
     }
@@ -325,12 +352,30 @@ fn unsupported_cases_are_skipped_with_a_reason() {
     .unwrap();
     assert_eq!(run_case(&case, &[]), Err(Skip("schema type int".into())));
     let case: Json = serde_json::from_str(
-        r#"{"schema": {"type": "any"}, "config": null, "mode": "python", "input": 1, "options": {"context": 1}, "expected": {"output": 1}}"#,
+        r#"{"schema": {"type": "any"}, "config": null, "mode": "python", "input": 1, "options": {"self_instance": 1}, "expected": {"output": 1}}"#,
     )
     .unwrap();
     assert_eq!(
         run_case(&case, &["any"]),
-        Err(Skip("option context".into()))
+        Err(Skip("option self_instance".into()))
+    );
+}
+
+#[test]
+fn options_map_onto_validate_options() {
+    let json: Json = serde_json::from_str(
+        r#"{"strict": null, "extra": "forbid", "context": {"a": 1}, "allow_partial": "trailing-strings", "by_alias": false}"#,
+    )
+    .unwrap();
+    let opts = options(&json).unwrap();
+    assert_eq!(opts.strict, None);
+    assert_eq!(opts.extra_behavior, Some(ExtraBehavior::Forbid));
+    assert_eq!(opts.context, Some(decode(&json["context"]).unwrap()));
+    assert!(matches!(opts.allow_partial, PartialMode::TrailingStrings));
+    assert_eq!(opts.by_alias, Some(false));
+    assert_eq!(
+        options(&serde_json::from_str::<Json>(r#"{"strict": 1}"#).unwrap()).unwrap_err(),
+        Skip("option strict=1".into())
     );
 }
 

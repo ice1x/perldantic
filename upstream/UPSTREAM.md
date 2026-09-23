@@ -129,7 +129,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/any.rs` | `crates/perldantic-core/src/validators/any.rs` | P0 | ported |  |
 | `validators/arguments.rs` | `crates/perldantic-core/src/validators/arguments.rs` | P2 | pending |  |
 | `validators/arguments_v3.rs` | `crates/perldantic-core/src/validators/arguments_v3.rs` | P2 | pending |  |
-| `validators/bool.rs` | `crates/perldantic-core/src/validators/bool.rs` | P0 | pending |  |
+| `validators/bool.rs` | `crates/perldantic-core/src/validators/bool.rs` | P0 | ported |  |
 | `validators/bytes.rs` | `crates/perldantic-core/src/validators/bytes.rs` | P0 | pending |  |
 | `validators/call.rs` | `crates/perldantic-core/src/validators/call.rs` | P2 | pending |  |
 | `validators/callable.rs` | `crates/perldantic-core/src/validators/callable.rs` | P2 | pending |  |
@@ -166,7 +166,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/model.rs` | `crates/perldantic-core/src/validators/model.rs` | P0 | pending |  |
 | `validators/model_fields.rs` | `crates/perldantic-core/src/validators/model_fields.rs` | P0 | pending |  |
 | `validators/named_tuple.rs` | - | drop | dropped | Python-only type |
-| `validators/none.rs` | `crates/perldantic-core/src/validators/none.rs` | P0 | pending |  |
+| `validators/none.rs` | `crates/perldantic-core/src/validators/none.rs` | P0 | ported |  |
 | `validators/nullable.rs` | `crates/perldantic-core/src/validators/nullable.rs` | P0 | pending |  |
 | `validators/ordered_dict.rs` | - | drop | dropped | Python-only type |
 | `validators/prebuilt.rs` | - | drop | dropped | reuses validators attached to Python classes |
