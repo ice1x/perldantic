@@ -29,13 +29,14 @@ sub ordered (@pairs) {
 sub encode ($value) {
     my $tagged = _tag($value);
     my $json   = eval { $JSON->encode($tagged) };
-    Perldantic::InternalError->throw(message => "Cannot encode a value for the core: $@") if !defined $json;
+    Perldantic::InternalError->throw(message => "Cannot encode a value for the core: $@", cause => $@)
+        if !defined $json;
     return $json;
 }
 
 sub decode ($json) {
     my $data = eval { $JSON->decode($json) };
-    Perldantic::InternalError->throw(message => "Malformed JSON from the core: $@")
+    Perldantic::InternalError->throw(message => "Malformed JSON from the core: $@", cause => $@)
         if !defined $data && $@;
     return _untag($data);
 }

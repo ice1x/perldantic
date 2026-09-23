@@ -220,10 +220,10 @@ and every class documents in POD when it is thrown.
 
 | Class | Raised when | Payload |
 |---|---|---|
-| `Perldantic::Error` | Base class, never thrown directly | `message`, `throw`, stringification via `overload` |
+| `Perldantic::Error` | Base class, never thrown directly | `message`, `type` (the exception the core reported), `throw`, stringification via `overload` |
 | `Perldantic::ValidationError` | Input does not match the schema | `errors` (list of `{type, loc, msg, input, ctx}`, same codes as pydantic), `error_count`, `title`, `json`; stringifies like pydantic's `str(ValidationError)` |
-| `Perldantic::SchemaError` | A model or type definition is invalid, or uses an unsupported schema type | `message`, `schema_path` |
-| `Perldantic::UsageError` | The API is called incorrectly, e.g. an unknown `has` option or a bad argument | `message`, the caller's file and line |
+| `Perldantic::SchemaError` | A model or type definition is invalid, or uses an unsupported schema type | `message`; the core's message names the path to the bad schema |
+| `Perldantic::UsageError` | The API is called incorrectly, e.g. an unknown `has` option or a bad argument | `message`, `file`, `line` (the first caller outside Perldantic); stringifies like `die` |
 | `Perldantic::SerializationError` | A value cannot be serialized (pydantic's `PydanticSerializationError`, `UnicodeDecodeError`) | `message`, `type` |
 | `Perldantic::InternalError` | The Rust core panics or the FFI boundary fails | `message`, `cause` |
 
