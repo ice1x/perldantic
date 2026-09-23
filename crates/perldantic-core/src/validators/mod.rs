@@ -23,7 +23,7 @@ mod dict;
 mod float;
 mod int;
 mod list;
-mod literal;
+pub(crate) mod literal;
 mod none;
 mod nullable;
 mod string;
@@ -286,6 +286,7 @@ validators! {
     nullable::NullableValidator,
     string::StrValidator,
     tuple::TupleValidator,
+    union::TaggedUnionValidator,
     union::UnionValidator,
     with_default::WithDefaultValidator,
 }
@@ -331,6 +332,8 @@ pub enum CombinedValidator {
     StrConstrained(string::StrConstrainedValidator),
     Tuple(tuple::TupleValidator),
     Union(union::UnionValidator),
+    // Boxed: much larger than most validators.
+    TaggedUnion(Box<union::TaggedUnionValidator>),
     WithDefault(with_default::WithDefaultValidator),
 }
 

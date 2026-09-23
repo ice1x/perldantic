@@ -13,6 +13,7 @@ pub(crate) mod definitions;
 // Temporary: consumed by the validators ported in stage 4 (tasks 00021-00030).
 pub mod errors;
 pub mod input;
+mod lookup_key;
 #[allow(dead_code)]
 pub(crate) mod recursion_guard;
 mod tools;

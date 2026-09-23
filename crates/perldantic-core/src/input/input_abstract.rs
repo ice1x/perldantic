@@ -6,6 +6,7 @@ use std::fmt;
 
 use crate::core_error::CoreResult;
 use crate::errors::{ErrorTypeDefaults, LocItem, ValError, ValResult};
+use crate::lookup_key::LookupPath;
 use crate::validators::config::ValBytesMode;
 use crate::value::Value;
 
@@ -82,6 +83,16 @@ pub trait Input: fmt::Debug {
         self.strict_dict()
     }
 
+    /// A mapping to read model fields (or a discriminator) from. Upstream also reads object
+    /// attributes when `from_attributes` is set.
+    fn validate_model_fields(
+        &self,
+        strict: bool,
+        _from_attributes: bool,
+    ) -> ValResult<Self::Dict<'_>> {
+        self.validate_dict(strict)
+    }
+
     type List<'a>: ValidatedList
     where
         Self: 'a;
@@ -122,6 +133,11 @@ pub trait ValidatedDict {
     type Item<'a>: BorrowInput
     where
         Self: 'a;
+    /// A value found by a lookup path; may be synthesized, e.g. an item of `bytes`.
+    type PathItem<'a>: BorrowInput
+    where
+        Self: 'a;
+    fn get_item<'a>(&'a self, key: &LookupPath) -> ValResult<Option<Self::PathItem<'a>>>;
     fn iterate<'a, R>(
         &'a self,
         consumer: impl ConsumeIterator<ValResult<(Self::Key<'a>, Self::Item<'a>)>, Output = R>,
@@ -155,6 +171,10 @@ pub enum Never {}
 impl ValidatedDict for Never {
     type Key<'a> = &'a Value;
     type Item<'a> = &'a Value;
+    type PathItem<'a> = &'a Value;
+    fn get_item<'a>(&'a self, _key: &LookupPath) -> ValResult<Option<Self::PathItem<'a>>> {
+        match *self {}
+    }
     fn iterate<'a, R>(
         &'a self,
         _consumer: impl ConsumeIterator<ValResult<(Self::Key<'a>, Self::Item<'a>)>, Output = R>,

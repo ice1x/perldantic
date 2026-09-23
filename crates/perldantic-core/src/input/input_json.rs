@@ -2,6 +2,8 @@
 //! Port of the P0 parts of upstream `input/input_json.rs`.
 
 use jiter::{JsonArray, JsonObject, JsonValue};
+
+use crate::lookup_key::LookupPath;
 use num_traits::cast::ToPrimitive;
 
 use crate::core_error::CoreResult;
@@ -226,6 +228,15 @@ impl<'data> ValidatedDict for &'_ JsonObject<'data> {
         = &'a JsonValue<'data>
     where
         Self: 'a;
+
+    type PathItem<'a>
+        = &'a JsonValue<'data>
+    where
+        Self: 'a;
+
+    fn get_item<'a>(&'a self, key: &LookupPath) -> ValResult<Option<Self::PathItem<'a>>> {
+        Ok(key.json_get(self))
+    }
 
     fn iterate<'a, R>(
         &'a self,
