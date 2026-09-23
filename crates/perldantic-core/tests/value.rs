@@ -313,3 +313,29 @@ fn model_equality() {
     )));
     assert!(!a.py_eq(&dict(vec![(s("a"), Value::Int(1))])));
 }
+
+#[test]
+fn dicts_convert_iterate_and_compare_like_python() {
+    let mut dict: Dict = [
+        (Value::from("a"), Value::Int(1)),
+        (Value::from("b"), Value::Float(2.0)),
+    ]
+    .into_iter()
+    .collect();
+    for (_, value) in dict.iter_mut() {
+        if let Value::Int(i) = value {
+            *i += 1;
+        }
+    }
+    let same: Dict = [
+        (Value::from("b"), Value::Int(2)),
+        (Value::from("a"), Value::Float(2.0)),
+    ]
+    .into_iter()
+    .collect();
+    assert!(dict.py_eq(&same));
+    assert_ne!(dict, same);
+    let pairs: Vec<(Value, Value)> = dict.clone().into_iter().collect();
+    assert_eq!(pairs[0], (Value::from("a"), Value::Int(2)));
+    assert_eq!(Value::from(dict.clone()), Value::Dict(dict));
+}
