@@ -22,6 +22,7 @@ use perldantic_core::{
     Dict, JsonSchemaError, JsonSchemaMode, JsonSchemaOptions, UnionFormat, Value,
     generate_json_schema,
 };
+use perldantic_core::{speedate, temporal};
 use serde_json::Value as Json;
 
 /// Why a case cannot run yet.
@@ -100,6 +101,15 @@ fn decode_tag(tag: &str, payload: &Json) -> Result<Value, Skip> {
                 .collect::<Result<Dict, Skip>>()?,
         ),
         "class" => Value::Str(payload.as_str().unwrap().to_owned()),
+        "date" => Value::Date(speedate::Date::parse_str(payload.as_str().unwrap()).unwrap()),
+        "time" => Value::Time(speedate::Time::parse_str(payload.as_str().unwrap()).unwrap()),
+        "datetime" => {
+            Value::DateTime(speedate::DateTime::parse_str(payload.as_str().unwrap()).unwrap())
+        }
+        "timedelta" => {
+            let part = |i: usize| payload[i].as_i64().unwrap();
+            Value::TimeDelta(temporal::duration_from_parts(part(0), part(1), part(2)).unwrap())
+        }
         other => return Err(Skip(format!("${other} value"))),
     })
 }
@@ -283,10 +293,10 @@ fn default_options_match_pydantic() {
 #[test]
 fn schemas_that_cannot_be_described_yet_are_errors() {
     assert_eq!(
-        generate(r#"{"type": "date"}"#).unwrap_err(),
+        generate(r#"{"type": "decimal"}"#).unwrap_err(),
         (
             "SchemaError".to_owned(),
-            "JSON Schema generation for `date` schemas is not supported yet".to_owned()
+            "JSON Schema generation for `decimal` schemas is not supported yet".to_owned()
         )
     );
     // Upstream's callables need host callbacks.

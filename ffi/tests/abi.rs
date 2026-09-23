@@ -258,10 +258,14 @@ fn json_schemas_come_with_warnings() {
     );
     // SAFETY: valid strings.
     let envelope = take(unsafe {
-        pd_json_schema(c(r#"{"type": "date"}"#).as_ptr(), ptr::null(), ptr::null())
+        pd_json_schema(
+            c(r#"{"type": "decimal"}"#).as_ptr(),
+            ptr::null(),
+            ptr::null(),
+        )
     });
     assert_eq!(
         envelope,
-        r#"{"error":{"type":"SchemaError","message":"JSON Schema generation for `date` schemas is not supported yet"}}"#
+        r#"{"error":{"type":"SchemaError","message":"JSON Schema generation for `decimal` schemas is not supported yet"}}"#
     );
 }

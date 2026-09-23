@@ -364,7 +364,8 @@ fn get_all_json_refs(schema: &Value) -> HashSet<String> {
 }
 
 /// Serialize a value to JSON-able data (upstream `to_jsonable_python`), with the serialization
-/// config keys (`ser_json_bytes`, `ser_json_inf_nan`) in `ser_config`.
+/// config keys (`ser_json_bytes`, `ser_json_inf_nan`, `ser_json_temporal`,
+/// `ser_json_timedelta`) in `ser_config`.
 fn to_jsonable(value: &Value, ser_config: Dict, by_alias: bool) -> JsResult<Value> {
     let mut schema = Dict::new();
     set(&mut schema, "type", "any");
@@ -560,6 +561,10 @@ impl<'o> GenerateJsonSchema<'o> {
             "float" => Ok(Self::numeric_schema(schema, "number")),
             "str" => Ok(self.str_schema(schema)),
             "bytes" => Ok(self.bytes_schema(schema)),
+            "date" => Ok(self.common_temporal_schema("date", self.ser_json_temporal())),
+            "time" => Ok(self.common_temporal_schema("time", self.ser_json_temporal())),
+            "datetime" => Ok(self.common_temporal_schema("date-time", self.ser_json_temporal())),
+            "timedelta" => Ok(self.timedelta_schema()),
             "literal" => self.literal_schema(schema),
             "list" => self.list_schema(schema),
             "tuple" => self.tuple_schema(schema),
@@ -623,6 +628,38 @@ impl<'o> GenerateJsonSchema<'o> {
             if base64 { "base64url" } else { "binary" },
         );
         update_with_validations(&mut json_schema, schema, validations::BYTES);
+        json_schema
+    }
+
+    fn config_str(&self, key: &str) -> Option<&str> {
+        match self.config().get_str(key) {
+            Some(Value::Str(s)) => Some(s),
+            _ => None,
+        }
+    }
+
+    fn ser_json_temporal(&self) -> &str {
+        self.config_str("ser_json_temporal").unwrap_or("iso8601")
+    }
+
+    fn timedelta_schema(&self) -> Dict {
+        // `ser_json_temporal` supersedes `ser_json_timedelta`, which only applies when the
+        // former isn't explicitly set.
+        let temporal_format = match self.config_str("ser_json_temporal") {
+            Some(format) => format,
+            None if self.config_str("ser_json_timedelta") == Some("float") => "seconds",
+            None => "iso8601",
+        };
+        self.common_temporal_schema("duration", temporal_format)
+    }
+
+    fn common_temporal_schema(&self, format: &str, temporal_format: &str) -> Dict {
+        if self.mode() == JsonSchemaMode::Serialization && temporal_format != "iso8601" {
+            // Both `'seconds'` and `'milliseconds'` serialize to a number:
+            return typed("number");
+        }
+        let mut json_schema = typed("string");
+        set(&mut json_schema, "format", format);
         json_schema
     }
 
@@ -814,7 +851,10 @@ impl<'o> GenerateJsonSchema<'o> {
             .config()
             .iter()
             .filter(|(k, _)| {
-                matches!(k, Value::Str(k) if k == "ser_json_bytes" || k == "ser_json_inf_nan")
+                matches!(k, Value::Str(k) if matches!(
+                    k.as_str(),
+                    "ser_json_bytes" | "ser_json_inf_nan" | "ser_json_temporal" | "ser_json_timedelta"
+                ))
             })
             .map(|(k, v)| (k.clone(), v.clone()))
             .collect();
