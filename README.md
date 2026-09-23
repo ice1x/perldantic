@@ -24,7 +24,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00018 — Case format spec: schema + input + mode → output | errors
   - [x] 00019 — Extractor of cases from `pydantic-core/tests/validators`
   - [x] 00020 — Rust conformance runner in `cargo test`
-- [ ] 00021 — P0 validators
+- [x] 00021 — P0 validators
   - [x] 00022 — `Undef`, `Any`, `Bool` (core: `none`, `any`, `bool`)
   - [x] 00023 — `Int` (incl. big ints), `Num` (core: `int`, `float`)
   - [x] 00024 — `Str` (constraints, pattern), `Bytes` (core: `str`, `bytes`)
@@ -33,7 +33,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00027 — Unions: smart, left-to-right, tagged (core: `union`, `tagged-union`)
   - [x] 00028 — Models: fields, fields set, extra keys (core: `model-fields`, `model`)
   - [x] 00029 — Recursive types (core: `definitions`, `definition-ref`)
-  - [ ] 00030 — Lax-or-strict switch, custom errors (core: `lax-or-strict`, `custom-error`)
+  - [x] 00030 — Lax-or-strict switch, custom errors (core: `lax-or-strict`, `custom-error`)
 - [ ] 00031 — Serialization & JSON Schema
   - [ ] 00032 — Serializer `Value` → JSON (serde)
   - [ ] 00033 — Serializer `Value` → `Value`: include/exclude, by_alias, exclude_none/unset/defaults
