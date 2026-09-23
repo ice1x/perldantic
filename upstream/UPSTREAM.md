@@ -142,7 +142,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/date.rs` | `crates/perldantic-core/src/validators/date.rs` | P1 | pending |  |
 | `validators/datetime.rs` | `crates/perldantic-core/src/validators/datetime.rs` | P1 | pending |  |
 | `validators/decimal.rs` | `crates/perldantic-core/src/validators/decimal.rs` | P1 | pending |  |
-| `validators/definitions.rs` | `crates/perldantic-core/src/validators/definitions.rs` | P0 | pending |  |
+| `validators/definitions.rs` | `crates/perldantic-core/src/validators/definitions.rs` | P0 | partial | host data is guarded by value identity like Python objects; `validate_assignment` comes with the Perl model API |
 | `validators/deque.rs` | - | drop | dropped | Python-only type |
 | `validators/dict.rs` | `crates/perldantic-core/src/validators/dict.rs` | P0 | ported |  |
 | `validators/ellipsis.rs` | - | drop | dropped | Python-only type |

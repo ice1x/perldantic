@@ -48,6 +48,8 @@ impl<T> DefinitionRef<T> {
         Weak::as_ptr(&self.value) as usize
     }
 
+    // Read by the definitions serializer (task 00031); only tests use it until then.
+    #[cfg_attr(not(test), allow(dead_code))]
     pub fn reference(&self) -> &str {
         &self.reference
     }

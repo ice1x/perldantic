@@ -3,18 +3,12 @@
 //! The upstream sources this crate is ported from are vendored verbatim in
 //! `upstream/pydantic-core/`; see `upstream/UPSTREAM.md` for the file map.
 
-// Temporary: parts are consumed by the validators ported in stage 4 (tasks 00021-00030).
-#[allow(dead_code)]
 pub(crate) mod build_tools;
 mod core_error;
-// Temporary: parts are consumed by the validators ported in stage 4 (tasks 00021-00030).
-#[allow(dead_code)]
 pub(crate) mod definitions;
-// Temporary: consumed by the validators ported in stage 4 (tasks 00021-00030).
 pub mod errors;
 pub mod input;
 mod lookup_key;
-#[allow(dead_code)]
 pub(crate) mod recursion_guard;
 mod tools;
 pub(crate) mod validators;
