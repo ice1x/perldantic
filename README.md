@@ -47,7 +47,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00041 — `Perldantic::FFI` binding (FFI::Platypus, FFI::Build::File::Cargo)
   - [x] 00042 — `Perldantic::Types` in Types::Standard vocabulary: Any Undef Bool Int Num Str Bytes Maybe[] Optional[] ArrayRef[] Tuple[] HashRef[] Map[] Dict[] Enum[] Literal[] InstanceOf[]
   - [x] 00043 — Moo/Moose-style models: `use Perldantic` replaces `use Moo`; `has` with Moo options + constraints, `new` validates, `extends`/`BUILD`; `model_config`
-  - [ ] 00044 — `model_validate[_json]`, `model_dump[_json]`, `model_json_schema`, `model_copy`, `model_fields_set`
+  - [x] 00044 — `model_validate[_json]`, `model_dump[_json]`, `model_json_schema`, `model_copy`, `model_fields_set`
   - [ ] 00045 — `Perldantic::TypeAdapter`
   - [ ] 00046 — Exception objects (never string dies): `Perldantic::Error` base, `ValidationError` (errors, error_count, json, stringification), `SchemaError`, `UsageError`, `SerializationError`, `InternalError`
   - [ ] 00047 — Lazy per-class validator cache

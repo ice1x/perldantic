@@ -40,6 +40,17 @@ my %FLAG_OR_WORD = (
     warnings      => {map { $_ => 1 } qw(none warn error)},
 );
 
+# pydantic's include/exclude filters in Perl terms: true leaves become `True`, integer-like keys
+# become list indices, and arrays of names become sets.
+sub _filter ($filter) {
+    if (ref $filter eq 'HASH') {
+        return Perldantic::Wire::ordered(map { (/\A-?[0-9]+\z/ ? 0 + $_ : $_) => _filter($filter->{$_}) } sort keys %$filter);
+    }
+    return Perldantic::Wire::set(map { /\A-?[0-9]+\z/ ? 0 + $_ : $_ } @$filter) if ref $filter eq 'ARRAY';
+    return $filter if ref $filter || !defined $filter;
+    return $filter ? !!1 : !!0;
+}
+
 sub _options ($options) {
     return undef if !defined $options;
     Perldantic::UsageError->throw(message => 'Options must be a hash reference')
@@ -52,6 +63,7 @@ sub _options ($options) {
         {
             $value = $value ? !!1 : !!0;
         }
+        $value = _filter($value) if $name eq 'include' || $name eq 'exclude';
         $wire{$name} = $value;
     }
     return Perldantic::Wire::encode(\%wire);
@@ -227,6 +239,8 @@ Compiles a serializer.
 
 Serializes to Perl data. Options: C<mode>, C<include>, C<exclude>, C<by_alias>,
 C<exclude_unset>, C<exclude_defaults>, C<exclude_none>, C<serialize_as_any>, C<warnings>.
+C<include> and C<exclude> take pydantic's filters in Perl terms: hashes of names with true
+values (integer-like keys are list indices), or arrays of names.
 
 =item to_json($value, \%options = undef)
 
