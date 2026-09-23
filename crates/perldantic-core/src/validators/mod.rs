@@ -18,6 +18,7 @@ mod any;
 mod bool;
 mod bytes;
 pub(crate) mod config;
+mod custom_error;
 mod dict;
 mod float;
 mod int;
@@ -27,6 +28,7 @@ mod none;
 mod nullable;
 mod string;
 mod tuple;
+mod union;
 pub(crate) mod validation_state;
 mod with_default;
 
@@ -274,6 +276,7 @@ validators! {
     any::AnyValidator,
     bool::BoolValidator,
     bytes::BytesValidator,
+    custom_error::CustomErrorValidator,
     dict::DictValidator,
     float::FloatBuilder,
     int::IntValidator,
@@ -283,6 +286,7 @@ validators! {
     nullable::NullableValidator,
     string::StrValidator,
     tuple::TupleValidator,
+    union::UnionValidator,
     with_default::WithDefaultValidator,
 }
 
@@ -312,6 +316,7 @@ pub enum CombinedValidator {
     Bool(bool::BoolValidator),
     Bytes(bytes::BytesValidator),
     ConstrainedBytes(bytes::BytesConstrainedValidator),
+    CustomError(custom_error::CustomErrorValidator),
     Dict(dict::DictValidator),
     Float(float::FloatValidator),
     ConstrainedFloat(float::ConstrainedFloatValidator),
@@ -325,6 +330,7 @@ pub enum CombinedValidator {
     Str(string::StrValidator),
     StrConstrained(string::StrConstrainedValidator),
     Tuple(tuple::TupleValidator),
+    Union(union::UnionValidator),
     WithDefault(with_default::WithDefaultValidator),
 }
 
