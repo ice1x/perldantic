@@ -25,15 +25,15 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00019 — Extractor of cases from `pydantic-core/tests/validators`
   - [x] 00020 — Rust conformance runner in `cargo test`
 - [ ] 00021 — P0 validators
-  - [x] 00022 — `none`, `any`, `bool`
-  - [x] 00023 — `int` (incl. bigint), `float`
-  - [x] 00024 — `str` (constraints, pattern), `bytes`
-  - [ ] 00025 — `literal`, `nullable`, `default`
-  - [ ] 00026 — `list`, `tuple`, `dict` (Perl: `ArrayRef`, `Tuple`, `HashRef`/`Map`)
-  - [ ] 00027 — `union`: smart, left_to_right, tagged
-  - [ ] 00028 — `model_fields`, `model` (fields_set, extra behaviour)
-  - [ ] 00029 — `definitions` / `definition-ref` (recursive schemas)
-  - [ ] 00030 — `lax_or_strict`, `custom_error`
+  - [x] 00022 — `Undef`, `Any`, `Bool` (core: `none`, `any`, `bool`)
+  - [x] 00023 — `Int` (incl. big ints), `Num` (core: `int`, `float`)
+  - [x] 00024 — `Str` (constraints, pattern), `Bytes` (core: `str`, `bytes`)
+  - [ ] 00025 — `Literal[]`, `Maybe[]`, defaults (core: `literal`, `nullable`, `default`)
+  - [ ] 00026 — `ArrayRef[]`, `Tuple[]`, `HashRef[]` / `Map[]` (core: `list`, `tuple`, `dict`)
+  - [ ] 00027 — Unions: smart, left-to-right, tagged (core: `union`, `tagged-union`)
+  - [ ] 00028 — Models: fields, fields set, extra keys (core: `model-fields`, `model`)
+  - [ ] 00029 — Recursive types (core: `definitions`, `definition-ref`)
+  - [ ] 00030 — Lax-or-strict switch, custom errors (core: `lax-or-strict`, `custom-error`)
 - [ ] 00031 — Serialization & JSON Schema
   - [ ] 00032 — Serializer `Value` → JSON (serde)
   - [ ] 00033 — Serializer `Value` → `Value`: include/exclude, by_alias, exclude_none/unset/defaults
@@ -45,7 +45,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [ ] 00039 — C header generation (cbindgen)
 - [ ] 00040 — Perl MVP
   - [ ] 00041 — `Perldantic::FFI` binding (FFI::Platypus, FFI::Build::File::Cargo)
-  - [ ] 00042 — `Perldantic::Types` in Types::Standard vocabulary: Any Undef Maybe[] Bool Int Num Str Bytes ArrayRef[] Tuple[] HashRef[] Map[] Dict[] Enum[] Literal[] InstanceOf[]
+  - [ ] 00042 — `Perldantic::Types` in Types::Standard vocabulary: Any Undef Bool Int Num Str Bytes Maybe[] Optional[] ArrayRef[] Tuple[] HashRef[] Map[] Dict[] Enum[] Literal[] InstanceOf[]
   - [ ] 00043 — Moo/Moose-style models: `use Perldantic` replaces `use Moo`; `has` with Moo options + constraints, `new` validates, `extends`/`with`/`BUILD`; `model_config`
   - [ ] 00044 — `model_validate[_json]`, `model_dump[_json]`, `model_json_schema`, `model_copy`, `model_fields_set`
   - [ ] 00045 — `Perldantic::TypeAdapter`
@@ -55,9 +55,9 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [ ] 00049 — Leak tests (Test::LeakTrace)
   - [ ] 00076 — Perl input type in the core: Perl-worded error messages (hash/array reference, undef), sorted hash keys, arrays as strict tuples
 - [ ] 00050 — P1 types & callbacks
-  - [ ] 00051 — `date`, `time`, `datetime`, `timedelta` (speedate; Time::Moment / DateTime)
-  - [ ] 00052 — `decimal` (Math::BigFloat), `uuid`, `url` / `multi-host-url`
-  - [ ] 00053 — `enum`, `set`, `frozenset`, `chain`, `json`, `typed_dict`
+  - [ ] 00051 — `Date`, `Time`, `DateTime`, `Duration` (core: `date`, `time`, `datetime`, `timedelta`; speedate; Time::Moment / DateTime)
+  - [ ] 00052 — `Decimal` (Math::BigFloat), `Uuid`, `Url` (core: `decimal`, `uuid`, `url` / `multi-host-url`)
+  - [ ] 00053 — `Enum[]`, unique arrays, chains, `Json`, `Dict[]` (core: `enum`, `set`, `frozenset`, `chain`, `json`, `typed-dict`)
   - [ ] 00054 — `function-before/after/wrap/plain` via `HostCallback`
   - [ ] 00055 — Perl `validator`, `model_validator`, `field_serializer`, `computed_field`
   - [ ] 00056 — `InstanceOf[]` and Type::Tiny interop

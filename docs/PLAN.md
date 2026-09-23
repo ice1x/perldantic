@@ -175,6 +175,7 @@ pydantic's schema types internally.
 | `Any` | `any` | |
 | `Undef` | `none` | Python `None` is Perl `undef` |
 | `Maybe[T]` | `nullable` | Python `Optional[T]` |
+| `Optional[T]` | a field or item that may be left out | Types::Standard meaning, inside `Dict[]` / `Tuple[]`; not Python's `Optional` (that is `Maybe[T]`) |
 | `Bool` | `bool` | |
 | `Int` | `int` | Arbitrary size; big values as `Math::BigInt` |
 | `Num` | `float` | |
