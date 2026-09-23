@@ -20,10 +20,10 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00014 — Port `Input` trait without `'py`; `input_json.rs` on jiter without `python`
   - [x] 00015 — `input_value.rs`: `Input` for `Value`
   - [x] 00016 — `ValidationState`, `RecursionGuard`, `Definitions`
-- [ ] 00017 — Conformance suite
+- [x] 00017 — Conformance suite
   - [x] 00018 — Case format spec: schema + input + mode → output | errors
   - [x] 00019 — Extractor of cases from `pydantic-core/tests/validators`
-  - [ ] 00020 — Rust conformance runner in `cargo test`
+  - [x] 00020 — Rust conformance runner in `cargo test`
 - [ ] 00021 — P0 validators
   - [ ] 00022 — `none`, `any`, `bool`
   - [ ] 00023 — `int` (incl. bigint), `float`
