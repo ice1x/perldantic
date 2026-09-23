@@ -84,7 +84,8 @@ impl BuildValidator for WithDefaultValidator {
                 }
                 OnError::Default
             }
-            // Upstream relies on its schema validation here and panics otherwise.
+            // Upstream relies on its schema validation here and panics otherwise
+            // (docs/DIVERGENCES.md #11).
             Some(other) => {
                 return schema_err!(
                     "`on_error` should be 'raise', 'omit' or 'default', got '{other}'"

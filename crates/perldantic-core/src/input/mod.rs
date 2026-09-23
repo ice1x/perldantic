@@ -11,6 +11,7 @@ pub use input_abstract::{
     ValidatedTuple,
 };
 pub use return_enums::{EitherBytes, EitherFloat, EitherInt, EitherString, Int, ValidationMatch};
+pub(crate) use return_enums::{MaxLengthCheck, no_validator_iter_to_vec, validate_iter_to_vec};
 
 /// The kind of input being validated; selects message wording (e.g. "None" vs "null").
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]

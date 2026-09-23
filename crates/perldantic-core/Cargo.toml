@@ -24,7 +24,8 @@ thiserror = "2"
 num-bigint = "0.4.6"
 base64 = "0.22.1"
 serde = { version = "1.0.219", features = ["derive"] }
-serde_json = "1.0.149"
+# preserve_order: conformance inputs are dicts whose key order matters, as in Python.
+serde_json = { version = "1.0.149", features = ["preserve_order"] }
 
 [lints]
 workspace = true
