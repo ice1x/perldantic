@@ -1,0 +1,4101 @@
+[
+ {
+  "id": "tests/validators/test_tagged_union.py::test_custom_error#0",
+  "test": "tests/validators/test_tagged_union.py::test_custom_error",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   },
+   "discriminator": "foo",
+   "custom_error_type": "snap",
+   "custom_error_message": "Input should be a foo or bar"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": "apple",
+   "bar": "123"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "foo": "apple",
+    "bar": 123
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_custom_error#1",
+  "test": "tests/validators/test_tagged_union.py::test_custom_error",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   },
+   "discriminator": "foo",
+   "custom_error_type": "snap",
+   "custom_error_message": "Input should be a foo or bar"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "spam": "apple",
+   "bar": "Bar"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "snap",
+     "loc": [],
+     "msg": "Input should be a foo or bar",
+     "input": {
+      "spam": "apple",
+      "bar": "Bar"
+     }
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_custom_error#2",
+  "test": "tests/validators/test_tagged_union.py::test_custom_error",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   },
+   "discriminator": "foo",
+   "custom_error_type": "snap",
+   "custom_error_message": "Input should be a foo or bar"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": "other",
+   "bar": "Bar"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "snap",
+     "loc": [],
+     "msg": "Input should be a foo or bar",
+     "input": {
+      "foo": "other",
+      "bar": "Bar"
+     }
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_custom_error_type#0",
+  "test": "tests/validators/test_tagged_union.py::test_custom_error_type",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   },
+   "discriminator": "foo",
+   "custom_error_type": "finite_number"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": "apple",
+   "bar": "123"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "foo": "apple",
+    "bar": 123
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_custom_error_type#1",
+  "test": "tests/validators/test_tagged_union.py::test_custom_error_type",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   },
+   "discriminator": "foo",
+   "custom_error_type": "finite_number"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "spam": "apple",
+   "bar": "Bar"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": {
+      "spam": "apple",
+      "bar": "Bar"
+     }
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_custom_error_type#2",
+  "test": "tests/validators/test_tagged_union.py::test_custom_error_type",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   },
+   "discriminator": "foo",
+   "custom_error_type": "finite_number"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": "other",
+   "bar": "Bar"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": {
+      "foo": "other",
+      "bar": "Bar"
+     }
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_discriminator_function[json-123-123]#0",
+  "test": "tests/validators/test_tagged_union.py::test_discriminator_function[json-123-123]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": {
+    "$function": "discriminator_function"
+   },
+   "choices": {
+    "str": {
+     "type": "literal",
+     "expected": [
+      "foo",
+      "bar"
+     ]
+    },
+    "int": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "123",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_discriminator_function[json-None-expected3]#0",
+  "test": "tests/validators/test_tagged_union.py::test_discriminator_function[json-None-expected3]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": {
+    "$function": "discriminator_function"
+   },
+   "choices": {
+    "str": {
+     "type": "literal",
+     "expected": [
+      "foo",
+      "bar"
+     ]
+    },
+    "int": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": null,
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "union_tag_not_found",
+     "loc": [],
+     "msg": "Unable to extract tag using discriminator discriminator_function()",
+     "input": null,
+     "ctx": {
+      "discriminator": "discriminator_function()"
+     }
+    }
+   ],
+   "title": "tagged-union[literal['foo','bar'],int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_discriminator_function[json-baz-expected2]#0",
+  "test": "tests/validators/test_tagged_union.py::test_discriminator_function[json-baz-expected2]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": {
+    "$function": "discriminator_function"
+   },
+   "choices": {
+    "str": {
+     "type": "literal",
+     "expected": [
+      "foo",
+      "bar"
+     ]
+    },
+    "int": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "baz",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [
+      "str"
+     ],
+     "msg": "Input should be 'foo' or 'bar'",
+     "input": "baz",
+     "ctx": {
+      "expected": "'foo' or 'bar'"
+     }
+    }
+   ],
+   "title": "tagged-union[literal['foo','bar'],int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_discriminator_function[json-foo-foo]#0",
+  "test": "tests/validators/test_tagged_union.py::test_discriminator_function[json-foo-foo]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": {
+    "$function": "discriminator_function"
+   },
+   "choices": {
+    "str": {
+     "type": "literal",
+     "expected": [
+      "foo",
+      "bar"
+     ]
+    },
+    "int": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foo\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "foo"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_discriminator_function[json-input_value4-expected4]#0",
+  "test": "tests/validators/test_tagged_union.py::test_discriminator_function[json-input_value4-expected4]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": {
+    "$function": "discriminator_function"
+   },
+   "choices": {
+    "str": {
+     "type": "literal",
+     "expected": [
+      "foo",
+      "bar"
+     ]
+    },
+    "int": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "wrong type"
+  ],
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "union_tag_invalid",
+     "loc": [],
+     "msg": "Input tag 'other' found using discriminator_function() does not match any of the expected tags: 'str', 'int'",
+     "input": [
+      "wrong type"
+     ],
+     "ctx": {
+      "discriminator": "discriminator_function()",
+      "tag": "other",
+      "expected_tags": "'str', 'int'"
+     }
+    }
+   ],
+   "title": "tagged-union[literal['foo','bar'],int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_discriminator_function[python-123-123]#0",
+  "test": "tests/validators/test_tagged_union.py::test_discriminator_function[python-123-123]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": {
+    "$function": "discriminator_function"
+   },
+   "choices": {
+    "str": {
+     "type": "literal",
+     "expected": [
+      "foo",
+      "bar"
+     ]
+    },
+    "int": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": 123,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_discriminator_function[python-None-expected3]#0",
+  "test": "tests/validators/test_tagged_union.py::test_discriminator_function[python-None-expected3]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": {
+    "$function": "discriminator_function"
+   },
+   "choices": {
+    "str": {
+     "type": "literal",
+     "expected": [
+      "foo",
+      "bar"
+     ]
+    },
+    "int": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": null,
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "union_tag_not_found",
+     "loc": [],
+     "msg": "Unable to extract tag using discriminator discriminator_function()",
+     "input": null,
+     "ctx": {
+      "discriminator": "discriminator_function()"
+     }
+    }
+   ],
+   "title": "tagged-union[literal['foo','bar'],int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_discriminator_function[python-baz-expected2]#0",
+  "test": "tests/validators/test_tagged_union.py::test_discriminator_function[python-baz-expected2]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": {
+    "$function": "discriminator_function"
+   },
+   "choices": {
+    "str": {
+     "type": "literal",
+     "expected": [
+      "foo",
+      "bar"
+     ]
+    },
+    "int": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "baz",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [
+      "str"
+     ],
+     "msg": "Input should be 'foo' or 'bar'",
+     "input": "baz",
+     "ctx": {
+      "expected": "'foo' or 'bar'"
+     }
+    }
+   ],
+   "title": "tagged-union[literal['foo','bar'],int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_discriminator_function[python-foo-foo]#0",
+  "test": "tests/validators/test_tagged_union.py::test_discriminator_function[python-foo-foo]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": {
+    "$function": "discriminator_function"
+   },
+   "choices": {
+    "str": {
+     "type": "literal",
+     "expected": [
+      "foo",
+      "bar"
+     ]
+    },
+    "int": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foo",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "foo"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_discriminator_function[python-input_value4-expected4]#0",
+  "test": "tests/validators/test_tagged_union.py::test_discriminator_function[python-input_value4-expected4]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": {
+    "$function": "discriminator_function"
+   },
+   "choices": {
+    "str": {
+     "type": "literal",
+     "expected": [
+      "foo",
+      "bar"
+     ]
+    },
+    "int": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "wrong type"
+  ],
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "union_tag_invalid",
+     "loc": [],
+     "msg": "Input tag 'other' found using discriminator_function() does not match any of the expected tags: 'str', 'int'",
+     "input": [
+      "wrong type"
+     ],
+     "ctx": {
+      "discriminator": "discriminator_function()",
+      "tag": "other",
+      "expected_tags": "'str', 'int'"
+     }
+    }
+   ],
+   "title": "tagged-union[literal['foo','bar'],int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_discriminator_path[json]#0",
+  "test": "tests/validators/test_tagged_union.py::test_discriminator_path[json]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": [
+    [
+     "food"
+    ],
+    [
+     "menu",
+     1
+    ]
+   ],
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "a": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "b": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "c": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "d": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"food\": \"apple\", \"a\": \"apple\", \"b\": \"13\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "a": "apple",
+    "b": 13
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_discriminator_path[json]#1",
+  "test": "tests/validators/test_tagged_union.py::test_discriminator_path[json]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": [
+    [
+     "food"
+    ],
+    [
+     "menu",
+     1
+    ]
+   ],
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "a": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "b": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "c": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "d": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"menu\": [\"x\", \"banana\"], \"c\": \"C\", \"d\": [1, \"2\"]}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "c": "C",
+    "d": [
+     1,
+     2
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_discriminator_path[json]#2",
+  "test": "tests/validators/test_tagged_union.py::test_discriminator_path[json]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": [
+    [
+     "food"
+    ],
+    [
+     "menu",
+     1
+    ]
+   ],
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "a": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "b": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "c": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "d": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "union_tag_not_found",
+     "loc": [],
+     "msg": "Unable to extract tag using discriminator 'food' | 'menu'.1",
+     "input": {},
+     "ctx": {
+      "discriminator": "'food' | 'menu'.1"
+     }
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_discriminator_path[python]#0",
+  "test": "tests/validators/test_tagged_union.py::test_discriminator_path[python]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": [
+    [
+     "food"
+    ],
+    [
+     "menu",
+     1
+    ]
+   ],
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "a": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "b": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "c": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "d": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "food": "apple",
+   "a": "apple",
+   "b": "13"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "a": "apple",
+    "b": 13
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_discriminator_path[python]#1",
+  "test": "tests/validators/test_tagged_union.py::test_discriminator_path[python]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": [
+    [
+     "food"
+    ],
+    [
+     "menu",
+     1
+    ]
+   ],
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "a": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "b": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "c": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "d": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "menu": [
+    "x",
+    "banana"
+   ],
+   "c": "C",
+   "d": [
+    1,
+    "2"
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "c": "C",
+    "d": [
+     1,
+     2
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_discriminator_path[python]#2",
+  "test": "tests/validators/test_tagged_union.py::test_discriminator_path[python]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": [
+    [
+     "food"
+    ],
+    [
+     "menu",
+     1
+    ]
+   ],
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "a": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "b": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "c": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "d": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "union_tag_not_found",
+     "loc": [],
+     "msg": "Unable to extract tag using discriminator 'food' | 'menu'.1",
+     "input": {},
+     "ctx": {
+      "discriminator": "'food' | 'menu'.1"
+     }
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_downcast_error#0",
+  "test": "tests/validators/test_tagged_union.py::test_downcast_error",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "str": {
+     "type": "str"
+    }
+   },
+   "discriminator": {
+    "$function": "<lambda>"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "x",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "union_tag_invalid",
+     "loc": [],
+     "msg": "Input tag '123' found using <lambda>() does not match any of the expected tags: 'str'",
+     "input": "x",
+     "ctx": {
+      "discriminator": "<lambda>()",
+      "tag": "123",
+      "expected_tags": "'str'"
+     }
+    }
+   ],
+   "title": "tagged-union[str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_enum_keys#0",
+  "test": "tests/validators/test_tagged_union.py::test_enum_keys",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "$dict": [
+     [
+      {
+       "$enum": [
+        "BarEnum",
+        1
+       ]
+      },
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        },
+        "bar": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        }
+       }
+      }
+     ],
+     [
+      {
+       "$enum": [
+        "FooEnum",
+        "banana"
+       ]
+      },
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "str"
+         }
+        },
+        "spam": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "list",
+          "items_schema": {
+           "type": "int"
+          }
+         }
+        }
+       }
+      }
+     ],
+     [
+      {
+       "$enum": [
+        "PlainEnum",
+        "two"
+       ]
+      },
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "any"
+         }
+        },
+        "baz": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        }
+       }
+      }
+     ]
+    ]
+   },
+   "discriminator": "foo"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": {
+    "$enum": [
+     "FooEnum",
+     "banana"
+    ]
+   },
+   "spam": [
+    1,
+    2,
+    "3"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "foo": "banana",
+    "spam": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_enum_keys#1",
+  "test": "tests/validators/test_tagged_union.py::test_enum_keys",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "$dict": [
+     [
+      {
+       "$enum": [
+        "BarEnum",
+        1
+       ]
+      },
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        },
+        "bar": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        }
+       }
+      }
+     ],
+     [
+      {
+       "$enum": [
+        "FooEnum",
+        "banana"
+       ]
+      },
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "str"
+         }
+        },
+        "spam": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "list",
+          "items_schema": {
+           "type": "int"
+          }
+         }
+        }
+       }
+      }
+     ],
+     [
+      {
+       "$enum": [
+        "PlainEnum",
+        "two"
+       ]
+      },
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "any"
+         }
+        },
+        "baz": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        }
+       }
+      }
+     ]
+    ]
+   },
+   "discriminator": "foo"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": {
+    "$enum": [
+     "BarEnum",
+     1
+    ]
+   },
+   "bar": "123"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "foo": 1,
+    "bar": 123
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_enum_keys#2",
+  "test": "tests/validators/test_tagged_union.py::test_enum_keys",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "$dict": [
+     [
+      {
+       "$enum": [
+        "BarEnum",
+        1
+       ]
+      },
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        },
+        "bar": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        }
+       }
+      }
+     ],
+     [
+      {
+       "$enum": [
+        "FooEnum",
+        "banana"
+       ]
+      },
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "str"
+         }
+        },
+        "spam": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "list",
+          "items_schema": {
+           "type": "int"
+          }
+         }
+        }
+       }
+      }
+     ],
+     [
+      {
+       "$enum": [
+        "PlainEnum",
+        "two"
+       ]
+      },
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "any"
+         }
+        },
+        "baz": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        }
+       }
+      }
+     ]
+    ]
+   },
+   "discriminator": "foo"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": {
+    "$enum": [
+     "PlainEnum",
+     "two"
+    ]
+   },
+   "baz": "123"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "foo": {
+     "$enum": [
+      "PlainEnum",
+      "two"
+     ]
+    },
+    "baz": 123
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_enum_keys#3",
+  "test": "tests/validators/test_tagged_union.py::test_enum_keys",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "$dict": [
+     [
+      {
+       "$enum": [
+        "BarEnum",
+        1
+       ]
+      },
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        },
+        "bar": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        }
+       }
+      }
+     ],
+     [
+      {
+       "$enum": [
+        "FooEnum",
+        "banana"
+       ]
+      },
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "str"
+         }
+        },
+        "spam": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "list",
+          "items_schema": {
+           "type": "int"
+          }
+         }
+        }
+       }
+      }
+     ],
+     [
+      {
+       "$enum": [
+        "PlainEnum",
+        "two"
+       ]
+      },
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "any"
+         }
+        },
+        "baz": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        }
+       }
+      }
+     ]
+    ]
+   },
+   "discriminator": "foo"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": {
+    "$enum": [
+     "FooEnum",
+     "apple"
+    ]
+   },
+   "spam": [
+    1,
+    2,
+    "3"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "union_tag_invalid",
+     "loc": [],
+     "msg": "Input tag 'FooEnum.APPLE' found using 'foo' does not match any of the expected tags: <BarEnum.ONE: 1>, <FooEnum.BANANA: 'banana'>, <PlainEnum.TWO: 'two'>",
+     "input": {
+      "foo": {
+       "$enum": [
+        "FooEnum",
+        "apple"
+       ]
+      },
+      "spam": [
+       1,
+       2,
+       "3"
+      ]
+     },
+     "ctx": {
+      "discriminator": "'foo'",
+      "tag": "FooEnum.APPLE",
+      "expected_tags": "<BarEnum.ONE: 1>, <FooEnum.BANANA: 'banana'>, <PlainEnum.TWO: 'two'>"
+     }
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_from_attributes#0",
+  "test": "tests/validators/test_tagged_union.py::test_from_attributes",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "apple": {
+     "type": "model-fields",
+     "fields": {
+      "a": {
+       "type": "model-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "b": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "model-fields",
+     "fields": {
+      "c": {
+       "type": "model-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "d": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   },
+   "discriminator": "foobar"
+  },
+  "config": {
+   "from_attributes": true
+  },
+  "mode": "python",
+  "input": {
+   "foobar": "apple",
+   "a": "apple",
+   "b": "13"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "a": "apple",
+      "b": 13
+     },
+     null,
+     {
+      "$set": [
+       "a",
+       "b"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_from_attributes#1",
+  "test": "tests/validators/test_tagged_union.py::test_from_attributes",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "apple": {
+     "type": "model-fields",
+     "fields": {
+      "a": {
+       "type": "model-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "b": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "model-fields",
+     "fields": {
+      "c": {
+       "type": "model-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "d": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   },
+   "discriminator": "foobar"
+  },
+  "config": {
+   "from_attributes": true
+  },
+  "mode": "python",
+  "input": {
+   "$object": "Cls"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "a": "apple",
+      "b": 13
+     },
+     null,
+     {
+      "$set": [
+       "a",
+       "b"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_from_attributes#2",
+  "test": "tests/validators/test_tagged_union.py::test_from_attributes",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "apple": {
+     "type": "model-fields",
+     "fields": {
+      "a": {
+       "type": "model-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "b": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "model-fields",
+     "fields": {
+      "c": {
+       "type": "model-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "d": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   },
+   "discriminator": "foobar"
+  },
+  "config": {
+   "from_attributes": true
+  },
+  "mode": "python",
+  "input": {
+   "foobar": "banana",
+   "c": "banana",
+   "d": "31"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "c": "banana",
+      "d": 31
+     },
+     null,
+     {
+      "$set": [
+       "c",
+       "d"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_int_choice_keys[json-input_value0-expected0]#0",
+  "test": "tests/validators/test_tagged_union.py::test_int_choice_keys[json-input_value0-expected0]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "choices": {
+    "$dict": [
+     [
+      123,
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        },
+        "bar": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        }
+       }
+      }
+     ],
+     [
+      "banana",
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "str"
+         }
+        },
+        "spam": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "list",
+          "items_schema": {
+           "type": "int"
+          }
+         }
+        }
+       }
+      }
+     ]
+    ]
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"foo\": 123, \"bar\": \"123\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "foo": 123,
+    "bar": 123
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_int_choice_keys[json-input_value1-expected1]#0",
+  "test": "tests/validators/test_tagged_union.py::test_int_choice_keys[json-input_value1-expected1]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "choices": {
+    "$dict": [
+     [
+      123,
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        },
+        "bar": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        }
+       }
+      }
+     ],
+     [
+      "banana",
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "str"
+         }
+        },
+        "spam": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "list",
+          "items_schema": {
+           "type": "int"
+          }
+         }
+        }
+       }
+      }
+     ]
+    ]
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"foo\": \"banana\", \"spam\": [1, 2, \"3\"]}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "foo": "banana",
+    "spam": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_int_choice_keys[json-input_value2-expected2]#0",
+  "test": "tests/validators/test_tagged_union.py::test_int_choice_keys[json-input_value2-expected2]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "choices": {
+    "$dict": [
+     [
+      123,
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        },
+        "bar": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        }
+       }
+      }
+     ],
+     [
+      "banana",
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "str"
+         }
+        },
+        "spam": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "list",
+          "items_schema": {
+           "type": "int"
+          }
+         }
+        }
+       }
+      }
+     ]
+    ]
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"foo\": 123, \"bar\": \"wrong\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      123,
+      "bar"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_int_choice_keys[json-input_value3-expected3]#0",
+  "test": "tests/validators/test_tagged_union.py::test_int_choice_keys[json-input_value3-expected3]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "choices": {
+    "$dict": [
+     [
+      123,
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        },
+        "bar": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        }
+       }
+      }
+     ],
+     [
+      "banana",
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "str"
+         }
+        },
+        "spam": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "list",
+          "items_schema": {
+           "type": "int"
+          }
+         }
+        }
+       }
+      }
+     ]
+    ]
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"foo\": 1234567, \"bar\": \"123\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "union_tag_invalid",
+     "loc": [],
+     "msg": "Input tag '1234567' found using 'foo' does not match any of the expected tags: 123, 'banana'",
+     "input": {
+      "foo": 1234567,
+      "bar": "123"
+     },
+     "ctx": {
+      "discriminator": "'foo'",
+      "tag": "1234567",
+      "expected_tags": "123, 'banana'"
+     }
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_int_choice_keys[python-input_value0-expected0]#0",
+  "test": "tests/validators/test_tagged_union.py::test_int_choice_keys[python-input_value0-expected0]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "choices": {
+    "$dict": [
+     [
+      123,
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        },
+        "bar": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        }
+       }
+      }
+     ],
+     [
+      "banana",
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "str"
+         }
+        },
+        "spam": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "list",
+          "items_schema": {
+           "type": "int"
+          }
+         }
+        }
+       }
+      }
+     ]
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": 123,
+   "bar": "123"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "foo": 123,
+    "bar": 123
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_int_choice_keys[python-input_value1-expected1]#0",
+  "test": "tests/validators/test_tagged_union.py::test_int_choice_keys[python-input_value1-expected1]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "choices": {
+    "$dict": [
+     [
+      123,
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        },
+        "bar": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        }
+       }
+      }
+     ],
+     [
+      "banana",
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "str"
+         }
+        },
+        "spam": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "list",
+          "items_schema": {
+           "type": "int"
+          }
+         }
+        }
+       }
+      }
+     ]
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": "banana",
+   "spam": [
+    1,
+    2,
+    "3"
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "foo": "banana",
+    "spam": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_int_choice_keys[python-input_value2-expected2]#0",
+  "test": "tests/validators/test_tagged_union.py::test_int_choice_keys[python-input_value2-expected2]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "choices": {
+    "$dict": [
+     [
+      123,
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        },
+        "bar": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        }
+       }
+      }
+     ],
+     [
+      "banana",
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "str"
+         }
+        },
+        "spam": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "list",
+          "items_schema": {
+           "type": "int"
+          }
+         }
+        }
+       }
+      }
+     ]
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": 123,
+   "bar": "wrong"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      123,
+      "bar"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_int_choice_keys[python-input_value3-expected3]#0",
+  "test": "tests/validators/test_tagged_union.py::test_int_choice_keys[python-input_value3-expected3]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "choices": {
+    "$dict": [
+     [
+      123,
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        },
+        "bar": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        }
+       }
+      }
+     ],
+     [
+      "banana",
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foo": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "str"
+         }
+        },
+        "spam": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "list",
+          "items_schema": {
+           "type": "int"
+          }
+         }
+        }
+       }
+      }
+     ]
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": 1234567,
+   "bar": "123"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "union_tag_invalid",
+     "loc": [],
+     "msg": "Input tag '1234567' found using 'foo' does not match any of the expected tags: 123, 'banana'",
+     "input": {
+      "foo": 1234567,
+      "bar": "123"
+     },
+     "ctx": {
+      "discriminator": "'foo'",
+      "tag": "1234567",
+      "expected_tags": "123, 'banana'"
+     }
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_int_discriminator_function[json-123-123]#0",
+  "test": "tests/validators/test_tagged_union.py::test_int_discriminator_function[json-123-123]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": {
+    "$function": "discriminator_function"
+   },
+   "choices": {
+    "$dict": [
+     [
+      "a",
+      {
+       "type": "str"
+      }
+     ],
+     [
+      1,
+      {
+       "type": "int"
+      }
+     ]
+    ]
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "123",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_int_discriminator_function[json-None-expected2]#0",
+  "test": "tests/validators/test_tagged_union.py::test_int_discriminator_function[json-None-expected2]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": {
+    "$function": "discriminator_function"
+   },
+   "choices": {
+    "$dict": [
+     [
+      "a",
+      {
+       "type": "str"
+      }
+     ],
+     [
+      1,
+      {
+       "type": "int"
+      }
+     ]
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": null,
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "union_tag_not_found",
+     "loc": [],
+     "msg": "Unable to extract tag using discriminator discriminator_function()",
+     "input": null,
+     "ctx": {
+      "discriminator": "discriminator_function()"
+     }
+    }
+   ],
+   "title": "tagged-union[str,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_int_discriminator_function[json-foo-foo]#0",
+  "test": "tests/validators/test_tagged_union.py::test_int_discriminator_function[json-foo-foo]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": {
+    "$function": "discriminator_function"
+   },
+   "choices": {
+    "$dict": [
+     [
+      "a",
+      {
+       "type": "str"
+      }
+     ],
+     [
+      1,
+      {
+       "type": "int"
+      }
+     ]
+    ]
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foo\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "foo"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_int_discriminator_function[json-input_value3-expected3]#0",
+  "test": "tests/validators/test_tagged_union.py::test_int_discriminator_function[json-input_value3-expected3]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": {
+    "$function": "discriminator_function"
+   },
+   "choices": {
+    "$dict": [
+     [
+      "a",
+      {
+       "type": "str"
+      }
+     ],
+     [
+      1,
+      {
+       "type": "int"
+      }
+     ]
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "wrong type"
+  ],
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "union_tag_invalid",
+     "loc": [],
+     "msg": "Input tag 'other' found using discriminator_function() does not match any of the expected tags: 'a', 1",
+     "input": [
+      "wrong type"
+     ],
+     "ctx": {
+      "discriminator": "discriminator_function()",
+      "tag": "other",
+      "expected_tags": "'a', 1"
+     }
+    }
+   ],
+   "title": "tagged-union[str,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_int_discriminator_function[python-123-123]#0",
+  "test": "tests/validators/test_tagged_union.py::test_int_discriminator_function[python-123-123]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": {
+    "$function": "discriminator_function"
+   },
+   "choices": {
+    "$dict": [
+     [
+      "a",
+      {
+       "type": "str"
+      }
+     ],
+     [
+      1,
+      {
+       "type": "int"
+      }
+     ]
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": 123,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_int_discriminator_function[python-None-expected2]#0",
+  "test": "tests/validators/test_tagged_union.py::test_int_discriminator_function[python-None-expected2]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": {
+    "$function": "discriminator_function"
+   },
+   "choices": {
+    "$dict": [
+     [
+      "a",
+      {
+       "type": "str"
+      }
+     ],
+     [
+      1,
+      {
+       "type": "int"
+      }
+     ]
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": null,
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "union_tag_not_found",
+     "loc": [],
+     "msg": "Unable to extract tag using discriminator discriminator_function()",
+     "input": null,
+     "ctx": {
+      "discriminator": "discriminator_function()"
+     }
+    }
+   ],
+   "title": "tagged-union[str,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_int_discriminator_function[python-foo-foo]#0",
+  "test": "tests/validators/test_tagged_union.py::test_int_discriminator_function[python-foo-foo]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": {
+    "$function": "discriminator_function"
+   },
+   "choices": {
+    "$dict": [
+     [
+      "a",
+      {
+       "type": "str"
+      }
+     ],
+     [
+      1,
+      {
+       "type": "int"
+      }
+     ]
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foo",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "foo"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_int_discriminator_function[python-input_value3-expected3]#0",
+  "test": "tests/validators/test_tagged_union.py::test_int_discriminator_function[python-input_value3-expected3]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": {
+    "$function": "discriminator_function"
+   },
+   "choices": {
+    "$dict": [
+     [
+      "a",
+      {
+       "type": "str"
+      }
+     ],
+     [
+      1,
+      {
+       "type": "int"
+      }
+     ]
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "wrong type"
+  ],
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "union_tag_invalid",
+     "loc": [],
+     "msg": "Input tag 'other' found using discriminator_function() does not match any of the expected tags: 'a', 1",
+     "input": [
+      "wrong type"
+     ],
+     "ctx": {
+      "discriminator": "discriminator_function()",
+      "tag": "other",
+      "expected_tags": "'a', 1"
+     }
+    }
+   ],
+   "title": "tagged-union[str,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_simple_tagged_union[json-'not a dict'-Err('dict_type', errors=[{'type': 'dict_type', 'loc': (), 'msg': IsAnyStr(regex='Input should be (a valid dictionary|an object)'), 'input': 'not a dict'}])]#0",
+  "test": "tests/validators/test_tagged_union.py::test_simple_tagged_union[json-'not a dict'-Err('dict_type', errors=[{'type': 'dict_type', 'loc': (), 'msg': IsAnyStr(regex='Input should be (a valid dictionary|an object)'), 'input': 'not a dict'}])]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "from_attributes": false,
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"not a dict\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "dict_type",
+     "loc": [],
+     "msg": "Input should be an object",
+     "input": "not a dict"
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_simple_tagged_union[json-{'foo': 'apple', 'bar': '123'}-{'foo': 'apple', 'bar': 123}]#0",
+  "test": "tests/validators/test_tagged_union.py::test_simple_tagged_union[json-{'foo': 'apple', 'bar': '123'}-{'foo': 'apple', 'bar': 123}]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "from_attributes": false,
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"foo\": \"apple\", \"bar\": \"123\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "foo": "apple",
+    "bar": 123
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_simple_tagged_union[json-{'foo': 'apple', 'bar': 'wrong'}-Err('Input should be a valid integer', errors=[{'type': 'int_parsing', 'loc': ('apple', 'bar'), 'msg': 'Input should be a valid integer, unable to parse string as an integer', 'input': 'wrong'}])]#0",
+  "test": "tests/validators/test_tagged_union.py::test_simple_tagged_union[json-{'foo': 'apple', 'bar': 'wrong'}-Err('Input should be a valid integer', errors=[{'type': 'int_parsing', 'loc': ('apple', 'bar'), 'msg': 'Input should be a valid integer, unable to parse string as an integer', 'input': 'wrong'}])]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "from_attributes": false,
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"foo\": \"apple\", \"bar\": \"wrong\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "apple",
+      "bar"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_simple_tagged_union[json-{'foo': 'banana', 'spam': [1, 2, '3']}-{'foo': 'banana', 'spam': [1, 2, 3]}]#0",
+  "test": "tests/validators/test_tagged_union.py::test_simple_tagged_union[json-{'foo': 'banana', 'spam': [1, 2, '3']}-{'foo': 'banana', 'spam': [1, 2, 3]}]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "from_attributes": false,
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"foo\": \"banana\", \"spam\": [1, 2, \"3\"]}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "foo": "banana",
+    "spam": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_simple_tagged_union[json-{'foo': 'banana'}-Err('Field required', errors=[{'type': 'missing', 'loc': ('banana', 'spam'), 'msg': 'Field required', 'input': {'foo': 'banana'}}])]#0",
+  "test": "tests/validators/test_tagged_union.py::test_simple_tagged_union[json-{'foo': 'banana'}-Err('Field required', errors=[{'type': 'missing', 'loc': ('banana', 'spam'), 'msg': 'Field required', 'input': {'foo': 'banana'}}])]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "from_attributes": false,
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"foo\": \"banana\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing",
+     "loc": [
+      "banana",
+      "spam"
+     ],
+     "msg": "Field required",
+     "input": {
+      "foo": "banana"
+     }
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_simple_tagged_union[json-{'foo': 'other'}-Err('union_tag_invalid', errors=[{'type': 'union_tag_invalid', 'loc': (), 'msg': \"Input tag 'other' found using 'foo' does not match any of the expected tags: 'apple', 'banana'\", 'input': {'foo': 'other'}, 'ctx': {'discriminator': \"'foo'\", 'tag': 'other', 'expected_tags': \"'apple', 'banana'\"}}])]#0",
+  "test": "tests/validators/test_tagged_union.py::test_simple_tagged_union[json-{'foo': 'other'}-Err('union_tag_invalid', errors=[{'type': 'union_tag_invalid', 'loc': (), 'msg': \"Input tag 'other' found using 'foo' does not match any of the expected tags: 'apple', 'banana'\", 'input': {'foo': 'other'}, 'ctx': {'discriminator': \"'foo'\", 'tag': 'other', 'expected_tags': \"'apple', 'banana'\"}}])]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "from_attributes": false,
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"foo\": \"other\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "union_tag_invalid",
+     "loc": [],
+     "msg": "Input tag 'other' found using 'foo' does not match any of the expected tags: 'apple', 'banana'",
+     "input": {
+      "foo": "other"
+     },
+     "ctx": {
+      "discriminator": "'foo'",
+      "tag": "other",
+      "expected_tags": "'apple', 'banana'"
+     }
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_simple_tagged_union[json-{}-Err('union_tag_not_found', errors=[{'type': 'union_tag_not_found', 'loc': (), 'msg': \"Unable to extract tag using discriminator 'foo'\", 'input': {}, 'ctx': {'discriminator': \"'foo'\"}}])]#0",
+  "test": "tests/validators/test_tagged_union.py::test_simple_tagged_union[json-{}-Err('union_tag_not_found', errors=[{'type': 'union_tag_not_found', 'loc': (), 'msg': \"Unable to extract tag using discriminator 'foo'\", 'input': {}, 'ctx': {'discriminator': \"'foo'\"}}])]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "from_attributes": false,
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "union_tag_not_found",
+     "loc": [],
+     "msg": "Unable to extract tag using discriminator 'foo'",
+     "input": {},
+     "ctx": {
+      "discriminator": "'foo'"
+     }
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_simple_tagged_union[python-'not a dict'-Err('dict_type', errors=[{'type': 'dict_type', 'loc': (), 'msg': IsAnyStr(regex='Input should be (a valid dictionary|an object)'), 'input': 'not a dict'}])]#0",
+  "test": "tests/validators/test_tagged_union.py::test_simple_tagged_union[python-'not a dict'-Err('dict_type', errors=[{'type': 'dict_type', 'loc': (), 'msg': IsAnyStr(regex='Input should be (a valid dictionary|an object)'), 'input': 'not a dict'}])]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "from_attributes": false,
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "not a dict",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "dict_type",
+     "loc": [],
+     "msg": "Input should be a valid dictionary",
+     "input": "not a dict"
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_simple_tagged_union[python-{'foo': 'apple', 'bar': '123'}-{'foo': 'apple', 'bar': 123}]#0",
+  "test": "tests/validators/test_tagged_union.py::test_simple_tagged_union[python-{'foo': 'apple', 'bar': '123'}-{'foo': 'apple', 'bar': 123}]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "from_attributes": false,
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": "apple",
+   "bar": "123"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "foo": "apple",
+    "bar": 123
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_simple_tagged_union[python-{'foo': 'apple', 'bar': 'wrong'}-Err('Input should be a valid integer', errors=[{'type': 'int_parsing', 'loc': ('apple', 'bar'), 'msg': 'Input should be a valid integer, unable to parse string as an integer', 'input': 'wrong'}])]#0",
+  "test": "tests/validators/test_tagged_union.py::test_simple_tagged_union[python-{'foo': 'apple', 'bar': 'wrong'}-Err('Input should be a valid integer', errors=[{'type': 'int_parsing', 'loc': ('apple', 'bar'), 'msg': 'Input should be a valid integer, unable to parse string as an integer', 'input': 'wrong'}])]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "from_attributes": false,
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": "apple",
+   "bar": "wrong"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "apple",
+      "bar"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_simple_tagged_union[python-{'foo': 'banana', 'spam': [1, 2, '3']}-{'foo': 'banana', 'spam': [1, 2, 3]}]#0",
+  "test": "tests/validators/test_tagged_union.py::test_simple_tagged_union[python-{'foo': 'banana', 'spam': [1, 2, '3']}-{'foo': 'banana', 'spam': [1, 2, 3]}]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "from_attributes": false,
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": "banana",
+   "spam": [
+    1,
+    2,
+    "3"
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "foo": "banana",
+    "spam": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_simple_tagged_union[python-{'foo': 'banana'}-Err('Field required', errors=[{'type': 'missing', 'loc': ('banana', 'spam'), 'msg': 'Field required', 'input': {'foo': 'banana'}}])]#0",
+  "test": "tests/validators/test_tagged_union.py::test_simple_tagged_union[python-{'foo': 'banana'}-Err('Field required', errors=[{'type': 'missing', 'loc': ('banana', 'spam'), 'msg': 'Field required', 'input': {'foo': 'banana'}}])]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "from_attributes": false,
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": "banana"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing",
+     "loc": [
+      "banana",
+      "spam"
+     ],
+     "msg": "Field required",
+     "input": {
+      "foo": "banana"
+     }
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_simple_tagged_union[python-{'foo': 'other'}-Err('union_tag_invalid', errors=[{'type': 'union_tag_invalid', 'loc': (), 'msg': \"Input tag 'other' found using 'foo' does not match any of the expected tags: 'apple', 'banana'\", 'input': {'foo': 'other'}, 'ctx': {'discriminator': \"'foo'\", 'tag': 'other', 'expected_tags': \"'apple', 'banana'\"}}])]#0",
+  "test": "tests/validators/test_tagged_union.py::test_simple_tagged_union[python-{'foo': 'other'}-Err('union_tag_invalid', errors=[{'type': 'union_tag_invalid', 'loc': (), 'msg': \"Input tag 'other' found using 'foo' does not match any of the expected tags: 'apple', 'banana'\", 'input': {'foo': 'other'}, 'ctx': {'discriminator': \"'foo'\", 'tag': 'other', 'expected_tags': \"'apple', 'banana'\"}}])]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "from_attributes": false,
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": "other"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "union_tag_invalid",
+     "loc": [],
+     "msg": "Input tag 'other' found using 'foo' does not match any of the expected tags: 'apple', 'banana'",
+     "input": {
+      "foo": "other"
+     },
+     "ctx": {
+      "discriminator": "'foo'",
+      "tag": "other",
+      "expected_tags": "'apple', 'banana'"
+     }
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_simple_tagged_union[python-{}-Err('union_tag_not_found', errors=[{'type': 'union_tag_not_found', 'loc': (), 'msg': \"Unable to extract tag using discriminator 'foo'\", 'input': {}, 'ctx': {'discriminator': \"'foo'\"}}])]#0",
+  "test": "tests/validators/test_tagged_union.py::test_simple_tagged_union[python-{}-Err('union_tag_not_found', errors=[{'type': 'union_tag_not_found', 'loc': (), 'msg': \"Unable to extract tag using discriminator 'foo'\", 'input': {}, 'ctx': {'discriminator': \"'foo'\"}}])]",
+  "schema": {
+   "type": "tagged-union",
+   "discriminator": "foo",
+   "from_attributes": false,
+   "choices": {
+    "apple": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "banana": {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "union_tag_not_found",
+     "loc": [],
+     "msg": "Unable to extract tag using discriminator 'foo'",
+     "input": {},
+     "ctx": {
+      "discriminator": "'foo'"
+     }
+    }
+   ],
+   "title": "tagged-union[typed-dict,typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_use_ref#0",
+  "test": "tests/validators/test_tagged_union.py::test_use_ref",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "tagged-union",
+    "choices": {
+     "apple": {
+      "type": "definition-ref",
+      "schema_ref": "apple"
+     },
+     "apple2": {
+      "type": "definition-ref",
+      "schema_ref": "apple"
+     },
+     "banana": {
+      "type": "typed-dict",
+      "fields": {
+       "b": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "str"
+        }
+       }
+      }
+     }
+    },
+    "discriminator": "foobar"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "a": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      }
+     },
+     "ref": "apple"
+    }
+   ]
+  },
+  "config": {
+   "from_attributes": true
+  },
+  "mode": "python",
+  "input": {
+   "foobar": "apple",
+   "a": "apple"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": "apple"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_use_ref#1",
+  "test": "tests/validators/test_tagged_union.py::test_use_ref",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "tagged-union",
+    "choices": {
+     "apple": {
+      "type": "definition-ref",
+      "schema_ref": "apple"
+     },
+     "apple2": {
+      "type": "definition-ref",
+      "schema_ref": "apple"
+     },
+     "banana": {
+      "type": "typed-dict",
+      "fields": {
+       "b": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "str"
+        }
+       }
+      }
+     }
+    },
+    "discriminator": "foobar"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "a": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      }
+     },
+     "ref": "apple"
+    }
+   ]
+  },
+  "config": {
+   "from_attributes": true
+  },
+  "mode": "python",
+  "input": {
+   "foobar": "apple2",
+   "a": "apple"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": "apple"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_tagged_union.py::test_use_ref#2",
+  "test": "tests/validators/test_tagged_union.py::test_use_ref",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "tagged-union",
+    "choices": {
+     "apple": {
+      "type": "definition-ref",
+      "schema_ref": "apple"
+     },
+     "apple2": {
+      "type": "definition-ref",
+      "schema_ref": "apple"
+     },
+     "banana": {
+      "type": "typed-dict",
+      "fields": {
+       "b": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "str"
+        }
+       }
+      }
+     }
+    },
+    "discriminator": "foobar"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "a": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      }
+     },
+     "ref": "apple"
+    }
+   ]
+  },
+  "config": {
+   "from_attributes": true
+  },
+  "mode": "python",
+  "input": {
+   "foobar": "banana",
+   "b": "banana"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "b": "banana"
+   }
+  }
+ }
+]

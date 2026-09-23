@@ -1,0 +1,369 @@
+[
+ {
+  "id": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_inner_schema#0",
+  "test": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_inner_schema",
+  "schema": {
+   "type": "missing-sentinel",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "sentinel"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "sentinel"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_inner_schema#1",
+  "test": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_inner_schema",
+  "schema": {
+   "type": "missing-sentinel",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_inner_schema#2",
+  "test": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_inner_schema",
+  "schema": {
+   "type": "missing-sentinel",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "123",
+  "options": {},
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_inner_schema#3",
+  "test": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_inner_schema",
+  "schema": {
+   "type": "missing-sentinel",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "123",
+  "options": {},
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_inner_schema#4",
+  "test": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_inner_schema",
+  "schema": {
+   "type": "missing-sentinel",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "hello",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "hello"
+    }
+   ],
+   "title": "missing-sentinel[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_inner_schema#5",
+  "test": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_inner_schema",
+  "schema": {
+   "type": "missing-sentinel",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"hello\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "hello"
+    }
+   ],
+   "title": "missing-sentinel[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_inner_schema_none_not_allowed#0",
+  "test": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_inner_schema_none_not_allowed",
+  "schema": {
+   "type": "missing-sentinel",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [],
+     "msg": "Input should be a valid integer",
+     "input": null
+    }
+   ],
+   "title": "missing-sentinel[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_model_field#0",
+  "test": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_model_field",
+  "schema": {
+   "type": "model-fields",
+   "fields": {
+    "f": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "missing-sentinel",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": {
+       "$object": "sentinel"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "f": {
+       "$object": "sentinel"
+      }
+     },
+     null,
+     {
+      "$set": []
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_model_field#1",
+  "test": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_model_field",
+  "schema": {
+   "type": "model-fields",
+   "fields": {
+    "f": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "missing-sentinel",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": {
+       "$object": "sentinel"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "f": {
+    "$object": "sentinel"
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "f": {
+       "$object": "sentinel"
+      }
+     },
+     null,
+     {
+      "$set": [
+       "f"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_model_field#2",
+  "test": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_model_field",
+  "schema": {
+   "type": "model-fields",
+   "fields": {
+    "f": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "missing-sentinel",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": {
+       "$object": "sentinel"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "f": 1
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "f": 1
+     },
+     null,
+     {
+      "$set": [
+       "f"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_model_field#3",
+  "test": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_model_field",
+  "schema": {
+   "type": "model-fields",
+   "fields": {
+    "f": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "missing-sentinel",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": {
+       "$object": "sentinel"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "f": "hello"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "f"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "hello"
+    }
+   ],
+   "title": "model-fields"
+  }
+ },
+ {
+  "id": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_no_inner_schema#0",
+  "test": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_no_inner_schema",
+  "schema": {
+   "type": "missing-sentinel"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "sentinel"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "sentinel"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_no_inner_schema#1",
+  "test": "tests/validators/test_missing_sentinel.py::test_missing_sentinel_no_inner_schema",
+  "schema": {
+   "type": "missing-sentinel"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "missing_sentinel_error",
+     "loc": [],
+     "msg": "Input should be the 'MISSING' sentinel",
+     "input": 1
+    }
+   ],
+   "title": "missing-sentinel"
+  }
+ }
+]

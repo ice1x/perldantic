@@ -1,0 +1,1828 @@
+[
+ {
+  "id": "tests/validators/test_dict.py::test_dict[json]#0",
+  "test": "tests/validators/test_dict.py::test_dict[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"1\": 2, \"3\": 4}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict[json]#1",
+  "test": "tests/validators/test_dict.py::test_dict[json]",
+  "schema": {
+   "type": "dict",
+   "strict": true,
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"1\": 2, \"3\": 4}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict[json]#2",
+  "test": "tests/validators/test_dict.py::test_dict[json]",
+  "schema": {
+   "type": "dict",
+   "strict": true,
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {}
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict[json]#3",
+  "test": "tests/validators/test_dict.py::test_dict[json]",
+  "schema": {
+   "type": "dict",
+   "strict": true,
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "dict_type",
+     "loc": [],
+     "msg": "Input should be an object",
+     "input": []
+    }
+   ],
+   "title": "dict[int,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict[python]#0",
+  "test": "tests/validators/test_dict.py::test_dict[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "1": 2,
+   "3": 4
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict[python]#1",
+  "test": "tests/validators/test_dict.py::test_dict[python]",
+  "schema": {
+   "type": "dict",
+   "strict": true,
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "1": 2,
+   "3": 4
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict[python]#2",
+  "test": "tests/validators/test_dict.py::test_dict[python]",
+  "schema": {
+   "type": "dict",
+   "strict": true,
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {}
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict[python]#3",
+  "test": "tests/validators/test_dict.py::test_dict[python]",
+  "schema": {
+   "type": "dict",
+   "strict": true,
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "dict_type",
+     "loc": [],
+     "msg": "Input should be a valid dictionary",
+     "input": []
+    }
+   ],
+   "title": "dict[int,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_any_value#0",
+  "test": "tests/validators/test_dict.py::test_dict_any_value",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "1": 1,
+   "2": "a",
+   "3": null
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "1": 1,
+    "2": "a",
+    "3": null
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_cases['foobar'-Err(\"Input should be a valid dictionary [type=dict_type, input_value='foobar', input_type=str]\")]#0",
+  "test": "tests/validators/test_dict.py::test_dict_cases['foobar'-Err(\"Input should be a valid dictionary [type=dict_type, input_value='foobar', input_type=str]\")]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foobar",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "dict_type",
+     "loc": [],
+     "msg": "Input should be a valid dictionary",
+     "input": "foobar"
+    }
+   ],
+   "title": "dict[str,str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_cases[(('x', 'y'),)-Err('Input should be a valid dictionary [type=dict_type,')]#0",
+  "test": "tests/validators/test_dict.py::test_dict_cases[(('x', 'y'),)-Err('Input should be a valid dictionary [type=dict_type,')]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    {
+     "$tuple": [
+      "x",
+      "y"
+     ]
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "dict_type",
+     "loc": [],
+     "msg": "Input should be a valid dictionary",
+     "input": {
+      "$tuple": [
+       {
+        "$tuple": [
+         "x",
+         "y"
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "title": "dict[str,str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_cases[()-Err('Input should be a valid dictionary [type=dict_type,')]#0",
+  "test": "tests/validators/test_dict.py::test_dict_cases[()-Err('Input should be a valid dictionary [type=dict_type,')]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": []
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "dict_type",
+     "loc": [],
+     "msg": "Input should be a valid dictionary",
+     "input": {
+      "$tuple": []
+     }
+    }
+   ],
+   "title": "dict[str,str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_cases[<tests.validators.test_dict.Foobar object at 0x...>-Err('Input should be a valid dictionary [type=dict_type,')]#0",
+  "test": "tests/validators/test_dict.py::test_dict_cases[<tests.validators.test_dict.Foobar object at 0x...>-Err('Input should be a valid dictionary [type=dict_type,')]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "Foobar"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "dict_type",
+     "loc": [],
+     "msg": "Input should be a valid dictionary",
+     "input": {
+      "$object": "Foobar"
+     }
+    }
+   ],
+   "title": "dict[str,str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_cases[OrderedDict({'a': b'1', 'b': '2'})-{'a': '1', 'b': '2'}]#0",
+  "test": "tests/validators/test_dict.py::test_dict_cases[OrderedDict({'a': b'1', 'b': '2'})-{'a': '1', 'b': '2'}]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "OrderedDict",
+    {
+     "a": {
+      "$bytes": "MQ=="
+     },
+     "b": "2"
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": "1",
+    "b": "2"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_cases[[('x', 'y'), ('z', 'z')]-Err('Input should be a valid dictionary [type=dict_type,')]#0",
+  "test": "tests/validators/test_dict.py::test_dict_cases[[('x', 'y'), ('z', 'z')]-Err('Input should be a valid dictionary [type=dict_type,')]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   {
+    "$tuple": [
+     "x",
+     "y"
+    ]
+   },
+   {
+    "$tuple": [
+     "z",
+     "z"
+    ]
+   }
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "dict_type",
+     "loc": [],
+     "msg": "Input should be a valid dictionary",
+     "input": [
+      {
+       "$tuple": [
+        "x",
+        "y"
+       ]
+      },
+      {
+       "$tuple": [
+        "z",
+        "z"
+       ]
+      }
+     ]
+    }
+   ],
+   "title": "dict[str,str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_cases[[('x', 'y')]-Err('Input should be a valid dictionary [type=dict_type,')]#0",
+  "test": "tests/validators/test_dict.py::test_dict_cases[[('x', 'y')]-Err('Input should be a valid dictionary [type=dict_type,')]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   {
+    "$tuple": [
+     "x",
+     "y"
+    ]
+   }
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "dict_type",
+     "loc": [],
+     "msg": "Input should be a valid dictionary",
+     "input": [
+      {
+       "$tuple": [
+        "x",
+        "y"
+       ]
+      }
+     ]
+    }
+   ],
+   "title": "dict[str,str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_cases[[]-Err('Input should be a valid dictionary [type=dict_type,')]#0",
+  "test": "tests/validators/test_dict.py::test_dict_cases[[]-Err('Input should be a valid dictionary [type=dict_type,')]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "dict_type",
+     "loc": [],
+     "msg": "Input should be a valid dictionary",
+     "input": []
+    }
+   ],
+   "title": "dict[str,str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_cases[{'1': b'1', '2': b'2'}-{'1': '1', '2': '2'}]#0",
+  "test": "tests/validators/test_dict.py::test_dict_cases[{'1': b'1', '2': b'2'}-{'1': '1', '2': '2'}]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "1": {
+    "$bytes": "MQ=="
+   },
+   "2": {
+    "$bytes": "Mg=="
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "1": "1",
+    "2": "2"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_cases[{}-{}]#0",
+  "test": "tests/validators/test_dict.py::test_dict_cases[{}-{}]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {}
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_complex_key#0",
+  "test": "tests/validators/test_dict.py::test_dict_complex_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "complex",
+    "strict": true
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$object": "complex"
+     },
+     "1"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$object": "complex"
+      },
+      "1"
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_complex_key#1",
+  "test": "tests/validators/test_dict.py::test_dict_complex_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "complex",
+    "strict": true
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "1+2j": {
+    "$bytes": "MQ=="
+   }
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [
+      "1+2j",
+      "[key]"
+     ],
+     "msg": "Input should be an instance of complex",
+     "input": "1+2j",
+     "ctx": {
+      "class": "complex"
+     }
+    }
+   ],
+   "title": "dict[complex,str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_complex_key#2",
+  "test": "tests/validators/test_dict.py::test_dict_complex_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "complex"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "1+2ja": {
+    "$bytes": "MQ=="
+   }
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "complex_type",
+     "loc": [
+      "1+2ja",
+      "[key]"
+     ],
+     "msg": "Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex",
+     "input": "1+2ja"
+    }
+   ],
+   "title": "dict[complex,str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_error_key_int#0",
+  "test": "tests/validators/test_dict.py::test_dict_error_key_int",
+  "schema": {
+   "type": "dict",
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     "wrong"
+    ],
+    [
+     -4,
+     "wrong2"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      3
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    },
+    {
+     "type": "int_parsing",
+     "loc": [
+      -4
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong2"
+    }
+   ],
+   "title": "dict[any,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_error_key_other#0",
+  "test": "tests/validators/test_dict.py::test_dict_error_key_other",
+  "schema": {
+   "type": "dict",
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ],
+    [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     "wrong"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "(1, 2)"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "dict[any,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_fail_fast[fail_fast]#0",
+  "test": "tests/validators/test_dict.py::test_dict_fail_fast[fail_fast]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   },
+   "fail_fast": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": "b",
+   "c": "d"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "a",
+      "[key]"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "a"
+    }
+   ],
+   "title": "dict[int,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_fail_fast[not_fail_fast]#0",
+  "test": "tests/validators/test_dict.py::test_dict_fail_fast[not_fail_fast]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   },
+   "fail_fast": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": "b",
+   "c": "d"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "a",
+      "[key]"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "a"
+    },
+    {
+     "type": "int_parsing",
+     "loc": [
+      "a"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "b"
+    },
+    {
+     "type": "int_parsing",
+     "loc": [
+      "c",
+      "[key]"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "c"
+    },
+    {
+     "type": "int_parsing",
+     "loc": [
+      "c"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "d"
+    }
+   ],
+   "title": "dict[int,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_length_constraints[kwargs0-input_value0-expected0]#0",
+  "test": "tests/validators/test_dict.py::test_dict_length_constraints[kwargs0-input_value0-expected0]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "1": 1,
+   "2": 2
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "1": 1,
+    "2": 2
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_length_constraints[kwargs1-input_value1-expected1]#0",
+  "test": "tests/validators/test_dict.py::test_dict_length_constraints[kwargs1-input_value1-expected1]",
+  "schema": {
+   "type": "dict",
+   "min_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "1": 1,
+   "2": 2,
+   "3": 3.0,
+   "4": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "1": 1,
+    "2": 2,
+    "3": 3.0,
+    "4": [
+     1,
+     2,
+     3,
+     4
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_length_constraints[kwargs2-input_value2-expected2]#0",
+  "test": "tests/validators/test_dict.py::test_dict_length_constraints[kwargs2-input_value2-expected2]",
+  "schema": {
+   "type": "dict",
+   "min_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     "2"
+    ],
+    [
+     3,
+     "4"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_short",
+     "loc": [],
+     "msg": "Dictionary should have at least 3 items after validation, not 2",
+     "input": {
+      "$dict": [
+       [
+        1,
+        "2"
+       ],
+       [
+        3,
+        "4"
+       ]
+      ]
+     },
+     "ctx": {
+      "field_type": "Dictionary",
+      "min_length": 3,
+      "actual_length": 2
+     }
+    }
+   ],
+   "title": "dict[any,any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_length_constraints[kwargs3-input_value3-expected3]#0",
+  "test": "tests/validators/test_dict.py::test_dict_length_constraints[kwargs3-input_value3-expected3]",
+  "schema": {
+   "type": "dict",
+   "max_length": 4
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "1": 1,
+   "2": 2,
+   "3": 3.0
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "1": 1,
+    "2": 2,
+    "3": 3.0
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_length_constraints[kwargs4-input_value4-expected4]#0",
+  "test": "tests/validators/test_dict.py::test_dict_length_constraints[kwargs4-input_value4-expected4]",
+  "schema": {
+   "type": "dict",
+   "max_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "1": 1,
+   "2": 2,
+   "3": 3.0,
+   "4": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_long",
+     "loc": [],
+     "msg": "Dictionary should have at most 3 items after validation, not 4",
+     "input": {
+      "1": 1,
+      "2": 2,
+      "3": 3.0,
+      "4": [
+       1,
+       2,
+       3,
+       4
+      ]
+     },
+     "ctx": {
+      "field_type": "Dictionary",
+      "max_length": 3,
+      "actual_length": 4
+     }
+    }
+   ],
+   "title": "dict[any,any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_value_error[json]#0",
+  "test": "tests/validators/test_dict.py::test_dict_value_error[json]",
+  "schema": {
+   "type": "dict",
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"a\": 2, \"b\": \"4\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "a": 2,
+    "b": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_value_error[json]#1",
+  "test": "tests/validators/test_dict.py::test_dict_value_error[json]",
+  "schema": {
+   "type": "dict",
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"a\": 2, \"b\": \"wrong\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "b"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "dict[any,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_value_error[python]#0",
+  "test": "tests/validators/test_dict.py::test_dict_value_error[python]",
+  "schema": {
+   "type": "dict",
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 2,
+   "b": "4"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "a": 2,
+    "b": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_dict_value_error[python]#1",
+  "test": "tests/validators/test_dict.py::test_dict_value_error[python]",
+  "schema": {
+   "type": "dict",
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 2,
+   "b": "wrong"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "b"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "dict[any,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_json_dict#0",
+  "test": "tests/validators/test_dict.py::test_json_dict",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"1\": 2, \"3\": 4}",
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_json_dict#1",
+  "test": "tests/validators/test_dict.py::test_json_dict",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "dict_type",
+     "loc": [],
+     "msg": "Input should be an object",
+     "input": 1
+    }
+   ],
+   "title": "dict[int,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_json_dict_complex_key#0",
+  "test": "tests/validators/test_dict.py::test_json_dict_complex_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "complex"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"1+2j\": 2, \"-3\": 4}",
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$object": "complex"
+      },
+      2
+     ],
+     [
+      {
+       "$object": "complex"
+      },
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_json_dict_complex_key#1",
+  "test": "tests/validators/test_dict.py::test_json_dict_complex_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "complex"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"1+2j\": 2, \"infj\": 4}",
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$object": "complex"
+      },
+      2
+     ],
+     [
+      {
+       "$object": "complex"
+      },
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_json_dict_complex_key#2",
+  "test": "tests/validators/test_dict.py::test_json_dict_complex_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "complex"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"1+2j\": 2, \"\": 4}",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "complex_str_parsing",
+     "loc": [
+      "",
+      "[key]"
+     ],
+     "msg": "Input should be a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex",
+     "input": ""
+    }
+   ],
+   "title": "dict[complex,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_key_error#0",
+  "test": "tests/validators/test_dict.py::test_key_error",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "1": true
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      1
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_key_error#1",
+  "test": "tests/validators/test_dict.py::test_key_error",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": 1
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "x",
+      "[key]"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "x"
+    }
+   ],
+   "title": "dict[int,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_mapping#0",
+  "test": "tests/validators/test_dict.py::test_mapping",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "MyMapping"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_mapping#1",
+  "test": "tests/validators/test_dict.py::test_mapping",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "MyMapping"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "dict_type",
+     "loc": [],
+     "msg": "Input should be a valid dictionary",
+     "input": {
+      "$object": "MyMapping"
+     }
+    }
+   ],
+   "title": "dict[int,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_mapping_error#0",
+  "test": "tests/validators/test_dict.py::test_mapping_error",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "BadMapping"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "mapping_type",
+     "loc": [],
+     "msg": "Input should be a valid mapping, error: RuntimeError: intentional error",
+     "input": {
+      "$object": "BadMapping"
+     },
+     "ctx": {
+      "error": "RuntimeError: intentional error"
+     }
+    }
+   ],
+   "title": "dict[int,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_mapping_error_yield_1[mapping_items0]#0",
+  "test": "tests/validators/test_dict.py::test_mapping_error_yield_1[mapping_items0]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "BadMapping"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "mapping_type",
+     "loc": [],
+     "msg": "Input should be a valid mapping, error: Mapping items must be tuples of (key, value) pairs",
+     "input": {
+      "$object": "BadMapping"
+     },
+     "ctx": {
+      "error": "Mapping items must be tuples of (key, value) pairs"
+     }
+    }
+   ],
+   "title": "dict[int,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_mapping_error_yield_1[mapping_items1]#0",
+  "test": "tests/validators/test_dict.py::test_mapping_error_yield_1[mapping_items1]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "BadMapping"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "mapping_type",
+     "loc": [],
+     "msg": "Input should be a valid mapping, error: Mapping items must be tuples of (key, value) pairs",
+     "input": {
+      "$object": "BadMapping"
+     },
+     "ctx": {
+      "error": "Mapping items must be tuples of (key, value) pairs"
+     }
+    }
+   ],
+   "title": "dict[int,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_mapping_error_yield_1[mapping_items2]#0",
+  "test": "tests/validators/test_dict.py::test_mapping_error_yield_1[mapping_items2]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "BadMapping"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "mapping_type",
+     "loc": [],
+     "msg": "Input should be a valid mapping, error: Mapping items must be tuples of (key, value) pairs",
+     "input": {
+      "$object": "BadMapping"
+     },
+     "ctx": {
+      "error": "Mapping items must be tuples of (key, value) pairs"
+     }
+    }
+   ],
+   "title": "dict[int,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_mapping_error_yield_1[not list]#0",
+  "test": "tests/validators/test_dict.py::test_mapping_error_yield_1[not list]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "BadMapping"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "mapping_type",
+     "loc": [],
+     "msg": "Input should be a valid mapping, error: Mapping items must be tuples of (key, value) pairs",
+     "input": {
+      "$object": "BadMapping"
+     },
+     "ctx": {
+      "error": "Mapping items must be tuples of (key, value) pairs"
+     }
+    }
+   ],
+   "title": "dict[int,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_ordered_dict_key_order_preservation[False]#0",
+  "test": "tests/validators/test_dict.py::test_ordered_dict_key_order_preservation[False]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "OrderedDict",
+    {
+     "b": 2,
+     "a": 1
+    }
+   ]
+  },
+  "options": {
+   "strict": false
+  },
+  "expected": {
+   "output": {
+    "b": 2,
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_ordered_dict_key_order_preservation[False]#1",
+  "test": "tests/validators/test_dict.py::test_ordered_dict_key_order_preservation[False]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "OrderedDict",
+    {
+     "y": 2,
+     "z": 3,
+     "x": 1
+    }
+   ]
+  },
+  "options": {
+   "strict": false
+  },
+  "expected": {
+   "output": {
+    "y": 2,
+    "z": 3,
+    "x": 1
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_ordered_dict_key_order_preservation[True]#0",
+  "test": "tests/validators/test_dict.py::test_ordered_dict_key_order_preservation[True]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "OrderedDict",
+    {
+     "b": 2,
+     "a": 1
+    }
+   ]
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": {
+    "b": 2,
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_dict.py::test_ordered_dict_key_order_preservation[True]#1",
+  "test": "tests/validators/test_dict.py::test_ordered_dict_key_order_preservation[True]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "OrderedDict",
+    {
+     "y": 2,
+     "z": 3,
+     "x": 1
+    }
+   ]
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": {
+    "y": 2,
+    "z": 3,
+    "x": 1
+   }
+  }
+ }
+]

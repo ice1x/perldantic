@@ -1,0 +1,4734 @@
+[
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_branch_nullable#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_branch_nullable",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "ref": "Branch",
+     "fields": {
+      "name": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "sub_branch": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "nullable",
+         "schema": {
+          "type": "definition-ref",
+          "schema_ref": "Branch"
+         }
+        },
+        "default": null
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "name": "root"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "name": "root",
+    "sub_branch": null
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_branch_nullable#1",
+  "test": "tests/validators/test_definitions_recursive.py::test_branch_nullable",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "ref": "Branch",
+     "fields": {
+      "name": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "sub_branch": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "nullable",
+         "schema": {
+          "type": "definition-ref",
+          "schema_ref": "Branch"
+         }
+        },
+        "default": null
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "name": "root",
+   "sub_branch": {
+    "name": "b1"
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "name": "root",
+    "sub_branch": {
+     "name": "b1",
+     "sub_branch": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_branch_nullable#2",
+  "test": "tests/validators/test_definitions_recursive.py::test_branch_nullable",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "ref": "Branch",
+     "fields": {
+      "name": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "sub_branch": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "nullable",
+         "schema": {
+          "type": "definition-ref",
+          "schema_ref": "Branch"
+         }
+        },
+        "default": null
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "name": "root",
+   "sub_branch": {
+    "name": "b1",
+    "sub_branch": {
+     "name": "b2"
+    }
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "name": "root",
+    "sub_branch": {
+     "name": "b1",
+     "sub_branch": {
+      "name": "b2",
+      "sub_branch": null
+     }
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_complex_recursive_type#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_complex_recursive_type",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "JsonType"
+   },
+   "definitions": [
+    {
+     "type": "nullable",
+     "schema": {
+      "type": "union",
+      "choices": [
+       {
+        "type": "list",
+        "items_schema": {
+         "type": "definition-ref",
+         "schema_ref": "JsonType"
+        }
+       },
+       {
+        "type": "dict",
+        "keys_schema": {
+         "type": "str"
+        },
+        "values_schema": {
+         "type": "definition-ref",
+         "schema_ref": "JsonType"
+        }
+       },
+       {
+        "type": "str"
+       },
+       {
+        "type": "int"
+       },
+       {
+        "type": "float"
+       },
+       {
+        "type": "bool"
+       }
+      ]
+     },
+     "ref": "JsonType"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": {
+    "$date": "1992-12-11"
+   }
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [
+      "list[nullable[union[list[...],dict[str,...],str,int,float,bool]]]"
+     ],
+     "msg": "Input should be a valid list",
+     "input": {
+      "a": {
+       "$date": "1992-12-11"
+      }
+     }
+    },
+    {
+     "type": "list_type",
+     "loc": [
+      "dict[str,...]",
+      "a",
+      "list[nullable[union[list[...],dict[str,...],str,int,float,bool]]]"
+     ],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$date": "1992-12-11"
+     }
+    },
+    {
+     "type": "dict_type",
+     "loc": [
+      "dict[str,...]",
+      "a",
+      "dict[str,...]"
+     ],
+     "msg": "Input should be a valid dictionary",
+     "input": {
+      "$date": "1992-12-11"
+     }
+    },
+    {
+     "type": "string_type",
+     "loc": [
+      "dict[str,...]",
+      "a",
+      "str"
+     ],
+     "msg": "Input should be a valid string",
+     "input": {
+      "$date": "1992-12-11"
+     }
+    },
+    {
+     "type": "int_type",
+     "loc": [
+      "dict[str,...]",
+      "a",
+      "int"
+     ],
+     "msg": "Input should be a valid integer",
+     "input": {
+      "$date": "1992-12-11"
+     }
+    },
+    {
+     "type": "float_type",
+     "loc": [
+      "dict[str,...]",
+      "a",
+      "float"
+     ],
+     "msg": "Input should be a valid number",
+     "input": {
+      "$date": "1992-12-11"
+     }
+    },
+    {
+     "type": "bool_type",
+     "loc": [
+      "dict[str,...]",
+      "a",
+      "bool"
+     ],
+     "msg": "Input should be a valid boolean",
+     "input": {
+      "$date": "1992-12-11"
+     }
+    },
+    {
+     "type": "string_type",
+     "loc": [
+      "str"
+     ],
+     "msg": "Input should be a valid string",
+     "input": {
+      "a": {
+       "$date": "1992-12-11"
+      }
+     }
+    },
+    {
+     "type": "int_type",
+     "loc": [
+      "int"
+     ],
+     "msg": "Input should be a valid integer",
+     "input": {
+      "a": {
+       "$date": "1992-12-11"
+      }
+     }
+    },
+    {
+     "type": "float_type",
+     "loc": [
+      "float"
+     ],
+     "msg": "Input should be a valid number",
+     "input": {
+      "a": {
+       "$date": "1992-12-11"
+      }
+     }
+    },
+    {
+     "type": "bool_type",
+     "loc": [
+      "bool"
+     ],
+     "msg": "Input should be a valid boolean",
+     "input": {
+      "a": {
+       "$date": "1992-12-11"
+      }
+     }
+    }
+   ],
+   "title": "nullable[union[list[...],dict[str,...],str,int,float,bool]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_cyclic_data#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_cyclic_data",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "a"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "b": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "b"
+        }
+       }
+      }
+     },
+     "ref": "a"
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "a": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "a"
+        }
+       }
+      }
+     },
+     "ref": "b"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "cyclic"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "recursion_loop",
+     "loc": [
+      "b",
+      "a"
+     ],
+     "msg": "Recursion error - cyclic reference detected",
+     "input": {
+      "$object": "cyclic"
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_cyclic_data_threeway#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_cyclic_data_threeway",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "a"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "b": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "b"
+        }
+       }
+      }
+     },
+     "ref": "a"
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "c": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "c"
+        }
+       }
+      }
+     },
+     "ref": "b"
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "a": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "a"
+        }
+       }
+      }
+     },
+     "ref": "c"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "cyclic"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "recursion_loop",
+     "loc": [
+      "b",
+      "c",
+      "a"
+     ],
+     "msg": "Recursion error - cyclic reference detected",
+     "input": {
+      "$object": "cyclic"
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_definition_list#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_definition_list",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "the-list"
+   },
+   "definitions": [
+    {
+     "type": "list",
+     "items_schema": {
+      "type": "definition-ref",
+      "schema_ref": "the-list"
+     },
+     "ref": "the-list"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": [],
+  "options": {},
+  "expected": {
+   "output": []
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_definition_list#1",
+  "test": "tests/validators/test_definitions_recursive.py::test_definition_list",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "the-list"
+   },
+   "definitions": [
+    {
+     "type": "list",
+     "items_schema": {
+      "type": "definition-ref",
+      "schema_ref": "the-list"
+     },
+     "ref": "the-list"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   []
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    []
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_definition_list#2",
+  "test": "tests/validators/test_definitions_recursive.py::test_definition_list",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "the-list"
+   },
+   "definitions": [
+    {
+     "type": "list",
+     "items_schema": {
+      "type": "definition-ref",
+      "schema_ref": "the-list"
+     },
+     "ref": "the-list"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "cyclic"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "recursion_loop",
+     "loc": [
+      0
+     ],
+     "msg": "Recursion error - cyclic reference detected",
+     "input": {
+      "$object": "cyclic"
+     }
+    }
+   ],
+   "title": "list[...]"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_definition_wrap#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_definition_wrap",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "wrapper"
+   },
+   "definitions": [
+    {
+     "type": "function-wrap",
+     "function": {
+      "type": "with-info",
+      "function": {
+       "$function": "wrap_func"
+      }
+     },
+     "schema": {
+      "type": "tuple",
+      "items_schema": [
+       {
+        "type": "int"
+       },
+       {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "wrapper"
+        }
+       }
+      ]
+     },
+     "ref": "wrapper"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    null
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     null,
+     42
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_definition_wrap#1",
+  "test": "tests/validators/test_definitions_recursive.py::test_definition_wrap",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "wrapper"
+   },
+   "definitions": [
+    {
+     "type": "function-wrap",
+     "function": {
+      "type": "with-info",
+      "function": {
+       "$function": "wrap_func"
+      }
+     },
+     "schema": {
+      "type": "tuple",
+      "items_schema": [
+       {
+        "type": "int"
+       },
+       {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "wrapper"
+        }
+       }
+      ]
+     },
+     "ref": "wrapper"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    {
+     "$tuple": [
+      2,
+      {
+       "$tuple": [
+        3,
+        null
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     {
+      "$tuple": [
+       2,
+       {
+        "$tuple": [
+         3,
+         null,
+         42
+        ]
+       },
+       42
+      ]
+     },
+     42
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_definition_wrap#2",
+  "test": "tests/validators/test_definitions_recursive.py::test_definition_wrap",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "wrapper"
+   },
+   "definitions": [
+    {
+     "type": "function-wrap",
+     "function": {
+      "type": "with-info",
+      "function": {
+       "$function": "wrap_func"
+      }
+     },
+     "schema": {
+      "type": "tuple",
+      "items_schema": [
+       {
+        "type": "int"
+       },
+       {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "wrapper"
+        }
+       }
+      ]
+     },
+     "ref": "wrapper"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "cyclic"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "recursion_loop",
+     "loc": [
+      1
+     ],
+     "msg": "Recursion error - cyclic reference detected",
+     "input": {
+      "$object": "cyclic"
+     }
+    }
+   ],
+   "title": "function-wrap[wrap_func()]"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_function_change_id[strict=False]#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_function_change_id[strict=False]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "root-schema"
+   },
+   "definitions": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "function-before",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "f"
+        }
+       },
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "root-schema"
+       }
+      }
+     ],
+     "auto_collapse": false,
+     "ref": "root-schema"
+    }
+   ]
+  },
+  "config": {
+   "strict": false
+  },
+  "mode": "python",
+  "input": "start-0",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "recursion_loop",
+     "loc": [
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]"
+     ],
+     "msg": "Recursion error - cyclic reference detected",
+     "input": "f-255"
+    }
+   ],
+   "title": "union[function-before[f(), ...]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_function_change_id[strict=True]#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_function_change_id[strict=True]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "root-schema"
+   },
+   "definitions": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "function-before",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "f"
+        }
+       },
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "root-schema"
+       }
+      }
+     ],
+     "auto_collapse": false,
+     "ref": "root-schema"
+    }
+   ]
+  },
+  "config": {
+   "strict": true
+  },
+  "mode": "python",
+  "input": "start-0",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "recursion_loop",
+     "loc": [
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]",
+      "function-before[f(), ...]"
+     ],
+     "msg": "Recursion error - cyclic reference detected",
+     "input": "f-255"
+    }
+   ],
+   "title": "union[function-before[f(), ...]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_function_name#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_function_name",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "root-schema"
+   },
+   "definitions": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "function-after",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "f"
+        }
+       },
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "root-schema"
+       }
+      },
+      {
+       "type": "int"
+      }
+     ],
+     "ref": "root-schema"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_function_name#1",
+  "test": "tests/validators/test_definitions_recursive.py::test_function_name",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "root-schema"
+   },
+   "definitions": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "function-after",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "f"
+        }
+       },
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "root-schema"
+       }
+      },
+      {
+       "type": "int"
+      }
+     ],
+     "ref": "root-schema"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "recursion_loop",
+     "loc": [
+      "function-after[f(), ...]"
+     ],
+     "msg": "Recursion error - cyclic reference detected",
+     "input": "input value"
+    },
+    {
+     "type": "int_parsing",
+     "loc": [
+      "int"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "input value"
+    }
+   ],
+   "title": "union[function-after[f(), ...],int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_list#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_list",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "BranchList"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "width": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "branches": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "list",
+         "items_schema": {
+          "type": "definition-ref",
+          "schema_ref": "BranchList"
+         }
+        },
+        "default": null
+       }
+      }
+     },
+     "ref": "BranchList"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "width": 1,
+   "branches": [
+    {
+     "width": 2
+    },
+    {
+     "width": 3,
+     "branches": [
+      {
+       "width": 4
+      }
+     ]
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "width": 1,
+    "branches": [
+     {
+      "width": 2,
+      "branches": null
+     },
+     {
+      "width": 3,
+      "branches": [
+       {
+        "width": 4,
+        "branches": null
+       }
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_many_uses_of_ref#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_many_uses_of_ref",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "name": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "limited-string"
+       }
+      },
+      "other_names": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "definition-ref",
+         "schema_ref": "limited-string"
+        }
+       }
+      }
+     },
+     "ref": "Branch"
+    },
+    {
+     "type": "str",
+     "max_length": 8,
+     "ref": "limited-string"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "name": "Anne",
+   "other_names": [
+    "Bob",
+    "Charlie"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "name": "Anne",
+    "other_names": [
+     "Bob",
+     "Charlie"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_many_uses_of_ref#1",
+  "test": "tests/validators/test_definitions_recursive.py::test_many_uses_of_ref",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "name": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "limited-string"
+       }
+      },
+      "other_names": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "definition-ref",
+         "schema_ref": "limited-string"
+        }
+       }
+      }
+     },
+     "ref": "Branch"
+    },
+    {
+     "type": "str",
+     "max_length": 8,
+     "ref": "limited-string"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "name": "Anne",
+   "other_names": [
+    "Bob",
+    "Charlie",
+    "Daveeeeee"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_too_long",
+     "loc": [
+      "other_names",
+      2
+     ],
+     "msg": "String should have at most 8 characters",
+     "input": "Daveeeeee",
+     "ctx": {
+      "max_length": 8
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_many_uses_of_ref#2",
+  "test": "tests/validators/test_definitions_recursive.py::test_many_uses_of_ref",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "name": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "limited-string"
+       }
+      },
+      "other_names": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "definition-ref",
+         "schema_ref": "limited-string"
+        }
+       }
+      }
+     },
+     "ref": "Branch"
+    },
+    {
+     "type": "str",
+     "max_length": 8,
+     "ref": "limited-string"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "name": "Anne",
+   "other_names": [
+    "p-0",
+    "p-1",
+    "p-2",
+    "p-3",
+    "p-4",
+    "p-5",
+    "p-6",
+    "p-7",
+    "p-8",
+    "p-9",
+    "p-10",
+    "p-11",
+    "p-12",
+    "p-13",
+    "p-14",
+    "p-15",
+    "p-16",
+    "p-17",
+    "p-18",
+    "p-19",
+    "p-20",
+    "p-21",
+    "p-22",
+    "p-23",
+    "p-24",
+    "p-25",
+    "p-26",
+    "p-27",
+    "p-28",
+    "p-29",
+    "p-30",
+    "p-31",
+    "p-32",
+    "p-33",
+    "p-34",
+    "p-35",
+    "p-36",
+    "p-37",
+    "p-38",
+    "p-39",
+    "p-40",
+    "p-41",
+    "p-42",
+    "p-43",
+    "p-44",
+    "p-45",
+    "p-46",
+    "p-47",
+    "p-48",
+    "p-49",
+    "p-50",
+    "p-51",
+    "p-52",
+    "p-53",
+    "p-54",
+    "p-55",
+    "p-56",
+    "p-57",
+    "p-58",
+    "p-59",
+    "p-60",
+    "p-61",
+    "p-62",
+    "p-63",
+    "p-64",
+    "p-65",
+    "p-66",
+    "p-67",
+    "p-68",
+    "p-69",
+    "p-70",
+    "p-71",
+    "p-72",
+    "p-73",
+    "p-74",
+    "p-75",
+    "p-76",
+    "p-77",
+    "p-78",
+    "p-79",
+    "p-80",
+    "p-81",
+    "p-82",
+    "p-83",
+    "p-84",
+    "p-85",
+    "p-86",
+    "p-87",
+    "p-88",
+    "p-89",
+    "p-90",
+    "p-91",
+    "p-92",
+    "p-93",
+    "p-94",
+    "p-95",
+    "p-96",
+    "p-97",
+    "p-98",
+    "p-99",
+    "p-100",
+    "p-101",
+    "p-102",
+    "p-103",
+    "p-104",
+    "p-105",
+    "p-106",
+    "p-107",
+    "p-108",
+    "p-109",
+    "p-110",
+    "p-111",
+    "p-112",
+    "p-113",
+    "p-114",
+    "p-115",
+    "p-116",
+    "p-117",
+    "p-118",
+    "p-119",
+    "p-120",
+    "p-121",
+    "p-122",
+    "p-123",
+    "p-124",
+    "p-125",
+    "p-126",
+    "p-127",
+    "p-128",
+    "p-129",
+    "p-130",
+    "p-131",
+    "p-132",
+    "p-133",
+    "p-134",
+    "p-135",
+    "p-136",
+    "p-137",
+    "p-138",
+    "p-139",
+    "p-140",
+    "p-141",
+    "p-142",
+    "p-143",
+    "p-144",
+    "p-145",
+    "p-146",
+    "p-147",
+    "p-148",
+    "p-149",
+    "p-150",
+    "p-151",
+    "p-152",
+    "p-153",
+    "p-154",
+    "p-155",
+    "p-156",
+    "p-157",
+    "p-158",
+    "p-159",
+    "p-160",
+    "p-161",
+    "p-162",
+    "p-163",
+    "p-164",
+    "p-165",
+    "p-166",
+    "p-167",
+    "p-168",
+    "p-169",
+    "p-170",
+    "p-171",
+    "p-172",
+    "p-173",
+    "p-174",
+    "p-175",
+    "p-176",
+    "p-177",
+    "p-178",
+    "p-179",
+    "p-180",
+    "p-181",
+    "p-182",
+    "p-183",
+    "p-184",
+    "p-185",
+    "p-186",
+    "p-187",
+    "p-188",
+    "p-189",
+    "p-190",
+    "p-191",
+    "p-192",
+    "p-193",
+    "p-194",
+    "p-195",
+    "p-196",
+    "p-197",
+    "p-198",
+    "p-199",
+    "p-200",
+    "p-201",
+    "p-202",
+    "p-203",
+    "p-204",
+    "p-205",
+    "p-206",
+    "p-207",
+    "p-208",
+    "p-209",
+    "p-210",
+    "p-211",
+    "p-212",
+    "p-213",
+    "p-214",
+    "p-215",
+    "p-216",
+    "p-217",
+    "p-218",
+    "p-219",
+    "p-220",
+    "p-221",
+    "p-222",
+    "p-223",
+    "p-224",
+    "p-225",
+    "p-226",
+    "p-227",
+    "p-228",
+    "p-229",
+    "p-230",
+    "p-231",
+    "p-232",
+    "p-233",
+    "p-234",
+    "p-235",
+    "p-236",
+    "p-237",
+    "p-238",
+    "p-239",
+    "p-240",
+    "p-241",
+    "p-242",
+    "p-243",
+    "p-244",
+    "p-245",
+    "p-246",
+    "p-247",
+    "p-248",
+    "p-249",
+    "p-250",
+    "p-251",
+    "p-252",
+    "p-253",
+    "p-254",
+    "p-255",
+    "p-256",
+    "p-257",
+    "p-258",
+    "p-259",
+    "p-260",
+    "p-261",
+    "p-262",
+    "p-263",
+    "p-264",
+    "p-265",
+    "p-266",
+    "p-267",
+    "p-268",
+    "p-269",
+    "p-270",
+    "p-271",
+    "p-272",
+    "p-273",
+    "p-274",
+    "p-275",
+    "p-276",
+    "p-277",
+    "p-278",
+    "p-279",
+    "p-280",
+    "p-281",
+    "p-282",
+    "p-283",
+    "p-284",
+    "p-285",
+    "p-286",
+    "p-287",
+    "p-288",
+    "p-289",
+    "p-290",
+    "p-291",
+    "p-292",
+    "p-293",
+    "p-294",
+    "p-295",
+    "p-296",
+    "p-297",
+    "p-298",
+    "p-299"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "name": "Anne",
+    "other_names": [
+     "p-0",
+     "p-1",
+     "p-2",
+     "p-3",
+     "p-4",
+     "p-5",
+     "p-6",
+     "p-7",
+     "p-8",
+     "p-9",
+     "p-10",
+     "p-11",
+     "p-12",
+     "p-13",
+     "p-14",
+     "p-15",
+     "p-16",
+     "p-17",
+     "p-18",
+     "p-19",
+     "p-20",
+     "p-21",
+     "p-22",
+     "p-23",
+     "p-24",
+     "p-25",
+     "p-26",
+     "p-27",
+     "p-28",
+     "p-29",
+     "p-30",
+     "p-31",
+     "p-32",
+     "p-33",
+     "p-34",
+     "p-35",
+     "p-36",
+     "p-37",
+     "p-38",
+     "p-39",
+     "p-40",
+     "p-41",
+     "p-42",
+     "p-43",
+     "p-44",
+     "p-45",
+     "p-46",
+     "p-47",
+     "p-48",
+     "p-49",
+     "p-50",
+     "p-51",
+     "p-52",
+     "p-53",
+     "p-54",
+     "p-55",
+     "p-56",
+     "p-57",
+     "p-58",
+     "p-59",
+     "p-60",
+     "p-61",
+     "p-62",
+     "p-63",
+     "p-64",
+     "p-65",
+     "p-66",
+     "p-67",
+     "p-68",
+     "p-69",
+     "p-70",
+     "p-71",
+     "p-72",
+     "p-73",
+     "p-74",
+     "p-75",
+     "p-76",
+     "p-77",
+     "p-78",
+     "p-79",
+     "p-80",
+     "p-81",
+     "p-82",
+     "p-83",
+     "p-84",
+     "p-85",
+     "p-86",
+     "p-87",
+     "p-88",
+     "p-89",
+     "p-90",
+     "p-91",
+     "p-92",
+     "p-93",
+     "p-94",
+     "p-95",
+     "p-96",
+     "p-97",
+     "p-98",
+     "p-99",
+     "p-100",
+     "p-101",
+     "p-102",
+     "p-103",
+     "p-104",
+     "p-105",
+     "p-106",
+     "p-107",
+     "p-108",
+     "p-109",
+     "p-110",
+     "p-111",
+     "p-112",
+     "p-113",
+     "p-114",
+     "p-115",
+     "p-116",
+     "p-117",
+     "p-118",
+     "p-119",
+     "p-120",
+     "p-121",
+     "p-122",
+     "p-123",
+     "p-124",
+     "p-125",
+     "p-126",
+     "p-127",
+     "p-128",
+     "p-129",
+     "p-130",
+     "p-131",
+     "p-132",
+     "p-133",
+     "p-134",
+     "p-135",
+     "p-136",
+     "p-137",
+     "p-138",
+     "p-139",
+     "p-140",
+     "p-141",
+     "p-142",
+     "p-143",
+     "p-144",
+     "p-145",
+     "p-146",
+     "p-147",
+     "p-148",
+     "p-149",
+     "p-150",
+     "p-151",
+     "p-152",
+     "p-153",
+     "p-154",
+     "p-155",
+     "p-156",
+     "p-157",
+     "p-158",
+     "p-159",
+     "p-160",
+     "p-161",
+     "p-162",
+     "p-163",
+     "p-164",
+     "p-165",
+     "p-166",
+     "p-167",
+     "p-168",
+     "p-169",
+     "p-170",
+     "p-171",
+     "p-172",
+     "p-173",
+     "p-174",
+     "p-175",
+     "p-176",
+     "p-177",
+     "p-178",
+     "p-179",
+     "p-180",
+     "p-181",
+     "p-182",
+     "p-183",
+     "p-184",
+     "p-185",
+     "p-186",
+     "p-187",
+     "p-188",
+     "p-189",
+     "p-190",
+     "p-191",
+     "p-192",
+     "p-193",
+     "p-194",
+     "p-195",
+     "p-196",
+     "p-197",
+     "p-198",
+     "p-199",
+     "p-200",
+     "p-201",
+     "p-202",
+     "p-203",
+     "p-204",
+     "p-205",
+     "p-206",
+     "p-207",
+     "p-208",
+     "p-209",
+     "p-210",
+     "p-211",
+     "p-212",
+     "p-213",
+     "p-214",
+     "p-215",
+     "p-216",
+     "p-217",
+     "p-218",
+     "p-219",
+     "p-220",
+     "p-221",
+     "p-222",
+     "p-223",
+     "p-224",
+     "p-225",
+     "p-226",
+     "p-227",
+     "p-228",
+     "p-229",
+     "p-230",
+     "p-231",
+     "p-232",
+     "p-233",
+     "p-234",
+     "p-235",
+     "p-236",
+     "p-237",
+     "p-238",
+     "p-239",
+     "p-240",
+     "p-241",
+     "p-242",
+     "p-243",
+     "p-244",
+     "p-245",
+     "p-246",
+     "p-247",
+     "p-248",
+     "p-249",
+     "p-250",
+     "p-251",
+     "p-252",
+     "p-253",
+     "p-254",
+     "p-255",
+     "p-256",
+     "p-257",
+     "p-258",
+     "p-259",
+     "p-260",
+     "p-261",
+     "p-262",
+     "p-263",
+     "p-264",
+     "p-265",
+     "p-266",
+     "p-267",
+     "p-268",
+     "p-269",
+     "p-270",
+     "p-271",
+     "p-272",
+     "p-273",
+     "p-274",
+     "p-275",
+     "p-276",
+     "p-277",
+     "p-278",
+     "p-279",
+     "p-280",
+     "p-281",
+     "p-282",
+     "p-283",
+     "p-284",
+     "p-285",
+     "p-286",
+     "p-287",
+     "p-288",
+     "p-289",
+     "p-290",
+     "p-291",
+     "p-292",
+     "p-293",
+     "p-294",
+     "p-295",
+     "p-296",
+     "p-297",
+     "p-298",
+     "p-299"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_model_class#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_model_class",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Branch"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "width": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        }
+       },
+       "branch": {
+        "type": "model-field",
+        "schema": {
+         "type": "default",
+         "schema": {
+          "type": "union",
+          "choices": [
+           {
+            "type": "none"
+           },
+           {
+            "type": "definition-ref",
+            "schema_ref": "Branch"
+           }
+          ]
+         },
+         "default": null
+        }
+       }
+      }
+     },
+     "ref": "Branch"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "width": "1"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Branch",
+     "fields": {
+      "width": 1,
+      "branch": null
+     },
+     "fields_set": [
+      "width"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_model_class#1",
+  "test": "tests/validators/test_definitions_recursive.py::test_model_class",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Branch"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "width": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        }
+       },
+       "branch": {
+        "type": "model-field",
+        "schema": {
+         "type": "default",
+         "schema": {
+          "type": "union",
+          "choices": [
+           {
+            "type": "none"
+           },
+           {
+            "type": "definition-ref",
+            "schema_ref": "Branch"
+           }
+          ]
+         },
+         "default": null
+        }
+       }
+      }
+     },
+     "ref": "Branch"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "width": "10",
+   "branch": {
+    "width": 20
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Branch",
+     "fields": {
+      "width": 10,
+      "branch": {
+       "$model": {
+        "class": "Branch",
+        "fields": {
+         "width": 20,
+         "branch": null
+        },
+        "fields_set": [
+         "width"
+        ],
+        "extra": null
+       }
+      }
+     },
+     "fields_set": [
+      "branch",
+      "width"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_multiple_intertwined#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_multiple_intertwined",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Foo"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "height": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "Bar"
+       }
+      }
+     },
+     "ref": "Foo"
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "width": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "bars": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "list",
+         "items_schema": {
+          "type": "definition-ref",
+          "schema_ref": "Bar"
+         }
+        },
+        "default": null
+       }
+      },
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "union",
+         "choices": [
+          {
+           "type": "none"
+          },
+          {
+           "type": "definition-ref",
+           "schema_ref": "Foo"
+          }
+         ]
+        },
+        "default": null
+       }
+      }
+     },
+     "ref": "Bar"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "height": 1,
+   "bar": {
+    "width": 2,
+    "bars": [
+     {
+      "width": 3
+     }
+    ],
+    "foo": {
+     "height": 4,
+     "bar": {
+      "width": 5,
+      "bars": [],
+      "foo": null
+     }
+    }
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "height": 1,
+    "bar": {
+     "width": 2,
+     "bars": [
+      {
+       "width": 3,
+       "bars": null,
+       "foo": null
+      }
+     ],
+     "foo": {
+      "height": 4,
+      "bar": {
+       "width": 5,
+       "bars": [],
+       "foo": null
+      }
+     }
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_multiple_tuple_param[input_value0-expected0]#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_multiple_tuple_param[input_value0-expected0]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "f1": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "definition-ref",
+       "schema_ref": "t"
+      }
+     },
+     "f2": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "t"
+        }
+       },
+       "default": null
+      }
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "int"
+      },
+      {
+       "type": "nullable",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "t"
+       }
+      }
+     ],
+     "ref": "t"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "f1": [
+    1,
+    null
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "f1": {
+     "$tuple": [
+      1,
+      null
+     ]
+    },
+    "f2": null
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_multiple_tuple_param[input_value1-expected1]#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_multiple_tuple_param[input_value1-expected1]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "f1": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "definition-ref",
+       "schema_ref": "t"
+      }
+     },
+     "f2": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "t"
+        }
+       },
+       "default": null
+      }
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "int"
+      },
+      {
+       "type": "nullable",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "t"
+       }
+      }
+     ],
+     "ref": "t"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "f1": [
+    1,
+    null
+   ],
+   "f2": [
+    2,
+    null
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "f1": {
+     "$tuple": [
+      1,
+      null
+     ]
+    },
+    "f2": {
+     "$tuple": [
+      2,
+      null
+     ]
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_multiple_tuple_param[input_value2-expected2]#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_multiple_tuple_param[input_value2-expected2]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "f1": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "definition-ref",
+       "schema_ref": "t"
+      }
+     },
+     "f2": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "t"
+        }
+       },
+       "default": null
+      }
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "int"
+      },
+      {
+       "type": "nullable",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "t"
+       }
+      }
+     ],
+     "ref": "t"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "f1": [
+    1,
+    {
+     "$tuple": [
+      3,
+      null
+     ]
+    }
+   ],
+   "f2": [
+    2,
+    {
+     "$tuple": [
+      4,
+      {
+       "$tuple": [
+        4,
+        {
+         "$tuple": [
+          5,
+          null
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "f1": {
+     "$tuple": [
+      1,
+      {
+       "$tuple": [
+        3,
+        null
+       ]
+      }
+     ]
+    },
+    "f2": {
+     "$tuple": [
+      2,
+      {
+       "$tuple": [
+        4,
+        {
+         "$tuple": [
+          4,
+          {
+           "$tuple": [
+            5,
+            null
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_multiple_tuple_param[input_value3-expected3]#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_multiple_tuple_param[input_value3-expected3]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "f1": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "definition-ref",
+       "schema_ref": "t"
+      }
+     },
+     "f2": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "t"
+        }
+       },
+       "default": null
+      }
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "int"
+      },
+      {
+       "type": "nullable",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "t"
+       }
+      }
+     ],
+     "ref": "t"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "f1": [
+    1,
+    2
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "tuple_type",
+     "loc": [
+      "f1",
+      1
+     ],
+     "msg": "Input should be a valid tuple",
+     "input": 2
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_multiple_tuple_param[input_value4-expected4]#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_multiple_tuple_param[input_value4-expected4]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "f1": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "definition-ref",
+       "schema_ref": "t"
+      }
+     },
+     "f2": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "t"
+        }
+       },
+       "default": null
+      }
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "int"
+      },
+      {
+       "type": "nullable",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "t"
+       }
+      }
+     ],
+     "ref": "t"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "f1": [
+    1,
+    {
+     "$tuple": [
+      3,
+      null
+     ]
+    }
+   ],
+   "f2": [
+    2,
+    {
+     "$tuple": [
+      4,
+      {
+       "$tuple": [
+        4,
+        {
+         "$tuple": [
+          5,
+          6
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "tuple_type",
+     "loc": [
+      "f2",
+      1,
+      1,
+      1,
+      1
+     ],
+     "msg": "Input should be a valid tuple",
+     "input": 6
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_multiple_tuple_recursion#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_multiple_tuple_recursion",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "f1": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "definition-ref",
+       "schema_ref": "t"
+      }
+     },
+     "f2": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "t"
+        }
+       },
+       "default": null
+      }
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "int"
+      },
+      {
+       "type": "nullable",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "t"
+       }
+      }
+     ],
+     "ref": "t"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "cyclic"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "recursion_loop",
+     "loc": [
+      "f1",
+      1
+     ],
+     "msg": "Recursion error - cyclic reference detected",
+     "input": {
+      "$object": "cyclic"
+     }
+    },
+    {
+     "type": "recursion_loop",
+     "loc": [
+      "f2",
+      1
+     ],
+     "msg": "Recursion error - cyclic reference detected",
+     "input": {
+      "$object": "cyclic"
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_multiple_tuple_recursion_once#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_multiple_tuple_recursion_once",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "f1": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "definition-ref",
+       "schema_ref": "t"
+      }
+     },
+     "f2": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "t"
+        }
+       },
+       "default": null
+      }
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "int"
+      },
+      {
+       "type": "nullable",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "t"
+       }
+      }
+     ],
+     "ref": "t"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "cyclic"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "recursion_loop",
+     "loc": [
+      "f1",
+      1
+     ],
+     "msg": "Recursion error - cyclic reference detected",
+     "input": {
+      "$object": "cyclic"
+     }
+    },
+    {
+     "type": "recursion_loop",
+     "loc": [
+      "f2",
+      1
+     ],
+     "msg": "Recursion error - cyclic reference detected",
+     "input": {
+      "$object": "cyclic"
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_multiple_tuple_repeat#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_multiple_tuple_repeat",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "f1": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "definition-ref",
+       "schema_ref": "t"
+      }
+     },
+     "f2": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "t"
+        }
+       },
+       "default": null
+      }
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "int"
+      },
+      {
+       "type": "nullable",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "t"
+       }
+      }
+     ],
+     "ref": "t"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "f1": {
+    "$tuple": [
+     1,
+     {
+      "$tuple": [
+       42,
+       null
+      ]
+     }
+    ]
+   },
+   "f2": {
+    "$tuple": [
+     2,
+     {
+      "$tuple": [
+       42,
+       null
+      ]
+     }
+    ]
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "f1": {
+     "$tuple": [
+      1,
+      {
+       "$tuple": [
+        42,
+        null
+       ]
+      }
+     ]
+    },
+    "f2": {
+     "$tuple": [
+      2,
+      {
+       "$tuple": [
+        42,
+        null
+       ]
+      }
+     ]
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_nullable_error#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_nullable_error",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "width": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "sub_branch": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "union",
+         "choices": [
+          {
+           "type": "none"
+          },
+          {
+           "type": "definition-ref",
+           "schema_ref": "Branch"
+          }
+         ]
+        },
+        "default": null
+       }
+      }
+     },
+     "ref": "Branch"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "width": 123,
+   "sub_branch": {
+    "width": 321
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "width": 123,
+    "sub_branch": {
+     "width": 321,
+     "sub_branch": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_nullable_error#1",
+  "test": "tests/validators/test_definitions_recursive.py::test_nullable_error",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "width": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "sub_branch": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "union",
+         "choices": [
+          {
+           "type": "none"
+          },
+          {
+           "type": "definition-ref",
+           "schema_ref": "Branch"
+          }
+         ]
+        },
+        "default": null
+       }
+      }
+     },
+     "ref": "Branch"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "width": 123,
+   "sub_branch": {
+    "width": "wrong"
+   }
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "none_required",
+     "loc": [
+      "sub_branch",
+      "none"
+     ],
+     "msg": "Input should be None",
+     "input": {
+      "width": "wrong"
+     }
+    },
+    {
+     "type": "int_parsing",
+     "loc": [
+      "sub_branch",
+      "typed-dict",
+      "width"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_outside_parent#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_outside_parent",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "tuple1": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "definition-ref",
+       "schema_ref": "tuple-iis"
+      }
+     },
+     "tuple2": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "definition-ref",
+       "schema_ref": "tuple-iis"
+      }
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "int"
+      },
+      {
+       "type": "int"
+      },
+      {
+       "type": "str"
+      }
+     ],
+     "ref": "tuple-iis"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "tuple1": [
+    1,
+    "1",
+    "frog"
+   ],
+   "tuple2": [
+    2,
+    "2",
+    "toad"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "tuple1": {
+     "$tuple": [
+      1,
+      1,
+      "frog"
+     ]
+    },
+    "tuple2": {
+     "$tuple": [
+      2,
+      2,
+      "toad"
+     ]
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_recursion_branch#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_recursion_branch",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "name": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "branch": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "nullable",
+         "schema": {
+          "type": "definition-ref",
+          "schema_ref": "Branch"
+         }
+        },
+        "default": null
+       }
+      }
+     },
+     "ref": "Branch"
+    }
+   ]
+  },
+  "config": {
+   "from_attributes": true
+  },
+  "mode": "python",
+  "input": {
+   "name": "root"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "name": "root",
+    "branch": null
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_recursion_branch#1",
+  "test": "tests/validators/test_definitions_recursive.py::test_recursion_branch",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "name": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "branch": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "nullable",
+         "schema": {
+          "type": "definition-ref",
+          "schema_ref": "Branch"
+         }
+        },
+        "default": null
+       }
+      }
+     },
+     "ref": "Branch"
+    }
+   ]
+  },
+  "config": {
+   "from_attributes": true
+  },
+  "mode": "python",
+  "input": {
+   "name": "root",
+   "branch": {
+    "name": "b1",
+    "branch": null
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "name": "root",
+    "branch": {
+     "name": "b1",
+     "branch": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_recursion_branch#2",
+  "test": "tests/validators/test_definitions_recursive.py::test_recursion_branch",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "name": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "branch": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "nullable",
+         "schema": {
+          "type": "definition-ref",
+          "schema_ref": "Branch"
+         }
+        },
+        "default": null
+       }
+      }
+     },
+     "ref": "Branch"
+    }
+   ]
+  },
+  "config": {
+   "from_attributes": true
+  },
+  "mode": "python",
+  "input": {
+   "$object": "cyclic"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "recursion_loop",
+     "loc": [
+      "branch"
+     ],
+     "msg": "Recursion error - cyclic reference detected",
+     "input": {
+      "$object": "cyclic"
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_recursion_branch_from_attributes#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_recursion_branch_from_attributes",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "model-fields",
+     "fields": {
+      "name": {
+       "type": "model-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "branch": {
+       "type": "model-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "nullable",
+         "schema": {
+          "type": "definition-ref",
+          "schema_ref": "Branch"
+         }
+        },
+        "default": null
+       }
+      }
+     },
+     "ref": "Branch"
+    }
+   ]
+  },
+  "config": {
+   "from_attributes": true
+  },
+  "mode": "python",
+  "input": {
+   "name": "root"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "name": "root",
+      "branch": null
+     },
+     null,
+     {
+      "$set": [
+       "name"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_recursion_branch_from_attributes#1",
+  "test": "tests/validators/test_definitions_recursive.py::test_recursion_branch_from_attributes",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "model-fields",
+     "fields": {
+      "name": {
+       "type": "model-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "branch": {
+       "type": "model-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "nullable",
+         "schema": {
+          "type": "definition-ref",
+          "schema_ref": "Branch"
+         }
+        },
+        "default": null
+       }
+      }
+     },
+     "ref": "Branch"
+    }
+   ]
+  },
+  "config": {
+   "from_attributes": true
+  },
+  "mode": "python",
+  "input": {
+   "name": "root",
+   "branch": {
+    "name": "b1",
+    "branch": null
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "name": "root",
+      "branch": {
+       "$tuple": [
+        {
+         "name": "b1",
+         "branch": null
+        },
+        null,
+        {
+         "$set": [
+          "branch",
+          "name"
+         ]
+        }
+       ]
+      }
+     },
+     null,
+     {
+      "$set": [
+       "branch",
+       "name"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_recursion_branch_from_attributes#2",
+  "test": "tests/validators/test_definitions_recursive.py::test_recursion_branch_from_attributes",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "model-fields",
+     "fields": {
+      "name": {
+       "type": "model-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "branch": {
+       "type": "model-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "nullable",
+         "schema": {
+          "type": "definition-ref",
+          "schema_ref": "Branch"
+         }
+        },
+        "default": null
+       }
+      }
+     },
+     "ref": "Branch"
+    }
+   ]
+  },
+  "config": {
+   "from_attributes": true
+  },
+  "mode": "python",
+  "input": {
+   "$object": "Cls"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "name": "root",
+      "branch": {
+       "$tuple": [
+        {
+         "name": "b1",
+         "branch": null
+        },
+        null,
+        {
+         "$set": [
+          "branch",
+          "name"
+         ]
+        }
+       ]
+      }
+     },
+     null,
+     {
+      "$set": [
+       "branch",
+       "name"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_recursive_definitions_schema#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_recursive_definitions_schema",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "a"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "b": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "definition-ref",
+         "schema_ref": "b"
+        }
+       }
+      }
+     },
+     "ref": "a"
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "a": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "definition-ref",
+         "schema_ref": "a"
+        }
+       }
+      }
+     },
+     "ref": "b"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "b": [
+    {
+     "a": []
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "b": [
+     {
+      "a": []
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_recursive_definitions_schema#1",
+  "test": "tests/validators/test_definitions_recursive.py::test_recursive_definitions_schema",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "a"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "b": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "definition-ref",
+         "schema_ref": "b"
+        }
+       }
+      }
+     },
+     "ref": "a"
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "a": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "definition-ref",
+         "schema_ref": "a"
+        }
+       }
+      }
+     },
+     "ref": "b"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "b": [
+    {
+     "a": {}
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [
+      "b",
+      0,
+      "a"
+     ],
+     "msg": "Input should be a valid list",
+     "input": {}
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_union_container_strictness#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_union_container_strictness",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "b": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "union",
+       "choices": [
+        {
+         "type": "definition-ref",
+         "schema_ref": "int-type"
+        },
+        {
+         "type": "str"
+        }
+       ]
+      }
+     },
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "definition-ref",
+       "schema_ref": "int-type"
+      }
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "int",
+     "ref": "int-type"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "b": "2",
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_union_container_strictness#1",
+  "test": "tests/validators/test_definitions_recursive.py::test_union_container_strictness",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "b": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "union",
+       "choices": [
+        {
+         "type": "definition-ref",
+         "schema_ref": "int-type"
+        },
+        {
+         "type": "str"
+        }
+       ]
+      }
+     },
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "definition-ref",
+       "schema_ref": "int-type"
+      }
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "int",
+     "ref": "int-type"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": 2
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "b": 2,
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_union_container_strictness#2",
+  "test": "tests/validators/test_definitions_recursive.py::test_union_container_strictness",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "b": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "union",
+       "choices": [
+        {
+         "type": "definition-ref",
+         "schema_ref": "int-type"
+        },
+        {
+         "type": "str"
+        }
+       ]
+      }
+     },
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "definition-ref",
+       "schema_ref": "int-type"
+      }
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "int",
+     "ref": "int-type"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": []
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [
+      "b",
+      "int"
+     ],
+     "msg": "Input should be a valid integer",
+     "input": []
+    },
+    {
+     "type": "string_type",
+     "loc": [
+      "b",
+      "str"
+     ],
+     "msg": "Input should be a valid string",
+     "input": []
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_union_cycle[strict=False]#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_union_cycle[strict=False]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "root-schema"
+   },
+   "definitions": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foobar": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "list",
+          "items_schema": {
+           "type": "definition-ref",
+           "schema_ref": "root-schema"
+          }
+         }
+        }
+       },
+       "strict": false
+      }
+     ],
+     "auto_collapse": false,
+     "ref": "root-schema"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "cyclic"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "recursion_loop",
+     "loc": [
+      "typed-dict",
+      "foobar",
+      0
+     ],
+     "msg": "Recursion error - cyclic reference detected",
+     "input": {
+      "$object": "cyclic"
+     }
+    }
+   ],
+   "title": "union[typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_union_cycle[strict=True]#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_union_cycle[strict=True]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "root-schema"
+   },
+   "definitions": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "typed-dict",
+       "fields": {
+        "foobar": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "list",
+          "items_schema": {
+           "type": "definition-ref",
+           "schema_ref": "root-schema"
+          }
+         }
+        }
+       },
+       "strict": true
+      }
+     ],
+     "auto_collapse": false,
+     "ref": "root-schema"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "cyclic"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "recursion_loop",
+     "loc": [
+      "typed-dict",
+      "foobar",
+      0
+     ],
+     "msg": "Recursion error - cyclic reference detected",
+     "input": {
+      "$object": "cyclic"
+     }
+    }
+   ],
+   "title": "union[typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_union_ref_strictness#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_union_ref_strictness",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "definition-ref",
+       "schema_ref": "int-type"
+      }
+     },
+     "b": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "union",
+       "choices": [
+        {
+         "type": "definition-ref",
+         "schema_ref": "int-type"
+        },
+        {
+         "type": "str"
+        }
+       ]
+      }
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "int",
+     "ref": "int-type"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": "2"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_union_ref_strictness#1",
+  "test": "tests/validators/test_definitions_recursive.py::test_union_ref_strictness",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "definition-ref",
+       "schema_ref": "int-type"
+      }
+     },
+     "b": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "union",
+       "choices": [
+        {
+         "type": "definition-ref",
+         "schema_ref": "int-type"
+        },
+        {
+         "type": "str"
+        }
+       ]
+      }
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "int",
+     "ref": "int-type"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": 2
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": 2
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_union_ref_strictness#2",
+  "test": "tests/validators/test_definitions_recursive.py::test_union_ref_strictness",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "definition-ref",
+       "schema_ref": "int-type"
+      }
+     },
+     "b": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "union",
+       "choices": [
+        {
+         "type": "definition-ref",
+         "schema_ref": "int-type"
+        },
+        {
+         "type": "str"
+        }
+       ]
+      }
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "int",
+     "ref": "int-type"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": []
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [
+      "b",
+      "int"
+     ],
+     "msg": "Input should be a valid integer",
+     "input": []
+    },
+    {
+     "type": "string_type",
+     "loc": [
+      "b",
+      "str"
+     ],
+     "msg": "Input should be a valid string",
+     "input": []
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_unsorted_definitions_schema#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_unsorted_definitions_schema",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "td"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "x": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "int"
+       }
+      }
+     },
+     "ref": "td"
+    },
+    {
+     "type": "int",
+     "ref": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": 123
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 123
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_unsorted_definitions_schema#1",
+  "test": "tests/validators/test_definitions_recursive.py::test_unsorted_definitions_schema",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "td"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "x": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "int"
+       }
+      }
+     },
+     "ref": "td"
+    },
+    {
+     "type": "int",
+     "ref": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "abc"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "x"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "abc"
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions_recursive.py::test_unused_ref#0",
+  "test": "tests/validators/test_definitions_recursive.py::test_unused_ref",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "name": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    },
+    "other": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     }
+    }
+   },
+   "ref": "Branch"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "name": "root",
+   "other": "4"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "name": "root",
+    "other": 4
+   }
+  }
+ }
+]

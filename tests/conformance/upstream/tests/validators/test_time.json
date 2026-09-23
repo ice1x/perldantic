@@ -1,0 +1,2352 @@
+[
+ {
+  "id": "tests/validators/test_time.py::test_aware#0",
+  "test": "tests/validators/test_time.py::test_aware",
+  "schema": {
+   "type": "time",
+   "tz_constraint": "aware",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "12:13:15+00:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:13:15+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_aware#1",
+  "test": "tests/validators/test_time.py::test_aware",
+  "schema": {
+   "type": "time",
+   "tz_constraint": "aware",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:13:14Z",
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:13:14+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_aware#2",
+  "test": "tests/validators/test_time.py::test_aware",
+  "schema": {
+   "type": "time",
+   "tz_constraint": "aware",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "12:13:15"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "timezone_aware",
+     "loc": [],
+     "msg": "Input should have timezone info",
+     "input": {
+      "$time": "12:13:15"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_aware#3",
+  "test": "tests/validators/test_time.py::test_aware",
+  "schema": {
+   "type": "time",
+   "tz_constraint": "aware",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:13:14",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "timezone_aware",
+     "loc": [],
+     "msg": "Input should have timezone info",
+     "input": "12:13:14"
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_aware_specific#0",
+  "test": "tests/validators/test_time.py::test_aware_specific",
+  "schema": {
+   "type": "time",
+   "tz_constraint": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "12:13:15+00:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:13:15+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_aware_specific#1",
+  "test": "tests/validators/test_time.py::test_aware_specific",
+  "schema": {
+   "type": "time",
+   "tz_constraint": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:13:14Z",
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:13:14+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_aware_specific#2",
+  "test": "tests/validators/test_time.py::test_aware_specific",
+  "schema": {
+   "type": "time",
+   "tz_constraint": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "12:13:14"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "timezone_aware",
+     "loc": [],
+     "msg": "Input should have timezone info",
+     "input": {
+      "$time": "12:13:14"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_aware_specific#3",
+  "test": "tests/validators/test_time.py::test_aware_specific",
+  "schema": {
+   "type": "time",
+   "tz_constraint": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "12:13:15+01:00"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "timezone_offset",
+     "loc": [],
+     "msg": "Timezone offset of 0 required, got 3600",
+     "input": {
+      "$time": "12:13:15+01:00"
+     },
+     "ctx": {
+      "tz_expected": 0,
+      "tz_actual": 3600
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_aware_specific#4",
+  "test": "tests/validators/test_time.py::test_aware_specific",
+  "schema": {
+   "type": "time",
+   "tz_constraint": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:13:14+01:00",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "timezone_offset",
+     "loc": [],
+     "msg": "Timezone offset of 0 required, got 3600",
+     "input": "12:13:14+01:00",
+     "ctx": {
+      "tz_expected": 0,
+      "tz_actual": 3600
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_dict[json]#0",
+  "test": "tests/validators/test_time.py::test_dict[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "time"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"12:01:01\": 2, \"12:01:02\": 4}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$time": "12:01:01"
+      },
+      2
+     ],
+     [
+      {
+       "$time": "12:01:02"
+      },
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_dict[python]#0",
+  "test": "tests/validators/test_time.py::test_dict[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "time"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "12:01:01": 2,
+   "12:01:02": 4
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$time": "12:01:01"
+      },
+      2
+     ],
+     [
+      {
+       "$time": "12:01:02"
+      },
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_dict_py#0",
+  "test": "tests/validators/test_time.py::test_dict_py",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "time",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$time": "12:01:01"
+     },
+     2
+    ],
+    [
+     {
+      "$time": "12:01:02"
+     },
+     4
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$time": "12:01:01"
+      },
+      2
+     ],
+     [
+      {
+       "$time": "12:01:02"
+      },
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_naive#0",
+  "test": "tests/validators/test_time.py::test_naive",
+  "schema": {
+   "type": "time",
+   "tz_constraint": "naive",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "12:13:15"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:13:15"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_naive#1",
+  "test": "tests/validators/test_time.py::test_naive",
+  "schema": {
+   "type": "time",
+   "tz_constraint": "naive",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:13:14",
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_naive#2",
+  "test": "tests/validators/test_time.py::test_naive",
+  "schema": {
+   "type": "time",
+   "tz_constraint": "naive",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "12:13:15+00:00"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "timezone_naive",
+     "loc": [],
+     "msg": "Input should not have timezone info",
+     "input": {
+      "$time": "12:13:15+00:00"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_naive#3",
+  "test": "tests/validators/test_time.py::test_naive",
+  "schema": {
+   "type": "time",
+   "tz_constraint": "naive",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:13:14Z",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "timezone_naive",
+     "loc": [],
+     "msg": "Input should not have timezone info",
+     "input": "12:13:14Z"
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_neg_7200#0",
+  "test": "tests/validators/test_time.py::test_neg_7200",
+  "schema": {
+   "type": "time",
+   "tz_constraint": -7200,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "12:13:15-02:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:13:15-02:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_neg_7200#1",
+  "test": "tests/validators/test_time.py::test_neg_7200",
+  "schema": {
+   "type": "time",
+   "tz_constraint": -7200,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "12:13:14"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "timezone_aware",
+     "loc": [],
+     "msg": "Input should have timezone info",
+     "input": {
+      "$time": "12:13:14"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_neg_7200#2",
+  "test": "tests/validators/test_time.py::test_neg_7200",
+  "schema": {
+   "type": "time",
+   "tz_constraint": -7200,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "12:13:15+00:00"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "timezone_offset",
+     "loc": [],
+     "msg": "Timezone offset of -7200 required, got 0",
+     "input": {
+      "$time": "12:13:15+00:00"
+     },
+     "ctx": {
+      "tz_expected": -7200,
+      "tz_actual": 0
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_neg_7200#3",
+  "test": "tests/validators/test_time.py::test_neg_7200",
+  "schema": {
+   "type": "time",
+   "tz_constraint": -7200,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:13:14Z",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "timezone_offset",
+     "loc": [],
+     "msg": "Timezone offset of -7200 required, got 0",
+     "input": "12:13:14Z",
+     "ctx": {
+      "tz_expected": -7200,
+      "tz_actual": 0
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time[-inf]#0",
+  "test": "tests/validators/test_time.py::test_time[-inf]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "-inf"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_parsing",
+     "loc": [],
+     "msg": "Input should be in a valid time format, time in seconds should be positive",
+     "input": {
+      "$float": "-inf"
+     },
+     "ctx": {
+      "error": "time in seconds should be positive"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time[bytes]#0",
+  "test": "tests/validators/test_time.py::test_time[bytes]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "MTI6MTM6MTQ="
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time[date]#0",
+  "test": "tests/validators/test_time.py::test_time[date]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$date": "2022-06-08"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_type",
+     "loc": [],
+     "msg": "Input should be a valid time",
+     "input": {
+      "$date": "2022-06-08"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time[datetime]#0",
+  "test": "tests/validators/test_time.py::test_time[datetime]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$datetime": "2022-06-08T00:00:00"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_type",
+     "loc": [],
+     "msg": "Input should be a valid time",
+     "input": {
+      "$datetime": "2022-06-08T00:00:00"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time[decimal-6dig]#0",
+  "test": "tests/validators/test_time.py::test_time[decimal-6dig]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "123.123456"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "00:02:03.123456+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time[decimal-7dig-down]#0",
+  "test": "tests/validators/test_time.py::test_time[decimal-7dig-down]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "123.1234568"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "00:02:03.123457+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time[decimal-7dig-up]#0",
+  "test": "tests/validators/test_time.py::test_time[decimal-7dig-up]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "123.1234562"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "00:02:03.123456+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time[decimal]#0",
+  "test": "tests/validators/test_time.py::test_time[decimal]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "123"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "00:02:03+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time[inf]#0",
+  "test": "tests/validators/test_time.py::test_time[inf]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_parsing",
+     "loc": [],
+     "msg": "Input should be in a valid time format, numeric times may not exceed 86,399 seconds",
+     "input": {
+      "$float": "inf"
+     },
+     "ctx": {
+      "error": "numeric times may not exceed 86,399 seconds"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time[int]#0",
+  "test": "tests/validators/test_time.py::test_time[int]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "00:02:03+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time[nan]#0",
+  "test": "tests/validators/test_time.py::test_time[nan]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_parsing",
+     "loc": [],
+     "msg": "Input should be in a valid time format, NaN values not permitted",
+     "input": {
+      "$float": "nan"
+     },
+     "ctx": {
+      "error": "NaN values not permitted"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time[str-tz]#0",
+  "test": "tests/validators/test_time.py::test_time[str-tz]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:13:14Z",
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:13:14+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time[str]#0",
+  "test": "tests/validators/test_time.py::test_time[str]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:13:14",
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time[time-micro]#0",
+  "test": "tests/validators/test_time.py::test_time[time-micro]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "12:13:14.000123"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:13:14.000123"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time[time-tz]#0",
+  "test": "tests/validators/test_time.py::test_time[time-tz]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "12:13:14+00:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:13:14+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time[time]#0",
+  "test": "tests/validators/test_time.py::test_time[time]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "12:13:14"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time[tuple]#0",
+  "test": "tests/validators/test_time.py::test_time[tuple]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_type",
+     "loc": [],
+     "msg": "Input should be a valid time",
+     "input": {
+      "$tuple": [
+       1
+      ]
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_bound_ctx#0",
+  "test": "tests/validators/test_time.py::test_time_bound_ctx",
+  "schema": {
+   "type": "time",
+   "gt": {
+    "$time": "12:13:14.123456"
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:13",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 12:13:14.123456",
+     "input": "12:13",
+     "ctx": {
+      "gt": "12:13:14.123456"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_error_microseconds_overflow[json]#0",
+  "test": "tests/validators/test_time.py::test_time_error_microseconds_overflow[json]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "error"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"00:00:00.1234567\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "time_parsing",
+     "loc": [],
+     "msg": "Input should be in a valid time format, second fraction value is more than 6 digits long",
+     "input": "00:00:00.1234567",
+     "ctx": {
+      "error": "second fraction value is more than 6 digits long"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_error_microseconds_overflow[json]#1",
+  "test": "tests/validators/test_time.py::test_time_error_microseconds_overflow[json]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "error"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"00:00:00.123456\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$time": "00:00:00.123456"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_error_microseconds_overflow[python]#0",
+  "test": "tests/validators/test_time.py::test_time_error_microseconds_overflow[python]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "error"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "00:00:00.1234567",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "time_parsing",
+     "loc": [],
+     "msg": "Input should be in a valid time format, second fraction value is more than 6 digits long",
+     "input": "00:00:00.1234567",
+     "ctx": {
+      "error": "second fraction value is more than 6 digits long"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_error_microseconds_overflow[python]#1",
+  "test": "tests/validators/test_time.py::test_time_error_microseconds_overflow[python]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "error"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "00:00:00.123456",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$time": "00:00:00.123456"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[json-bool]#0",
+  "test": "tests/validators/test_time.py::test_time_json[json-bool]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "true",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "time_type",
+     "loc": [],
+     "msg": "Input should be a valid time",
+     "input": true
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[json-float.0]#0",
+  "test": "tests/validators/test_time.py::test_time_json[json-float.0]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "123.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$time": "00:02:03+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[json-float]#0",
+  "test": "tests/validators/test_time.py::test_time_json[json-float]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "123.4",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$time": "00:02:03.400000+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[json-int-zero]#0",
+  "test": "tests/validators/test_time.py::test_time_json[json-int-zero]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$time": "00:00:00+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[json-int]#0",
+  "test": "tests/validators/test_time.py::test_time_json[json-int]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "123",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$time": "00:02:03+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[json-negative]#0",
+  "test": "tests/validators/test_time.py::test_time_json[json-negative]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "time_parsing",
+     "loc": [],
+     "msg": "Input should be in a valid time format, time in seconds should be positive",
+     "input": -1,
+     "ctx": {
+      "error": "time in seconds should be positive"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[json-str-micro-6dig]#0",
+  "test": "tests/validators/test_time.py::test_time_json[json-str-micro-6dig]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"12:13:14.123456\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$time": "12:13:14.123456"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[json-str-micro-7dig]#0",
+  "test": "tests/validators/test_time.py::test_time_json[json-str-micro-7dig]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"12:13:14.1234561\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$time": "12:13:14.123456"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[json-str-micro]#0",
+  "test": "tests/validators/test_time.py::test_time_json[json-str-micro]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"12:13:14.123\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$time": "12:13:14.123000"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[json-str]#0",
+  "test": "tests/validators/test_time.py::test_time_json[json-str]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"12:13:14\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$time": "12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[json-too-high-2**100]#0",
+  "test": "tests/validators/test_time.py::test_time_json[json-too-high-2**100]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1267650600228229401496703205376",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "time_parsing",
+     "loc": [],
+     "msg": "Input should be in a valid time format, numeric times may not exceed 86,399 seconds",
+     "input": 1267650600228229401496703205376,
+     "ctx": {
+      "error": "numeric times may not exceed 86,399 seconds"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[json-too-high-2**32]#0",
+  "test": "tests/validators/test_time.py::test_time_json[json-too-high-2**32]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "4294967296",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "time_parsing",
+     "loc": [],
+     "msg": "Input should be in a valid time format, numeric times may not exceed 86,399 seconds",
+     "input": 4294967296,
+     "ctx": {
+      "error": "numeric times may not exceed 86,399 seconds"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[json-too-high-2**64]#0",
+  "test": "tests/validators/test_time.py::test_time_json[json-too-high-2**64]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "18446744073709551616",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "time_parsing",
+     "loc": [],
+     "msg": "Input should be in a valid time format, numeric times may not exceed 86,399 seconds",
+     "input": 18446744073709551616,
+     "ctx": {
+      "error": "numeric times may not exceed 86,399 seconds"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[json-too-high]#0",
+  "test": "tests/validators/test_time.py::test_time_json[json-too-high]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "86400",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "time_parsing",
+     "loc": [],
+     "msg": "Input should be in a valid time format, numeric times may not exceed 86,399 seconds",
+     "input": 86400,
+     "ctx": {
+      "error": "numeric times may not exceed 86,399 seconds"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[python-bool]#0",
+  "test": "tests/validators/test_time.py::test_time_json[python-bool]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "python",
+  "input": true,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "time_type",
+     "loc": [],
+     "msg": "Input should be a valid time",
+     "input": true
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[python-float.0]#0",
+  "test": "tests/validators/test_time.py::test_time_json[python-float.0]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 123.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$time": "00:02:03+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[python-float]#0",
+  "test": "tests/validators/test_time.py::test_time_json[python-float]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 123.4,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$time": "00:02:03.400000+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[python-int-zero]#0",
+  "test": "tests/validators/test_time.py::test_time_json[python-int-zero]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$time": "00:00:00+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[python-int]#0",
+  "test": "tests/validators/test_time.py::test_time_json[python-int]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 123,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$time": "00:02:03+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[python-negative]#0",
+  "test": "tests/validators/test_time.py::test_time_json[python-negative]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "python",
+  "input": -1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "time_parsing",
+     "loc": [],
+     "msg": "Input should be in a valid time format, time in seconds should be positive",
+     "input": -1,
+     "ctx": {
+      "error": "time in seconds should be positive"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[python-str-micro-6dig]#0",
+  "test": "tests/validators/test_time.py::test_time_json[python-str-micro-6dig]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:13:14.123456",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$time": "12:13:14.123456"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[python-str-micro-7dig]#0",
+  "test": "tests/validators/test_time.py::test_time_json[python-str-micro-7dig]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:13:14.1234561",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$time": "12:13:14.123456"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[python-str-micro]#0",
+  "test": "tests/validators/test_time.py::test_time_json[python-str-micro]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:13:14.123",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$time": "12:13:14.123000"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[python-str]#0",
+  "test": "tests/validators/test_time.py::test_time_json[python-str]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:13:14",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$time": "12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[python-too-high-2**100]#0",
+  "test": "tests/validators/test_time.py::test_time_json[python-too-high-2**100]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1267650600228229401496703205376,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "time_parsing",
+     "loc": [],
+     "msg": "Input should be in a valid time format, numeric times may not exceed 86,399 seconds",
+     "input": 1267650600228229401496703205376,
+     "ctx": {
+      "error": "numeric times may not exceed 86,399 seconds"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[python-too-high-2**32]#0",
+  "test": "tests/validators/test_time.py::test_time_json[python-too-high-2**32]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 4294967296,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "time_parsing",
+     "loc": [],
+     "msg": "Input should be in a valid time format, numeric times may not exceed 86,399 seconds",
+     "input": 4294967296,
+     "ctx": {
+      "error": "numeric times may not exceed 86,399 seconds"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[python-too-high-2**64]#0",
+  "test": "tests/validators/test_time.py::test_time_json[python-too-high-2**64]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 18446744073709551616,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "time_parsing",
+     "loc": [],
+     "msg": "Input should be in a valid time format, numeric times may not exceed 86,399 seconds",
+     "input": 18446744073709551616,
+     "ctx": {
+      "error": "numeric times may not exceed 86,399 seconds"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_json[python-too-high]#0",
+  "test": "tests/validators/test_time.py::test_time_json[python-too-high]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 86400,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "time_parsing",
+     "loc": [],
+     "msg": "Input should be in a valid time format, numeric times may not exceed 86,399 seconds",
+     "input": 86400,
+     "ctx": {
+      "error": "numeric times may not exceed 86,399 seconds"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_kwargs[kwargs0-12:13:14-expected0]#0",
+  "test": "tests/validators/test_time.py::test_time_kwargs[kwargs0-12:13:14-expected0]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:13:14",
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_kwargs[kwargs1-00:12-expected1]#0",
+  "test": "tests/validators/test_time.py::test_time_kwargs[kwargs1-00:12-expected1]",
+  "schema": {
+   "type": "time",
+   "le": {
+    "$time": "01:00:00"
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "00:12",
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "00:12:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_kwargs[kwargs10-12:13:14.123457-expected10]#0",
+  "test": "tests/validators/test_time.py::test_time_kwargs[kwargs10-12:13:14.123457-expected10]",
+  "schema": {
+   "type": "time",
+   "gt": {
+    "$time": "12:13:14.123456"
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:13:14.123457",
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:13:14.123457"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_kwargs[kwargs11-12:13:14.123456-expected11]#0",
+  "test": "tests/validators/test_time.py::test_time_kwargs[kwargs11-12:13:14.123456-expected11]",
+  "schema": {
+   "type": "time",
+   "gt": {
+    "$time": "12:13:14.123456"
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:13:14.123456",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 12:13:14.123456",
+     "input": "12:13:14.123456",
+     "ctx": {
+      "gt": "12:13:14.123456"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_kwargs[kwargs2-01:00-expected2]#0",
+  "test": "tests/validators/test_time.py::test_time_kwargs[kwargs2-01:00-expected2]",
+  "schema": {
+   "type": "time",
+   "le": {
+    "$time": "01:00:00"
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "01:00",
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "01:00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_kwargs[kwargs3-01:01-expected3]#0",
+  "test": "tests/validators/test_time.py::test_time_kwargs[kwargs3-01:01-expected3]",
+  "schema": {
+   "type": "time",
+   "le": {
+    "$time": "01:00:00"
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "01:01",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than_equal",
+     "loc": [],
+     "msg": "Input should be less than or equal to 01:00:00",
+     "input": "01:01",
+     "ctx": {
+      "le": "01:00:00"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_kwargs[kwargs4-input_value4-expected4]#0",
+  "test": "tests/validators/test_time.py::test_time_kwargs[kwargs4-input_value4-expected4]",
+  "schema": {
+   "type": "time",
+   "le": {
+    "$time": "01:00:00"
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "01:00:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "01:00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_kwargs[kwargs5-input_value5-expected5]#0",
+  "test": "tests/validators/test_time.py::test_time_kwargs[kwargs5-input_value5-expected5]",
+  "schema": {
+   "type": "time",
+   "le": {
+    "$time": "01:00:00"
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "01:01:00"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than_equal",
+     "loc": [],
+     "msg": "Input should be less than or equal to 01:00:00",
+     "input": {
+      "$time": "01:01:00"
+     },
+     "ctx": {
+      "le": "01:00:00"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_kwargs[kwargs6-00:59-expected6]#0",
+  "test": "tests/validators/test_time.py::test_time_kwargs[kwargs6-00:59-expected6]",
+  "schema": {
+   "type": "time",
+   "lt": {
+    "$time": "01:00:00"
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "00:59",
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "00:59:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_kwargs[kwargs7-01:00-expected7]#0",
+  "test": "tests/validators/test_time.py::test_time_kwargs[kwargs7-01:00-expected7]",
+  "schema": {
+   "type": "time",
+   "lt": {
+    "$time": "01:00:00"
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "01:00",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than",
+     "loc": [],
+     "msg": "Input should be less than 01:00:00",
+     "input": "01:00",
+     "ctx": {
+      "lt": "01:00:00"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_kwargs[kwargs8-01:00-expected8]#0",
+  "test": "tests/validators/test_time.py::test_time_kwargs[kwargs8-01:00-expected8]",
+  "schema": {
+   "type": "time",
+   "ge": {
+    "$time": "01:00:00"
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "01:00",
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "01:00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_kwargs[kwargs9-00:59-expected9]#0",
+  "test": "tests/validators/test_time.py::test_time_kwargs[kwargs9-00:59-expected9]",
+  "schema": {
+   "type": "time",
+   "ge": {
+    "$time": "01:00:00"
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "00:59",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than_equal",
+     "loc": [],
+     "msg": "Input should be greater than or equal to 01:00:00",
+     "input": "00:59",
+     "ctx": {
+      "ge": "01:00:00"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_strict[12:13:14-expected1]#0",
+  "test": "tests/validators/test_time.py::test_time_strict[12:13:14-expected1]",
+  "schema": {
+   "type": "time",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:13:14",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_type",
+     "loc": [],
+     "msg": "Input should be a valid time",
+     "input": "12:13:14"
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_strict[12:13:14-expected2]#0",
+  "test": "tests/validators/test_time.py::test_time_strict[12:13:14-expected2]",
+  "schema": {
+   "type": "time",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "MTI6MTM6MTQ="
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_type",
+     "loc": [],
+     "msg": "Input should be a valid time",
+     "input": {
+      "$bytes": "MTI6MTM6MTQ="
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_strict[1654646400-expected3]#0",
+  "test": "tests/validators/test_time.py::test_time_strict[1654646400-expected3]",
+  "schema": {
+   "type": "time",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1654646400,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_type",
+     "loc": [],
+     "msg": "Input should be a valid time",
+     "input": 1654646400
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_strict[True-expected4]#0",
+  "test": "tests/validators/test_time.py::test_time_strict[True-expected4]",
+  "schema": {
+   "type": "time",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": true,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_type",
+     "loc": [],
+     "msg": "Input should be a valid time",
+     "input": true
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_strict[input_value0-expected0]#0",
+  "test": "tests/validators/test_time.py::test_time_strict[input_value0-expected0]",
+  "schema": {
+   "type": "time",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "12:13:14.000015"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:13:14.000015"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_strict[input_value5-expected5]#0",
+  "test": "tests/validators/test_time.py::test_time_strict[input_value5-expected5]",
+  "schema": {
+   "type": "time",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$date": "2022-06-08"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_type",
+     "loc": [],
+     "msg": "Input should be a valid time",
+     "input": {
+      "$date": "2022-06-08"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_strict[input_value6-expected6]#0",
+  "test": "tests/validators/test_time.py::test_time_strict[input_value6-expected6]",
+  "schema": {
+   "type": "time",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$datetime": "2022-06-08T00:00:00"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_type",
+     "loc": [],
+     "msg": "Input should be a valid time",
+     "input": {
+      "$datetime": "2022-06-08T00:00:00"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_strict_json[\"12:13:14\"-expected0]#0",
+  "test": "tests/validators/test_time.py::test_time_strict_json[\"12:13:14\"-expected0]",
+  "schema": {
+   "type": "time",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"12:13:14\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_strict_json[\"foobar\"-expected1]#0",
+  "test": "tests/validators/test_time.py::test_time_strict_json[\"foobar\"-expected1]",
+  "schema": {
+   "type": "time",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foobar\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_parsing",
+     "loc": [],
+     "msg": "Input should be in a valid time format, invalid character in hour",
+     "input": "foobar",
+     "ctx": {
+      "error": "invalid character in hour"
+     }
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_time_strict_json[123-expected2]#0",
+  "test": "tests/validators/test_time.py::test_time_strict_json[123-expected2]",
+  "schema": {
+   "type": "time",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "123",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_type",
+     "loc": [],
+     "msg": "Input should be a valid time",
+     "input": 123
+    }
+   ],
+   "title": "time"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_union#0",
+  "test": "tests/validators/test_time.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "time",
+     "microseconds_precision": "truncate"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:01:02",
+  "options": {},
+  "expected": {
+   "output": "12:01:02"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_union#1",
+  "test": "tests/validators/test_time.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "time",
+     "microseconds_precision": "truncate"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "12:01:02"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:01:02"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_union#2",
+  "test": "tests/validators/test_time.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "time",
+     "microseconds_precision": "truncate"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12:01:02",
+  "options": {},
+  "expected": {
+   "output": "12:01:02"
+  }
+ },
+ {
+  "id": "tests/validators/test_time.py::test_union#3",
+  "test": "tests/validators/test_time.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "time",
+     "microseconds_precision": "truncate"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "12:01:02"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:01:02"
+   }
+  }
+ }
+]

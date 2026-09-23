@@ -1,0 +1,3166 @@
+[
+ {
+  "id": "tests/validators/test_date.py::test_constraints_schema_validation#0",
+  "test": "tests/validators/test_date.py::test_constraints_schema_validation",
+  "schema": {
+   "type": "date",
+   "gt": "2020-01-01"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2019-01-01",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 2020-01-01",
+     "input": "2019-01-01",
+     "ctx": {
+      "gt": "2020-01-01"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[-inf]#0",
+  "test": "tests/validators/test_date.py::test_date[-inf]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "-inf"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_parsing",
+     "loc": [],
+     "msg": "Input should be a valid date or datetime, dates before 0000 are not supported as unix timestamps",
+     "input": {
+      "$float": "-inf"
+     },
+     "ctx": {
+      "error": "dates before 0000 are not supported as unix timestamps"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[bool]#0",
+  "test": "tests/validators/test_date.py::test_date[bool]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": true,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": true
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[bytes]#0",
+  "test": "tests/validators/test_date.py::test_date[bytes]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "MjAyMi0wNi0wOA=="
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[date]#0",
+  "test": "tests/validators/test_date.py::test_date[date]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$date": "2022-06-08"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[datetime-exact]#0",
+  "test": "tests/validators/test_date.py::test_date[datetime-exact]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$datetime": "2022-06-08T00:00:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[datetime-inexact]#0",
+  "test": "tests/validators/test_date.py::test_date[datetime-inexact]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$datetime": "2022-06-08T12:00:00"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_inexact",
+     "loc": [],
+     "msg": "Datetimes provided to dates should have zero time - e.g. be exact dates",
+     "input": {
+      "$datetime": "2022-06-08T12:00:00"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[decimal]#0",
+  "test": "tests/validators/test_date.py::test_date[decimal]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "1654646400"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[float-as-str]#0",
+  "test": "tests/validators/test_date.py::test_date[float-as-str]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1654646400.00",
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[float-inexact]#0",
+  "test": "tests/validators/test_date.py::test_date[float-inexact]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1654646400.1,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_inexact",
+     "loc": [],
+     "msg": "Datetimes provided to dates should have zero time - e.g. be exact dates",
+     "input": 1654646400.1
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[float-str-inexact]#0",
+  "test": "tests/validators/test_date.py::test_date[float-str-inexact]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1654646400.1",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_inexact",
+     "loc": [],
+     "msg": "Datetimes provided to dates should have zero time - e.g. be exact dates",
+     "input": "1654646400.1"
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[float]#0",
+  "test": "tests/validators/test_date.py::test_date[float]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1654646400.0,
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[inf]#0",
+  "test": "tests/validators/test_date.py::test_date[inf]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_parsing",
+     "loc": [],
+     "msg": "Input should be a valid date or datetime, dates after 9999 are not supported as unix timestamps",
+     "input": {
+      "$float": "inf"
+     },
+     "ctx": {
+      "error": "dates after 9999 are not supported as unix timestamps"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[int-as-str]#0",
+  "test": "tests/validators/test_date.py::test_date[int-as-str]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1654646400",
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[int-inexact]#0",
+  "test": "tests/validators/test_date.py::test_date[int-inexact]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1654646404,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_inexact",
+     "loc": [],
+     "msg": "Datetimes provided to dates should have zero time - e.g. be exact dates",
+     "input": 1654646404
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[int-str-inexact]#0",
+  "test": "tests/validators/test_date.py::test_date[int-str-inexact]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1654646404",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_inexact",
+     "loc": [],
+     "msg": "Datetimes provided to dates should have zero time - e.g. be exact dates",
+     "input": "1654646404"
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[int-too-high]#0",
+  "test": "tests/validators/test_date.py::test_date[int-too-high]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 253402300800000,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_parsing",
+     "loc": [],
+     "msg": "Input should be a valid date or datetime, dates after 9999 are not supported as unix timestamps",
+     "input": 253402300800000,
+     "ctx": {
+      "error": "dates after 9999 are not supported as unix timestamps"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[int-too-low]#0",
+  "test": "tests/validators/test_date.py::test_date[int-too-low]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": -80000000000000,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_parsing",
+     "loc": [],
+     "msg": "Input should be a valid date or datetime, dates before 0000 are not supported as unix timestamps",
+     "input": -80000000000000,
+     "ctx": {
+      "error": "dates before 0000 are not supported as unix timestamps"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[int]#0",
+  "test": "tests/validators/test_date.py::test_date[int]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1654646400,
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[min-date]#0",
+  "test": "tests/validators/test_date.py::test_date[min-date]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "0001-01-01",
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "0001-01-01"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[minus]#0",
+  "test": "tests/validators/test_date.py::test_date[minus]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_parsing",
+     "loc": [],
+     "msg": "Input should be a valid date or datetime, input is too short",
+     "input": "-",
+     "ctx": {
+      "error": "input is too short"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[nan]#0",
+  "test": "tests/validators/test_date.py::test_date[nan]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_parsing",
+     "loc": [],
+     "msg": "Input should be a valid date or datetime, NaN values not permitted",
+     "input": {
+      "$float": "nan"
+     },
+     "ctx": {
+      "error": "NaN values not permitted"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[pus]#0",
+  "test": "tests/validators/test_date.py::test_date[pus]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "+",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_parsing",
+     "loc": [],
+     "msg": "Input should be a valid date or datetime, input is too short",
+     "input": "+",
+     "ctx": {
+      "error": "input is too short"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[str]#0",
+  "test": "tests/validators/test_date.py::test_date[str]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08",
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[time]#0",
+  "test": "tests/validators/test_date.py::test_date[time]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "01:02:03"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": {
+      "$time": "01:02:03"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[tuple]#0",
+  "test": "tests/validators/test_date.py::test_date[tuple]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": {
+      "$tuple": [
+       1
+      ]
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date[year-0]#0",
+  "test": "tests/validators/test_date.py::test_date[year-0]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "0000-12-31",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_parsing",
+     "loc": [],
+     "msg": "Input should be a valid date in the format YYYY-MM-DD, year 0 is out of range",
+     "input": "0000-12-31",
+     "ctx": {
+      "error": "year 0 is out of range"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_future[json-1654646400-expected1]#0",
+  "test": "tests/validators/test_date.py::test_date_future[json-1654646400-expected1]",
+  "schema": {
+   "type": "date",
+   "now_op": "future"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1654646400",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_future",
+     "loc": [],
+     "msg": "Date should be in the future",
+     "input": 1654646400
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_future[json-1654646400-expected1]#1",
+  "test": "tests/validators/test_date.py::test_date_future[json-1654646400-expected1]",
+  "schema": {
+   "type": "date",
+   "now_op": "future"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1654646400",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_future",
+     "loc": [],
+     "msg": "Date should be in the future",
+     "input": 1654646400
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_future[json-2022-06-08-expected0]#0",
+  "test": "tests/validators/test_date.py::test_date_future[json-2022-06-08-expected0]",
+  "schema": {
+   "type": "date",
+   "now_op": "future"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2022-06-08\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_future",
+     "loc": [],
+     "msg": "Date should be in the future",
+     "input": "2022-06-08"
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_future[json-2022-06-08-expected0]#1",
+  "test": "tests/validators/test_date.py::test_date_future[json-2022-06-08-expected0]",
+  "schema": {
+   "type": "date",
+   "now_op": "future"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2022-06-08\"",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_future",
+     "loc": [],
+     "msg": "Date should be in the future",
+     "input": "2022-06-08"
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_future[json-2068-06-08-expected2]#0",
+  "test": "tests/validators/test_date.py::test_date_future[json-2068-06-08-expected2]",
+  "schema": {
+   "type": "date",
+   "now_op": "future"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2068-06-08\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2068-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_future[json-2068-06-08-expected2]#1",
+  "test": "tests/validators/test_date.py::test_date_future[json-2068-06-08-expected2]",
+  "schema": {
+   "type": "date",
+   "now_op": "future"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2068-06-08\"",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2068-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_future[json-3105734400-expected3]#0",
+  "test": "tests/validators/test_date.py::test_date_future[json-3105734400-expected3]",
+  "schema": {
+   "type": "date",
+   "now_op": "future"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "3105734400",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2068-06-01"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_future[json-3105734400-expected3]#1",
+  "test": "tests/validators/test_date.py::test_date_future[json-3105734400-expected3]",
+  "schema": {
+   "type": "date",
+   "now_op": "future"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "3105734400",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2068-06-01"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_future[python-1654646400-expected1]#0",
+  "test": "tests/validators/test_date.py::test_date_future[python-1654646400-expected1]",
+  "schema": {
+   "type": "date",
+   "now_op": "future"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1654646400,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_future",
+     "loc": [],
+     "msg": "Date should be in the future",
+     "input": 1654646400
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_future[python-2022-06-08-expected0]#0",
+  "test": "tests/validators/test_date.py::test_date_future[python-2022-06-08-expected0]",
+  "schema": {
+   "type": "date",
+   "now_op": "future"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_future",
+     "loc": [],
+     "msg": "Date should be in the future",
+     "input": "2022-06-08"
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_future[python-2068-06-08-expected2]#0",
+  "test": "tests/validators/test_date.py::test_date_future[python-2068-06-08-expected2]",
+  "schema": {
+   "type": "date",
+   "now_op": "future"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2068-06-08",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2068-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_future[python-3105734400-expected3]#0",
+  "test": "tests/validators/test_date.py::test_date_future[python-3105734400-expected3]",
+  "schema": {
+   "type": "date",
+   "now_op": "future"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 3105734400,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2068-06-01"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[json-1453-01-28-expected1]#0",
+  "test": "tests/validators/test_date.py::test_date_json[json-1453-01-28-expected1]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1453-01-28\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$date": "1453-01-28"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[json-1453-01-28-expected1]#1",
+  "test": "tests/validators/test_date.py::test_date_json[json-1453-01-28-expected1]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1453-01-28\"",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$date": "1453-01-28"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[json-1654646400-expected2]#0",
+  "test": "tests/validators/test_date.py::test_date_json[json-1654646400-expected2]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1654646400",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[json-1654646400-expected2]#1",
+  "test": "tests/validators/test_date.py::test_date_json[json-1654646400-expected2]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1654646400",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[json-1654646400.0-expected3]#0",
+  "test": "tests/validators/test_date.py::test_date_json[json-1654646400.0-expected3]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1654646400.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[json-1654646400.0-expected3]#1",
+  "test": "tests/validators/test_date.py::test_date_json[json-1654646400.0-expected3]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1654646400.0",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[json-1654646401-expected4]#0",
+  "test": "tests/validators/test_date.py::test_date_json[json-1654646401-expected4]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1654646401",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_inexact",
+     "loc": [],
+     "msg": "Datetimes provided to dates should have zero time - e.g. be exact dates",
+     "input": 1654646401
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[json-1654646401-expected4]#1",
+  "test": "tests/validators/test_date.py::test_date_json[json-1654646401-expected4]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1654646401",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_inexact",
+     "loc": [],
+     "msg": "Datetimes provided to dates should have zero time - e.g. be exact dates",
+     "input": 1654646401
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[json-2000-02-29-expected6]#0",
+  "test": "tests/validators/test_date.py::test_date_json[json-2000-02-29-expected6]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2000-02-29\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2000-02-29"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[json-2000-02-29-expected6]#1",
+  "test": "tests/validators/test_date.py::test_date_json[json-2000-02-29-expected6]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2000-02-29\"",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2000-02-29"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[json-2001-02-29-expected7]#0",
+  "test": "tests/validators/test_date.py::test_date_json[json-2001-02-29-expected7]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2001-02-29\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_parsing",
+     "loc": [],
+     "msg": "Input should be a valid date or datetime, day value is outside expected range",
+     "input": "2001-02-29",
+     "ctx": {
+      "error": "day value is outside expected range"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[json-2001-02-29-expected7]#1",
+  "test": "tests/validators/test_date.py::test_date_json[json-2001-02-29-expected7]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2001-02-29\"",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_parsing",
+     "loc": [],
+     "msg": "Input should be a valid date or datetime, day value is outside expected range",
+     "input": "2001-02-29",
+     "ctx": {
+      "error": "day value is outside expected range"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[json-2022-06-08-expected0]#0",
+  "test": "tests/validators/test_date.py::test_date_json[json-2022-06-08-expected0]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2022-06-08\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[json-2022-06-08-expected0]#1",
+  "test": "tests/validators/test_date.py::test_date_json[json-2022-06-08-expected0]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2022-06-08\"",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[json-input_value8-expected8]#0",
+  "test": "tests/validators/test_date.py::test_date_json[json-input_value8-expected8]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": [
+      1
+     ]
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[json-input_value8-expected8]#1",
+  "test": "tests/validators/test_date.py::test_date_json[json-input_value8-expected8]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1]",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": [
+      1
+     ]
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[json-wrong-expected5]#0",
+  "test": "tests/validators/test_date.py::test_date_json[json-wrong-expected5]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"wrong\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_parsing",
+     "loc": [],
+     "msg": "Input should be a valid date or datetime, input is too short",
+     "input": "wrong",
+     "ctx": {
+      "error": "input is too short"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[json-wrong-expected5]#1",
+  "test": "tests/validators/test_date.py::test_date_json[json-wrong-expected5]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"wrong\"",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_parsing",
+     "loc": [],
+     "msg": "Input should be a valid date or datetime, input is too short",
+     "input": "wrong",
+     "ctx": {
+      "error": "input is too short"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[python-1453-01-28-expected1]#0",
+  "test": "tests/validators/test_date.py::test_date_json[python-1453-01-28-expected1]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1453-01-28",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$date": "1453-01-28"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[python-1654646400-expected2]#0",
+  "test": "tests/validators/test_date.py::test_date_json[python-1654646400-expected2]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1654646400,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[python-1654646400.0-expected3]#0",
+  "test": "tests/validators/test_date.py::test_date_json[python-1654646400.0-expected3]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1654646400.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[python-1654646401-expected4]#0",
+  "test": "tests/validators/test_date.py::test_date_json[python-1654646401-expected4]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1654646401,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_inexact",
+     "loc": [],
+     "msg": "Datetimes provided to dates should have zero time - e.g. be exact dates",
+     "input": 1654646401
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[python-2000-02-29-expected6]#0",
+  "test": "tests/validators/test_date.py::test_date_json[python-2000-02-29-expected6]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2000-02-29",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2000-02-29"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[python-2001-02-29-expected7]#0",
+  "test": "tests/validators/test_date.py::test_date_json[python-2001-02-29-expected7]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2001-02-29",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_parsing",
+     "loc": [],
+     "msg": "Input should be a valid date or datetime, day value is outside expected range",
+     "input": "2001-02-29",
+     "ctx": {
+      "error": "day value is outside expected range"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[python-2022-06-08-expected0]#0",
+  "test": "tests/validators/test_date.py::test_date_json[python-2022-06-08-expected0]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[python-input_value8-expected8]#0",
+  "test": "tests/validators/test_date.py::test_date_json[python-input_value8-expected8]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": [
+      1
+     ]
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_json[python-wrong-expected5]#0",
+  "test": "tests/validators/test_date.py::test_date_json[python-wrong-expected5]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "wrong",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_from_datetime_parsing",
+     "loc": [],
+     "msg": "Input should be a valid date or datetime, input is too short",
+     "input": "wrong",
+     "ctx": {
+      "error": "input is too short"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_kwargs[kwargs0-2000-01-01-expected0]#0",
+  "test": "tests/validators/test_date.py::test_date_kwargs[kwargs0-2000-01-01-expected0]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2000-01-01",
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2000-01-01"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_kwargs[kwargs1-2000-01-01-expected1]#0",
+  "test": "tests/validators/test_date.py::test_date_kwargs[kwargs1-2000-01-01-expected1]",
+  "schema": {
+   "type": "date",
+   "le": {
+    "$date": "2000-01-01"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2000-01-01",
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2000-01-01"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_kwargs[kwargs2-2000-01-02-expected2]#0",
+  "test": "tests/validators/test_date.py::test_date_kwargs[kwargs2-2000-01-02-expected2]",
+  "schema": {
+   "type": "date",
+   "le": {
+    "$date": "2000-01-01"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2000-01-02",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than_equal",
+     "loc": [],
+     "msg": "Input should be less than or equal to 2000-01-01",
+     "input": "2000-01-02",
+     "ctx": {
+      "le": "2000-01-01"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_kwargs[kwargs3-1999-12-31-expected3]#0",
+  "test": "tests/validators/test_date.py::test_date_kwargs[kwargs3-1999-12-31-expected3]",
+  "schema": {
+   "type": "date",
+   "lt": {
+    "$date": "2000-01-01"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1999-12-31",
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "1999-12-31"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_kwargs[kwargs4-2000-01-01-expected4]#0",
+  "test": "tests/validators/test_date.py::test_date_kwargs[kwargs4-2000-01-01-expected4]",
+  "schema": {
+   "type": "date",
+   "lt": {
+    "$date": "2000-01-01"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2000-01-01",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than",
+     "loc": [],
+     "msg": "Input should be less than 2000-01-01",
+     "input": "2000-01-01",
+     "ctx": {
+      "lt": "2000-01-01"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_kwargs[kwargs5-2000-01-01-expected5]#0",
+  "test": "tests/validators/test_date.py::test_date_kwargs[kwargs5-2000-01-01-expected5]",
+  "schema": {
+   "type": "date",
+   "ge": {
+    "$date": "2000-01-01"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2000-01-01",
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2000-01-01"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_kwargs[kwargs6-1999-12-31-expected6]#0",
+  "test": "tests/validators/test_date.py::test_date_kwargs[kwargs6-1999-12-31-expected6]",
+  "schema": {
+   "type": "date",
+   "ge": {
+    "$date": "2000-01-01"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1999-12-31",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than_equal",
+     "loc": [],
+     "msg": "Input should be greater than or equal to 2000-01-01",
+     "input": "1999-12-31",
+     "ctx": {
+      "ge": "2000-01-01"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_kwargs[kwargs7-2000-01-02-expected7]#0",
+  "test": "tests/validators/test_date.py::test_date_kwargs[kwargs7-2000-01-02-expected7]",
+  "schema": {
+   "type": "date",
+   "gt": {
+    "$date": "2000-01-01"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2000-01-02",
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2000-01-02"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_kwargs[kwargs8-2000-01-01-expected8]#0",
+  "test": "tests/validators/test_date.py::test_date_kwargs[kwargs8-2000-01-01-expected8]",
+  "schema": {
+   "type": "date",
+   "gt": {
+    "$date": "2000-01-01"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2000-01-01",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 2000-01-01",
+     "input": "2000-01-01",
+     "ctx": {
+      "gt": "2000-01-01"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_past[json-1654646400-expected1]#0",
+  "test": "tests/validators/test_date.py::test_date_past[json-1654646400-expected1]",
+  "schema": {
+   "type": "date",
+   "now_op": "past"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1654646400",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_past[json-1654646400-expected1]#1",
+  "test": "tests/validators/test_date.py::test_date_past[json-1654646400-expected1]",
+  "schema": {
+   "type": "date",
+   "now_op": "past"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1654646400",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_past[json-2022-06-08-expected0]#0",
+  "test": "tests/validators/test_date.py::test_date_past[json-2022-06-08-expected0]",
+  "schema": {
+   "type": "date",
+   "now_op": "past"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2022-06-08\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_past[json-2022-06-08-expected0]#1",
+  "test": "tests/validators/test_date.py::test_date_past[json-2022-06-08-expected0]",
+  "schema": {
+   "type": "date",
+   "now_op": "past"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2022-06-08\"",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_past[json-2068-06-08-expected2]#0",
+  "test": "tests/validators/test_date.py::test_date_past[json-2068-06-08-expected2]",
+  "schema": {
+   "type": "date",
+   "now_op": "past"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2068-06-08\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_past",
+     "loc": [],
+     "msg": "Date should be in the past",
+     "input": "2068-06-08"
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_past[json-2068-06-08-expected2]#1",
+  "test": "tests/validators/test_date.py::test_date_past[json-2068-06-08-expected2]",
+  "schema": {
+   "type": "date",
+   "now_op": "past"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2068-06-08\"",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_past",
+     "loc": [],
+     "msg": "Date should be in the past",
+     "input": "2068-06-08"
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_past[json-3105734400-expected3]#0",
+  "test": "tests/validators/test_date.py::test_date_past[json-3105734400-expected3]",
+  "schema": {
+   "type": "date",
+   "now_op": "past"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "3105734400",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_past",
+     "loc": [],
+     "msg": "Date should be in the past",
+     "input": 3105734400
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_past[json-3105734400-expected3]#1",
+  "test": "tests/validators/test_date.py::test_date_past[json-3105734400-expected3]",
+  "schema": {
+   "type": "date",
+   "now_op": "past"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "3105734400",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_past",
+     "loc": [],
+     "msg": "Date should be in the past",
+     "input": 3105734400
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_past[python-1654646400-expected1]#0",
+  "test": "tests/validators/test_date.py::test_date_past[python-1654646400-expected1]",
+  "schema": {
+   "type": "date",
+   "now_op": "past"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1654646400,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_past[python-2022-06-08-expected0]#0",
+  "test": "tests/validators/test_date.py::test_date_past[python-2022-06-08-expected0]",
+  "schema": {
+   "type": "date",
+   "now_op": "past"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_past[python-2068-06-08-expected2]#0",
+  "test": "tests/validators/test_date.py::test_date_past[python-2068-06-08-expected2]",
+  "schema": {
+   "type": "date",
+   "now_op": "past"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2068-06-08",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_past",
+     "loc": [],
+     "msg": "Date should be in the past",
+     "input": "2068-06-08"
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_past[python-3105734400-expected3]#0",
+  "test": "tests/validators/test_date.py::test_date_past[python-3105734400-expected3]",
+  "schema": {
+   "type": "date",
+   "now_op": "past"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 3105734400,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_past",
+     "loc": [],
+     "msg": "Date should be in the past",
+     "input": 3105734400
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict[strict-both-'2022-06-08'-Err('Input should be a valid date [type=date_type')]#0",
+  "test": "tests/validators/test_date.py::test_date_strict[strict-both-'2022-06-08'-Err('Input should be a valid date [type=date_type')]",
+  "schema": {
+   "type": "date",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08",
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": "2022-06-08"
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict[strict-both-1654646400-Err('Input should be a valid date [type=date_type')]#0",
+  "test": "tests/validators/test_date.py::test_date_strict[strict-both-1654646400-Err('Input should be a valid date [type=date_type')]",
+  "schema": {
+   "type": "date",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1654646400,
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": 1654646400
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict[strict-both-True-Err('Input should be a valid date [type=date_type')]#0",
+  "test": "tests/validators/test_date.py::test_date_strict[strict-both-True-Err('Input should be a valid date [type=date_type')]",
+  "schema": {
+   "type": "date",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": true,
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": true
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict[strict-both-b'2022-06-08'-Err('Input should be a valid date [type=date_type')]#0",
+  "test": "tests/validators/test_date.py::test_date_strict[strict-both-b'2022-06-08'-Err('Input should be a valid date [type=date_type')]",
+  "schema": {
+   "type": "date",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "MjAyMi0wNi0wOA=="
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": {
+      "$bytes": "MjAyMi0wNi0wOA=="
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict[strict-both-datetime.date(2022, 6, 8)-datetime.date(2022, 6, 8)]#0",
+  "test": "tests/validators/test_date.py::test_date_strict[strict-both-datetime.date(2022, 6, 8)-datetime.date(2022, 6, 8)]",
+  "schema": {
+   "type": "date",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$date": "2022-06-08"
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict[strict-both-datetime.datetime(2022, 6, 8, 0, 0)-Err('Input should be a valid date [type=date_type')]#0",
+  "test": "tests/validators/test_date.py::test_date_strict[strict-both-datetime.datetime(2022, 6, 8, 0, 0)-Err('Input should be a valid date [type=date_type')]",
+  "schema": {
+   "type": "date",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$datetime": "2022-06-08T00:00:00"
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": {
+      "$datetime": "2022-06-08T00:00:00"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict[strict-extra-'2022-06-08'-Err('Input should be a valid date [type=date_type')]#0",
+  "test": "tests/validators/test_date.py::test_date_strict[strict-extra-'2022-06-08'-Err('Input should be a valid date [type=date_type')]",
+  "schema": {
+   "type": "date",
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08",
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": "2022-06-08"
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict[strict-extra-1654646400-Err('Input should be a valid date [type=date_type')]#0",
+  "test": "tests/validators/test_date.py::test_date_strict[strict-extra-1654646400-Err('Input should be a valid date [type=date_type')]",
+  "schema": {
+   "type": "date",
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1654646400,
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": 1654646400
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict[strict-extra-True-Err('Input should be a valid date [type=date_type')]#0",
+  "test": "tests/validators/test_date.py::test_date_strict[strict-extra-True-Err('Input should be a valid date [type=date_type')]",
+  "schema": {
+   "type": "date",
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": true,
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": true
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict[strict-extra-b'2022-06-08'-Err('Input should be a valid date [type=date_type')]#0",
+  "test": "tests/validators/test_date.py::test_date_strict[strict-extra-b'2022-06-08'-Err('Input should be a valid date [type=date_type')]",
+  "schema": {
+   "type": "date",
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "MjAyMi0wNi0wOA=="
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": {
+      "$bytes": "MjAyMi0wNi0wOA=="
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict[strict-extra-datetime.date(2022, 6, 8)-datetime.date(2022, 6, 8)]#0",
+  "test": "tests/validators/test_date.py::test_date_strict[strict-extra-datetime.date(2022, 6, 8)-datetime.date(2022, 6, 8)]",
+  "schema": {
+   "type": "date",
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$date": "2022-06-08"
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict[strict-extra-datetime.datetime(2022, 6, 8, 0, 0)-Err('Input should be a valid date [type=date_type')]#0",
+  "test": "tests/validators/test_date.py::test_date_strict[strict-extra-datetime.datetime(2022, 6, 8, 0, 0)-Err('Input should be a valid date [type=date_type')]",
+  "schema": {
+   "type": "date",
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$datetime": "2022-06-08T00:00:00"
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": {
+      "$datetime": "2022-06-08T00:00:00"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict[strict-schema-'2022-06-08'-Err('Input should be a valid date [type=date_type')]#0",
+  "test": "tests/validators/test_date.py::test_date_strict[strict-schema-'2022-06-08'-Err('Input should be a valid date [type=date_type')]",
+  "schema": {
+   "type": "date",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": "2022-06-08"
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict[strict-schema-1654646400-Err('Input should be a valid date [type=date_type')]#0",
+  "test": "tests/validators/test_date.py::test_date_strict[strict-schema-1654646400-Err('Input should be a valid date [type=date_type')]",
+  "schema": {
+   "type": "date",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1654646400,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": 1654646400
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict[strict-schema-True-Err('Input should be a valid date [type=date_type')]#0",
+  "test": "tests/validators/test_date.py::test_date_strict[strict-schema-True-Err('Input should be a valid date [type=date_type')]",
+  "schema": {
+   "type": "date",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": true,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": true
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict[strict-schema-b'2022-06-08'-Err('Input should be a valid date [type=date_type')]#0",
+  "test": "tests/validators/test_date.py::test_date_strict[strict-schema-b'2022-06-08'-Err('Input should be a valid date [type=date_type')]",
+  "schema": {
+   "type": "date",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "MjAyMi0wNi0wOA=="
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": {
+      "$bytes": "MjAyMi0wNi0wOA=="
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict[strict-schema-datetime.date(2022, 6, 8)-datetime.date(2022, 6, 8)]#0",
+  "test": "tests/validators/test_date.py::test_date_strict[strict-schema-datetime.date(2022, 6, 8)-datetime.date(2022, 6, 8)]",
+  "schema": {
+   "type": "date",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$date": "2022-06-08"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict[strict-schema-datetime.datetime(2022, 6, 8, 0, 0)-Err('Input should be a valid date [type=date_type')]#0",
+  "test": "tests/validators/test_date.py::test_date_strict[strict-schema-datetime.datetime(2022, 6, 8, 0, 0)-Err('Input should be a valid date [type=date_type')]",
+  "schema": {
+   "type": "date",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$datetime": "2022-06-08T00:00:00"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": {
+      "$datetime": "2022-06-08T00:00:00"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict_json[strict-both-\"2022-06-08\"-expected0]#0",
+  "test": "tests/validators/test_date.py::test_date_strict_json[strict-both-\"2022-06-08\"-expected0]",
+  "schema": {
+   "type": "date",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2022-06-08\"",
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict_json[strict-both-\"foobar\"-expected1]#0",
+  "test": "tests/validators/test_date.py::test_date_strict_json[strict-both-\"foobar\"-expected1]",
+  "schema": {
+   "type": "date",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foobar\"",
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_parsing",
+     "loc": [],
+     "msg": "Input should be a valid date in the format YYYY-MM-DD, input is too short",
+     "input": "foobar",
+     "ctx": {
+      "error": "input is too short"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict_json[strict-both-1654646400-expected2]#0",
+  "test": "tests/validators/test_date.py::test_date_strict_json[strict-both-1654646400-expected2]",
+  "schema": {
+   "type": "date",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1654646400",
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": 1654646400
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict_json[strict-extra-\"2022-06-08\"-expected0]#0",
+  "test": "tests/validators/test_date.py::test_date_strict_json[strict-extra-\"2022-06-08\"-expected0]",
+  "schema": {
+   "type": "date",
+   "strict": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2022-06-08\"",
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict_json[strict-extra-\"foobar\"-expected1]#0",
+  "test": "tests/validators/test_date.py::test_date_strict_json[strict-extra-\"foobar\"-expected1]",
+  "schema": {
+   "type": "date",
+   "strict": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foobar\"",
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_parsing",
+     "loc": [],
+     "msg": "Input should be a valid date in the format YYYY-MM-DD, input is too short",
+     "input": "foobar",
+     "ctx": {
+      "error": "input is too short"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict_json[strict-extra-1654646400-expected2]#0",
+  "test": "tests/validators/test_date.py::test_date_strict_json[strict-extra-1654646400-expected2]",
+  "schema": {
+   "type": "date",
+   "strict": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1654646400",
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": 1654646400
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict_json[strict-schema-\"2022-06-08\"-expected0]#0",
+  "test": "tests/validators/test_date.py::test_date_strict_json[strict-schema-\"2022-06-08\"-expected0]",
+  "schema": {
+   "type": "date",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2022-06-08\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict_json[strict-schema-\"foobar\"-expected1]#0",
+  "test": "tests/validators/test_date.py::test_date_strict_json[strict-schema-\"foobar\"-expected1]",
+  "schema": {
+   "type": "date",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foobar\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_parsing",
+     "loc": [],
+     "msg": "Input should be a valid date in the format YYYY-MM-DD, input is too short",
+     "input": "foobar",
+     "ctx": {
+      "error": "input is too short"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict_json[strict-schema-1654646400-expected2]#0",
+  "test": "tests/validators/test_date.py::test_date_strict_json[strict-schema-1654646400-expected2]",
+  "schema": {
+   "type": "date",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1654646400",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": 1654646400
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_date_strict_json_ctx#0",
+  "test": "tests/validators/test_date.py::test_date_strict_json_ctx",
+  "schema": {
+   "type": "date",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foobar\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_parsing",
+     "loc": [],
+     "msg": "Input should be a valid date in the format YYYY-MM-DD, input is too short",
+     "input": "foobar",
+     "ctx": {
+      "error": "input is too short"
+     }
+    }
+   ],
+   "title": "date"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_dict[json]#0",
+  "test": "tests/validators/test_date.py::test_dict[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "date"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"2000-01-01\": 2, \"2000-01-02\": 4}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$date": "2000-01-01"
+      },
+      2
+     ],
+     [
+      {
+       "$date": "2000-01-02"
+      },
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_dict[python]#0",
+  "test": "tests/validators/test_date.py::test_dict[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "date"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "2000-01-01": 2,
+   "2000-01-02": 4
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$date": "2000-01-01"
+      },
+      2
+     ],
+     [
+      {
+       "$date": "2000-01-02"
+      },
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_dict_py#0",
+  "test": "tests/validators/test_date.py::test_dict_py",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "date"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$date": "2000-01-01"
+     },
+     2
+    ],
+    [
+     {
+      "$date": "2000-01-02"
+     },
+     4
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$date": "2000-01-01"
+      },
+      2
+     ],
+     [
+      {
+       "$date": "2000-01-02"
+      },
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_union#0",
+  "test": "tests/validators/test_date.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "date"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-01-02",
+  "options": {},
+  "expected": {
+   "output": "2022-01-02"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_union#1",
+  "test": "tests/validators/test_date.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "date"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$date": "2022-01-02"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-01-02"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_union#2",
+  "test": "tests/validators/test_date.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "date"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-01-02",
+  "options": {},
+  "expected": {
+   "output": "2022-01-02"
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_union#3",
+  "test": "tests/validators/test_date.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "date"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$date": "2022-01-02"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-01-02"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_val_temporal_unit_date[infer-1654646400-expected10]#0",
+  "test": "tests/validators/test_date.py::test_val_temporal_unit_date[infer-1654646400-expected10]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "val_temporal_unit": "infer"
+  },
+  "mode": "python",
+  "input": 1654646400,
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_val_temporal_unit_date[infer-1654646400000-expected11]#0",
+  "test": "tests/validators/test_date.py::test_val_temporal_unit_date[infer-1654646400000-expected11]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "val_temporal_unit": "infer"
+  },
+  "mode": "python",
+  "input": 1654646400000,
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_val_temporal_unit_date[infer-8640000000.0-expected12]#0",
+  "test": "tests/validators/test_date.py::test_val_temporal_unit_date[infer-8640000000.0-expected12]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "val_temporal_unit": "infer"
+  },
+  "mode": "python",
+  "input": 8640000000.0,
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2243-10-17"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_val_temporal_unit_date[infer-92534400000.0-expected13]#0",
+  "test": "tests/validators/test_date.py::test_val_temporal_unit_date[infer-92534400000.0-expected13]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "val_temporal_unit": "infer"
+  },
+  "mode": "python",
+  "input": 92534400000.0,
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "1972-12-07"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_val_temporal_unit_date[milliseconds-1654646400000-expected5]#0",
+  "test": "tests/validators/test_date.py::test_val_temporal_unit_date[milliseconds-1654646400000-expected5]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "val_temporal_unit": "milliseconds"
+  },
+  "mode": "python",
+  "input": 1654646400000,
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_val_temporal_unit_date[milliseconds-1654646400000-expected6]#0",
+  "test": "tests/validators/test_date.py::test_val_temporal_unit_date[milliseconds-1654646400000-expected6]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "val_temporal_unit": "milliseconds"
+  },
+  "mode": "python",
+  "input": "1654646400000",
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_val_temporal_unit_date[milliseconds-1654646400000.0-expected7]#0",
+  "test": "tests/validators/test_date.py::test_val_temporal_unit_date[milliseconds-1654646400000.0-expected7]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "val_temporal_unit": "milliseconds"
+  },
+  "mode": "python",
+  "input": 1654646400000.0,
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_val_temporal_unit_date[milliseconds-8640000000.0-expected8]#0",
+  "test": "tests/validators/test_date.py::test_val_temporal_unit_date[milliseconds-8640000000.0-expected8]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "val_temporal_unit": "milliseconds"
+  },
+  "mode": "python",
+  "input": 8640000000.0,
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "1970-04-11"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_val_temporal_unit_date[milliseconds-92534400000.0-expected9]#0",
+  "test": "tests/validators/test_date.py::test_val_temporal_unit_date[milliseconds-92534400000.0-expected9]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "val_temporal_unit": "milliseconds"
+  },
+  "mode": "python",
+  "input": 92534400000.0,
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "1972-12-07"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_val_temporal_unit_date[seconds-1654646400-expected0]#0",
+  "test": "tests/validators/test_date.py::test_val_temporal_unit_date[seconds-1654646400-expected0]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "val_temporal_unit": "seconds"
+  },
+  "mode": "python",
+  "input": 1654646400,
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_val_temporal_unit_date[seconds-1654646400-expected1]#0",
+  "test": "tests/validators/test_date.py::test_val_temporal_unit_date[seconds-1654646400-expected1]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "val_temporal_unit": "seconds"
+  },
+  "mode": "python",
+  "input": "1654646400",
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_val_temporal_unit_date[seconds-1654646400.0-expected2]#0",
+  "test": "tests/validators/test_date.py::test_val_temporal_unit_date[seconds-1654646400.0-expected2]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "val_temporal_unit": "seconds"
+  },
+  "mode": "python",
+  "input": 1654646400.0,
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-06-08"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_val_temporal_unit_date[seconds-8640000000.0-expected3]#0",
+  "test": "tests/validators/test_date.py::test_val_temporal_unit_date[seconds-8640000000.0-expected3]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "val_temporal_unit": "seconds"
+  },
+  "mode": "python",
+  "input": 8640000000.0,
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2243-10-17"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_date.py::test_val_temporal_unit_date[seconds-92534400000.0-expected4]#0",
+  "test": "tests/validators/test_date.py::test_val_temporal_unit_date[seconds-92534400000.0-expected4]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "val_temporal_unit": "seconds"
+  },
+  "mode": "python",
+  "input": 92534400000.0,
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "4902-04-20"
+   }
+  }
+ }
+]

@@ -43,3 +43,14 @@ fn notice_attributes_pydantic_core() {
     assert!(notice.contains("pydantic-core"));
     assert!(notice.contains("MIT"));
 }
+
+#[test]
+fn conformance_recording_pins_the_upstream_release() {
+    let requirements =
+        fs::read_to_string(repo_root().join("tools/requirements-record.txt")).unwrap();
+    let pin = format!("pydantic-core=={}", perldantic_core::UPSTREAM_VERSION);
+    assert!(
+        requirements.lines().any(|line| line.trim() == pin),
+        "tools/requirements-record.txt must pin {pin}"
+    );
+}

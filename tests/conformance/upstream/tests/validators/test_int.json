@@ -1,0 +1,5904 @@
+[
+ {
+  "id": "tests/validators/test_int.py::test_allow_inf_nan_false_json#0",
+  "test": "tests/validators/test_int.py::test_allow_inf_nan_false_json",
+  "schema": {
+   "type": "int"
+  },
+  "config": {
+   "allow_inf_nan": false
+  },
+  "mode": "json",
+  "input": "123",
+  "options": {},
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_allow_inf_nan_false_json#1",
+  "test": "tests/validators/test_int.py::test_allow_inf_nan_false_json",
+  "schema": {
+   "type": "int"
+  },
+  "config": {
+   "allow_inf_nan": false
+  },
+  "mode": "json",
+  "input": "NaN",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": {
+      "$float": "nan"
+     }
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_allow_inf_nan_false_json#2",
+  "test": "tests/validators/test_int.py::test_allow_inf_nan_false_json",
+  "schema": {
+   "type": "int"
+  },
+  "config": {
+   "allow_inf_nan": false
+  },
+  "mode": "json",
+  "input": "Infinity",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": {
+      "$float": "inf"
+     }
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_allow_inf_nan_false_json#3",
+  "test": "tests/validators/test_int.py::test_allow_inf_nan_false_json",
+  "schema": {
+   "type": "int"
+  },
+  "config": {
+   "allow_inf_nan": false
+  },
+  "mode": "json",
+  "input": "-Infinity",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": {
+      "$float": "-inf"
+     }
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_allow_inf_nan_true_json#0",
+  "test": "tests/validators/test_int.py::test_allow_inf_nan_true_json",
+  "schema": {
+   "type": "int"
+  },
+  "config": {
+   "allow_inf_nan": true
+  },
+  "mode": "json",
+  "input": "123",
+  "options": {},
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_allow_inf_nan_true_json#1",
+  "test": "tests/validators/test_int.py::test_allow_inf_nan_true_json",
+  "schema": {
+   "type": "int"
+  },
+  "config": {
+   "allow_inf_nan": true
+  },
+  "mode": "json",
+  "input": "NaN",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": {
+      "$float": "nan"
+     }
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_allow_inf_nan_true_json#2",
+  "test": "tests/validators/test_int.py::test_allow_inf_nan_true_json",
+  "schema": {
+   "type": "int"
+  },
+  "config": {
+   "allow_inf_nan": true
+  },
+  "mode": "json",
+  "input": "Infinity",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": {
+      "$float": "inf"
+     }
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_allow_inf_nan_true_json#3",
+  "test": "tests/validators/test_int.py::test_allow_inf_nan_true_json",
+  "schema": {
+   "type": "int"
+  },
+  "config": {
+   "allow_inf_nan": true
+  },
+  "mode": "json",
+  "input": "-Infinity",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": {
+      "$float": "-inf"
+     }
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_constraints_schema_validation#0",
+  "test": "tests/validators/test_int.py::test_constraints_schema_validation",
+  "schema": {
+   "type": "int",
+   "gt": "1"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "0",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 1",
+     "input": "0",
+     "ctx": {
+      "gt": 1
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_float_subclass#0",
+  "test": "tests/validators/test_int.py::test_float_subclass",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "FloatSubclass",
+    1.0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int['18446744073709551614'-18446744073709551614]#0",
+  "test": "tests/validators/test_int.py::test_int['18446744073709551614'-18446744073709551614]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "18446744073709551614",
+  "options": {},
+  "expected": {
+   "output": 18446744073709551614
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int['9223372036854775807'-9223372036854775807]#0",
+  "test": "tests/validators/test_int.py::test_int['9223372036854775807'-9223372036854775807]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "9223372036854775807",
+  "options": {},
+  "expected": {
+   "output": 9223372036854775807
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int[-18446744073709551614--18446744073709551614]#0",
+  "test": "tests/validators/test_int.py::test_int[-18446744073709551614--18446744073709551614]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": -18446744073709551614,
+  "options": {},
+  "expected": {
+   "output": -18446744073709551614
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int[-9223372036854775806--9223372036854775806]#0",
+  "test": "tests/validators/test_int.py::test_int[-9223372036854775806--9223372036854775806]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": -9223372036854775806,
+  "options": {},
+  "expected": {
+   "output": -9223372036854775806
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int[1.0-1]#0",
+  "test": "tests/validators/test_int.py::test_int[1.0-1]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1.0,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int[18446744073709551614-18446744073709551614]#0",
+  "test": "tests/validators/test_int.py::test_int[18446744073709551614-18446744073709551614]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 18446744073709551614,
+  "options": {},
+  "expected": {
+   "output": 18446744073709551614
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int[9223372036854775807-9223372036854775807]#0",
+  "test": "tests/validators/test_int.py::test_int[9223372036854775807-9223372036854775807]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 9223372036854775807,
+  "options": {},
+  "expected": {
+   "output": 9223372036854775807
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int[9223372036854775808-9223372036854775808]#0",
+  "test": "tests/validators/test_int.py::test_int[9223372036854775808-9223372036854775808]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 9223372036854775808,
+  "options": {},
+  "expected": {
+   "output": 9223372036854775808
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int[Decimal('1')-1]#0",
+  "test": "tests/validators/test_int.py::test_int[Decimal('1')-1]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int[Decimal('1.0')-1]#0",
+  "test": "tests/validators/test_int.py::test_int[Decimal('1.0')-1]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "1.0"
+  },
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int[Decimal('10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000')-10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]#0",
+  "test": "tests/validators/test_int.py::test_int[Decimal('10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000')-10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+  },
+  "options": {},
+  "expected": {
+   "output": 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int[Fraction(10935244710974505, 1)-10935244710974505]#0",
+  "test": "tests/validators/test_int.py::test_int[Fraction(10935244710974505, 1)-10935244710974505]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "Fraction"
+  },
+  "options": {},
+  "expected": {
+   "output": 10935244710974505
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int[decimal-remainder]#0",
+  "test": "tests/validators/test_int.py::test_int[decimal-remainder]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "1.001"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_from_float",
+     "loc": [],
+     "msg": "Input should be a valid integer, got a number with a fractional part",
+     "input": {
+      "$decimal": "1.001"
+     }
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int[float-remainder]#0",
+  "test": "tests/validators/test_int.py::test_int[float-remainder]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1.00000000001,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_from_float",
+     "loc": [],
+     "msg": "Input should be a valid integer, got a number with a fractional part",
+     "input": 1.00000000001
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int[fraction-remainder]#0",
+  "test": "tests/validators/test_int.py::test_int[fraction-remainder]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "Fraction"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_from_float",
+     "loc": [],
+     "msg": "Input should be a valid integer, got a number with a fractional part",
+     "input": {
+      "$object": "Fraction"
+     }
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int[tuple]#0",
+  "test": "tests/validators/test_int.py::test_int[tuple]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [],
+     "msg": "Input should be a valid integer",
+     "input": {
+      "$tuple": [
+       1,
+       2
+      ]
+     }
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_key[json]#0",
+  "test": "tests/validators/test_int.py::test_int_key[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"1\": 1, \"2\": 2}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_key[json]#1",
+  "test": "tests/validators/test_int.py::test_int_key[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "1": 1,
+   "2": 2
+  },
+  "options": {
+   "strict": true,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [
+      "1",
+      "[key]"
+     ],
+     "msg": "Input should be a valid integer",
+     "input": "1"
+    },
+    {
+     "type": "int_type",
+     "loc": [
+      "2",
+      "[key]"
+     ],
+     "msg": "Input should be a valid integer",
+     "input": "2"
+    }
+   ],
+   "title": "dict[int,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_key[json]#2",
+  "test": "tests/validators/test_int.py::test_int_key[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"1\": 1, \"2\": 2}",
+  "options": {
+   "strict": true,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_key[python]#0",
+  "test": "tests/validators/test_int.py::test_int_key[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "1": 1,
+   "2": 2
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_key[python]#1",
+  "test": "tests/validators/test_int.py::test_int_key[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "1": 1,
+   "2": 2
+  },
+  "options": {
+   "strict": true,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [
+      "1",
+      "[key]"
+     ],
+     "msg": "Input should be a valid integer",
+     "input": "1"
+    },
+    {
+     "type": "int_type",
+     "loc": [
+      "2",
+      "[key]"
+     ],
+     "msg": "Input should be a valid integer",
+     "input": "2"
+    }
+   ],
+   "title": "dict[int,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_key[python]#2",
+  "test": "tests/validators/test_int.py::test_int_key[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"1\": 1, \"2\": 2}",
+  "options": {
+   "strict": true,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[json-{'ge': 0}--1-Err('Input should be greater than or equal to 0 [type=greater_than_equal, input_value=-1, input_type=int]')]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[json-{'ge': 0}--1-Err('Input should be greater than or equal to 0 [type=greater_than_equal, input_value=-1, input_type=int]')]",
+  "schema": {
+   "type": "int",
+   "ge": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than_equal",
+     "loc": [],
+     "msg": "Input should be greater than or equal to 0",
+     "input": -1,
+     "ctx": {
+      "ge": 0
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[json-{'ge': 0}-0-0]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[json-{'ge': 0}-0-0]",
+  "schema": {
+   "type": "int",
+   "ge": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[json-{'gt': 0}-0-Err('Input should be greater than 0 [type=greater_than, input_value=0, input_type=int]')]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[json-{'gt': 0}-0-Err('Input should be greater than 0 [type=greater_than, input_value=0, input_type=int]')]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 0",
+     "input": 0,
+     "ctx": {
+      "gt": 0
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[json-{'gt': 0}-1-1]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[json-{'gt': 0}-1-1]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[json-{'le': 0}--1--1]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[json-{'le': 0}--1--1]",
+  "schema": {
+   "type": "int",
+   "le": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[json-{'le': 0}-0-0]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[json-{'le': 0}-0-0]",
+  "schema": {
+   "type": "int",
+   "le": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[json-{'le': 0}-1-Err('Input should be less than or equal to 0')]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[json-{'le': 0}-1-Err('Input should be less than or equal to 0')]",
+  "schema": {
+   "type": "int",
+   "le": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than_equal",
+     "loc": [],
+     "msg": "Input should be less than or equal to 0",
+     "input": 1,
+     "ctx": {
+      "le": 0
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[json-{'lt': 0}-0-Err('Input should be less than 0')]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[json-{'lt': 0}-0-Err('Input should be less than 0')]",
+  "schema": {
+   "type": "int",
+   "lt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than",
+     "loc": [],
+     "msg": "Input should be less than 0",
+     "input": 0,
+     "ctx": {
+      "lt": 0
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[json-{'lt': 0}-1-Err('Input should be less than 0')]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[json-{'lt': 0}-1-Err('Input should be less than 0')]",
+  "schema": {
+   "type": "int",
+   "lt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than",
+     "loc": [],
+     "msg": "Input should be less than 0",
+     "input": 1,
+     "ctx": {
+      "lt": 0
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[json-{'multiple_of': 5}-15-15]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[json-{'multiple_of': 5}-15-15]",
+  "schema": {
+   "type": "int",
+   "multiple_of": 5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "15",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 15
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[json-{'multiple_of': 5}-6-Err('Input should be a multiple of 5')]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[json-{'multiple_of': 5}-6-Err('Input should be a multiple of 5')]",
+  "schema": {
+   "type": "int",
+   "multiple_of": 5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "6",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 5",
+     "input": 6,
+     "ctx": {
+      "multiple_of": 5
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[json-{}-'123.000'-123]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[json-{}-'123.000'-123]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"123.000\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[json-{}-0-0]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[json-{}-0-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[python-{'ge': 0}--1-Err('Input should be greater than or equal to 0 [type=greater_than_equal, input_value=-1, input_type=int]')]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[python-{'ge': 0}--1-Err('Input should be greater than or equal to 0 [type=greater_than_equal, input_value=-1, input_type=int]')]",
+  "schema": {
+   "type": "int",
+   "ge": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": -1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than_equal",
+     "loc": [],
+     "msg": "Input should be greater than or equal to 0",
+     "input": -1,
+     "ctx": {
+      "ge": 0
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[python-{'ge': 0}-0-0]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[python-{'ge': 0}-0-0]",
+  "schema": {
+   "type": "int",
+   "ge": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[python-{'gt': 0}-0-Err('Input should be greater than 0 [type=greater_than, input_value=0, input_type=int]')]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[python-{'gt': 0}-0-Err('Input should be greater than 0 [type=greater_than, input_value=0, input_type=int]')]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 0",
+     "input": 0,
+     "ctx": {
+      "gt": 0
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[python-{'gt': 0}-1-1]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[python-{'gt': 0}-1-1]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[python-{'le': 0}--1--1]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[python-{'le': 0}--1--1]",
+  "schema": {
+   "type": "int",
+   "le": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": -1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[python-{'le': 0}-0-0]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[python-{'le': 0}-0-0]",
+  "schema": {
+   "type": "int",
+   "le": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[python-{'le': 0}-1-Err('Input should be less than or equal to 0')]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[python-{'le': 0}-1-Err('Input should be less than or equal to 0')]",
+  "schema": {
+   "type": "int",
+   "le": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than_equal",
+     "loc": [],
+     "msg": "Input should be less than or equal to 0",
+     "input": 1,
+     "ctx": {
+      "le": 0
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[python-{'lt': 0}-0-Err('Input should be less than 0')]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[python-{'lt': 0}-0-Err('Input should be less than 0')]",
+  "schema": {
+   "type": "int",
+   "lt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than",
+     "loc": [],
+     "msg": "Input should be less than 0",
+     "input": 0,
+     "ctx": {
+      "lt": 0
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[python-{'lt': 0}-1-Err('Input should be less than 0')]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[python-{'lt': 0}-1-Err('Input should be less than 0')]",
+  "schema": {
+   "type": "int",
+   "lt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than",
+     "loc": [],
+     "msg": "Input should be less than 0",
+     "input": 1,
+     "ctx": {
+      "lt": 0
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[python-{'multiple_of': 5}-15-15]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[python-{'multiple_of': 5}-15-15]",
+  "schema": {
+   "type": "int",
+   "multiple_of": 5
+  },
+  "config": null,
+  "mode": "python",
+  "input": 15,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 15
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[python-{'multiple_of': 5}-6-Err('Input should be a multiple of 5')]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[python-{'multiple_of': 5}-6-Err('Input should be a multiple of 5')]",
+  "schema": {
+   "type": "int",
+   "multiple_of": 5
+  },
+  "config": null,
+  "mode": "python",
+  "input": 6,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 5",
+     "input": 6,
+     "ctx": {
+      "multiple_of": 5
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[python-{}-'123.000'-123]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[python-{}-'123.000'-123]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "123.000",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_kwargs[python-{}-0-0]#0",
+  "test": "tests/validators/test_int.py::test_int_kwargs[python-{}-0-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-  04_2.0 -42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-  04_2.0 -42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"  04_2.0 \"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-  0_42.0 -42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-  0_42.0 -42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"  0_42.0 \"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-  1  -1]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-  1  -1]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"  1  \"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-  _042.0 -expected47]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-  _042.0 -expected47]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"  _042.0 \"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "  _042.0 "
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json- -expected52]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json- -expected52]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\" \"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": " "
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-++4_2-expected32]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-++4_2-expected32]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"++4_2\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "++4_2"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-+-1-expected34]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-+-1-expected34]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"+-1\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "+-1"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-+0-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-+0-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"+0\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-+00-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-+00-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"+00\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-+000-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-+000-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"+000\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-+04_2.0-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-+04_2.0-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"+04_2.0\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-+0_000-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-+0_000-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"+0_000\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-+0_42-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-+0_42-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"+0_42\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-+4_2-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-+4_2-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"+4_2\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-+4_2.0-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-+4_2.0-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"+4_2.0\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json--+0001-expected36]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json--+0001-expected36]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"-+0001\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "-+0001"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json--+1-expected33]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json--+1-expected33]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"-+1\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "-+1"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json---0001-expected35]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json---0001-expected35]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"--0001\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "--0001"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json--0+001-expected38]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json--0+001-expected38]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"-0+001\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "-0+001"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json--0-001-expected37]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json--0-001-expected37]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"-0-001\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "-0-001"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json--00001--1]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json--00001--1]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"-00001\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json--00042_000--42000]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json--00042_000--42000]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"-00042_000\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -42000
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json--1--1]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json--1--1]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"-1\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json--1.0--1]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json--1.0--1]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"-1.0\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-0.0-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-0.0-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"0.0\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-00-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-00-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"00\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-00.0-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-00.0-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"00.0\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-00.00-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-00.00-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"00.00\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-000-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-000-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"000\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-000001-1]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-000001-1]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"000001\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-00_-expected26]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-00_-expected26]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"00_\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "00_"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-01-1]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-01-1]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"01\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-042-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-042-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"042\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-04_2.0-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-04_2.0-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"04_2.0\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-09-9]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-09-9]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"09\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 9
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-0:-expected27]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-0:-expected27]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"0:\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "0:"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-0_000-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-0_000-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"0_000\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-0_42-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-0_42-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"0_42\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-0_int-0_int]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-0_int-0_int]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-0_str-0_int]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-0_str-0_int]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"0\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-1-1]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-1-1]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-1.-expected53]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-1.-expected53]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1.\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "1."
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-10000000000-10000000000]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-10000000000-10000000000]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "10000000000",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 10000000000
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-123456789.0-123456789]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-123456789.0-123456789]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"123456789.0\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 123456789
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-123456789123456.00001-expected55]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-123456789123456.00001-expected55]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"123456789123456.00001\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "123456789123456.00001"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-18446744073709551614-18446744073709551614]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-18446744073709551614-18446744073709551614]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "18446744073709551614",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 18446744073709551614
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-42.-expected54]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-42.-expected54]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"42.\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "42."
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-42.0-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-42.0-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"42.0\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-42.00-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-42.00-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"42.00\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-42_-expected48]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-42_-expected48]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"42_\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "42_"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-42_.0-expected49]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-42_.0-expected49]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"42_.0\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "42_.0"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-42_float-42_int]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-42_float-42_int]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "42.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-42_int-42_int]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-42_int-42_int]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "42",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-42_str-42_int]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-42_str-42_int]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"42\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-4_2-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-4_2-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"4_2\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-4_2.0-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-4_2.0-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"4_2.0\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-9223372036854775807-9223372036854775807]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-9223372036854775807-9223372036854775807]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "9223372036854775807",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 9223372036854775807
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-9223372036854775808-9223372036854775808]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-9223372036854775808-9223372036854775808]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "9223372036854775808",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 9223372036854775808
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-False-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-False-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "false",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-None]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-None]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "null",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [],
+     "msg": "Input should be a valid integer",
+     "input": null
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-True-1]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-True-1]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "true",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-float-remainder]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-float-remainder]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "12.5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_from_float",
+     "loc": [],
+     "msg": "Input should be a valid integer, got a number with a fractional part",
+     "input": 12.5
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-list]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-list]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [],
+     "msg": "Input should be a valid integer",
+     "input": [
+      1,
+      2
+     ]
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[json-string]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[json-string]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"wrong\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-  04_2.0 -42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-  04_2.0 -42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "  04_2.0 ",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-  0_42.0 -42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-  0_42.0 -42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "  0_42.0 ",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-  1  -1]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-  1  -1]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "  1  ",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-  _042.0 -expected47]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-  _042.0 -expected47]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "  _042.0 ",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "  _042.0 "
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python- -expected52]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python- -expected52]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": " ",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": " "
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-++4_2-expected32]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-++4_2-expected32]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "++4_2",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "++4_2"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-+-1-expected34]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-+-1-expected34]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "+-1",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "+-1"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-+0-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-+0-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "+0",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-+00-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-+00-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "+00",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-+000-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-+000-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "+000",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-+04_2.0-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-+04_2.0-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "+04_2.0",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-+0_000-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-+0_000-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "+0_000",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-+0_42-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-+0_42-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "+0_42",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-+4_2-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-+4_2-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "+4_2",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-+4_2.0-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-+4_2.0-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "+4_2.0",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python--+0001-expected36]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python--+0001-expected36]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-+0001",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "-+0001"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python--+1-expected33]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python--+1-expected33]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-+1",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "-+1"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python---0001-expected35]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python---0001-expected35]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "--0001",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "--0001"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python--0+001-expected38]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python--0+001-expected38]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-0+001",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "-0+001"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python--0-001-expected37]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python--0-001-expected37]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-0-001",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "-0-001"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python--00001--1]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python--00001--1]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-00001",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python--00042_000--42000]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python--00042_000--42000]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-00042_000",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -42000
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python--1--1]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python--1--1]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-1",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python--1.0--1]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python--1.0--1]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-1.0",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-0.0-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-0.0-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "0.0",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-00-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-00-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "00",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-00.0-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-00.0-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "00.0",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-00.00-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-00.00-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "00.00",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-000-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-000-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "000",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-000001-1]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-000001-1]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "000001",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-00_-expected26]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-00_-expected26]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "00_",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "00_"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-01-1]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-01-1]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "01",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-042-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-042-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "042",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-04_2.0-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-04_2.0-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "04_2.0",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-09-9]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-09-9]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "09",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 9
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-0:-expected27]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-0:-expected27]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "0:",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "0:"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-0_000-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-0_000-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "0_000",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-0_42-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-0_42-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "0_42",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-0_int-0_int]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-0_int-0_int]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-0_str-0_int]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-0_str-0_int]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "0",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-1-1]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-1-1]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-1.-expected53]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-1.-expected53]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1.",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "1."
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-10000000000-10000000000]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-10000000000-10000000000]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 10000000000,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 10000000000
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-123456789.0-123456789]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-123456789.0-123456789]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "123456789.0",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 123456789
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-123456789123456.00001-expected55]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-123456789123456.00001-expected55]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "123456789123456.00001",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "123456789123456.00001"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-18446744073709551614-18446744073709551614]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-18446744073709551614-18446744073709551614]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 18446744073709551614,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 18446744073709551614
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-42.-expected54]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-42.-expected54]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "42.",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "42."
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-42.0-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-42.0-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "42.0",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-42.00-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-42.00-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "42.00",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-42_-expected48]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-42_-expected48]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "42_",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "42_"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-42_.0-expected49]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-42_.0-expected49]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "42_.0",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "42_.0"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-42_float-42_int]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-42_float-42_int]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-42_int-42_int]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-42_int-42_int]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-42_str-42_int]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-42_str-42_int]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "42",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-4_2-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-4_2-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "4_2",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-4_2.0-42]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-4_2.0-42]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "4_2.0",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-9223372036854775807-9223372036854775807]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-9223372036854775807-9223372036854775807]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 9223372036854775807,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 9223372036854775807
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-9223372036854775808-9223372036854775808]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-9223372036854775808-9223372036854775808]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 9223372036854775808,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 9223372036854775808
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-False-0]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-False-0]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": false,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-None]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-None]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": null,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [],
+     "msg": "Input should be a valid integer",
+     "input": null
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-True-1]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-True-1]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": true,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-float-remainder]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-float-remainder]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 12.5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_from_float",
+     "loc": [],
+     "msg": "Input should be a valid integer, got a number with a fractional part",
+     "input": 12.5
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-list]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-list]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [],
+     "msg": "Input should be a valid integer",
+     "input": [
+      1,
+      2
+     ]
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_py_and_json[python-string]#0",
+  "test": "tests/validators/test_int.py::test_int_py_and_json[python-string]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "wrong",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_strict[json-0-0]#0",
+  "test": "tests/validators/test_int.py::test_int_strict[json-0-0]",
+  "schema": {
+   "type": "int",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_strict[json-1-1]#0",
+  "test": "tests/validators/test_int.py::test_int_strict[json-1-1]",
+  "schema": {
+   "type": "int",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_strict[json-42-42]#0",
+  "test": "tests/validators/test_int.py::test_int_strict[json-42-42]",
+  "schema": {
+   "type": "int",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "42",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_strict[json-bool]#0",
+  "test": "tests/validators/test_int.py::test_int_strict[json-bool]",
+  "schema": {
+   "type": "int",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "true",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [],
+     "msg": "Input should be a valid integer",
+     "input": true
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_strict[json-float-exact]#0",
+  "test": "tests/validators/test_int.py::test_int_strict[json-float-exact]",
+  "schema": {
+   "type": "int",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "42.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [],
+     "msg": "Input should be a valid integer",
+     "input": 42.0
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_strict[json-float-remainder]#0",
+  "test": "tests/validators/test_int.py::test_int_strict[json-float-remainder]",
+  "schema": {
+   "type": "int",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "42.5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [],
+     "msg": "Input should be a valid integer",
+     "input": 42.5
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_strict[json-string]#0",
+  "test": "tests/validators/test_int.py::test_int_strict[json-string]",
+  "schema": {
+   "type": "int",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"42\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [],
+     "msg": "Input should be a valid integer",
+     "input": "42"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_strict[python-0-0]#0",
+  "test": "tests/validators/test_int.py::test_int_strict[python-0-0]",
+  "schema": {
+   "type": "int",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_strict[python-1-1]#0",
+  "test": "tests/validators/test_int.py::test_int_strict[python-1-1]",
+  "schema": {
+   "type": "int",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_strict[python-42-42]#0",
+  "test": "tests/validators/test_int.py::test_int_strict[python-42-42]",
+  "schema": {
+   "type": "int",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_strict[python-bool]#0",
+  "test": "tests/validators/test_int.py::test_int_strict[python-bool]",
+  "schema": {
+   "type": "int",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": true,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [],
+     "msg": "Input should be a valid integer",
+     "input": true
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_strict[python-float-exact]#0",
+  "test": "tests/validators/test_int.py::test_int_strict[python-float-exact]",
+  "schema": {
+   "type": "int",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [],
+     "msg": "Input should be a valid integer",
+     "input": 42.0
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_strict[python-float-remainder]#0",
+  "test": "tests/validators/test_int.py::test_int_strict[python-float-remainder]",
+  "schema": {
+   "type": "int",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42.5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [],
+     "msg": "Input should be a valid integer",
+     "input": 42.5
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_strict[python-string]#0",
+  "test": "tests/validators/test_int.py::test_int_strict[python-string]",
+  "schema": {
+   "type": "int",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "42",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [],
+     "msg": "Input should be a valid integer",
+     "input": "42"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_subclass#0",
+  "test": "tests/validators/test_int.py::test_int_subclass",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "IntSubclass",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_subclass#1",
+  "test": "tests/validators/test_int.py::test_int_subclass",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "IntSubclass",
+    1
+   ]
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_subclass#2",
+  "test": "tests/validators/test_int.py::test_int_subclass",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "IntSubclass",
+    1136885225876639845
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": 1136885225876639845
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_subclass#3",
+  "test": "tests/validators/test_int.py::test_int_subclass",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "IntSubclass",
+    9223372036854775814
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": 9223372036854775814
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_subclass#4",
+  "test": "tests/validators/test_int.py::test_int_subclass",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "IntSubclass",
+    1136885225876639845
+   ]
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": 1136885225876639845
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_subclass#5",
+  "test": "tests/validators/test_int.py::test_int_subclass",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "IntSubclass",
+    9223372036854775814
+   ]
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": 9223372036854775814
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_subclass_constraint#0",
+  "test": "tests/validators/test_int.py::test_int_subclass_constraint",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "IntSubclass",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_subclass_constraint#1",
+  "test": "tests/validators/test_int.py::test_int_subclass_constraint",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "IntSubclass",
+    1
+   ]
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_subclass_constraint#2",
+  "test": "tests/validators/test_int.py::test_int_subclass_constraint",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "IntSubclass",
+    0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 0",
+     "input": {
+      "$subclass": [
+       "IntSubclass",
+       0
+      ]
+     },
+     "ctx": {
+      "gt": 0
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_int_subclass_plain_enum#0",
+  "test": "tests/validators/test_int.py::test_int_subclass_plain_enum",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "PlainEnum",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_json_big_int_key#0",
+  "test": "tests/validators/test_int.py::test_json_big_int_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     1433352099889938534014333520998899385340,
+     "x"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1433352099889938534014333520998899385340,
+      "x"
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_json_big_int_key#1",
+  "test": "tests/validators/test_int.py::test_json_big_int_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"1433352099889938534014333520998899385340\": \"x\"}",
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1433352099889938534014333520998899385340,
+      "x"
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_long_json#0",
+  "test": "tests/validators/test_int.py::test_long_json",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "options": {},
+  "expected": {
+   "output": -1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_long_json#1",
+  "test": "tests/validators/test_int.py::test_long_json",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "nan",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "json_invalid",
+     "loc": [],
+     "msg": "Invalid JSON: expected ident at line 1 column 2",
+     "input": "nan",
+     "ctx": {
+      "error": "expected ident at line 1 column 2"
+     }
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_long_python#0",
+  "test": "tests/validators/test_int.py::test_long_python",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "options": {},
+  "expected": {
+   "output": 1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_long_python#1",
+  "test": "tests/validators/test_int.py::test_long_python",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "options": {},
+  "expected": {
+   "output": -1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_long_python#2",
+  "test": "tests/validators/test_int.py::test_long_python",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "nan",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "nan"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_long_python_inequality#0",
+  "test": "tests/validators/test_int.py::test_long_python_inequality",
+  "schema": {
+   "type": "int",
+   "lt": 1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111106,
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111105",
+  "options": {},
+  "expected": {
+   "output": 1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111105
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_long_python_inequality#1",
+  "test": "tests/validators/test_int.py::test_long_python_inequality",
+  "schema": {
+   "type": "int",
+   "lt": 1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111106,
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111106",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than",
+     "loc": [],
+     "msg": "Input should be less than 1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111106",
+     "input": "1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111106",
+     "ctx": {
+      "lt": 1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111106
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_negative_int[-1--1]#0",
+  "test": "tests/validators/test_int.py::test_negative_int[-1--1]",
+  "schema": {
+   "type": "int",
+   "lt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": -1,
+  "options": {},
+  "expected": {
+   "output": -1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_negative_int[-9223372036854775807--9223372036854775807]#0",
+  "test": "tests/validators/test_int.py::test_negative_int[-9223372036854775807--9223372036854775807]",
+  "schema": {
+   "type": "int",
+   "lt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": -9223372036854775807,
+  "options": {},
+  "expected": {
+   "output": -9223372036854775807
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_negative_int[-9223372036854775808--9223372036854775808]#0",
+  "test": "tests/validators/test_int.py::test_negative_int[-9223372036854775808--9223372036854775808]",
+  "schema": {
+   "type": "int",
+   "lt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": -9223372036854775808,
+  "options": {},
+  "expected": {
+   "output": -9223372036854775808
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_negative_int[-999999999999999999999999999999--999999999999999999999999999999]#0",
+  "test": "tests/validators/test_int.py::test_negative_int[-999999999999999999999999999999--999999999999999999999999999999]",
+  "schema": {
+   "type": "int",
+   "lt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": -999999999999999999999999999999,
+  "options": {},
+  "expected": {
+   "output": -999999999999999999999999999999
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_negative_int[0-expected1]#0",
+  "test": "tests/validators/test_int.py::test_negative_int[0-expected1]",
+  "schema": {
+   "type": "int",
+   "lt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than",
+     "loc": [],
+     "msg": "Input should be less than 0",
+     "input": 0,
+     "ctx": {
+      "lt": 0
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_negative_json[-1--1]#0",
+  "test": "tests/validators/test_int.py::test_negative_json[-1--1]",
+  "schema": {
+   "type": "int",
+   "lt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-1",
+  "options": {},
+  "expected": {
+   "output": -1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_negative_json[-18446744073709551614--18446744073709551614]#0",
+  "test": "tests/validators/test_int.py::test_negative_json[-18446744073709551614--18446744073709551614]",
+  "schema": {
+   "type": "int",
+   "lt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-18446744073709551614",
+  "options": {},
+  "expected": {
+   "output": -18446744073709551614
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_negative_json[-9223372036854775807--9223372036854775807]#0",
+  "test": "tests/validators/test_int.py::test_negative_json[-9223372036854775807--9223372036854775807]",
+  "schema": {
+   "type": "int",
+   "lt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-9223372036854775807",
+  "options": {},
+  "expected": {
+   "output": -9223372036854775807
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_negative_json[-9223372036854775808--9223372036854775808]#0",
+  "test": "tests/validators/test_int.py::test_negative_json[-9223372036854775808--9223372036854775808]",
+  "schema": {
+   "type": "int",
+   "lt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-9223372036854775808",
+  "options": {},
+  "expected": {
+   "output": -9223372036854775808
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_negative_json[0-expected1]#0",
+  "test": "tests/validators/test_int.py::test_negative_json[0-expected1]",
+  "schema": {
+   "type": "int",
+   "lt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than",
+     "loc": [],
+     "msg": "Input should be less than 0",
+     "input": 0,
+     "ctx": {
+      "lt": 0
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_int[-1-expected9]#0",
+  "test": "tests/validators/test_int.py::test_positive_int[-1-expected9]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": -1,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 0",
+     "input": -1,
+     "ctx": {
+      "gt": 0
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_int[-1]#0",
+  "test": "tests/validators/test_int.py::test_positive_int[-1]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": -1,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 0",
+     "input": -1,
+     "ctx": {
+      "gt": 0
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_int[-9223372036854775806-expected5]#0",
+  "test": "tests/validators/test_int.py::test_positive_int[-9223372036854775806-expected5]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": -9223372036854775806,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 0",
+     "input": -9223372036854775806,
+     "ctx": {
+      "gt": 0
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_int[0-expected8]#0",
+  "test": "tests/validators/test_int.py::test_positive_int[0-expected8]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 0",
+     "input": 0,
+     "ctx": {
+      "gt": 0
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_int[18446744073709551614-18446744073709551614]#0",
+  "test": "tests/validators/test_int.py::test_positive_int[18446744073709551614-18446744073709551614]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 18446744073709551614,
+  "options": {},
+  "expected": {
+   "output": 18446744073709551614
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_int[999999999999999999999999999999-999999999999999999999999999999]#0",
+  "test": "tests/validators/test_int.py::test_positive_int[999999999999999999999999999999-999999999999999999999999999999]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 999999999999999999999999999999,
+  "options": {},
+  "expected": {
+   "output": 999999999999999999999999999999
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_int[decimal-remainder]#0",
+  "test": "tests/validators/test_int.py::test_positive_int[decimal-remainder]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "1.001"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_from_float",
+     "loc": [],
+     "msg": "Input should be a valid integer, got a number with a fractional part",
+     "input": {
+      "$decimal": "1.001"
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_int[i64_max+1]#0",
+  "test": "tests/validators/test_int.py::test_positive_int[i64_max+1]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 9223372036854775808,
+  "options": {},
+  "expected": {
+   "output": 9223372036854775808
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_int[i64_max]#0",
+  "test": "tests/validators/test_int.py::test_positive_int[i64_max]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 9223372036854775807,
+  "options": {},
+  "expected": {
+   "output": 9223372036854775807
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_int[input_value0-1]#0",
+  "test": "tests/validators/test_int.py::test_positive_int[input_value0-1]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_int[input_value1-1]#0",
+  "test": "tests/validators/test_int.py::test_positive_int[input_value1-1]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "1.0"
+  },
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_int[tuple]#0",
+  "test": "tests/validators/test_int.py::test_positive_int[tuple]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [],
+     "msg": "Input should be a valid integer",
+     "input": {
+      "$tuple": [
+       1,
+       2
+      ]
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_json[-1-expected6]#0",
+  "test": "tests/validators/test_int.py::test_positive_json[-1-expected6]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-1",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 0",
+     "input": -1,
+     "ctx": {
+      "gt": 0
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_json[0-expected5]#0",
+  "test": "tests/validators/test_int.py::test_positive_json[0-expected5]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 0",
+     "input": 0,
+     "ctx": {
+      "gt": 0
+     }
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_json[1-1]#0",
+  "test": "tests/validators/test_int.py::test_positive_json[1-1]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_json[1000000000000000019884624838656-1000000000000000019884624838656]#0",
+  "test": "tests/validators/test_int.py::test_positive_json[1000000000000000019884624838656-1000000000000000019884624838656]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1000000000000000019884624838656",
+  "options": {},
+  "expected": {
+   "output": 1000000000000000019884624838656
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_json[18446744073709551614-18446744073709551614]#0",
+  "test": "tests/validators/test_int.py::test_positive_json[18446744073709551614-18446744073709551614]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "18446744073709551614",
+  "options": {},
+  "expected": {
+   "output": 18446744073709551614
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_json[9223372036854775807-9223372036854775807]#0",
+  "test": "tests/validators/test_int.py::test_positive_json[9223372036854775807-9223372036854775807]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "9223372036854775807",
+  "options": {},
+  "expected": {
+   "output": 9223372036854775807
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_json[9223372036854775808-9223372036854775808]#0",
+  "test": "tests/validators/test_int.py::test_positive_json[9223372036854775808-9223372036854775808]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "9223372036854775808",
+  "options": {},
+  "expected": {
+   "output": 9223372036854775808
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_positive_json[list]#0",
+  "test": "tests/validators/test_int.py::test_positive_json[list]",
+  "schema": {
+   "type": "int",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2]",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [],
+     "msg": "Input should be a valid integer",
+     "input": [
+      1,
+      2
+     ]
+    }
+   ],
+   "title": "constrained-int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_string_as_int_with_underscores#0",
+  "test": "tests/validators/test_int.py::test_string_as_int_with_underscores",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1_000_000",
+  "options": {},
+  "expected": {
+   "output": 1000000
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_string_as_int_with_underscores#1",
+  "test": "tests/validators/test_int.py::test_string_as_int_with_underscores",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1_000_000\"",
+  "options": {},
+  "expected": {
+   "output": 1000000
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_string_as_int_with_underscores#2",
+  "test": "tests/validators/test_int.py::test_string_as_int_with_underscores",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "_1",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "_1"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_string_as_int_with_underscores#3",
+  "test": "tests/validators/test_int.py::test_string_as_int_with_underscores",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"_1\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "_1"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_string_as_int_with_underscores#4",
+  "test": "tests/validators/test_int.py::test_string_as_int_with_underscores",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1__0",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "1__0"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_string_as_int_with_underscores#5",
+  "test": "tests/validators/test_int.py::test_string_as_int_with_underscores",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1__0\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "1__0"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_string_as_int_with_underscores#6",
+  "test": "tests/validators/test_int.py::test_string_as_int_with_underscores",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1_0_",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "1_0_"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_string_as_int_with_underscores#7",
+  "test": "tests/validators/test_int.py::test_string_as_int_with_underscores",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1_0_\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "1_0_"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_string_as_int_with_underscores#8",
+  "test": "tests/validators/test_int.py::test_string_as_int_with_underscores",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1_0__0",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "1_0__0"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_string_as_int_with_underscores#9",
+  "test": "tests/validators/test_int.py::test_string_as_int_with_underscores",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1_0__0\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "1_0__0"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_too_long#0",
+  "test": "tests/validators/test_int.py::test_too_long",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing_size",
+     "loc": [],
+     "msg": "Unable to parse input string as an integer, exceeded maximum size",
+     "input": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"
+    }
+   ],
+   "title": "int"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_union_int[json]#0",
+  "test": "tests/validators/test_int.py::test_union_int[json]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int",
+     "strict": true
+    },
+    {
+     "type": "int",
+     "multiple_of": 7
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"14\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 14
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_union_int[json]#1",
+  "test": "tests/validators/test_int.py::test_union_int[json]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int",
+     "strict": true
+    },
+    {
+     "type": "int",
+     "multiple_of": 7
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 5
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_union_int[json]#2",
+  "test": "tests/validators/test_int.py::test_union_int[json]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int",
+     "strict": true
+    },
+    {
+     "type": "int",
+     "multiple_of": 7
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"5\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [
+      "int"
+     ],
+     "msg": "Input should be a valid integer",
+     "input": "5"
+    },
+    {
+     "type": "multiple_of",
+     "loc": [
+      "constrained-int"
+     ],
+     "msg": "Input should be a multiple of 7",
+     "input": "5",
+     "ctx": {
+      "multiple_of": 7
+     }
+    }
+   ],
+   "title": "union[int,constrained-int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_union_int[python]#0",
+  "test": "tests/validators/test_int.py::test_union_int[python]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int",
+     "strict": true
+    },
+    {
+     "type": "int",
+     "multiple_of": 7
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "14",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 14
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_union_int[python]#1",
+  "test": "tests/validators/test_int.py::test_union_int[python]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int",
+     "strict": true
+    },
+    {
+     "type": "int",
+     "multiple_of": 7
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 5
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_union_int[python]#2",
+  "test": "tests/validators/test_int.py::test_union_int[python]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int",
+     "strict": true
+    },
+    {
+     "type": "int",
+     "multiple_of": 7
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "5",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [
+      "int"
+     ],
+     "msg": "Input should be a valid integer",
+     "input": "5"
+    },
+    {
+     "type": "multiple_of",
+     "loc": [
+      "constrained-int"
+     ],
+     "msg": "Input should be a multiple of 7",
+     "input": "5",
+     "ctx": {
+      "multiple_of": 7
+     }
+    }
+   ],
+   "title": "union[int,constrained-int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_union_int_simple[json]#0",
+  "test": "tests/validators/test_int.py::test_union_int_simple[json]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "list"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"5\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 5
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_union_int_simple[json]#1",
+  "test": "tests/validators/test_int.py::test_union_int_simple[json]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "list"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"xxx\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "int"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "xxx"
+    },
+    {
+     "type": "list_type",
+     "loc": [
+      "list[any]"
+     ],
+     "msg": "Input should be a valid array",
+     "input": "xxx"
+    }
+   ],
+   "title": "union[int,list[any]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_union_int_simple[python]#0",
+  "test": "tests/validators/test_int.py::test_union_int_simple[python]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "list"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "5",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 5
+  }
+ },
+ {
+  "id": "tests/validators/test_int.py::test_union_int_simple[python]#1",
+  "test": "tests/validators/test_int.py::test_union_int_simple[python]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "list"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "xxx",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "int"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "xxx"
+    },
+    {
+     "type": "list_type",
+     "loc": [
+      "list[any]"
+     ],
+     "msg": "Input should be a valid list",
+     "input": "xxx"
+    }
+   ],
+   "title": "union[int,list[any]]"
+  }
+ }
+]

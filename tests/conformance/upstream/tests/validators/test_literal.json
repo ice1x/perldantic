@@ -1,0 +1,2017 @@
+[
+ {
+  "id": "tests/validators/test_literal.py::test_big_int#0",
+  "test": "tests/validators/test_literal.py::test_big_int",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    18446744073709551617,
+    340282366920938463463374607431768211457
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 18446744073709551617,
+  "options": {},
+  "expected": {
+   "output": 18446744073709551617
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_big_int#1",
+  "test": "tests/validators/test_literal.py::test_big_int",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    18446744073709551617,
+    340282366920938463463374607431768211457
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 340282366920938463463374607431768211457,
+  "options": {},
+  "expected": {
+   "output": 340282366920938463463374607431768211457
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_big_int#2",
+  "test": "tests/validators/test_literal.py::test_big_int",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    18446744073709551617,
+    340282366920938463463374607431768211457
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 37,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be 18446744073709551617 or 340282366920938463463374607431768211457",
+     "input": 37,
+     "ctx": {
+      "expected": "18446744073709551617 or 340282366920938463463374607431768211457"
+     }
+    }
+   ],
+   "title": "literal[18446744073709551617,340282366920938463463374607431768211457]"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_enum_for_str#0",
+  "test": "tests/validators/test_literal.py::test_enum_for_str",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "S",
+      "a"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "a",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "S",
+     "a"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_enum_for_str#1",
+  "test": "tests/validators/test_literal.py::test_enum_for_str",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "S",
+      "a"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "S",
+    "a"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "S",
+     "a"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_enum_for_str#2",
+  "test": "tests/validators/test_literal.py::test_enum_for_str",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a"
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "a",
+  "options": {},
+  "expected": {
+   "output": "a"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_enum_for_str#3",
+  "test": "tests/validators/test_literal.py::test_enum_for_str",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a"
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "S",
+    "a"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": "a"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_enum_value#0",
+  "test": "tests/validators/test_literal.py::test_enum_value",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "FooEnum",
+      "foo_value"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "FooEnum",
+    "foo_value"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "FooEnum",
+     "foo_value"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_enum_value#1",
+  "test": "tests/validators/test_literal.py::test_enum_value",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "FooEnum",
+      "foo_value"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foo_value",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be <FooEnum.foo: 'foo_value'>",
+     "input": "foo_value",
+     "ctx": {
+      "expected": "<FooEnum.foo: 'foo_value'>"
+     }
+    }
+   ],
+   "title": "literal[<FooEnum.foo: 'foo_value'>]"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_enum_value#2",
+  "test": "tests/validators/test_literal.py::test_enum_value",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "FooEnum",
+      "foo_value"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "unknown",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be <FooEnum.foo: 'foo_value'>",
+     "input": "unknown",
+     "ctx": {
+      "expected": "<FooEnum.foo: 'foo_value'>"
+     }
+    }
+   ],
+   "title": "literal[<FooEnum.foo: 'foo_value'>]"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_enum_value#3",
+  "test": "tests/validators/test_literal.py::test_enum_value",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "FooEnum",
+      "foo_value"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foo_value\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be <FooEnum.foo: 'foo_value'>",
+     "input": "foo_value",
+     "ctx": {
+      "expected": "<FooEnum.foo: 'foo_value'>"
+     }
+    }
+   ],
+   "title": "literal[<FooEnum.foo: 'foo_value'>]"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_int_enum_values#0",
+  "test": "tests/validators/test_literal.py::test_int_enum_values",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "Foo",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "Foo",
+    2
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "Foo",
+     2
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_int_enum_values#1",
+  "test": "tests/validators/test_literal.py::test_int_enum_values",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "Foo",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 2,
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "Foo",
+     2
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_int_enum_values#2",
+  "test": "tests/validators/test_literal.py::test_int_enum_values",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "Foo",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "2",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "Foo",
+     2
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_int_enum_values#3",
+  "test": "tests/validators/test_literal.py::test_int_enum_values",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "Foo",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 4,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be <Foo.foo: 2>",
+     "input": 4,
+     "ctx": {
+      "expected": "<Foo.foo: 2>"
+     }
+    }
+   ],
+   "title": "literal[<Foo.foo: 2>]"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_not_json[kwarg_expected0-whatever-whatever]#0",
+  "test": "tests/validators/test_literal.py::test_literal_not_json[kwarg_expected0-whatever-whatever]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    {
+     "$bytes": "d2hhdGV2ZXI="
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "d2hhdGV2ZXI="
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$bytes": "d2hhdGV2ZXI="
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_not_json[kwarg_expected1-input_value1-expected1]#0",
+  "test": "tests/validators/test_literal.py::test_literal_not_json[kwarg_expected1-input_value1-expected1]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$tuple": [
+      1,
+      2
+     ]
+    },
+    {
+     "$tuple": [
+      3,
+      4
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_not_json[kwarg_expected2-input_value2-expected2]#0",
+  "test": "tests/validators/test_literal.py::test_literal_not_json[kwarg_expected2-input_value2-expected2]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$tuple": [
+      1,
+      2
+     ]
+    },
+    {
+     "$tuple": [
+      3,
+      4
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    3,
+    4
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     3,
+     4
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_not_json[kwarg_expected4-bite-bite]#0",
+  "test": "tests/validators/test_literal.py::test_literal_not_json[kwarg_expected4-bite-bite]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$bytes": "Yml0ZQ=="
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "Yml0ZQ=="
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$bytes": "Yml0ZQ=="
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_not_json[single-byte]#0",
+  "test": "tests/validators/test_literal.py::test_literal_not_json[single-byte]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$bytes": "Yml0ZQ=="
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "spoon",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be b'bite'",
+     "input": "spoon",
+     "ctx": {
+      "expected": "b'bite'"
+     }
+    }
+   ],
+   "title": "literal[b'bite']"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_not_json[wrong-general]#0",
+  "test": "tests/validators/test_literal.py::test_literal_not_json[wrong-general]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    {
+     "$bytes": "d2hhdGV2ZXI="
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 3,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be 1 or b'whatever'",
+     "input": 3,
+     "ctx": {
+      "expected": "1 or b'whatever'"
+     }
+    }
+   ],
+   "title": "literal[1,b'whatever']"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[json-kwarg_expected0-1-1]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[json-kwarg_expected0-1-1]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[json-kwarg_expected11-1-1]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[json-kwarg_expected11-1-1]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    "1"
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[json-kwarg_expected12-1-1]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[json-kwarg_expected12-1-1]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    "1"
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "1"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[json-kwarg_expected2-foo-foo]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[json-kwarg_expected2-foo-foo]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "foo"
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foo\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "foo"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[json-kwarg_expected4-1-1]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[json-kwarg_expected4-1-1]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    2
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[json-kwarg_expected5-2-2]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[json-kwarg_expected5-2-2]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    2
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "2",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 2
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[json-kwarg_expected7-4-4]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[json-kwarg_expected7-4-4]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "4",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 4
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[json-kwarg_expected9-a-a]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[json-kwarg_expected9-a-a]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a",
+    "b"
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"a\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "a"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[json-wrong-multiple-int-2]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[json-wrong-multiple-int-2]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be 1, 2, 3 or 4",
+     "input": 5,
+     "ctx": {
+      "expected": "1, 2, 3 or 4"
+     }
+    }
+   ],
+   "title": "literal[1,2,3,4]"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[json-wrong-multiple-int]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[json-wrong-multiple-int]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    2
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "3",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be 1 or 2",
+     "input": 3,
+     "ctx": {
+      "expected": "1 or 2"
+     }
+    }
+   ],
+   "title": "literal[1,2]"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[json-wrong-multiple-str]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[json-wrong-multiple-str]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a",
+    "b"
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"c\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be 'a' or 'b'",
+     "input": "c",
+     "ctx": {
+      "expected": "'a' or 'b'"
+     }
+    }
+   ],
+   "title": "literal['a','b']"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[json-wrong-single-int]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[json-wrong-single-int]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "2",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be 1",
+     "input": 2,
+     "ctx": {
+      "expected": "1"
+     }
+    }
+   ],
+   "title": "literal[1]"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[json-wrong-single-str]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[json-wrong-single-str]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "foo"
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"bar\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be 'foo'",
+     "input": "bar",
+     "ctx": {
+      "expected": "'foo'"
+     }
+    }
+   ],
+   "title": "literal['foo']"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[json-wrong-str-int]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[json-wrong-str-int]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    "1"
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be 1 or '1'",
+     "input": "2",
+     "ctx": {
+      "expected": "1 or '1'"
+     }
+    }
+   ],
+   "title": "literal[1,'1']"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[python-kwarg_expected0-1-1]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[python-kwarg_expected0-1-1]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[python-kwarg_expected11-1-1]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[python-kwarg_expected11-1-1]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    "1"
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[python-kwarg_expected12-1-1]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[python-kwarg_expected12-1-1]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    "1"
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "1"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[python-kwarg_expected2-foo-foo]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[python-kwarg_expected2-foo-foo]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "foo"
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foo",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "foo"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[python-kwarg_expected4-1-1]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[python-kwarg_expected4-1-1]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    2
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[python-kwarg_expected5-2-2]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[python-kwarg_expected5-2-2]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    2
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 2,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 2
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[python-kwarg_expected7-4-4]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[python-kwarg_expected7-4-4]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 4,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 4
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[python-kwarg_expected9-a-a]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[python-kwarg_expected9-a-a]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a",
+    "b"
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "a",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "a"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[python-wrong-multiple-int-2]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[python-wrong-multiple-int-2]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be 1, 2, 3 or 4",
+     "input": 5,
+     "ctx": {
+      "expected": "1, 2, 3 or 4"
+     }
+    }
+   ],
+   "title": "literal[1,2,3,4]"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[python-wrong-multiple-int]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[python-wrong-multiple-int]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    2
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 3,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be 1 or 2",
+     "input": 3,
+     "ctx": {
+      "expected": "1 or 2"
+     }
+    }
+   ],
+   "title": "literal[1,2]"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[python-wrong-multiple-str]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[python-wrong-multiple-str]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a",
+    "b"
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "c",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be 'a' or 'b'",
+     "input": "c",
+     "ctx": {
+      "expected": "'a' or 'b'"
+     }
+    }
+   ],
+   "title": "literal['a','b']"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[python-wrong-single-int]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[python-wrong-single-int]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 2,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be 1",
+     "input": 2,
+     "ctx": {
+      "expected": "1"
+     }
+    }
+   ],
+   "title": "literal[1]"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[python-wrong-single-str]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[python-wrong-single-str]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "foo"
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "bar",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be 'foo'",
+     "input": "bar",
+     "ctx": {
+      "expected": "'foo'"
+     }
+    }
+   ],
+   "title": "literal['foo']"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_literal_py_and_json[python-wrong-str-int]#0",
+  "test": "tests/validators/test_literal.py::test_literal_py_and_json[python-wrong-str-int]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    "1"
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be 1 or '1'",
+     "input": "2",
+     "ctx": {
+      "expected": "1 or '1'"
+     }
+    }
+   ],
+   "title": "literal[1,'1']"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_mix_int_enum_with_int[<lambda>-err0]#0",
+  "test": "tests/validators/test_literal.py::test_mix_int_enum_with_int[<lambda>-err0]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "Foo",
+      1
+     ]
+    },
+    1
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "Foo",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "Foo",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_mix_int_enum_with_int[<lambda>-err0]#1",
+  "test": "tests/validators/test_literal.py::test_mix_int_enum_with_int[<lambda>-err0]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "Foo",
+      1
+     ]
+    },
+    1
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_mix_int_enum_with_int[<lambda>-err0]#2",
+  "test": "tests/validators/test_literal.py::test_mix_int_enum_with_int[<lambda>-err0]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "Foo",
+      1
+     ]
+    },
+    1
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_mix_int_enum_with_int[<lambda>-err0]#3",
+  "test": "tests/validators/test_literal.py::test_mix_int_enum_with_int[<lambda>-err0]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "Foo",
+      1
+     ]
+    },
+    1
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 2,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be <Foo.foo: 1> or 1",
+     "input": 2,
+     "ctx": {
+      "expected": "<Foo.foo: 1> or 1"
+     }
+    }
+   ],
+   "title": "literal[<Foo.foo: 1>,1]"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_mix_int_enum_with_int[<lambda>-err1]#0",
+  "test": "tests/validators/test_literal.py::test_mix_int_enum_with_int[<lambda>-err1]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    {
+     "$enum": [
+      "Foo",
+      1
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "Foo",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "Foo",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_mix_int_enum_with_int[<lambda>-err1]#1",
+  "test": "tests/validators/test_literal.py::test_mix_int_enum_with_int[<lambda>-err1]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    {
+     "$enum": [
+      "Foo",
+      1
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_mix_int_enum_with_int[<lambda>-err1]#2",
+  "test": "tests/validators/test_literal.py::test_mix_int_enum_with_int[<lambda>-err1]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    {
+     "$enum": [
+      "Foo",
+      1
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_mix_int_enum_with_int[<lambda>-err1]#3",
+  "test": "tests/validators/test_literal.py::test_mix_int_enum_with_int[<lambda>-err1]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    {
+     "$enum": [
+      "Foo",
+      1
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 2,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be 1 or <Foo.foo: 1>",
+     "input": 2,
+     "ctx": {
+      "expected": "1 or <Foo.foo: 1>"
+     }
+    }
+   ],
+   "title": "literal[1,<Foo.foo: 1>]"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_mix_str_enum_with_str[<lambda>-err0]#0",
+  "test": "tests/validators/test_literal.py::test_mix_str_enum_with_str[<lambda>-err0]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "Foo",
+      "foo_val"
+     ]
+    },
+    "foo_val"
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "Foo",
+    "foo_val"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "Foo",
+     "foo_val"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_mix_str_enum_with_str[<lambda>-err0]#1",
+  "test": "tests/validators/test_literal.py::test_mix_str_enum_with_str[<lambda>-err0]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "Foo",
+      "foo_val"
+     ]
+    },
+    "foo_val"
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foo_val",
+  "options": {},
+  "expected": {
+   "output": "foo_val"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_mix_str_enum_with_str[<lambda>-err0]#2",
+  "test": "tests/validators/test_literal.py::test_mix_str_enum_with_str[<lambda>-err0]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "Foo",
+      "foo_val"
+     ]
+    },
+    "foo_val"
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foo_val\"",
+  "options": {},
+  "expected": {
+   "output": "foo_val"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_mix_str_enum_with_str[<lambda>-err0]#3",
+  "test": "tests/validators/test_literal.py::test_mix_str_enum_with_str[<lambda>-err0]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "Foo",
+      "foo_val"
+     ]
+    },
+    "foo_val"
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "bar_val",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be <Foo.foo: 'foo_val'> or 'foo_val'",
+     "input": "bar_val",
+     "ctx": {
+      "expected": "<Foo.foo: 'foo_val'> or 'foo_val'"
+     }
+    }
+   ],
+   "title": "literal[<Foo.foo: 'foo_val'>,'foo_val']"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_mix_str_enum_with_str[<lambda>-err1]#0",
+  "test": "tests/validators/test_literal.py::test_mix_str_enum_with_str[<lambda>-err1]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "foo_val",
+    {
+     "$enum": [
+      "Foo",
+      "foo_val"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "Foo",
+    "foo_val"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "Foo",
+     "foo_val"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_mix_str_enum_with_str[<lambda>-err1]#1",
+  "test": "tests/validators/test_literal.py::test_mix_str_enum_with_str[<lambda>-err1]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "foo_val",
+    {
+     "$enum": [
+      "Foo",
+      "foo_val"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foo_val",
+  "options": {},
+  "expected": {
+   "output": "foo_val"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_mix_str_enum_with_str[<lambda>-err1]#2",
+  "test": "tests/validators/test_literal.py::test_mix_str_enum_with_str[<lambda>-err1]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "foo_val",
+    {
+     "$enum": [
+      "Foo",
+      "foo_val"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foo_val\"",
+  "options": {},
+  "expected": {
+   "output": "foo_val"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_mix_str_enum_with_str[<lambda>-err1]#3",
+  "test": "tests/validators/test_literal.py::test_mix_str_enum_with_str[<lambda>-err1]",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "foo_val",
+    {
+     "$enum": [
+      "Foo",
+      "foo_val"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "bar_val",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be 'foo_val' or <Foo.foo: 'foo_val'>",
+     "input": "bar_val",
+     "ctx": {
+      "expected": "'foo_val' or <Foo.foo: 'foo_val'>"
+     }
+    }
+   ],
+   "title": "literal['foo_val',<Foo.foo: 'foo_val'>]"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_str_enum_values#0",
+  "test": "tests/validators/test_literal.py::test_str_enum_values",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "Foo",
+      "foo_value"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "Foo",
+    "foo_value"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "Foo",
+     "foo_value"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_str_enum_values#1",
+  "test": "tests/validators/test_literal.py::test_str_enum_values",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "Foo",
+      "foo_value"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foo_value",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "Foo",
+     "foo_value"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_str_enum_values#2",
+  "test": "tests/validators/test_literal.py::test_str_enum_values",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "Foo",
+      "foo_value"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foo_value\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "Foo",
+     "foo_value"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_str_enum_values#3",
+  "test": "tests/validators/test_literal.py::test_str_enum_values",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    {
+     "$enum": [
+      "Foo",
+      "foo_value"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "unknown",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [],
+     "msg": "Input should be <Foo.foo: 'foo_value'>",
+     "input": "unknown",
+     "ctx": {
+      "expected": "<Foo.foo: 'foo_value'>"
+     }
+    }
+   ],
+   "title": "literal[<Foo.foo: 'foo_value'>]"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_union#0",
+  "test": "tests/validators/test_literal.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "literal",
+     "expected": [
+      "a",
+      "b"
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "a",
+  "options": {},
+  "expected": {
+   "output": "a"
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_union#1",
+  "test": "tests/validators/test_literal.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "literal",
+     "expected": [
+      "a",
+      "b"
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 4,
+  "options": {},
+  "expected": {
+   "output": 4
+  }
+ },
+ {
+  "id": "tests/validators/test_literal.py::test_union#2",
+  "test": "tests/validators/test_literal.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "literal",
+     "expected": [
+      "a",
+      "b"
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "c",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "literal_error",
+     "loc": [
+      "literal['a','b']"
+     ],
+     "msg": "Input should be 'a' or 'b'",
+     "input": "c",
+     "ctx": {
+      "expected": "'a' or 'b'"
+     }
+    },
+    {
+     "type": "int_parsing",
+     "loc": [
+      "int"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "c"
+    }
+   ],
+   "title": "union[literal['a','b'],int]"
+  }
+ }
+]

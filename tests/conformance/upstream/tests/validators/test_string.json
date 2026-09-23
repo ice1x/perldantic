@@ -1,0 +1,2821 @@
+[
+ {
+  "id": "tests/validators/test_string.py::test_backtracking_regex_python[config]#0",
+  "test": "tests/validators/test_string.py::test_backtracking_regex_python[config]",
+  "schema": {
+   "type": "str",
+   "pattern": "r(#*)\".*?\"\\1"
+  },
+  "config": {
+   "regex_engine": "python-re"
+  },
+  "mode": "python",
+  "input": "r\"\"",
+  "options": {},
+  "expected": {
+   "output": "r\"\""
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_backtracking_regex_python[config]#1",
+  "test": "tests/validators/test_string.py::test_backtracking_regex_python[config]",
+  "schema": {
+   "type": "str",
+   "pattern": "r(#*)\".*?\"\\1"
+  },
+  "config": {
+   "regex_engine": "python-re"
+  },
+  "mode": "python",
+  "input": "r#\"\"#",
+  "options": {},
+  "expected": {
+   "output": "r#\"\"#"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_backtracking_regex_python[config]#2",
+  "test": "tests/validators/test_string.py::test_backtracking_regex_python[config]",
+  "schema": {
+   "type": "str",
+   "pattern": "r(#*)\".*?\"\\1"
+  },
+  "config": {
+   "regex_engine": "python-re"
+  },
+  "mode": "python",
+  "input": "r#\"#",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_pattern_mismatch",
+     "loc": [],
+     "msg": "String should match pattern 'r(#*)\".*?\"\\1'",
+     "input": "r#\"#",
+     "ctx": {
+      "pattern": "r(#*)\".*?\"\\1"
+     }
+    }
+   ],
+   "title": "constrained-str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_backtracking_regex_python[schema]#0",
+  "test": "tests/validators/test_string.py::test_backtracking_regex_python[schema]",
+  "schema": {
+   "type": "str",
+   "pattern": "r(#*)\".*?\"\\1",
+   "regex_engine": "python-re"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "r\"\"",
+  "options": {},
+  "expected": {
+   "output": "r\"\""
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_backtracking_regex_python[schema]#1",
+  "test": "tests/validators/test_string.py::test_backtracking_regex_python[schema]",
+  "schema": {
+   "type": "str",
+   "pattern": "r(#*)\".*?\"\\1",
+   "regex_engine": "python-re"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "r#\"\"#",
+  "options": {},
+  "expected": {
+   "output": "r#\"\"#"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_backtracking_regex_python[schema]#2",
+  "test": "tests/validators/test_string.py::test_backtracking_regex_python[schema]",
+  "schema": {
+   "type": "str",
+   "pattern": "r(#*)\".*?\"\\1",
+   "regex_engine": "python-re"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "r#\"#",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_pattern_mismatch",
+     "loc": [],
+     "msg": "String should match pattern 'r(#*)\".*?\"\\1'",
+     "input": "r#\"#",
+     "ctx": {
+      "pattern": "r(#*)\".*?\"\\1"
+     }
+    }
+   ],
+   "title": "constrained-str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str[42.0]#0",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str[42.0]",
+  "schema": {
+   "type": "str"
+  },
+  "config": {
+   "coerce_numbers_to_str": true
+  },
+  "mode": "python",
+  "input": 42.0,
+  "options": {},
+  "expected": {
+   "output": "42.0"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str[42]#0",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str[42]",
+  "schema": {
+   "type": "str"
+  },
+  "config": {
+   "coerce_numbers_to_str": true
+  },
+  "mode": "python",
+  "input": 42,
+  "options": {},
+  "expected": {
+   "output": "42"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str[Decimal('42.0')]#0",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str[Decimal('42.0')]",
+  "schema": {
+   "type": "str"
+  },
+  "config": {
+   "coerce_numbers_to_str": true
+  },
+  "mode": "python",
+  "input": {
+   "$decimal": "42.0"
+  },
+  "options": {},
+  "expected": {
+   "output": "42.0"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_disabled_in_strict_mode#0",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_disabled_in_strict_mode",
+  "schema": {
+   "type": "str",
+   "strict": true
+  },
+  "config": {
+   "coerce_numbers_to_str": true
+  },
+  "mode": "python",
+  "input": 42,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 42
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_disabled_in_strict_mode#1",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_disabled_in_strict_mode",
+  "schema": {
+   "type": "str",
+   "strict": true
+  },
+  "config": {
+   "coerce_numbers_to_str": true
+  },
+  "mode": "json",
+  "input": "42",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 42
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_from_json[42.0]#0",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_from_json[42.0]",
+  "schema": {
+   "type": "str"
+  },
+  "config": {
+   "coerce_numbers_to_str": true
+  },
+  "mode": "json",
+  "input": "42.0",
+  "options": {},
+  "expected": {
+   "output": "42"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_from_json[42.13]#0",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_from_json[42.13]",
+  "schema": {
+   "type": "str"
+  },
+  "config": {
+   "coerce_numbers_to_str": true
+  },
+  "mode": "json",
+  "input": "42.13",
+  "options": {},
+  "expected": {
+   "output": "42.13"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_from_json[42]#0",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_from_json[42]",
+  "schema": {
+   "type": "str"
+  },
+  "config": {
+   "coerce_numbers_to_str": true
+  },
+  "mode": "json",
+  "input": "42",
+  "options": {},
+  "expected": {
+   "output": "42"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_raises_for_bool#0",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_raises_for_bool",
+  "schema": {
+   "type": "str"
+  },
+  "config": {
+   "coerce_numbers_to_str": true
+  },
+  "mode": "python",
+  "input": true,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": true
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_raises_for_bool#1",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_raises_for_bool",
+  "schema": {
+   "type": "str"
+  },
+  "config": {
+   "coerce_numbers_to_str": true
+  },
+  "mode": "json",
+  "input": false,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "json_type",
+     "loc": [],
+     "msg": "JSON input should be string, bytes or bytearray",
+     "input": false
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema[10242]#0",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema[10242]",
+  "schema": {
+   "type": "str",
+   "coerce_numbers_to_str": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 10242,
+  "options": {},
+  "expected": {
+   "output": "10242"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema[10242]#1",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema[10242]",
+  "schema": {
+   "type": "str",
+   "coerce_numbers_to_str": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "10242",
+  "options": {},
+  "expected": {
+   "output": "10242"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema[42]#0",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema[42]",
+  "schema": {
+   "type": "str",
+   "coerce_numbers_to_str": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42,
+  "options": {},
+  "expected": {
+   "output": "42"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema[42]#1",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema[42]",
+  "schema": {
+   "type": "str",
+   "coerce_numbers_to_str": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "42",
+  "options": {},
+  "expected": {
+   "output": "42"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema[443]#0",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema[443]",
+  "schema": {
+   "type": "str",
+   "coerce_numbers_to_str": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 443,
+  "options": {},
+  "expected": {
+   "output": "443"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema[443]#1",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema[443]",
+  "schema": {
+   "type": "str",
+   "coerce_numbers_to_str": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "443",
+  "options": {},
+  "expected": {
+   "output": "443"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[10242]#0",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[10242]",
+  "schema": {
+   "type": "str",
+   "coerce_numbers_to_str": true
+  },
+  "config": {
+   "coerce_numbers_to_str": false
+  },
+  "mode": "python",
+  "input": 10242,
+  "options": {},
+  "expected": {
+   "output": "10242"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[10242]#1",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[10242]",
+  "schema": {
+   "type": "str",
+   "coerce_numbers_to_str": true
+  },
+  "config": {
+   "coerce_numbers_to_str": false
+  },
+  "mode": "json",
+  "input": "10242",
+  "options": {},
+  "expected": {
+   "output": "10242"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[10242]#2",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[10242]",
+  "schema": {
+   "type": "str",
+   "coerce_numbers_to_str": false
+  },
+  "config": {
+   "coerce_numbers_to_str": true
+  },
+  "mode": "python",
+  "input": 10242,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 10242
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[10242]#3",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[10242]",
+  "schema": {
+   "type": "str",
+   "coerce_numbers_to_str": false
+  },
+  "config": {
+   "coerce_numbers_to_str": true
+  },
+  "mode": "json",
+  "input": "10242",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 10242
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[42]#0",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[42]",
+  "schema": {
+   "type": "str",
+   "coerce_numbers_to_str": true
+  },
+  "config": {
+   "coerce_numbers_to_str": false
+  },
+  "mode": "python",
+  "input": 42,
+  "options": {},
+  "expected": {
+   "output": "42"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[42]#1",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[42]",
+  "schema": {
+   "type": "str",
+   "coerce_numbers_to_str": true
+  },
+  "config": {
+   "coerce_numbers_to_str": false
+  },
+  "mode": "json",
+  "input": "42",
+  "options": {},
+  "expected": {
+   "output": "42"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[42]#2",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[42]",
+  "schema": {
+   "type": "str",
+   "coerce_numbers_to_str": false
+  },
+  "config": {
+   "coerce_numbers_to_str": true
+  },
+  "mode": "python",
+  "input": 42,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 42
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[42]#3",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[42]",
+  "schema": {
+   "type": "str",
+   "coerce_numbers_to_str": false
+  },
+  "config": {
+   "coerce_numbers_to_str": true
+  },
+  "mode": "json",
+  "input": "42",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 42
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[443]#0",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[443]",
+  "schema": {
+   "type": "str",
+   "coerce_numbers_to_str": true
+  },
+  "config": {
+   "coerce_numbers_to_str": false
+  },
+  "mode": "python",
+  "input": 443,
+  "options": {},
+  "expected": {
+   "output": "443"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[443]#1",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[443]",
+  "schema": {
+   "type": "str",
+   "coerce_numbers_to_str": true
+  },
+  "config": {
+   "coerce_numbers_to_str": false
+  },
+  "mode": "json",
+  "input": "443",
+  "options": {},
+  "expected": {
+   "output": "443"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[443]#2",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[443]",
+  "schema": {
+   "type": "str",
+   "coerce_numbers_to_str": false
+  },
+  "config": {
+   "coerce_numbers_to_str": true
+  },
+  "mode": "python",
+  "input": 443,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 443
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[443]#3",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_precedence[443]",
+  "schema": {
+   "type": "str",
+   "coerce_numbers_to_str": false
+  },
+  "config": {
+   "coerce_numbers_to_str": true
+  },
+  "mode": "json",
+  "input": "443",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 443
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_with_strict_mode[10242]#0",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_with_strict_mode[10242]",
+  "schema": {
+   "type": "str",
+   "strict": true,
+   "coerce_numbers_to_str": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 10242,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 10242
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_with_strict_mode[10242]#1",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_with_strict_mode[10242]",
+  "schema": {
+   "type": "str",
+   "strict": true,
+   "coerce_numbers_to_str": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "10242",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 10242
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_with_strict_mode[42]#0",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_with_strict_mode[42]",
+  "schema": {
+   "type": "str",
+   "strict": true,
+   "coerce_numbers_to_str": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 42
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_with_strict_mode[42]#1",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_with_strict_mode[42]",
+  "schema": {
+   "type": "str",
+   "strict": true,
+   "coerce_numbers_to_str": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "42",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 42
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_with_strict_mode[443]#0",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_with_strict_mode[443]",
+  "schema": {
+   "type": "str",
+   "strict": true,
+   "coerce_numbers_to_str": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 443,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 443
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_with_strict_mode[443]#1",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_schema_with_strict_mode[443]",
+  "schema": {
+   "type": "str",
+   "strict": true,
+   "coerce_numbers_to_str": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "443",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 443
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_with_invalid_unicode_character[False]#0",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_with_invalid_unicode_character[False]",
+  "schema": {
+   "type": "str",
+   "strict": false
+  },
+  "config": {
+   "coerce_numbers_to_str": true
+  },
+  "mode": "python",
+  "input": {
+   "$object": "str-with-surrogates"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "str-with-surrogates"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_coerce_numbers_to_str_with_invalid_unicode_character[True]#0",
+  "test": "tests/validators/test_string.py::test_coerce_numbers_to_str_with_invalid_unicode_character[True]",
+  "schema": {
+   "type": "str",
+   "strict": true
+  },
+  "config": {
+   "coerce_numbers_to_str": true
+  },
+  "mode": "python",
+  "input": {
+   "$object": "str-with-surrogates"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "str-with-surrogates"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_compiled_regex[None]#0",
+  "test": "tests/validators/test_string.py::test_compiled_regex[None]",
+  "schema": {
+   "type": "str",
+   "pattern": {
+    "$object": "Pattern"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "abc",
+  "options": {},
+  "expected": {
+   "output": "abc"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_compiled_regex[None]#1",
+  "test": "tests/validators/test_string.py::test_compiled_regex[None]",
+  "schema": {
+   "type": "str",
+   "pattern": {
+    "$object": "Pattern"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "ABC",
+  "options": {},
+  "expected": {
+   "output": "ABC"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_compiled_regex[python-re]#0",
+  "test": "tests/validators/test_string.py::test_compiled_regex[python-re]",
+  "schema": {
+   "type": "str",
+   "pattern": {
+    "$object": "Pattern"
+   },
+   "regex_engine": "python-re"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "abc",
+  "options": {},
+  "expected": {
+   "output": "abc"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_compiled_regex[python-re]#1",
+  "test": "tests/validators/test_string.py::test_compiled_regex[python-re]",
+  "schema": {
+   "type": "str",
+   "pattern": {
+    "$object": "Pattern"
+   },
+   "regex_engine": "python-re"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "ABC",
+  "options": {},
+  "expected": {
+   "output": "ABC"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_compiled_regex[rust-regex]#0",
+  "test": "tests/validators/test_string.py::test_compiled_regex[rust-regex]",
+  "schema": {
+   "type": "str",
+   "pattern": {
+    "$object": "Pattern"
+   },
+   "regex_engine": "rust-regex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "abc",
+  "options": {},
+  "expected": {
+   "output": "abc"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_compiled_regex[rust-regex]#1",
+  "test": "tests/validators/test_string.py::test_compiled_regex[rust-regex]",
+  "schema": {
+   "type": "str",
+   "pattern": {
+    "$object": "Pattern"
+   },
+   "regex_engine": "rust-regex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "ABC",
+  "options": {},
+  "expected": {
+   "output": "ABC"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[json-kwargs0-abc-abc]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[json-kwargs0-abc-abc]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"abc\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "abc"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[json-kwargs1-Foobar-Foobar]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[json-kwargs1-Foobar-Foobar]",
+  "schema": {
+   "type": "str",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"Foobar\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "Foobar"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[json-kwargs10-12345-12345]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[json-kwargs10-12345-12345]",
+  "schema": {
+   "type": "str",
+   "pattern": "^\\d+$"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"12345\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "12345"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[json-kwargs11-foobar 123-foobar 123]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[json-kwargs11-foobar 123-foobar 123]",
+  "schema": {
+   "type": "str",
+   "pattern": "\\d+$"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foobar 123\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "foobar 123"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[json-kwargs12-12345a-expected12]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[json-kwargs12-12345a-expected12]",
+  "schema": {
+   "type": "str",
+   "pattern": "^\\d+$"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"12345a\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "string_pattern_mismatch",
+     "loc": [],
+     "msg": "String should match pattern '^\\d+$'",
+     "input": "12345a",
+     "ctx": {
+      "pattern": "^\\d+$"
+     }
+    }
+   ],
+   "title": "constrained-str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[json-kwargs13-Abc-Abc]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[json-kwargs13-Abc-Abc]",
+  "schema": {
+   "type": "str",
+   "pattern": "[a-z]"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"Abc\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "Abc"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[json-kwargs14-Abc-Abc]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[json-kwargs14-Abc-Abc]",
+  "schema": {
+   "type": "str",
+   "pattern": {
+    "$object": "Pattern"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"Abc\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "Abc"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[json-kwargs15-1234  -1234]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[json-kwargs15-1234  -1234]",
+  "schema": {
+   "type": "str",
+   "max_length": 5,
+   "strip_whitespace": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1234  \"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "1234"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[json-kwargs16-abc-ABC]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[json-kwargs16-abc-ABC]",
+  "schema": {
+   "type": "str",
+   "to_upper": true,
+   "pattern": "abc"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"abc\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "ABC"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[json-kwargs17-foobar 123 -foobar 123]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[json-kwargs17-foobar 123 -foobar 123]",
+  "schema": {
+   "type": "str",
+   "strip_whitespace": true,
+   "pattern": "\\d+$"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foobar 123 \"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "foobar 123"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[json-kwargs18-\\U0001f408 Hello-\\U0001f408 Hello]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[json-kwargs18-\\U0001f408 Hello-\\U0001f408 Hello]",
+  "schema": {
+   "type": "str",
+   "min_length": 1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"\\ud83d\\udc08 Hello\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "🐈 Hello"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[json-kwargs2-fooBar-FOOBAR]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[json-kwargs2-fooBar-FOOBAR]",
+  "schema": {
+   "type": "str",
+   "to_upper": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"fooBar\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "FOOBAR"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[json-kwargs3-fooBar-foobar]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[json-kwargs3-fooBar-foobar]",
+  "schema": {
+   "type": "str",
+   "to_lower": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"fooBar\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "foobar"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[json-kwargs4- foobar  -foobar]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[json-kwargs4- foobar  -foobar]",
+  "schema": {
+   "type": "str",
+   "strip_whitespace": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\" foobar  \"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "foobar"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[json-kwargs5- fooBar-FOOBAR]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[json-kwargs5- fooBar-FOOBAR]",
+  "schema": {
+   "type": "str",
+   "strip_whitespace": true,
+   "to_upper": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\" fooBar\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "FOOBAR"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[json-kwargs6-12345-12345]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[json-kwargs6-12345-12345]",
+  "schema": {
+   "type": "str",
+   "min_length": 5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"12345\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "12345"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[json-kwargs7-1234-expected7]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[json-kwargs7-1234-expected7]",
+  "schema": {
+   "type": "str",
+   "min_length": 5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1234\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "string_too_short",
+     "loc": [],
+     "msg": "String should have at least 5 characters",
+     "input": "1234",
+     "ctx": {
+      "min_length": 5
+     }
+    }
+   ],
+   "title": "constrained-str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[json-kwargs8-12345-12345]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[json-kwargs8-12345-12345]",
+  "schema": {
+   "type": "str",
+   "max_length": 5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"12345\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "12345"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[json-kwargs9-123456-expected9]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[json-kwargs9-123456-expected9]",
+  "schema": {
+   "type": "str",
+   "max_length": 5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"123456\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "string_too_long",
+     "loc": [],
+     "msg": "String should have at most 5 characters",
+     "input": "123456",
+     "ctx": {
+      "max_length": 5
+     }
+    }
+   ],
+   "title": "constrained-str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[python-kwargs0-abc-abc]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[python-kwargs0-abc-abc]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "abc",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "abc"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[python-kwargs1-Foobar-Foobar]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[python-kwargs1-Foobar-Foobar]",
+  "schema": {
+   "type": "str",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "Foobar",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "Foobar"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[python-kwargs10-12345-12345]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[python-kwargs10-12345-12345]",
+  "schema": {
+   "type": "str",
+   "pattern": "^\\d+$"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12345",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "12345"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[python-kwargs11-foobar 123-foobar 123]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[python-kwargs11-foobar 123-foobar 123]",
+  "schema": {
+   "type": "str",
+   "pattern": "\\d+$"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foobar 123",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "foobar 123"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[python-kwargs12-12345a-expected12]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[python-kwargs12-12345a-expected12]",
+  "schema": {
+   "type": "str",
+   "pattern": "^\\d+$"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12345a",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "string_pattern_mismatch",
+     "loc": [],
+     "msg": "String should match pattern '^\\d+$'",
+     "input": "12345a",
+     "ctx": {
+      "pattern": "^\\d+$"
+     }
+    }
+   ],
+   "title": "constrained-str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[python-kwargs13-Abc-Abc]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[python-kwargs13-Abc-Abc]",
+  "schema": {
+   "type": "str",
+   "pattern": "[a-z]"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "Abc",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "Abc"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[python-kwargs14-Abc-Abc]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[python-kwargs14-Abc-Abc]",
+  "schema": {
+   "type": "str",
+   "pattern": {
+    "$object": "Pattern"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "Abc",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "Abc"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[python-kwargs15-1234  -1234]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[python-kwargs15-1234  -1234]",
+  "schema": {
+   "type": "str",
+   "max_length": 5,
+   "strip_whitespace": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1234  ",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "1234"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[python-kwargs16-abc-ABC]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[python-kwargs16-abc-ABC]",
+  "schema": {
+   "type": "str",
+   "to_upper": true,
+   "pattern": "abc"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "abc",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "ABC"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[python-kwargs17-foobar 123 -foobar 123]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[python-kwargs17-foobar 123 -foobar 123]",
+  "schema": {
+   "type": "str",
+   "strip_whitespace": true,
+   "pattern": "\\d+$"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foobar 123 ",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "foobar 123"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[python-kwargs18-\\U0001f408 Hello-\\U0001f408 Hello]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[python-kwargs18-\\U0001f408 Hello-\\U0001f408 Hello]",
+  "schema": {
+   "type": "str",
+   "min_length": 1
+  },
+  "config": null,
+  "mode": "python",
+  "input": "🐈 Hello",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "🐈 Hello"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[python-kwargs2-fooBar-FOOBAR]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[python-kwargs2-fooBar-FOOBAR]",
+  "schema": {
+   "type": "str",
+   "to_upper": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "fooBar",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "FOOBAR"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[python-kwargs3-fooBar-foobar]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[python-kwargs3-fooBar-foobar]",
+  "schema": {
+   "type": "str",
+   "to_lower": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "fooBar",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "foobar"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[python-kwargs4- foobar  -foobar]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[python-kwargs4- foobar  -foobar]",
+  "schema": {
+   "type": "str",
+   "strip_whitespace": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": " foobar  ",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "foobar"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[python-kwargs5- fooBar-FOOBAR]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[python-kwargs5- fooBar-FOOBAR]",
+  "schema": {
+   "type": "str",
+   "strip_whitespace": true,
+   "to_upper": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": " fooBar",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "FOOBAR"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[python-kwargs6-12345-12345]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[python-kwargs6-12345-12345]",
+  "schema": {
+   "type": "str",
+   "min_length": 5
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12345",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "12345"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[python-kwargs7-1234-expected7]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[python-kwargs7-1234-expected7]",
+  "schema": {
+   "type": "str",
+   "min_length": 5
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1234",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "string_too_short",
+     "loc": [],
+     "msg": "String should have at least 5 characters",
+     "input": "1234",
+     "ctx": {
+      "min_length": 5
+     }
+    }
+   ],
+   "title": "constrained-str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[python-kwargs8-12345-12345]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[python-kwargs8-12345-12345]",
+  "schema": {
+   "type": "str",
+   "max_length": 5
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12345",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "12345"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str[python-kwargs9-123456-expected9]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str[python-kwargs9-123456-expected9]",
+  "schema": {
+   "type": "str",
+   "max_length": 5
+  },
+  "config": null,
+  "mode": "python",
+  "input": "123456",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "string_too_long",
+     "loc": [],
+     "msg": "String should have at most 5 characters",
+     "input": "123456",
+     "ctx": {
+      "max_length": 5
+     }
+    }
+   ],
+   "title": "constrained-str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str_py_only[kwargs0-abc-abc]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str_py_only[kwargs0-abc-abc]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "YWJj"
+  },
+  "options": {},
+  "expected": {
+   "output": "abc"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str_py_only[kwargs1-Foobar-Foobar]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str_py_only[kwargs1-Foobar-Foobar]",
+  "schema": {
+   "type": "str",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "Foobar",
+  "options": {},
+  "expected": {
+   "output": "Foobar"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_constrained_str_py_only[kwargs2-123-expected2]#0",
+  "test": "tests/validators/test_string.py::test_constrained_str_py_only[kwargs2-123-expected2]",
+  "schema": {
+   "type": "str",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 123
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_lax_subclass[{'to_lower': True}]#0",
+  "test": "tests/validators/test_string.py::test_lax_subclass[{'to_lower': True}]",
+  "schema": {
+   "type": "str",
+   "to_lower": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foobar",
+  "options": {},
+  "expected": {
+   "output": "foobar"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_lax_subclass[{'to_lower': True}]#1",
+  "test": "tests/validators/test_string.py::test_lax_subclass[{'to_lower': True}]",
+  "schema": {
+   "type": "str",
+   "to_lower": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "Zm9vYmFy"
+  },
+  "options": {},
+  "expected": {
+   "output": "foobar"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_lax_subclass[{'to_lower': True}]#2",
+  "test": "tests/validators/test_string.py::test_lax_subclass[{'to_lower': True}]",
+  "schema": {
+   "type": "str",
+   "to_lower": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "FruitEnum",
+    "pear"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": "pear"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_lax_subclass[{}]#0",
+  "test": "tests/validators/test_string.py::test_lax_subclass[{}]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foobar",
+  "options": {},
+  "expected": {
+   "output": "foobar"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_lax_subclass[{}]#1",
+  "test": "tests/validators/test_string.py::test_lax_subclass[{}]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "Zm9vYmFy"
+  },
+  "options": {},
+  "expected": {
+   "output": "foobar"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_lax_subclass[{}]#2",
+  "test": "tests/validators/test_string.py::test_lax_subclass[{}]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "FruitEnum",
+    "pear"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": "pear"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_lax_subclass_plain_enum[{'to_lower': True}]#0",
+  "test": "tests/validators/test_string.py::test_lax_subclass_plain_enum[{'to_lower': True}]",
+  "schema": {
+   "type": "str",
+   "to_lower": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "PlainEnum",
+    "one"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": "one"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_lax_subclass_plain_enum[{}]#0",
+  "test": "tests/validators/test_string.py::test_lax_subclass_plain_enum[{}]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "PlainEnum",
+    "one"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": "one"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_regex_error[None]#0",
+  "test": "tests/validators/test_string.py::test_regex_error[None]",
+  "schema": {
+   "type": "str",
+   "pattern": "11"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_pattern_mismatch",
+     "loc": [],
+     "msg": "String should match pattern '11'",
+     "input": "12",
+     "ctx": {
+      "pattern": "11"
+     }
+    }
+   ],
+   "title": "constrained-str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_regex_error[python-re]#0",
+  "test": "tests/validators/test_string.py::test_regex_error[python-re]",
+  "schema": {
+   "type": "str",
+   "pattern": "11",
+   "regex_engine": "python-re"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_pattern_mismatch",
+     "loc": [],
+     "msg": "String should match pattern '11'",
+     "input": "12",
+     "ctx": {
+      "pattern": "11"
+     }
+    }
+   ],
+   "title": "constrained-str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_regex_error[rust-regex]#0",
+  "test": "tests/validators/test_string.py::test_regex_error[rust-regex]",
+  "schema": {
+   "type": "str",
+   "pattern": "11",
+   "regex_engine": "rust-regex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_pattern_mismatch",
+     "loc": [],
+     "msg": "String should match pattern '11'",
+     "input": "12",
+     "ctx": {
+      "pattern": "11"
+     }
+    }
+   ],
+   "title": "constrained-str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str[json-123-expected1]#0",
+  "test": "tests/validators/test_string.py::test_str[json-123-expected1]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "123",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 123
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str[json-123.456-expected2]#0",
+  "test": "tests/validators/test_string.py::test_str[json-123.456-expected2]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "123.456",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 123.456
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str[json-False-expected3]#0",
+  "test": "tests/validators/test_string.py::test_str[json-False-expected3]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "false",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": false
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str[json-True-expected4]#0",
+  "test": "tests/validators/test_string.py::test_str[json-True-expected4]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "true",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": true
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str[json-foobar-foobar]#0",
+  "test": "tests/validators/test_string.py::test_str[json-foobar-foobar]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foobar\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "foobar"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str[json-input_value5-expected5]#0",
+  "test": "tests/validators/test_string.py::test_str[json-input_value5-expected5]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": []
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str[python-123-expected1]#0",
+  "test": "tests/validators/test_string.py::test_str[python-123-expected1]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 123,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 123
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str[python-123.456-expected2]#0",
+  "test": "tests/validators/test_string.py::test_str[python-123.456-expected2]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 123.456,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 123.456
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str[python-False-expected3]#0",
+  "test": "tests/validators/test_string.py::test_str[python-False-expected3]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": false,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": false
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str[python-True-expected4]#0",
+  "test": "tests/validators/test_string.py::test_str[python-True-expected4]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": true,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": true
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str[python-foobar-foobar]#0",
+  "test": "tests/validators/test_string.py::test_str[python-foobar-foobar]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foobar",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "foobar"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str[python-input_value5-expected5]#0",
+  "test": "tests/validators/test_string.py::test_str[python-input_value5-expected5]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": []
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str_constrained[a lot of `\\u0430`s]#0",
+  "test": "tests/validators/test_string.py::test_str_constrained[a lot of `\\u0430`s]",
+  "schema": {
+   "type": "str",
+   "max_length": 32
+  },
+  "config": null,
+  "mode": "python",
+  "input": "ааааааааааааааааааааааааа",
+  "options": {},
+  "expected": {
+   "output": "ааааааааааааааааааааааааа"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str_constrained[long string with unicode characters]#0",
+  "test": "tests/validators/test_string.py::test_str_constrained[long string with unicode characters]",
+  "schema": {
+   "type": "str",
+   "max_length": 5
+  },
+  "config": null,
+  "mode": "python",
+  "input": "␛⯋℃▤⩥⠫⳼⣪⨺✒⧐♳⩚⏭⏣⍥┙⧃Ⰴ┽⏏♜",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_too_long",
+     "loc": [],
+     "msg": "String should have at most 5 characters",
+     "input": "␛⯋℃▤⩥⠫⳼⣪⨺✒⧐♳⩚⏭⏣⍥┙⧃Ⰴ┽⏏♜",
+     "ctx": {
+      "max_length": 5
+     }
+    }
+   ],
+   "title": "constrained-str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str_constrained[long string]#0",
+  "test": "tests/validators/test_string.py::test_str_constrained[long string]",
+  "schema": {
+   "type": "str",
+   "max_length": 5
+  },
+  "config": null,
+  "mode": "python",
+  "input": "test long",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_too_long",
+     "loc": [],
+     "msg": "String should have at most 5 characters",
+     "input": "test long",
+     "ctx": {
+      "max_length": 5
+     }
+    }
+   ],
+   "title": "constrained-str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str_constrained[short string with unicode characters]#0",
+  "test": "tests/validators/test_string.py::test_str_constrained[short string with unicode characters]",
+  "schema": {
+   "type": "str",
+   "max_length": 5
+  },
+  "config": null,
+  "mode": "python",
+  "input": "␛⯋℃▤",
+  "options": {},
+  "expected": {
+   "output": "␛⯋℃▤"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str_constrained[short string]#0",
+  "test": "tests/validators/test_string.py::test_str_constrained[short string]",
+  "schema": {
+   "type": "str",
+   "max_length": 5
+  },
+  "config": null,
+  "mode": "python",
+  "input": "test",
+  "options": {},
+  "expected": {
+   "output": "test"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str_constrained_config#0",
+  "test": "tests/validators/test_string.py::test_str_constrained_config",
+  "schema": {
+   "type": "str"
+  },
+  "config": {
+   "str_max_length": 5
+  },
+  "mode": "python",
+  "input": "test",
+  "options": {},
+  "expected": {
+   "output": "test"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str_constrained_config#1",
+  "test": "tests/validators/test_string.py::test_str_constrained_config",
+  "schema": {
+   "type": "str"
+  },
+  "config": {
+   "str_max_length": 5
+  },
+  "mode": "python",
+  "input": "test long",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_too_long",
+     "loc": [],
+     "msg": "String should have at most 5 characters",
+     "input": "test long",
+     "ctx": {
+      "max_length": 5
+     }
+    }
+   ],
+   "title": "constrained-str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str_not_json[123-expected7]#0",
+  "test": "tests/validators/test_string.py::test_str_not_json[123-expected7]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": 123
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str_not_json[\\U0001f408 Hello \\ud800World-\\U0001f408 Hello \\ud800World]#0",
+  "test": "tests/validators/test_string.py::test_str_not_json[\\U0001f408 Hello \\ud800World-\\U0001f408 Hello \\ud800World]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "str-with-surrogates"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "str-with-surrogates"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str_not_json[\\x00-\\x00]#0",
+  "test": "tests/validators/test_string.py::test_str_not_json[\\x00-\\x00]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "AA=="
+  },
+  "options": {},
+  "expected": {
+   "output": "\u0000"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str_not_json[\\x81-expected4]#0",
+  "test": "tests/validators/test_string.py::test_str_not_json[\\x81-expected4]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "gQ=="
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_unicode",
+     "loc": [],
+     "msg": "Input should be a valid string, unable to parse raw data as a unicode string",
+     "input": {
+      "$bytes": "gQ=="
+     }
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str_not_json[foobar_bytearray-foobar_str]#0",
+  "test": "tests/validators/test_string.py::test_str_not_json[foobar_bytearray-foobar_str]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytearray": "Zm9vYmFy"
+  },
+  "options": {},
+  "expected": {
+   "output": "foobar"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str_not_json[foobar_bytes-foobar_str]#0",
+  "test": "tests/validators/test_string.py::test_str_not_json[foobar_bytes-foobar_str]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "Zm9vYmFy"
+  },
+  "options": {},
+  "expected": {
+   "output": "foobar"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str_not_json[foobar_str-foobar_str]#0",
+  "test": "tests/validators/test_string.py::test_str_not_json[foobar_str-foobar_str]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foobar",
+  "options": {},
+  "expected": {
+   "output": "foobar"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str_not_json[input_value5-expected5]#0",
+  "test": "tests/validators/test_string.py::test_str_not_json[input_value5-expected5]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytearray": "gQ=="
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_unicode",
+     "loc": [],
+     "msg": "Input should be a valid string, unable to parse raw data as a unicode string",
+     "input": {
+      "$bytearray": "gQ=="
+     }
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_str_not_json[input_value8-expected8]#0",
+  "test": "tests/validators/test_string.py::test_str_not_json[input_value8-expected8]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "123"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": {
+      "$decimal": "123"
+     }
+    }
+   ],
+   "title": "str"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_strict_subclass[False]#0",
+  "test": "tests/validators/test_string.py::test_strict_subclass[False]",
+  "schema": {
+   "type": "str",
+   "to_lower": false,
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "StrSubclass",
+    "ABC"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": "ABC"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_strict_subclass[True]#0",
+  "test": "tests/validators/test_string.py::test_strict_subclass[True]",
+  "schema": {
+   "type": "str",
+   "to_lower": true,
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "StrSubclass",
+    "ABC"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": "abc"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_subclass_preserved#0",
+  "test": "tests/validators/test_string.py::test_subclass_preserved",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "StrSubclass",
+    ""
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": ""
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_subclass_preserved#1",
+  "test": "tests/validators/test_string.py::test_subclass_preserved",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "StrSubclass",
+    ""
+   ]
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": ""
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_subclass_preserved#2",
+  "test": "tests/validators/test_string.py::test_subclass_preserved",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "StrSubclass",
+    ""
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": ""
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_subclass_preserved#3",
+  "test": "tests/validators/test_string.py::test_subclass_preserved",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "StrSubclass",
+    ""
+   ]
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": ""
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_unicode_error#0",
+  "test": "tests/validators/test_string.py::test_unicode_error",
+  "schema": {
+   "type": "str",
+   "min_length": 1
+  },
+  "config": null,
+  "mode": "python",
+  "input": "🐈 Hello",
+  "options": {},
+  "expected": {
+   "output": "🐈 Hello"
+  }
+ },
+ {
+  "id": "tests/validators/test_string.py::test_unicode_error#1",
+  "test": "tests/validators/test_string.py::test_unicode_error",
+  "schema": {
+   "type": "str",
+   "min_length": 1
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "str-with-surrogates"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_unicode",
+     "loc": [],
+     "msg": "Input should be a valid string, unable to parse raw data as a unicode string",
+     "input": {
+      "$object": "str-with-surrogates"
+     }
+    }
+   ],
+   "title": "constrained-str"
+  }
+ }
+]

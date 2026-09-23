@@ -1,0 +1,1050 @@
+[
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[json-input_value10-expected10]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[json-input_value10-expected10]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "typed-dict",
+      "fields": {
+       "x": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "int"
+        },
+        "required": true
+       },
+       "y": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "bool"
+        },
+        "required": false,
+        "validation_alias": "z"
+       }
+      },
+      "extra_behavior": "forbid"
+     },
+     "mode": "var_kwargs_unpacked_typed_dict"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"kwargs\": {\"x\": 1, \"y\": true}}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "extra_forbidden",
+     "loc": [
+      "kwargs",
+      "y"
+     ],
+     "msg": "Extra inputs are not permitted",
+     "input": true
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[json-input_value5-expected5]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[json-input_value5-expected5]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "typed-dict",
+      "fields": {
+       "x": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "int"
+        },
+        "required": true
+       },
+       "y": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "bool"
+        },
+        "required": false,
+        "validation_alias": "z"
+       }
+      },
+      "extra_behavior": "forbid"
+     },
+     "mode": "var_kwargs_unpacked_typed_dict"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"kwargs\": {\"x\": 1}}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "x": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[json-input_value6-expected6]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[json-input_value6-expected6]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "typed-dict",
+      "fields": {
+       "x": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "int"
+        },
+        "required": true
+       },
+       "y": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "bool"
+        },
+        "required": false,
+        "validation_alias": "z"
+       }
+      },
+      "extra_behavior": "forbid"
+     },
+     "mode": "var_kwargs_unpacked_typed_dict"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"kwargs\": {\"x\": 1, \"z\": true}}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "x": 1,
+      "y": true
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[json-input_value7-expected7]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[json-input_value7-expected7]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "typed-dict",
+      "fields": {
+       "x": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "int"
+        },
+        "required": true
+       },
+       "y": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "bool"
+        },
+        "required": false,
+        "validation_alias": "z"
+       }
+      },
+      "extra_behavior": "forbid"
+     },
+     "mode": "var_kwargs_unpacked_typed_dict"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"kwargs\": {}}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing",
+     "loc": [
+      "kwargs",
+      "x"
+     ],
+     "msg": "Field required",
+     "input": {}
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[json-input_value8-expected8]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[json-input_value8-expected8]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "typed-dict",
+      "fields": {
+       "x": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "int"
+        },
+        "required": true
+       },
+       "y": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "bool"
+        },
+        "required": false,
+        "validation_alias": "z"
+       }
+      },
+      "extra_behavior": "forbid"
+     },
+     "mode": "var_kwargs_unpacked_typed_dict"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing",
+     "loc": [
+      "kwargs",
+      "x"
+     ],
+     "msg": "Field required",
+     "input": {}
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[json-input_value9-expected9]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[json-input_value9-expected9]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "typed-dict",
+      "fields": {
+       "x": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "int"
+        },
+        "required": true
+       },
+       "y": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "bool"
+        },
+        "required": false,
+        "validation_alias": "z"
+       }
+      },
+      "extra_behavior": "forbid"
+     },
+     "mode": "var_kwargs_unpacked_typed_dict"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"kwargs\": {\"x\": \"not_an_int\"}}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "kwargs",
+      "x"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value0-expected0]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value0-expected0]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "typed-dict",
+      "fields": {
+       "x": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "int"
+        },
+        "required": true
+       },
+       "y": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "bool"
+        },
+        "required": false,
+        "validation_alias": "z"
+       }
+      },
+      "extra_behavior": "forbid"
+     },
+     "mode": "var_kwargs_unpacked_typed_dict"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "x": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value1-expected1]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value1-expected1]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "typed-dict",
+      "fields": {
+       "x": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "int"
+        },
+        "required": true
+       },
+       "y": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "bool"
+        },
+        "required": false,
+        "validation_alias": "z"
+       }
+      },
+      "extra_behavior": "forbid"
+     },
+     "mode": "var_kwargs_unpacked_typed_dict"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "x": 1,
+      "y": true
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value10-expected10]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value10-expected10]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "typed-dict",
+      "fields": {
+       "x": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "int"
+        },
+        "required": true
+       },
+       "y": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "bool"
+        },
+        "required": false,
+        "validation_alias": "z"
+       }
+      },
+      "extra_behavior": "forbid"
+     },
+     "mode": "var_kwargs_unpacked_typed_dict"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "kwargs": {
+    "x": 1,
+    "y": true
+   }
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "extra_forbidden",
+     "loc": [
+      "kwargs",
+      "y"
+     ],
+     "msg": "Extra inputs are not permitted",
+     "input": true
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value2-expected2]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value2-expected2]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "typed-dict",
+      "fields": {
+       "x": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "int"
+        },
+        "required": true
+       },
+       "y": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "bool"
+        },
+        "required": false,
+        "validation_alias": "z"
+       }
+      },
+      "extra_behavior": "forbid"
+     },
+     "mode": "var_kwargs_unpacked_typed_dict"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing",
+     "loc": [
+      "x"
+     ],
+     "msg": "Field required",
+     "input": {}
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value3-expected3]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value3-expected3]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "typed-dict",
+      "fields": {
+       "x": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "int"
+        },
+        "required": true
+       },
+       "y": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "bool"
+        },
+        "required": false,
+        "validation_alias": "z"
+       }
+      },
+      "extra_behavior": "forbid"
+     },
+     "mode": "var_kwargs_unpacked_typed_dict"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "x"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value4-expected4]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value4-expected4]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "typed-dict",
+      "fields": {
+       "x": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "int"
+        },
+        "required": true
+       },
+       "y": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "bool"
+        },
+        "required": false,
+        "validation_alias": "z"
+       }
+      },
+      "extra_behavior": "forbid"
+     },
+     "mode": "var_kwargs_unpacked_typed_dict"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "extra_forbidden",
+     "loc": [
+      "y"
+     ],
+     "msg": "Extra inputs are not permitted",
+     "input": true
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value5-expected5]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value5-expected5]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "typed-dict",
+      "fields": {
+       "x": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "int"
+        },
+        "required": true
+       },
+       "y": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "bool"
+        },
+        "required": false,
+        "validation_alias": "z"
+       }
+      },
+      "extra_behavior": "forbid"
+     },
+     "mode": "var_kwargs_unpacked_typed_dict"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "kwargs": {
+    "x": 1
+   }
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "x": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value6-expected6]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value6-expected6]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "typed-dict",
+      "fields": {
+       "x": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "int"
+        },
+        "required": true
+       },
+       "y": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "bool"
+        },
+        "required": false,
+        "validation_alias": "z"
+       }
+      },
+      "extra_behavior": "forbid"
+     },
+     "mode": "var_kwargs_unpacked_typed_dict"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "kwargs": {
+    "x": 1,
+    "z": true
+   }
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "x": 1,
+      "y": true
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value7-expected7]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value7-expected7]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "typed-dict",
+      "fields": {
+       "x": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "int"
+        },
+        "required": true
+       },
+       "y": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "bool"
+        },
+        "required": false,
+        "validation_alias": "z"
+       }
+      },
+      "extra_behavior": "forbid"
+     },
+     "mode": "var_kwargs_unpacked_typed_dict"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "kwargs": {}
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing",
+     "loc": [
+      "kwargs",
+      "x"
+     ],
+     "msg": "Field required",
+     "input": {}
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value8-expected8]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value8-expected8]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "typed-dict",
+      "fields": {
+       "x": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "int"
+        },
+        "required": true
+       },
+       "y": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "bool"
+        },
+        "required": false,
+        "validation_alias": "z"
+       }
+      },
+      "extra_behavior": "forbid"
+     },
+     "mode": "var_kwargs_unpacked_typed_dict"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing",
+     "loc": [
+      "kwargs",
+      "x"
+     ],
+     "msg": "Field required",
+     "input": {}
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value9-expected9]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs[python-input_value9-expected9]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "typed-dict",
+      "fields": {
+       "x": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "int"
+        },
+        "required": true
+       },
+       "y": {
+        "type": "typed-dict-field",
+        "schema": {
+         "type": "bool"
+        },
+        "required": false,
+        "validation_alias": "z"
+       }
+      },
+      "extra_behavior": "forbid"
+     },
+     "mode": "var_kwargs_unpacked_typed_dict"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "kwargs": {
+    "x": "not_an_int"
+   }
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "kwargs",
+      "x"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs_invalid_dict[json]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs_invalid_dict[json]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "typed-dict",
+      "fields": {}
+     },
+     "mode": "var_kwargs_unpacked_typed_dict"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"kwargs\": \"not_a_dict\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "dict_type",
+     "loc": [
+      "kwargs"
+     ],
+     "msg": "Input should be an object",
+     "input": "not_a_dict"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs_invalid_dict[python]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_unpacked_typed_dict.py::test_var_kwargs_invalid_dict[python]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "typed-dict",
+      "fields": {}
+     },
+     "mode": "var_kwargs_unpacked_typed_dict"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "kwargs": "not_a_dict"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "dict_type",
+     "loc": [
+      "kwargs"
+     ],
+     "msg": "Input should be a valid dictionary",
+     "input": "not_a_dict"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ }
+]

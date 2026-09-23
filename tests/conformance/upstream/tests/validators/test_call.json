@@ -1,0 +1,1434 @@
+[
+ {
+  "id": "tests/validators/test_call.py::test_custom_name#0",
+  "test": "tests/validators/test_call.py::test_custom_name",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     }
+    ]
+   },
+   "function": {
+    "$function": "my_function"
+   },
+   "function_name": "foobar"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_custom_name#1",
+  "test": "tests/validators/test_call.py::test_custom_name",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     }
+    ]
+   },
+   "function": {
+    "$function": "my_function"
+   },
+   "function_name": "foobar"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    "2"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": 2
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_dataclass#0",
+  "test": "tests/validators/test_call.py::test_dataclass",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "b",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "str"
+      }
+     }
+    ]
+   },
+   "function": {
+    "$class": "my_dataclass"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    "1",
+    {
+     "$bytes": "Mg=="
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "my_dataclass"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_dataclass#1",
+  "test": "tests/validators/test_call.py::test_dataclass",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "b",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "str"
+      }
+     }
+    ]
+   },
+   "function": {
+    "$class": "my_dataclass"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "my_dataclass"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_args_any[input_value0-6]#0",
+  "test": "tests/validators/test_call.py::test_function_args_any[input_value0-6]",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "any"
+   },
+   "function": {
+    "$function": "my_function"
+   },
+   "return_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    {
+     "$tuple": [
+      1,
+      2,
+      3
+     ]
+    },
+    {}
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": 6
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_args_any[input_value1-6]#0",
+  "test": "tests/validators/test_call.py::test_function_args_any[input_value1-6]",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "any"
+   },
+   "function": {
+    "$function": "my_function"
+   },
+   "return_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    {
+     "$tuple": [
+      1,
+      2,
+      3
+     ]
+    },
+    {}
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": 6
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_args_any[input_value2-3]#0",
+  "test": "tests/validators/test_call.py::test_function_args_any[input_value2-3]",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "any"
+   },
+   "function": {
+    "$function": "my_function"
+   },
+   "return_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": 1,
+   "c": 1
+  },
+  "options": {},
+  "expected": {
+   "output": 3
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_args_any[input_value4-expected4]#0",
+  "test": "tests/validators/test_call.py::test_function_args_any[input_value4-expected4]",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "any"
+   },
+   "function": {
+    "$function": "my_function"
+   },
+   "return_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   {
+    "$tuple": [
+     1,
+     2,
+     3
+    ]
+   },
+   {}
+  ],
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "Arguments validator should return a tuple of (args, kwargs) or a dict of kwargs"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_args_any[input_value5-expected5]#0",
+  "test": "tests/validators/test_call.py::test_function_args_any[input_value5-expected5]",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "any"
+   },
+   "function": {
+    "$function": "my_function"
+   },
+   "return_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    {
+     "$tuple": [
+      1,
+      2,
+      3,
+      4
+     ]
+    },
+    {}
+   ]
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "test_function_args_any.<locals>.my_function() takes 3 positional arguments but 4 were given"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_args_any[input_value6-expected6]#0",
+  "test": "tests/validators/test_call.py::test_function_args_any[input_value6-expected6]",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "any"
+   },
+   "function": {
+    "$function": "my_function"
+   },
+   "return_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": 1,
+   "c": 1,
+   "d": 1
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "test_function_args_any.<locals>.my_function() got an unexpected keyword argument 'd'"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_args_any[x-expected3]#0",
+  "test": "tests/validators/test_call.py::test_function_args_any[x-expected3]",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "any"
+   },
+   "function": {
+    "$function": "my_function"
+   },
+   "return_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "x",
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "Arguments validator should return a tuple of (args, kwargs) or a dict of kwargs"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_call_arguments[json-input_value0-6]#0",
+  "test": "tests/validators/test_call.py::test_function_call_arguments[json-input_value0-6]",
+  "schema": {
+   "type": "call",
+   "function": {
+    "$function": "my_function"
+   },
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "b",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "c",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     }
+    ]
+   },
+   "return_schema": {
+    "type": "int",
+    "le": 10
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": 6
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_call_arguments[json-input_value1-3]#0",
+  "test": "tests/validators/test_call.py::test_function_call_arguments[json-input_value1-3]",
+  "schema": {
+   "type": "call",
+   "function": {
+    "$function": "my_function"
+   },
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "b",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "c",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     }
+    ]
+   },
+   "return_schema": {
+    "type": "int",
+    "le": 10
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": 1,
+   "c": 1
+  },
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": 3
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_call_arguments[json-input_value2-3]#0",
+  "test": "tests/validators/test_call.py::test_function_call_arguments[json-input_value2-3]",
+  "schema": {
+   "type": "call",
+   "function": {
+    "$function": "my_function"
+   },
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "b",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "c",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     }
+    ]
+   },
+   "return_schema": {
+    "type": "int",
+    "le": 10
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": 3
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_call_arguments[json-input_value3-expected3]#0",
+  "test": "tests/validators/test_call.py::test_function_call_arguments[json-input_value3-expected3]",
+  "schema": {
+   "type": "call",
+   "function": {
+    "$function": "my_function"
+   },
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "b",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "c",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     }
+    ]
+   },
+   "return_schema": {
+    "type": "int",
+    "le": 10
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    "x"
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      2
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "x"
+    }
+   ],
+   "title": "call[my_function]"
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_call_arguments[json-input_value4-10]#0",
+  "test": "tests/validators/test_call.py::test_function_call_arguments[json-input_value4-10]",
+  "schema": {
+   "type": "call",
+   "function": {
+    "$function": "my_function"
+   },
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "b",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "c",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     }
+    ]
+   },
+   "return_schema": {
+    "type": "int",
+    "le": 10
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    3,
+    3,
+    4
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": 10
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_call_arguments[json-input_value5-expected5]#0",
+  "test": "tests/validators/test_call.py::test_function_call_arguments[json-input_value5-expected5]",
+  "schema": {
+   "type": "call",
+   "function": {
+    "$function": "my_function"
+   },
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "b",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "c",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     }
+    ]
+   },
+   "return_schema": {
+    "type": "int",
+    "le": 10
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    3,
+    3,
+    5
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than_equal",
+     "loc": [
+      "return"
+     ],
+     "msg": "Input should be less than or equal to 10",
+     "input": 11,
+     "ctx": {
+      "le": 10
+     }
+    }
+   ],
+   "title": "call[my_function]"
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_call_arguments[python-input_value0-6]#0",
+  "test": "tests/validators/test_call.py::test_function_call_arguments[python-input_value0-6]",
+  "schema": {
+   "type": "call",
+   "function": {
+    "$function": "my_function"
+   },
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "b",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "c",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     }
+    ]
+   },
+   "return_schema": {
+    "type": "int",
+    "le": 10
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": 6
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_call_arguments[python-input_value1-3]#0",
+  "test": "tests/validators/test_call.py::test_function_call_arguments[python-input_value1-3]",
+  "schema": {
+   "type": "call",
+   "function": {
+    "$function": "my_function"
+   },
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "b",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "c",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     }
+    ]
+   },
+   "return_schema": {
+    "type": "int",
+    "le": 10
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": 1,
+   "c": 1
+  },
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": 3
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_call_arguments[python-input_value2-3]#0",
+  "test": "tests/validators/test_call.py::test_function_call_arguments[python-input_value2-3]",
+  "schema": {
+   "type": "call",
+   "function": {
+    "$function": "my_function"
+   },
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "b",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "c",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     }
+    ]
+   },
+   "return_schema": {
+    "type": "int",
+    "le": 10
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": 3
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_call_arguments[python-input_value3-expected3]#0",
+  "test": "tests/validators/test_call.py::test_function_call_arguments[python-input_value3-expected3]",
+  "schema": {
+   "type": "call",
+   "function": {
+    "$function": "my_function"
+   },
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "b",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "c",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     }
+    ]
+   },
+   "return_schema": {
+    "type": "int",
+    "le": 10
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    "x"
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      2
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "x"
+    }
+   ],
+   "title": "call[my_function]"
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_call_arguments[python-input_value4-10]#0",
+  "test": "tests/validators/test_call.py::test_function_call_arguments[python-input_value4-10]",
+  "schema": {
+   "type": "call",
+   "function": {
+    "$function": "my_function"
+   },
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "b",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "c",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     }
+    ]
+   },
+   "return_schema": {
+    "type": "int",
+    "le": 10
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    3,
+    3,
+    4
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": 10
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_call_arguments[python-input_value5-expected5]#0",
+  "test": "tests/validators/test_call.py::test_function_call_arguments[python-input_value5-expected5]",
+  "schema": {
+   "type": "call",
+   "function": {
+    "$function": "my_function"
+   },
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "b",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "c",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     }
+    ]
+   },
+   "return_schema": {
+    "type": "int",
+    "le": 10
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    3,
+    3,
+    5
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than_equal",
+     "loc": [
+      "return"
+     ],
+     "msg": "Input should be less than or equal to 10",
+     "input": 11,
+     "ctx": {
+      "le": 10
+     }
+    }
+   ],
+   "title": "call[my_function]"
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_call_partial#0",
+  "test": "tests/validators/test_call.py::test_function_call_partial",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "b",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     }
+    ]
+   },
+   "function": {
+    "$function": "partial"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": 6
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_call_partial#1",
+  "test": "tests/validators/test_call.py::test_function_call_partial",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "name": "b",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "int"
+      }
+     }
+    ]
+   },
+   "function": {
+    "$function": "partial"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    "2"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": 6
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_return_any[input_value0-1]#0",
+  "test": "tests/validators/test_call.py::test_function_return_any[input_value0-1]",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "any"
+   },
+   "function": {
+    "$function": "my_function"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    {
+     "$tuple": [
+      1
+     ]
+    },
+    {}
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_function_return_any[input_value1-abc]#0",
+  "test": "tests/validators/test_call.py::test_function_return_any[input_value1-abc]",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "any"
+   },
+   "function": {
+    "$function": "my_function"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    {
+     "$tuple": [
+      "abc"
+     ]
+    },
+    {}
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": "abc"
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_in_union#0",
+  "test": "tests/validators/test_call.py::test_in_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "call",
+     "arguments_schema": {
+      "type": "arguments",
+      "arguments_schema": [
+       {
+        "name": "a",
+        "mode": "positional_or_keyword",
+        "schema": {
+         "type": "int"
+        }
+       }
+      ]
+     },
+     "function": {
+      "$function": "my_function"
+     }
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_in_union#1",
+  "test": "tests/validators/test_call.py::test_in_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "call",
+     "arguments_schema": {
+      "type": "arguments",
+      "arguments_schema": [
+       {
+        "name": "a",
+        "mode": "positional_or_keyword",
+        "schema": {
+         "type": "int"
+        }
+       }
+      ]
+     },
+     "function": {
+      "$function": "my_function"
+     }
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "unexpected_positional_argument",
+     "loc": [
+      "call[my_function]",
+      1
+     ],
+     "msg": "Unexpected positional argument",
+     "input": 2
+    },
+    {
+     "type": "int_type",
+     "loc": [
+      "int"
+     ],
+     "msg": "Input should be a valid integer",
+     "input": {
+      "$tuple": [
+       1,
+       2
+      ]
+     }
+    }
+   ],
+   "title": "union[call[my_function],int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_named_tuple#0",
+  "test": "tests/validators/test_call.py::test_named_tuple",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "x",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "float"
+      }
+     },
+     {
+      "name": "y",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "float"
+      }
+     }
+    ]
+   },
+   "function": {
+    "$class": "Point"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    "1.1",
+    "2.2"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$subclass": [
+     "Point",
+     {
+      "$tuple": [
+       1.1,
+       2.2
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_call.py::test_named_tuple#1",
+  "test": "tests/validators/test_call.py::test_named_tuple",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "x",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "float"
+      }
+     },
+     {
+      "name": "y",
+      "mode": "positional_or_keyword",
+      "schema": {
+       "type": "float"
+      }
+     }
+    ]
+   },
+   "function": {
+    "$class": "Point"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": 1.1,
+   "y": 2.2
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$subclass": [
+     "Point",
+     {
+      "$tuple": [
+       1.1,
+       2.2
+      ]
+     }
+    ]
+   }
+  }
+ }
+]

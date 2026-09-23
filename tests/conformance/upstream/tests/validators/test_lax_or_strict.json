@@ -1,0 +1,240 @@
+[
+ {
+  "id": "tests/validators/test_lax_or_strict.py::test_lax_or_strict#0",
+  "test": "tests/validators/test_lax_or_strict.py::test_lax_or_strict",
+  "schema": {
+   "type": "lax-or-strict",
+   "lax_schema": {
+    "type": "str"
+   },
+   "strict_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "aaa",
+  "options": {},
+  "expected": {
+   "output": "aaa"
+  }
+ },
+ {
+  "id": "tests/validators/test_lax_or_strict.py::test_lax_or_strict#1",
+  "test": "tests/validators/test_lax_or_strict.py::test_lax_or_strict",
+  "schema": {
+   "type": "lax-or-strict",
+   "lax_schema": {
+    "type": "str"
+   },
+   "strict_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "YWFh"
+  },
+  "options": {},
+  "expected": {
+   "output": "aaa"
+  }
+ },
+ {
+  "id": "tests/validators/test_lax_or_strict.py::test_lax_or_strict#2",
+  "test": "tests/validators/test_lax_or_strict.py::test_lax_or_strict",
+  "schema": {
+   "type": "lax-or-strict",
+   "lax_schema": {
+    "type": "str"
+   },
+   "strict_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": 123,
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/validators/test_lax_or_strict.py::test_lax_or_strict#3",
+  "test": "tests/validators/test_lax_or_strict.py::test_lax_or_strict",
+  "schema": {
+   "type": "lax-or-strict",
+   "lax_schema": {
+    "type": "str"
+   },
+   "strict_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "123",
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [],
+     "msg": "Input should be a valid integer",
+     "input": "123"
+    }
+   ],
+   "title": "lax-or-strict[lax=str,strict=int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_lax_or_strict.py::test_lax_or_strict_default_strict#0",
+  "test": "tests/validators/test_lax_or_strict.py::test_lax_or_strict_default_strict",
+  "schema": {
+   "type": "lax-or-strict",
+   "lax_schema": {
+    "type": "str"
+   },
+   "strict_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "aaa",
+  "options": {
+   "strict": false
+  },
+  "expected": {
+   "output": "aaa"
+  }
+ },
+ {
+  "id": "tests/validators/test_lax_or_strict.py::test_lax_or_strict_default_strict#1",
+  "test": "tests/validators/test_lax_or_strict.py::test_lax_or_strict_default_strict",
+  "schema": {
+   "type": "lax-or-strict",
+   "lax_schema": {
+    "type": "str"
+   },
+   "strict_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "YWFh"
+  },
+  "options": {
+   "strict": false
+  },
+  "expected": {
+   "output": "aaa"
+  }
+ },
+ {
+  "id": "tests/validators/test_lax_or_strict.py::test_lax_or_strict_default_strict#2",
+  "test": "tests/validators/test_lax_or_strict.py::test_lax_or_strict_default_strict",
+  "schema": {
+   "type": "lax-or-strict",
+   "lax_schema": {
+    "type": "str"
+   },
+   "strict_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/validators/test_lax_or_strict.py::test_lax_or_strict_default_strict#3",
+  "test": "tests/validators/test_lax_or_strict.py::test_lax_or_strict_default_strict",
+  "schema": {
+   "type": "lax-or-strict",
+   "lax_schema": {
+    "type": "str"
+   },
+   "strict_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 123,
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/validators/test_lax_or_strict.py::test_lax_or_strict_default_strict#4",
+  "test": "tests/validators/test_lax_or_strict.py::test_lax_or_strict_default_strict",
+  "schema": {
+   "type": "lax-or-strict",
+   "lax_schema": {
+    "type": "str"
+   },
+   "strict_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "123",
+  "options": {},
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/validators/test_lax_or_strict.py::test_lax_or_strict_default_strict#5",
+  "test": "tests/validators/test_lax_or_strict.py::test_lax_or_strict_default_strict",
+  "schema": {
+   "type": "lax-or-strict",
+   "lax_schema": {
+    "type": "str"
+   },
+   "strict_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "123",
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [],
+     "msg": "Input should be a valid integer",
+     "input": "123"
+    }
+   ],
+   "title": "lax-or-strict[lax=str,strict=int]"
+  }
+ }
+]

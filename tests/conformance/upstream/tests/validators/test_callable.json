@@ -1,0 +1,82 @@
+[
+ {
+  "id": "tests/validators/test_callable.py::test_callable#0",
+  "test": "tests/validators/test_callable.py::test_callable",
+  "schema": {
+   "type": "callable"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$function": "func"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$function": "func"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_callable.py::test_callable#1",
+  "test": "tests/validators/test_callable.py::test_callable",
+  "schema": {
+   "type": "callable"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "callable_type",
+     "loc": [],
+     "msg": "Input should be callable",
+     "input": 42
+    }
+   ],
+   "title": "callable"
+  }
+ },
+ {
+  "id": "tests/validators/test_callable.py::test_repr#0",
+  "test": "tests/validators/test_callable.py::test_repr",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "callable"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "int"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "foo"
+    },
+    {
+     "type": "callable_type",
+     "loc": [
+      "callable"
+     ],
+     "msg": "Input should be callable",
+     "input": "foo"
+    }
+   ],
+   "title": "union[int,callable]"
+  }
+ }
+]

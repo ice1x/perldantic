@@ -1,0 +1,652 @@
+[
+ {
+  "id": "tests/validators/test_model_root.py::test_assignment#0",
+  "test": "tests/validators/test_model_root.py::test_assignment",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "str"
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foobar",
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "RootModel",
+     "fields": {
+      "root": "foobar"
+     },
+     "fields_set": [
+      "root"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model_root.py::test_construct_from_validate_default#0",
+  "test": "tests/validators/test_model_root.py::test_construct_from_validate_default",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "value": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "model",
+        "cls": {
+         "$class": "RootModel"
+        },
+        "schema": {
+         "type": "int"
+        },
+        "root_model": true
+       },
+       "validate_default": true,
+       "default": 42
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {
+   "self_instance": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "value": {
+       "$model": {
+        "class": "RootModel",
+        "fields": {
+         "root": 42
+        },
+        "fields_set": [
+         "root"
+        ],
+        "extra": null
+       }
+      }
+     },
+     "fields_set": [],
+     "extra": null
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "value": {
+       "$model": {
+        "class": "RootModel",
+        "fields": {
+         "root": 42
+        },
+        "fields_set": [
+         "root"
+        ],
+        "extra": null
+       }
+      }
+     },
+     "fields_set": [],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model_root.py::test_extra#0",
+  "test": "tests/validators/test_model_root.py::test_extra",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "int"
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "RootModel",
+     "fields": {
+      "root": 1
+     },
+     "fields_set": [
+      "root"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model_root.py::test_field_function#0",
+  "test": "tests/validators/test_model_root.py::test_field_function",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "function-after",
+    "function": {
+     "type": "with-info",
+     "function": {
+      "$function": "f"
+     }
+    },
+    "schema": {
+     "type": "str"
+    }
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foobar",
+  "options": {
+   "context": "call 1"
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "RootModel",
+     "fields": {
+      "root": "foobar validated"
+     },
+     "fields_set": [
+      "root"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model_root.py::test_fields_set#0",
+  "test": "tests/validators/test_model_root.py::test_fields_set",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "default": 42
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "self_instance": {
+    "$model": {
+     "class": "RootModel",
+     "fields": {
+      "root": 1
+     },
+     "fields_set": [
+      "root"
+     ],
+     "extra": null
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "RootModel",
+     "fields": {
+      "root": 1
+     },
+     "fields_set": [
+      "root"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model_root.py::test_fields_set#1",
+  "test": "tests/validators/test_model_root.py::test_fields_set",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "default": 42
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "PydanticUndefinedType"
+  },
+  "options": {
+   "self_instance": {
+    "$model": {
+     "class": "RootModel",
+     "fields": {
+      "root": 42
+     },
+     "fields_set": [],
+     "extra": null
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "RootModel",
+     "fields": {
+      "root": 42
+     },
+     "fields_set": [],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model_root.py::test_init#0",
+  "test": "tests/validators/test_model_root.py::test_init",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "str"
+   },
+   "root_model": true,
+   "revalidate_instances": "always"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foobar",
+  "options": {
+   "self_instance": {
+    "$model": {
+     "class": "RootModel",
+     "fields": {
+      "root": "foobar"
+     },
+     "fields_set": [
+      "root"
+     ],
+     "extra": null
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "RootModel",
+     "fields": {
+      "root": "foobar"
+     },
+     "fields_set": [
+      "root"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model_root.py::test_model_root#0",
+  "test": "tests/validators/test_model_root.py::test_model_root",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   "3"
+  ],
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "RootModel",
+     "fields": {
+      "root": [
+       1,
+       2,
+       3
+      ]
+     },
+     "fields_set": [
+      "root"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model_root.py::test_model_root#1",
+  "test": "tests/validators/test_model_root.py::test_model_root",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2, \"3\"]",
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "RootModel",
+     "fields": {
+      "root": [
+       1,
+       2,
+       3
+      ]
+     },
+     "fields_set": [
+      "root"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model_root.py::test_model_root#2",
+  "test": "tests/validators/test_model_root.py::test_model_root",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "wrong",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": "wrong"
+    }
+   ],
+   "title": "RootModel"
+  }
+ },
+ {
+  "id": "tests/validators/test_model_root.py::test_revalidate#0",
+  "test": "tests/validators/test_model_root.py::test_revalidate",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   },
+   "root_model": true,
+   "revalidate_instances": "always"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "2"
+  ],
+  "options": {
+   "self_instance": {
+    "$model": {
+     "class": "RootModel",
+     "fields": {
+      "root": [
+       1,
+       2
+      ]
+     },
+     "fields_set": [
+      "root"
+     ],
+     "extra": null
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "RootModel",
+     "fields": {
+      "root": [
+       1,
+       2
+      ]
+     },
+     "fields_set": [
+      "root"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model_root.py::test_revalidate#1",
+  "test": "tests/validators/test_model_root.py::test_revalidate",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   },
+   "root_model": true,
+   "revalidate_instances": "always"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$model": {
+    "class": "RootModel",
+    "fields": {
+     "root": [
+      1,
+      2
+     ]
+    },
+    "fields_set": [
+     "root"
+    ],
+    "extra": null
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "RootModel",
+     "fields": {
+      "root": [
+       1,
+       2
+      ]
+     },
+     "fields_set": [
+      "root"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model_root.py::test_revalidate_with_default#0",
+  "test": "tests/validators/test_model_root.py::test_revalidate_with_default",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "default": 42
+   },
+   "root_model": true,
+   "revalidate_instances": "always"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "PydanticUndefinedType"
+  },
+  "options": {
+   "self_instance": {
+    "$model": {
+     "class": "RootModel",
+     "fields": {
+      "root": 42
+     },
+     "fields_set": [],
+     "extra": null
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "RootModel",
+     "fields": {
+      "root": 42
+     },
+     "fields_set": [],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model_root.py::test_revalidate_with_default#1",
+  "test": "tests/validators/test_model_root.py::test_revalidate_with_default",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "default": 42
+   },
+   "root_model": true,
+   "revalidate_instances": "always"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$model": {
+    "class": "RootModel",
+    "fields": {
+     "root": 42
+    },
+    "fields_set": [],
+    "extra": null
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "RootModel",
+     "fields": {
+      "root": 42
+     },
+     "fields_set": [
+      "root"
+     ],
+     "extra": null
+    }
+   }
+  }
+ }
+]

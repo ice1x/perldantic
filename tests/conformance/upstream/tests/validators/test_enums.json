@@ -1,0 +1,3753 @@
+[
+ {
+  "id": "tests/validators/test_enums.py::test_big_int#0",
+  "test": "tests/validators/test_enums.py::test_big_int",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "ColorEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "ColorEnum",
+       9223372036854775808
+      ]
+     },
+     {
+      "$enum": [
+       "ColorEnum",
+       18446744073709551616
+      ]
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "ColorEnum",
+    9223372036854775808
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "ColorEnum",
+     9223372036854775808
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_big_int#1",
+  "test": "tests/validators/test_enums.py::test_big_int",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "ColorEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "ColorEnum",
+       9223372036854775808
+      ]
+     },
+     {
+      "$enum": [
+       "ColorEnum",
+       18446744073709551616
+      ]
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": 9223372036854775808,
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "ColorEnum",
+     9223372036854775808
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_exactness#0",
+  "test": "tests/validators/test_enums.py::test_enum_exactness",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "enum",
+     "cls": {
+      "$class": "MyEnum"
+     },
+     "members": [
+      {
+       "$enum": [
+        "MyEnum",
+        1
+       ]
+      },
+      {
+       "$enum": [
+        "MyEnum",
+        2
+       ]
+      }
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_exactness#1",
+  "test": "tests/validators/test_enums.py::test_enum_exactness",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "enum",
+     "cls": {
+      "$class": "MyEnum"
+     },
+     "members": [
+      {
+       "$enum": [
+        "MyEnum",
+        1
+       ]
+      },
+      {
+       "$enum": [
+        "MyEnum",
+        2
+       ]
+      }
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_int_validation_should_fail_for_incorrect_decimal_value#0",
+  "test": "tests/validators/test_enums.py::test_enum_int_validation_should_fail_for_incorrect_decimal_value",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     }
+    ]
+   },
+   "default": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "2"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "enum",
+     "loc": [],
+     "msg": "Input should be 1",
+     "input": {
+      "$decimal": "2"
+     },
+     "ctx": {
+      "expected": "1"
+     }
+    }
+   ],
+   "title": "default[enum[test_enum_int_validation_should_fail_for_incorrect_decimal_value.<locals>.MyEnum]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_int_validation_should_fail_for_incorrect_decimal_value#1",
+  "test": "tests/validators/test_enums.py::test_enum_int_validation_should_fail_for_incorrect_decimal_value",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     }
+    ]
+   },
+   "default": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "enum",
+     "loc": [],
+     "msg": "Input should be 1",
+     "input": {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     "ctx": {
+      "expected": "1"
+     }
+    }
+   ],
+   "title": "default[enum[test_enum_int_validation_should_fail_for_incorrect_decimal_value.<locals>.MyEnum]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_int_validation_should_fail_for_incorrect_decimal_value#2",
+  "test": "tests/validators/test_enums.py::test_enum_int_validation_should_fail_for_incorrect_decimal_value",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     }
+    ]
+   },
+   "default": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "1.100000000000000088817841970012523233890533447265625"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "enum",
+     "loc": [],
+     "msg": "Input should be 1",
+     "input": {
+      "$decimal": "1.100000000000000088817841970012523233890533447265625"
+     },
+     "ctx": {
+      "expected": "1"
+     }
+    }
+   ],
+   "title": "default[enum[test_enum_int_validation_should_fail_for_incorrect_decimal_value.<locals>.MyEnum]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_int_validation_should_fail_for_plain_type_without_eq_checking#0",
+  "test": "tests/validators/test_enums.py::test_enum_int_validation_should_fail_for_plain_type_without_eq_checking",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     }
+    ]
+   },
+   "default": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "MyClass"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "enum",
+     "loc": [],
+     "msg": "Input should be 1",
+     "input": {
+      "$object": "MyClass"
+     },
+     "ctx": {
+      "expected": "1"
+     }
+    }
+   ],
+   "title": "default[enum[test_enum_int_validation_should_fail_for_plain_type_without_eq_checking.<locals>.MyEnum]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_int_validation_should_succeed_for_custom_type#0",
+  "test": "tests/validators/test_enums.py::test_enum_int_validation_should_succeed_for_custom_type",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       999
+      ]
+     },
+     {
+      "$enum": [
+       "MyEnum",
+       1000000
+      ]
+     },
+     {
+      "$enum": [
+       "MyEnum",
+       "Py03"
+      ]
+     }
+    ]
+   },
+   "default": {
+    "$enum": [
+     "MyEnum",
+     999
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "AnyWrapper"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     999
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_int_validation_should_succeed_for_decimal[-1]#0",
+  "test": "tests/validators/test_enums.py::test_enum_int_validation_should_succeed_for_decimal[-1]",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       -1
+      ]
+     }
+    ]
+   },
+   "default": {
+    "$enum": [
+     "MyEnum",
+     -1
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "-1"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     -1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_int_validation_should_succeed_for_decimal[-1]#1",
+  "test": "tests/validators/test_enums.py::test_enum_int_validation_should_succeed_for_decimal[-1]",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyIntEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyIntEnum",
+       -1
+      ]
+     }
+    ]
+   },
+   "default": {
+    "$enum": [
+     "MyIntEnum",
+     -1
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "-1"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyIntEnum",
+     -1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_int_validation_should_succeed_for_decimal[0]#0",
+  "test": "tests/validators/test_enums.py::test_enum_int_validation_should_succeed_for_decimal[0]",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       0
+      ]
+     }
+    ]
+   },
+   "default": {
+    "$enum": [
+     "MyEnum",
+     0
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "0"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_int_validation_should_succeed_for_decimal[0]#1",
+  "test": "tests/validators/test_enums.py::test_enum_int_validation_should_succeed_for_decimal[0]",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyIntEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyIntEnum",
+       0
+      ]
+     }
+    ]
+   },
+   "default": {
+    "$enum": [
+     "MyIntEnum",
+     0
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "0"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyIntEnum",
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_int_validation_should_succeed_for_decimal[1]#0",
+  "test": "tests/validators/test_enums.py::test_enum_int_validation_should_succeed_for_decimal[1]",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     }
+    ]
+   },
+   "default": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_int_validation_should_succeed_for_decimal[1]#1",
+  "test": "tests/validators/test_enums.py::test_enum_int_validation_should_succeed_for_decimal[1]",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyIntEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyIntEnum",
+       1
+      ]
+     }
+    ]
+   },
+   "default": {
+    "$enum": [
+     "MyIntEnum",
+     1
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyIntEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_missing#0",
+  "test": "tests/validators/test_enums.py::test_enum_missing",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_missing#1",
+  "test": "tests/validators/test_enums.py::test_enum_missing",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_missing#2",
+  "test": "tests/validators/test_enums.py::test_enum_missing",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 2,
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     2
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_missing#3",
+  "test": "tests/validators/test_enums.py::test_enum_missing",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 3,
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     2
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_missing#4",
+  "test": "tests/validators/test_enums.py::test_enum_missing",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_missing#5",
+  "test": "tests/validators/test_enums.py::test_enum_missing",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "3",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     2
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_missing_none#0",
+  "test": "tests/validators/test_enums.py::test_enum_missing_none",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_missing_none#1",
+  "test": "tests/validators/test_enums.py::test_enum_missing_none",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_missing_none#2",
+  "test": "tests/validators/test_enums.py::test_enum_missing_none",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 3,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "enum",
+     "loc": [],
+     "msg": "Input should be 1 or 2",
+     "input": 3,
+     "ctx": {
+      "expected": "1 or 2"
+     }
+    }
+   ],
+   "title": "enum[test_enum_missing_none.<locals>.MyEnum]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_missing_none#3",
+  "test": "tests/validators/test_enums.py::test_enum_missing_none",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_missing_none#4",
+  "test": "tests/validators/test_enums.py::test_enum_missing_none",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "3",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "enum",
+     "loc": [],
+     "msg": "Input should be 1 or 2",
+     "input": 3,
+     "ctx": {
+      "expected": "1 or 2"
+     }
+    }
+   ],
+   "title": "enum[test_enum_missing_none.<locals>.MyEnum]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_missing_wrong#0",
+  "test": "tests/validators/test_enums.py::test_enum_missing_wrong",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 3,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "enum",
+     "loc": [],
+     "msg": "Input should be 1 or 2",
+     "input": 3,
+     "ctx": {
+      "expected": "1 or 2"
+     }
+    }
+   ],
+   "title": "enum[test_enum_missing_wrong.<locals>.MyEnum]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_str_validation_should_fail_for_decimal_when_expecting_str_value#0",
+  "test": "tests/validators/test_enums.py::test_enum_str_validation_should_fail_for_decimal_when_expecting_str_value",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       "1"
+      ]
+     }
+    ]
+   },
+   "default": {
+    "$enum": [
+     "MyEnum",
+     "1"
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "enum",
+     "loc": [],
+     "msg": "Input should be '1'",
+     "input": {
+      "$decimal": "1"
+     },
+     "ctx": {
+      "expected": "'1'"
+     }
+    }
+   ],
+   "title": "default[enum[test_enum_str_validation_should_fail_for_decimal_when_expecting_str_value.<locals>.MyEnum]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_with_int_subclass#0",
+  "test": "tests/validators/test_enums.py::test_enum_with_int_subclass",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_with_int_subclass#1",
+  "test": "tests/validators/test_enums.py::test_enum_with_int_subclass",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_with_int_subclass#2",
+  "test": "tests/validators/test_enums.py::test_enum_with_int_subclass",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "MyInt",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_with_int_subclass#3",
+  "test": "tests/validators/test_enums.py::test_enum_with_int_subclass",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "MyInt",
+    1
+   ]
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of test_enum_with_int_subclass.<locals>.MyEnum",
+     "input": {
+      "$subclass": [
+       "MyInt",
+       1
+      ]
+     },
+     "ctx": {
+      "class": "test_enum_with_int_subclass.<locals>.MyEnum"
+     }
+    }
+   ],
+   "title": "enum[test_enum_with_int_subclass.<locals>.MyEnum]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_with_str_subclass#0",
+  "test": "tests/validators/test_enums.py::test_enum_with_str_subclass",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      "a"
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      "b"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    "a"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     "a"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_with_str_subclass#1",
+  "test": "tests/validators/test_enums.py::test_enum_with_str_subclass",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      "a"
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      "b"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "a",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     "a"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_with_str_subclass#2",
+  "test": "tests/validators/test_enums.py::test_enum_with_str_subclass",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      "a"
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      "b"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "MyStr",
+    "a"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     "a"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_enum_with_str_subclass#3",
+  "test": "tests/validators/test_enums.py::test_enum_with_str_subclass",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      "a"
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      "b"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "MyStr",
+    "a"
+   ]
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of test_enum_with_str_subclass.<locals>.MyEnum",
+     "input": {
+      "$subclass": [
+       "MyStr",
+       "a"
+      ]
+     },
+     "ctx": {
+      "class": "test_enum_with_str_subclass.<locals>.MyEnum"
+     }
+    }
+   ],
+   "title": "enum[test_enum_with_str_subclass.<locals>.MyEnum]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_float_enum#0",
+  "test": "tests/validators/test_enums.py::test_float_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      3.0
+     ]
+    }
+   ],
+   "sub_type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1.5
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1.5
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_float_enum#1",
+  "test": "tests/validators/test_enums.py::test_float_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      3.0
+     ]
+    }
+   ],
+   "sub_type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1.5,
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1.5
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_float_enum#10",
+  "test": "tests/validators/test_enums.py::test_float_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      3.0
+     ]
+    }
+   ],
+   "sub_type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"3.0\"",
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "enum",
+     "loc": [],
+     "msg": "Input should be 1.5, 2.5 or 3.0",
+     "input": "3.0",
+     "ctx": {
+      "expected": "1.5, 2.5 or 3.0"
+     }
+    }
+   ],
+   "title": "float-enum[test_float_enum.<locals>.MyEnum]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_float_enum#2",
+  "test": "tests/validators/test_enums.py::test_float_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      3.0
+     ]
+    }
+   ],
+   "sub_type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1.5",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1.5
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_float_enum#3",
+  "test": "tests/validators/test_enums.py::test_float_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      3.0
+     ]
+    }
+   ],
+   "sub_type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 3,
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     3.0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_float_enum#4",
+  "test": "tests/validators/test_enums.py::test_float_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      3.0
+     ]
+    }
+   ],
+   "sub_type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.5",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1.5
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_float_enum#5",
+  "test": "tests/validators/test_enums.py::test_float_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      3.0
+     ]
+    }
+   ],
+   "sub_type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1.5\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1.5
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_float_enum#6",
+  "test": "tests/validators/test_enums.py::test_float_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      3.0
+     ]
+    }
+   ],
+   "sub_type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 4.0,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "enum",
+     "loc": [],
+     "msg": "Input should be 1.5, 2.5 or 3.0",
+     "input": 4.0,
+     "ctx": {
+      "expected": "1.5, 2.5 or 3.0"
+     }
+    }
+   ],
+   "title": "float-enum[test_float_enum.<locals>.MyEnum]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_float_enum#7",
+  "test": "tests/validators/test_enums.py::test_float_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      3.0
+     ]
+    }
+   ],
+   "sub_type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1.5
+   ]
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1.5
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_float_enum#8",
+  "test": "tests/validators/test_enums.py::test_float_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      3.0
+     ]
+    }
+   ],
+   "sub_type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1.5,
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of test_float_enum.<locals>.MyEnum",
+     "input": 1.5,
+     "ctx": {
+      "class": "test_float_enum.<locals>.MyEnum"
+     }
+    }
+   ],
+   "title": "float-enum[test_float_enum.<locals>.MyEnum]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_float_enum#9",
+  "test": "tests/validators/test_enums.py::test_float_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2.5
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      3.0
+     ]
+    }
+   ],
+   "sub_type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.5",
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1.5
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_int_enum#0",
+  "test": "tests/validators/test_enums.py::test_int_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ],
+   "sub_type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_int_enum#1",
+  "test": "tests/validators/test_enums.py::test_int_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ],
+   "sub_type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_int_enum#10",
+  "test": "tests/validators/test_enums.py::test_int_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ],
+   "sub_type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1\"",
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "enum",
+     "loc": [],
+     "msg": "Input should be 1 or 2",
+     "input": "1",
+     "ctx": {
+      "expected": "1 or 2"
+     }
+    }
+   ],
+   "title": "int-enum[test_int_enum.<locals>.MyEnum]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_int_enum#2",
+  "test": "tests/validators/test_enums.py::test_int_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ],
+   "sub_type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1.0,
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_int_enum#3",
+  "test": "tests/validators/test_enums.py::test_int_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ],
+   "sub_type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_int_enum#4",
+  "test": "tests/validators/test_enums.py::test_int_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ],
+   "sub_type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_int_enum#5",
+  "test": "tests/validators/test_enums.py::test_int_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ],
+   "sub_type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_int_enum#6",
+  "test": "tests/validators/test_enums.py::test_int_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ],
+   "sub_type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 3,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "enum",
+     "loc": [],
+     "msg": "Input should be 1 or 2",
+     "input": 3,
+     "ctx": {
+      "expected": "1 or 2"
+     }
+    }
+   ],
+   "title": "int-enum[test_int_enum.<locals>.MyEnum]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_int_enum#7",
+  "test": "tests/validators/test_enums.py::test_int_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ],
+   "sub_type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1
+   ]
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_int_enum#8",
+  "test": "tests/validators/test_enums.py::test_int_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ],
+   "sub_type": "int"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of test_int_enum.<locals>.MyEnum",
+     "input": 1,
+     "ctx": {
+      "class": "test_int_enum.<locals>.MyEnum"
+     }
+    }
+   ],
+   "title": "int-enum[test_int_enum.<locals>.MyEnum]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_int_enum#9",
+  "test": "tests/validators/test_enums.py::test_int_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ],
+   "sub_type": "int"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_missing_error_converted_to_val_error#0",
+  "test": "tests/validators/test_enums.py::test_missing_error_converted_to_val_error",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyFlags"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyFlags",
+       0
+      ]
+     },
+     {
+      "$enum": [
+       "MyFlags",
+       1
+      ]
+     }
+    ]
+   },
+   "default": {
+    "$enum": [
+     "MyFlags",
+     0
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "MyFlags",
+    0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyFlags",
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_missing_error_converted_to_val_error#1",
+  "test": "tests/validators/test_enums.py::test_missing_error_converted_to_val_error",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyFlags"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyFlags",
+       0
+      ]
+     },
+     {
+      "$enum": [
+       "MyFlags",
+       1
+      ]
+     }
+    ]
+   },
+   "default": {
+    "$enum": [
+     "MyFlags",
+     0
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyFlags",
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_missing_error_converted_to_val_error#2",
+  "test": "tests/validators/test_enums.py::test_missing_error_converted_to_val_error",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyFlags"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyFlags",
+       0
+      ]
+     },
+     {
+      "$enum": [
+       "MyFlags",
+       1
+      ]
+     }
+    ]
+   },
+   "default": {
+    "$enum": [
+     "MyFlags",
+     0
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "enum",
+     "loc": [],
+     "msg": "Input should be 0 or 1",
+     "input": null,
+     "ctx": {
+      "expected": "0 or 1"
+     }
+    }
+   ],
+   "title": "default[enum[test_missing_error_converted_to_val_error.<locals>.MyFlags]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_plain_enum#0",
+  "test": "tests/validators/test_enums.py::test_plain_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_plain_enum#1",
+  "test": "tests/validators/test_enums.py::test_plain_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    2
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     2
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_plain_enum#10",
+  "test": "tests/validators/test_enums.py::test_plain_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1\"",
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "enum",
+     "loc": [],
+     "msg": "Input should be 1 or 2",
+     "input": "1",
+     "ctx": {
+      "expected": "1 or 2"
+     }
+    }
+   ],
+   "title": "enum[test_plain_enum.<locals>.MyEnum]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_plain_enum#11",
+  "test": "tests/validators/test_enums.py::test_plain_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ],
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_plain_enum#12",
+  "test": "tests/validators/test_enums.py::test_plain_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ],
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of test_plain_enum.<locals>.MyEnum",
+     "input": 1,
+     "ctx": {
+      "class": "test_plain_enum.<locals>.MyEnum"
+     }
+    }
+   ],
+   "title": "enum[test_plain_enum.<locals>.MyEnum]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_plain_enum#2",
+  "test": "tests/validators/test_enums.py::test_plain_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_plain_enum#3",
+  "test": "tests/validators/test_enums.py::test_plain_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 2,
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     2
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_plain_enum#4",
+  "test": "tests/validators/test_enums.py::test_plain_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_plain_enum#5",
+  "test": "tests/validators/test_enums.py::test_plain_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 3,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "enum",
+     "loc": [],
+     "msg": "Input should be 1 or 2",
+     "input": 3,
+     "ctx": {
+      "expected": "1 or 2"
+     }
+    }
+   ],
+   "title": "enum[test_plain_enum.<locals>.MyEnum]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_plain_enum#6",
+  "test": "tests/validators/test_enums.py::test_plain_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "enum",
+     "loc": [],
+     "msg": "Input should be 1 or 2",
+     "input": "1",
+     "ctx": {
+      "expected": "1 or 2"
+     }
+    }
+   ],
+   "title": "enum[test_plain_enum.<locals>.MyEnum]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_plain_enum#7",
+  "test": "tests/validators/test_enums.py::test_plain_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1
+   ]
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_plain_enum#8",
+  "test": "tests/validators/test_enums.py::test_plain_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of test_plain_enum.<locals>.MyEnum",
+     "input": 1,
+     "ctx": {
+      "class": "test_plain_enum.<locals>.MyEnum"
+     }
+    }
+   ],
+   "title": "enum[test_plain_enum.<locals>.MyEnum]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_plain_enum#9",
+  "test": "tests/validators/test_enums.py::test_plain_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_plain_enum_lists#0",
+  "test": "tests/validators/test_enums.py::test_plain_enum_lists",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      [
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    [
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     [
+      1
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_plain_enum_lists#1",
+  "test": "tests/validators/test_enums.py::test_plain_enum_lists",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      [
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1
+  ],
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     [
+      1
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_plain_enum_lists#2",
+  "test": "tests/validators/test_enums.py::test_plain_enum_lists",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      [
+       1
+      ]
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      [
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   2
+  ],
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     [
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_str_enum#0",
+  "test": "tests/validators/test_enums.py::test_str_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      "x"
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      "y"
+     ]
+    }
+   ],
+   "sub_type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "x",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     "x"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_str_enum#1",
+  "test": "tests/validators/test_enums.py::test_str_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      "x"
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      "y"
+     ]
+    }
+   ],
+   "sub_type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    "x"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     "x"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_str_enum#2",
+  "test": "tests/validators/test_enums.py::test_str_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      "x"
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      "y"
+     ]
+    }
+   ],
+   "sub_type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "eA=="
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     "x"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_str_enum#3",
+  "test": "tests/validators/test_enums.py::test_str_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      "x"
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      "y"
+     ]
+    }
+   ],
+   "sub_type": "str"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"x\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     "x"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_str_enum#4",
+  "test": "tests/validators/test_enums.py::test_str_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      "x"
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      "y"
+     ]
+    }
+   ],
+   "sub_type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "a",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "enum",
+     "loc": [],
+     "msg": "Input should be 'x' or 'y'",
+     "input": "a",
+     "ctx": {
+      "expected": "'x' or 'y'"
+     }
+    }
+   ],
+   "title": "str-enum[test_str_enum.<locals>.MyEnum]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_str_enum#5",
+  "test": "tests/validators/test_enums.py::test_str_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      "x"
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      "y"
+     ]
+    }
+   ],
+   "sub_type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    "x"
+   ]
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     "x"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_str_enum#6",
+  "test": "tests/validators/test_enums.py::test_str_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      "x"
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      "y"
+     ]
+    }
+   ],
+   "sub_type": "str"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "x",
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of test_str_enum.<locals>.MyEnum",
+     "input": "x",
+     "ctx": {
+      "class": "test_str_enum.<locals>.MyEnum"
+     }
+    }
+   ],
+   "title": "str-enum[test_str_enum.<locals>.MyEnum]"
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_str_enum#7",
+  "test": "tests/validators/test_enums.py::test_str_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      "x"
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      "y"
+     ]
+    }
+   ],
+   "sub_type": "str"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"x\"",
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     "x"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_strict_enum_wrap_json#0",
+  "test": "tests/validators/test_enums.py::test_strict_enum_wrap_json",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "<lambda>"
+    }
+   },
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "Animal"
+    },
+    "members": [
+     {
+      "$enum": [
+       "Animal",
+       "cat"
+      ]
+     },
+     {
+      "$enum": [
+       "Animal",
+       "dog"
+      ]
+     }
+    ],
+    "sub_type": "str",
+    "strict": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$enum": [
+    "Animal",
+    "cat"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "Animal",
+     "cat"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_strict_enum_wrap_json#1",
+  "test": "tests/validators/test_enums.py::test_strict_enum_wrap_json",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "<lambda>"
+    }
+   },
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "Animal"
+    },
+    "members": [
+     {
+      "$enum": [
+       "Animal",
+       "cat"
+      ]
+     },
+     {
+      "$enum": [
+       "Animal",
+       "dog"
+      ]
+     }
+    ],
+    "sub_type": "str",
+    "strict": true
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"dog\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "Animal",
+     "dog"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_enums.py::test_validate_float_for_int_enum#0",
+  "test": "tests/validators/test_enums.py::test_validate_float_for_int_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1.0,
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ }
+]

@@ -1,0 +1,2373 @@
+[
+ {
+  "id": "tests/validators/test_set.py::test_frozenset_no_validators_both[json-1-expected2]#0",
+  "test": "tests/validators/test_set.py::test_frozenset_no_validators_both[json-1-expected2]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": 1
+    }
+   ],
+   "title": "set[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_frozenset_no_validators_both[json-1.0-expected3]#0",
+  "test": "tests/validators/test_set.py::test_frozenset_no_validators_both[json-1.0-expected3]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": 1.0
+    }
+   ],
+   "title": "set[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_frozenset_no_validators_both[json-False-expected4]#0",
+  "test": "tests/validators/test_set.py::test_frozenset_no_validators_both[json-False-expected4]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "false",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": false
+    }
+   ],
+   "title": "set[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_frozenset_no_validators_both[json-foo-expected1]#0",
+  "test": "tests/validators/test_set.py::test_frozenset_no_validators_both[json-foo-expected1]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foo\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": "foo"
+    }
+   ],
+   "title": "set[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_frozenset_no_validators_both[json-input_value0-expected0]#0",
+  "test": "tests/validators/test_set.py::test_frozenset_no_validators_both[json-input_value0-expected0]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2.5, \"3\"]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$set": [
+     2.5,
+     1,
+     "3"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_frozenset_no_validators_both[python-1-expected2]#0",
+  "test": "tests/validators/test_set.py::test_frozenset_no_validators_both[python-1-expected2]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [],
+     "msg": "Input should be a valid set",
+     "input": 1
+    }
+   ],
+   "title": "set[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_frozenset_no_validators_both[python-1.0-expected3]#0",
+  "test": "tests/validators/test_set.py::test_frozenset_no_validators_both[python-1.0-expected3]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [],
+     "msg": "Input should be a valid set",
+     "input": 1.0
+    }
+   ],
+   "title": "set[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_frozenset_no_validators_both[python-False-expected4]#0",
+  "test": "tests/validators/test_set.py::test_frozenset_no_validators_both[python-False-expected4]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "python",
+  "input": false,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [],
+     "msg": "Input should be a valid set",
+     "input": false
+    }
+   ],
+   "title": "set[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_frozenset_no_validators_both[python-foo-expected1]#0",
+  "test": "tests/validators/test_set.py::test_frozenset_no_validators_both[python-foo-expected1]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foo",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [],
+     "msg": "Input should be a valid set",
+     "input": "foo"
+    }
+   ],
+   "title": "set[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_frozenset_no_validators_both[python-input_value0-expected0]#0",
+  "test": "tests/validators/test_set.py::test_frozenset_no_validators_both[python-input_value0-expected0]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2.5,
+   "3"
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$set": [
+     2.5,
+     1,
+     "3"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_generator_error#0",
+  "test": "tests/validators/test_set.py::test_generator_error",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_list_with_unhashable_items#0",
+  "test": "tests/validators/test_set.py::test_list_with_unhashable_items",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   {
+    "a": "b"
+   },
+   {
+    "$object": "Unhashable"
+   }
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "set_item_not_hashable",
+     "loc": [
+      0
+     ],
+     "msg": "Set items should be hashable",
+     "input": {
+      "a": "b"
+     }
+    },
+    {
+     "type": "set_item_not_hashable",
+     "loc": [
+      1
+     ],
+     "msg": "Set items should be hashable",
+     "input": {
+      "$object": "Unhashable"
+     }
+    }
+   ],
+   "title": "set[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_any[input_value0-expected0]#0",
+  "test": "tests/validators/test_set.py::test_set_any[input_value0-expected0]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [],
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": []
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_any[input_value1-expected1]#0",
+  "test": "tests/validators/test_set.py::test_set_any[input_value1-expected1]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "2",
+   {
+    "$bytes": "Mw=="
+   }
+  ],
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     {
+      "$bytes": "Mw=="
+     },
+     1,
+     "2"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_any[input_value2-expected2]#0",
+  "test": "tests/validators/test_set.py::test_set_any[input_value2-expected2]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": [
+    {
+     "$bytes": "Mw=="
+    },
+    1,
+    "2"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     {
+      "$bytes": "Mw=="
+     },
+     1,
+     "2"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_any[input_value3-expected3]#0",
+  "test": "tests/validators/test_set.py::test_set_any[input_value3-expected3]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$frozenset": [
+    {
+     "$bytes": "Mw=="
+    },
+    1,
+    "2"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     {
+      "$bytes": "Mw=="
+     },
+     1,
+     "2"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_any[input_value4-expected4]#0",
+  "test": "tests/validators/test_set.py::test_set_any[input_value4-expected4]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     {
+      "$bytes": "Mw=="
+     },
+     1,
+     "2"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_as_dict_keys[json]#0",
+  "test": "tests/validators/test_set.py::test_set_as_dict_keys[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "set"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"foo\": \"bar\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [
+      "foo",
+      "[key]"
+     ],
+     "msg": "Input should be a valid array",
+     "input": "foo"
+    },
+    {
+     "type": "int_parsing",
+     "loc": [
+      "foo"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "bar"
+    }
+   ],
+   "title": "dict[set[any],int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_as_dict_keys[python]#0",
+  "test": "tests/validators/test_set.py::test_set_as_dict_keys[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "set"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": "bar"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [
+      "foo",
+      "[key]"
+     ],
+     "msg": "Input should be a valid set",
+     "input": "foo"
+    },
+    {
+     "type": "int_parsing",
+     "loc": [
+      "foo"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "bar"
+    }
+   ],
+   "title": "dict[set[any],int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_fail_fast[fail_fast]#0",
+  "test": "tests/validators/test_set.py::test_set_fail_fast[fail_fast]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   },
+   "fail_fast": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "not-num",
+   "again"
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not-num"
+    }
+   ],
+   "title": "set[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_fail_fast[not_fail_fast]#0",
+  "test": "tests/validators/test_set.py::test_set_fail_fast[not_fail_fast]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   },
+   "fail_fast": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "not-num",
+   "again"
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not-num"
+    },
+    {
+     "type": "int_parsing",
+     "loc": [
+      2
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "again"
+    }
+   ],
+   "title": "set[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_from_dict_items[Any]#0",
+  "test": "tests/validators/test_set.py::test_set_from_dict_items[Any]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_items"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     {
+      "$tuple": [
+       "3",
+       "30"
+      ]
+     },
+     {
+      "$tuple": [
+       1,
+       10
+      ]
+     },
+     {
+      "$tuple": [
+       2,
+       20
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_from_dict_items[Tuple[Any, Any]]#0",
+  "test": "tests/validators/test_set.py::test_set_from_dict_items[Tuple[Any, Any]]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "any"
+     }
+    ],
+    "variadic_item_index": 0
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_items"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     {
+      "$tuple": [
+       "3",
+       "30"
+      ]
+     },
+     {
+      "$tuple": [
+       1,
+       10
+      ]
+     },
+     {
+      "$tuple": [
+       2,
+       20
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_from_dict_items[Tuple[int, int]]#0",
+  "test": "tests/validators/test_set.py::test_set_from_dict_items[Tuple[int, int]]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     }
+    ],
+    "variadic_item_index": 0
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_items"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     {
+      "$tuple": [
+       1,
+       10
+      ]
+     },
+     {
+      "$tuple": [
+       2,
+       20
+      ]
+     },
+     {
+      "$tuple": [
+       3,
+       30
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_both[json-5-expected4]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_both[json-5-expected4]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": 5
+    }
+   ],
+   "title": "set[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_both[json-input_value0-expected0]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_both[json-input_value0-expected0]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$set": []
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_both[json-input_value1-expected1]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_both[json-input_value1-expected1]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2, 3]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_both[json-input_value2-expected2]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_both[json-input_value2-expected2]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2, \"3\"]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_both[json-input_value3-expected3]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_both[json-input_value3-expected3]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2, 3, 2, 3]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_both[python-5-expected4]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_both[python-5-expected4]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": 5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [],
+     "msg": "Input should be a valid set",
+     "input": 5
+    }
+   ],
+   "title": "set[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_both[python-input_value0-expected0]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_both[python-input_value0-expected0]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$set": []
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_both[python-input_value1-expected1]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_both[python-input_value1-expected1]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_both[python-input_value2-expected2]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_both[python-input_value2-expected2]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   "3"
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_both[python-input_value3-expected3]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_both[python-input_value3-expected3]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3,
+   2,
+   3
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_python[<genexpr>-expected11]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_python[<genexpr>-expected11]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_python[abc-expected14]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_python[abc-expected14]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "abc",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [],
+     "msg": "Input should be a valid set",
+     "input": "abc"
+    }
+   ],
+   "title": "set[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_python[input_value0-expected0]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_python[input_value0-expected0]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_python[input_value1-expected1]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_python[input_value1-expected1]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": []
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": []
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_python[input_value10-expected10]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_python[input_value10-expected10]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     10
+    ],
+    [
+     2,
+     20
+    ],
+    [
+     "3",
+     "30"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [],
+     "msg": "Input should be a valid set",
+     "input": {
+      "$dict": [
+       [
+        1,
+        10
+       ],
+       [
+        2,
+        20
+       ],
+       [
+        "3",
+        "30"
+       ]
+      ]
+     }
+    }
+   ],
+   "title": "set[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_python[input_value12-expected12]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_python[input_value12-expected12]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": [
+    "abc"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      0
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "abc"
+    }
+   ],
+   "title": "set[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_python[input_value13-expected13]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_python[input_value13-expected13]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [],
+     "msg": "Input should be a valid set",
+     "input": {
+      "$dict": [
+       [
+        1,
+        2
+       ]
+      ]
+     }
+    }
+   ],
+   "title": "set[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_python[input_value2-expected2]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_python[input_value2-expected2]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_python[input_value3-expected3]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_python[input_value3-expected3]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [],
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": []
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_python[input_value4-expected4]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_python[input_value4-expected4]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_python[input_value5-expected5]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_python[input_value5-expected5]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": []
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": []
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_python[input_value6-expected6]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_python[input_value6-expected6]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$frozenset": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_python[input_value7-expected7]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_python[input_value7-expected7]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_python[input_value8-expected8]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_python[input_value8-expected8]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_keys"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_ints_python[input_value9-expected9]#0",
+  "test": "tests/validators/test_set.py::test_set_ints_python[input_value9-expected9]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_values"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     10,
+     20,
+     30
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_kwargs[{'max_length': 3, 'items_schema': {'type': 'int'}}-[1, 2, 3, 4]-Err('type=too_long,')]#0",
+  "test": "tests/validators/test_set.py::test_set_kwargs[{'max_length': 3, 'items_schema': {'type': 'int'}}-[1, 2, 3, 4]-Err('type=too_long,')]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   },
+   "max_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_long",
+     "loc": [],
+     "msg": "Set should have at most 3 items after validation, not more",
+     "input": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "ctx": {
+      "field_type": "Set",
+      "max_length": 3,
+      "actual_length": null
+     }
+    }
+   ],
+   "title": "set[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_kwargs[{'max_length': 3, 'items_schema': {'type': 'int'}}-{1, 2, 3, 4}-Err('type=too_long,')]#0",
+  "test": "tests/validators/test_set.py::test_set_kwargs[{'max_length': 3, 'items_schema': {'type': 'int'}}-{1, 2, 3, 4}-Err('type=too_long,')]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   },
+   "max_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_long",
+     "loc": [],
+     "msg": "Set should have at most 3 items after validation, not more",
+     "input": {
+      "$set": [
+       1,
+       2,
+       3,
+       4
+      ]
+     },
+     "ctx": {
+      "field_type": "Set",
+      "max_length": 3,
+      "actual_length": null
+     }
+    }
+   ],
+   "title": "set[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_kwargs[{'max_length': 3}-<generator object generate_repeats at 0x...>-{1, 2, 3}]#0",
+  "test": "tests/validators/test_set.py::test_set_kwargs[{'max_length': 3}-<generator object generate_repeats at 0x...>-{1, 2, 3}]",
+  "schema": {
+   "type": "set",
+   "max_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_kwargs[{'max_length': 3}-<generator object infinite_generator at 0x...>-Err('Set should have at most 3 items after validation, not more [type=too_long,')]#0",
+  "test": "tests/validators/test_set.py::test_set_kwargs[{'max_length': 3}-<generator object infinite_generator at 0x...>-Err('Set should have at most 3 items after validation, not more [type=too_long,')]",
+  "schema": {
+   "type": "set",
+   "max_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_long",
+     "loc": [],
+     "msg": "Set should have at most 3 items after validation, not more",
+     "input": {
+      "$object": "generator"
+     },
+     "ctx": {
+      "field_type": "Set",
+      "max_length": 3,
+      "actual_length": null
+     }
+    }
+   ],
+   "title": "set[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_kwargs[{'max_length': 3}-[1, 1, 2, 2, 3, 3]-{1, 2, 3}]#0",
+  "test": "tests/validators/test_set.py::test_set_kwargs[{'max_length': 3}-[1, 1, 2, 2, 3, 3]-{1, 2, 3}]",
+  "schema": {
+   "type": "set",
+   "max_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   1,
+   2,
+   2,
+   3,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_kwargs[{'max_length': 3}-[1, 2, 3, 4]-Err('Set should have at most 3 items after validation, not more [type=too_long,')]#0",
+  "test": "tests/validators/test_set.py::test_set_kwargs[{'max_length': 3}-[1, 2, 3, 4]-Err('Set should have at most 3 items after validation, not more [type=too_long,')]",
+  "schema": {
+   "type": "set",
+   "max_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_long",
+     "loc": [],
+     "msg": "Set should have at most 3 items after validation, not more",
+     "input": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "ctx": {
+      "field_type": "Set",
+      "max_length": 3,
+      "actual_length": null
+     }
+    }
+   ],
+   "title": "set[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_kwargs[{'max_length': 3}-{1, 2, 3, 4}-Err('Set should have at most 3 items after validation, not more [type=too_long,')]#0",
+  "test": "tests/validators/test_set.py::test_set_kwargs[{'max_length': 3}-{1, 2, 3, 4}-Err('Set should have at most 3 items after validation, not more [type=too_long,')]",
+  "schema": {
+   "type": "set",
+   "max_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_long",
+     "loc": [],
+     "msg": "Set should have at most 3 items after validation, not more",
+     "input": {
+      "$set": [
+       1,
+       2,
+       3,
+       4
+      ]
+     },
+     "ctx": {
+      "field_type": "Set",
+      "max_length": 3,
+      "actual_length": null
+     }
+    }
+   ],
+   "title": "set[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_kwargs[{'min_length': 3}-{1, 2, 3}-{1, 2, 3}]#0",
+  "test": "tests/validators/test_set.py::test_set_kwargs[{'min_length': 3}-{1, 2, 3}-{1, 2, 3}]",
+  "schema": {
+   "type": "set",
+   "min_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_kwargs[{'min_length': 3}-{1, 2}-Err('Set should have at least 3 items after validation, not 2 [type=too_short,')]#0",
+  "test": "tests/validators/test_set.py::test_set_kwargs[{'min_length': 3}-{1, 2}-Err('Set should have at least 3 items after validation, not 2 [type=too_short,')]",
+  "schema": {
+   "type": "set",
+   "min_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": [
+    1,
+    2
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_short",
+     "loc": [],
+     "msg": "Set should have at least 3 items after validation, not 2",
+     "input": {
+      "$set": [
+       1,
+       2
+      ]
+     },
+     "ctx": {
+      "field_type": "Set",
+      "min_length": 3,
+      "actual_length": 2
+     }
+    }
+   ],
+   "title": "set[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_kwargs[{'strict': True}-'abc'-Err('Input should be a valid set [type=set_type,')]#0",
+  "test": "tests/validators/test_set.py::test_set_kwargs[{'strict': True}-'abc'-Err('Input should be a valid set [type=set_type,')]",
+  "schema": {
+   "type": "set",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "abc",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [],
+     "msg": "Input should be a valid set",
+     "input": "abc"
+    }
+   ],
+   "title": "set[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_kwargs[{'strict': True}-()-Err('Input should be a valid set [type=set_type,')]#0",
+  "test": "tests/validators/test_set.py::test_set_kwargs[{'strict': True}-()-Err('Input should be a valid set [type=set_type,')]",
+  "schema": {
+   "type": "set",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": []
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [],
+     "msg": "Input should be a valid set",
+     "input": {
+      "$tuple": []
+     }
+    }
+   ],
+   "title": "set[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_kwargs[{'strict': True}-(1, 2, 3)-Err('Input should be a valid set [type=set_type,')]#0",
+  "test": "tests/validators/test_set.py::test_set_kwargs[{'strict': True}-(1, 2, 3)-Err('Input should be a valid set [type=set_type,')]",
+  "schema": {
+   "type": "set",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [],
+     "msg": "Input should be a valid set",
+     "input": {
+      "$tuple": [
+       1,
+       2,
+       3
+      ]
+     }
+    }
+   ],
+   "title": "set[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_kwargs[{'strict': True}-[1, 2, 3, 2, 3]-Err('Input should be a valid set [type=set_type,')]#0",
+  "test": "tests/validators/test_set.py::test_set_kwargs[{'strict': True}-[1, 2, 3, 2, 3]-Err('Input should be a valid set [type=set_type,')]",
+  "schema": {
+   "type": "set",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [],
+     "msg": "Input should be a valid set",
+     "input": [
+      1,
+      2,
+      3,
+      2,
+      3
+     ]
+    }
+   ],
+   "title": "set[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_kwargs[{'strict': True}-[]-Err('Input should be a valid set [type=set_type,')]#0",
+  "test": "tests/validators/test_set.py::test_set_kwargs[{'strict': True}-[]-Err('Input should be a valid set [type=set_type,')]",
+  "schema": {
+   "type": "set",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": [],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [],
+     "msg": "Input should be a valid set",
+     "input": []
+    }
+   ],
+   "title": "set[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_kwargs[{'strict': True}-frozenset({1, 2, 3})-Err('Input should be a valid set [type=set_type,')]#0",
+  "test": "tests/validators/test_set.py::test_set_kwargs[{'strict': True}-frozenset({1, 2, 3})-Err('Input should be a valid set [type=set_type,')]",
+  "schema": {
+   "type": "set",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$frozenset": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "set_type",
+     "loc": [],
+     "msg": "Input should be a valid set",
+     "input": {
+      "$frozenset": [
+       1,
+       2,
+       3
+      ]
+     }
+    }
+   ],
+   "title": "set[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_kwargs[{'strict': True}-set()-set()]#0",
+  "test": "tests/validators/test_set.py::test_set_kwargs[{'strict': True}-set()-set()]",
+  "schema": {
+   "type": "set",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": []
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": []
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_kwargs[{'strict': True}-{1, 2, 3}-{1, 2, 3}]#0",
+  "test": "tests/validators/test_set.py::test_set_kwargs[{'strict': True}-{1, 2, 3}-{1, 2, 3}]",
+  "schema": {
+   "type": "set",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_multiple_errors#0",
+  "test": "tests/validators/test_set.py::test_set_multiple_errors",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "a",
+   {
+    "$tuple": [
+     1,
+     2
+    ]
+   },
+   []
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      0
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "a"
+    },
+    {
+     "type": "int_type",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid integer",
+     "input": {
+      "$tuple": [
+       1,
+       2
+      ]
+     }
+    },
+    {
+     "type": "int_type",
+     "loc": [
+      2
+     ],
+     "msg": "Input should be a valid integer",
+     "input": []
+    }
+   ],
+   "title": "set[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_no_validators_both[json-input_value0-expected0]#0",
+  "test": "tests/validators/test_set.py::test_set_no_validators_both[json-input_value0-expected0]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2.5, \"3\"]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$set": [
+     2.5,
+     1,
+     "3"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_no_validators_both[python-input_value0-expected0]#0",
+  "test": "tests/validators/test_set.py::test_set_no_validators_both[python-input_value0-expected0]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2.5,
+   "3"
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$set": [
+     2.5,
+     1,
+     "3"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_no_validators_python[input_value0-expected0]#0",
+  "test": "tests/validators/test_set.py::test_set_no_validators_python[input_value0-expected0]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2.5,
+   "3"
+  ],
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     2.5,
+     1,
+     "3"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_set_no_validators_python[input_value1-expected1]#0",
+  "test": "tests/validators/test_set.py::test_set_no_validators_python[input_value1-expected1]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   {
+    "$tuple": [
+     1,
+     2
+    ]
+   },
+   {
+    "$tuple": [
+     3,
+     4
+    ]
+   }
+  ],
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     {
+      "$tuple": [
+       3,
+       4
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_union_set_int_set_str[input_value0-expected0]#0",
+  "test": "tests/validators/test_set.py::test_union_set_int_set_str[input_value0-expected0]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "set",
+     "items_schema": {
+      "type": "int",
+      "strict": true
+     }
+    },
+    {
+     "type": "set",
+     "items_schema": {
+      "type": "str",
+      "strict": true
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_union_set_int_set_str[input_value1-expected1]#0",
+  "test": "tests/validators/test_set.py::test_union_set_int_set_str[input_value1-expected1]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "set",
+     "items_schema": {
+      "type": "int",
+      "strict": true
+     }
+    },
+    {
+     "type": "set",
+     "items_schema": {
+      "type": "str",
+      "strict": true
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     "a",
+     "b",
+     "c"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_union_set_int_set_str[input_value2-expected2]#0",
+  "test": "tests/validators/test_set.py::test_union_set_int_set_str[input_value2-expected2]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "set",
+     "items_schema": {
+      "type": "int",
+      "strict": true
+     }
+    },
+    {
+     "type": "set",
+     "items_schema": {
+      "type": "str",
+      "strict": true
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "a"
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_type",
+     "loc": [
+      "set[int]",
+      1
+     ],
+     "msg": "Input should be a valid integer",
+     "input": "a"
+    },
+    {
+     "type": "string_type",
+     "loc": [
+      "set[str]",
+      0
+     ],
+     "msg": "Input should be a valid string",
+     "input": 1
+    }
+   ],
+   "title": "union[set[int],set[str]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_union_set_list[input_value0-expected0]#0",
+  "test": "tests/validators/test_set.py::test_union_set_list[input_value0-expected0]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "set"
+    },
+    {
+     "type": "list"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_set.py::test_union_set_list[input_value1-expected1]#0",
+  "test": "tests/validators/test_set.py::test_union_set_list[input_value1-expected1]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "set"
+    },
+    {
+     "type": "list"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ }
+]

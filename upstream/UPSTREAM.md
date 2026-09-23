@@ -12,6 +12,11 @@ Perldantic's Rust core is a Python-free port of `pydantic-core`.
 The snapshot is reference material for porting, and the source of the conformance cases.
 It is excluded from the Cargo workspace and never built. Do not edit it.
 
+The behavioural oracle is the published `pydantic-core==2.49.0` wheel: `tools/conformance/record.sh`
+runs the snapshot's validator tests against it and records the results in `tests/conformance/upstream/`.
+The snapshot's tests for `counter` and `ordered_dict` cover schema types newer than that release
+and fail against it (47 tests); both types are dropped from the port.
+
 ## Sync procedure
 
 1. `git -C ../pydantic fetch && git -C ../pydantic diff <base>..<new> -- pydantic-core/src pydantic-core/tests`
@@ -19,7 +24,9 @@ It is excluded from the Cargo workspace and never built. Do not edit it.
 3. Replace the snapshot with the new commit, then update the base commit here and in
    `perldantic_core::UPSTREAM_COMMIT` / `UPSTREAM_VERSION`. `crates/perldantic-core/tests/upstream.rs`
    checks that these stay consistent.
-4. Add an entry to the sync log.
+4. Update `pydantic-core==` in `tools/requirements-record.txt` and re-record the conformance
+   cases with `tools/conformance/record.sh`; review the diff of `tests/conformance/upstream/`.
+5. Add an entry to the sync log.
 
 ## Sync log
 

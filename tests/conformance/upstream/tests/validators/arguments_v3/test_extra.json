@@ -1,0 +1,842 @@
+[
+ {
+  "id": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[json-input_value2-extra_forbidden-forbid-None]#0",
+  "test": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[json-input_value2-extra_forbidden-forbid-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "c"
+    }
+   ],
+   "extra_behavior": "forbid"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"a\": 1, \"b\": 2, \"c\": 3}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "extra_forbidden",
+     "loc": [
+      "b"
+     ],
+     "msg": "Extra inputs are not permitted",
+     "input": 2
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[json-input_value2-extra_forbidden-ignore-forbid]#0",
+  "test": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[json-input_value2-extra_forbidden-ignore-forbid]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "c"
+    }
+   ],
+   "extra_behavior": "ignore"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"a\": 1, \"b\": 2, \"c\": 3}",
+  "options": {
+   "strict": null,
+   "extra": "forbid",
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "extra_forbidden",
+     "loc": [
+      "b"
+     ],
+     "msg": "Extra inputs are not permitted",
+     "input": 2
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[json-input_value3-extra_forbidden-forbid-None]#0",
+  "test": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[json-input_value3-extra_forbidden-forbid-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "c"
+    }
+   ],
+   "extra_behavior": "forbid"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"a\": 1, \"c\": 3, \"extra\": \"value\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "extra_forbidden",
+     "loc": [
+      "extra"
+     ],
+     "msg": "Extra inputs are not permitted",
+     "input": "value"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[json-input_value3-extra_forbidden-ignore-forbid]#0",
+  "test": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[json-input_value3-extra_forbidden-ignore-forbid]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "c"
+    }
+   ],
+   "extra_behavior": "ignore"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"a\": 1, \"c\": 3, \"extra\": \"value\"}",
+  "options": {
+   "strict": null,
+   "extra": "forbid",
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "extra_forbidden",
+     "loc": [
+      "extra"
+     ],
+     "msg": "Extra inputs are not permitted",
+     "input": "value"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[python-input_value0-unexpected_keyword_argument-forbid-None]#0",
+  "test": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[python-input_value0-unexpected_keyword_argument-forbid-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "c"
+    }
+   ],
+   "extra_behavior": "forbid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "unexpected_keyword_argument",
+     "loc": [
+      "b"
+     ],
+     "msg": "Unexpected keyword argument",
+     "input": 2
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[python-input_value0-unexpected_keyword_argument-ignore-forbid]#0",
+  "test": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[python-input_value0-unexpected_keyword_argument-ignore-forbid]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "c"
+    }
+   ],
+   "extra_behavior": "ignore"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": "forbid"
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "unexpected_keyword_argument",
+     "loc": [
+      "b"
+     ],
+     "msg": "Unexpected keyword argument",
+     "input": 2
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[python-input_value1-unexpected_keyword_argument-forbid-None]#0",
+  "test": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[python-input_value1-unexpected_keyword_argument-forbid-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "c"
+    }
+   ],
+   "extra_behavior": "forbid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "unexpected_keyword_argument",
+     "loc": [
+      "extra"
+     ],
+     "msg": "Unexpected keyword argument",
+     "input": "value"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[python-input_value1-unexpected_keyword_argument-ignore-forbid]#0",
+  "test": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[python-input_value1-unexpected_keyword_argument-ignore-forbid]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "c"
+    }
+   ],
+   "extra_behavior": "ignore"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": "forbid"
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "unexpected_keyword_argument",
+     "loc": [
+      "extra"
+     ],
+     "msg": "Unexpected keyword argument",
+     "input": "value"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[python-input_value2-extra_forbidden-forbid-None]#0",
+  "test": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[python-input_value2-extra_forbidden-forbid-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "c"
+    }
+   ],
+   "extra_behavior": "forbid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": 2,
+   "c": 3
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "extra_forbidden",
+     "loc": [
+      "b"
+     ],
+     "msg": "Extra inputs are not permitted",
+     "input": 2
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[python-input_value2-extra_forbidden-ignore-forbid]#0",
+  "test": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[python-input_value2-extra_forbidden-ignore-forbid]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "c"
+    }
+   ],
+   "extra_behavior": "ignore"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": 2,
+   "c": 3
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": "forbid"
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "extra_forbidden",
+     "loc": [
+      "b"
+     ],
+     "msg": "Extra inputs are not permitted",
+     "input": 2
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[python-input_value3-extra_forbidden-forbid-None]#0",
+  "test": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[python-input_value3-extra_forbidden-forbid-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "c"
+    }
+   ],
+   "extra_behavior": "forbid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "c": 3,
+   "extra": "value"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "extra_forbidden",
+     "loc": [
+      "extra"
+     ],
+     "msg": "Extra inputs are not permitted",
+     "input": "value"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[python-input_value3-extra_forbidden-ignore-forbid]#0",
+  "test": "tests/validators/arguments_v3/test_extra.py::test_extra_forbid[python-input_value3-extra_forbidden-ignore-forbid]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "c"
+    }
+   ],
+   "extra_behavior": "ignore"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "c": 3,
+   "extra": "value"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": "forbid"
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "extra_forbidden",
+     "loc": [
+      "extra"
+     ],
+     "msg": "Extra inputs are not permitted",
+     "input": "value"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_extra.py::test_extra_ignore[json-input_value2]#0",
+  "test": "tests/validators/arguments_v3/test_extra.py::test_extra_ignore[json-input_value2]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "keyword_only"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "keyword_only",
+     "alias": "c"
+    }
+   ],
+   "extra_behavior": "ignore"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"a\": 1, \"b\": 2, \"c\": 3}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": 1,
+      "b": 3
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_extra.py::test_extra_ignore[json-input_value3]#0",
+  "test": "tests/validators/arguments_v3/test_extra.py::test_extra_ignore[json-input_value3]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "keyword_only"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "keyword_only",
+     "alias": "c"
+    }
+   ],
+   "extra_behavior": "ignore"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"a\": 1, \"c\": 3, \"extra\": \"value\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": 1,
+      "b": 3
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_extra.py::test_extra_ignore[python-input_value0]#0",
+  "test": "tests/validators/arguments_v3/test_extra.py::test_extra_ignore[python-input_value0]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "keyword_only"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "keyword_only",
+     "alias": "c"
+    }
+   ],
+   "extra_behavior": "ignore"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": 1,
+      "b": 3
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_extra.py::test_extra_ignore[python-input_value1]#0",
+  "test": "tests/validators/arguments_v3/test_extra.py::test_extra_ignore[python-input_value1]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "keyword_only"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "keyword_only",
+     "alias": "c"
+    }
+   ],
+   "extra_behavior": "ignore"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": 1,
+      "b": 3
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_extra.py::test_extra_ignore[python-input_value2]#0",
+  "test": "tests/validators/arguments_v3/test_extra.py::test_extra_ignore[python-input_value2]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "keyword_only"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "keyword_only",
+     "alias": "c"
+    }
+   ],
+   "extra_behavior": "ignore"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": 2,
+   "c": 3
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": 1,
+      "b": 3
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_extra.py::test_extra_ignore[python-input_value3]#0",
+  "test": "tests/validators/arguments_v3/test_extra.py::test_extra_ignore[python-input_value3]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "keyword_only"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "keyword_only",
+     "alias": "c"
+    }
+   ],
+   "extra_behavior": "ignore"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "c": 3,
+   "extra": "value"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": 1,
+      "b": 3
+     }
+    ]
+   }
+  }
+ }
+]

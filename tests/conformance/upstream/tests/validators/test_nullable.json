@@ -1,0 +1,162 @@
+[
+ {
+  "id": "tests/validators/test_nullable.py::test_nullable#0",
+  "test": "tests/validators/test_nullable.py::test_nullable",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/validators/test_nullable.py::test_nullable#1",
+  "test": "tests/validators/test_nullable.py::test_nullable",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_nullable.py::test_nullable#2",
+  "test": "tests/validators/test_nullable.py::test_nullable",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "123",
+  "options": {},
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/validators/test_nullable.py::test_nullable#3",
+  "test": "tests/validators/test_nullable.py::test_nullable",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "hello",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "hello"
+    }
+   ],
+   "title": "nullable[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_nullable.py::test_union_nullable_bool_int#0",
+  "test": "tests/validators/test_nullable.py::test_union_nullable_bool_int",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "nullable",
+     "schema": {
+      "type": "bool"
+     }
+    },
+    {
+     "type": "nullable",
+     "schema": {
+      "type": "int"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/validators/test_nullable.py::test_union_nullable_bool_int#1",
+  "test": "tests/validators/test_nullable.py::test_union_nullable_bool_int",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "nullable",
+     "schema": {
+      "type": "bool"
+     }
+    },
+    {
+     "type": "nullable",
+     "schema": {
+      "type": "int"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": true,
+  "options": {},
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/validators/test_nullable.py::test_union_nullable_bool_int#2",
+  "test": "tests/validators/test_nullable.py::test_union_nullable_bool_int",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "nullable",
+     "schema": {
+      "type": "bool"
+     }
+    },
+    {
+     "type": "nullable",
+     "schema": {
+      "type": "int"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ }
+]

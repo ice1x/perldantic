@@ -48,3 +48,7 @@ inc/
 # FFI::Build::MM
 /fbx.json
 .DS_Store
+
+# Tool environments
+/tools/.venv/
+__pycache__/

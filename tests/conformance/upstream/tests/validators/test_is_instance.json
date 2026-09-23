@@ -1,0 +1,417 @@
+[
+ {
+  "id": "tests/validators/test_is_instance.py::test_class_repr#0",
+  "test": "tests/validators/test_is_instance.py::test_class_repr",
+  "schema": {
+   "type": "is-instance",
+   "cls": {
+    "$class": "int"
+   },
+   "cls_repr": "Foobar"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_is_instance.py::test_class_repr#1",
+  "test": "tests/validators/test_is_instance.py::test_class_repr",
+  "schema": {
+   "type": "is-instance",
+   "cls": {
+    "$class": "int"
+   },
+   "cls_repr": "Foobar"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of Foobar",
+     "input": "1",
+     "ctx": {
+      "class": "Foobar"
+     }
+    }
+   ],
+   "title": "is-instance[Foobar]"
+  }
+ },
+ {
+  "id": "tests/validators/test_is_instance.py::test_instancecheck#0",
+  "test": "tests/validators/test_is_instance.py::test_instancecheck",
+  "schema": {
+   "type": "is-instance",
+   "cls": {
+    "$class": "HasIsInstance"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "true",
+  "options": {},
+  "expected": {
+   "output": "true"
+  }
+ },
+ {
+  "id": "tests/validators/test_is_instance.py::test_instancecheck#1",
+  "test": "tests/validators/test_is_instance.py::test_instancecheck",
+  "schema": {
+   "type": "is-instance",
+   "cls": {
+    "$class": "HasIsInstance"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "other",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of HasIsInstance",
+     "input": "other",
+     "ctx": {
+      "class": "HasIsInstance"
+     }
+    }
+   ],
+   "title": "is-instance[HasIsInstance]"
+  }
+ },
+ {
+  "id": "tests/validators/test_is_instance.py::test_instancecheck#2",
+  "test": "tests/validators/test_is_instance.py::test_instancecheck",
+  "schema": {
+   "type": "is-instance",
+   "cls": {
+    "$class": "HasIsInstance"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "error",
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "intentional error"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_is_instance.py::test_is_instance#0",
+  "test": "tests/validators/test_is_instance.py::test_is_instance",
+  "schema": {
+   "type": "is-instance",
+   "cls": {
+    "$class": "Foo"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "Foo"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_is_instance.py::test_is_instance#1",
+  "test": "tests/validators/test_is_instance.py::test_is_instance",
+  "schema": {
+   "type": "is-instance",
+   "cls": {
+    "$class": "Foo"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "Bar"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "Bar"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_is_instance.py::test_is_instance#2",
+  "test": "tests/validators/test_is_instance.py::test_is_instance",
+  "schema": {
+   "type": "is-instance",
+   "cls": {
+    "$class": "Foo"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "Spam"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of Foo",
+     "input": {
+      "$object": "Spam"
+     },
+     "ctx": {
+      "class": "Foo"
+     }
+    }
+   ],
+   "title": "is-instance[Foo]"
+  }
+ },
+ {
+  "id": "tests/validators/test_is_instance.py::test_is_instance#3",
+  "test": "tests/validators/test_is_instance.py::test_is_instance",
+  "schema": {
+   "type": "is-instance",
+   "cls": {
+    "$class": "Foo"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$class": "Foo"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of Foo",
+     "input": {
+      "$class": "Foo"
+     },
+     "ctx": {
+      "class": "Foo"
+     }
+    }
+   ],
+   "title": "is-instance[Foo]"
+  }
+ },
+ {
+  "id": "tests/validators/test_is_instance.py::test_is_instance_json_type_before_validator#0",
+  "test": "tests/validators/test_is_instance.py::test_is_instance_json_type_before_validator",
+  "schema": {
+   "type": "is-instance",
+   "cls": {
+    "$class": "type"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "null",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "needs_python_object",
+     "loc": [],
+     "msg": "Cannot check `isinstance` when validating from json, use a JsonOrPython validator instead",
+     "input": null,
+     "ctx": {
+      "method_name": "isinstance"
+     }
+    }
+   ],
+   "title": "is-instance[type]"
+  }
+ },
+ {
+  "id": "tests/validators/test_is_instance.py::test_is_instance_json_type_before_validator#1",
+  "test": "tests/validators/test_is_instance.py::test_is_instance_json_type_before_validator",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "set_type_to_int"
+    }
+   },
+   "schema": {
+    "type": "is-instance",
+    "cls": {
+     "$class": "type"
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "null",
+  "options": {},
+  "expected": {
+   "output": {
+    "$class": "int"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_is_instance.py::test_is_instance_sequence#0",
+  "test": "tests/validators/test_is_instance.py::test_is_instance_sequence",
+  "schema": {
+   "type": "is-instance",
+   "cls": {
+    "$function": "Sequence"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of typing.Sequence",
+     "input": 1,
+     "ctx": {
+      "class": "typing.Sequence"
+     }
+    }
+   ],
+   "title": "is-instance[typing.Sequence]"
+  }
+ },
+ {
+  "id": "tests/validators/test_is_instance.py::test_is_instance_tuple#0",
+  "test": "tests/validators/test_is_instance.py::test_is_instance_tuple",
+  "schema": {
+   "type": "is-instance",
+   "cls": {
+    "$tuple": [
+     {
+      "$class": "int"
+     },
+     {
+      "$class": "str"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of (<class 'int'>, <class 'str'>)",
+     "input": [
+      1
+     ],
+     "ctx": {
+      "class": "(<class 'int'>, <class 'str'>)"
+     }
+    }
+   ],
+   "title": "is-instance[(<class 'int'>, <class 'str'>)]"
+  }
+ },
+ {
+  "id": "tests/validators/test_is_instance.py::test_repr#0",
+  "test": "tests/validators/test_is_instance.py::test_repr",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "is-instance",
+     "cls": {
+      "$class": "Foo"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "int"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "foo"
+    },
+    {
+     "type": "is_instance_of",
+     "loc": [
+      "is-instance[Foo]"
+     ],
+     "msg": "Input should be an instance of Foo",
+     "input": "foo",
+     "ctx": {
+      "class": "Foo"
+     }
+    }
+   ],
+   "title": "union[int,is-instance[Foo]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_is_instance.py::test_validate_json#0",
+  "test": "tests/validators/test_is_instance.py::test_validate_json",
+  "schema": {
+   "type": "is-instance",
+   "cls": {
+    "$class": "Foo"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foo\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "needs_python_object",
+     "loc": [],
+     "msg": "Cannot check `isinstance` when validating from json, use a JsonOrPython validator instead",
+     "input": "foo",
+     "ctx": {
+      "method_name": "isinstance"
+     }
+    }
+   ],
+   "title": "is-instance[Foo]"
+  }
+ }
+]

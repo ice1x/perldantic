@@ -1,0 +1,19 @@
+[
+ {
+  "id": "tests/validators/test_pickling.py::test_schema_validator_tz_pickle#0",
+  "test": "tests/validators/test_pickling.py::test_schema_validator_tz_pickle",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14-12:15",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14-12:15"
+   }
+  }
+ }
+]

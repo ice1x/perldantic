@@ -1,0 +1,2650 @@
+[
+ {
+  "id": "tests/validators/test_function.py::test_class_with_validator#0",
+  "test": "tests/validators/test_function.py::test_class_with_validator",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "__validate__"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "Foobar"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_class_with_validator#1",
+  "test": "tests/validators/test_function.py::test_class_with_validator",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "__validate__"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "YQ=="
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "Foobar"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_class_with_validator#2",
+  "test": "tests/validators/test_function.py::test_class_with_validator",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "__validate__"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": true,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_type",
+     "loc": [],
+     "msg": "Input should be a valid string",
+     "input": true
+    }
+   ],
+   "title": "function-after[__validate__(), str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_config_no_model#0",
+  "test": "tests/validators/test_function.py::test_config_no_model",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "YWJj"
+  },
+  "options": {},
+  "expected": {
+   "output": "abc Changed"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_dataclass_validator_reuse#0",
+  "test": "tests/validators/test_function.py::test_dataclass_validator_reuse",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Model"
+   },
+   "fields": [
+    "x",
+    "y"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Model",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "x",
+      "schema": {
+       "type": "function-plain",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "f"
+        },
+        "field_name": "x"
+       }
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "y",
+      "schema": {
+       "type": "function-plain",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "f"
+        },
+        "field_name": "x"
+       }
+      }
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "foo",
+   "y": "bar"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "Model"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_error_with_error[AssertionError]#0",
+  "test": "tests/validators/test_function.py::test_error_with_error[AssertionError]",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "RuntimeError",
+    "message": "internal error"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_error_with_error[ValueError]#0",
+  "test": "tests/validators/test_function.py::test_error_with_error[ValueError]",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "RuntimeError",
+    "message": "internal error"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_field_name_preserved_wrap_validator#0",
+  "test": "tests/validators/test_function.py::test_field_name_preserved_wrap_validator",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "f": {
+      "type": "model-field",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "val1"
+        }
+       },
+       "schema": {
+        "type": "function-wrap",
+        "function": {
+         "type": "with-info",
+         "function": {
+          "$function": "val2"
+         }
+        },
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    }
+   },
+   "config": {}
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "f": 1
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "f": 1
+     },
+     "fields_set": [
+      "f"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_after#0",
+  "test": "tests/validators/test_function.py::test_function_after",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "output": "input value Changed"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_after_config#0",
+  "test": "tests/validators/test_function.py::test_function_after_config",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "test_field": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "function-after",
+      "function": {
+       "type": "with-info",
+       "function": {
+        "$function": "f"
+       },
+       "field_name": "test_field"
+      },
+      "schema": {
+       "type": "str"
+      }
+     }
+    }
+   },
+   "config": {
+    "allow_inf_nan": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "test_field": {
+    "$bytes": "MzIx"
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "test_field": "321 Changed"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_after_doesnt_change_mode#0",
+  "test": "tests/validators/test_function.py::test_function_after_doesnt_change_mode",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "identity"
+    }
+   },
+   "schema": {
+    "type": "date",
+    "strict": true
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "IjIwMDAtMDEtMDEi"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2000-01-01"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_after_doesnt_change_mode#1",
+  "test": "tests/validators/test_function.py::test_function_after_doesnt_change_mode",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "identity"
+    }
+   },
+   "schema": {
+    "type": "date",
+    "strict": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "IjIwMDAtMDEtMDEi"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "date_type",
+     "loc": [],
+     "msg": "Input should be a valid date",
+     "input": {
+      "$bytes": "IjIwMDAtMDEtMDEi"
+     }
+    }
+   ],
+   "title": "function-after[identity(), date]"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_after_error_hide_input[config0-type=value_error, input_value='input value', input_type=str]#0",
+  "test": "tests/validators/test_function.py::test_function_after_error_hide_input[config0-type=value_error, input_value='input value', input_type=str]",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": {},
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "value_error",
+     "loc": [],
+     "msg": "Value error, foobar",
+     "input": "input value",
+     "ctx": {
+      "error": {
+       "$exception": [
+        "ValueError",
+        "foobar"
+       ]
+      }
+     }
+    }
+   ],
+   "title": "function-after[f(), str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_after_error_hide_input[config1-type=value_error, input_value='input value', input_type=str]#0",
+  "test": "tests/validators/test_function.py::test_function_after_error_hide_input[config1-type=value_error, input_value='input value', input_type=str]",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": {
+   "hide_input_in_errors": false
+  },
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "value_error",
+     "loc": [],
+     "msg": "Value error, foobar",
+     "input": "input value",
+     "ctx": {
+      "error": {
+       "$exception": [
+        "ValueError",
+        "foobar"
+       ]
+      }
+     }
+    }
+   ],
+   "title": "function-after[f(), str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_after_error_hide_input[config2-type=value_error]#0",
+  "test": "tests/validators/test_function.py::test_function_after_error_hide_input[config2-type=value_error]",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": {
+   "hide_input_in_errors": true
+  },
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "value_error",
+     "loc": [],
+     "msg": "Value error, foobar",
+     "input": "input value",
+     "ctx": {
+      "error": {
+       "$exception": [
+        "ValueError",
+        "foobar"
+       ]
+      }
+     }
+    }
+   ],
+   "title": "function-after[f(), str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_after_raise#0",
+  "test": "tests/validators/test_function.py::test_function_after_raise",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "value_error",
+     "loc": [],
+     "msg": "Value error, foobar",
+     "input": "input value",
+     "ctx": {
+      "error": {
+       "$exception": [
+        "ValueError",
+        "foobar"
+       ]
+      }
+     }
+    }
+   ],
+   "title": "function-after[f(), str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_before#0",
+  "test": "tests/validators/test_function.py::test_function_before",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "output": "input value Changed"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_before_error#0",
+  "test": "tests/validators/test_function.py::test_function_before_error",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "my_function"
+    }
+   },
+   "schema": {
+    "type": "str",
+    "max_length": 5
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1234",
+  "options": {},
+  "expected": {
+   "output": "1234x"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_before_error#1",
+  "test": "tests/validators/test_function.py::test_function_before_error",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "my_function"
+    }
+   },
+   "schema": {
+    "type": "str",
+    "max_length": 5
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12345",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_too_long",
+     "loc": [],
+     "msg": "String should have at most 5 characters",
+     "input": "12345x",
+     "ctx": {
+      "max_length": 5
+     }
+    }
+   ],
+   "title": "function-before[my_function(), constrained-str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_before_error_hide_input[config0-type=string_too_long, input_value='12345x', input_type=str]#0",
+  "test": "tests/validators/test_function.py::test_function_before_error_hide_input[config0-type=string_too_long, input_value='12345x', input_type=str]",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "my_function"
+    }
+   },
+   "schema": {
+    "type": "str",
+    "max_length": 5
+   }
+  },
+  "config": {},
+  "mode": "python",
+  "input": "12345",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_too_long",
+     "loc": [],
+     "msg": "String should have at most 5 characters",
+     "input": "12345x",
+     "ctx": {
+      "max_length": 5
+     }
+    }
+   ],
+   "title": "function-before[my_function(), constrained-str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_before_error_hide_input[config1-type=string_too_long, input_value='12345x', input_type=str]#0",
+  "test": "tests/validators/test_function.py::test_function_before_error_hide_input[config1-type=string_too_long, input_value='12345x', input_type=str]",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "my_function"
+    }
+   },
+   "schema": {
+    "type": "str",
+    "max_length": 5
+   }
+  },
+  "config": {
+   "hide_input_in_errors": false
+  },
+  "mode": "python",
+  "input": "12345",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_too_long",
+     "loc": [],
+     "msg": "String should have at most 5 characters",
+     "input": "12345x",
+     "ctx": {
+      "max_length": 5
+     }
+    }
+   ],
+   "title": "function-before[my_function(), constrained-str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_before_error_hide_input[config2-type=string_too_long]#0",
+  "test": "tests/validators/test_function.py::test_function_before_error_hide_input[config2-type=string_too_long]",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "my_function"
+    }
+   },
+   "schema": {
+    "type": "str",
+    "max_length": 5
+   }
+  },
+  "config": {
+   "hide_input_in_errors": true
+  },
+  "mode": "python",
+  "input": "12345",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_too_long",
+     "loc": [],
+     "msg": "String should have at most 5 characters",
+     "input": "12345x",
+     "ctx": {
+      "max_length": 5
+     }
+    }
+   ],
+   "title": "function-before[my_function(), constrained-str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_before_error_model#0",
+  "test": "tests/validators/test_function.py::test_function_before_error_model",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "my_field": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "str",
+       "max_length": 5
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "my_field": "1234"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "my_field": "1234x"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_before_error_model#1",
+  "test": "tests/validators/test_function.py::test_function_before_error_model",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "my_field": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "str",
+       "max_length": 5
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "my_field": "12345"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_too_long",
+     "loc": [
+      "my_field"
+     ],
+     "msg": "String should have at most 5 characters",
+     "input": "12345x",
+     "ctx": {
+      "max_length": 5
+     }
+    }
+   ],
+   "title": "function-before[f(), typed-dict]"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_before_no_info#0",
+  "test": "tests/validators/test_function.py::test_function_before_no_info",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "output": "input value Changed"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_before_raise#0",
+  "test": "tests/validators/test_function.py::test_function_before_raise",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "value_error",
+     "loc": [],
+     "msg": "Value error, foobar",
+     "input": "input value",
+     "ctx": {
+      "error": {
+       "$exception": [
+        "ValueError",
+        "foobar"
+       ]
+      }
+     }
+    }
+   ],
+   "title": "function-before[f(), str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_no_info#0",
+  "test": "tests/validators/test_function.py::test_function_no_info",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "output": "input value Changed"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_plain#0",
+  "test": "tests/validators/test_function.py::test_function_plain",
+  "schema": {
+   "type": "function-plain",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 2
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_plain#1",
+  "test": "tests/validators/test_function.py::test_function_plain",
+  "schema": {
+   "type": "function-plain",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "x",
+  "options": {},
+  "expected": {
+   "output": "xx"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_plain_no_info#0",
+  "test": "tests/validators/test_function.py::test_function_plain_no_info",
+  "schema": {
+   "type": "function-plain",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "f"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 2
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_plain_no_info#1",
+  "test": "tests/validators/test_function.py::test_function_plain_no_info",
+  "schema": {
+   "type": "function-plain",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "f"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "x",
+  "options": {},
+  "expected": {
+   "output": "xx"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_validation_info_mode#0",
+  "test": "tests/validators/test_function.py::test_function_validation_info_mode",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_validation_info_mode#1",
+  "test": "tests/validators/test_function.py::test_function_validation_info_mode",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_validation_info_mode#2",
+  "test": "tests/validators/test_function.py::test_function_validation_info_mode",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_validation_info_mode#3",
+  "test": "tests/validators/test_function.py::test_function_validation_info_mode",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_validation_info_mode#4",
+  "test": "tests/validators/test_function.py::test_function_validation_info_mode",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f_w"
+    }
+   },
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_validation_info_mode#5",
+  "test": "tests/validators/test_function.py::test_function_validation_info_mode",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f_w"
+    }
+   },
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_wrap#0",
+  "test": "tests/validators/test_function.py::test_function_wrap",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "output": "input value Changed"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_wrap_error_hide_input[config0-type=int_parsing, input_value='wrong', input_type=str]#0",
+  "test": "tests/validators/test_function.py::test_function_wrap_error_hide_input[config0-type=int_parsing, input_value='wrong', input_type=str]",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": {},
+  "mode": "python",
+  "input": "wrong",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "function-wrap[f()]"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_wrap_error_hide_input[config1-type=int_parsing, input_value='wrong', input_type=str]#0",
+  "test": "tests/validators/test_function.py::test_function_wrap_error_hide_input[config1-type=int_parsing, input_value='wrong', input_type=str]",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": {
+   "hide_input_in_errors": false
+  },
+  "mode": "python",
+  "input": "wrong",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "function-wrap[f()]"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_wrap_error_hide_input[config2-type=int_parsing]#0",
+  "test": "tests/validators/test_function.py::test_function_wrap_error_hide_input[config2-type=int_parsing]",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": {
+   "hide_input_in_errors": true
+  },
+  "mode": "python",
+  "input": "wrong",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "function-wrap[f()]"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_wrap_invalid_location#0",
+  "test": "tests/validators/test_function.py::test_function_wrap_invalid_location",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": 4,
+  "options": {},
+  "expected": {
+   "output": 6
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_wrap_invalid_location#1",
+  "test": "tests/validators/test_function.py::test_function_wrap_invalid_location",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "wrong",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "('4',)"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "function-wrap[f()]"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_wrap_location#0",
+  "test": "tests/validators/test_function.py::test_function_wrap_location",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": 4,
+  "options": {},
+  "expected": {
+   "output": 6
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_wrap_location#1",
+  "test": "tests/validators/test_function.py::test_function_wrap_location",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "wrong",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "foo"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "function-wrap[f()]"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_wrap_no_info#0",
+  "test": "tests/validators/test_function.py::test_function_wrap_no_info",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "output": "input value Changed"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_wrap_repr#0",
+  "test": "tests/validators/test_function.py::test_function_wrap_repr",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "output": "ValidatorCallable(Str(StrValidator{strict:false,coerce_numbers_to_str:false}))"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_wrap_str#0",
+  "test": "tests/validators/test_function.py::test_function_wrap_str",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "output": "ValidatorCallable(Str(StrValidator{strict:false,coerce_numbers_to_str:false}))"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_function_wrong_sig#0",
+  "test": "tests/validators/test_function.py::test_function_wrong_sig",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "test_function_wrong_sig.<locals>.f() takes 1 positional argument but 2 were given"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_model_field_after_validator#0",
+  "test": "tests/validators/test_function.py::test_model_field_after_validator",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "f"
+        }
+       },
+       "schema": {
+        "type": "str"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": {
+    "$bytes": "Zm9v"
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "x": "input: foo"
+     },
+     "fields_set": [
+      "x"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_model_field_before_validator#0",
+  "test": "tests/validators/test_function.py::test_model_field_before_validator",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "f"
+        }
+       },
+       "schema": {
+        "type": "str"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": {
+    "$bytes": "Zm9v"
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "x": "input: foo"
+     },
+     "fields_set": [
+      "x"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_model_field_plain_validator#0",
+  "test": "tests/validators/test_function.py::test_model_field_plain_validator",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "function-plain",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "f"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": {
+    "$bytes": "Zm9v"
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "x": "input: foo"
+     },
+     "fields_set": [
+      "x"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_model_field_validator_reuse#0",
+  "test": "tests/validators/test_function.py::test_model_field_validator_reuse",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "function-plain",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "f"
+        },
+        "field_name": "x"
+       }
+      }
+     },
+     "y": {
+      "type": "model-field",
+      "schema": {
+       "type": "function-plain",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "f"
+        },
+        "field_name": "x"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "foo",
+   "y": "bar"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "x": "x: foo",
+      "y": "y: bar"
+     },
+     "fields_set": [
+      "x",
+      "y"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_model_field_wrap_validator#0",
+  "test": "tests/validators/test_function.py::test_model_field_wrap_validator",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "f"
+        }
+       },
+       "schema": {
+        "type": "str"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": {
+    "$bytes": "Zm9v"
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "x": "input: foo"
+     },
+     "fields_set": [
+      "x"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_model_root_function_assignment[after]#0",
+  "test": "tests/validators/test_function.py::test_model_root_function_assignment[after]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "function-after",
+    "function": {
+     "type": "with-info",
+     "function": {
+      "$function": "f"
+     }
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "x": {
+       "type": "model-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "y": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": {
+    "$bytes": "aW5wdXQ="
+   },
+   "y": "123"
+  },
+  "options": {
+   "self_instance": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "x": "input",
+      "y": 123
+     },
+     "fields_set": [
+      "x",
+      "y"
+     ],
+     "extra": null
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "x": "input",
+      "y": 123
+     },
+     "fields_set": [
+      "x",
+      "y"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_model_root_function_assignment[before]#0",
+  "test": "tests/validators/test_function.py::test_model_root_function_assignment[before]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "function-before",
+    "function": {
+     "type": "with-info",
+     "function": {
+      "$function": "f"
+     }
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "x": {
+       "type": "model-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "y": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": {
+    "$bytes": "aW5wdXQ="
+   },
+   "y": "123"
+  },
+  "options": {
+   "self_instance": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "x": "input",
+      "y": 123
+     },
+     "fields_set": [
+      "x",
+      "y"
+     ],
+     "extra": null
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "x": "input",
+      "y": 123
+     },
+     "fields_set": [
+      "x",
+      "y"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_model_root_function_assignment[wrap]#0",
+  "test": "tests/validators/test_function.py::test_model_root_function_assignment[wrap]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "function-wrap",
+    "function": {
+     "type": "with-info",
+     "function": {
+      "$function": "f"
+     }
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "x": {
+       "type": "model-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "y": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": {
+    "$bytes": "aW5wdXQ="
+   },
+   "y": "123"
+  },
+  "options": {
+   "self_instance": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "x": "input",
+      "y": 123
+     },
+     "fields_set": [
+      "x",
+      "y"
+     ],
+     "extra": null
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "x": "input",
+      "y": 123
+     },
+     "fields_set": [
+      "x",
+      "y"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_non_model_field_after_validator_field_info#0",
+  "test": "tests/validators/test_function.py::test_non_model_field_after_validator_field_info",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "f"
+        }
+       },
+       "schema": {
+        "type": "str"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": {
+    "$bytes": "Zm9v"
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "x": "input: foo"
+     },
+     "fields_set": [
+      "x"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_non_model_field_before_validator_field_info#0",
+  "test": "tests/validators/test_function.py::test_non_model_field_before_validator_field_info",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "f"
+        }
+       },
+       "schema": {
+        "type": "str"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": {
+    "$bytes": "Zm9v"
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "x": "input: foo"
+     },
+     "fields_set": [
+      "x"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_non_model_field_plain_validator_field_info#0",
+  "test": "tests/validators/test_function.py::test_non_model_field_plain_validator_field_info",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "function-plain",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "f"
+        }
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": {
+    "$bytes": "Zm9v"
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "x": "input: foo"
+     },
+     "fields_set": [
+      "x"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_non_model_field_wrap_validator_field_info#0",
+  "test": "tests/validators/test_function.py::test_non_model_field_wrap_validator_field_info",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "f"
+        }
+       },
+       "schema": {
+        "type": "str"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": {
+    "$bytes": "Zm9v"
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "x": "input: foo"
+     },
+     "fields_set": [
+      "x"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_raise_assertion_error#0",
+  "test": "tests/validators/test_function.py::test_raise_assertion_error",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [],
+     "msg": "Assertion failed, foobar",
+     "input": "input value",
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        "foobar"
+       ]
+      }
+     }
+    }
+   ],
+   "title": "function-before[f(), str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_raise_assertion_error_plain#0",
+  "test": "tests/validators/test_function.py::test_raise_assertion_error_plain",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [],
+     "msg": "Assertion failed, ",
+     "input": "input value",
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "function-before[f(), str]"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_raise_type_error#0",
+  "test": "tests/validators/test_function.py::test_raise_type_error",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "foobar"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_typed_dict_data#0",
+  "test": "tests/validators/test_function.py::test_typed_dict_data",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "function-after",
+      "function": {
+       "type": "with-info",
+       "function": {
+        "$function": "f"
+       }
+      },
+      "schema": {
+       "type": "str"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": "2",
+   "c": {
+    "$bytes": "Zm9v"
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": 2,
+    "c": "input: foo"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_typed_dict_data#1",
+  "test": "tests/validators/test_function.py::test_typed_dict_data",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "function-after",
+      "function": {
+       "type": "with-info",
+       "function": {
+        "$function": "f"
+       }
+      },
+      "schema": {
+       "type": "str"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": "wrong",
+   "c": {
+    "$bytes": "Zm9v"
+   }
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "b"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_typed_dict_validator_reuse#0",
+  "test": "tests/validators/test_function.py::test_typed_dict_validator_reuse",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "model-field",
+     "schema": {
+      "type": "function-plain",
+      "function": {
+       "type": "with-info",
+       "function": {
+        "$function": "f"
+       },
+       "field_name": "x"
+      }
+     }
+    },
+    "y": {
+     "type": "model-field",
+     "schema": {
+      "type": "function-plain",
+      "function": {
+       "type": "with-info",
+       "function": {
+        "$function": "f"
+       },
+       "field_name": "x"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "foo",
+   "y": "bar"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "x: foo",
+    "y": "y: bar"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_val_info_repr[None-kwargs0-ValidationInfo(config=None, context=None, data=None, field_name=None)]#0",
+  "test": "tests/validators/test_function.py::test_val_info_repr[None-kwargs0-ValidationInfo(config=None, context=None, data=None, field_name=None)]",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "output": "input value"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_val_info_repr[None-kwargs1-ValidationInfo(config=None, context={1: 2}, data=None, field_name=None)]#0",
+  "test": "tests/validators/test_function.py::test_val_info_repr[None-kwargs1-ValidationInfo(config=None, context={1: 2}, data=None, field_name=None)]",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {
+   "context": {
+    "$dict": [
+     [
+      1,
+      2
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": "input value"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_val_info_repr[None-kwargs2-ValidationInfo(config=None, context=None, data=None, field_name=None)]#0",
+  "test": "tests/validators/test_function.py::test_val_info_repr[None-kwargs2-ValidationInfo(config=None, context=None, data=None, field_name=None)]",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input value",
+  "options": {
+   "context": null
+  },
+  "expected": {
+   "output": "input value"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_val_info_repr[config3-kwargs3-ValidationInfo(config={'title': 'hello'}, context=None, data=None, field_name=None)]#0",
+  "test": "tests/validators/test_function.py::test_val_info_repr[config3-kwargs3-ValidationInfo(config={'title': 'hello'}, context=None, data=None, field_name=None)]",
+  "schema": {
+   "type": "function-before",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "str"
+   }
+  },
+  "config": {
+   "title": "hello"
+  },
+  "mode": "python",
+  "input": "input value",
+  "options": {},
+  "expected": {
+   "output": "input value"
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_validate_assignment#0",
+  "test": "tests/validators/test_function.py::test_validate_assignment",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "model",
+    "cls": {
+     "$class": "Model"
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "field_a": {
+       "type": "model-field",
+       "schema": {
+        "type": "str"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "field_a": "test",
+      "more": "foobar"
+     },
+     "fields_set": [
+      "field_a"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_wrap_error#0",
+  "test": "tests/validators/test_function.py::test_wrap_error",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "42",
+  "options": {},
+  "expected": {
+   "output": 84
+  }
+ },
+ {
+  "id": "tests/validators/test_function.py::test_wrap_error#1",
+  "test": "tests/validators/test_function.py::test_wrap_error",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "wrong",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "function-wrap[f()]"
+  }
+ }
+]

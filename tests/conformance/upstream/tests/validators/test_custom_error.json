@@ -1,0 +1,214 @@
+[
+ {
+  "id": "tests/validators/test_custom_error.py::test_custom_error[json]#0",
+  "test": "tests/validators/test_custom_error.py::test_custom_error[json]",
+  "schema": {
+   "type": "custom-error",
+   "schema": {
+    "type": "int"
+   },
+   "custom_error_type": "foobar",
+   "custom_error_message": "Hello there"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_custom_error.py::test_custom_error[json]#1",
+  "test": "tests/validators/test_custom_error.py::test_custom_error[json]",
+  "schema": {
+   "type": "custom-error",
+   "schema": {
+    "type": "int"
+   },
+   "custom_error_type": "foobar",
+   "custom_error_message": "Hello there"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foobar\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "foobar",
+     "loc": [],
+     "msg": "Hello there",
+     "input": "foobar"
+    }
+   ],
+   "title": "custom-error[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_custom_error.py::test_custom_error[python]#0",
+  "test": "tests/validators/test_custom_error.py::test_custom_error[python]",
+  "schema": {
+   "type": "custom-error",
+   "schema": {
+    "type": "int"
+   },
+   "custom_error_type": "foobar",
+   "custom_error_message": "Hello there"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_custom_error.py::test_custom_error[python]#1",
+  "test": "tests/validators/test_custom_error.py::test_custom_error[python]",
+  "schema": {
+   "type": "custom-error",
+   "schema": {
+    "type": "int"
+   },
+   "custom_error_type": "foobar",
+   "custom_error_message": "Hello there"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foobar",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "foobar",
+     "loc": [],
+     "msg": "Hello there",
+     "input": "foobar"
+    }
+   ],
+   "title": "custom-error[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_custom_error.py::test_custom_error_type[json]#0",
+  "test": "tests/validators/test_custom_error.py::test_custom_error_type[json]",
+  "schema": {
+   "type": "custom-error",
+   "schema": {
+    "type": "int"
+   },
+   "custom_error_type": "recursion_loop"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_custom_error.py::test_custom_error_type[json]#1",
+  "test": "tests/validators/test_custom_error.py::test_custom_error_type[json]",
+  "schema": {
+   "type": "custom-error",
+   "schema": {
+    "type": "int"
+   },
+   "custom_error_type": "recursion_loop"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"X\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "recursion_loop",
+     "loc": [],
+     "msg": "Recursion error - cyclic reference detected",
+     "input": "X"
+    }
+   ],
+   "title": "custom-error[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_custom_error.py::test_custom_error_type[python]#0",
+  "test": "tests/validators/test_custom_error.py::test_custom_error_type[python]",
+  "schema": {
+   "type": "custom-error",
+   "schema": {
+    "type": "int"
+   },
+   "custom_error_type": "recursion_loop"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_custom_error.py::test_custom_error_type[python]#1",
+  "test": "tests/validators/test_custom_error.py::test_custom_error_type[python]",
+  "schema": {
+   "type": "custom-error",
+   "schema": {
+    "type": "int"
+   },
+   "custom_error_type": "recursion_loop"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "X",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "recursion_loop",
+     "loc": [],
+     "msg": "Recursion error - cyclic reference detected",
+     "input": "X"
+    }
+   ],
+   "title": "custom-error[int]"
+  }
+ }
+]
