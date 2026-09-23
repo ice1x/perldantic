@@ -223,6 +223,7 @@ and every class documents in POD when it is thrown.
 | `Perldantic::ValidationError` | Input does not match the schema | `errors` (list of `{type, loc, msg, input, ctx}`, same codes as pydantic), `error_count`, `title`, `json`; stringifies like pydantic's `str(ValidationError)` |
 | `Perldantic::SchemaError` | A model or type definition is invalid, or uses an unsupported schema type | `message`, `schema_path` |
 | `Perldantic::UsageError` | The API is called incorrectly, e.g. an unknown `has` option or a bad argument | `message`, the caller's file and line |
+| `Perldantic::SerializationError` | A value cannot be serialized (pydantic's `PydanticSerializationError`, `UnicodeDecodeError`) | `message`, `type` |
 | `Perldantic::InternalError` | The Rust core panics or the FFI boundary fails | `message`, `cause` |
 
 Messages name what failed and where, in Perl terms: the model package, the field and the
