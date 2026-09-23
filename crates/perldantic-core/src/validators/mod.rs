@@ -16,10 +16,12 @@ use crate::value::{Dict, Value};
 
 mod any;
 mod bool;
+mod bytes;
 pub(crate) mod config;
 mod float;
 mod int;
 mod none;
+mod string;
 pub(crate) mod validation_state;
 
 use validation_state::ValidationState;
@@ -265,9 +267,11 @@ macro_rules! validators {
 validators! {
     any::AnyValidator,
     bool::BoolValidator,
+    bytes::BytesValidator,
     float::FloatBuilder,
     int::IntValidator,
     none::NoneValidator,
+    string::StrValidator,
 }
 
 /// Build the validator for a schema dict.
@@ -294,12 +298,16 @@ fn failed_to_build_validator(val_type: &str, err: &CoreError) -> CoreError {
 pub enum CombinedValidator {
     Any(any::AnyValidator),
     Bool(bool::BoolValidator),
+    Bytes(bytes::BytesValidator),
+    ConstrainedBytes(bytes::BytesConstrainedValidator),
     Float(float::FloatValidator),
     ConstrainedFloat(float::ConstrainedFloatValidator),
     Int(int::IntValidator),
     // Boxed: much larger than most validators.
     ConstrainedInt(Box<int::ConstrainedIntValidator>),
     None(none::NoneValidator),
+    Str(string::StrValidator),
+    StrConstrained(string::StrConstrainedValidator),
 }
 
 /// Rarely used, large validators are boxed in `CombinedValidator`; delegate to the inner one.
