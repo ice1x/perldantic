@@ -21,6 +21,11 @@ pub trait Input: fmt::Debug {
     /// The input as it is reported in errors.
     fn as_error_value(&self) -> Value;
 
+    /// The input converted to a `Value` unchanged, e.g. for `any` (upstream `to_object`).
+    fn to_value(&self) -> Value {
+        self.as_error_value()
+    }
+
     fn is_none(&self) -> bool {
         false
     }

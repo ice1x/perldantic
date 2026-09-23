@@ -126,7 +126,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `serializers/type_serializers/with_default.rs` | `crates/perldantic-core/src/serializers/type_serializers/with_default.rs` | P0 | pending |  |
 | `tools.rs` | `crates/perldantic-core/src/tools.rs` | P0 | partial | truncation helpers ported; `SchemaDict` lives in `build_tools.rs` |
 | `url.rs` | `crates/perldantic-core/src/url.rs` | P1 | pending |  |
-| `validators/any.rs` | `crates/perldantic-core/src/validators/any.rs` | P0 | pending |  |
+| `validators/any.rs` | `crates/perldantic-core/src/validators/any.rs` | P0 | ported |  |
 | `validators/arguments.rs` | `crates/perldantic-core/src/validators/arguments.rs` | P2 | pending |  |
 | `validators/arguments_v3.rs` | `crates/perldantic-core/src/validators/arguments_v3.rs` | P2 | pending |  |
 | `validators/bool.rs` | `crates/perldantic-core/src/validators/bool.rs` | P0 | pending |  |
@@ -162,7 +162,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/list.rs` | `crates/perldantic-core/src/validators/list.rs` | P0 | pending |  |
 | `validators/literal.rs` | `crates/perldantic-core/src/validators/literal.rs` | P0 | pending |  |
 | `validators/missing_sentinel.rs` | - | drop | dropped | Python-only type |
-| `validators/mod.rs` | `crates/perldantic-core/src/validators/mod.rs` | P0 | partial | `Extra` ported |
+| `validators/mod.rs` | `crates/perldantic-core/src/validators/mod.rs` | P0 | partial | `SchemaValidator` (new, validate_value, validate_json), `Extra`, build dispatch, `Validator`/`BuildValidator`; more methods as validators need them |
 | `validators/model.rs` | `crates/perldantic-core/src/validators/model.rs` | P0 | pending |  |
 | `validators/model_fields.rs` | `crates/perldantic-core/src/validators/model_fields.rs` | P0 | pending |  |
 | `validators/named_tuple.rs` | - | drop | dropped | Python-only type |
