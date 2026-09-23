@@ -43,7 +43,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00037 — Handles: validator new/free, validate, serialize, json_schema, string_free
   - [x] 00038 — Panic safety: `catch_unwind` on every export
   - [x] 00039 — C header generation (cbindgen)
-- [ ] 00040 — Perl MVP
+- [x] 00040 — Perl MVP
   - [x] 00041 — `Perldantic::FFI` binding (FFI::Platypus, FFI::Build::File::Cargo)
   - [x] 00042 — `Perldantic::Types` in Types::Standard vocabulary: Any Undef Bool Int Num Str Bytes Maybe[] Optional[] ArrayRef[] Tuple[] HashRef[] Map[] Dict[] Enum[] Literal[] InstanceOf[]
   - [x] 00043 — Moo/Moose-style models: `use Perldantic` replaces `use Moo`; `has` with Moo options + constraints, `new` validates, `extends`/`BUILD`; `model_config`
@@ -53,7 +53,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00047 — Lazy per-class validator cache
   - [x] 00048 — Perl conformance runner `t/conformance.t`
   - [x] 00049 — Leak tests (Test::LeakTrace)
-  - [ ] 00077 — Roles (`with`) and method modifiers for models; model objects passed as input kept, not copied
+  - [x] 00077 — Roles (`with`) and method modifiers for models; model objects passed as input kept, not copied
   - [x] 00076 — Perl input type in the core: Perl-worded error messages (hash/array reference, undef), sorted hash keys, arrays as strict tuples
 - [ ] 00050 — P1 types & callbacks
   - [ ] 00051 — `Date`, `Time`, `DateTime`, `Duration` (core: `date`, `time`, `datetime`, `timedelta`; speedate; Time::Moment / DateTime)

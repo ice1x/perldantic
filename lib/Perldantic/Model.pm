@@ -10,7 +10,9 @@ use Sub::Util ();
 
 use Perldantic::Error;
 use Perldantic::FFI;
+use Perldantic::Role ();
 use Perldantic::Types ();
+use Role::Tiny ();
 use Perldantic::Wire;
 
 # Declarations per model class: {fields => [spec, ...], config => {...}, parent => class}.
@@ -209,6 +211,15 @@ sub _declare_extends ($class, $parent) {
     _changed($class);
 }
 
+sub _declare_with ($class, @roles) {
+    Perldantic::Role::_check_roles(@roles);
+    eval { Role::Tiny->apply_roles_to_package($class, @roles); 1 } or do {
+        my $e = $@;
+        _usage('with: ' . (blessed $e ? "$e" : $e =~ s/ at \S+ line \d+\.?\n\z//r));
+    };
+    _declare_has($class, @$_) for Perldantic::Role::_fields(@roles);
+}
+
 sub _declare_config ($class, %settings) {
     for my $key (sort keys %settings) {
         _usage("model_config: unknown setting '$key'") if !$CONFIG_KEY{$key};
@@ -343,19 +354,65 @@ sub BUILDARGS ($class, @args) {
     _usage("$class->new expects a hash or a hash reference");
 }
 
+# Model objects given as input to a validation, by token. While a validation runs, objects are
+# sent with a token among their set field names (which no message shows); the core returns
+# objects it does not revalidate unchanged, and _inflate hands back the original object for
+# them, as pydantic keeps instances.
+our (%INPUT_OBJECTS, $TRACK_OBJECTS);
+my $TOKEN_PREFIX = "\0perldantic object ";
+
+sub _input_object ($model) {
+    for my $name (@{$model->fields_set}) {
+        next if $name !~ /\A\Q$TOKEN_PREFIX\E(\d+)\z/;
+        my $object = $INPUT_OBJECTS{$1};
+        return $object && ref $object eq $model->class ? $object : undef;
+    }
+    return undef;
+}
+
+sub _validate_tracked ($code, $args = undef) {
+    local $TRACK_OBJECTS = 1;
+    local %INPUT_OBJECTS;
+    my $result = eval { $code->() };
+    if (!defined $result && (my $e = $@)) {
+        _untrack_error($e) if blessed $e && $e->isa('Perldantic::ValidationError');
+        die $e;
+    }
+    return _inflate($result, $args);
+}
+
+# In a validation error, inputs that were model objects become those objects again.
+sub _untrack_error ($e) {
+    $_->{input} = _untrack($_->{input}) for @{$e->{errors}};
+}
+
+sub _untrack ($value) {
+    if (blessed $value && $value->isa('Perldantic::Wire::Model')) {
+        return _input_object($value) // $value;
+    }
+    return [map { _untrack($_) } @$value] if ref $value eq 'ARRAY';
+    return {map { $_ => _untrack($value->{$_}) } keys %$value} if ref $value eq 'HASH';
+    return $value;
+}
+
 sub new ($class, @args) {
     _usage('new is a class method') if ref $class;
     my $args = $class->BUILDARGS(@args);
-    return _inflate($class->_validator->validate($args), $args);
+    return _validate_tracked(sub { $class->_validator->validate($args) }, $args);
 }
+
+sub does ($self, $role) { Role::Tiny::does_role($self, $role) }
 
 # Turn validated data from the core into objects, building nested models first.
 sub _inflate ($value, $args = undef) {
     if (blessed $value && $value->isa('Perldantic::Wire::Model')) {
         my $class  = $value->class;
         my $fields = $value->fields;
+        if (my $object = _input_object($value)) {
+            return $object;
+        }
         my $self   = bless {map { $_ => _inflate($fields->{$_}) } keys %$fields}, $class;
-        my %set    = map { $_ => 1 } @{$value->fields_set};
+        my %set    = map { $_ => 1 } grep { !/\A\Q$TOKEN_PREFIX\E/ } @{$value->fields_set};
         $STATE{$self} = {fields_set => \%set, extra => $value->extra};
         for my $spec (_fields($class)) {
             my $name = $spec->{name};
@@ -402,7 +459,8 @@ sub _options ($name, @options) {
 
 sub model_validate ($class, $data, @options) {
     _class_method('model_validate', $class);
-    return _inflate($class->_validator->validate($data, _options('model_validate', @options)));
+    my $options = _options('model_validate', @options);
+    return _validate_tracked(sub { $class->_validator->validate($data, $options) });
 }
 
 sub model_validate_json ($class, $json, @options) {
@@ -475,10 +533,17 @@ sub model_copy ($self, %options) {
 
 sub _perldantic_wire ($self) {
     my @names = map { $_->{name} } _fields(ref $self);
+    my @token;
+    # Objects the core revalidates keep only their real field names.
+    if ($TRACK_OBJECTS && (_config(ref $self)->{revalidate_instances} // 'never') ne 'always') {
+        my $token = Scalar::Util::refaddr($self);
+        $INPUT_OBJECTS{$token} = $self;
+        @token = ("$TOKEN_PREFIX$token");
+    }
     return Perldantic::Wire::Model->new(
         class      => ref $self,
         fields     => Perldantic::Wire::ordered(map { exists $self->{$_} ? ($_ => $self->{$_}) : () } @names),
-        fields_set => [sort keys %{$STATE{$self}{fields_set} // {}}],
+        fields_set => [(sort keys %{$STATE{$self}{fields_set} // {}}), @token],
         extra      => $STATE{$self}{extra},
     );
 }
@@ -560,9 +625,14 @@ The names of the fields that were given or written, sorted.
 
 The extra fields (with C<< extra => 'allow' >>), or C<undef>.
 
-=head1 LIMITATIONS
+=head2 does($role)
 
-A model object passed as input to another model's field is copied, not shared, and the copy
-runs C<BUILD> again.
+Whether the class consumes the role (see L<Perldantic::Role>).
+
+=head1 MODEL OBJECTS AS INPUT
+
+A model object given as input (to C<new>, C<model_validate> or a
+L<Perldantic::TypeAdapter>) is kept as it is, as in pydantic, unless its class sets
+C<< revalidate_instances => 'always' >>; then a validated copy is made.
 
 =cut

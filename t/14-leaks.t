@@ -58,6 +58,9 @@ no_leaks_ok {
 } 'models';
 no_leaks_ok { local $@; eval { Leak::Node->new(children => [{}]) } } 'model validation errors';
 no_leaks_ok { Leak::Node->core_schema } 'model schemas (no closure cycles)';
+my $leaf = Leak::Node->new(name => 'leaf');
+no_leaks_ok { my $node = Leak::Node->new(name => 'n', children => [$leaf, {name => 'x'}]) } 'model objects as input';
+no_leaks_ok { local $@; eval { Leak::Node->new(name => 'n', children => [$leaf, 5]) } } 'errors with model objects';
 no_leaks_ok { local $@; my $e = eval { Leak::Node->new(1) } || $@; "$e" } 'usage errors';
 no_leaks_ok {
     my $values = $list->validate_python([1, undef, '2.5']);

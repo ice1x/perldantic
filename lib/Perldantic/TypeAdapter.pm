@@ -65,8 +65,8 @@ sub _options ($name, @options) {
 }
 
 sub validate_python ($self, $data, @options) {
-    my $result = $self->_compiled('validator')->validate($data, _options('validate_python', @options));
-    return Perldantic::Model::_inflate($result);
+    my $options = _options('validate_python', @options);
+    return Perldantic::Model::_validate_tracked(sub { $self->_compiled('validator')->validate($data, $options) });
 }
 
 sub validate_json ($self, $json, @options) {
