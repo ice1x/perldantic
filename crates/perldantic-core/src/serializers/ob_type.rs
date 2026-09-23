@@ -21,6 +21,10 @@ pub(crate) enum ObType {
     Tuple,
     Set,
     Dict,
+    Datetime,
+    Date,
+    Time,
+    Timedelta,
     /// A model instance, serialized through its fields.
     PydanticSerializable,
 }
@@ -46,6 +50,10 @@ pub(crate) fn get_type(value: &Value) -> ObType {
         Value::Set(_) => ObType::Set,
         Value::Dict(_) => ObType::Dict,
         Value::Model(_) => ObType::PydanticSerializable,
+        Value::DateTime(_) => ObType::Datetime,
+        Value::Date(_) => ObType::Date,
+        Value::Time(_) => ObType::Time,
+        Value::TimeDelta(_) => ObType::Timedelta,
     }
 }
 

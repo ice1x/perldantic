@@ -87,6 +87,11 @@ pub(crate) fn infer_to_python_known(
                 let extra = model.extra.iter().flat_map(Dict::iter);
                 Value::Dict(pairs_to_python(model.fields.iter().chain(extra), state)?)
             }
+            (ObType::Datetime | ObType::Date | ObType::Time | ObType::Timedelta, _) => state
+                .config
+                .temporal_mode
+                .to_json(value)
+                .unwrap_or_else(|| value.clone()),
             _ => value.clone(),
         },
         _ => match (ob_type, value) {
@@ -190,6 +195,13 @@ pub(crate) fn infer_serialize_known<S: Serializer>(
             }
             seq.end()
         }
+        (ObType::Datetime | ObType::Date | ObType::Time | ObType::Timedelta, _) => {
+            match state.config.temporal_mode.to_json(value) {
+                Some(Value::Float(f)) => serializer.serialize_f64(f),
+                Some(json) => json.serialize(serializer),
+                None => value.serialize(serializer),
+            }
+        }
         // None, bool, int and str serialize as JSON does
         _ => value.serialize(serializer),
     }
@@ -220,6 +232,13 @@ pub(crate) fn infer_json_key_known<'a>(
         (ObType::Bool, Value::Bool(b)) => Ok(Cow::Borrowed(if *b { "true" } else { "false" })),
         (ObType::Str, Value::Str(s)) => Ok(Cow::Borrowed(s)),
         (ObType::Bytes, Value::Bytes(b)) => Ok(state.config.bytes_mode.bytes_to_string(b)?),
+        (ObType::Datetime | ObType::Date | ObType::Time | ObType::Timedelta, _) => Ok(Cow::Owned(
+            state
+                .config
+                .temporal_mode
+                .json_key(key)
+                .unwrap_or_else(|| key.py_str()),
+        )),
         (ObType::Tuple, Value::Tuple(items)) => {
             let mut key_build = KeyBuilder::new();
             for element in items {

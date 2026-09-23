@@ -12,6 +12,7 @@ pub mod json_schema;
 mod lookup_key;
 pub(crate) mod recursion_guard;
 pub mod serializers;
+pub mod temporal;
 mod tools;
 pub(crate) mod validators;
 mod value;
@@ -32,6 +33,7 @@ pub use serializers::{
     JsonOptions, SchemaSerializer, SerMode, SerializeError, SerializeOptions, Serialized,
     UnexpectedValue, WarningsMode,
 };
+pub use speedate;
 pub use validators::{SchemaValidator, ValidateError, ValidateOptions};
 pub use value::{Dict, Model, Value};
 

@@ -7,10 +7,18 @@ use crate::lookup_key::LookupPath;
 use num_traits::cast::ToPrimitive;
 
 use crate::core_error::CoreResult;
-use crate::errors::{ErrorTypeDefaults, ValError, ValResult};
+use speedate::{Date, DateTime, Duration, MicrosecondsPrecisionOverflowBehavior, Time};
+use strum::EnumMessage;
+
+use crate::errors::{ErrorType, ErrorTypeDefaults, ValError, ValResult};
+use crate::validators::TemporalUnitMode;
 use crate::validators::config::ValBytesMode;
 use crate::value::Value;
 
+use super::datetime::{
+    bytes_as_date, bytes_as_datetime, bytes_as_time, bytes_as_timedelta, float_as_datetime,
+    float_as_duration, float_as_time, int_as_datetime, int_as_duration, int_as_time,
+};
 use super::input_abstract::{
     BorrowInput, ConsumeIterator, Input, Never, ValMatch, ValidatedDict, ValidatedList,
     ValidatedTuple,
@@ -94,6 +102,76 @@ impl<'data> Input for JsonValue<'data> {
             JsonValue::Float(f) if !strict => float_as_int(self, *f).map(ValidationMatch::lax),
             JsonValue::Str(str) if !strict => str_as_int(self, str).map(ValidationMatch::lax),
             _ => Err(ValError::new(ErrorTypeDefaults::IntType, self)),
+        }
+    }
+
+    fn validate_date(&self, _strict: bool, mode: TemporalUnitMode) -> ValMatch<Date> {
+        match self {
+            JsonValue::Str(v) => {
+                bytes_as_date(self, v.as_bytes(), mode).map(ValidationMatch::strict)
+            }
+            _ => Err(ValError::new(ErrorTypeDefaults::DateType, self)),
+        }
+    }
+
+    fn validate_time(
+        &self,
+        strict: bool,
+        microseconds_overflow_behavior: MicrosecondsPrecisionOverflowBehavior,
+    ) -> ValMatch<Time> {
+        match self {
+            JsonValue::Str(v) => bytes_as_time(self, v.as_bytes(), microseconds_overflow_behavior)
+                .map(ValidationMatch::strict),
+            JsonValue::Int(v) if !strict => int_as_time(self, *v, 0).map(ValidationMatch::lax),
+            JsonValue::Float(v) if !strict => float_as_time(self, *v).map(ValidationMatch::lax),
+            JsonValue::BigInt(_) if !strict => Err(ValError::new(
+                ErrorType::TimeParsing {
+                    error: speedate::ParseError::TimeTooLarge
+                        .get_documentation()
+                        .unwrap_or_default()
+                        .to_owned(),
+                    context: None,
+                },
+                self,
+            )),
+            _ => Err(ValError::new(ErrorTypeDefaults::TimeType, self)),
+        }
+    }
+
+    fn validate_datetime(
+        &self,
+        strict: bool,
+        microseconds_overflow_behavior: MicrosecondsPrecisionOverflowBehavior,
+        mode: TemporalUnitMode,
+    ) -> ValMatch<DateTime> {
+        match self {
+            JsonValue::Str(v) => {
+                bytes_as_datetime(self, v.as_bytes(), microseconds_overflow_behavior, mode)
+                    .map(ValidationMatch::strict)
+            }
+            JsonValue::Int(v) if !strict => {
+                int_as_datetime(self, *v, 0, mode).map(ValidationMatch::lax)
+            }
+            JsonValue::Float(v) if !strict => {
+                float_as_datetime(self, *v, mode).map(ValidationMatch::lax)
+            }
+            _ => Err(ValError::new(ErrorTypeDefaults::DatetimeType, self)),
+        }
+    }
+
+    fn validate_timedelta(
+        &self,
+        strict: bool,
+        microseconds_overflow_behavior: MicrosecondsPrecisionOverflowBehavior,
+    ) -> ValMatch<Duration> {
+        match self {
+            JsonValue::Str(v) => {
+                bytes_as_timedelta(self, v.as_bytes(), microseconds_overflow_behavior)
+                    .map(ValidationMatch::strict)
+            }
+            JsonValue::Int(v) if !strict => int_as_duration(self, *v).map(ValidationMatch::lax),
+            JsonValue::Float(v) if !strict => float_as_duration(self, *v).map(ValidationMatch::lax),
+            _ => Err(ValError::new(ErrorTypeDefaults::TimeDeltaType, self)),
         }
     }
 
@@ -190,6 +268,38 @@ impl Input for str {
 
     fn validate_int(&self, _strict: bool) -> ValMatch<EitherInt> {
         str_as_int(self, self).map(ValidationMatch::lax)
+    }
+
+    fn validate_date(&self, _strict: bool, mode: TemporalUnitMode) -> ValMatch<Date> {
+        bytes_as_date(self, self.as_bytes(), mode).map(ValidationMatch::lax)
+    }
+
+    fn validate_time(
+        &self,
+        _strict: bool,
+        microseconds_overflow_behavior: MicrosecondsPrecisionOverflowBehavior,
+    ) -> ValMatch<Time> {
+        bytes_as_time(self, self.as_bytes(), microseconds_overflow_behavior)
+            .map(ValidationMatch::lax)
+    }
+
+    fn validate_datetime(
+        &self,
+        _strict: bool,
+        microseconds_overflow_behavior: MicrosecondsPrecisionOverflowBehavior,
+        mode: TemporalUnitMode,
+    ) -> ValMatch<DateTime> {
+        bytes_as_datetime(self, self.as_bytes(), microseconds_overflow_behavior, mode)
+            .map(ValidationMatch::lax)
+    }
+
+    fn validate_timedelta(
+        &self,
+        _strict: bool,
+        microseconds_overflow_behavior: MicrosecondsPrecisionOverflowBehavior,
+    ) -> ValMatch<Duration> {
+        bytes_as_timedelta(self, self.as_bytes(), microseconds_overflow_behavior)
+            .map(ValidationMatch::lax)
     }
 
     fn validate_float(&self, _strict: bool) -> ValMatch<EitherFloat> {

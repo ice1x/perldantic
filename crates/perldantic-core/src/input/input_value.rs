@@ -15,12 +15,20 @@ use crate::lookup_key::LookupPath;
 use crate::validators::config::ValBytesMode;
 use crate::value::{Dict, Value};
 
+use speedate::{Date, DateTime, Duration, MicrosecondsPrecisionOverflowBehavior, Time};
+
 use super::InputType;
+use super::datetime::{
+    bytes_as_date, bytes_as_datetime, bytes_as_time, bytes_as_timedelta, date_as_datetime,
+    float_as_datetime, float_as_duration, float_as_time, int_as_datetime, int_as_duration,
+    int_as_time,
+};
 use super::input_abstract::{
     BorrowInput, ConsumeIterator, Input, ValMatch, ValidatedDict, ValidatedList, ValidatedTuple,
 };
 use super::return_enums::{EitherBytes, EitherFloat, EitherInt, EitherString, ValidationMatch};
 use super::shared::{float_as_int, int_as_bool, str_as_bool, str_as_float, str_as_int};
+use crate::validators::TemporalUnitMode;
 
 /// Dict keys become location items like Python keys do: strings and ints as themselves
 /// (bools are ints), anything else as its repr.
@@ -192,6 +200,85 @@ impl Input for Value {
         }
     }
 
+    fn validate_date(&self, strict: bool, mode: TemporalUnitMode) -> ValMatch<Date> {
+        match self {
+            Value::Date(date) => Ok(ValidationMatch::exact(*date)),
+            Value::Str(s) if !strict => {
+                bytes_as_date(self, s.as_bytes(), mode).map(ValidationMatch::lax)
+            }
+            Value::Bytes(b) if !strict => bytes_as_date(self, b, mode).map(ValidationMatch::lax),
+            // a datetime is a date in Python, but not a valid one here; the date validator
+            // converts exact dates from datetimes itself
+            _ => Err(ValError::new(ErrorTypeDefaults::DateType, self)),
+        }
+    }
+
+    fn validate_time(
+        &self,
+        strict: bool,
+        microseconds_overflow_behavior: MicrosecondsPrecisionOverflowBehavior,
+    ) -> ValMatch<Time> {
+        match self {
+            Value::Time(time) => Ok(ValidationMatch::exact(*time)),
+            _ if strict => Err(ValError::new(ErrorTypeDefaults::TimeType, self)),
+            Value::Str(s) => bytes_as_time(self, s.as_bytes(), microseconds_overflow_behavior)
+                .map(ValidationMatch::lax),
+            Value::Bytes(b) => {
+                bytes_as_time(self, b, microseconds_overflow_behavior).map(ValidationMatch::lax)
+            }
+            Value::Int(i) => int_as_time(self, *i, 0).map(ValidationMatch::lax),
+            Value::BigInt(i) => float_as_time(self, big_as_f64(i)).map(ValidationMatch::lax),
+            Value::Float(f) => float_as_time(self, *f).map(ValidationMatch::lax),
+            _ => Err(ValError::new(ErrorTypeDefaults::TimeType, self)),
+        }
+    }
+
+    fn validate_datetime(
+        &self,
+        strict: bool,
+        microseconds_overflow_behavior: MicrosecondsPrecisionOverflowBehavior,
+        mode: TemporalUnitMode,
+    ) -> ValMatch<DateTime> {
+        match self {
+            Value::DateTime(dt) => Ok(ValidationMatch::exact(*dt)),
+            _ if strict => Err(ValError::new(ErrorTypeDefaults::DatetimeType, self)),
+            Value::Str(s) => {
+                bytes_as_datetime(self, s.as_bytes(), microseconds_overflow_behavior, mode)
+                    .map(ValidationMatch::lax)
+            }
+            Value::Bytes(b) => bytes_as_datetime(self, b, microseconds_overflow_behavior, mode)
+                .map(ValidationMatch::lax),
+            Value::Int(i) => int_as_datetime(self, *i, 0, mode).map(ValidationMatch::lax),
+            Value::BigInt(i) => {
+                float_as_datetime(self, big_as_f64(i), mode).map(ValidationMatch::lax)
+            }
+            Value::Float(f) => float_as_datetime(self, *f, mode).map(ValidationMatch::lax),
+            Value::Date(date) => Ok(ValidationMatch::lax(date_as_datetime(*date))),
+            _ => Err(ValError::new(ErrorTypeDefaults::DatetimeType, self)),
+        }
+    }
+
+    fn validate_timedelta(
+        &self,
+        strict: bool,
+        microseconds_overflow_behavior: MicrosecondsPrecisionOverflowBehavior,
+    ) -> ValMatch<Duration> {
+        match self {
+            Value::TimeDelta(duration) => Ok(ValidationMatch::exact(duration.clone())),
+            _ if strict => Err(ValError::new(ErrorTypeDefaults::TimeDeltaType, self)),
+            Value::Str(s) => bytes_as_timedelta(self, s.as_bytes(), microseconds_overflow_behavior)
+                .map(ValidationMatch::lax),
+            Value::Bytes(b) => bytes_as_timedelta(self, b, microseconds_overflow_behavior)
+                .map(ValidationMatch::lax),
+            // `bool` is an `int` in Python, and upstream reads it as one here
+            Value::Bool(b) => int_as_duration(self, i64::from(*b)).map(ValidationMatch::lax),
+            Value::Int(i) => int_as_duration(self, *i).map(ValidationMatch::lax),
+            Value::BigInt(i) => float_as_duration(self, big_as_f64(i)).map(ValidationMatch::lax),
+            Value::Float(f) => float_as_duration(self, *f).map(ValidationMatch::lax),
+            _ => Err(ValError::new(ErrorTypeDefaults::TimeDeltaType, self)),
+        }
+    }
+
     type List<'a> = &'a [Value];
 
     fn validate_list(&self, strict: bool) -> ValMatch<&[Value]> {
@@ -220,6 +307,11 @@ impl Input for Value {
             _ => self.validate_tuple(strict),
         }
     }
+}
+
+/// Upstream extracts an `int` too large for `i64` as a `float`.
+fn big_as_f64(i: &num_bigint::BigInt) -> f64 {
+    i.to_f64().unwrap_or(f64::INFINITY)
 }
 
 impl BorrowInput for Value {
