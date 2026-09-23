@@ -1,5 +1,6 @@
 //! Validators. Port of upstream `validators/`.
 
+pub(crate) mod config;
 pub(crate) mod validation_state;
 
 use crate::build_tools::ExtraBehavior;
