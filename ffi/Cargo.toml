@@ -1,0 +1,18 @@
+[package]
+name = "perldantic-ffi"
+description = "C ABI over perldantic-core, consumed by the Perldantic Perl distribution"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+
+[lib]
+name = "perldantic_ffi"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+perldantic-core = { path = "../crates/perldantic-core" }
+
+[lints]
+workspace = true
