@@ -5,7 +5,7 @@
 //! Expected strings below were produced by CPython 3.12.
 
 use num_bigint::BigInt;
-use perldantic_core::{Dict, Value};
+use perldantic_core::{Dict, Model, Value};
 
 fn s(v: &str) -> Value {
     Value::Str(v.to_owned())
@@ -247,4 +247,69 @@ fn sets_are_unordered_and_print_like_python() {
     assert!(!set.py_eq(&Value::List(vec![s("a"), s("b")])));
     // JSON has no sets: they serialize as arrays, like pydantic's to_json.
     assert_eq!(serde_json::to_string(&set).unwrap(), r#"["a","b"]"#);
+}
+
+fn model(class: &str, fields: Value, fields_set: &[&str], extra: Option<Value>) -> Value {
+    let Value::Dict(fields) = fields else {
+        panic!()
+    };
+    let extra = extra.map(|e| match e {
+        Value::Dict(d) => d,
+        _ => panic!(),
+    });
+    Value::Model(Box::new(Model {
+        class: class.into(),
+        fields,
+        fields_set: fields_set.iter().map(|f| s(f)).collect(),
+        extra,
+    }))
+}
+
+#[test]
+fn models_print_like_pydantic_models() {
+    let m = model(
+        "User",
+        dict(vec![(s("a"), Value::Int(1)), (s("b"), s("x"))]),
+        &["a"],
+        None,
+    );
+    assert_eq!(m.type_name(), "User");
+    assert_eq!(m.repr(), "User(a=1, b='x')");
+    // Serialized like model_dump: fields, then extra.
+    let with_extra = model(
+        "User",
+        dict(vec![(s("a"), Value::Int(1))]),
+        &["a", "z"],
+        Some(dict(vec![(s("z"), Value::Int(2))])),
+    );
+    assert_eq!(with_extra.repr(), "User(a=1, z=2)");
+    assert_eq!(
+        serde_json::to_string(&with_extra).unwrap(),
+        r#"{"a":1,"z":2}"#
+    );
+}
+
+#[test]
+fn model_equality() {
+    let a = model("User", dict(vec![(s("a"), Value::Int(1))]), &["a"], None);
+    assert_eq!(
+        a,
+        model("User", dict(vec![(s("a"), Value::Int(1))]), &["a"], None)
+    );
+    assert_ne!(
+        a,
+        model("Other", dict(vec![(s("a"), Value::Int(1))]), &["a"], None)
+    );
+    assert_ne!(
+        a,
+        model("User", dict(vec![(s("a"), Value::Int(1))]), &[], None)
+    );
+    // Like BaseModel.__eq__: same class, fields and extra; fields_set is ignored.
+    assert!(a.py_eq(&model(
+        "User",
+        dict(vec![(s("a"), Value::Float(1.0))]),
+        &[],
+        None
+    )));
+    assert!(!a.py_eq(&dict(vec![(s("a"), Value::Int(1))])));
 }

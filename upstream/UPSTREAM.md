@@ -163,7 +163,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/literal.rs` | `crates/perldantic-core/src/validators/literal.rs` | P0 | partial | hash lookups replaced by Python-equality tables (`Value::py_eq`); enum lookups come with `enum` |
 | `validators/missing_sentinel.rs` | - | drop | dropped | Python-only type |
 | `validators/mod.rs` | `crates/perldantic-core/src/validators/mod.rs` | P0 | partial | `SchemaValidator` (new, validate_value, validate_json), `Extra`, build dispatch, `Validator`/`BuildValidator`; more methods as validators need them |
-| `validators/model.rs` | `crates/perldantic-core/src/validators/model.rs` | P0 | pending |  |
+| `validators/model.rs` | `crates/perldantic-core/src/validators/model.rs` | P0 | partial | `cls` is a class name and instances are `Value::Model` (DIVERGENCES #13); `post_init`, `custom_init` and `self_instance` wait for host callbacks; assignment comes with the Perl model API |
 | `validators/model_fields.rs` | `crates/perldantic-core/src/validators/model_fields.rs` | P0 | partial | output is `(dict, extra, set)`; `validate_assignment` comes with the Perl model API; no attribute input |
 | `validators/named_tuple.rs` | - | drop | dropped | Python-only type |
 | `validators/none.rs` | `crates/perldantic-core/src/validators/none.rs` | P0 | ported |  |

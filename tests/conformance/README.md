@@ -92,8 +92,8 @@ Values that only describe Python objects:
 
 | Encoding | Python value |
 |---|---|
-| `{"$class": "Name"}` | a class, e.g. a model schema's `cls` |
-| `{"$model": {"class", "fields", "fields_set", "extra"}}` | a validated model instance |
+| `{"$class": "Name"}` | a class, e.g. a model schema's `cls`; inside a schema or config the core reads it as the class name |
+| `{"$model": {"class", "fields", "fields_set", "extra"}}` | a validated model instance; the core represents it as `Value::Model` |
 | `{"$enum": ["Class", value]}` | an enum member |
 | `{"$function": "name"}` | a function (validator functions, default factories, ...) |
 | `{"$exception": ["Type", "message"]}` | an exception, e.g. in an error `ctx` |

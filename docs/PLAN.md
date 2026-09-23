@@ -98,14 +98,18 @@ Makefile.PL, cpanfile, NOTICE
 
 ```rust
 pub enum Value {
-    None, Bool(bool), Int(i64), BigInt(BigInt), Float(f64), Decimal(Decimal),
-    Str(Arc<str>), Bytes(Arc<[u8]>), List(Vec<Value>), Tuple(Vec<Value>), Set(Vec<Value>),
-    Dict(IndexMap<Key, Value>), Date(Date), Time(Time), DateTime(DateTime), Duration(Duration),
-    Uuid(Uuid), Url(Url),
-    Model { class: Arc<str>, fields: IndexMap<Arc<str>, Value>, fields_set: BitSet },
-    Host(HostRef), // opaque host object (a blessed ref in Perl)
+    None, Bool(bool), Int(i64), BigInt(BigInt), Float(f64),
+    Str(String), Bytes(Vec<u8>), List(Vec<Value>), Tuple(Vec<Value>), Set(Vec<Value>),
+    Dict(Dict),             // insertion-ordered, any keys
+    Model(Box<Model>),      // { class, fields, fields_set, extra }
+    // planned with their validators: Decimal, Date, Time, DateTime, Duration, Uuid, Url,
+    // and Host (an opaque host object, e.g. a blessed ref)
 }
 ```
+
+A model class is identified by its name: in Perl, the package the host blesses a
+`Value::Model` into. `model` schemas take that name as `cls`; class hierarchies (subclass
+instances) will come through the host bridge (see `docs/DIVERGENCES.md` #13).
 
 ### Validator scope
 

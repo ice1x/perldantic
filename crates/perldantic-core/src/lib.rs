@@ -29,7 +29,7 @@ pub use errors::{
 pub use input::InputType;
 pub use jiter::PartialMode;
 pub use validators::{SchemaValidator, ValidateError, ValidateOptions};
-pub use value::{Dict, Value};
+pub use value::{Dict, Model, Value};
 
 /// Version of this crate.
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
