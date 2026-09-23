@@ -3,7 +3,7 @@ use Test2::V0;
 no warnings 'experimental::builtin';
 use Math::BigInt;
 
-use Perldantic::Wire qw(tuple set bytes);
+use Perldantic::Wire qw(tuple set bytes ordered);
 
 my $inf = 9**9**9;
 
@@ -28,6 +28,17 @@ subtest 'values JSON cannot express are tagged' => sub {
     is Perldantic::Wire::encode(
         Perldantic::Wire::Model->new(class => 'My::Point', fields => {x => 1})),
         '{"$model":{"class":"My::Point","extra":null,"fields":{"x":1},"fields_set":["x"]}}';
+};
+
+subtest 'ordered dicts and objects with a wire form' => sub {
+    is Perldantic::Wire::encode(ordered(b => 1, a => tuple(2))), '{"$dict":[["b",1],["a",{"$tuple":[2]}]]}',
+        'ordered() keeps the given key order';
+    package Test::WireObject { sub new { bless {}, shift } sub _perldantic_wire { Perldantic::Wire::tuple(7) } }
+    is Perldantic::Wire::encode([Test::WireObject->new]), '[{"$tuple":[7]}]',
+        'objects can provide their wire form';
+    my $e = dies { ordered('a') };
+    isa_ok $e, 'Perldantic::UsageError';
+    is $e->message, 'ordered() takes key => value pairs';
 };
 
 subtest 'wire JSON is decoded into Perl data' => sub {

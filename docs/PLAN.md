@@ -166,7 +166,8 @@ my $ints = Perldantic::TypeAdapter->new(ArrayRef[Int])->validate_python([1, "2"]
   as a validator callback.
 - `new` accepts a hash or a hashref like Moo, validates, and throws `Perldantic::ValidationError`.
   `BUILDARGS`, `BUILD` and `DEMOLISH` work as in Moo.
-- `extends`, `with` (roles) and method modifiers follow Moo semantics where they apply to models.
+- `extends`, `with` (roles) and method modifiers follow Moo semantics where they apply to models
+  (`extends` since 00043; roles and modifiers in 00077).
 - `use Perldantic;` enables `strict` and `warnings`, like Moo.
 
 ### Type vocabulary
