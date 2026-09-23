@@ -76,7 +76,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `serializers/config.rs` | `crates/perldantic-core/src/serializers/config.rs` | P0 | partial | bytes and inf/nan modes; temporal modes come with the date types |
 | `serializers/errors.rs` | `crates/perldantic-core/src/serializers/errors.rs` | P0 | ported | exceptions are `SerializeError` variants |
 | `serializers/extra.rs` | `crates/perldantic-core/src/serializers/extra.rs` | P0 | ported | warnings are returned with the output instead of emitted |
-| `serializers/fields.rs` | `crates/perldantic-core/src/serializers/fields.rs` | P0 | pending |  |
+| `serializers/fields.rs` | `crates/perldantic-core/src/serializers/fields.rs` | P0 | partial | model fields; computed fields and `serialization_exclude_if` wait for host callbacks; `exclude_unset` uses the model's unset field names instead of the `MISSING` sentinel |
 | `serializers/filter.rs` | `crates/perldantic-core/src/serializers/filter.rs` | P0 | ported | `...` is `true`; membership by Python equality |
 | `serializers/infer.rs` | `crates/perldantic-core/src/serializers/infer.rs` | P0 | partial | the kinds `Value` has; model instances as dicts (DIVERGENCES #14); no `fallback` callbacks |
 | `serializers/mod.rs` | `crates/perldantic-core/src/serializers/mod.rs` | P0 | ported | `to_json`/`to_jsonable_python` module functions not needed |
@@ -108,8 +108,8 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `serializers/type_serializers/list.rs` | `crates/perldantic-core/src/serializers/type_serializers/list.rs` | P0 | ported |  |
 | `serializers/type_serializers/literal.rs` | `crates/perldantic-core/src/serializers/type_serializers/literal.rs` | P0 | ported |  |
 | `serializers/type_serializers/missing_sentinel.rs` | - | drop | dropped | Python-only type |
-| `serializers/type_serializers/mod.rs` | `crates/perldantic-core/src/serializers/type_serializers/mod.rs` | P0 | pending |  |
-| `serializers/type_serializers/model.rs` | `crates/perldantic-core/src/serializers/type_serializers/model.rs` | P0 | pending |  |
+| `serializers/type_serializers/mod.rs` | `crates/perldantic-core/src/serializers/type_serializers/mod.rs` | P0 | partial | modules of the ported serializers |
+| `serializers/type_serializers/model.rs` | `crates/perldantic-core/src/serializers/type_serializers/model.rs` | P0 | partial | model classes by name (DIVERGENCES #13); no subclass polymorphism or computed fields |
 | `serializers/type_serializers/named_tuple.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/nullable.rs` | `crates/perldantic-core/src/serializers/type_serializers/nullable.rs` | P0 | ported |  |
 | `serializers/type_serializers/ordered_dict.rs` | - | drop | dropped | Python-only type |

@@ -15,6 +15,7 @@ use crate::value::Value;
 pub(crate) mod config;
 mod errors;
 mod extra;
+mod fields;
 mod filter;
 mod infer;
 mod ob_type;
@@ -30,6 +31,10 @@ use extra::{Extra, SerializationState};
 use shared::{BuildSerializer, CombinedSerializer, to_json_bytes};
 
 /// Options of a serialization call (upstream `to_python` / `to_json` keyword arguments).
+///
+/// Upstream's `round_trip`, `context`, `exclude_computed_fields` and `polymorphic_serialization`
+/// only matter for serializer functions, computed fields and model subclasses, which need host
+/// callbacks; they come with those.
 #[derive(Debug, Clone, Default)]
 #[allow(clippy::struct_excessive_bools)]
 pub struct SerializeOptions {
@@ -41,12 +46,8 @@ pub struct SerializeOptions {
     pub exclude_unset: bool,
     pub exclude_defaults: bool,
     pub exclude_none: bool,
-    pub exclude_computed_fields: bool,
-    pub round_trip: bool,
     pub warnings: WarningsMode,
     pub serialize_as_any: bool,
-    pub polymorphic_serialization: Option<bool>,
-    pub context: Option<Value>,
 }
 
 /// JSON formatting options of `to_json`.
@@ -135,12 +136,8 @@ impl SchemaSerializer {
             exclude_unset: options.exclude_unset,
             exclude_defaults: options.exclude_defaults,
             exclude_none: options.exclude_none,
-            exclude_computed_fields: options.exclude_computed_fields,
-            round_trip: options.round_trip,
             serialize_unknown: false,
             serialize_as_any: options.serialize_as_any,
-            polymorphic_serialization: options.polymorphic_serialization,
-            context: options.context.clone(),
         };
         SerializationState::new(
             self.config,

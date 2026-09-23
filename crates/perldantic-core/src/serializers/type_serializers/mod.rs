@@ -7,6 +7,7 @@ pub(crate) mod dict;
 pub(crate) mod float;
 pub(crate) mod list;
 pub(crate) mod literal;
+pub(crate) mod model;
 pub(crate) mod nullable;
 pub(crate) mod set;
 pub(crate) mod simple;
