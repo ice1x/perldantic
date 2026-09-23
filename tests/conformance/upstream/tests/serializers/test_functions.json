@@ -1,0 +1,3541 @@
+[
+ {
+  "id": "tests/serializers/test_functions.py::test_custom_mapping#0",
+  "test": "tests/serializers/test_functions.py::test_custom_mapping",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "serialize_custom_mapping"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1,
+   "b": 2
+  },
+  "options": {},
+  "expected": {
+   "output": "a=1 b=2"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_custom_mapping#1",
+  "test": "tests/serializers/test_functions.py::test_custom_mapping",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "serialize_custom_mapping"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1,
+   "b": 2
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     "b"
+    ]
+   }
+  },
+  "expected": {
+   "output": "a=1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_custom_mapping#2",
+  "test": "tests/serializers/test_functions.py::test_custom_mapping",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "serialize_custom_mapping"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1,
+   "b": 2
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "a=1 b=2"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_custom_mapping#3",
+  "test": "tests/serializers/test_functions.py::test_custom_mapping",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "serialize_custom_mapping"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1,
+   "b": 2
+  },
+  "options": {
+   "mode": "json",
+   "include": {
+    "$set": [
+     "a"
+    ]
+   }
+  },
+  "expected": {
+   "output": "a=1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_custom_mapping#4",
+  "test": "tests/serializers/test_functions.py::test_custom_mapping",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "serialize_custom_mapping"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "a": 1,
+   "b": 2
+  },
+  "options": {},
+  "expected": {
+   "json": "\"a=1 b=2\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_custom_mapping#5",
+  "test": "tests/serializers/test_functions.py::test_custom_mapping",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "serialize_custom_mapping"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "a": 1,
+   "b": 2
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     "b"
+    ]
+   }
+  },
+  "expected": {
+   "json": "\"a=1\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_deque#0",
+  "test": "tests/serializers/test_functions.py::test_deque",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "serialize_deque"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "any"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_deque#1",
+  "test": "tests/serializers/test_functions.py::test_deque",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "serialize_deque"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "any"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     2
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_deque#2",
+  "test": "tests/serializers/test_functions.py::test_deque",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "serialize_deque"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "any"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "include": {
+    "$set": [
+     0
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_deque#3",
+  "test": "tests/serializers/test_functions.py::test_deque",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "serialize_deque"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "any"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_deque#4",
+  "test": "tests/serializers/test_functions.py::test_deque",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "serialize_deque"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "any"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "mode": "json",
+   "exclude": {
+    "$set": [
+     2
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_deque#5",
+  "test": "tests/serializers/test_functions.py::test_deque",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "serialize_deque"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "any"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,2,3]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_deque#6",
+  "test": "tests/serializers/test_functions.py::test_deque",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "serialize_deque"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "any"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     2
+    ]
+   }
+  },
+  "expected": {
+   "json": "[1,2]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_dict_keys#0",
+  "test": "tests/serializers/test_functions.py::test_dict_keys",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int",
+    "serialization": {
+     "type": "function-plain",
+     "function": {
+      "$function": "fmt"
+     },
+     "info_arg": true
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     true
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "<1>": true
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_after_preserves_wrapped_serialization#0",
+  "test": "tests/serializers/test_functions.py::test_function_after_preserves_wrapped_serialization",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "abc",
+  "options": {},
+  "expected": {
+   "output": "abc",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value='abc', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_args#0",
+  "test": "tests/serializers/test_functions.py::test_function_args",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "double"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 4,
+  "options": {},
+  "expected": {
+   "output": 8
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_args#1",
+  "test": "tests/serializers/test_functions.py::test_function_args",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "double"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "x",
+  "options": {},
+  "expected": {
+   "output": "xx"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_args#2",
+  "test": "tests/serializers/test_functions.py::test_function_args",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "double"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 4,
+  "options": {
+   "mode": "foobar",
+   "by_alias": true
+  },
+  "expected": {
+   "output": 8
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_args#3",
+  "test": "tests/serializers/test_functions.py::test_function_args",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "double"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 42,
+  "options": {},
+  "expected": {
+   "json": "84"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_args#4",
+  "test": "tests/serializers/test_functions.py::test_function_args",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "double"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 7,
+  "options": {
+   "mode": "json",
+   "by_alias": false,
+   "exclude_unset": true
+  },
+  "expected": {
+   "output": 14
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_args#5",
+  "test": "tests/serializers/test_functions.py::test_function_args",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "double"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "include": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   },
+   "exclude": {
+    "foo": {
+     "$set": [
+      "bar"
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": 2
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_args#6",
+  "test": "tests/serializers/test_functions.py::test_function_args",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "double"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "context": "context"
+  },
+  "expected": {
+   "output": 2
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_args_str#0",
+  "test": "tests/serializers/test_functions.py::test_function_args_str",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "append_args"
+    },
+    "info_arg": true,
+    "return_schema": {
+     "type": "str"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "output": "123 info=SerializationInfo(include=None, exclude=None, context=None, mode='python', by_alias=False, exclude_unset=False, exclude_defaults=False, exclude_none=False, exclude_computed_fields=False, round_trip=False, serialize_as_any=False)"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_args_str#1",
+  "test": "tests/serializers/test_functions.py::test_function_args_str",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "append_args"
+    },
+    "info_arg": true,
+    "return_schema": {
+     "type": "str"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "mode": "other"
+  },
+  "expected": {
+   "output": "123 info=SerializationInfo(include=None, exclude=None, context=None, mode='other', by_alias=False, exclude_unset=False, exclude_defaults=False, exclude_none=False, exclude_computed_fields=False, round_trip=False, serialize_as_any=False)"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_args_str#2",
+  "test": "tests/serializers/test_functions.py::test_function_args_str",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "append_args"
+    },
+    "info_arg": true,
+    "return_schema": {
+     "type": "str"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "include": {
+    "$set": [
+     "x"
+    ]
+   }
+  },
+  "expected": {
+   "output": "123 info=SerializationInfo(include={'x'}, exclude=None, context=None, mode='python', by_alias=False, exclude_unset=False, exclude_defaults=False, exclude_none=False, exclude_computed_fields=False, round_trip=False, serialize_as_any=False)"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_args_str#3",
+  "test": "tests/serializers/test_functions.py::test_function_args_str",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "append_args"
+    },
+    "info_arg": true,
+    "return_schema": {
+     "type": "str"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "context": "context"
+  },
+  "expected": {
+   "output": "123 info=SerializationInfo(include=None, exclude=None, context='context', mode='python', by_alias=False, exclude_unset=False, exclude_defaults=False, exclude_none=False, exclude_computed_fields=False, round_trip=False, serialize_as_any=False)"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_args_str#4",
+  "test": "tests/serializers/test_functions.py::test_function_args_str",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "append_args"
+    },
+    "info_arg": true,
+    "return_schema": {
+     "type": "str"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "mode": "json",
+   "exclude": {
+    "$dict": [
+     [
+      1,
+      {
+       "$set": [
+        2
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": "123 info=SerializationInfo(include=None, exclude={1: {2}}, context=None, mode='json', by_alias=False, exclude_unset=False, exclude_defaults=False, exclude_none=False, exclude_computed_fields=False, round_trip=False, serialize_as_any=False)"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_args_str#5",
+  "test": "tests/serializers/test_functions.py::test_function_args_str",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "append_args"
+    },
+    "info_arg": true,
+    "return_schema": {
+     "type": "str"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "json": "\"123 info=SerializationInfo(include=None, exclude=None, context=None, mode='json', by_alias=False, exclude_unset=False, exclude_defaults=False, exclude_none=False, exclude_computed_fields=False, round_trip=False, serialize_as_any=False)\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_as_key#0",
+  "test": "tests/serializers/test_functions.py::test_function_as_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "any",
+    "serialization": {
+     "type": "function-plain",
+     "function": {
+      "$function": "repr_function"
+     },
+     "info_arg": true
+    }
+   },
+   "values_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     123,
+     4
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "123": 4
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_as_key#1",
+  "test": "tests/serializers/test_functions.py::test_function_as_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "any",
+    "serialization": {
+     "type": "function-plain",
+     "function": {
+      "$function": "repr_function"
+     },
+     "info_arg": true
+    }
+   },
+   "values_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     123,
+     4
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "123": 4
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_as_key#2",
+  "test": "tests/serializers/test_functions.py::test_function_as_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "any",
+    "serialization": {
+     "type": "function-plain",
+     "function": {
+      "$function": "repr_function"
+     },
+     "info_arg": true
+    }
+   },
+   "values_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     123,
+     4
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"123\":4}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_error#0",
+  "test": "tests/serializers/test_functions.py::test_function_error",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "raise_error"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "abc",
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Error calling function `raise_error`: TypeError: foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_error#1",
+  "test": "tests/serializers/test_functions.py::test_function_error",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "raise_error"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "abc",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Error calling function `raise_error`: TypeError: foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_error#2",
+  "test": "tests/serializers/test_functions.py::test_function_error",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "raise_error"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Error serializing to JSON: PydanticSerializationError: Error calling function `raise_error`: TypeError: foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_error_keys#0",
+  "test": "tests/serializers/test_functions.py::test_function_error_keys",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "any",
+    "serialization": {
+     "type": "function-plain",
+     "function": {
+      "$function": "raise_error"
+     },
+     "info_arg": true
+    }
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "abc": 1
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Error calling function `raise_error`: TypeError: foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_error_keys#1",
+  "test": "tests/serializers/test_functions.py::test_function_error_keys",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "any",
+    "serialization": {
+     "type": "function-plain",
+     "function": {
+      "$function": "raise_error"
+     },
+     "info_arg": true
+    }
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "abc": 1
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Error calling function `raise_error`: TypeError: foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_error_keys#2",
+  "test": "tests/serializers/test_functions.py::test_function_error_keys",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "any",
+    "serialization": {
+     "type": "function-plain",
+     "function": {
+      "$function": "raise_error"
+     },
+     "info_arg": true
+    }
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "abc": 1
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Error serializing to JSON: PydanticSerializationError: Error calling function `raise_error`: TypeError: foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_general[1-1-\"1\"]#0",
+  "test": "tests/serializers/test_functions.py::test_function_general[1-1-\"1\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_general[1-1-\"1\"]#1",
+  "test": "tests/serializers/test_functions.py::test_function_general[1-1-\"1\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "\"1\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_general[1-1-\"1\"]#2",
+  "test": "tests/serializers/test_functions.py::test_function_general[1-1-\"1\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_general[None-None-\"None\"]#0",
+  "test": "tests/serializers/test_functions.py::test_function_general[None-None-\"None\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": "None"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_general[None-None-\"None\"]#1",
+  "test": "tests/serializers/test_functions.py::test_function_general[None-None-\"None\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "\"None\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_general[None-None-\"None\"]#2",
+  "test": "tests/serializers/test_functions.py::test_function_general[None-None-\"None\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "None"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_general[value2-[1, 2, 3]-\"[1, 2, 3]\"]#0",
+  "test": "tests/serializers/test_functions.py::test_function_general[value2-[1, 2, 3]-\"[1, 2, 3]\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": "[1, 2, 3]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_general[value2-[1, 2, 3]-\"[1, 2, 3]\"]#1",
+  "test": "tests/serializers/test_functions.py::test_function_general[value2-[1, 2, 3]-\"[1, 2, 3]\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "json": "\"[1, 2, 3]\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_general[value2-[1, 2, 3]-\"[1, 2, 3]\"]#2",
+  "test": "tests/serializers/test_functions.py::test_function_general[value2-[1, 2, 3]-\"[1, 2, 3]\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "[1, 2, 3]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_known_type#0",
+  "test": "tests/serializers/test_functions.py::test_function_known_type",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "append_42"
+    },
+    "info_arg": true,
+    "return_schema": {
+     "type": "list",
+     "items_schema": {
+      "type": "int"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3,
+    42
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_known_type#1",
+  "test": "tests/serializers/test_functions.py::test_function_known_type",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "append_42"
+    },
+    "info_arg": true,
+    "return_schema": {
+     "type": "list",
+     "items_schema": {
+      "type": "int"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3,
+    42
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_known_type#2",
+  "test": "tests/serializers/test_functions.py::test_function_known_type",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "append_42"
+    },
+    "info_arg": true,
+    "return_schema": {
+     "type": "list",
+     "items_schema": {
+      "type": "int"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "json": "[1,2,3,42]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_known_type#3",
+  "test": "tests/serializers/test_functions.py::test_function_known_type",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "append_42"
+    },
+    "info_arg": true,
+    "return_schema": {
+     "type": "list",
+     "items_schema": {
+      "type": "int"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "abc",
+  "options": {},
+  "expected": {
+   "output": "abc",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `list[int]` - serialized value may not be as expected [input_value='abc', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_known_type#4",
+  "test": "tests/serializers/test_functions.py::test_function_known_type",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "append_42"
+    },
+    "info_arg": true,
+    "return_schema": {
+     "type": "list",
+     "items_schema": {
+      "type": "int"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "abc",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "abc",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `list[int]` - serialized value may not be as expected [input_value='abc', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_known_type#5",
+  "test": "tests/serializers/test_functions.py::test_function_known_type",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "append_42"
+    },
+    "info_arg": true,
+    "return_schema": {
+     "type": "list",
+     "items_schema": {
+      "type": "int"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "abc",
+  "options": {},
+  "expected": {
+   "json": "\"abc\"",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `list[int]` - serialized value may not be as expected [input_value='abc', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_no_info[1-1-\"1\"]#0",
+  "test": "tests/serializers/test_functions.py::test_function_no_info[1-1-\"1\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function_no_info"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_no_info[1-1-\"1\"]#1",
+  "test": "tests/serializers/test_functions.py::test_function_no_info[1-1-\"1\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function_no_info"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "\"1\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_no_info[1-1-\"1\"]#2",
+  "test": "tests/serializers/test_functions.py::test_function_no_info[1-1-\"1\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function_no_info"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_no_info[None-None-\"None\"]#0",
+  "test": "tests/serializers/test_functions.py::test_function_no_info[None-None-\"None\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function_no_info"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": "None"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_no_info[None-None-\"None\"]#1",
+  "test": "tests/serializers/test_functions.py::test_function_no_info[None-None-\"None\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function_no_info"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "\"None\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_no_info[None-None-\"None\"]#2",
+  "test": "tests/serializers/test_functions.py::test_function_no_info[None-None-\"None\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function_no_info"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "None"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_no_info[value2-[1, 2, 3]-\"[1, 2, 3]\"]#0",
+  "test": "tests/serializers/test_functions.py::test_function_no_info[value2-[1, 2, 3]-\"[1, 2, 3]\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function_no_info"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": "[1, 2, 3]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_no_info[value2-[1, 2, 3]-\"[1, 2, 3]\"]#1",
+  "test": "tests/serializers/test_functions.py::test_function_no_info[value2-[1, 2, 3]-\"[1, 2, 3]\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function_no_info"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "json": "\"[1, 2, 3]\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_no_info[value2-[1, 2, 3]-\"[1, 2, 3]\"]#2",
+  "test": "tests/serializers/test_functions.py::test_function_no_info[value2-[1, 2, 3]-\"[1, 2, 3]\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function_no_info"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "[1, 2, 3]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_only_json#0",
+  "test": "tests/serializers/test_functions.py::test_function_only_json",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "double"
+    },
+    "info_arg": true,
+    "when_used": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 4,
+  "options": {},
+  "expected": {
+   "output": 4
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_only_json#1",
+  "test": "tests/serializers/test_functions.py::test_function_only_json",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "double"
+    },
+    "info_arg": true,
+    "when_used": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 4,
+  "options": {
+   "mode": "foobar"
+  },
+  "expected": {
+   "output": 4
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_only_json#2",
+  "test": "tests/serializers/test_functions.py::test_function_only_json",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "double"
+    },
+    "info_arg": true,
+    "when_used": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 4,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 8
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_only_json#3",
+  "test": "tests/serializers/test_functions.py::test_function_only_json",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "double"
+    },
+    "info_arg": true,
+    "when_used": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 4,
+  "options": {},
+  "expected": {
+   "json": "8"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_plain_model#0",
+  "test": "tests/serializers/test_functions.py::test_function_plain_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude_if": {
+       "$function": "<lambda>"
+      }
+     },
+     "b": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      }
+     },
+     "c": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude": true
+     }
+    }
+   },
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "wrap_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": {
+     "$bytes": "Zm9vYmFy"
+    },
+    "c": "not excluded"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_plain_model#1",
+  "test": "tests/serializers/test_functions.py::test_function_plain_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude_if": {
+       "$function": "<lambda>"
+      }
+     },
+     "b": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      }
+     },
+     "c": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude": true
+     }
+    }
+   },
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "wrap_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": "foobar",
+    "c": "not excluded"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_plain_model#2",
+  "test": "tests/serializers/test_functions.py::test_function_plain_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude_if": {
+       "$function": "<lambda>"
+      }
+     },
+     "b": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      }
+     },
+     "c": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude": true
+     }
+    }
+   },
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "wrap_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":1,\"b\":\"foobar\",\"c\":\"not excluded\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_plain_model#3",
+  "test": "tests/serializers/test_functions.py::test_function_plain_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude_if": {
+       "$function": "<lambda>"
+      }
+     },
+     "b": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      }
+     },
+     "c": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude": true
+     }
+    }
+   },
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "wrap_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     "b"
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": {
+     "$bytes": "Zm9vYmFy"
+    },
+    "c": "not excluded"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_plain_model#4",
+  "test": "tests/serializers/test_functions.py::test_function_plain_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude_if": {
+       "$function": "<lambda>"
+      }
+     },
+     "b": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      }
+     },
+     "c": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude": true
+     }
+    }
+   },
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "wrap_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {
+   "mode": "json",
+   "exclude": {
+    "$set": [
+     "b"
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": "foobar",
+    "c": "not excluded"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_plain_model#5",
+  "test": "tests/serializers/test_functions.py::test_function_plain_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude_if": {
+       "$function": "<lambda>"
+      }
+     },
+     "b": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      }
+     },
+     "c": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude": true
+     }
+    }
+   },
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "wrap_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     "b"
+    ]
+   }
+  },
+  "expected": {
+   "json": "{\"a\":1,\"b\":\"foobar\",\"c\":\"not excluded\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_unless_none#0",
+  "test": "tests/serializers/test_functions.py::test_function_unless_none",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function"
+    },
+    "info_arg": true,
+    "when_used": "unless-none"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 4,
+  "options": {},
+  "expected": {
+   "output": "4"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_unless_none#1",
+  "test": "tests/serializers/test_functions.py::test_function_unless_none",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function"
+    },
+    "info_arg": true,
+    "when_used": "unless-none"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_unless_none#2",
+  "test": "tests/serializers/test_functions.py::test_function_unless_none",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function"
+    },
+    "info_arg": true,
+    "when_used": "unless-none"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 4,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "4"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_unless_none#3",
+  "test": "tests/serializers/test_functions.py::test_function_unless_none",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function"
+    },
+    "info_arg": true,
+    "when_used": "unless-none"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_unless_none#4",
+  "test": "tests/serializers/test_functions.py::test_function_unless_none",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function"
+    },
+    "info_arg": true,
+    "when_used": "unless-none"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 4,
+  "options": {},
+  "expected": {
+   "json": "\"4\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_unless_none#5",
+  "test": "tests/serializers/test_functions.py::test_function_unless_none",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function"
+    },
+    "info_arg": true,
+    "when_used": "unless-none"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap#0",
+  "test": "tests/serializers/test_functions.py::test_function_wrap",
+  "schema": {
+   "type": "int",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "output": "result=3 repr=SerializationCallable(serializer=int)"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap#1",
+  "test": "tests/serializers/test_functions.py::test_function_wrap",
+  "schema": {
+   "type": "int",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foo",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "result=3 repr=SerializationCallable(serializer=int)"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap#2",
+  "test": "tests/serializers/test_functions.py::test_function_wrap",
+  "schema": {
+   "type": "int",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "json": "\"result=3 repr=SerializationCallable(serializer=int)\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_custom_schema#0",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_custom_schema",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "output": "result=3 repr=SerializationCallable(serializer=int)"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_custom_schema#1",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_custom_schema",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foo",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "result=3 repr=SerializationCallable(serializer=int)"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_custom_schema#2",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_custom_schema",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "json": "\"result=3 repr=SerializationCallable(serializer=int)\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_fallback#0",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_fallback",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "any"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "output": "result=foo"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_fallback#1",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_fallback",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "any"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foo",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "result=foo"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_fallback#2",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_fallback",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "any"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "json": "\"result=foo\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_fallback#3",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_fallback",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "any"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foobar"
+  },
+  "options": {},
+  "expected": {
+   "output": "result=foobar!"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_fallback#4",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_fallback",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "any"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foobar"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Unable to serialize unknown type: <class 'tests.serializers.test_functions.Foobar'>"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_fallback#5",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_fallback",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "any"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Foobar"
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Error serializing to JSON: PydanticSerializationError: Unable to serialize unknown type: <class 'tests.serializers.test_functions.Foobar'>"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_fallback#6",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_fallback",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "any"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foobar"
+  },
+  "options": {
+   "fallback": {
+    "$function": "fallback"
+   }
+  },
+  "expected": {
+   "output": "result=fallback:foobar!"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_fallback#7",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_fallback",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "any"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foobar"
+  },
+  "options": {
+   "mode": "json",
+   "fallback": {
+    "$function": "fallback"
+   }
+  },
+  "expected": {
+   "output": "result=fallback:foobar!"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_fallback#8",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_fallback",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "info_arg": true,
+    "schema": {
+     "type": "any"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Foobar"
+  },
+  "options": {
+   "fallback": {
+    "$function": "fallback"
+   }
+  },
+  "expected": {
+   "json": "\"result=fallback:foobar!\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_model#0",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude_if": {
+       "$function": "<lambda>"
+      }
+     },
+     "b": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      }
+     },
+     "c": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude": true
+     }
+    }
+   },
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "wrap_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": {
+     "$bytes": "Zm9vYmFy"
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_model#1",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude_if": {
+       "$function": "<lambda>"
+      }
+     },
+     "b": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      }
+     },
+     "c": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude": true
+     }
+    }
+   },
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "wrap_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": "foobar"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_model#2",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude_if": {
+       "$function": "<lambda>"
+      }
+     },
+     "b": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      }
+     },
+     "c": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude": true
+     }
+    }
+   },
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "wrap_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":1,\"b\":\"foobar\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_model#3",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude_if": {
+       "$function": "<lambda>"
+      }
+     },
+     "b": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      }
+     },
+     "c": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude": true
+     }
+    }
+   },
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "wrap_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     "b"
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_model#4",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude_if": {
+       "$function": "<lambda>"
+      }
+     },
+     "b": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      }
+     },
+     "c": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude": true
+     }
+    }
+   },
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "wrap_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {
+   "mode": "json",
+   "exclude": {
+    "$set": [
+     "b"
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_model#5",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude_if": {
+       "$function": "<lambda>"
+      }
+     },
+     "b": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      }
+     },
+     "c": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "any"
+      },
+      "serialization_exclude": true
+     }
+    }
+   },
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "wrap_function"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     "b"
+    ]
+   }
+  },
+  "expected": {
+   "json": "{\"a\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_no_info#0",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_no_info",
+  "schema": {
+   "type": "int",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "output": "result=3 repr=SerializationCallable(serializer=int)"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_no_info#1",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_no_info",
+  "schema": {
+   "type": "int",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foo",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "result=3 repr=SerializationCallable(serializer=int)"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_no_info#2",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_no_info",
+  "schema": {
+   "type": "int",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "json": "\"result=3 repr=SerializationCallable(serializer=int)\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_preserves_wrapped_serialization#0",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_preserves_wrapped_serialization",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "with-info",
+    "function": {
+     "$function": "f"
+    }
+   },
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "abc",
+  "options": {},
+  "expected": {
+   "output": "abc",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value='abc', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_return_scheam#0",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_return_scheam",
+  "schema": {
+   "type": "int",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "return_schema": {
+     "type": "str"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 3,
+  "options": {},
+  "expected": {
+   "output": "result=3"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_return_scheam#1",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_return_scheam",
+  "schema": {
+   "type": "int",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "return_schema": {
+     "type": "str"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 3,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "result=3"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_return_scheam#2",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_return_scheam",
+  "schema": {
+   "type": "int",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "return_schema": {
+     "type": "str"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 3,
+  "options": {},
+  "expected": {
+   "json": "\"result=3\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_return_scheam#3",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_return_scheam",
+  "schema": {
+   "type": "int",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "return_schema": {
+     "type": "str"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42,
+  "options": {},
+  "expected": {
+   "output": 42,
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=42, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_return_scheam#4",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_return_scheam",
+  "schema": {
+   "type": "int",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "return_schema": {
+     "type": "str"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 42,
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=42, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_function_wrap_return_scheam#5",
+  "test": "tests/serializers/test_functions.py::test_function_wrap_return_scheam",
+  "schema": {
+   "type": "int",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "f"
+    },
+    "return_schema": {
+     "type": "str"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 42,
+  "options": {},
+  "expected": {
+   "json": "42",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=42, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_raise_unexpected#0",
+  "test": "tests/serializers/test_functions.py::test_raise_unexpected",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "raise_unexpected"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "output": "foo",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(unexpected)"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_raise_unexpected#1",
+  "test": "tests/serializers/test_functions.py::test_raise_unexpected",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "raise_unexpected"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "json": "\"foo\"",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(unexpected)"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_serialize_pattern#0",
+  "test": "tests/serializers/test_functions.py::test_serialize_pattern",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "attrgetter"
+    },
+    "return_schema": {
+     "type": "str"
+    },
+    "when_used": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Pattern"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "Pattern"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_serialize_pattern#1",
+  "test": "tests/serializers/test_functions.py::test_serialize_pattern",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "attrgetter"
+    },
+    "return_schema": {
+     "type": "str"
+    },
+    "when_used": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Pattern"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "^regex$"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_serialize_pattern#2",
+  "test": "tests/serializers/test_functions.py::test_serialize_pattern",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "attrgetter"
+    },
+    "return_schema": {
+     "type": "str"
+    },
+    "when_used": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Pattern"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"^regex$\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_wrap_return_type#0",
+  "test": "tests/serializers/test_functions.py::test_wrap_return_type",
+  "schema": {
+   "type": "str",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "to_path"
+    },
+    "info_arg": true,
+    "return_schema": {
+     "type": "any"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foobar",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "PosixPath"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_wrap_return_type#1",
+  "test": "tests/serializers/test_functions.py::test_wrap_return_type",
+  "schema": {
+   "type": "str",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "to_path"
+    },
+    "info_arg": true,
+    "return_schema": {
+     "type": "any"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foobar",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "foobar.new"
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_wrap_return_type#2",
+  "test": "tests/serializers/test_functions.py::test_wrap_return_type",
+  "schema": {
+   "type": "str",
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "to_path"
+    },
+    "info_arg": true,
+    "return_schema": {
+     "type": "any"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "foobar",
+  "options": {},
+  "expected": {
+   "json": "\"foobar.new\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_wrong_return_type#0",
+  "test": "tests/serializers/test_functions.py::test_wrong_return_type",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function"
+    },
+    "info_arg": true,
+    "return_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "output": "123",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value='123', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_wrong_return_type#1",
+  "test": "tests/serializers/test_functions.py::test_wrong_return_type",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function"
+    },
+    "info_arg": true,
+    "return_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "123",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value='123', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_functions.py::test_wrong_return_type#2",
+  "test": "tests/serializers/test_functions.py::test_wrong_return_type",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "repr_function"
+    },
+    "info_arg": true,
+    "return_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "json": "\"123\"",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value='123', input_type=str])"
+   ]
+  }
+ }
+]

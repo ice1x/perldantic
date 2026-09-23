@@ -1,0 +1,1752 @@
+[
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_dataclass#0",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_dataclass",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Child"
+   },
+   "fields": [
+    "x",
+    "y"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Child",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "x",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "y",
+      "schema": {
+       "type": "str"
+      }
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": 1,
+   "y": "hopefully not a secret"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "Child"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_dataclass#1",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_dataclass",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Parent"
+   },
+   "fields": [
+    "x"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Parent",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "x",
+      "schema": {
+       "type": "int"
+      }
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Child"
+  },
+  "options": {
+   "serialize_as_any": false
+  },
+  "expected": {
+   "output": {
+    "x": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_dataclass#2",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_dataclass",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Parent"
+   },
+   "fields": [
+    "x"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Parent",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "x",
+      "schema": {
+       "type": "int"
+      }
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Child"
+  },
+  "options": {
+   "serialize_as_any": true
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "'RecordingSerializer' object is not an instance of 'SchemaSerializer'"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_field_serializer[dataclass]#0",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_field_serializer[dataclass]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Test"
+   },
+   "fields": [
+    "value"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Test",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "value",
+      "schema": {
+       "type": "int",
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "<lambda>"
+        },
+        "is_field_serializer": true
+       }
+      }
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "value": 123
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "Test"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_field_serializer[dataclass]#1",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_field_serializer[dataclass]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Test"
+   },
+   "fields": [
+    "value"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Test",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "value",
+      "schema": {
+       "type": "int",
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "<lambda>"
+        },
+        "is_field_serializer": true
+       }
+      }
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Test"
+  },
+  "options": {
+   "serialize_as_any": false
+  },
+  "expected": {
+   "output": {
+    "value": 246
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_field_serializer[dataclass]#2",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_field_serializer[dataclass]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Test"
+   },
+   "fields": [
+    "value"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Test",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "value",
+      "schema": {
+       "type": "int",
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "<lambda>"
+        },
+        "is_field_serializer": true
+       }
+      }
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Test"
+  },
+  "options": {
+   "serialize_as_any": true
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "'RecordingSerializer' object is not an instance of 'SchemaSerializer'"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_field_serializer[model]#0",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_field_serializer[model]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Test"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "value": {
+      "type": "model-field",
+      "schema": {
+       "type": "int",
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "<lambda>"
+        },
+        "is_field_serializer": true
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "value": 123
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Test",
+     "fields": {
+      "value": 123
+     },
+     "fields_set": [
+      "value"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_field_serializer[model]#1",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_field_serializer[model]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Test"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "value": {
+      "type": "model-field",
+      "schema": {
+       "type": "int",
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "<lambda>"
+        },
+        "is_field_serializer": true
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$model": {
+    "class": "Test",
+    "fields": {
+     "value": 123
+    },
+    "fields_set": [
+     "value"
+    ],
+    "extra": null
+   }
+  },
+  "options": {
+   "serialize_as_any": false
+  },
+  "expected": {
+   "output": {
+    "value": 246
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_field_serializer[model]#2",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_field_serializer[model]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Test"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "value": {
+      "type": "model-field",
+      "schema": {
+       "type": "int",
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "<lambda>"
+        },
+        "is_field_serializer": true
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$model": {
+    "class": "Test",
+    "fields": {
+     "value": 123
+    },
+    "fields_set": [
+     "value"
+    ],
+    "extra": null
+   }
+  },
+  "options": {
+   "serialize_as_any": true
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "'RecordingSerializer' object is not an instance of 'SchemaSerializer'"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_field_serializer_root_model#0",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_field_serializer_root_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Test"
+   },
+   "schema": {
+    "type": "int",
+    "serialization": {
+     "type": "function-plain",
+     "function": {
+      "$function": "<lambda>"
+     },
+     "is_field_serializer": true
+    }
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Test",
+     "fields": {
+      "root": 123
+     },
+     "fields_set": [
+      "root"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_field_serializer_root_model#1",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_field_serializer_root_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Test"
+   },
+   "schema": {
+    "type": "int",
+    "serialization": {
+     "type": "function-plain",
+     "function": {
+      "$function": "<lambda>"
+     },
+     "is_field_serializer": true
+    }
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$model": {
+    "class": "Test",
+    "fields": {
+     "root": 123
+    },
+    "fields_set": [
+     "root"
+    ],
+    "extra": null
+   }
+  },
+  "options": {
+   "serialize_as_any": false
+  },
+  "expected": {
+   "output": 246
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_field_serializer_root_model#2",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_field_serializer_root_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Test"
+   },
+   "schema": {
+    "type": "int",
+    "serialization": {
+     "type": "function-plain",
+     "function": {
+      "$function": "<lambda>"
+     },
+     "is_field_serializer": true
+    }
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$model": {
+    "class": "Test",
+    "fields": {
+     "root": 123
+    },
+    "fields_set": [
+     "root"
+    ],
+    "extra": null
+   }
+  },
+  "options": {
+   "serialize_as_any": true
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "'RecordingSerializer' object is not an instance of 'SchemaSerializer'"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_nested_models#0",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_nested_models",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Other"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     },
+     "y": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     }
+    }
+   },
+   "config": {
+    "extra_fields_behavior": "allow"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": 1,
+   "y": "hopefully not a secret"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Other",
+     "fields": {
+      "x": 1,
+      "y": "hopefully not a secret"
+     },
+     "fields_set": [
+      "x",
+      "y"
+     ],
+     "extra": {}
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_nested_models#1",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_nested_models",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "model",
+    "cls": {
+     "$class": "Outer"
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "p": {
+       "type": "model-field",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "Parent"
+       }
+      }
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Parent"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "x": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     },
+     "ref": "Parent"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Outer"
+  },
+  "options": {
+   "serialize_as_any": false
+  },
+  "expected": {
+   "output": {
+    "p": {
+     "x": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_nested_models#2",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_nested_models",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "model",
+    "cls": {
+     "$class": "Outer"
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "p": {
+       "type": "model-field",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "Parent"
+       }
+      }
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Parent"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "x": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     },
+     "ref": "Parent"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Outer"
+  },
+  "options": {
+   "serialize_as_any": true
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "'RecordingSerializer' object is not an instance of 'SchemaSerializer'"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_root_model_and_subclasses#0",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_root_model_and_subclasses",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RModel"
+   },
+   "schema": {
+    "type": "model",
+    "cls": {
+     "$class": "ParentModel"
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "x": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "ref": "ParentModel"
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": 1
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "RModel",
+     "fields": {
+      "root": {
+       "$model": {
+        "class": "ParentModel",
+        "fields": {
+         "x": 1
+        },
+        "fields_set": [
+         "x"
+        ],
+        "extra": null
+       }
+      }
+     },
+     "fields_set": [
+      "root"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_root_model_and_subclasses#1",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_root_model_and_subclasses",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RModel"
+   },
+   "schema": {
+    "type": "model",
+    "cls": {
+     "$class": "ParentModel"
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "x": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "ref": "ParentModel"
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$model": {
+    "class": "RModel",
+    "fields": {
+     "root": {
+      "$model": {
+       "class": "ChildModel",
+       "fields": {
+        "x": 1,
+        "y": "hopefully not a secret"
+       },
+       "fields_set": [
+        "x",
+        "y"
+       ],
+       "extra": null
+      }
+     }
+    },
+    "fields_set": [
+     "root"
+    ],
+    "extra": null
+   }
+  },
+  "options": {
+   "serialize_as_any": false
+  },
+  "expected": {
+   "output": {
+    "x": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_root_model_and_subclasses#2",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_root_model_and_subclasses",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RModel"
+   },
+   "schema": {
+    "type": "model",
+    "cls": {
+     "$class": "ParentModel"
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "x": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "ref": "ParentModel"
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$model": {
+    "class": "RModel",
+    "fields": {
+     "root": {
+      "$model": {
+       "class": "ChildModel",
+       "fields": {
+        "x": 1,
+        "y": "hopefully not a secret"
+       },
+       "fields_set": [
+        "x",
+        "y"
+       ],
+       "extra": null
+      }
+     }
+    },
+    "fields_set": [
+     "root"
+    ],
+    "extra": null
+   }
+  },
+  "options": {
+   "serialize_as_any": true
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "'RecordingSerializer' object is not an instance of 'SchemaSerializer'"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_typeddict#0",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_typeddict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     }
+    },
+    "y": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": 1,
+   "y": "hopefully not a secret"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 1,
+    "y": "hopefully not a secret"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_typeddict#1",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_typeddict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "x": 1,
+   "y": "hopefully not a secret"
+  },
+  "options": {
+   "serialize_as_any": false
+  },
+  "expected": {
+   "output": {
+    "x": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_typeddict#2",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_typeddict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "x": 1,
+   "y": "hopefully not a secret"
+  },
+  "options": {
+   "serialize_as_any": true
+  },
+  "expected": {
+   "output": {
+    "x": 1,
+    "y": "hopefully not a secret"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_unrelated_models#0",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_unrelated_models",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Other"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "y": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     }
+    }
+   },
+   "config": {
+    "extra_fields_behavior": "allow"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": 1,
+   "y": "hopefully not a secret"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Other",
+     "fields": {
+      "y": "hopefully not a secret"
+     },
+     "fields_set": [
+      "x",
+      "y"
+     ],
+     "extra": {
+      "x": 1
+     }
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_unrelated_models#1",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_unrelated_models",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Parent"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$model": {
+    "class": "Other",
+    "fields": {
+     "y": "hopefully not a secret"
+    },
+    "fields_set": [
+     "x",
+     "y"
+    ],
+    "extra": {
+     "x": 1
+    }
+   }
+  },
+  "options": {
+   "serialize_as_any": false
+  },
+  "expected": {
+   "output": {}
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_unrelated_models#2",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_with_unrelated_models",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Parent"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$model": {
+    "class": "Other",
+    "fields": {
+     "y": "hopefully not a secret"
+    },
+    "fields_set": [
+     "x",
+     "y"
+    ],
+    "extra": {
+     "x": 1
+    }
+   }
+  },
+  "options": {
+   "serialize_as_any": true
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "'RecordingSerializer' object is not an instance of 'SchemaSerializer'"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_wrap_serializer_applied_once#0",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_wrap_serializer_applied_once",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "a_field": {
+      "type": "model-field",
+      "schema": {
+       "type": "model",
+       "cls": {
+        "$class": "InnerModel"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "an_inner_field": {
+          "type": "model-field",
+          "schema": {
+           "type": "int"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "a_model_serializer"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a_field": {
+    "an_inner_field": 1
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "a_field": {
+       "$model": {
+        "class": "InnerModel",
+        "fields": {
+         "an_inner_field": 1
+        },
+        "fields_set": [
+         "an_inner_field"
+        ],
+        "extra": null
+       }
+      }
+     },
+     "fields_set": [
+      "a_field"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_wrap_serializer_applied_once#1",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_as_any_wrap_serializer_applied_once",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "a_field": {
+      "type": "model-field",
+      "schema": {
+       "type": "model",
+       "cls": {
+        "$class": "InnerModel"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "an_inner_field": {
+          "type": "model-field",
+          "schema": {
+           "type": "int"
+          }
+         }
+        }
+       }
+      }
+     }
+    }
+   },
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "a_model_serializer"
+    },
+    "info_arg": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$model": {
+    "class": "MyModel",
+    "fields": {
+     "a_field": {
+      "$model": {
+       "class": "InnerModel",
+       "fields": {
+        "an_inner_field": 1
+       },
+       "fields_set": [
+        "an_inner_field"
+       ],
+       "extra": null
+      }
+     }
+    },
+    "fields_set": [
+     "a_field"
+    ],
+    "extra": null
+   }
+  },
+  "options": {
+   "serialize_as_any": true
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "'RecordingSerializer' object is not an instance of 'SchemaSerializer'"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_with_custom_type_and_subclasses#0",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_with_custom_type_and_subclasses",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "CustomType"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "value": {
+      "type": "model-field",
+      "schema": {
+       "type": "model",
+       "cls": {
+        "$class": "ParentModel"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "x": {
+          "type": "model-field",
+          "schema": {
+           "type": "int"
+          }
+         }
+        }
+       },
+       "ref": "ParentModel"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "value": {
+    "x": 1
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "CustomType",
+     "fields": {
+      "value": {
+       "$model": {
+        "class": "ParentModel",
+        "fields": {
+         "x": 1
+        },
+        "fields_set": [
+         "x"
+        ],
+        "extra": null
+       }
+      }
+     },
+     "fields_set": [
+      "value"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_with_custom_type_and_subclasses#1",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_with_custom_type_and_subclasses",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "CustomType"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "value": {
+      "type": "model-field",
+      "schema": {
+       "type": "model",
+       "cls": {
+        "$class": "ParentModel"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "x": {
+          "type": "model-field",
+          "schema": {
+           "type": "int"
+          }
+         }
+        }
+       },
+       "ref": "ParentModel"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$model": {
+    "class": "CustomType",
+    "fields": {
+     "value": {
+      "$model": {
+       "class": "ChildModel",
+       "fields": {
+        "x": 1,
+        "y": "hopefully not a secret"
+       },
+       "fields_set": [
+        "x",
+        "y"
+       ],
+       "extra": null
+      }
+     }
+    },
+    "fields_set": [
+     "value"
+    ],
+    "extra": null
+   }
+  },
+  "options": {
+   "serialize_as_any": false
+  },
+  "expected": {
+   "output": {
+    "value": {
+     "x": 1
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_with_custom_type_and_subclasses#2",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_with_custom_type_and_subclasses",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "CustomType"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "value": {
+      "type": "model-field",
+      "schema": {
+       "type": "model",
+       "cls": {
+        "$class": "ParentModel"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "x": {
+          "type": "model-field",
+          "schema": {
+           "type": "int"
+          }
+         }
+        }
+       },
+       "ref": "ParentModel"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$model": {
+    "class": "CustomType",
+    "fields": {
+     "value": {
+      "$model": {
+       "class": "ChildModel",
+       "fields": {
+        "x": 1,
+        "y": "hopefully not a secret"
+       },
+       "fields_set": [
+        "x",
+        "y"
+       ],
+       "extra": null
+      }
+     }
+    },
+    "fields_set": [
+     "value"
+    ],
+    "extra": null
+   }
+  },
+  "options": {
+   "serialize_as_any": true
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "'RecordingSerializer' object is not an instance of 'SchemaSerializer'"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_with_recursive_models#0",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_with_recursive_models",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Node"
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Node"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "value": {
+        "type": "model-field",
+        "schema": {
+         "type": "default",
+         "schema": {
+          "type": "int"
+         },
+         "default": 42
+        }
+       },
+       "next": {
+        "type": "model-field",
+        "schema": {
+         "type": "default",
+         "schema": {
+          "type": "nullable",
+          "schema": {
+           "type": "definition-ref",
+           "schema_ref": "Node"
+          }
+         },
+         "default": null
+        }
+       }
+      }
+     },
+     "ref": "Node"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "next": {
+    "value": 4
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Node",
+     "fields": {
+      "value": 42,
+      "next": {
+       "$model": {
+        "class": "Node",
+        "fields": {
+         "value": 4,
+         "next": null
+        },
+        "fields_set": [
+         "value"
+        ],
+        "extra": null
+       }
+      }
+     },
+     "fields_set": [
+      "next"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_with_recursive_models#1",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_with_recursive_models",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Node"
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Node"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "value": {
+        "type": "model-field",
+        "schema": {
+         "type": "default",
+         "schema": {
+          "type": "int"
+         },
+         "default": 42
+        }
+       },
+       "next": {
+        "type": "model-field",
+        "schema": {
+         "type": "default",
+         "schema": {
+          "type": "nullable",
+          "schema": {
+           "type": "definition-ref",
+           "schema_ref": "Node"
+          }
+         },
+         "default": null
+        }
+       }
+      }
+     },
+     "ref": "Node"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$model": {
+    "class": "Node",
+    "fields": {
+     "value": 42,
+     "next": {
+      "$model": {
+       "class": "Node",
+       "fields": {
+        "value": 4,
+        "next": null
+       },
+       "fields_set": [
+        "value"
+       ],
+       "extra": null
+      }
+     }
+    },
+    "fields_set": [
+     "next"
+    ],
+    "extra": null
+   }
+  },
+  "options": {
+   "serialize_as_any": false
+  },
+  "expected": {
+   "output": {
+    "value": 42,
+    "next": {
+     "value": 4,
+     "next": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_serialize_as_any.py::test_serialize_with_recursive_models#2",
+  "test": "tests/serializers/test_serialize_as_any.py::test_serialize_with_recursive_models",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Node"
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Node"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "value": {
+        "type": "model-field",
+        "schema": {
+         "type": "default",
+         "schema": {
+          "type": "int"
+         },
+         "default": 42
+        }
+       },
+       "next": {
+        "type": "model-field",
+        "schema": {
+         "type": "default",
+         "schema": {
+          "type": "nullable",
+          "schema": {
+           "type": "definition-ref",
+           "schema_ref": "Node"
+          }
+         },
+         "default": null
+        }
+       }
+      }
+     },
+     "ref": "Node"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$model": {
+    "class": "Node",
+    "fields": {
+     "value": 42,
+     "next": {
+      "$model": {
+       "class": "Node",
+       "fields": {
+        "value": 4,
+        "next": null
+       },
+       "fields_set": [
+        "value"
+       ],
+       "extra": null
+      }
+     }
+    },
+    "fields_set": [
+     "next"
+    ],
+    "extra": null
+   }
+  },
+  "options": {
+   "serialize_as_any": true
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "'RecordingSerializer' object is not an instance of 'SchemaSerializer'"
+   }
+  }
+ }
+]

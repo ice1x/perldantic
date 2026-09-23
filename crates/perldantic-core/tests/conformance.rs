@@ -347,6 +347,11 @@ fn run_case(case: &Json, supported: &[&str]) -> Result<Result<(), String>, Skip>
     if let Some(skip) = divergence(case) {
         return Err(skip);
     }
+    if matches!(case["mode"].as_str(), Some("to_python" | "to_json")) {
+        return Err(Skip(
+            "serializer cases: SchemaSerializer is not ported yet".into(),
+        ));
+    }
     let mut types = Vec::new();
     schema_types(&case["schema"], &mut types);
     if let Some(t) = types.iter().find(|t| !supported.contains(&t.as_str())) {
@@ -519,6 +524,20 @@ fn model_class_divergences_are_skipped() {
     assert_eq!(
         run_case(&case(hook, "1"), &["model", "any"]),
         Err(Skip("host callbacks: post_init".into()))
+    );
+}
+
+#[test]
+fn serializer_cases_are_skipped_until_serializers_exist() {
+    let case: Json = serde_json::from_str(
+        r#"{"schema": {"type": "int"}, "config": null, "mode": "to_json", "input": 1, "options": {}, "expected": {"json": "1"}}"#,
+    )
+    .unwrap();
+    assert_eq!(
+        run_case(&case, &["int"]),
+        Err(Skip(
+            "serializer cases: SchemaSerializer is not ported yet".into()
+        ))
     );
 }
 

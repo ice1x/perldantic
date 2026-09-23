@@ -1,0 +1,1465 @@
+[
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_by_alias_and_name_config_interaction[False-False-expected4]#0",
+  "test": "tests/serializers/test_dataclasses.py::test_by_alias_and_name_config_interaction[False-False-expected4]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "my_field"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "my_field",
+      "schema": {
+       "type": "str"
+      },
+      "serialization_alias": "my_alias"
+     }
+    ]
+   },
+   "config": {
+    "serialize_by_alias": false
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {
+   "by_alias": false
+  },
+  "expected": {
+   "output": {
+    "my_field": "hello"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_by_alias_and_name_config_interaction[False-None-expected5]#0",
+  "test": "tests/serializers/test_dataclasses.py::test_by_alias_and_name_config_interaction[False-None-expected5]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "my_field"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "my_field",
+      "schema": {
+       "type": "str"
+      },
+      "serialization_alias": "my_alias"
+     }
+    ]
+   },
+   "config": {
+    "serialize_by_alias": false
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {
+   "by_alias": null
+  },
+  "expected": {
+   "output": {
+    "my_field": "hello"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_by_alias_and_name_config_interaction[False-True-expected3]#0",
+  "test": "tests/serializers/test_dataclasses.py::test_by_alias_and_name_config_interaction[False-True-expected3]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "my_field"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "my_field",
+      "schema": {
+       "type": "str"
+      },
+      "serialization_alias": "my_alias"
+     }
+    ]
+   },
+   "config": {
+    "serialize_by_alias": false
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {
+   "by_alias": true
+  },
+  "expected": {
+   "output": {
+    "my_alias": "hello"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_by_alias_and_name_config_interaction[None-False-expected7]#0",
+  "test": "tests/serializers/test_dataclasses.py::test_by_alias_and_name_config_interaction[None-False-expected7]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "my_field"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "my_field",
+      "schema": {
+       "type": "str"
+      },
+      "serialization_alias": "my_alias"
+     }
+    ]
+   },
+   "config": {
+    "serialize_by_alias": false
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {
+   "by_alias": false
+  },
+  "expected": {
+   "output": {
+    "my_field": "hello"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_by_alias_and_name_config_interaction[None-None-expected8]#0",
+  "test": "tests/serializers/test_dataclasses.py::test_by_alias_and_name_config_interaction[None-None-expected8]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "my_field"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "my_field",
+      "schema": {
+       "type": "str"
+      },
+      "serialization_alias": "my_alias"
+     }
+    ]
+   },
+   "config": {
+    "serialize_by_alias": false
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {
+   "by_alias": null
+  },
+  "expected": {
+   "output": {
+    "my_field": "hello"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_by_alias_and_name_config_interaction[None-True-expected6]#0",
+  "test": "tests/serializers/test_dataclasses.py::test_by_alias_and_name_config_interaction[None-True-expected6]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "my_field"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "my_field",
+      "schema": {
+       "type": "str"
+      },
+      "serialization_alias": "my_alias"
+     }
+    ]
+   },
+   "config": {
+    "serialize_by_alias": false
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {
+   "by_alias": true
+  },
+  "expected": {
+   "output": {
+    "my_alias": "hello"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_by_alias_and_name_config_interaction[True-False-expected1]#0",
+  "test": "tests/serializers/test_dataclasses.py::test_by_alias_and_name_config_interaction[True-False-expected1]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "my_field"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "my_field",
+      "schema": {
+       "type": "str"
+      },
+      "serialization_alias": "my_alias"
+     }
+    ]
+   },
+   "config": {
+    "serialize_by_alias": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {
+   "by_alias": false
+  },
+  "expected": {
+   "output": {
+    "my_field": "hello"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_by_alias_and_name_config_interaction[True-None-expected2]#0",
+  "test": "tests/serializers/test_dataclasses.py::test_by_alias_and_name_config_interaction[True-None-expected2]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "my_field"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "my_field",
+      "schema": {
+       "type": "str"
+      },
+      "serialization_alias": "my_alias"
+     }
+    ]
+   },
+   "config": {
+    "serialize_by_alias": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {
+   "by_alias": null
+  },
+  "expected": {
+   "output": {
+    "my_alias": "hello"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_by_alias_and_name_config_interaction[True-True-expected0]#0",
+  "test": "tests/serializers/test_dataclasses.py::test_by_alias_and_name_config_interaction[True-True-expected0]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "my_field"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "my_field",
+      "schema": {
+       "type": "str"
+      },
+      "serialization_alias": "my_alias"
+     }
+    ]
+   },
+   "config": {
+    "serialize_by_alias": true
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {
+   "by_alias": true
+  },
+  "expected": {
+   "output": {
+    "my_alias": "hello"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_dataclass#0",
+  "test": "tests/serializers/test_dataclasses.py::test_dataclass",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "a",
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "str"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "bytes"
+      }
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": "hello",
+    "b": {
+     "$bytes": "bW9yZQ=="
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_dataclass#1",
+  "test": "tests/serializers/test_dataclasses.py::test_dataclass",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "a",
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "str"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "bytes"
+      }
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "a": "hello",
+    "b": "more"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_dataclass#2",
+  "test": "tests/serializers/test_dataclasses.py::test_dataclass",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "a",
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "str"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "bytes"
+      }
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":\"hello\",\"b\":\"more\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_dataclass#3",
+  "test": "tests/serializers/test_dataclasses.py::test_dataclass",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "a",
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "str"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "bytes"
+      }
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     "b"
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "a": "hello"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_dataclass#4",
+  "test": "tests/serializers/test_dataclasses.py::test_dataclass",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "a",
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "str"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "bytes"
+      }
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {
+   "include": {
+    "$set": [
+     "a"
+    ]
+   }
+  },
+  "expected": {
+   "json": "{\"a\":\"hello\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_dataclass_initvar_not_required_on_union_ser#0",
+  "test": "tests/serializers/test_dataclasses.py::test_dataclass_initvar_not_required_on_union_ser",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "dataclass",
+     "cls": {
+      "$class": "Foo"
+     },
+     "fields": [
+      "x"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "Foo",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "x",
+        "schema": {
+         "type": "int"
+        }
+       },
+       {
+        "type": "dataclass-field",
+        "name": "init_var",
+        "schema": {
+         "type": "default",
+         "schema": {
+          "type": "int"
+         },
+         "default": 1
+        },
+        "init_only": true
+       }
+      ]
+     },
+     "post_init": true
+    },
+    {
+     "type": "dataclass",
+     "cls": {
+      "$class": "Bar"
+     },
+     "fields": [
+      "x"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "Bar",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "x",
+        "schema": {
+         "type": "int"
+        }
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "output": {
+    "x": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_extra_custom_serializer#0",
+  "test": "tests/serializers/test_dataclasses.py::test_extra_custom_serializer",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Model"
+   },
+   "fields": [],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Model",
+    "fields": [],
+    "extra_behavior": "allow"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "extra": "extra"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "Model"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_extra_custom_serializer#1",
+  "test": "tests/serializers/test_dataclasses.py::test_extra_custom_serializer",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Model"
+   },
+   "fields": [],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Model",
+    "fields": [],
+    "extra_behavior": "allow"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Model"
+  },
+  "options": {},
+  "expected": {
+   "output": {}
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_properties#0",
+  "test": "tests/serializers/test_dataclasses.py::test_properties",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "a",
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "FooProp",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "str"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "bytes"
+      }
+     }
+    ],
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "c",
+      "return_schema": {
+       "type": "str"
+      }
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "FooProp"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": "hello",
+    "b": {
+     "$bytes": "bW9yZQ=="
+    },
+    "c": "hello more"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_properties#1",
+  "test": "tests/serializers/test_dataclasses.py::test_properties",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "a",
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "FooProp",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "str"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "bytes"
+      }
+     }
+    ],
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "c",
+      "return_schema": {
+       "type": "str"
+      }
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "FooProp"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "a": "hello",
+    "b": "more",
+    "c": "hello more"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_properties#2",
+  "test": "tests/serializers/test_dataclasses.py::test_properties",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "a",
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "FooProp",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "str"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "bytes"
+      }
+     }
+    ],
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "c",
+      "return_schema": {
+       "type": "str"
+      }
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "FooProp"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":\"hello\",\"b\":\"more\",\"c\":\"hello more\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_properties#3",
+  "test": "tests/serializers/test_dataclasses.py::test_properties",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "a",
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "FooProp",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "str"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "bytes"
+      }
+     }
+    ],
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "c",
+      "return_schema": {
+       "type": "str"
+      }
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "FooProp"
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     "b"
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "a": "hello",
+    "c": "hello more"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_properties#4",
+  "test": "tests/serializers/test_dataclasses.py::test_properties",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "a",
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "FooProp",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "str"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "bytes"
+      }
+     }
+    ],
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "c",
+      "return_schema": {
+       "type": "str"
+      }
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "FooProp"
+  },
+  "options": {
+   "include": {
+    "$set": [
+     "a"
+    ]
+   }
+  },
+  "expected": {
+   "json": "{\"a\":\"hello\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_serialization_alias#0",
+  "test": "tests/serializers/test_dataclasses.py::test_serialization_alias",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "a",
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "str"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "bytes"
+      },
+      "serialization_alias": "BAR"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {
+   "by_alias": true
+  },
+  "expected": {
+   "output": {
+    "a": "hello",
+    "BAR": {
+     "$bytes": "bW9yZQ=="
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_serialization_alias#1",
+  "test": "tests/serializers/test_dataclasses.py::test_serialization_alias",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "a",
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "str"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "bytes"
+      },
+      "serialization_alias": "BAR"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {
+   "mode": "json",
+   "by_alias": true
+  },
+  "expected": {
+   "output": {
+    "a": "hello",
+    "BAR": "more"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_serialization_alias#2",
+  "test": "tests/serializers/test_dataclasses.py::test_serialization_alias",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "a",
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "str"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "bytes"
+      },
+      "serialization_alias": "BAR"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {
+   "by_alias": true
+  },
+  "expected": {
+   "json": "{\"a\":\"hello\",\"BAR\":\"more\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_serialization_exclude#0",
+  "test": "tests/serializers/test_dataclasses.py::test_serialization_exclude",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "a",
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "str"
+      },
+      "serialization_exclude_if": {
+       "$function": "<lambda>"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "bytes"
+      },
+      "serialization_exclude": true
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": "hello"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_serialization_exclude#1",
+  "test": "tests/serializers/test_dataclasses.py::test_serialization_exclude",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "a",
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "str"
+      },
+      "serialization_exclude_if": {
+       "$function": "<lambda>"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "bytes"
+      },
+      "serialization_exclude": true
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "a": "hello"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_serialization_exclude#2",
+  "test": "tests/serializers/test_dataclasses.py::test_serialization_exclude",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "a",
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "str"
+      },
+      "serialization_exclude_if": {
+       "$function": "<lambda>"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "bytes"
+      },
+      "serialization_exclude": true
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":\"hello\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_slots_mixed#0",
+  "test": "tests/serializers/test_dataclasses.py::test_slots_mixed",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "SubModel"
+   },
+   "fields": [
+    "x",
+    "x2"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "SubModel",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "x",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "y",
+      "schema": {
+       "type": "str"
+      },
+      "init_only": true
+     },
+     {
+      "type": "dataclass-field",
+      "name": "x2",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "y2",
+      "schema": {
+       "type": "str"
+      },
+      "init_only": true
+     }
+    ]
+   },
+   "slots": true
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "SubModel"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 1,
+    "x2": 2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dataclasses.py::test_slots_mixed#1",
+  "test": "tests/serializers/test_dataclasses.py::test_slots_mixed",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "SubModel"
+   },
+   "fields": [
+    "x",
+    "x2"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "SubModel",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "x",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "y",
+      "schema": {
+       "type": "str"
+      },
+      "init_only": true
+     },
+     {
+      "type": "dataclass-field",
+      "name": "x2",
+      "schema": {
+       "type": "int"
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "y2",
+      "schema": {
+       "type": "str"
+      },
+      "init_only": true
+     }
+    ]
+   },
+   "slots": true
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "SubModel"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"x\":1,\"x2\":2}"
+  }
+ }
+]

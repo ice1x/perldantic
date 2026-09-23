@@ -1,0 +1,598 @@
+[
+ {
+  "id": "tests/serializers/test_literal.py::test_bool_literal#0",
+  "test": "tests/serializers/test_literal.py::test_bool_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    false
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": false,
+  "options": {},
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_bool_literal#1",
+  "test": "tests/serializers/test_literal.py::test_bool_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    false
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": false,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_bool_literal#2",
+  "test": "tests/serializers/test_literal.py::test_bool_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    false
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": true,
+  "options": {},
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_bool_literal#3",
+  "test": "tests/serializers/test_literal.py::test_bool_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    false
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": false,
+  "options": {},
+  "expected": {
+   "json": "false"
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_int_literal#0",
+  "test": "tests/serializers/test_literal.py::test_int_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    2,
+    3
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_int_literal#1",
+  "test": "tests/serializers/test_literal.py::test_int_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    2,
+    3
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_int_literal#2",
+  "test": "tests/serializers/test_literal.py::test_int_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    2,
+    3
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 44,
+  "options": {},
+  "expected": {
+   "output": 44
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_int_literal#3",
+  "test": "tests/serializers/test_literal.py::test_int_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    2,
+    3
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_int_literal#4",
+  "test": "tests/serializers/test_literal.py::test_int_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    2,
+    3
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "a",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "a"
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_int_literal#5",
+  "test": "tests/serializers/test_literal.py::test_int_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    1,
+    2,
+    3
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "a",
+  "options": {},
+  "expected": {
+   "json": "\"a\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_literal_with_enum#0",
+  "test": "tests/serializers/test_literal.py::test_literal_with_enum",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Yard"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "pet": {
+      "type": "model-field",
+      "schema": {
+       "type": "tagged-union",
+       "choices": {
+        "$dict": [
+         [
+          {
+           "$enum": [
+            "SomeEnum",
+            "dog"
+           ]
+          },
+          {
+           "type": "model",
+           "cls": {
+            "$class": "Dog"
+           },
+           "schema": {
+            "type": "model-fields",
+            "fields": {
+             "type": {
+              "type": "model-field",
+              "schema": {
+               "type": "default",
+               "schema": {
+                "type": "literal",
+                "expected": [
+                 {
+                  "$enum": [
+                   "SomeEnum",
+                   "dog"
+                  ]
+                 }
+                ]
+               },
+               "default": {
+                "$enum": [
+                 "SomeEnum",
+                 "dog"
+                ]
+               }
+              }
+             },
+             "name": {
+              "type": "model-field",
+              "schema": {
+               "type": "str"
+              }
+             }
+            },
+            "model_name": "Dog"
+           }
+          }
+         ],
+         [
+          {
+           "$enum": [
+            "SomeEnum",
+            "cat"
+           ]
+          },
+          {
+           "type": "model",
+           "cls": {
+            "$class": "Cat"
+           },
+           "schema": {
+            "type": "model-fields",
+            "fields": {
+             "type": {
+              "type": "model-field",
+              "schema": {
+               "type": "default",
+               "schema": {
+                "type": "literal",
+                "expected": [
+                 {
+                  "$enum": [
+                   "SomeEnum",
+                   "cat"
+                  ]
+                 }
+                ]
+               },
+               "default": {
+                "$enum": [
+                 "SomeEnum",
+                 "cat"
+                ]
+               }
+              }
+             },
+             "name": {
+              "type": "model-field",
+              "schema": {
+               "type": "str"
+              }
+             }
+            },
+            "model_name": "Cat"
+           }
+          }
+         ]
+        ]
+       },
+       "discriminator": "type",
+       "strict": false,
+       "from_attributes": true
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Yard"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "pet": {
+     "name": "Rex",
+     "type": "dog"
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_other_literal#0",
+  "test": "tests/serializers/test_literal.py::test_other_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a",
+    1
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "a",
+  "options": {},
+  "expected": {
+   "output": "a"
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_other_literal#1",
+  "test": "tests/serializers/test_literal.py::test_other_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a",
+    1
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "a",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "a"
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_other_literal#2",
+  "test": "tests/serializers/test_literal.py::test_other_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a",
+    1
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "not in literal",
+  "options": {},
+  "expected": {
+   "output": "not in literal"
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_other_literal#3",
+  "test": "tests/serializers/test_literal.py::test_other_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a",
+    1
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "a",
+  "options": {},
+  "expected": {
+   "json": "\"a\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_other_literal#4",
+  "test": "tests/serializers/test_literal.py::test_other_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a",
+    1
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_other_literal#5",
+  "test": "tests/serializers/test_literal.py::test_other_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a",
+    1
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_other_literal#6",
+  "test": "tests/serializers/test_literal.py::test_other_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a",
+    1
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 44,
+  "options": {},
+  "expected": {
+   "output": 44
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_other_literal#7",
+  "test": "tests/serializers/test_literal.py::test_other_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a",
+    1
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_str_literal#0",
+  "test": "tests/serializers/test_literal.py::test_str_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "a",
+  "options": {},
+  "expected": {
+   "output": "a"
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_str_literal#1",
+  "test": "tests/serializers/test_literal.py::test_str_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "a",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "a"
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_str_literal#2",
+  "test": "tests/serializers/test_literal.py::test_str_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "not in literal",
+  "options": {},
+  "expected": {
+   "output": "not in literal"
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_str_literal#3",
+  "test": "tests/serializers/test_literal.py::test_str_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "a",
+  "options": {},
+  "expected": {
+   "json": "\"a\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_str_literal#4",
+  "test": "tests/serializers/test_literal.py::test_str_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_literal.py::test_str_literal#5",
+  "test": "tests/serializers/test_literal.py::test_str_literal",
+  "schema": {
+   "type": "literal",
+   "expected": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ }
+]

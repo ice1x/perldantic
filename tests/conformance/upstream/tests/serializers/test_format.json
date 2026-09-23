@@ -1,0 +1,1054 @@
+[
+ {
+  "id": "tests/serializers/test_format.py::test_dict_keys#0",
+  "test": "tests/serializers/test_format.py::test_dict_keys",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "float",
+    "serialization": {
+     "type": "format",
+     "formatting_string": "0.4f"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     true
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1.0000": true
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[42.12--42.12-\"42.12\"]#0",
+  "test": "tests/serializers/test_format.py::test_format[42.12--42.12-\"42.12\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": ""
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42.12,
+  "options": {},
+  "expected": {
+   "output": 42.12
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[42.12--42.12-\"42.12\"]#1",
+  "test": "tests/serializers/test_format.py::test_format[42.12--42.12-\"42.12\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": ""
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 42.12,
+  "options": {},
+  "expected": {
+   "json": "\"42.12\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[42.12--42.12-\"42.12\"]#2",
+  "test": "tests/serializers/test_format.py::test_format[42.12--42.12-\"42.12\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": ""
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42.12,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "42.12"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[42.12-0.4f-42.12-\"42.1200\"]#0",
+  "test": "tests/serializers/test_format.py::test_format[42.12-0.4f-42.12-\"42.1200\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "0.4f"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42.12,
+  "options": {},
+  "expected": {
+   "output": 42.12
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[42.12-0.4f-42.12-\"42.1200\"]#1",
+  "test": "tests/serializers/test_format.py::test_format[42.12-0.4f-42.12-\"42.1200\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "0.4f"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 42.12,
+  "options": {},
+  "expected": {
+   "json": "\"42.1200\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[42.12-0.4f-42.12-\"42.1200\"]#2",
+  "test": "tests/serializers/test_format.py::test_format[42.12-0.4f-42.12-\"42.1200\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "0.4f"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42.12,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "42.1200"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[42.12345-0.4f-42.12345-\"42.1234\"]#0",
+  "test": "tests/serializers/test_format.py::test_format[42.12345-0.4f-42.12345-\"42.1234\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "0.4f"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42.12345,
+  "options": {},
+  "expected": {
+   "output": 42.12345
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[42.12345-0.4f-42.12345-\"42.1234\"]#1",
+  "test": "tests/serializers/test_format.py::test_format[42.12345-0.4f-42.12345-\"42.1234\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "0.4f"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 42.12345,
+  "options": {},
+  "expected": {
+   "json": "\"42.1234\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[42.12345-0.4f-42.12345-\"42.1234\"]#2",
+  "test": "tests/serializers/test_format.py::test_format[42.12345-0.4f-42.12345-\"42.1234\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "0.4f"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42.12345,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "42.1234"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[42.1234567--42.1234567-\"42.1234567\"]#0",
+  "test": "tests/serializers/test_format.py::test_format[42.1234567--42.1234567-\"42.1234567\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": ""
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42.1234567,
+  "options": {},
+  "expected": {
+   "output": 42.1234567
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[42.1234567--42.1234567-\"42.1234567\"]#1",
+  "test": "tests/serializers/test_format.py::test_format[42.1234567--42.1234567-\"42.1234567\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": ""
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 42.1234567,
+  "options": {},
+  "expected": {
+   "json": "\"42.1234567\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[42.1234567--42.1234567-\"42.1234567\"]#2",
+  "test": "tests/serializers/test_format.py::test_format[42.1234567--42.1234567-\"42.1234567\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": ""
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42.1234567,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "42.1234567"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[foo-^5s-foo-\" foo \"]#0",
+  "test": "tests/serializers/test_format.py::test_format[foo-^5s-foo-\" foo \"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "^5s"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "output": "foo"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[foo-^5s-foo-\" foo \"]#1",
+  "test": "tests/serializers/test_format.py::test_format[foo-^5s-foo-\" foo \"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "^5s"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "json": "\" foo \""
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[foo-^5s-foo-\" foo \"]#2",
+  "test": "tests/serializers/test_format.py::test_format[foo-^5s-foo-\" foo \"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "^5s"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foo",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": " foo "
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[value4-%Y-%m-%d-expected_python4-\"2022-11-20\"]#0",
+  "test": "tests/serializers/test_format.py::test_format[value4-%Y-%m-%d-expected_python4-\"2022-11-20\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "%Y-%m-%d"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$date": "2022-11-20"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-11-20"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[value4-%Y-%m-%d-expected_python4-\"2022-11-20\"]#1",
+  "test": "tests/serializers/test_format.py::test_format[value4-%Y-%m-%d-expected_python4-\"2022-11-20\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "%Y-%m-%d"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$date": "2022-11-20"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2022-11-20\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[value4-%Y-%m-%d-expected_python4-\"2022-11-20\"]#2",
+  "test": "tests/serializers/test_format.py::test_format[value4-%Y-%m-%d-expected_python4-\"2022-11-20\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "%Y-%m-%d"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$date": "2022-11-20"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2022-11-20"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[value6--expected_python6-\"ebcdab58-6eb8-46fb-a190-d07a33e9eac8\"]#0",
+  "test": "tests/serializers/test_format.py::test_format[value6--expected_python6-\"ebcdab58-6eb8-46fb-a190-d07a33e9eac8\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": ""
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$uuid": "ebcdab58-6eb8-46fb-a190-d07a33e9eac8"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "ebcdab58-6eb8-46fb-a190-d07a33e9eac8"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[value6--expected_python6-\"ebcdab58-6eb8-46fb-a190-d07a33e9eac8\"]#1",
+  "test": "tests/serializers/test_format.py::test_format[value6--expected_python6-\"ebcdab58-6eb8-46fb-a190-d07a33e9eac8\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": ""
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$uuid": "ebcdab58-6eb8-46fb-a190-d07a33e9eac8"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"ebcdab58-6eb8-46fb-a190-d07a33e9eac8\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format[value6--expected_python6-\"ebcdab58-6eb8-46fb-a190-d07a33e9eac8\"]#2",
+  "test": "tests/serializers/test_format.py::test_format[value6--expected_python6-\"ebcdab58-6eb8-46fb-a190-d07a33e9eac8\"]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": ""
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$uuid": "ebcdab58-6eb8-46fb-a190-d07a33e9eac8"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "ebcdab58-6eb8-46fb-a190-d07a33e9eac8"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format_error#0",
+  "test": "tests/serializers/test_format.py::test_format_error",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "^5d"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format_error#1",
+  "test": "tests/serializers/test_format.py::test_format_error",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "^5d"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "x",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Error calling `format(value, '^5d')`: ValueError: Unknown format code 'd' for object of type 'str'"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format_error#2",
+  "test": "tests/serializers/test_format.py::test_format_error",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "^5d"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "x",
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Error serializing to JSON: Error calling `format(value, '^5d')`: ValueError: Unknown format code 'd' for object of type 'str'"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format_fallback#0",
+  "test": "tests/serializers/test_format.py::test_format_fallback",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "^5s"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "abc",
+  "options": {},
+  "expected": {
+   "output": "abc"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format_fallback#1",
+  "test": "tests/serializers/test_format.py::test_format_fallback",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "^5s"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "abc",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": " abc "
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format_fallback#2",
+  "test": "tests/serializers/test_format.py::test_format_fallback",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "^5s"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "abc",
+  "options": {},
+  "expected": {
+   "json": "\" abc \""
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format_fallback#3",
+  "test": "tests/serializers/test_format.py::test_format_fallback",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "^5s"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format_fallback#4",
+  "test": "tests/serializers/test_format.py::test_format_fallback",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "^5s"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format_fallback#5",
+  "test": "tests/serializers/test_format.py::test_format_fallback",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "^5s"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format_when_used_json#0",
+  "test": "tests/serializers/test_format.py::test_format_when_used_json",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "0.1f",
+    "when_used": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42.12345,
+  "options": {},
+  "expected": {
+   "output": 42.12345
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format_when_used_json#1",
+  "test": "tests/serializers/test_format.py::test_format_when_used_json",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "0.1f",
+    "when_used": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format_when_used_json#2",
+  "test": "tests/serializers/test_format.py::test_format_when_used_json",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "0.1f",
+    "when_used": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42.12345,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "42.1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format_when_used_json#3",
+  "test": "tests/serializers/test_format.py::test_format_when_used_json",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "0.1f",
+    "when_used": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 42.12345,
+  "options": {},
+  "expected": {
+   "json": "\"42.1\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format_when_used_json#4",
+  "test": "tests/serializers/test_format.py::test_format_when_used_json",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "0.1f",
+    "when_used": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Error serializing to JSON: Error calling `format(value, '0.1f')`: TypeError: unsupported format string passed to NoneType.__format__"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format_when_used_unless_none#0",
+  "test": "tests/serializers/test_format.py::test_format_when_used_unless_none",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "0.1f",
+    "when_used": "unless-none"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42.12345,
+  "options": {},
+  "expected": {
+   "output": "42.1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format_when_used_unless_none#1",
+  "test": "tests/serializers/test_format.py::test_format_when_used_unless_none",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "0.1f",
+    "when_used": "unless-none"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42.12345,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "42.1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_format_when_used_unless_none#2",
+  "test": "tests/serializers/test_format.py::test_format_when_used_unless_none",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "0.1f",
+    "when_used": "unless-none"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 42.12345,
+  "options": {},
+  "expected": {
+   "json": "\"42.1\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_to_string#0",
+  "test": "tests/serializers/test_format.py::test_to_string",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "to-string"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "123"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_to_string#1",
+  "test": "tests/serializers/test_format.py::test_to_string",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "to-string"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_to_string#2",
+  "test": "tests/serializers/test_format.py::test_to_string",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "to-string"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$uuid": "ebcdab58-6eb8-46fb-a190-d07a33e9eac8"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "ebcdab58-6eb8-46fb-a190-d07a33e9eac8"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_to_string#3",
+  "test": "tests/serializers/test_format.py::test_to_string",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "to-string"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$uuid": "ebcdab58-6eb8-46fb-a190-d07a33e9eac8"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"ebcdab58-6eb8-46fb-a190-d07a33e9eac8\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_to_string#4",
+  "test": "tests/serializers/test_format.py::test_to_string",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "to-string"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "BrokenToString"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "exception": {
+    "type": "ValueError",
+    "message": "broken"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_to_string_when_used_always#0",
+  "test": "tests/serializers/test_format.py::test_to_string_when_used_always",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "",
+    "when_used": "always"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "output": "123"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_to_string_when_used_always#1",
+  "test": "tests/serializers/test_format.py::test_to_string_when_used_always",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "",
+    "when_used": "always"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": "None"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_to_string_when_used_always#2",
+  "test": "tests/serializers/test_format.py::test_to_string_when_used_always",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "",
+    "when_used": "always"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "123"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_to_string_when_used_always#3",
+  "test": "tests/serializers/test_format.py::test_to_string_when_used_always",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "",
+    "when_used": "always"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "None"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_to_string_when_used_always#4",
+  "test": "tests/serializers/test_format.py::test_to_string_when_used_always",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "",
+    "when_used": "always"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "\"None\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_to_string_when_used_always#5",
+  "test": "tests/serializers/test_format.py::test_to_string_when_used_always",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "",
+    "when_used": "always"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "json": "\"123\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_to_string_when_used_unless_none#0",
+  "test": "tests/serializers/test_format.py::test_to_string_when_used_unless_none",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "",
+    "when_used": "unless-none"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42,
+  "options": {},
+  "expected": {
+   "output": "42"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_to_string_when_used_unless_none#1",
+  "test": "tests/serializers/test_format.py::test_to_string_when_used_unless_none",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "",
+    "when_used": "unless-none"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "42"
+  }
+ },
+ {
+  "id": "tests/serializers/test_format.py::test_to_string_when_used_unless_none#2",
+  "test": "tests/serializers/test_format.py::test_to_string_when_used_unless_none",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "format",
+    "formatting_string": "",
+    "when_used": "unless-none"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 42,
+  "options": {},
+  "expected": {
+   "json": "\"42\""
+  }
+ }
+]

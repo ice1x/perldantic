@@ -127,3 +127,64 @@ def test_repr_and_pickle():
     out = pytester.path / 'cases'
     result = pytester.runpytest('-p', 'conformance.recorder', f'--conformance-out={out}', '-q')
     result.assert_outcomes(passed=1)
+
+
+SERIALIZER_TESTS = '''
+import pytest
+from pydantic_core import PydanticSerializationError, SchemaSerializer
+
+
+def test_to_python_and_json():
+    s = SchemaSerializer({'type': 'int'})
+    assert s.to_python(1) == 1
+    assert s.to_python(1, mode='json') == 1
+    assert s.to_json(1) == b'1'
+
+
+def test_warnings_are_recorded_and_still_raised():
+    s = SchemaSerializer({'type': 'int'})
+    with pytest.warns(UserWarning, match='Expected `int`'):
+        assert s.to_python('x') == 'x'
+
+
+def test_errors():
+    with pytest.raises(PydanticSerializationError):
+        SchemaSerializer({'type': 'any'}).to_json(object())
+'''
+
+
+def test_records_serializer_calls(pytester):
+    pytester.makepyfile(test_ser=SERIALIZER_TESTS)
+    out = pytester.path / 'cases'
+    result = pytester.runpytest('-p', 'conformance.recorder', f'--conformance-out={out}', '-q')
+    result.assert_outcomes(passed=3)
+    cases = json.loads((out / 'test_ser.json').read_text())
+    by_test = {}
+    for case in cases:
+        by_test.setdefault(case['test'].split('::')[-1], []).append(case)
+
+    python_case, python_json_case, json_case = by_test['test_to_python_and_json']
+    assert python_case['mode'] == 'to_python'
+    assert python_case['schema'] == {'type': 'int'}
+    assert python_case['input'] == 1
+    assert python_case['options'] == {}
+    assert python_case['expected'] == {'output': 1}
+    assert python_json_case['options'] == {'mode': 'json'}
+    assert json_case['mode'] == 'to_json'
+    # JSON output is recorded as text.
+    assert json_case['expected'] == {'json': '1'}
+
+    (warn_case,) = by_test['test_warnings_are_recorded_and_still_raised']
+    assert warn_case['expected']['output'] == 'x'
+    assert warn_case['expected']['warnings'] == [
+        'Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int` - '
+        "serialized value may not be as expected [input_value='x', input_type=str])"
+    ]
+
+    (error_case,) = by_test['test_errors']
+    assert error_case['expected'] == {
+        'exception': {
+            'type': 'PydanticSerializationError',
+            'message': "Unable to serialize unknown type: <class 'object'>",
+        }
+    }

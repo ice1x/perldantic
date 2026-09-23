@@ -1,0 +1,120 @@
+[
+ {
+  "id": "tests/serializers/test_infer.py::test_infer_json_key#0",
+  "test": "tests/serializers/test_infer.py::test_infer_json_key",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      {
+       "$dict": [
+        [
+         {
+          "$object": "complex"
+         },
+         1
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    {
+     "$dict": [
+      [
+       {
+        "$object": "complex"
+       },
+       1
+      ]
+     ]
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1+2j\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_infer.py::test_infer_serialize#0",
+  "test": "tests/serializers/test_infer.py::test_infer_serialize",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      {
+       "$object": "complex"
+      }
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    {
+     "$object": "complex"
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "\"1+2j\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_infer.py::test_infer_to_python#0",
+  "test": "tests/serializers/test_infer.py::test_infer_to_python",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      {
+       "$object": "complex"
+      }
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    {
+     "$object": "complex"
+    }
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "1+2j"
+  }
+ }
+]

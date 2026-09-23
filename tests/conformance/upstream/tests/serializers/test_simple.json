@@ -1,0 +1,2204 @@
+[
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf-\"-Infinity\"-config10]#0",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf-\"-Infinity\"-config10]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "strings"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "-inf"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "-inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf-\"-Infinity\"-config10]#1",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf-\"-Infinity\"-config10]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "strings"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "-inf"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "$float": "-inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf-\"-Infinity\"-config10]#2",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf-\"-Infinity\"-config10]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "strings"
+  },
+  "mode": "to_json",
+  "input": {
+   "$float": "-inf"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"-Infinity\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf--Infinity-config7]#0",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf--Infinity-config7]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "-inf"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "-inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf--Infinity-config7]#1",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf--Infinity-config7]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "-inf"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "$float": "-inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf--Infinity-config7]#2",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf--Infinity-config7]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_json",
+  "input": {
+   "$float": "-inf"
+  },
+  "options": {},
+  "expected": {
+   "json": "-Infinity"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf-null-config1]#0",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf-null-config1]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {},
+  "mode": "to_python",
+  "input": {
+   "$float": "-inf"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "-inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf-null-config1]#1",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf-null-config1]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {},
+  "mode": "to_python",
+  "input": {
+   "$float": "-inf"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "$float": "-inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf-null-config1]#2",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf-null-config1]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {},
+  "mode": "to_json",
+  "input": {
+   "$float": "-inf"
+  },
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf-null-config4]#0",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf-null-config4]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "-inf"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "-inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf-null-config4]#1",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf-null-config4]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "-inf"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "$float": "-inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf-null-config4]#2",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[-inf-null-config4]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_json",
+  "input": {
+   "$float": "-inf"
+  },
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-\"Infinity\"-config9]#0",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-\"Infinity\"-config9]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "strings"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-\"Infinity\"-config9]#1",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-\"Infinity\"-config9]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "strings"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-\"Infinity\"-config9]#2",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-\"Infinity\"-config9]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "strings"
+  },
+  "mode": "to_json",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"Infinity\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-Infinity-config6]#0",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-Infinity-config6]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-Infinity-config6]#1",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-Infinity-config6]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-Infinity-config6]#2",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-Infinity-config6]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_json",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "json": "Infinity"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-null-config0]#0",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-null-config0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {},
+  "mode": "to_python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-null-config0]#1",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-null-config0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {},
+  "mode": "to_python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-null-config0]#2",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-null-config0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {},
+  "mode": "to_json",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-null-config3]#0",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-null-config3]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-null-config3]#1",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-null-config3]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-null-config3]#2",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[inf-null-config3]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_json",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-\"NaN\"-config11]#0",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-\"NaN\"-config11]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "strings"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-\"NaN\"-config11]#1",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-\"NaN\"-config11]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "strings"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-\"NaN\"-config11]#2",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-\"NaN\"-config11]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "strings"
+  },
+  "mode": "to_json",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"NaN\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-NaN-config8]#0",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-NaN-config8]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-NaN-config8]#1",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-NaN-config8]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-NaN-config8]#2",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-NaN-config8]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_json",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "json": "NaN"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-null-config2]#0",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-null-config2]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {},
+  "mode": "to_python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-null-config2]#1",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-null-config2]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {},
+  "mode": "to_python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-null-config2]#2",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-null-config2]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {},
+  "mode": "to_json",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-null-config5]#0",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-null-config5]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-null-config5]#1",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-null-config5]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-null-config5]#2",
+  "test": "tests/serializers/test_simple.py::test_float_inf_and_nan_serializers[nan-null-config5]",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_json",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_int_to_float#0",
+  "test": "tests/serializers/test_simple.py::test_int_to_float",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_int_to_float#1",
+  "test": "tests/serializers/test_simple.py::test_int_to_float",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "IntSubClass",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$subclass": [
+     "IntSubClass",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_int_to_float#2",
+  "test": "tests/serializers/test_simple.py::test_int_to_float",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_int_to_float#3",
+  "test": "tests/serializers/test_simple.py::test_int_to_float",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "IntSubClass",
+    1
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_int_to_float#4",
+  "test": "tests/serializers/test_simple.py::test_int_to_float",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1.0"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_int_to_float#5",
+  "test": "tests/serializers/test_simple.py::test_int_to_float",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$subclass": [
+    "IntSubClass",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "1.0"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_int_to_float_key#0",
+  "test": "tests/serializers/test_simple.py::test_int_to_float_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "float"
+   },
+   "values_schema": {
+    "type": "float"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      1
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_int_to_float_key#1",
+  "test": "tests/serializers/test_simple.py::test_int_to_float_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "float"
+   },
+   "values_schema": {
+    "type": "float"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     1
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1": 1.0
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_int_to_float_key#2",
+  "test": "tests/serializers/test_simple.py::test_int_to_float_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "float"
+   },
+   "values_schema": {
+    "type": "float"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     1,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1\":1.0}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[bool-False-False-false-None]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[bool-False-False-false-None]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": false,
+  "options": {},
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[bool-False-False-false-None]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[bool-False-False-false-None]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": false,
+  "options": {},
+  "expected": {
+   "json": "false"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[bool-False-False-false-None]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[bool-False-False-false-None]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": false,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[bool-False-False-false-any]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[bool-False-False-false-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": false,
+  "options": {},
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[bool-False-False-false-any]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[bool-False-False-false-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": false,
+  "options": {},
+  "expected": {
+   "json": "false"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[bool-False-False-false-any]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[bool-False-False-false-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": false,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[bool-True-True-true-None]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[bool-True-True-true-None]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": true,
+  "options": {},
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[bool-True-True-true-None]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[bool-True-True-true-None]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": true,
+  "options": {},
+  "expected": {
+   "json": "true"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[bool-True-True-true-None]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[bool-True-True-true-None]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": true,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[bool-True-True-true-any]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[bool-True-True-true-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": true,
+  "options": {},
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[bool-True-True-true-any]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[bool-True-True-true-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": true,
+  "options": {},
+  "expected": {
+   "json": "true"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[bool-True-True-true-any]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[bool-True-True-true-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": true,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[float-1.0-1.0-1.0-None]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[float-1.0-1.0-1.0-None]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1.0,
+  "options": {},
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[float-1.0-1.0-1.0-None]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[float-1.0-1.0-1.0-None]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1.0,
+  "options": {},
+  "expected": {
+   "json": "1.0"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[float-1.0-1.0-1.0-None]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[float-1.0-1.0-1.0-None]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1.0,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[float-1.0-1.0-1.0-any]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[float-1.0-1.0-1.0-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1.0,
+  "options": {},
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[float-1.0-1.0-1.0-any]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[float-1.0-1.0-1.0-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1.0,
+  "options": {},
+  "expected": {
+   "json": "1.0"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[float-1.0-1.0-1.0-any]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[float-1.0-1.0-1.0-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1.0,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[float-42.0-42.0-42.0-None]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[float-42.0-42.0-42.0-None]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "FloatSubClass",
+    42.0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$subclass": [
+     "FloatSubClass",
+     42.0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[float-42.0-42.0-42.0-None]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[float-42.0-42.0-42.0-None]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$subclass": [
+    "FloatSubClass",
+    42.0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "42.0"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[float-42.0-42.0-42.0-None]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[float-42.0-42.0-42.0-None]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "FloatSubClass",
+    42.0
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 42.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[float-42.0-42.0-42.0-any]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[float-42.0-42.0-42.0-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "FloatSubClass",
+    42.0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$subclass": [
+     "FloatSubClass",
+     42.0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[float-42.0-42.0-42.0-any]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[float-42.0-42.0-42.0-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$subclass": [
+    "FloatSubClass",
+    42.0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "42.0"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[float-42.0-42.0-42.0-any]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[float-42.0-42.0-42.0-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "FloatSubClass",
+    42.0
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 42.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[float-42.31415-42.31415-42.31415-None]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[float-42.31415-42.31415-42.31415-None]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42.31415,
+  "options": {},
+  "expected": {
+   "output": 42.31415
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[float-42.31415-42.31415-42.31415-None]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[float-42.31415-42.31415-42.31415-None]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 42.31415,
+  "options": {},
+  "expected": {
+   "json": "42.31415"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[float-42.31415-42.31415-42.31415-None]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[float-42.31415-42.31415-42.31415-None]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42.31415,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 42.31415
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[float-42.31415-42.31415-42.31415-any]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[float-42.31415-42.31415-42.31415-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42.31415,
+  "options": {},
+  "expected": {
+   "output": 42.31415
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[float-42.31415-42.31415-42.31415-any]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[float-42.31415-42.31415-42.31415-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 42.31415,
+  "options": {},
+  "expected": {
+   "json": "42.31415"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[float-42.31415-42.31415-42.31415-any]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[float-42.31415-42.31415-42.31415-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 42.31415,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 42.31415
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-None]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-None]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 10000000000000000000000000000000000000000,
+  "options": {},
+  "expected": {
+   "output": 10000000000000000000000000000000000000000
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-None]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-None]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 10000000000000000000000000000000000000000,
+  "options": {},
+  "expected": {
+   "json": "10000000000000000000000000000000000000000"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-None]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-None]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 10000000000000000000000000000000000000000,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 10000000000000000000000000000000000000000
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-any]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 10000000000000000000000000000000000000000,
+  "options": {},
+  "expected": {
+   "output": 10000000000000000000000000000000000000000
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-any]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 10000000000000000000000000000000000000000,
+  "options": {},
+  "expected": {
+   "json": "10000000000000000000000000000000000000000"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-any]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-10000000000000000000000000000000000000000-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 10000000000000000000000000000000000000000,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 10000000000000000000000000000000000000000
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-1_int-1_int-1_bytes-None]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-1_int-1_int-1_bytes-None]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-1_int-1_int-1_bytes-None]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-1_int-1_int-1_bytes-None]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-1_int-1_int-1_bytes-None]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-1_int-1_int-1_bytes-None]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-1_int-1_int-1_bytes-any]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-1_int-1_int-1_bytes-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-1_int-1_int-1_bytes-any]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-1_int-1_int-1_bytes-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-1_int-1_int-1_bytes-any]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-1_int-1_int-1_bytes-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-42-42-42-None]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-42-42-42-None]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "IntSubClass",
+    42
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$subclass": [
+     "IntSubClass",
+     42
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-42-42-42-None]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-42-42-42-None]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$subclass": [
+    "IntSubClass",
+    42
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "42"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-42-42-42-None]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-42-42-42-None]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "IntSubClass",
+    42
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-42-42-42-any]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-42-42-42-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "IntSubClass",
+    42
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$subclass": [
+     "IntSubClass",
+     42
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-42-42-42-any]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-42-42-42-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$subclass": [
+    "IntSubClass",
+    42
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "42"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-42-42-42-any]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-42-42-42-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "IntSubClass",
+    42
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-MyIntEnum.one_int-MyIntEnum.one_int-1_bytes-None]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-MyIntEnum.one_int-MyIntEnum.one_int-1_bytes-None]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "MyIntEnum",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyIntEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-MyIntEnum.one_int-MyIntEnum.one_int-1_bytes-None]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-MyIntEnum.one_int-MyIntEnum.one_int-1_bytes-None]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$enum": [
+    "MyIntEnum",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-MyIntEnum.one_int-MyIntEnum.one_int-1_bytes-None]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-MyIntEnum.one_int-MyIntEnum.one_int-1_bytes-None]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "MyIntEnum",
+    1
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-MyIntEnum.one_int-MyIntEnum.one_int-1_bytes-any]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-MyIntEnum.one_int-MyIntEnum.one_int-1_bytes-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "MyIntEnum",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyIntEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-MyIntEnum.one_int-MyIntEnum.one_int-1_bytes-any]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-MyIntEnum.one_int-MyIntEnum.one_int-1_bytes-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$enum": [
+    "MyIntEnum",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[int-MyIntEnum.one_int-MyIntEnum.one_int-1_bytes-any]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[int-MyIntEnum.one_int-MyIntEnum.one_int-1_bytes-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "MyIntEnum",
+    1
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[none-None-None-null-None]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[none-None-None-null-None]",
+  "schema": {
+   "type": "none"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[none-None-None-null-None]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[none-None-None-null-None]",
+  "schema": {
+   "type": "none"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[none-None-None-null-None]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[none-None-None-null-None]",
+  "schema": {
+   "type": "none"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[none-None-None-null-any]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[none-None-None-null-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[none-None-None-null-any]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[none-None-None-null-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers[none-None-None-null-any]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers[none-None-None-null-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers_fallback[bool]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers_fallback[bool]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `bool` - serialized value may not be as expected [input_value=[1, 2, 3], input_type=list])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers_fallback[bool]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers_fallback[bool]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   {
+    "$bytes": "Ynl0ZXM="
+   }
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    "bytes"
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `bool` - serialized value may not be as expected [input_value=[1, 2, b'bytes'], input_type=list])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers_fallback[bool]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers_fallback[bool]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "json": "[1,2,3]",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `bool` - serialized value may not be as expected [input_value=[1, 2, 3], input_type=list])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers_fallback[float]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers_fallback[float]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `float` - serialized value may not be as expected [input_value=[1, 2, 3], input_type=list])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers_fallback[float]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers_fallback[float]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   {
+    "$bytes": "Ynl0ZXM="
+   }
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    "bytes"
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `float` - serialized value may not be as expected [input_value=[1, 2, b'bytes'], input_type=list])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers_fallback[float]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers_fallback[float]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "json": "[1,2,3]",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `float` - serialized value may not be as expected [input_value=[1, 2, 3], input_type=list])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers_fallback[int]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers_fallback[int]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value=[1, 2, 3], input_type=list])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers_fallback[int]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers_fallback[int]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   {
+    "$bytes": "Ynl0ZXM="
+   }
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    "bytes"
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value=[1, 2, b'bytes'], input_type=list])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers_fallback[int]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers_fallback[int]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "json": "[1,2,3]",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value=[1, 2, 3], input_type=list])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers_fallback[none]#0",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers_fallback[none]",
+  "schema": {
+   "type": "none"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `none` - serialized value may not be as expected [input_value=[1, 2, 3], input_type=list])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers_fallback[none]#1",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers_fallback[none]",
+  "schema": {
+   "type": "none"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   {
+    "$bytes": "Ynl0ZXM="
+   }
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    "bytes"
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `none` - serialized value may not be as expected [input_value=[1, 2, b'bytes'], input_type=list])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_simple.py::test_simple_serializers_fallback[none]#2",
+  "test": "tests/serializers/test_simple.py::test_simple_serializers_fallback[none]",
+  "schema": {
+   "type": "none"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "json": "[1,2,3]",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `none` - serialized value may not be as expected [input_value=[1, 2, 3], input_type=list])"
+   ]
+  }
+ }
+]

@@ -1,0 +1,384 @@
+[
+ {
+  "id": "tests/serializers/test_uuid.py::test_any_uuid_key#0",
+  "test": "tests/serializers/test_uuid.py::test_any_uuid_key",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$uuid": "12345678-1234-5678-1234-567812345678"
+     },
+     1
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "12345678-1234-5678-1234-567812345678": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_uuid.py::test_any_uuid_key#1",
+  "test": "tests/serializers/test_uuid.py::test_any_uuid_key",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$uuid": "12345678-1234-5678-1234-567812345678"
+     },
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"12345678-1234-5678-1234-567812345678\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_uuid.py::test_uuid#0",
+  "test": "tests/serializers/test_uuid.py::test_uuid",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$uuid": "12345678-1234-5678-1234-567812345678"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "12345678-1234-5678-1234-567812345678"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_uuid.py::test_uuid#1",
+  "test": "tests/serializers/test_uuid.py::test_uuid",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$uuid": "12345678-1234-5678-1234-567812345678"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "12345678-1234-5678-1234-567812345678"
+  }
+ },
+ {
+  "id": "tests/serializers/test_uuid.py::test_uuid#2",
+  "test": "tests/serializers/test_uuid.py::test_uuid",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$uuid": "12345678-1234-5678-1234-567812345678"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"12345678-1234-5678-1234-567812345678\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_uuid.py::test_uuid#3",
+  "test": "tests/serializers/test_uuid.py::test_uuid",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 123,
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `uuid` - serialized value may not be as expected [input_value=123, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_uuid.py::test_uuid#4",
+  "test": "tests/serializers/test_uuid.py::test_uuid",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "json": "123",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `uuid` - serialized value may not be as expected [input_value=123, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_uuid.py::test_uuid_json[value0-12345678-1234-5678-1234-567812345678]#0",
+  "test": "tests/serializers/test_uuid.py::test_uuid_json[value0-12345678-1234-5678-1234-567812345678]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$uuid": "12345678-1234-5678-1234-567812345678"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "12345678-1234-5678-1234-567812345678"
+  }
+ },
+ {
+  "id": "tests/serializers/test_uuid.py::test_uuid_json[value0-12345678-1234-5678-1234-567812345678]#1",
+  "test": "tests/serializers/test_uuid.py::test_uuid_json[value0-12345678-1234-5678-1234-567812345678]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$uuid": "12345678-1234-5678-1234-567812345678"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"12345678-1234-5678-1234-567812345678\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_uuid.py::test_uuid_json[value1-550e8400-e29b-41d4-a716-446655440000]#0",
+  "test": "tests/serializers/test_uuid.py::test_uuid_json[value1-550e8400-e29b-41d4-a716-446655440000]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$uuid": "550e8400-e29b-41d4-a716-446655440000"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "550e8400-e29b-41d4-a716-446655440000"
+  }
+ },
+ {
+  "id": "tests/serializers/test_uuid.py::test_uuid_json[value1-550e8400-e29b-41d4-a716-446655440000]#1",
+  "test": "tests/serializers/test_uuid.py::test_uuid_json[value1-550e8400-e29b-41d4-a716-446655440000]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$uuid": "550e8400-e29b-41d4-a716-446655440000"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"550e8400-e29b-41d4-a716-446655440000\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_uuid.py::test_uuid_json[value2-123e4567-e89b-12d3-a456-426655440000]#0",
+  "test": "tests/serializers/test_uuid.py::test_uuid_json[value2-123e4567-e89b-12d3-a456-426655440000]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$uuid": "123e4567-e89b-12d3-a456-426655440000"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "123e4567-e89b-12d3-a456-426655440000"
+  }
+ },
+ {
+  "id": "tests/serializers/test_uuid.py::test_uuid_json[value2-123e4567-e89b-12d3-a456-426655440000]#1",
+  "test": "tests/serializers/test_uuid.py::test_uuid_json[value2-123e4567-e89b-12d3-a456-426655440000]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$uuid": "123e4567-e89b-12d3-a456-426655440000"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"123e4567-e89b-12d3-a456-426655440000\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_uuid.py::test_uuid_json[value3-00000000-0000-0000-0000-000000000000]#0",
+  "test": "tests/serializers/test_uuid.py::test_uuid_json[value3-00000000-0000-0000-0000-000000000000]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$uuid": "00000000-0000-0000-0000-000000000000"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "00000000-0000-0000-0000-000000000000"
+  }
+ },
+ {
+  "id": "tests/serializers/test_uuid.py::test_uuid_json[value3-00000000-0000-0000-0000-000000000000]#1",
+  "test": "tests/serializers/test_uuid.py::test_uuid_json[value3-00000000-0000-0000-0000-000000000000]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$uuid": "00000000-0000-0000-0000-000000000000"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"00000000-0000-0000-0000-000000000000\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_uuid.py::test_uuid_key#0",
+  "test": "tests/serializers/test_uuid.py::test_uuid_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "uuid"
+   },
+   "values_schema": {
+    "type": "uuid"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$uuid": "12345678-1234-5678-1234-567812345678"
+     },
+     {
+      "$uuid": "12345678-1234-5678-1234-567812345678"
+     }
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$uuid": "12345678-1234-5678-1234-567812345678"
+      },
+      {
+       "$uuid": "12345678-1234-5678-1234-567812345678"
+      }
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_uuid.py::test_uuid_key#1",
+  "test": "tests/serializers/test_uuid.py::test_uuid_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "uuid"
+   },
+   "values_schema": {
+    "type": "uuid"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$uuid": "12345678-1234-5678-1234-567812345678"
+     },
+     {
+      "$uuid": "12345678-1234-5678-1234-567812345678"
+     }
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "12345678-1234-5678-1234-567812345678": "12345678-1234-5678-1234-567812345678"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_uuid.py::test_uuid_key#2",
+  "test": "tests/serializers/test_uuid.py::test_uuid_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "uuid"
+   },
+   "values_schema": {
+    "type": "uuid"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$uuid": "12345678-1234-5678-1234-567812345678"
+     },
+     {
+      "$uuid": "12345678-1234-5678-1234-567812345678"
+     }
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"12345678-1234-5678-1234-567812345678\":\"12345678-1234-5678-1234-567812345678\"}"
+  }
+ }
+]

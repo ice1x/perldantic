@@ -1,0 +1,1810 @@
+[
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[bool]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback[bool]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[bool]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback[bool]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[bool]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback[bool]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[bytes]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback[bytes]",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[bytes]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback[bytes]",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[bytes]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback[bytes]",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[date]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback[date]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[date]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback[date]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[date]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback[date]",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[datetime]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback[datetime]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[datetime]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback[datetime]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[datetime]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback[datetime]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[dict]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback[dict]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[dict]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback[dict]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[dict]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback[dict]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[float]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback[float]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[float]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback[float]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[float]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback[float]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[frozenset]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback[frozenset]",
+  "schema": {
+   "type": "frozenset"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[frozenset]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback[frozenset]",
+  "schema": {
+   "type": "frozenset"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[frozenset]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback[frozenset]",
+  "schema": {
+   "type": "frozenset"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[int]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback[int]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[int]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback[int]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[int]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback[int]",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[list]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback[list]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[list]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback[list]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[list]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback[list]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[multi-host-url]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback[multi-host-url]",
+  "schema": {
+   "type": "multi-host-url"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[multi-host-url]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback[multi-host-url]",
+  "schema": {
+   "type": "multi-host-url"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[multi-host-url]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback[multi-host-url]",
+  "schema": {
+   "type": "multi-host-url"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[none]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback[none]",
+  "schema": {
+   "type": "none"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[none]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback[none]",
+  "schema": {
+   "type": "none"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[none]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback[none]",
+  "schema": {
+   "type": "none"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[set]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback[set]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[set]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback[set]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[set]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback[set]",
+  "schema": {
+   "type": "set"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[str]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback[str]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[str]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback[str]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[str]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback[str]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[time]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback[time]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[time]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback[time]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[time]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback[time]",
+  "schema": {
+   "type": "time"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[timedelta]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback[timedelta]",
+  "schema": {
+   "type": "timedelta"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[timedelta]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback[timedelta]",
+  "schema": {
+   "type": "timedelta"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[timedelta]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback[timedelta]",
+  "schema": {
+   "type": "timedelta"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[url]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback[url]",
+  "schema": {
+   "type": "url"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[url]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback[url]",
+  "schema": {
+   "type": "url"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback[url]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback[url]",
+  "schema": {
+   "type": "url"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[bool]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[bool]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "bool"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      null,
+      1
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[bool]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[bool]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "bool"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "None": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[bool]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[bool]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "bool"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"None\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[bytes]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[bytes]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "bytes"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      null,
+      1
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[bytes]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[bytes]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "bytes"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "None": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[bytes]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[bytes]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "bytes"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"None\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[date]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[date]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "date"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      null,
+      1
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[date]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[date]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "date"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "None": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[date]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[date]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "date"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"None\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[datetime]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[datetime]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      null,
+      1
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[datetime]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[datetime]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "None": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[datetime]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[datetime]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"None\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[float]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[float]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "float"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      null,
+      1
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[float]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[float]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "float"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "None": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[float]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[float]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "float"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"None\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[int]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[int]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      null,
+      1
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[int]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[int]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "None": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[int]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[int]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"None\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[multi-host-url]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[multi-host-url]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "multi-host-url"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      null,
+      1
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[multi-host-url]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[multi-host-url]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "multi-host-url"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "None": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[multi-host-url]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[multi-host-url]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "multi-host-url"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"None\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[none]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[none]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "none"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      null,
+      1
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[none]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[none]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "none"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "None": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[none]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[none]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "none"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"None\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[str]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[str]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      null,
+      1
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[str]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[str]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "None": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[str]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[str]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"None\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[time]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[time]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "time"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      null,
+      1
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[time]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[time]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "time"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "None": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[time]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[time]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "time"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"None\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[timedelta]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[timedelta]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "timedelta"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      null,
+      1
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[timedelta]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[timedelta]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "timedelta"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "None": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[timedelta]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[timedelta]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "timedelta"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"None\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[url]#0",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[url]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "url"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      null,
+      1
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[url]#1",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[url]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "url"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "None": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_none.py::test_none_fallback_key[url]#2",
+  "test": "tests/serializers/test_none.py::test_none_fallback_key[url]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "url"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     null,
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"None\":1}"
+  }
+ }
+]

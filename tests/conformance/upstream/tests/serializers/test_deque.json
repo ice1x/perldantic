@@ -1,0 +1,857 @@
+[
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_any#0",
+  "test": "tests/serializers/test_deque.py::test_deque_any",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_any#1",
+  "test": "tests/serializers/test_deque.py::test_deque_any",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "a",
+    "b",
+    "c"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_any#2",
+  "test": "tests/serializers/test_deque.py::test_deque_any",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "json": "[\"a\",\"b\",\"c\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_any#3",
+  "test": "tests/serializers/test_deque.py::test_deque_any",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "indent": 2
+  },
+  "expected": {
+   "json": "[\n  \"a\",\n  \"b\",\n  \"c\"\n]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_fallback[apple-apple-deque\\\\[int\\\\]]#0",
+  "test": "tests/serializers/test_deque.py::test_deque_fallback[apple-apple-deque\\\\[int\\\\]]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_fallback[apple-apple-deque\\\\[int\\\\]]#1",
+  "test": "tests/serializers/test_deque.py::test_deque_fallback[apple-apple-deque\\\\[int\\\\]]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "apple",
+  "options": {},
+  "expected": {
+   "output": "apple",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `deque[int]` - serialized value may not be as expected [input_value='apple', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_fallback[apple-apple-deque\\\\[int\\\\]]#2",
+  "test": "tests/serializers/test_deque.py::test_deque_fallback[apple-apple-deque\\\\[int\\\\]]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "apple",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "apple",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `deque[int]` - serialized value may not be as expected [input_value='apple', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_fallback[apple-apple-deque\\\\[int\\\\]]#3",
+  "test": "tests/serializers/test_deque.py::test_deque_fallback[apple-apple-deque\\\\[int\\\\]]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "apple",
+  "options": {},
+  "expected": {
+   "json": "\"apple\"",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `deque[int]` - serialized value may not be as expected [input_value='apple', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_fallback[input_value1-json_output1-deque\\\\[int\\\\]]#0",
+  "test": "tests/serializers/test_deque.py::test_deque_fallback[input_value1-json_output1-deque\\\\[int\\\\]]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_fallback[input_value1-json_output1-deque\\\\[int\\\\]]#1",
+  "test": "tests/serializers/test_deque.py::test_deque_fallback[input_value1-json_output1-deque\\\\[int\\\\]]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `deque[int]` - serialized value may not be as expected [input_value=[1, 2, 3], input_type=list])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_fallback[input_value1-json_output1-deque\\\\[int\\\\]]#2",
+  "test": "tests/serializers/test_deque.py::test_deque_fallback[input_value1-json_output1-deque\\\\[int\\\\]]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `deque[int]` - serialized value may not be as expected [input_value=[1, 2, 3], input_type=list])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_fallback[input_value1-json_output1-deque\\\\[int\\\\]]#3",
+  "test": "tests/serializers/test_deque.py::test_deque_fallback[input_value1-json_output1-deque\\\\[int\\\\]]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "json": "[1,2,3]",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `deque[int]` - serialized value may not be as expected [input_value=[1, 2, 3], input_type=list])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_fallback[input_value2-json_output2-deque\\\\[int\\\\]]#0",
+  "test": "tests/serializers/test_deque.py::test_deque_fallback[input_value2-json_output2-deque\\\\[int\\\\]]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_fallback[input_value2-json_output2-deque\\\\[int\\\\]]#1",
+  "test": "tests/serializers/test_deque.py::test_deque_fallback[input_value2-json_output2-deque\\\\[int\\\\]]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2,
+     3
+    ]
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `deque[int]` - serialized value may not be as expected [input_value=(1, 2, 3), input_type=tuple])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_fallback[input_value2-json_output2-deque\\\\[int\\\\]]#2",
+  "test": "tests/serializers/test_deque.py::test_deque_fallback[input_value2-json_output2-deque\\\\[int\\\\]]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `deque[int]` - serialized value may not be as expected [input_value=(1, 2, 3), input_type=tuple])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_fallback[input_value2-json_output2-deque\\\\[int\\\\]]#3",
+  "test": "tests/serializers/test_deque.py::test_deque_fallback[input_value2-json_output2-deque\\\\[int\\\\]]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,2,3]",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `deque[int]` - serialized value may not be as expected [input_value=(1, 2, 3), input_type=tuple])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_fallback[input_value3-json_output3-int]#0",
+  "test": "tests/serializers/test_deque.py::test_deque_fallback[input_value3-json_output3-int]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_fallback[input_value3-json_output3-int]#1",
+  "test": "tests/serializers/test_deque.py::test_deque_fallback[input_value3-json_output3-int]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    "a"
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value='a', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_fallback[input_value3-json_output3-int]#2",
+  "test": "tests/serializers/test_deque.py::test_deque_fallback[input_value3-json_output3-int]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,2,\"a\"]",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value='a', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_filter_schema#0",
+  "test": "tests/serializers/test_deque.py::test_deque_filter_schema",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      1
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_filter_schema#1",
+  "test": "tests/serializers/test_deque.py::test_deque_filter_schema",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      1
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "json": "[0,2]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_include_exclude#0",
+  "test": "tests/serializers/test_deque.py::test_deque_include_exclude",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "include": {
+    "$set": [
+     0,
+     2
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_include_exclude#1",
+  "test": "tests/serializers/test_deque.py::test_deque_include_exclude",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     0,
+     2
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_include_exclude#2",
+  "test": "tests/serializers/test_deque.py::test_deque_include_exclude",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "include": {
+    "$set": [
+     0,
+     2
+    ]
+   },
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    0,
+    2
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_include_exclude#3",
+  "test": "tests/serializers/test_deque.py::test_deque_include_exclude",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "include": {
+    "$set": [
+     -1
+    ]
+   }
+  },
+  "expected": {
+   "json": "[3]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_include_exclude#4",
+  "test": "tests/serializers/test_deque.py::test_deque_include_exclude",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     -1
+    ]
+   }
+  },
+  "expected": {
+   "json": "[0,1,2]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_int#0",
+  "test": "tests/serializers/test_deque.py::test_deque_int",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_int#1",
+  "test": "tests/serializers/test_deque.py::test_deque_int",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_int#2",
+  "test": "tests/serializers/test_deque.py::test_deque_int",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,2,3]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_maxlen_preserved#0",
+  "test": "tests/serializers/test_deque.py::test_deque_maxlen_preserved",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_maxlen_preserved#1",
+  "test": "tests/serializers/test_deque.py::test_deque_maxlen_preserved",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_nested#0",
+  "test": "tests/serializers/test_deque.py::test_deque_nested",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "deque",
+    "items_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": {
+    "$object": "deque"
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": {
+     "$object": "deque"
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_nested#1",
+  "test": "tests/serializers/test_deque.py::test_deque_nested",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "deque",
+    "items_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "a": {
+    "$object": "deque"
+   }
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":[1,2]}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_subclass#0",
+  "test": "tests/serializers/test_deque.py::test_deque_subclass",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MyDeque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_deque.py::test_deque_subclass#1",
+  "test": "tests/serializers/test_deque.py::test_deque_subclass",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "MyDeque"
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,2]"
+  }
+ }
+]

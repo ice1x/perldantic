@@ -1,0 +1,63 @@
+[
+ {
+  "id": "tests/serializers/test_ordered_dict.py::test_ordered_dict_from_dict_serializer#0",
+  "test": "tests/serializers/test_ordered_dict.py::test_ordered_dict_from_dict_serializer",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "OrderedDict",
+    {
+     "a": 1
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_ordered_dict.py::test_ordered_dict_infer#0",
+  "test": "tests/serializers/test_ordered_dict.py::test_ordered_dict_infer",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "OrderedDict",
+    {
+     "a": {
+      "$subclass": [
+       "OrderedDict",
+       {
+        "b": 1
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": {
+     "b": 1
+    }
+   }
+  }
+ }
+]

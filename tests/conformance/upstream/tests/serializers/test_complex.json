@@ -1,0 +1,608 @@
+[
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_inference#0",
+  "test": "tests/serializers/test_complex.py::test_complex_inference",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_inference#1",
+  "test": "tests/serializers/test_complex.py::test_complex_inference",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"1+2j\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(-0.000123+567.89j)--0.000123+567.89j]#0",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(-0.000123+567.89j)--0.000123+567.89j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(-0.000123+567.89j)--0.000123+567.89j]#1",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(-0.000123+567.89j)--0.000123+567.89j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "-0.000123+567.89j"
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(-0.000123+567.89j)--0.000123+567.89j]#2",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(-0.000123+567.89j)--0.000123+567.89j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"-0.000123+567.89j\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(-inf+2j)--inf+2j]#0",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(-inf+2j)--inf+2j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(-inf+2j)--inf+2j]#1",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(-inf+2j)--inf+2j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "-inf+2j"
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(-inf+2j)--inf+2j]#2",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(-inf+2j)--inf+2j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"-inf+2j\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(1+2j)-1+2j]#0",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(1+2j)-1+2j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(1+2j)-1+2j]#1",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(1+2j)-1+2j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "1+2j"
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(1+2j)-1+2j]#2",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(1+2j)-1+2j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"1+2j\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(1.5+0j)-1.5+0j]#0",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(1.5+0j)-1.5+0j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(1.5+0j)-1.5+0j]#1",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(1.5+0j)-1.5+0j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "1.5+0j"
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(1.5+0j)-1.5+0j]#2",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(1.5+0j)-1.5+0j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"1.5+0j\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(1.5-0j)-1.5-0j]#0",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(1.5-0j)-1.5-0j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(1.5-0j)-1.5-0j]#1",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(1.5-0j)-1.5-0j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "1.5-0j"
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(1.5-0j)-1.5-0j]#2",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(1.5-0j)-1.5-0j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"1.5-0j\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(2+nanj)-2+NaNj]#0",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(2+nanj)-2+NaNj]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(2+nanj)-2+NaNj]#1",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(2+nanj)-2+NaNj]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2+NaNj"
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(2+nanj)-2+NaNj]#2",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(2+nanj)-2+NaNj]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2+NaNj\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(inf+2j)-inf+2j]#0",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(inf+2j)-inf+2j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(inf+2j)-inf+2j]#1",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(inf+2j)-inf+2j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "inf+2j"
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(inf+2j)-inf+2j]#2",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(inf+2j)-inf+2j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"inf+2j\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(nan+2j)-NaN+2j]#0",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(nan+2j)-NaN+2j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(nan+2j)-NaN+2j]#1",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(nan+2j)-NaN+2j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "NaN+2j"
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[(nan+2j)-NaN+2j]#2",
+  "test": "tests/serializers/test_complex.py::test_complex_json[(nan+2j)-NaN+2j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"NaN+2j\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[-1.23j--1.23j]#0",
+  "test": "tests/serializers/test_complex.py::test_complex_json[-1.23j--1.23j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[-1.23j--1.23j]#1",
+  "test": "tests/serializers/test_complex.py::test_complex_json[-1.23j--1.23j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "-1.23j"
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[-1.23j--1.23j]#2",
+  "test": "tests/serializers/test_complex.py::test_complex_json[-1.23j--1.23j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"-1.23j\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[0j-0j]#0",
+  "test": "tests/serializers/test_complex.py::test_complex_json[0j-0j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[0j-0j]#1",
+  "test": "tests/serializers/test_complex.py::test_complex_json[0j-0j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "0j"
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[0j-0j]#2",
+  "test": "tests/serializers/test_complex.py::test_complex_json[0j-0j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"0j\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[1j-1j]#0",
+  "test": "tests/serializers/test_complex.py::test_complex_json[1j-1j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[1j-1j]#1",
+  "test": "tests/serializers/test_complex.py::test_complex_json[1j-1j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "1j"
+  }
+ },
+ {
+  "id": "tests/serializers/test_complex.py::test_complex_json[1j-1j]#2",
+  "test": "tests/serializers/test_complex.py::test_complex_json[1j-1j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"1j\""
+  }
+ }
+]

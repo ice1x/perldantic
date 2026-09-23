@@ -1,0 +1,1020 @@
+[
+ {
+  "id": "tests/serializers/test_string.py::test_huge_str#0",
+  "test": "tests/serializers/test_string.py::test_huge_str",
+  "schema": {
+   "type": "int"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "12345678901234567890123456789012345678901234567890123456789012345678901234567890                           12345678901234567890123456789012345678901234567890123456789012345678901234567890                           12345678901234567890123456789012345678901234567890123456789012345678901234567890                           12345678901234567890123456789012345678901234567890123456789012345678901234567890",
+  "options": {},
+  "expected": {
+   "output": "12345678901234567890123456789012345678901234567890123456789012345678901234567890                           12345678901234567890123456789012345678901234567890123456789012345678901234567890                           12345678901234567890123456789012345678901234567890123456789012345678901234567890                           12345678901234567890123456789012345678901234567890123456789012345678901234567890",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value='123456789012345678901234...89012345678901234567890', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str#0",
+  "test": "tests/serializers/test_string.py::test_str",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foobar",
+  "options": {},
+  "expected": {
+   "output": "foobar"
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str#1",
+  "test": "tests/serializers/test_string.py::test_str",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "emoji 💩",
+  "options": {},
+  "expected": {
+   "output": "emoji 💩"
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str#2",
+  "test": "tests/serializers/test_string.py::test_str",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "foobar",
+  "options": {},
+  "expected": {
+   "json": "\"foobar\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str#3",
+  "test": "tests/serializers/test_string.py::test_str",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "foobar",
+  "options": {
+   "indent": 2
+  },
+  "expected": {
+   "json": "\"foobar\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str#4",
+  "test": "tests/serializers/test_string.py::test_str",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "emoji 💩",
+  "options": {},
+  "expected": {
+   "json": "\"emoji 💩\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str#5",
+  "test": "tests/serializers/test_string.py::test_str",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foobar",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "foobar"
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_ensure_ascii[ s p a c e d -\" s p a c e d \"]#0",
+  "test": "tests/serializers/test_string.py::test_str_ensure_ascii[ s p a c e d -\" s p a c e d \"]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": " s p a c e d ",
+  "options": {
+   "ensure_ascii": true
+  },
+  "expected": {
+   "json": "\" s p a c e d \""
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_ensure_ascii[/\\\\\"\\ucafe\\ubabe\\uab98\\ufcde\\ubcda\\uef4a\\x08\\x0c\\n\\r\\t`1~!@#$%^&*()_+-=[]{}|;:',./<>?-\"/\\\\\\\\\\\\\"\\\\ucafe\\\\ubabe\\\\uab98\\\\ufcde\\\\ubcda\\\\uef4a\\\\b\\\\f\\\\n\\\\r\\\\t`1~!@#$%^&*()_+-=[]{}|;:',./<>?\"]#0",
+  "test": "tests/serializers/test_string.py::test_str_ensure_ascii[/\\\\\"\\ucafe\\ubabe\\uab98\\ufcde\\ubcda\\uef4a\\x08\\x0c\\n\\r\\t`1~!@#$%^&*()_+-=[]{}|;:',./<>?-\"/\\\\\\\\\\\\\"\\\\ucafe\\\\ubabe\\\\uab98\\\\ufcde\\\\ubcda\\\\uef4a\\\\b\\\\f\\\\n\\\\r\\\\t`1~!@#$%^&*()_+-=[]{}|;:',./<>?\"]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "/\\\"쫾몾ꮘﳞ볚\b\f\n\r\t`1~!@#$%^&*()_+-=[]{}|;:',./<>?",
+  "options": {
+   "ensure_ascii": true
+  },
+  "expected": {
+   "json": "\"/\\\\\\\"\\ucafe\\ubabe\\uab98\\ufcde\\ubcda\\uef4a\\b\\f\\n\\r\\t`1~!@#$%^&*()_+-=[]{}|;:',./<>?\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_ensure_ascii[\\U0001d120-\"\\\\ud834\\\\udd20\"]#0",
+  "test": "tests/serializers/test_string.py::test_str_ensure_ascii[\\U0001d120-\"\\\\ud834\\\\udd20\"]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "𝄠",
+  "options": {
+   "ensure_ascii": true
+  },
+  "expected": {
+   "json": "\"\\ud834\\udd20\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_ensure_ascii[\\\\N{GREEK SMALL LETTER ALPHA}\\\\N{GREEK CAPITAL LETTER OMEGA}]#0",
+  "test": "tests/serializers/test_string.py::test_str_ensure_ascii[\\\\N{GREEK SMALL LETTER ALPHA}\\\\N{GREEK CAPITAL LETTER OMEGA}]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "αΩ",
+  "options": {
+   "ensure_ascii": true
+  },
+  "expected": {
+   "json": "\"\\u03b1\\u03a9\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_ensure_ascii[\\\\u03b1\\\\u03a9]#0",
+  "test": "tests/serializers/test_string.py::test_str_ensure_ascii[\\\\u03b1\\\\u03a9]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "αΩ",
+  "options": {
+   "ensure_ascii": true
+  },
+  "expected": {
+   "json": "\"\\u03b1\\u03a9\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_ensure_ascii[\\u0123\\u4567\\u89ab\\ucdef\\uabcd\\uef4a-\"\\\\u0123\\\\u4567\\\\u89ab\\\\ucdef\\\\uabcd\\\\uef4a\"]#0",
+  "test": "tests/serializers/test_string.py::test_str_ensure_ascii[\\u0123\\u4567\\u89ab\\ucdef\\uabcd\\uef4a-\"\\\\u0123\\\\u4567\\\\u89ab\\\\ucdef\\\\uabcd\\\\uef4a\"]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "ģ䕧覫췯ꯍ",
+  "options": {
+   "ensure_ascii": true
+  },
+  "expected": {
+   "json": "\"\\u0123\\u4567\\u89ab\\ucdef\\uabcd\\uef4a\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_ensure_ascii[\\x08\\x0c\\n\\r\\t-\"\\\\b\\\\f\\\\n\\\\r\\\\t\"]#0",
+  "test": "tests/serializers/test_string.py::test_str_ensure_ascii[\\x08\\x0c\\n\\r\\t-\"\\\\b\\\\f\\\\n\\\\r\\\\t\"]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "\b\f\n\r\t",
+  "options": {
+   "ensure_ascii": true
+  },
+  "expected": {
+   "json": "\"\\b\\f\\n\\r\\t\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_ensure_ascii[`1~!@#$%^&*()_+-={':[,]}|;.</>?-\"`1~!@#$%^&*()_+-={':[,]}|;.</>?\"]#0",
+  "test": "tests/serializers/test_string.py::test_str_ensure_ascii[`1~!@#$%^&*()_+-={':[,]}|;.</>?-\"`1~!@#$%^&*()_+-={':[,]}|;.</>?\"]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "`1~!@#$%^&*()_+-={':[,]}|;.</>?",
+  "options": {
+   "ensure_ascii": true
+  },
+  "expected": {
+   "json": "\"`1~!@#$%^&*()_+-={':[,]}|;.</>?\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_ensure_ascii[controls-\"controls\"]#0",
+  "test": "tests/serializers/test_string.py::test_str_ensure_ascii[controls-\"controls\"]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "controls",
+  "options": {
+   "ensure_ascii": true
+  },
+  "expected": {
+   "json": "\"controls\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_ensure_ascii[{\"object with 1 member\":[\"array with 1 element\"]}-\"{\\\\\"object with 1 member\\\\\":[\\\\\"array with 1 element\\\\\"]}\"]#0",
+  "test": "tests/serializers/test_string.py::test_str_ensure_ascii[{\"object with 1 member\":[\"array with 1 element\"]}-\"{\\\\\"object with 1 member\\\\\":[\\\\\"array with 1 element\\\\\"]}\"]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "{\"object with 1 member\":[\"array with 1 element\"]}",
+  "options": {
+   "ensure_ascii": true
+  },
+  "expected": {
+   "json": "\"{\\\"object with 1 member\\\":[\\\"array with 1 element\\\"]}\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_errors#0",
+  "test": "tests/serializers/test_string.py::test_str_errors",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=123, input_type=int])"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_errors#1",
+  "test": "tests/serializers/test_string.py::test_str_errors",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "mode": "json",
+   "warnings": "error"
+  },
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=123, input_type=int])"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_errors#2",
+  "test": "tests/serializers/test_string.py::test_str_errors",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 123,
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=123, input_type=int])"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_fallback#0",
+  "test": "tests/serializers/test_string.py::test_str_fallback",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_fallback#1",
+  "test": "tests/serializers/test_string.py::test_str_fallback",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_fallback#10",
+  "test": "tests/serializers/test_string.py::test_str_fallback",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "mode": "json",
+   "warnings": true
+  },
+  "expected": {
+   "output": 123,
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=123, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_fallback#11",
+  "test": "tests/serializers/test_string.py::test_str_fallback",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 123,
+  "options": {
+   "warnings": true
+  },
+  "expected": {
+   "json": "123",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=123, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_fallback#2",
+  "test": "tests/serializers/test_string.py::test_str_fallback",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_fallback#3",
+  "test": "tests/serializers/test_string.py::test_str_fallback",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "output": 123,
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=123, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_fallback#4",
+  "test": "tests/serializers/test_string.py::test_str_fallback",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 123,
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=123, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_fallback#5",
+  "test": "tests/serializers/test_string.py::test_str_fallback",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "json": "123",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=123, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_fallback#6",
+  "test": "tests/serializers/test_string.py::test_str_fallback",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "warnings": "warn"
+  },
+  "expected": {
+   "output": 123,
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=123, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_fallback#7",
+  "test": "tests/serializers/test_string.py::test_str_fallback",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "mode": "json",
+   "warnings": "warn"
+  },
+  "expected": {
+   "output": 123,
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=123, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_fallback#8",
+  "test": "tests/serializers/test_string.py::test_str_fallback",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 123,
+  "options": {
+   "warnings": "warn"
+  },
+  "expected": {
+   "json": "123",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=123, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_fallback#9",
+  "test": "tests/serializers/test_string.py::test_str_fallback",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "warnings": true
+  },
+  "expected": {
+   "output": 123,
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=123, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_no_warnings#0",
+  "test": "tests/serializers/test_string.py::test_str_no_warnings",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "warnings": false
+  },
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_no_warnings#1",
+  "test": "tests/serializers/test_string.py::test_str_no_warnings",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "warnings": "none"
+  },
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_no_warnings#2",
+  "test": "tests/serializers/test_string.py::test_str_no_warnings",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "mode": "json",
+   "warnings": false
+  },
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_no_warnings#3",
+  "test": "tests/serializers/test_string.py::test_str_no_warnings",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "mode": "json",
+   "warnings": "none"
+  },
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_no_warnings#4",
+  "test": "tests/serializers/test_string.py::test_str_no_warnings",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 123,
+  "options": {
+   "warnings": false
+  },
+  "expected": {
+   "json": "123"
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_str_no_warnings#5",
+  "test": "tests/serializers/test_string.py::test_str_no_warnings",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 123,
+  "options": {
+   "warnings": "none"
+  },
+  "expected": {
+   "json": "123"
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_subclass_str[StrEnum-any]#0",
+  "test": "tests/serializers/test_string.py::test_subclass_str[StrEnum-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "StrEnum",
+    "foo-value"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "StrEnum",
+     "foo-value"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_subclass_str[StrEnum-any]#1",
+  "test": "tests/serializers/test_string.py::test_subclass_str[StrEnum-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "StrEnum",
+    "foo-value"
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "foo-value"
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_subclass_str[StrEnum-any]#2",
+  "test": "tests/serializers/test_string.py::test_subclass_str[StrEnum-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$enum": [
+    "StrEnum",
+    "foo-value"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "\"foo-value\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_subclass_str[StrEnum-str]#0",
+  "test": "tests/serializers/test_string.py::test_subclass_str[StrEnum-str]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "StrEnum",
+    "foo-value"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "StrEnum",
+     "foo-value"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_subclass_str[StrEnum-str]#1",
+  "test": "tests/serializers/test_string.py::test_subclass_str[StrEnum-str]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "StrEnum",
+    "foo-value"
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "foo-value"
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_subclass_str[StrEnum-str]#2",
+  "test": "tests/serializers/test_string.py::test_subclass_str[StrEnum-str]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$enum": [
+    "StrEnum",
+    "foo-value"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "\"foo-value\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_subclass_str[StrMixin-any]#0",
+  "test": "tests/serializers/test_string.py::test_subclass_str[StrMixin-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "StrMixin",
+    "foo"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$subclass": [
+     "StrMixin",
+     "foo"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_subclass_str[StrMixin-any]#1",
+  "test": "tests/serializers/test_string.py::test_subclass_str[StrMixin-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "StrMixin",
+    "foo"
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "foo"
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_subclass_str[StrMixin-any]#2",
+  "test": "tests/serializers/test_string.py::test_subclass_str[StrMixin-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$subclass": [
+    "StrMixin",
+    "foo"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "\"foo\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_subclass_str[StrMixin-str]#0",
+  "test": "tests/serializers/test_string.py::test_subclass_str[StrMixin-str]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "StrMixin",
+    "foo"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$subclass": [
+     "StrMixin",
+     "foo"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_subclass_str[StrMixin-str]#1",
+  "test": "tests/serializers/test_string.py::test_subclass_str[StrMixin-str]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "StrMixin",
+    "foo"
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "foo"
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_subclass_str[StrMixin-str]#2",
+  "test": "tests/serializers/test_string.py::test_subclass_str[StrMixin-str]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$subclass": [
+    "StrMixin",
+    "foo"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "\"foo\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_subclass_str[StrSubclass-any]#0",
+  "test": "tests/serializers/test_string.py::test_subclass_str[StrSubclass-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "StrSubclass",
+    "foo"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$subclass": [
+     "StrSubclass",
+     "foo"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_subclass_str[StrSubclass-any]#1",
+  "test": "tests/serializers/test_string.py::test_subclass_str[StrSubclass-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "StrSubclass",
+    "foo"
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "foo"
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_subclass_str[StrSubclass-any]#2",
+  "test": "tests/serializers/test_string.py::test_subclass_str[StrSubclass-any]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$subclass": [
+    "StrSubclass",
+    "foo"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "\"foo\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_subclass_str[StrSubclass-str]#0",
+  "test": "tests/serializers/test_string.py::test_subclass_str[StrSubclass-str]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "StrSubclass",
+    "foo"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$subclass": [
+     "StrSubclass",
+     "foo"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_subclass_str[StrSubclass-str]#1",
+  "test": "tests/serializers/test_string.py::test_subclass_str[StrSubclass-str]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "StrSubclass",
+    "foo"
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "foo"
+  }
+ },
+ {
+  "id": "tests/serializers/test_string.py::test_subclass_str[StrSubclass-str]#2",
+  "test": "tests/serializers/test_string.py::test_subclass_str[StrSubclass-str]",
+  "schema": {
+   "type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$subclass": [
+    "StrSubclass",
+    "foo"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "\"foo\""
+  }
+ }
+]

@@ -1,0 +1,416 @@
+[
+ {
+  "id": "tests/serializers/test_definitions_recursive.py::test_branch_nullable#0",
+  "test": "tests/serializers/test_definitions_recursive.py::test_branch_nullable",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "name": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "sub_branch": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "Branch"
+        }
+       }
+      }
+     },
+     "ref": "Branch"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "name": "root",
+   "sub_branch": {
+    "name": "branch",
+    "sub_branch": null
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "name": "root",
+    "sub_branch": {
+     "name": "branch",
+     "sub_branch": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_definitions_recursive.py::test_branch_nullable#1",
+  "test": "tests/serializers/test_definitions_recursive.py::test_branch_nullable",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "name": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "sub_branch": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "Branch"
+        }
+       }
+      }
+     },
+     "ref": "Branch"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "name": "root",
+   "sub_branch": {
+    "name": "branch",
+    "sub_branch": null
+   }
+  },
+  "options": {
+   "exclude_none": true
+  },
+  "expected": {
+   "output": {
+    "name": "root",
+    "sub_branch": {
+     "name": "branch"
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_definitions_recursive.py::test_custom_ser#0",
+  "test": "tests/serializers/test_definitions_recursive.py::test_custom_ser",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "name": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "sub_branch": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "Branch",
+         "serialization": {
+          "type": "to-string",
+          "when_used": "always"
+         }
+        }
+       }
+      }
+     },
+     "ref": "Branch"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "name": "root",
+   "sub_branch": {
+    "name": "branch",
+    "sub_branch": null
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "name": "root",
+    "sub_branch": "{'name': 'branch', 'sub_branch': None}"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_definitions_recursive.py::test_cyclic_recursion#0",
+  "test": "tests/serializers/test_definitions_recursive.py::test_cyclic_recursion",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "name": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "sub_branch": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "Branch"
+        }
+       }
+      }
+     },
+     "ref": "Branch"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "cyclic"
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "ValueError",
+    "message": "Circular reference detected (id repeated)"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_definitions_recursive.py::test_cyclic_recursion#1",
+  "test": "tests/serializers/test_definitions_recursive.py::test_cyclic_recursion",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "name": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "sub_branch": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "Branch"
+        }
+       }
+      }
+     },
+     "ref": "Branch"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "cyclic"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "exception": {
+    "type": "ValueError",
+    "message": "Circular reference detected (id repeated)"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_definitions_recursive.py::test_cyclic_recursion#2",
+  "test": "tests/serializers/test_definitions_recursive.py::test_cyclic_recursion",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "Branch"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "name": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "sub_branch": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "definition-ref",
+         "schema_ref": "Branch"
+        }
+       }
+      }
+     },
+     "ref": "Branch"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "cyclic"
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Error serializing to JSON: ValueError: Circular reference detected (id repeated)"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_definitions_recursive.py::test_recursive_function#0",
+  "test": "tests/serializers/test_definitions_recursive.py::test_recursive_function",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "my_ref"
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "root": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "my_ref"
+       }
+      }
+     },
+     "ref": "my_ref",
+     "serialization": {
+      "type": "function-wrap",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "root": {
+    "root": {}
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "root": {
+     "root": {}
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_definitions_recursive.py::test_recursive_function_deeper_ref#0",
+  "test": "tests/serializers/test_definitions_recursive.py::test_recursive_function_deeper_ref",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "definitions",
+      "schema": {
+       "type": "definition-ref",
+       "schema_ref": "my_ref"
+      },
+      "definitions": [
+       {
+        "type": "typed-dict",
+        "fields": {
+         "b": {
+          "type": "typed-dict-field",
+          "schema": {
+           "type": "definition-ref",
+           "schema_ref": "my_ref"
+          }
+         }
+        },
+        "ref": "my_ref"
+       }
+      ]
+     }
+    }
+   },
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "<lambda>"
+    },
+    "is_field_serializer": false
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": {
+    "b": {
+     "b": {}
+    }
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": {
+     "b": {
+      "b": {}
+     }
+    }
+   }
+  }
+ }
+]

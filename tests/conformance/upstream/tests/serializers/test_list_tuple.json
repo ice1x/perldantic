@@ -1,0 +1,8690 @@
+[
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_exclude[list_schema-as_list]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_exclude[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    0,
+    2
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_exclude[list_schema-as_list]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_exclude[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    "a",
+    "c",
+    "e",
+    "g",
+    "h"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_exclude[list_schema-as_list]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_exclude[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "a",
+    "c",
+    "e",
+    "g",
+    "h"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_exclude[list_schema-as_list]#3",
+  "test": "tests/serializers/test_list_tuple.py::test_exclude[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {},
+  "expected": {
+   "json": "[\"a\",\"c\",\"e\",\"g\",\"h\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_exclude[list_schema-as_list]#4",
+  "test": "tests/serializers/test_list_tuple.py::test_exclude[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {
+   "exclude": {
+    "$set": [
+     6
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "a",
+    "c",
+    "e",
+    "h"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_exclude[list_schema-as_list]#5",
+  "test": "tests/serializers/test_list_tuple.py::test_exclude[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {
+   "exclude": {
+    "$set": [
+     -1,
+     -2
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "a",
+    "c",
+    "e"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_exclude[list_schema-as_list]#6",
+  "test": "tests/serializers/test_list_tuple.py::test_exclude[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {
+   "exclude": {
+    "$set": [
+     6
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"a\",\"c\",\"e\",\"h\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_exclude[list_schema-as_list]#7",
+  "test": "tests/serializers/test_list_tuple.py::test_exclude[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {
+   "exclude": {
+    "$set": [
+     -1,
+     -2
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"a\",\"c\",\"e\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_exclude[tuple_variable_schema-as_tuple]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_exclude[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     0,
+     2
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_exclude[tuple_variable_schema-as_tuple]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_exclude[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     "a",
+     "c",
+     "e",
+     "g",
+     "h"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_exclude[tuple_variable_schema-as_tuple]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_exclude[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h"
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "a",
+    "c",
+    "e",
+    "g",
+    "h"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_exclude[tuple_variable_schema-as_tuple]#3",
+  "test": "tests/serializers/test_list_tuple.py::test_exclude[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[\"a\",\"c\",\"e\",\"g\",\"h\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_exclude[tuple_variable_schema-as_tuple]#4",
+  "test": "tests/serializers/test_list_tuple.py::test_exclude[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h"
+   ]
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     6
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     "a",
+     "c",
+     "e",
+     "h"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_exclude[tuple_variable_schema-as_tuple]#5",
+  "test": "tests/serializers/test_list_tuple.py::test_exclude[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h"
+   ]
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     -1,
+     -2
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     "a",
+     "c",
+     "e"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_exclude[tuple_variable_schema-as_tuple]#6",
+  "test": "tests/serializers/test_list_tuple.py::test_exclude[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h"
+   ]
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     6
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"a\",\"c\",\"e\",\"h\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_exclude[tuple_variable_schema-as_tuple]#7",
+  "test": "tests/serializers/test_list_tuple.py::test_exclude[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h"
+   ]
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     -1,
+     -2
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"a\",\"c\",\"e\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    },
+    "exclude": {
+     "$set": [
+      5,
+      6
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params0]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params0]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": null,
+   "exclude": null
+  },
+  "expected": {
+   "output": [
+    "0",
+    "1",
+    "2",
+    "3"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params0]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params0]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": null
+  },
+  "expected": {
+   "output": [
+    "0",
+    "1",
+    "2",
+    "3"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params0]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params0]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": null,
+   "exclude": null
+  },
+  "expected": {
+   "json": "[\"0\",\"1\",\"2\",\"3\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params10]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params10]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     0,
+     1
+    ]
+   },
+   "exclude": {
+    "$dict": [
+     [
+      1,
+      {
+       "$set": [
+        1
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "0",
+    "1"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params10]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params10]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "mode": "json",
+   "include": {
+    "$set": [
+     0,
+     1
+    ]
+   },
+   "exclude": {
+    "$dict": [
+     [
+      1,
+      {
+       "$set": [
+        1
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "0",
+    "1"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params10]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params10]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     0,
+     1
+    ]
+   },
+   "exclude": {
+    "$dict": [
+     [
+      1,
+      {
+       "$set": [
+        1
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"0\",\"1\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params11]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params11]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     0,
+     1
+    ]
+   },
+   "exclude": {
+    "$dict": [
+     [
+      1,
+      {
+       "$object": "ellipsis"
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "0"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params11]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params11]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "mode": "json",
+   "include": {
+    "$set": [
+     0,
+     1
+    ]
+   },
+   "exclude": {
+    "$dict": [
+     [
+      1,
+      {
+       "$object": "ellipsis"
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "0"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params11]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params11]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     0,
+     1
+    ]
+   },
+   "exclude": {
+    "$dict": [
+     [
+      1,
+      {
+       "$object": "ellipsis"
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"0\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params12]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params12]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     1
+    ]
+   },
+   "exclude": {
+    "$set": [
+     1
+    ]
+   }
+  },
+  "expected": {
+   "output": []
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params12]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params12]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "mode": "json",
+   "include": {
+    "$set": [
+     1
+    ]
+   },
+   "exclude": {
+    "$set": [
+     1
+    ]
+   }
+  },
+  "expected": {
+   "output": []
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params12]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params12]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     1
+    ]
+   },
+   "exclude": {
+    "$set": [
+     1
+    ]
+   }
+  },
+  "expected": {
+   "json": "[]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params13]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params13]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     0
+    ]
+   },
+   "exclude": {
+    "$set": [
+     1
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "0"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params13]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params13]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "mode": "json",
+   "include": {
+    "$set": [
+     0
+    ]
+   },
+   "exclude": {
+    "$set": [
+     1
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "0"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params13]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params13]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     0
+    ]
+   },
+   "exclude": {
+    "$set": [
+     1
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"0\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params14]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params14]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     "__all__"
+    ]
+   },
+   "exclude": {
+    "$set": [
+     1
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "0",
+    "2",
+    "3"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params14]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params14]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "mode": "json",
+   "include": {
+    "$set": [
+     "__all__"
+    ]
+   },
+   "exclude": {
+    "$set": [
+     1
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "0",
+    "2",
+    "3"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params14]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params14]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     "__all__"
+    ]
+   },
+   "exclude": {
+    "$set": [
+     1
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"0\",\"2\",\"3\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params15]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params15]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": null,
+   "exclude": {
+    "$set": [
+     1
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "0",
+    "2",
+    "3"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params15]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params15]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": {
+    "$set": [
+     1
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "0",
+    "2",
+    "3"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params15]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params15]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": null,
+   "exclude": {
+    "$set": [
+     1
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"0\",\"2\",\"3\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params16]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params16]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": null,
+   "exclude": {
+    "$set": [
+     "__all__"
+    ]
+   }
+  },
+  "expected": {
+   "output": []
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params16]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params16]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": {
+    "$set": [
+     "__all__"
+    ]
+   }
+  },
+  "expected": {
+   "output": []
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params16]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params16]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": null,
+   "exclude": {
+    "$set": [
+     "__all__"
+    ]
+   }
+  },
+  "expected": {
+   "json": "[]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params1]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params1]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     0,
+     1
+    ]
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": [
+    "0",
+    "1"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params1]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params1]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "mode": "json",
+   "include": {
+    "$set": [
+     0,
+     1
+    ]
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": [
+    "0",
+    "1"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params1]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params1]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     0,
+     1
+    ]
+   },
+   "exclude": null
+  },
+  "expected": {
+   "json": "[\"0\",\"1\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params2]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params2]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      0,
+      {
+       "$object": "ellipsis"
+      }
+     ],
+     [
+      1,
+      {
+       "$object": "ellipsis"
+      }
+     ]
+    ]
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": [
+    "0",
+    "1"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params2]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params2]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "mode": "json",
+   "include": {
+    "$dict": [
+     [
+      0,
+      {
+       "$object": "ellipsis"
+      }
+     ],
+     [
+      1,
+      {
+       "$object": "ellipsis"
+      }
+     ]
+    ]
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": [
+    "0",
+    "1"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params2]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params2]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      0,
+      {
+       "$object": "ellipsis"
+      }
+     ],
+     [
+      1,
+      {
+       "$object": "ellipsis"
+      }
+     ]
+    ]
+   },
+   "exclude": null
+  },
+  "expected": {
+   "json": "[\"0\",\"1\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params3]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params3]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      0,
+      true
+     ],
+     [
+      1,
+      true
+     ]
+    ]
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": [
+    "0",
+    "1"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params3]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params3]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "mode": "json",
+   "include": {
+    "$dict": [
+     [
+      0,
+      true
+     ],
+     [
+      1,
+      true
+     ]
+    ]
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": [
+    "0",
+    "1"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params3]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params3]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      0,
+      true
+     ],
+     [
+      1,
+      true
+     ]
+    ]
+   },
+   "exclude": null
+  },
+  "expected": {
+   "json": "[\"0\",\"1\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params4]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params4]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      0,
+      {
+       "$set": [
+        1
+       ]
+      }
+     ],
+     [
+      1,
+      {
+       "$set": [
+        1
+       ]
+      }
+     ]
+    ]
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": [
+    "0",
+    "1"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params4]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params4]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "mode": "json",
+   "include": {
+    "$dict": [
+     [
+      0,
+      {
+       "$set": [
+        1
+       ]
+      }
+     ],
+     [
+      1,
+      {
+       "$set": [
+        1
+       ]
+      }
+     ]
+    ]
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": [
+    "0",
+    "1"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params4]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params4]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      0,
+      {
+       "$set": [
+        1
+       ]
+      }
+     ],
+     [
+      1,
+      {
+       "$set": [
+        1
+       ]
+      }
+     ]
+    ]
+   },
+   "exclude": null
+  },
+  "expected": {
+   "json": "[\"0\",\"1\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params5]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params5]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": null,
+   "exclude": {
+    "$set": [
+     0,
+     1
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "2",
+    "3"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params5]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params5]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": {
+    "$set": [
+     0,
+     1
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "2",
+    "3"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params5]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params5]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": null,
+   "exclude": {
+    "$set": [
+     0,
+     1
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"2\",\"3\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params6]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params6]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": null,
+   "exclude": {
+    "$dict": [
+     [
+      0,
+      {
+       "$object": "ellipsis"
+      }
+     ],
+     [
+      1,
+      {
+       "$object": "ellipsis"
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "2",
+    "3"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params6]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params6]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": {
+    "$dict": [
+     [
+      0,
+      {
+       "$object": "ellipsis"
+      }
+     ],
+     [
+      1,
+      {
+       "$object": "ellipsis"
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "2",
+    "3"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params6]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params6]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": null,
+   "exclude": {
+    "$dict": [
+     [
+      0,
+      {
+       "$object": "ellipsis"
+      }
+     ],
+     [
+      1,
+      {
+       "$object": "ellipsis"
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"2\",\"3\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params7]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params7]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     0,
+     1
+    ]
+   },
+   "exclude": {
+    "$set": [
+     1,
+     2
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "0"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params7]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params7]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "mode": "json",
+   "include": {
+    "$set": [
+     0,
+     1
+    ]
+   },
+   "exclude": {
+    "$set": [
+     1,
+     2
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "0"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params7]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params7]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     0,
+     1
+    ]
+   },
+   "exclude": {
+    "$set": [
+     1,
+     2
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"0\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params8]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params8]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": null,
+   "exclude": {
+    "$dict": [
+     [
+      3,
+      {
+       "$set": [
+        1
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "0",
+    "1",
+    "2",
+    "3"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params8]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params8]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": {
+    "$dict": [
+     [
+      3,
+      {
+       "$set": [
+        1
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "0",
+    "1",
+    "2",
+    "3"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params8]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params8]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": null,
+   "exclude": {
+    "$dict": [
+     [
+      3,
+      {
+       "$set": [
+        1
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"0\",\"1\",\"2\",\"3\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params9]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params9]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     0,
+     1
+    ]
+   },
+   "exclude": {
+    "$dict": [
+     [
+      3,
+      {
+       "$set": [
+        1
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "0",
+    "1"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params9]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params9]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "mode": "json",
+   "include": {
+    "$set": [
+     0,
+     1
+    ]
+   },
+   "exclude": {
+    "$dict": [
+     [
+      3,
+      {
+       "$set": [
+        1
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "0",
+    "1"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args[params9]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args[params9]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "0",
+   "1",
+   "2",
+   "3"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     0,
+     1
+    ]
+   },
+   "exclude": {
+    "$dict": [
+     [
+      3,
+      {
+       "$set": [
+        1
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"0\",\"1\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params0]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params0]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   [
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    2
+   ],
+   [
+    0,
+    1,
+    2,
+    3
+   ]
+  ],
+  "options": {
+   "include": null,
+   "exclude": null
+  },
+  "expected": {
+   "output": [
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2,
+     3
+    ]
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params0]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params0]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   [
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    2
+   ],
+   [
+    0,
+    1,
+    2,
+    3
+   ]
+  ],
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": null
+  },
+  "expected": {
+   "output": [
+    [
+     0
+    ],
+    [
+     0,
+     1
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2,
+     3
+    ]
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params0]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params0]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   [
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    2
+   ],
+   [
+    0,
+    1,
+    2,
+    3
+   ]
+  ],
+  "options": {
+   "include": null,
+   "exclude": null
+  },
+  "expected": {
+   "json": "[[0],[0,1],[0,1,2],[0,1,2,3]]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params1]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params1]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   [
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    2
+   ],
+   [
+    0,
+    1,
+    2,
+    3
+   ]
+  ],
+  "options": {
+   "include": null,
+   "exclude": {
+    "$dict": [
+     [
+      1,
+      {
+       "$set": [
+        0
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2,
+     3
+    ]
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params1]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params1]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   [
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    2
+   ],
+   [
+    0,
+    1,
+    2,
+    3
+   ]
+  ],
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": {
+    "$dict": [
+     [
+      1,
+      {
+       "$set": [
+        0
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     1,
+     2
+    ],
+    [
+     0,
+     1,
+     2,
+     3
+    ]
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params1]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params1]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   [
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    2
+   ],
+   [
+    0,
+    1,
+    2,
+    3
+   ]
+  ],
+  "options": {
+   "include": null,
+   "exclude": {
+    "$dict": [
+     [
+      1,
+      {
+       "$set": [
+        0
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "json": "[[0],[1],[0,1,2],[0,1,2,3]]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params2]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params2]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   [
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    2
+   ],
+   [
+    0,
+    1,
+    2,
+    3
+   ]
+  ],
+  "options": {
+   "include": null,
+   "exclude": {
+    "$dict": [
+     [
+      1,
+      {
+       "$set": [
+        0
+       ]
+      }
+     ],
+     [
+      2,
+      {
+       "$object": "ellipsis"
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     1,
+     2,
+     3
+    ]
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params2]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params2]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   [
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    2
+   ],
+   [
+    0,
+    1,
+    2,
+    3
+   ]
+  ],
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": {
+    "$dict": [
+     [
+      1,
+      {
+       "$set": [
+        0
+       ]
+      }
+     ],
+     [
+      2,
+      {
+       "$object": "ellipsis"
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     1,
+     2,
+     3
+    ]
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params2]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params2]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   [
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    2
+   ],
+   [
+    0,
+    1,
+    2,
+    3
+   ]
+  ],
+  "options": {
+   "include": null,
+   "exclude": {
+    "$dict": [
+     [
+      1,
+      {
+       "$set": [
+        0
+       ]
+      }
+     ],
+     [
+      2,
+      {
+       "$object": "ellipsis"
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "json": "[[0],[1],[0,1,2,3]]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params3]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params3]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   [
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    2
+   ],
+   [
+    0,
+    1,
+    2,
+    3
+   ]
+  ],
+  "options": {
+   "include": null,
+   "exclude": {
+    "$dict": [
+     [
+      1,
+      {
+       "$set": [
+        0
+       ]
+      }
+     ],
+     [
+      2,
+      true
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     1,
+     2,
+     3
+    ]
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params3]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params3]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   [
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    2
+   ],
+   [
+    0,
+    1,
+    2,
+    3
+   ]
+  ],
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": {
+    "$dict": [
+     [
+      1,
+      {
+       "$set": [
+        0
+       ]
+      }
+     ],
+     [
+      2,
+      true
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    [
+     0
+    ],
+    [
+     1
+    ],
+    [
+     0,
+     1,
+     2,
+     3
+    ]
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params3]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params3]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   [
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    2
+   ],
+   [
+    0,
+    1,
+    2,
+    3
+   ]
+  ],
+  "options": {
+   "include": null,
+   "exclude": {
+    "$dict": [
+     [
+      1,
+      {
+       "$set": [
+        0
+       ]
+      }
+     ],
+     [
+      2,
+      true
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "json": "[[0],[1],[0,1,2,3]]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params4]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params4]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   [
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    2
+   ],
+   [
+    0,
+    1,
+    2,
+    3
+   ]
+  ],
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      1,
+      {
+       "$set": [
+        0
+       ]
+      }
+     ]
+    ]
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": [
+    [
+     0
+    ]
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params4]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params4]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   [
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    2
+   ],
+   [
+    0,
+    1,
+    2,
+    3
+   ]
+  ],
+  "options": {
+   "mode": "json",
+   "include": {
+    "$dict": [
+     [
+      1,
+      {
+       "$set": [
+        0
+       ]
+      }
+     ]
+    ]
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": [
+    [
+     0
+    ]
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params4]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_args_nested[params4]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   [
+    0
+   ],
+   [
+    0,
+    1
+   ],
+   [
+    0,
+    1,
+    2
+   ],
+   [
+    0,
+    1,
+    2,
+    3
+   ]
+  ],
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      1,
+      {
+       "$set": [
+        0
+       ]
+      }
+     ]
+    ]
+   },
+   "exclude": null
+  },
+  "expected": {
+   "json": "[[0]]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "dict"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   {
+    "a": 1,
+    "b": 2
+   },
+   {
+    "a": 3,
+    "b": 4
+   }
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    {
+     "a": 1,
+     "b": 2
+    },
+    {
+     "a": 3,
+     "b": 4
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "dict"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   {
+    "a": 1,
+    "b": 2
+   },
+   {
+    "a": 3,
+    "b": 4
+   }
+  ],
+  "options": {
+   "exclude": {
+    "$dict": [
+     [
+      0,
+      {
+       "$set": [
+        "a"
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    {
+     "b": 2
+    },
+    {
+     "a": 3,
+     "b": 4
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts#10",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "dict"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   {
+    "a": 1,
+    "b": 2
+   },
+   {
+    "a": 3,
+    "b": 4
+   }
+  ],
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      0,
+      {
+       "$set": [
+        "a"
+       ]
+      }
+     ],
+     [
+      1,
+      null
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "json": "[{\"a\":1},{\"a\":3,\"b\":4}]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts#11",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "dict"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   {
+    "a": 1,
+    "b": 2
+   },
+   {
+    "a": 3,
+    "b": 4
+   }
+  ],
+  "options": {
+   "include": {
+    "__all__": {
+     "$set": [
+      "a"
+     ]
+    }
+   }
+  },
+  "expected": {
+   "json": "[{\"a\":1},{\"a\":3}]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts#2",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "dict"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   {
+    "a": 1,
+    "b": 2
+   },
+   {
+    "a": 3,
+    "b": 4
+   }
+  ],
+  "options": {
+   "exclude": {
+    "$dict": [
+     [
+      0,
+      {
+       "$set": [
+        "__all__"
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    {},
+    {
+     "a": 3,
+     "b": 4
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts#3",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "dict"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   {
+    "a": 1,
+    "b": 2
+   },
+   {
+    "a": 3,
+    "b": 4
+   }
+  ],
+  "options": {
+   "exclude": {
+    "__all__": {
+     "$set": [
+      "a"
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": [
+    {
+     "b": 2
+    },
+    {
+     "b": 4
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts#4",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "dict"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   {
+    "a": 1,
+    "b": 2
+   },
+   {
+    "a": 3,
+    "b": 4
+   }
+  ],
+  "options": {},
+  "expected": {
+   "json": "[{\"a\":1,\"b\":2},{\"a\":3,\"b\":4}]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts#5",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "dict"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   {
+    "a": 1,
+    "b": 2
+   },
+   {
+    "a": 3,
+    "b": 4
+   }
+  ],
+  "options": {
+   "exclude": {
+    "$dict": [
+     [
+      0,
+      {
+       "$set": [
+        "a"
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "json": "[{\"b\":2},{\"a\":3,\"b\":4}]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts#6",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "dict"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   {
+    "a": 1,
+    "b": 2
+   },
+   {
+    "a": 3,
+    "b": 4
+   }
+  ],
+  "options": {
+   "exclude": {
+    "$dict": [
+     [
+      0,
+      {
+       "$set": [
+        "__all__"
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "json": "[{},{\"a\":3,\"b\":4}]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts#7",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "dict"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   {
+    "a": 1,
+    "b": 2
+   },
+   {
+    "a": 3,
+    "b": 4
+   }
+  ],
+  "options": {
+   "exclude": {
+    "__all__": {
+     "$set": [
+      "a"
+     ]
+    }
+   }
+  },
+  "expected": {
+   "json": "[{\"b\":2},{\"b\":4}]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts#8",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "dict"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   {
+    "a": 1,
+    "b": 2
+   },
+   {
+    "a": 3,
+    "b": 4
+   }
+  ],
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      0,
+      {
+       "$set": [
+        "a"
+       ]
+      }
+     ],
+     [
+      1,
+      null
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    {
+     "a": 1
+    },
+    {
+     "a": 3,
+     "b": 4
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts#9",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_list_of_dicts",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "dict"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   {
+    "a": 1,
+    "b": 2
+   },
+   {
+    "a": 3,
+    "b": 4
+   }
+  ],
+  "options": {
+   "include": {
+    "__all__": {
+     "$set": [
+      "a"
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": [
+    {
+     "a": 1
+    },
+    {
+     "a": 3
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_runtime#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_runtime",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      0,
+      1
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_runtime#1",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_runtime",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "exclude": {
+     "$set": [
+      0,
+      1
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     1,
+     2
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_runtime_more[include0-None-expected0]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_runtime_more[include0-None-expected0]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     1,
+     3
+    ]
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": [
+    "b",
+    "d"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_runtime_more[include1-exclude1-expected1]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_runtime_more[include1-exclude1-expected1]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     1,
+     3,
+     5
+    ]
+   },
+   "exclude": {
+    "$set": [
+     5
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "b",
+    "d"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_runtime_more[include2-exclude2-expected2]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_runtime_more[include2-exclude2-expected2]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {
+   "include": {
+    "$object": "dict_keys"
+   },
+   "exclude": {
+    "$set": [
+     5
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "c",
+    "d"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_runtime_more[include3-exclude3-expected3]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_runtime_more[include3-exclude3-expected3]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {
+   "include": {
+    "$object": "ExplicitContains"
+   },
+   "exclude": {
+    "$set": []
+   }
+  },
+  "expected": {
+   "output": [
+    "c",
+    "f"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_runtime_more[include4-exclude4-expected4]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_runtime_more[include4-exclude4-expected4]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {
+   "include": {
+    "$object": "ExplicitContains"
+   },
+   "exclude": {
+    "$set": [
+     5
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "c"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_runtime_more[include5-exclude5-expected5]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_runtime_more[include5-exclude5-expected5]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     2,
+     3
+    ]
+   },
+   "exclude": {
+    "$object": "ExplicitContains"
+   }
+  },
+  "expected": {
+   "output": [
+    "d"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_filter_runtime_more[include6-exclude6-expected6]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_filter_runtime_more[include6-exclude6-expected6]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {
+   "include": [
+    1,
+    2,
+    3
+   ],
+   "exclude": [
+    2,
+    3
+   ]
+  },
+  "expected": {
+   "output": [
+    "b"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_function_positional_tuple#0",
+  "test": "tests/serializers/test_list_tuple.py::test_function_positional_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    }
+   ],
+   "variadic_item_index": 2
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     "a1"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_function_positional_tuple#1",
+  "test": "tests/serializers/test_list_tuple.py::test_function_positional_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    }
+   ],
+   "variadic_item_index": 2
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    2
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     "a1",
+     "b2"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_function_positional_tuple#2",
+  "test": "tests/serializers/test_list_tuple.py::test_function_positional_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    }
+   ],
+   "variadic_item_index": 2
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     "a1",
+     "b2",
+     "extra3"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_function_positional_tuple#3",
+  "test": "tests/serializers/test_list_tuple.py::test_function_positional_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    }
+   ],
+   "variadic_item_index": 2
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "a1"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_function_positional_tuple#4",
+  "test": "tests/serializers/test_list_tuple.py::test_function_positional_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    }
+   ],
+   "variadic_item_index": 2
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    2
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "a1",
+    "b2"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_function_positional_tuple#5",
+  "test": "tests/serializers/test_list_tuple.py::test_function_positional_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    }
+   ],
+   "variadic_item_index": 2
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "a1",
+    "b2",
+    "extra3"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_function_positional_tuple#6",
+  "test": "tests/serializers/test_list_tuple.py::test_function_positional_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    }
+   ],
+   "variadic_item_index": 2
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[\"a1\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_function_positional_tuple#7",
+  "test": "tests/serializers/test_list_tuple.py::test_function_positional_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    }
+   ],
+   "variadic_item_index": 2
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    1,
+    2
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[\"a1\",\"b2\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_function_positional_tuple#8",
+  "test": "tests/serializers/test_list_tuple.py::test_function_positional_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "partial"
+      },
+      "info_arg": true
+     }
+    }
+   ],
+   "variadic_item_index": 2
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[\"a1\",\"b2\",\"extra3\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include[list_schema-as_list]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_include[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include[list_schema-as_list]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_include[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    "b",
+    "d",
+    "f"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include[list_schema-as_list]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_include[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "b",
+    "d",
+    "f"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include[list_schema-as_list]#3",
+  "test": "tests/serializers/test_list_tuple.py::test_include[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {},
+  "expected": {
+   "json": "[\"b\",\"d\",\"f\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include[list_schema-as_list]#4",
+  "test": "tests/serializers/test_list_tuple.py::test_include[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     6
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "b",
+    "d",
+    "f",
+    "g"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include[list_schema-as_list]#5",
+  "test": "tests/serializers/test_list_tuple.py::test_include[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {
+   "include": [
+    6
+   ]
+  },
+  "expected": {
+   "output": [
+    "b",
+    "d",
+    "f",
+    "g"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include[list_schema-as_list]#6",
+  "test": "tests/serializers/test_list_tuple.py::test_include[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     6
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"b\",\"d\",\"f\",\"g\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include[list_schema-as_list]#7",
+  "test": "tests/serializers/test_list_tuple.py::test_include[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      6,
+      null
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "b",
+    "d",
+    "f",
+    "g"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include[list_schema-as_list]#8",
+  "test": "tests/serializers/test_list_tuple.py::test_include[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      -1,
+      null
+     ],
+     [
+      -2,
+      null
+     ]
+    ]
+   },
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "b",
+    "d",
+    "f",
+    "g",
+    "h"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include[tuple_variable_schema-as_tuple]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_include[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include[tuple_variable_schema-as_tuple]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_include[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     "b",
+     "d",
+     "f"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include[tuple_variable_schema-as_tuple]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_include[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h"
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "b",
+    "d",
+    "f"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include[tuple_variable_schema-as_tuple]#3",
+  "test": "tests/serializers/test_list_tuple.py::test_include[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[\"b\",\"d\",\"f\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include[tuple_variable_schema-as_tuple]#4",
+  "test": "tests/serializers/test_list_tuple.py::test_include[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h"
+   ]
+  },
+  "options": {
+   "include": {
+    "$set": [
+     6
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     "b",
+     "d",
+     "f",
+     "g"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include[tuple_variable_schema-as_tuple]#5",
+  "test": "tests/serializers/test_list_tuple.py::test_include[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h"
+   ]
+  },
+  "options": {
+   "include": [
+    6
+   ]
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     "b",
+     "d",
+     "f",
+     "g"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include[tuple_variable_schema-as_tuple]#6",
+  "test": "tests/serializers/test_list_tuple.py::test_include[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h"
+   ]
+  },
+  "options": {
+   "include": {
+    "$set": [
+     6
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"b\",\"d\",\"f\",\"g\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include[tuple_variable_schema-as_tuple]#7",
+  "test": "tests/serializers/test_list_tuple.py::test_include[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h"
+   ]
+  },
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      6,
+      null
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     "b",
+     "d",
+     "f",
+     "g"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include[tuple_variable_schema-as_tuple]#8",
+  "test": "tests/serializers/test_list_tuple.py::test_include[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h"
+   ]
+  },
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      -1,
+      null
+     ],
+     [
+      -2,
+      null
+     ]
+    ]
+   },
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "b",
+    "d",
+    "f",
+    "g",
+    "h"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_dict[list_schema-as_list]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_include_dict[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_dict[list_schema-as_list]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_include_dict[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e",
+   "f",
+   "g",
+   "h"
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    "b",
+    "d",
+    "f"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_dict[list_schema-as_list]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_include_dict[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      2,
+      null
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_dict[list_schema-as_list]#3",
+  "test": "tests/serializers/test_list_tuple.py::test_include_dict[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      2,
+      {
+       "$set": [
+        1,
+        2
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_dict[list_schema-as_list]#4",
+  "test": "tests/serializers/test_list_tuple.py::test_include_dict[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     2
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_dict[tuple_variable_schema-as_tuple]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_include_dict[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_dict[tuple_variable_schema-as_tuple]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_include_dict[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     "b",
+     "d",
+     "f"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_dict[tuple_variable_schema-as_tuple]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_include_dict[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      2,
+      null
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_dict[tuple_variable_schema-as_tuple]#3",
+  "test": "tests/serializers/test_list_tuple.py::test_include_dict[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      2,
+      {
+       "$set": [
+        1,
+        2
+       ]
+      }
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_dict[tuple_variable_schema-as_tuple]#4",
+  "test": "tests/serializers/test_list_tuple.py::test_include_dict[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0,
+   "serialization": {
+    "type": "include-exclude-sequence",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ]
+  },
+  "options": {
+   "include": {
+    "$set": [
+     2
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_error_call_time[1-None-list_schema-as_list]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_include_error_call_time[1-None-list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "include": 1,
+   "exclude": null
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "`include` argument must be a set or dict."
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_error_call_time[1-None-tuple_variable_schema-as_tuple]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_include_error_call_time[1-None-tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": 1,
+   "exclude": null
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "`include` argument must be a set or dict."
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_error_call_time[None-1-list_schema-as_list]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_include_error_call_time[None-1-list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "include": null,
+   "exclude": 1
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "`exclude` argument must be a set or dict."
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_error_call_time[None-1-tuple_variable_schema-as_tuple]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_include_error_call_time[None-1-tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": null,
+   "exclude": 1
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "`exclude` argument must be a set or dict."
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_error_call_time[None-exclude3-list_schema-as_list]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_include_error_call_time[None-exclude3-list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "include": null,
+   "exclude": {
+    "$object": "ImplicitContains"
+   }
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "`exclude` argument must be a set or dict."
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_error_call_time[None-exclude3-tuple_variable_schema-as_tuple]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_include_error_call_time[None-exclude3-tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "$object": "ImplicitContains"
+   }
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "`exclude` argument must be a set or dict."
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_error_call_time[None-exclude4-list_schema-as_list]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_include_error_call_time[None-exclude4-list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "include": null,
+   "exclude": {
+    "$object": "RemovedContains"
+   }
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "`exclude` argument must be a set or dict."
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_error_call_time[None-exclude4-tuple_variable_schema-as_tuple]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_include_error_call_time[None-exclude4-tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "$object": "RemovedContains"
+   }
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "`exclude` argument must be a set or dict."
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_error_call_time[include0-None-list_schema-as_list]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_include_error_call_time[include0-None-list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "include": {
+    "$object": "ImplicitContains"
+   },
+   "exclude": null
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "`include` argument must be a set or dict."
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_error_call_time[include0-None-tuple_variable_schema-as_tuple]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_include_error_call_time[include0-None-tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": {
+    "$object": "ImplicitContains"
+   },
+   "exclude": null
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "`include` argument must be a set or dict."
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_error_call_time[include1-None-list_schema-as_list]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_include_error_call_time[include1-None-list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "include": {
+    "$object": "RemovedContains"
+   },
+   "exclude": null
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "`include` argument must be a set or dict."
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_include_error_call_time[include1-None-tuple_variable_schema-as_tuple]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_include_error_call_time[include1-None-tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": {
+    "$object": "RemovedContains"
+   },
+   "exclude": null
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "`include` argument must be a set or dict."
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_list_any#0",
+  "test": "tests/serializers/test_list_tuple.py::test_list_any",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c"
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    "a",
+    "b",
+    "c"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_list_any#1",
+  "test": "tests/serializers/test_list_tuple.py::test_list_any",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c"
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "a",
+    "b",
+    "c"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_list_any#2",
+  "test": "tests/serializers/test_list_tuple.py::test_list_any",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "a",
+   "b",
+   "c"
+  ],
+  "options": {},
+  "expected": {
+   "json": "[\"a\",\"b\",\"c\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_list_any#3",
+  "test": "tests/serializers/test_list_tuple.py::test_list_any",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "a",
+   "b",
+   "c"
+  ],
+  "options": {
+   "indent": 2
+  },
+  "expected": {
+   "json": "[\n  \"a\",\n  \"b\",\n  \"c\"\n]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_list_dict_key#0",
+  "test": "tests/serializers/test_list_tuple.py::test_list_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "list"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "xx": 1
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "xx": 1
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `list[any]` - serialized value may not be as expected [input_value='xx', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_list_fallback#0",
+  "test": "tests/serializers/test_list_tuple.py::test_list_fallback",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "apple",
+  "options": {},
+  "expected": {
+   "output": "apple",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `list[any]` - serialized value may not be as expected [input_value='apple', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_list_fallback#1",
+  "test": "tests/serializers/test_list_tuple.py::test_list_fallback",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "apple",
+  "options": {},
+  "expected": {
+   "json": "\"apple\"",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `list[any]` - serialized value may not be as expected [input_value='apple', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_list_fallback#2",
+  "test": "tests/serializers/test_list_tuple.py::test_list_fallback",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$bytes": "YXBwbGU="
+  },
+  "options": {},
+  "expected": {
+   "json": "\"apple\"",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `list[any]` - serialized value may not be as expected [input_value=b'apple', input_type=bytes])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_list_fallback#3",
+  "test": "tests/serializers/test_list_tuple.py::test_list_fallback",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2,
+     3
+    ]
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `list[any]` - serialized value may not be as expected [input_value=(1, 2, 3), input_type=tuple])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_list_fallback#4",
+  "test": "tests/serializers/test_list_tuple.py::test_list_fallback",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `list[any]` - serialized value may not be as expected [input_value=(1, 2, 3), input_type=tuple])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_list_str_fallback#0",
+  "test": "tests/serializers/test_list_tuple.py::test_list_str_fallback",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "json": "[1,2,3]",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=1, input_type=int])\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=2, input_type=int])\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=3, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_list_str_fallback#1",
+  "test": "tests/serializers/test_list_tuple.py::test_list_str_fallback",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=1, input_type=int])\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=2, input_type=int])\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=3, input_type=int])"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_negative[list_schema-as_list]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_negative[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e"
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_negative[list_schema-as_list]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_negative[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     -1,
+     -2
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "d",
+    "e"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_negative[list_schema-as_list]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_negative[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e"
+  ],
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      -1,
+      null
+     ],
+     [
+      -2,
+      null
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "d",
+    "e"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_negative[list_schema-as_list]#3",
+  "test": "tests/serializers/test_list_tuple.py::test_negative[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     -1,
+     -2
+    ]
+   },
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "d",
+    "e"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_negative[list_schema-as_list]#4",
+  "test": "tests/serializers/test_list_tuple.py::test_negative[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e"
+  ],
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      -1,
+      null
+     ],
+     [
+      -2,
+      null
+     ]
+    ]
+   },
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "d",
+    "e"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_negative[list_schema-as_list]#5",
+  "test": "tests/serializers/test_list_tuple.py::test_negative[list_schema-as_list]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d",
+   "e"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     -1,
+     -2
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"d\",\"e\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_negative[tuple_variable_schema-as_tuple]#0",
+  "test": "tests/serializers/test_list_tuple.py::test_negative[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     "a",
+     "b",
+     "c",
+     "d",
+     "e"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_negative[tuple_variable_schema-as_tuple]#1",
+  "test": "tests/serializers/test_list_tuple.py::test_negative[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e"
+   ]
+  },
+  "options": {
+   "include": {
+    "$set": [
+     -1,
+     -2
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     "d",
+     "e"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_negative[tuple_variable_schema-as_tuple]#2",
+  "test": "tests/serializers/test_list_tuple.py::test_negative[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e"
+   ]
+  },
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      -1,
+      null
+     ],
+     [
+      -2,
+      null
+     ]
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     "d",
+     "e"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_negative[tuple_variable_schema-as_tuple]#3",
+  "test": "tests/serializers/test_list_tuple.py::test_negative[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e"
+   ]
+  },
+  "options": {
+   "include": {
+    "$set": [
+     -1,
+     -2
+    ]
+   },
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "d",
+    "e"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_negative[tuple_variable_schema-as_tuple]#4",
+  "test": "tests/serializers/test_list_tuple.py::test_negative[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e"
+   ]
+  },
+  "options": {
+   "include": {
+    "$dict": [
+     [
+      -1,
+      null
+     ],
+     [
+      -2,
+      null
+     ]
+    ]
+   },
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "d",
+    "e"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_negative[tuple_variable_schema-as_tuple]#5",
+  "test": "tests/serializers/test_list_tuple.py::test_negative[tuple_variable_schema-as_tuple]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e"
+   ]
+  },
+  "options": {
+   "include": {
+    "$set": [
+     -1,
+     -2
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"d\",\"e\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_positional_tuple#0",
+  "test": "tests/serializers/test_list_tuple.py::test_positional_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bytes"
+    },
+    {
+     "type": "float"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    {
+     "$bytes": "Mg=="
+    },
+    3.0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     {
+      "$bytes": "Mg=="
+     },
+     3.0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_positional_tuple#1",
+  "test": "tests/serializers/test_list_tuple.py::test_positional_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bytes"
+    },
+    {
+     "type": "float"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    {
+     "$bytes": "Mg=="
+    },
+    3.0,
+    123
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     {
+      "$bytes": "Mg=="
+     },
+     3.0,
+     123
+    ]
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Unexpected extra items present in tuple)"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_positional_tuple#2",
+  "test": "tests/serializers/test_list_tuple.py::test_positional_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bytes"
+    },
+    {
+     "type": "float"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    {
+     "$bytes": "Mg=="
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     {
+      "$bytes": "Mg=="
+     }
+    ]
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Unexpected too few items present in tuple)"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_positional_tuple#3",
+  "test": "tests/serializers/test_list_tuple.py::test_positional_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bytes"
+    },
+    {
+     "type": "float"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    {
+     "$bytes": "Mg=="
+    },
+    3.0
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    "2",
+    3.0
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_positional_tuple#4",
+  "test": "tests/serializers/test_list_tuple.py::test_positional_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bytes"
+    },
+    {
+     "type": "float"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    {
+     "$bytes": "Mg=="
+    },
+    3.0,
+    123
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    "2",
+    3.0,
+    123
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Unexpected extra items present in tuple)"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_positional_tuple#5",
+  "test": "tests/serializers/test_list_tuple.py::test_positional_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bytes"
+    },
+    {
+     "type": "float"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    {
+     "$bytes": "Mg=="
+    }
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    "2"
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Unexpected too few items present in tuple)"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_positional_tuple#6",
+  "test": "tests/serializers/test_list_tuple.py::test_positional_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bytes"
+    },
+    {
+     "type": "float"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    1,
+    {
+     "$bytes": "Mg=="
+    },
+    3.0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,\"2\",3.0]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_positional_tuple#7",
+  "test": "tests/serializers/test_list_tuple.py::test_positional_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bytes"
+    },
+    {
+     "type": "float"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    1,
+    {
+     "$bytes": "Mg=="
+    },
+    3.0,
+    123
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,\"2\",3.0,123]",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Unexpected extra items present in tuple)"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_positional_tuple#8",
+  "test": "tests/serializers/test_list_tuple.py::test_positional_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bytes"
+    },
+    {
+     "type": "float"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    1,
+    {
+     "$bytes": "Mg=="
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,\"2\"]",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Unexpected too few items present in tuple)"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_any#0",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_any",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     "a",
+     "b",
+     "c"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_any#1",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_any",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "a",
+    "b",
+    "c"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_any#2",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_any",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[\"a\",\"b\",\"c\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_any#3",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_any",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "options": {
+   "indent": 2
+  },
+  "expected": {
+   "json": "[\n  \"a\",\n  \"b\",\n  \"c\"\n]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_fallback#0",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_fallback",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "apple",
+  "options": {},
+  "expected": {
+   "output": "apple",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `tuple[any, ...]` - serialized value may not be as expected [input_value='apple', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_fallback#1",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_fallback",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "json": "[1,2,3]",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `tuple[any, ...]` - serialized value may not be as expected [input_value=[1, 2, 3], input_type=list])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_fallback#2",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_fallback",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$bytes": "YXBwbGU="
+  },
+  "options": {},
+  "expected": {
+   "json": "\"apple\"",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `tuple[any, ...]` - serialized value may not be as expected [input_value=b'apple', input_type=bytes])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_fallback#3",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_fallback",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_fallback#4",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_fallback",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `tuple[any, ...]` - serialized value may not be as expected [input_value=[1, 2, 3], input_type=list])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_pos_dict_key#0",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_pos_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "str"
+     },
+     {
+      "type": "int"
+     }
+    ],
+    "variadic_item_index": 2
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       "a"
+      ]
+     },
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$tuple": [
+        1,
+        "a"
+       ]
+      },
+      1
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_pos_dict_key#1",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_pos_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "str"
+     },
+     {
+      "type": "int"
+     }
+    ],
+    "variadic_item_index": 2
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       "a",
+       2
+      ]
+     },
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$tuple": [
+        1,
+        "a",
+        2
+       ]
+      },
+      1
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_pos_dict_key#2",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_pos_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "str"
+     },
+     {
+      "type": "int"
+     }
+    ],
+    "variadic_item_index": 2
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       "a"
+      ]
+     },
+     1
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1,a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_pos_dict_key#3",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_pos_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "str"
+     },
+     {
+      "type": "int"
+     }
+    ],
+    "variadic_item_index": 2
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       "a",
+       2
+      ]
+     },
+     1
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1,a,2": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_pos_dict_key#4",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_pos_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "str"
+     },
+     {
+      "type": "int"
+     }
+    ],
+    "variadic_item_index": 2
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       "a"
+      ]
+     },
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1,a\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_pos_dict_key#5",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_pos_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "str"
+     },
+     {
+      "type": "int"
+     }
+    ],
+    "variadic_item_index": 2
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       "a",
+       2
+      ]
+     },
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1,a,2\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_var_dict_key#0",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_var_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "any"
+     }
+    ],
+    "variadic_item_index": 0
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "xx": 1
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "xx": 1
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `tuple[any, ...]` - serialized value may not be as expected [input_value='xx', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_var_dict_key#1",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_var_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "any"
+     }
+    ],
+    "variadic_item_index": 0
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$tuple": [
+        1,
+        2
+       ]
+      },
+      1
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_var_dict_key#2",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_var_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "any"
+     }
+    ],
+    "variadic_item_index": 0
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     1
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1,2": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_var_dict_key#3",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_var_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "any"
+     }
+    ],
+    "variadic_item_index": 0
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1,2\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_wrong_size_union#0",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_wrong_size_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    },
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1.0,
+    2.0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1.0,
+     2.0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_wrong_size_union#1",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_wrong_size_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    },
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1.0,
+    2.0,
+    3.0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1.0,
+     2.0,
+     3.0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_wrong_size_union#2",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_wrong_size_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    },
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1.0,
+    2.0,
+    3.0,
+    4.0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1.0,
+     2.0,
+     3.0,
+     4.0
+    ]
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Unexpected extra items present in tuple)"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_wrong_size_union#3",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_wrong_size_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    },
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1.0,
+    2.0
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1.0,
+    2.0
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_wrong_size_union#4",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_wrong_size_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    },
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1.0,
+    2.0,
+    3.0
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1.0,
+    2.0,
+    3.0
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_wrong_size_union#5",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_wrong_size_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    },
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1.0,
+    2.0,
+    3.0,
+    4.0
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1.0,
+    2.0,
+    3.0,
+    4.0
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Unexpected extra items present in tuple)"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_wrong_size_union#6",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_wrong_size_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    },
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    1.0,
+    2.0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[1.0,2.0]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_wrong_size_union#7",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_wrong_size_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    },
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    1.0,
+    2.0,
+    3.0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[1.0,2.0,3.0]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_list_tuple.py::test_tuple_wrong_size_union#8",
+  "test": "tests/serializers/test_list_tuple.py::test_tuple_wrong_size_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    },
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    1.0,
+    2.0,
+    3.0,
+    4.0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[1.0,2.0,3.0,4.0]",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Unexpected extra items present in tuple)"
+   ]
+  }
+ }
+]
