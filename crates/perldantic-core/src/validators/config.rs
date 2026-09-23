@@ -7,8 +7,8 @@ use base64::engine::general_purpose::GeneralPurpose;
 use base64::engine::{DecodePaddingMode, GeneralPurposeConfig};
 use base64::{DecodeError, Engine, alphabet};
 
-use crate::build_tools::{SchemaDict, schema_err};
-use crate::core_error::{CoreError, CoreResult};
+use crate::build_tools::SchemaDict;
+use crate::core_error::CoreResult;
 use crate::errors::ErrorType;
 use crate::input::EitherBytes;
 use crate::value::Dict;
@@ -22,30 +22,7 @@ const STANDARD_OPTIONAL_PADDING: GeneralPurpose = GeneralPurpose::new(
     GeneralPurposeConfig::new().with_decode_padding_mode(DecodePaddingMode::Indifferent),
 );
 
-/// How bytes are represented as text (upstream `serializers::BytesMode`).
-#[derive(Default, Debug, Clone, Copy, PartialEq, Eq)]
-pub enum BytesMode {
-    #[default]
-    Utf8,
-    Base64,
-    Hex,
-}
-
-impl FromStr for BytesMode {
-    type Err = CoreError;
-
-    fn from_str(s: &str) -> Result<Self, Self::Err> {
-        match s {
-            "utf8" => Ok(Self::Utf8),
-            "base64" => Ok(Self::Base64),
-            "hex" => Ok(Self::Hex),
-            // Upstream's macro-generated wording, trailing "or" included.
-            s => schema_err!(
-                "Invalid BytesMode serialization mode: `{s}`, expected utf8 or base64 or hex or "
-            ),
-        }
-    }
-}
+pub(crate) use crate::serializers::config::BytesMode;
 
 /// How strings are decoded into bytes during validation (`val_json_bytes` config).
 #[derive(Default, Debug, Clone, Copy, PartialEq, Eq)]
@@ -93,6 +70,7 @@ impl ValBytesMode {
 mod tests {
     use super::*;
     use crate::Value;
+    use crate::core_error::CoreError;
 
     fn config(json: &str) -> Dict {
         match Value::from_json(json).unwrap() {

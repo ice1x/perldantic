@@ -166,7 +166,7 @@ class RecordingSerializer:
             for w in caught:
                 warnings.warn_explicit(w.message, w.category, w.filename, w.lineno)
         messages = [_stable(str(w.message)) for w in caught]
-        if isinstance(output, bytes):
+        if method == 'to_json':
             expected = {'json': output.decode()}
         else:
             expected = {'output': _safe_encode(output)}

@@ -73,31 +73,31 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `schema_gather.rs` | `crates/perldantic-core/src/schema_gather.rs` | P1 | pending | schema traversal for cleaning |
 | `self_schema.py` | - | drop | dropped | Python-generated self schema; replaced by serde CoreSchema |
 | `serializers/computed_fields.rs` | `crates/perldantic-core/src/serializers/computed_fields.rs` | P0 | pending |  |
-| `serializers/config.rs` | `crates/perldantic-core/src/serializers/config.rs` | P0 | pending |  |
-| `serializers/errors.rs` | `crates/perldantic-core/src/serializers/errors.rs` | P0 | pending |  |
-| `serializers/extra.rs` | `crates/perldantic-core/src/serializers/extra.rs` | P0 | pending |  |
+| `serializers/config.rs` | `crates/perldantic-core/src/serializers/config.rs` | P0 | partial | bytes and inf/nan modes; temporal modes come with the date types |
+| `serializers/errors.rs` | `crates/perldantic-core/src/serializers/errors.rs` | P0 | ported | exceptions are `SerializeError` variants |
+| `serializers/extra.rs` | `crates/perldantic-core/src/serializers/extra.rs` | P0 | ported | warnings are returned with the output instead of emitted |
 | `serializers/fields.rs` | `crates/perldantic-core/src/serializers/fields.rs` | P0 | pending |  |
-| `serializers/filter.rs` | `crates/perldantic-core/src/serializers/filter.rs` | P0 | pending |  |
-| `serializers/infer.rs` | `crates/perldantic-core/src/serializers/infer.rs` | P0 | pending | infer from Value instead of Python type |
-| `serializers/mod.rs` | `crates/perldantic-core/src/serializers/mod.rs` | P0 | pending |  |
-| `serializers/ob_type.rs` | - | drop | dropped | Python type lookup cache |
+| `serializers/filter.rs` | `crates/perldantic-core/src/serializers/filter.rs` | P0 | ported | `...` is `true`; membership by Python equality |
+| `serializers/infer.rs` | `crates/perldantic-core/src/serializers/infer.rs` | P0 | partial | the kinds `Value` has; model instances as dicts (DIVERGENCES #14); no `fallback` callbacks |
+| `serializers/mod.rs` | `crates/perldantic-core/src/serializers/mod.rs` | P0 | ported | `to_json`/`to_jsonable_python` module functions not needed |
+| `serializers/ob_type.rs` | `crates/perldantic-core/src/serializers/ob_type.rs` | P0 | ported | rewritten over `Value` variants, keeping Python's bool/int/float subclass rules |
 | `serializers/polymorphism_trampoline.rs` | - | drop | dropped | Python subclass dispatch |
 | `serializers/prebuilt.rs` | - | drop | dropped | reuses validators attached to Python classes |
-| `serializers/ser.rs` | `crates/perldantic-core/src/serializers/ser.rs` | P0 | pending |  |
-| `serializers/shared.rs` | `crates/perldantic-core/src/serializers/shared.rs` | P0 | pending |  |
-| `serializers/type_serializers/any.rs` | `crates/perldantic-core/src/serializers/type_serializers/any.rs` | P0 | pending |  |
-| `serializers/type_serializers/bytes.rs` | `crates/perldantic-core/src/serializers/type_serializers/bytes.rs` | P0 | pending |  |
+| `serializers/ser.rs` | `crates/perldantic-core/src/serializers/ser.rs` | P0 | ported |  |
+| `serializers/shared.rs` | `crates/perldantic-core/src/serializers/shared.rs` | P0 | partial | function serializers wait for host callbacks |
+| `serializers/type_serializers/any.rs` | `crates/perldantic-core/src/serializers/type_serializers/any.rs` | P0 | ported |  |
+| `serializers/type_serializers/bytes.rs` | `crates/perldantic-core/src/serializers/type_serializers/bytes.rs` | P0 | ported |  |
 | `serializers/type_serializers/complex.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/counter.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/dataclass.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/datetime_etc.rs` | `crates/perldantic-core/src/serializers/type_serializers/datetime_etc.rs` | P1 | pending |  |
 | `serializers/type_serializers/decimal.rs` | `crates/perldantic-core/src/serializers/type_serializers/decimal.rs` | P1 | pending |  |
-| `serializers/type_serializers/definitions.rs` | `crates/perldantic-core/src/serializers/type_serializers/definitions.rs` | P0 | pending |  |
+| `serializers/type_serializers/definitions.rs` | `crates/perldantic-core/src/serializers/type_serializers/definitions.rs` | P0 | ported |  |
 | `serializers/type_serializers/deque.rs` | - | drop | dropped | Python-only type |
-| `serializers/type_serializers/dict.rs` | `crates/perldantic-core/src/serializers/type_serializers/dict.rs` | P0 | pending |  |
+| `serializers/type_serializers/dict.rs` | `crates/perldantic-core/src/serializers/type_serializers/dict.rs` | P0 | ported |  |
 | `serializers/type_serializers/ellipsis.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/enum_.rs` | `crates/perldantic-core/src/serializers/type_serializers/enum_.rs` | P1 | pending |  |
-| `serializers/type_serializers/float.rs` | `crates/perldantic-core/src/serializers/type_serializers/float.rs` | P0 | pending |  |
+| `serializers/type_serializers/float.rs` | `crates/perldantic-core/src/serializers/type_serializers/float.rs` | P0 | ported |  |
 | `serializers/type_serializers/format.rs` | `crates/perldantic-core/src/serializers/type_serializers/format.rs` | P1 | pending |  |
 | `serializers/type_serializers/fraction.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/frozendict.rs` | - | drop | dropped | Python-only type |
@@ -105,25 +105,25 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `serializers/type_serializers/generator.rs` | `crates/perldantic-core/src/serializers/type_serializers/generator.rs` | P2 | pending |  |
 | `serializers/type_serializers/json.rs` | `crates/perldantic-core/src/serializers/type_serializers/json.rs` | P1 | pending |  |
 | `serializers/type_serializers/json_or_python.rs` | - | drop | dropped | Python-only type |
-| `serializers/type_serializers/list.rs` | `crates/perldantic-core/src/serializers/type_serializers/list.rs` | P0 | pending |  |
-| `serializers/type_serializers/literal.rs` | `crates/perldantic-core/src/serializers/type_serializers/literal.rs` | P0 | pending |  |
+| `serializers/type_serializers/list.rs` | `crates/perldantic-core/src/serializers/type_serializers/list.rs` | P0 | ported |  |
+| `serializers/type_serializers/literal.rs` | `crates/perldantic-core/src/serializers/type_serializers/literal.rs` | P0 | ported |  |
 | `serializers/type_serializers/missing_sentinel.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/mod.rs` | `crates/perldantic-core/src/serializers/type_serializers/mod.rs` | P0 | pending |  |
 | `serializers/type_serializers/model.rs` | `crates/perldantic-core/src/serializers/type_serializers/model.rs` | P0 | pending |  |
 | `serializers/type_serializers/named_tuple.rs` | - | drop | dropped | Python-only type |
-| `serializers/type_serializers/nullable.rs` | `crates/perldantic-core/src/serializers/type_serializers/nullable.rs` | P0 | pending |  |
+| `serializers/type_serializers/nullable.rs` | `crates/perldantic-core/src/serializers/type_serializers/nullable.rs` | P0 | ported |  |
 | `serializers/type_serializers/ordered_dict.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/other.rs` | - | drop | dropped | Python-specific fallbacks |
-| `serializers/type_serializers/set_frozenset.rs` | `crates/perldantic-core/src/serializers/type_serializers/set_frozenset.rs` | P1 | pending |  |
-| `serializers/type_serializers/simple.rs` | `crates/perldantic-core/src/serializers/type_serializers/simple.rs` | P0 | pending |  |
-| `serializers/type_serializers/string.rs` | `crates/perldantic-core/src/serializers/type_serializers/string.rs` | P0 | pending |  |
+| `serializers/type_serializers/set_frozenset.rs` | `crates/perldantic-core/src/serializers/type_serializers/set.rs` | P1 | partial | `set`; `frozenset` comes with `Value` frozensets |
+| `serializers/type_serializers/simple.rs` | `crates/perldantic-core/src/serializers/type_serializers/simple.rs` | P0 | ported |  |
+| `serializers/type_serializers/string.rs` | `crates/perldantic-core/src/serializers/type_serializers/string.rs` | P0 | ported |  |
 | `serializers/type_serializers/timedelta.rs` | `crates/perldantic-core/src/serializers/type_serializers/timedelta.rs` | P1 | pending |  |
-| `serializers/type_serializers/tuple.rs` | `crates/perldantic-core/src/serializers/type_serializers/tuple.rs` | P0 | pending |  |
+| `serializers/type_serializers/tuple.rs` | `crates/perldantic-core/src/serializers/type_serializers/tuple.rs` | P0 | ported | out-of-range `variadic_item_index` is a schema error (DIVERGENCES #11) |
 | `serializers/type_serializers/typed_dict.rs` | `crates/perldantic-core/src/serializers/type_serializers/typed_dict.rs` | P1 | pending |  |
-| `serializers/type_serializers/union.rs` | `crates/perldantic-core/src/serializers/type_serializers/union.rs` | P0 | pending |  |
+| `serializers/type_serializers/union.rs` | `crates/perldantic-core/src/serializers/type_serializers/union.rs` | P0 | partial | function discriminators wait for host callbacks |
 | `serializers/type_serializers/url.rs` | `crates/perldantic-core/src/serializers/type_serializers/url.rs` | P1 | pending |  |
 | `serializers/type_serializers/uuid.rs` | `crates/perldantic-core/src/serializers/type_serializers/uuid.rs` | P1 | pending |  |
-| `serializers/type_serializers/with_default.rs` | `crates/perldantic-core/src/serializers/type_serializers/with_default.rs` | P0 | pending |  |
+| `serializers/type_serializers/with_default.rs` | `crates/perldantic-core/src/serializers/type_serializers/with_default.rs` | P0 | ported |  |
 | `tools.rs` | `crates/perldantic-core/src/tools.rs` | P0 | partial | truncation helpers ported; `SchemaDict` lives in `build_tools.rs` |
 | `url.rs` | `crates/perldantic-core/src/url.rs` | P1 | pending |  |
 | `validators/any.rs` | `crates/perldantic-core/src/validators/any.rs` | P0 | ported |  |

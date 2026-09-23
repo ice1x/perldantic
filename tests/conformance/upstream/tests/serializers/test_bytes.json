@@ -14,7 +14,9 @@
   },
   "options": {},
   "expected": {
-   "json": "foobar"
+   "output": {
+    "$bytes": "Zm9vYmFy"
+   }
   }
  },
  {
@@ -102,7 +104,9 @@
   },
   "options": {},
   "expected": {
-   "json": "foobar"
+   "output": {
+    "$bytes": "Zm9vYmFy"
+   }
   }
  },
  {
@@ -118,7 +122,9 @@
   },
   "options": {},
   "expected": {
-   "json": "emoji 💩"
+   "output": {
+    "$bytes": "ZW1vamkg8J+SqQ=="
+   }
   }
  },
  {
@@ -186,7 +192,9 @@
   },
   "options": {},
   "expected": {
-   "json": "foobar"
+   "output": {
+    "$bytes": "Zm9vYmFy"
+   }
   }
  },
  {
@@ -496,6 +504,101 @@
   }
  },
  {
+  "id": "tests/serializers/test_bytes.py::test_bytes_hex#0",
+  "test": "tests/serializers/test_bytes.py::test_bytes_hex",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": {
+   "ser_json_bytes": "hex"
+  },
+  "mode": "to_python",
+  "input": {
+   "$bytes": "//8="
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$bytes": "//8="
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_bytes.py::test_bytes_hex#1",
+  "test": "tests/serializers/test_bytes.py::test_bytes_hex",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": {
+   "ser_json_bytes": "hex"
+  },
+  "mode": "to_json",
+  "input": {
+   "$bytes": "//8="
+  },
+  "options": {},
+  "expected": {
+   "json": "\"ffff\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_bytes.py::test_bytes_hex#2",
+  "test": "tests/serializers/test_bytes.py::test_bytes_hex",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": {
+   "ser_json_bytes": "hex"
+  },
+  "mode": "to_python",
+  "input": {
+   "$bytes": "//8="
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "ffff"
+  }
+ },
+ {
+  "id": "tests/serializers/test_bytes.py::test_bytes_invalid_all#0",
+  "test": "tests/serializers/test_bytes.py::test_bytes_invalid_all",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$bytes": "gQ=="
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$bytes": "gQ=="
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_bytes.py::test_bytes_invalid_all#1",
+  "test": "tests/serializers/test_bytes.py::test_bytes_invalid_all",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$bytes": "gQ=="
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Error serializing to JSON: invalid utf-8 sequence of 1 bytes from index 0"
+   }
+  }
+ },
+ {
   "id": "tests/serializers/test_bytes.py::test_bytes_invalid_cpython#0",
   "test": "tests/serializers/test_bytes.py::test_bytes_invalid_cpython",
   "schema": {
@@ -641,7 +744,14 @@
   },
   "options": {},
   "expected": {
-   "json": "foo-value"
+   "output": {
+    "$enum": [
+     "BytesEnum",
+     {
+      "$bytes": "Zm9vLXZhbHVl"
+     }
+    ]
+   }
   }
  },
  {
@@ -706,7 +816,14 @@
   },
   "options": {},
   "expected": {
-   "json": "foo-value"
+   "output": {
+    "$enum": [
+     "BytesEnum",
+     {
+      "$bytes": "Zm9vLXZhbHVl"
+     }
+    ]
+   }
   }
  },
  {
@@ -771,7 +888,14 @@
   },
   "options": {},
   "expected": {
-   "json": "foo"
+   "output": {
+    "$subclass": [
+     "BytesMixin",
+     {
+      "$bytes": "Zm9v"
+     }
+    ]
+   }
   }
  },
  {
@@ -836,7 +960,14 @@
   },
   "options": {},
   "expected": {
-   "json": "foo"
+   "output": {
+    "$subclass": [
+     "BytesMixin",
+     {
+      "$bytes": "Zm9v"
+     }
+    ]
+   }
   }
  },
  {
@@ -901,7 +1032,14 @@
   },
   "options": {},
   "expected": {
-   "json": "foo"
+   "output": {
+    "$subclass": [
+     "BytesSubclass",
+     {
+      "$bytes": "Zm9v"
+     }
+    ]
+   }
   }
  },
  {
@@ -966,7 +1104,14 @@
   },
   "options": {},
   "expected": {
-   "json": "foo"
+   "output": {
+    "$subclass": [
+     "BytesSubclass",
+     {
+      "$bytes": "Zm9v"
+     }
+    ]
+   }
   }
  },
  {

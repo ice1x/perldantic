@@ -15,8 +15,9 @@ use std::path::{Path, PathBuf};
 use base64::Engine;
 use base64::engine::general_purpose::STANDARD;
 use perldantic_core::{
-    Dict, ErrorDetails, ErrorsOptions, ExtraBehavior, LocItem, Model, PartialMode, SchemaValidator,
-    ValidateError, ValidateOptions, Value,
+    Dict, ErrorDetails, ErrorsOptions, ExtraBehavior, JsonOptions, LocItem, Model, PartialMode,
+    SchemaSerializer, SchemaValidator, SerMode, SerializeOptions, ValidateError, ValidateOptions,
+    Value, WarningsMode,
 };
 use serde_json::Value as Json;
 
@@ -266,7 +267,9 @@ fn divergence(case: &Json) -> Option<Skip> {
     }
     // A set turned into a sequence comes out in Python's hash order.
     let output = &case["expected"]["output"];
-    (has_multi_item_set(&case["input"]) && !output.is_null() && output.get("$set").is_none())
+    let ordered_output = case["expected"].get("json").is_some()
+        || (!output.is_null() && output.get("$set").is_none());
+    (has_multi_item_set(&case["input"]) && ordered_output)
         .then(|| Skip("divergence #12: set iteration order".into()))
 }
 
@@ -342,15 +345,141 @@ fn supported_types() -> Vec<&'static str> {
     types
 }
 
+/// Serializer options; `...` in `include` / `exclude` reads as `true`, which pydantic treats
+/// the same way.
+fn serializer_options(json: &Json) -> Result<(SerializeOptions, JsonOptions), Skip> {
+    let bool_opt = |key: &str, value: &Json| -> Result<bool, Skip> {
+        value
+            .as_bool()
+            .ok_or_else(|| Skip(format!("option {key}={value}")))
+    };
+    let filter = |value: &Json| -> Result<Option<Value>, Skip> {
+        if value.is_null() {
+            return Ok(None);
+        }
+        let text = value
+            .to_string()
+            .replace(r#"{"$object":"ellipsis"}"#, "true");
+        decode(&serde_json::from_str(&text).unwrap()).map(Some)
+    };
+    let mut opts = SerializeOptions::default();
+    let mut json_opts = JsonOptions::default();
+    for (key, value) in json.as_object().unwrap() {
+        match key.as_str() {
+            "mode" => opts.mode = SerMode::from(value.as_str()),
+            "include" => opts.include = filter(value)?,
+            "exclude" => opts.exclude = filter(value)?,
+            "by_alias" => opts.by_alias = value.as_bool(),
+            "exclude_unset" => opts.exclude_unset = bool_opt(key, value)?,
+            "exclude_defaults" => opts.exclude_defaults = bool_opt(key, value)?,
+            "exclude_none" => opts.exclude_none = bool_opt(key, value)?,
+            "exclude_computed_fields" => opts.exclude_computed_fields = bool_opt(key, value)?,
+            "round_trip" => opts.round_trip = bool_opt(key, value)?,
+            "serialize_as_any" => opts.serialize_as_any = bool_opt(key, value)?,
+            "polymorphic_serialization" => opts.polymorphic_serialization = value.as_bool(),
+            "context" => opts.context = (!value.is_null()).then(|| decode(value)).transpose()?,
+            "warnings" => {
+                opts.warnings = match value {
+                    Json::Bool(b) => WarningsMode::from(*b),
+                    Json::String(s) if s == "none" => WarningsMode::None,
+                    Json::String(s) if s == "warn" => WarningsMode::Warn,
+                    Json::String(s) if s == "error" => WarningsMode::Error,
+                    _ => return Err(Skip(format!("option warnings={value}"))),
+                }
+            }
+            "indent" => json_opts.indent = value.as_u64().map(|i| i as usize),
+            "ensure_ascii" => json_opts.ensure_ascii = bool_opt(key, value)?,
+            _ => return Err(Skip(format!("option {key}"))),
+        }
+    }
+    Ok((opts, json_opts))
+}
+
+/// Run a `to_python` / `to_json` case against `SchemaSerializer`.
+fn run_serializer_case(case: &Json) -> Result<Result<(), String>, Skip> {
+    let supported = SchemaSerializer::supported_schema_types();
+    let mut types = Vec::new();
+    schema_types(&case["schema"], &mut types);
+    if let Some(t) = types.iter().find(|t| !supported.contains(&t.as_str())) {
+        return Err(Skip(format!("serializer type {t}")));
+    }
+    let schema = decode_schema(&case["schema"])?;
+    let config = match &case["config"] {
+        Json::Null => None,
+        c => Some(decode_schema(c)?),
+    };
+    let (opts, json_opts) = serializer_options(&case["options"])?;
+    let input = decode(&case["input"])?;
+    let expected = &case["expected"];
+
+    let serializer = match SchemaSerializer::new(&schema, config.as_ref()) {
+        Ok(s) => s,
+        Err(err) => {
+            return Ok(Err(format!("building the serializer failed: {err:?}")));
+        }
+    };
+    let want_warnings: Vec<String> = expected["warnings"]
+        .as_array()
+        .map(|w| w.iter().map(|m| m.as_str().unwrap().to_owned()).collect())
+        .unwrap_or_default();
+    let check_warnings = |warning: Option<String>| -> Result<(), String> {
+        let got: Vec<String> = warning.into_iter().collect();
+        if got == want_warnings {
+            Ok(())
+        } else {
+            Err(format!("expected warnings {want_warnings:?}, got {got:?}"))
+        }
+    };
+
+    let outcome = if case["mode"] == "to_json" {
+        serializer
+            .to_json(&input, &opts, &json_opts)
+            .map(|s| (None, Some(s.output), s.warning))
+    } else {
+        serializer
+            .to_python(&input, &opts)
+            .map(|s| (Some(s.output), None, s.warning))
+    };
+    Ok(match outcome {
+        Ok((Some(output), _, warning)) if expected.get("output").is_some() => {
+            let want = decode(&expected["output"])?;
+            if same_value(&want, &output) {
+                check_warnings(warning)
+            } else {
+                Err(format!("expected output {want:?}, got {output:?}"))
+            }
+        }
+        Ok((_, Some(text), warning)) if expected.get("json").is_some() => {
+            if expected["json"] == text.as_str() {
+                check_warnings(warning)
+            } else {
+                Err(format!("expected JSON {}, got {text:?}", expected["json"]))
+            }
+        }
+        Err(err) if expected.get("exception").is_some() => {
+            let want_type = expected["exception"]["type"].as_str().unwrap();
+            let want_message = expected["exception"]["message"].as_str().unwrap();
+            if err.python_name() == want_type && err.to_string() == want_message {
+                Ok(())
+            } else {
+                Err(format!(
+                    "expected {want_type}({want_message:?}), got {}({:?})",
+                    err.python_name(),
+                    err.to_string()
+                ))
+            }
+        }
+        actual => Err(format!("expected {expected}, got {actual:?}")),
+    })
+}
+
 /// Run one case: `Ok(Ok(()))` passed, `Ok(Err(msg))` failed, `Err(skip)` skipped.
 fn run_case(case: &Json, supported: &[&str]) -> Result<Result<(), String>, Skip> {
     if let Some(skip) = divergence(case) {
         return Err(skip);
     }
     if matches!(case["mode"].as_str(), Some("to_python" | "to_json")) {
-        return Err(Skip(
-            "serializer cases: SchemaSerializer is not ported yet".into(),
-        ));
+        return run_serializer_case(case);
     }
     let mut types = Vec::new();
     schema_types(&case["schema"], &mut types);
@@ -528,17 +657,35 @@ fn model_class_divergences_are_skipped() {
 }
 
 #[test]
-fn serializer_cases_are_skipped_until_serializers_exist() {
-    let case: Json = serde_json::from_str(
-        r#"{"schema": {"type": "int"}, "config": null, "mode": "to_json", "input": 1, "options": {}, "expected": {"json": "1"}}"#,
+fn serializer_cases_replay_against_schema_serializer() {
+    let case = |expected: &str| -> Json {
+        serde_json::from_str(&format!(
+            r#"{{"schema": {{"type": "int"}}, "config": null, "mode": "to_json", "input": 1, "options": {{}}, "expected": {expected}}}"#
+        ))
+        .unwrap()
+    };
+    assert_eq!(run_case(&case(r#"{"json": "1"}"#), &[]), Ok(Ok(())));
+    assert!(run_case(&case(r#"{"json": "2"}"#), &[]).unwrap().is_err());
+    let unsupported: Json = serde_json::from_str(
+        r#"{"schema": {"type": "decimal"}, "config": null, "mode": "to_python", "input": 1, "options": {}, "expected": {"output": 1}}"#,
     )
     .unwrap();
     assert_eq!(
-        run_case(&case, &["int"]),
-        Err(Skip(
-            "serializer cases: SchemaSerializer is not ported yet".into()
-        ))
+        run_case(&unsupported, &[]),
+        Err(Skip("serializer type decimal".into()))
     );
+    let (opts, _) = serializer_options(
+        &serde_json::from_str(
+            r#"{"include": {"a": {"$object": "ellipsis"}}, "warnings": "error"}"#,
+        )
+        .unwrap(),
+    )
+    .unwrap();
+    assert_eq!(
+        opts.include,
+        Some(Value::from_json(r#"{"a": true}"#).unwrap())
+    );
+    assert_eq!(opts.warnings, WarningsMode::Error);
 }
 
 #[test]
