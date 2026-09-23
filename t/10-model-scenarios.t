@@ -66,6 +66,17 @@ is $rotate->assignee, undef;
 $rotate->assignee(Tracker::Person->new(login => 'bob'));
 is $rotate->assignee->login, 'bob', 'rw fields take new values';
 
+subtest 'JSON export and import round-trip' => sub {
+    my $json = $project->model_dump_json;
+    my $back = Tracker::Project->model_validate_json($json);
+    is $back->model_dump, $project->model_dump, 'the same data comes back';
+    is $back->model_dump_json, $json, 'and the same JSON';
+    is $back->tasks->[0]->subtasks->[1]->title, 'Switch over';
+    my $schema = Tracker::Project->model_json_schema;
+    is [sort keys %{$schema->{'$defs'}}], [qw(Person Task)], 'models are JSON Schema definitions';
+    is $schema->{additionalProperties}, F(), 'extra => forbid';
+};
+
 my $e = dies {
     Tracker::Project->new(
         key   => 'toolong',

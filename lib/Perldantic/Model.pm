@@ -15,8 +15,8 @@ use Perldantic::Wire;
 
 # Declarations per model class: {fields => [spec, ...], config => {...}, parent => class}.
 our %META;
-# Compiled validators per class, dropped whenever any declaration changes.
-my %VALIDATOR;
+# Compiled validators and serializers per class, dropped whenever any declaration changes.
+my (%VALIDATOR, %SERIALIZER);
 # Per-object state that is not a field: {fields_set => {name => 1}, extra => {...}}.
 Hash::Util::FieldHash::fieldhash(my %STATE);
 
@@ -48,7 +48,7 @@ sub _usage ($message) { Perldantic::UsageError->throw(message => $message) }
 
 sub _meta ($class) { $META{$class} //= {fields => [], config => {}} }
 
-sub _changed () { %VALIDATOR = () }
+sub _changed () { %VALIDATOR = %SERIALIZER = () }
 
 sub _is_model ($class) { !ref $class && defined $class && exists $META{$class} }
 
@@ -228,11 +228,15 @@ sub _core_config ($class) {
 }
 
 # Replace `is-instance` of model classes by references to their definitions.
+# The core ref of a model: pydantic's `module.Qualname` shape, so JSON Schema `$defs` are named
+# after the last package component (`Shop::Item` is `Item`) unless names collide.
+sub _ref ($class) { $class =~ s/::/./gr }
+
 sub _link ($schema, $visit) {
     if (ref $schema eq 'HASH') {
         if (($schema->{type} // '') eq 'is-instance' && _is_model($schema->{cls})) {
             $visit->($schema->{cls});
-            return {type => 'definition-ref', schema_ref => $schema->{cls}};
+            return {type => 'definition-ref', schema_ref => _ref($schema->{cls})};
         }
         return {map { $_ => _link($schema->{$_}, $visit) } keys %$schema};
     }
@@ -240,10 +244,15 @@ sub _link ($schema, $visit) {
     return $schema;
 }
 
-sub _field_schema ($spec, $visit) {
+sub _field_schema ($spec, $visit, $for_json_schema) {
     my $schema = _link($spec->{type}->core_schema, $visit);
-    if (!$spec->{required}) {
-        $schema = {type => 'default', schema => $schema, default => $spec->{default} ? $spec->{default}[0] : undef};
+    if ($spec->{default}) {
+        $schema = {type => 'default', schema => $schema, default => $spec->{default}[0]};
+    }
+    elsif (!$spec->{required}) {
+        # Validation needs a default to leave the field out; Perl fills or removes it afterwards.
+        # A JSON Schema shows no default, as pydantic does for default factories.
+        $schema = {type => 'default', schema => $schema, ($for_json_schema ? () : (default => undef))};
     }
     my $alias = $spec->{init_arg} // $spec->{alias};
     return {
@@ -254,39 +263,44 @@ sub _field_schema ($spec, $visit) {
     };
 }
 
-sub _model_schema ($class, $visit) {
+sub _model_schema ($class, $visit, $for_json_schema) {
     my $config = _core_config($class);
     return {
         type   => 'model',
         cls    => $class,
-        ref    => $class,
+        ref    => _ref($class),
         schema => {
             type       => 'model-fields',
             model_name => $class,
-            fields     => Perldantic::Wire::ordered(map { ($_->{name} => _field_schema($_, $visit)) } _fields($class)),
+            fields     => Perldantic::Wire::ordered(map { ($_->{name} => _field_schema($_, $visit, $for_json_schema)) } _fields($class)),
         },
         (%$config ? (config => $config) : ()),
     };
 }
 
 # The core schema of a class: its model and every model it refers to, as definitions.
-sub core_schema ($class) {
+sub core_schema ($class, %options) {
+    my $for_json_schema = !!$options{for_json_schema};
     my (%seen, @definitions);
     my $visit;
     $visit = sub ($model) {
         return if $seen{$model}++;
-        push @definitions, _model_schema($model, $visit);
+        push @definitions, _model_schema($model, $visit, $for_json_schema);
     };
     $visit->($class);
     return {
         type        => 'definitions',
-        schema      => {type => 'definition-ref', schema_ref => $class},
+        schema      => {type => 'definition-ref', schema_ref => _ref($class)},
         definitions => \@definitions,
     };
 }
 
 sub _validator ($class) {
     return $VALIDATOR{$class} //= Perldantic::FFI::Validator->new($class->core_schema);
+}
+
+sub _serializer ($class) {
+    return $SERIALIZER{$class} //= Perldantic::FFI::Serializer->new($class->core_schema);
 }
 
 # ---- instances ----------------------------------------------------------------------------
@@ -339,11 +353,99 @@ sub _build ($self, $args) {
     }
 }
 
+# ---- pydantic methods ---------------------------------------------------------------------
+
+sub _class_method ($name, $class) {
+    _usage("$name is a class method") if ref $class;
+}
+
+sub _object_method ($name, $self) {
+    _usage("$name is an object method") if !ref $self;
+}
+
+sub _options ($name, @options) {
+    _usage("$name takes options as key => value pairs") if @options % 2;
+    return {@options};
+}
+
+sub model_validate ($class, $data, @options) {
+    _class_method('model_validate', $class);
+    return _inflate($class->_validator->validate($data, _options('model_validate', @options)));
+}
+
+sub model_validate_json ($class, $json, @options) {
+    _class_method('model_validate_json', $class);
+    return _inflate($class->_validator->validate_json($json, _options('model_validate_json', @options)));
+}
+
+sub model_dump ($self, @options) {
+    _object_method('model_dump', $self);
+    return ref($self)->_serializer->to_python($self, _options('model_dump', @options));
+}
+
+sub model_dump_json ($self, @options) {
+    _object_method('model_dump_json', $self);
+    return ref($self)->_serializer->to_json($self, _options('model_dump_json', @options));
+}
+
+sub model_json_schema ($class, @options) {
+    _class_method('model_json_schema', $class);
+    return Perldantic::FFI::json_schema($class->core_schema(for_json_schema => 1), undef, _options('model_json_schema', @options));
+}
+
+sub model_fields_set ($self) {
+    _object_method('model_fields_set', $self);
+    return sort keys %{$STATE{$self}{fields_set}};
+}
+
+sub model_extra ($self) {
+    _object_method('model_extra', $self);
+    return $STATE{$self}{extra};
+}
+
+sub _deep_copy ($value) {
+    return $value->model_copy(deep => 1) if blessed $value && $value->isa('Perldantic::Model');
+    return $value if blessed $value;
+    return [map { _deep_copy($_) } @$value] if ref $value eq 'ARRAY';
+    return {map { $_ => _deep_copy($value->{$_}) } keys %$value} if ref $value eq 'HASH';
+    return $value;
+}
+
+sub model_copy ($self, %options) {
+    _object_method('model_copy', $self);
+    for my $key (sort keys %options) {
+        _usage("model_copy: unknown option '$key'") if $key ne 'update' && $key ne 'deep';
+    }
+    my $copy = $options{deep} ? _deep_copy({%$self}) : {%$self};
+    bless $copy, ref $self;
+    my $state = $STATE{$self};
+    my $extra = $state->{extra};
+    $STATE{$copy} = {
+        fields_set => {%{$state->{fields_set}}},
+        extra      => defined $extra ? ($options{deep} ? _deep_copy($extra) : {%$extra}) : undef,
+    };
+    my %field = map { $_->{name} => 1 } _fields(ref $self);
+    my $update = $options{update} // {};
+    for my $key (sort keys %$update) {
+        if ($field{$key}) {
+            $copy->{$key} = $update->{$key};
+            $STATE{$copy}{fields_set}{$key} = 1;
+        }
+        elsif (defined $STATE{$copy}{extra}) {
+            $STATE{$copy}{extra}{$key} = $update->{$key};
+        }
+        else {
+            _usage("model_copy: " . ref($self) . " has no field '$key'");
+        }
+    }
+    return $copy;
+}
+
 sub _perldantic_wire ($self) {
     my @names = map { $_->{name} } _fields(ref $self);
     return Perldantic::Wire::Model->new(
         class      => ref $self,
-        fields     => {map { exists $self->{$_} ? ($_ => $self->{$_}) : () } @names},
+        fields     => Perldantic::Wire::ordered(map { exists $self->{$_} ? ($_ => $self->{$_}) : () } @names),
         fields_set => [sort keys %{$STATE{$self}{fields_set} // {}}],
         extra      => $STATE{$self}{extra},
     );
@@ -390,9 +492,40 @@ C<Perldantic::ValidationError>. Arguments that are not a hash raise C<Perldantic
 C<BUILDARGS> and C<BUILD> work as in Moo: C<BUILD> methods run parent first, with the arguments
 hash.
 
-=head2 core_schema
+=head2 core_schema(%options)
 
 Class method: the core schema of the model, with every model it refers to as a definition.
+With C<< for_json_schema => 1 >>, fields that have no plain default show none.
+
+=head2 model_validate($data, %options), model_validate_json($json, %options)
+
+Class methods: validate Perl data or JSON text (bytes or characters) into an object. Options
+are pydantic's: C<strict>, C<extra>, C<from_attributes>, C<context>, C<by_alias>, C<by_name>.
+
+=head2 model_dump(%options), model_dump_json(%options)
+
+The object as Perl data, or as UTF-8 encoded JSON. Options are pydantic's: C<mode>,
+C<include>, C<exclude> (hashes of names with true values, nested as in pydantic, or arrays of
+names), C<by_alias>, C<exclude_unset>, C<exclude_defaults>, C<exclude_none>, C<warnings>, and for
+JSON C<indent> and C<ensure_ascii>. Fields absent from the object are left out.
+
+=head2 model_json_schema(%options)
+
+Class method: the JSON Schema, as Perl data. Options: C<mode>, C<by_alias>, C<ref_template>,
+C<union_format>. Nested models are C<$defs> named after the last component of their package.
+
+=head2 model_copy(update => \%fields, deep => $bool)
+
+A copy of the object. C<update> values are not validated (as in pydantic) and count as set;
+C<deep> copies nested data and models.
+
+=head2 model_fields_set
+
+The names of the fields that were given or written, sorted.
+
+=head2 model_extra
+
+The extra fields (with C<< extra => 'allow' >>), or C<undef>.
 
 =head1 LIMITATIONS
 
