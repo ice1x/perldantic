@@ -3,6 +3,20 @@
 //! The upstream sources this crate is ported from are vendored verbatim in
 //! `upstream/pydantic-core/`; see `upstream/UPSTREAM.md` for the file map.
 
+mod core_error;
+pub mod errors;
+pub mod input;
+mod tools;
+mod value;
+
+pub use core_error::{CoreError, CoreErrorKind, CoreResult};
+pub use errors::{
+    ErrorDetails, ErrorType, ErrorTypeDefaults, ErrorsOptions, LocItem, Location, Number,
+    ToErrorValue, ValError, ValLineError, ValResult, ValidationError,
+};
+pub use input::InputType;
+pub use value::{Dict, Value};
+
 /// Version of this crate.
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
 

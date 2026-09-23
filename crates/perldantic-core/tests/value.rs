@@ -1,0 +1,186 @@
+//! `Value` is the neutral data model that replaces Python objects in the core.
+//!
+//! `repr()` and `type_name()` must match Python's `repr()` and `type(x).__name__` exactly,
+//! because pydantic embeds them in error messages (`input_value=..., input_type=...`).
+//! Expected strings below were produced by CPython 3.12.
+
+use num_bigint::BigInt;
+use perldantic_core::{Dict, Value};
+
+fn s(v: &str) -> Value {
+    Value::Str(v.to_owned())
+}
+
+fn dict(items: Vec<(Value, Value)>) -> Value {
+    Value::Dict(items.into_iter().collect())
+}
+
+#[test]
+fn repr_scalars() {
+    let cases: Vec<(Value, &str, &str)> = vec![
+        (Value::None, "None", "NoneType"),
+        (Value::Bool(true), "True", "bool"),
+        (Value::Bool(false), "False", "bool"),
+        (Value::Int(0), "0", "int"),
+        (Value::Int(-7), "-7", "int"),
+        (
+            Value::BigInt(BigInt::from(2).pow(70)),
+            "1180591620717411303424",
+            "int",
+        ),
+    ];
+    for (value, repr, type_name) in cases {
+        assert_eq!(value.repr(), repr, "repr of {value:?}");
+        assert_eq!(value.type_name(), type_name, "type of {value:?}");
+    }
+}
+
+#[test]
+fn repr_floats_follow_python_shortest_round_trip() {
+    let cases = [
+        (1.0, "1.0"),
+        (-0.0, "-0.0"),
+        (1.5, "1.5"),
+        (1e16, "1e+16"),
+        (1e15, "1000000000000000.0"),
+        (0.0001, "0.0001"),
+        (0.00001, "1e-05"),
+        (1e-7, "1e-07"),
+        (1.23e100, "1.23e+100"),
+        (123_456_789.123, "123456789.123"),
+        (f64::INFINITY, "inf"),
+        (f64::NEG_INFINITY, "-inf"),
+        (f64::NAN, "nan"),
+    ];
+    for (f, repr) in cases {
+        assert_eq!(Value::Float(f).repr(), repr, "repr of {f:e}");
+        assert_eq!(Value::Float(f).type_name(), "float");
+    }
+}
+
+#[test]
+fn repr_strings_pick_quotes_and_escape_like_python() {
+    let cases = [
+        ("", "''"),
+        ("abc", "'abc'"),
+        ("it's", "\"it's\""),
+        ("say \"hi\"", "'say \"hi\"'"),
+        ("both ' and \"", "'both \\' and \"'"),
+        ("tab\tnl\nret\rback\\", "'tab\\tnl\\nret\\rback\\\\'"),
+        ("\x00\x1f\x7f", "'\\x00\\x1f\\x7f'"),
+        ("\u{a0}", "'\\xa0'"),
+        ("caf\u{e9}", "'caf\u{e9}'"),
+        ("\u{2028}", "'\\u2028'"),
+        ("\u{200b}", "'\\u200b'"),
+        ("\u{feff}", "'\\ufeff'"),
+        ("emoji \u{1F600}", "'emoji \u{1F600}'"),
+    ];
+    for (input, repr) in cases {
+        assert_eq!(s(input).repr(), repr, "repr of {input:?}");
+        assert_eq!(s(input).type_name(), "str");
+    }
+}
+
+#[test]
+fn repr_bytes() {
+    let cases: [(&[u8], &str); 4] = [
+        (b"", "b''"),
+        (b"abc", "b'abc'"),
+        (b"it's", "b\"it's\""),
+        (b"\x00\xff\t", "b'\\x00\\xff\\t'"),
+    ];
+    for (input, repr) in cases {
+        assert_eq!(Value::Bytes(input.to_vec()).repr(), repr);
+        assert_eq!(Value::Bytes(input.to_vec()).type_name(), "bytes");
+    }
+}
+
+#[test]
+fn repr_containers() {
+    assert_eq!(Value::List(vec![]).repr(), "[]");
+    assert_eq!(Value::List(vec![Value::Int(1), s("a")]).repr(), "[1, 'a']");
+    assert_eq!(Value::Tuple(vec![]).repr(), "()");
+    assert_eq!(Value::Tuple(vec![Value::Int(1)]).repr(), "(1,)");
+    assert_eq!(
+        Value::Tuple(vec![Value::Int(1), Value::Int(2)]).repr(),
+        "(1, 2)"
+    );
+    assert_eq!(dict(vec![]).repr(), "{}");
+    assert_eq!(
+        dict(vec![
+            (s("a"), Value::Int(1)),
+            (s("b"), Value::List(vec![Value::None]))
+        ])
+        .repr(),
+        "{'a': 1, 'b': [None]}"
+    );
+    assert_eq!(dict(vec![(Value::Int(1), s("x"))]).repr(), "{1: 'x'}");
+    assert_eq!(Value::List(vec![]).type_name(), "list");
+    assert_eq!(Value::Tuple(vec![]).type_name(), "tuple");
+    assert_eq!(dict(vec![]).type_name(), "dict");
+}
+
+#[test]
+fn str_differs_from_repr_only_for_strings() {
+    assert_eq!(s("it's").py_str(), "it's");
+    assert_eq!(Value::Int(42).py_str(), "42");
+    assert_eq!(Value::Float(1.0).py_str(), "1.0");
+    assert_eq!(Value::List(vec![s("a")]).py_str(), "['a']");
+    assert_eq!(Value::Bytes(b"x".to_vec()).py_str(), "b'x'");
+}
+
+#[test]
+fn json_serialization_matches_pydantic_defaults() {
+    let value = dict(vec![
+        (s("none"), Value::None),
+        (s("bool"), Value::Bool(true)),
+        (s("int"), Value::Int(-3)),
+        (s("big"), Value::BigInt(BigInt::from(2).pow(70))),
+        (s("float"), Value::Float(1.5)),
+        (s("inf"), Value::Float(f64::INFINITY)),
+        (s("str"), s("x\"y")),
+        (s("bytes"), Value::Bytes(b"raw".to_vec())),
+        (s("list"), Value::List(vec![Value::Int(1)])),
+        (s("tuple"), Value::Tuple(vec![Value::Int(2)])),
+        (
+            s("keys"),
+            dict(vec![
+                (Value::Int(1), Value::Bool(false)),
+                (Value::None, Value::Int(0)),
+            ]),
+        ),
+    ]);
+    assert_eq!(
+        serde_json::to_string(&value).unwrap(),
+        concat!(
+            r#"{"none":null,"bool":true,"int":-3,"big":1180591620717411303424,"float":1.5,"#,
+            r#""inf":null,"str":"x\"y","bytes":"raw","list":[1],"tuple":[2],"#,
+            r#""keys":{"1":false,"None":0}}"#
+        )
+    );
+}
+
+#[test]
+fn dict_preserves_insertion_order_and_looks_up_string_keys() {
+    let mut d = Dict::new();
+    d.insert(s("b"), Value::Int(1));
+    d.insert(s("a"), Value::Int(2));
+    d.insert(s("b"), Value::Int(3));
+    assert_eq!(d.len(), 2);
+    assert_eq!(d.get_str("b"), Some(&Value::Int(3)));
+    assert_eq!(d.get_str("missing"), None);
+    let keys: Vec<String> = d.iter().map(|(k, _)| k.py_str()).collect();
+    assert_eq!(keys, ["b", "a"]);
+}
+
+#[test]
+fn conversions_from_rust_types() {
+    assert_eq!(Value::from("a"), s("a"));
+    assert_eq!(Value::from(String::from("a")), s("a"));
+    assert_eq!(Value::from(5_i64), Value::Int(5));
+    assert_eq!(Value::from(5_usize), Value::Int(5));
+    assert_eq!(Value::from(true), Value::Bool(true));
+    assert_eq!(Value::from(0.5), Value::Float(0.5));
+    assert_eq!(Value::from(None::<i64>), Value::None);
+    assert_eq!(Value::from(Some(3_i64)), Value::Int(3));
+}

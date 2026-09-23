@@ -12,11 +12,11 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00006 — `NOTICE` with pydantic-core MIT attribution
   - [x] 00007 — `docs/DIVERGENCES.md`: register of intentional deviations from pydantic
 - [ ] 00008 — Python-free core foundation
-  - [ ] 00009 — `Value` neutral data model
-  - [ ] 00010 — `CoreError` / `CoreResult` replacing `PyErr` / `PyResult`
+  - [x] 00009 — `Value` neutral data model
+  - [x] 00010 — `CoreError` / `CoreResult` replacing `PyErr` / `PyResult`
   - [ ] 00011 — `CoreSchema` serde enum, pydantic `core_schema` wire-compatible (P0 types)
-  - [ ] 00012 — Port `errors/`: `ErrorType` codes & message templates, `ValLineError`, `Location`
-  - [ ] 00013 — `ValidationError` output identical to pydantic `errors()` / `json()`
+  - [x] 00012 — Port `errors/`: `ErrorType` codes & message templates, `ValLineError`, `Location`
+  - [x] 00013 — `ValidationError` output identical to pydantic `errors()` / `json()`
   - [ ] 00014 — Port `Input` trait without `'py`; `input_json.rs` on jiter without `python`
   - [ ] 00015 — `input_value.rs`: `Input` for `Value`
   - [ ] 00016 — `ValidationState`, `RecursionGuard`, `Definitions`
