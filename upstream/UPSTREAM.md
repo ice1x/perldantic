@@ -64,7 +64,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `input/input_python.rs` | `crates/perldantic-core/src/input/input_value.rs` | P0 | partial | rewritten as `Input for Value`; P0 methods |
 | `input/input_string.rs` | `crates/perldantic-core/src/input/input_string.rs` | P1 | pending | string-mode input (env/config values) |
 | `input/mod.rs` | `crates/perldantic-core/src/input/mod.rs` | P0 | ported |  |
-| `input/return_enums.rs` | `crates/perldantic-core/src/input/return_enums.rs` | P0 | partial | `ValidationMatch`, `Either*`, `Int`; iteration helpers pending |
+| `input/return_enums.rs` | `crates/perldantic-core/src/input/return_enums.rs` | P0 | partial | `ValidationMatch`, `Either*`, `Int`, `MaxLengthCheck`, vec iteration helpers; set helpers and Python iterators pending/dropped |
 | `input/shared.rs` | `crates/perldantic-core/src/input/shared.rs` | P0 | ported | decimal/fraction helpers belong to P1/dropped types |
 | `lib.rs` | `crates/perldantic-core/src/lib.rs` | P0 | pending | rewrite: public Rust API, no #[pymodule] |
 | `lookup_key.rs` | `crates/perldantic-core/src/lookup_key.rs` | P0 | pending |  |
@@ -144,7 +144,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/decimal.rs` | `crates/perldantic-core/src/validators/decimal.rs` | P1 | pending |  |
 | `validators/definitions.rs` | `crates/perldantic-core/src/validators/definitions.rs` | P0 | pending |  |
 | `validators/deque.rs` | - | drop | dropped | Python-only type |
-| `validators/dict.rs` | `crates/perldantic-core/src/validators/dict.rs` | P0 | pending |  |
+| `validators/dict.rs` | `crates/perldantic-core/src/validators/dict.rs` | P0 | ported |  |
 | `validators/ellipsis.rs` | - | drop | dropped | Python-only type |
 | `validators/enum_.rs` | `crates/perldantic-core/src/validators/enum_.rs` | P1 | pending |  |
 | `validators/float.rs` | `crates/perldantic-core/src/validators/float.rs` | P0 | ported |  |
@@ -159,7 +159,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/json.rs` | `crates/perldantic-core/src/validators/json.rs` | P1 | pending |  |
 | `validators/json_or_python.rs` | - | drop | dropped | Python-only type |
 | `validators/lax_or_strict.rs` | `crates/perldantic-core/src/validators/lax_or_strict.rs` | P0 | pending |  |
-| `validators/list.rs` | `crates/perldantic-core/src/validators/list.rs` | P0 | pending |  |
+| `validators/list.rs` | `crates/perldantic-core/src/validators/list.rs` | P0 | ported |  |
 | `validators/literal.rs` | `crates/perldantic-core/src/validators/literal.rs` | P0 | partial | hash lookups replaced by Python-equality tables (`Value::py_eq`); enum lookups come with `enum` |
 | `validators/missing_sentinel.rs` | - | drop | dropped | Python-only type |
 | `validators/mod.rs` | `crates/perldantic-core/src/validators/mod.rs` | P0 | partial | `SchemaValidator` (new, validate_value, validate_json), `Extra`, build dispatch, `Validator`/`BuildValidator`; more methods as validators need them |
@@ -176,7 +176,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/string.rs` | `crates/perldantic-core/src/validators/string.rs` | P0 | ported | `python-re` engine unavailable (divergence 7); no regex LRU cache yet |
 | `validators/time.rs` | `crates/perldantic-core/src/validators/time.rs` | P1 | pending |  |
 | `validators/timedelta.rs` | `crates/perldantic-core/src/validators/timedelta.rs` | P1 | pending |  |
-| `validators/tuple.rs` | `crates/perldantic-core/src/validators/tuple.rs` | P0 | pending |  |
+| `validators/tuple.rs` | `crates/perldantic-core/src/validators/tuple.rs` | P0 | ported | out-of-range `variadic_item_index` is a schema error (DIVERGENCES #11) |
 | `validators/typed_dict.rs` | `crates/perldantic-core/src/validators/typed_dict.rs` | P1 | pending |  |
 | `validators/union.rs` | `crates/perldantic-core/src/validators/union.rs` | P0 | pending |  |
 | `validators/url.rs` | `crates/perldantic-core/src/validators/url.rs` | P1 | pending |  |

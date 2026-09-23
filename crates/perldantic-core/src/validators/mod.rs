@@ -18,12 +18,15 @@ mod any;
 mod bool;
 mod bytes;
 pub(crate) mod config;
+mod dict;
 mod float;
 mod int;
+mod list;
 mod literal;
 mod none;
 mod nullable;
 mod string;
+mod tuple;
 pub(crate) mod validation_state;
 mod with_default;
 
@@ -73,7 +76,7 @@ pub struct SchemaValidator {
 }
 
 /// The error pyo3 raises when a non-dict is passed where a dict is required.
-fn as_dict(value: &Value) -> CoreResult<&Dict> {
+pub(crate) fn as_dict(value: &Value) -> CoreResult<&Dict> {
     match value {
         Value::Dict(d) => Ok(d),
         Value::None => Err(CoreError::Type(
@@ -271,12 +274,15 @@ validators! {
     any::AnyValidator,
     bool::BoolValidator,
     bytes::BytesValidator,
+    dict::DictValidator,
     float::FloatBuilder,
     int::IntValidator,
+    list::ListValidator,
     literal::LiteralValidator,
     none::NoneValidator,
     nullable::NullableValidator,
     string::StrValidator,
+    tuple::TupleValidator,
     with_default::WithDefaultValidator,
 }
 
@@ -306,16 +312,19 @@ pub enum CombinedValidator {
     Bool(bool::BoolValidator),
     Bytes(bytes::BytesValidator),
     ConstrainedBytes(bytes::BytesConstrainedValidator),
+    Dict(dict::DictValidator),
     Float(float::FloatValidator),
     ConstrainedFloat(float::ConstrainedFloatValidator),
     Int(int::IntValidator),
     // Boxed: much larger than most validators.
     ConstrainedInt(Box<int::ConstrainedIntValidator>),
+    List(list::ListValidator),
     Literal(literal::LiteralValidator),
     None(none::NoneValidator),
     Nullable(nullable::NullableValidator),
     Str(string::StrValidator),
     StrConstrained(string::StrConstrainedValidator),
+    Tuple(tuple::TupleValidator),
     WithDefault(with_default::WithDefaultValidator),
 }
 

@@ -7,9 +7,14 @@ use std::ops::Rem;
 
 use num_bigint::BigInt;
 
-use crate::errors::{ErrorTypeDefaults, ValError, ValResult};
+use jiter::PartialMode;
+
+use crate::errors::{ErrorType, ErrorTypeDefaults, ValError, ValLineError, ValResult};
 use crate::validators::validation_state::{Exactness, ValidationState};
+use crate::validators::{CombinedValidator, Validator};
 use crate::value::Value;
+
+use super::{BorrowInput, Input};
 
 /// A validated value plus how exactly the input matched.
 #[derive(Debug)]
@@ -208,6 +213,113 @@ impl Rem for &Int {
             (Int::Big(b), Int::I64(i)) => Int::Big(b % BigInt::from(*i)),
         }
     }
+}
+
+/// Counts validated items and fails once there are more than `max_length`.
+pub struct MaxLengthCheck<'a, INPUT: ?Sized> {
+    current_length: usize,
+    max_length: Option<usize>,
+    field_type: &'a str,
+    input: &'a INPUT,
+    actual_length: Option<usize>,
+}
+
+impl<'a, INPUT: ?Sized> MaxLengthCheck<'a, INPUT> {
+    pub(crate) fn new(
+        max_length: Option<usize>,
+        field_type: &'a str,
+        input: &'a INPUT,
+        actual_length: Option<usize>,
+    ) -> Self {
+        Self {
+            current_length: 0,
+            max_length,
+            field_type,
+            input,
+            actual_length,
+        }
+    }
+}
+
+impl<INPUT: Input + ?Sized> MaxLengthCheck<'_, INPUT> {
+    fn incr(&mut self) -> ValResult<()> {
+        if let Some(max_length) = self.max_length {
+            self.current_length += 1;
+            if self.current_length > max_length {
+                return Err(ValError::new(
+                    ErrorType::TooLong {
+                        field_type: self.field_type.to_string(),
+                        max_length,
+                        actual_length: self.actual_length,
+                        context: None,
+                    },
+                    self.input,
+                ));
+            }
+        }
+        Ok(())
+    }
+}
+
+/// Validate every item, collecting item errors with their index as location.
+pub(crate) fn validate_iter_to_vec(
+    iter: impl Iterator<Item = impl BorrowInput>,
+    capacity: usize,
+    mut max_length_check: MaxLengthCheck<'_, impl Input + ?Sized>,
+    validator: &CombinedValidator,
+    state: &mut ValidationState<'_>,
+    fail_fast: bool,
+) -> ValResult<Vec<Value>> {
+    let mut output: Vec<Value> = Vec::with_capacity(capacity);
+    let mut errors: Vec<ValLineError> = Vec::new();
+    let allow_partial = state.allow_partial;
+
+    for (index, is_last_partial, item) in state.enumerate_last_partial(iter) {
+        state.allow_partial = if is_last_partial {
+            allow_partial
+        } else {
+            PartialMode::Off
+        };
+        match validator.validate(item.borrow_input(), state) {
+            Ok(item) => {
+                max_length_check.incr()?;
+                output.push(item);
+            }
+            Err(ValError::LineErrors(line_errors)) => {
+                max_length_check.incr()?;
+                if !is_last_partial {
+                    errors.extend(
+                        line_errors
+                            .into_iter()
+                            .map(|err| err.with_outer_location(index)),
+                    );
+                    if fail_fast {
+                        return Err(ValError::LineErrors(errors));
+                    }
+                }
+            }
+            Err(ValError::Omit) => (),
+            Err(err) => return Err(err),
+        }
+    }
+
+    if errors.is_empty() {
+        Ok(output)
+    } else {
+        Err(ValError::LineErrors(errors))
+    }
+}
+
+/// Copy every item unchanged, checking only the maximum length.
+pub(crate) fn no_validator_iter_to_vec(
+    iter: impl Iterator<Item = impl BorrowInput>,
+    mut max_length_check: MaxLengthCheck<'_, impl Input + ?Sized>,
+) -> ValResult<Vec<Value>> {
+    iter.map(|item| {
+        max_length_check.incr()?;
+        Ok(item.borrow_input().to_value())
+    })
+    .collect()
 }
 
 #[cfg(test)]
