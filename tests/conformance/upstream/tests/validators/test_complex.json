@@ -1,0 +1,1348 @@
+[
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases[''-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases[''-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "complex_type",
+     "loc": [],
+     "msg": "Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex",
+     "input": ""
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases['+1.23e-4-5.67e+8J'-(0.000123-567000000j)]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases['+1.23e-4-5.67e+8J'-(0.000123-567000000j)]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "+1.23e-4-5.67e+8J",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases['-j'--1j]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases['-j'--1j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-j",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases['1.5-j'-(1.5-1j)]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases['1.5-j'-(1.5-1j)]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1.5-j",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases['1e-700j'-0j]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases['1e-700j'-0j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1e-700j",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases['2'-(2+0j)]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases['2'-(2+0j)]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases['2j'-2j]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases['2j'-2j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2j",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases['\\\\t( -1.23+4.5J   \\\\n'-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases['\\\\t( -1.23+4.5J   \\\\n'-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "\t( -1.23+4.5J   \n",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "complex_type",
+     "loc": [],
+     "msg": "Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex",
+     "input": "\t( -1.23+4.5J   \n"
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases['foobar'-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases['foobar'-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foobar",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "complex_type",
+     "loc": [],
+     "msg": "Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex",
+     "input": "foobar"
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases['j'-1j]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases['j'-1j]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "j",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases[(('x', 'y'),)-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases[(('x', 'y'),)-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    {
+     "$tuple": [
+      "x",
+      "y"
+     ]
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "complex_type",
+     "loc": [],
+     "msg": "Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex",
+     "input": {
+      "$tuple": [
+       {
+        "$tuple": [
+         "x",
+         "y"
+        ]
+       }
+      ]
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases[()-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases[()-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": []
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "complex_type",
+     "loc": [],
+     "msg": "Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex",
+     "input": {
+      "$tuple": []
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases[(2+4j)-(2+4j)]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases[(2+4j)-(2+4j)]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases[2.0-(2+0j)]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases[2.0-(2+0j)]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 2.0,
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases[3-(3+0j)]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases[3-(3+0j)]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 3,
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases[<tests.validators.test_complex.Foobar object at 0x...>-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases[<tests.validators.test_complex.Foobar object at 0x...>-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "Foobar"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "complex_type",
+     "loc": [],
+     "msg": "Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex",
+     "input": {
+      "$object": "Foobar"
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases[[('x', 'y')]-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases[[('x', 'y')]-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   {
+    "$tuple": [
+     "x",
+     "y"
+    ]
+   }
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "complex_type",
+     "loc": [],
+     "msg": "Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex",
+     "input": [
+      {
+       "$tuple": [
+        "x",
+        "y"
+       ]
+      }
+     ]
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases[[]-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases[[]-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "complex_type",
+     "loc": [],
+     "msg": "Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex",
+     "input": []
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases[{'real': 'test', 'imag': 1}-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases[{'real': 'test', 'imag': 1}-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "real": "test",
+   "imag": 1
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "complex_type",
+     "loc": [],
+     "msg": "Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex",
+     "input": {
+      "real": "test",
+      "imag": 1
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases[{'real': 2, 'imag': 4}-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases[{'real': 2, 'imag': 4}-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "real": 2,
+   "imag": 4
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "complex_type",
+     "loc": [],
+     "msg": "Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex",
+     "input": {
+      "real": 2,
+      "imag": 4
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_cases[{'real': True, 'imag': 1}-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_cases[{'real': True, 'imag': 1}-Err('Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex')]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "real": true,
+   "imag": 1
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "complex_type",
+     "loc": [],
+     "msg": "Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex",
+     "input": {
+      "real": true,
+      "imag": 1
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_strict[''-Err('Input should be an instance of complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_strict[''-Err('Input should be an instance of complex')]",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of complex",
+     "input": "",
+     "ctx": {
+      "class": "complex"
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_strict['+1.23e-4-5.67e+8J'-Err('Input should be an instance of complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_strict['+1.23e-4-5.67e+8J'-Err('Input should be an instance of complex')]",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "+1.23e-4-5.67e+8J",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of complex",
+     "input": "+1.23e-4-5.67e+8J",
+     "ctx": {
+      "class": "complex"
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_strict['-j'-Err('Input should be an instance of complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_strict['-j'-Err('Input should be an instance of complex')]",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-j",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of complex",
+     "input": "-j",
+     "ctx": {
+      "class": "complex"
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_strict['1.5-j'-Err('Input should be an instance of complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_strict['1.5-j'-Err('Input should be an instance of complex')]",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1.5-j",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of complex",
+     "input": "1.5-j",
+     "ctx": {
+      "class": "complex"
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_strict['1e-700j'-Err('Input should be an instance of complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_strict['1e-700j'-Err('Input should be an instance of complex')]",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1e-700j",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of complex",
+     "input": "1e-700j",
+     "ctx": {
+      "class": "complex"
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_strict['2'-Err('Input should be an instance of complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_strict['2'-Err('Input should be an instance of complex')]",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of complex",
+     "input": "2",
+     "ctx": {
+      "class": "complex"
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_strict['2j'-Err('Input should be an instance of complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_strict['2j'-Err('Input should be an instance of complex')]",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2j",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of complex",
+     "input": "2j",
+     "ctx": {
+      "class": "complex"
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_strict['\\\\t( -1.23+4.5J   \\\\n'-Err('Input should be an instance of complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_strict['\\\\t( -1.23+4.5J   \\\\n'-Err('Input should be an instance of complex')]",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "\t( -1.23+4.5J   \n",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of complex",
+     "input": "\t( -1.23+4.5J   \n",
+     "ctx": {
+      "class": "complex"
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_strict['foobar'-Err('Input should be an instance of complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_strict['foobar'-Err('Input should be an instance of complex')]",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foobar",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of complex",
+     "input": "foobar",
+     "ctx": {
+      "class": "complex"
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_strict['j'-Err('Input should be an instance of complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_strict['j'-Err('Input should be an instance of complex')]",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "j",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of complex",
+     "input": "j",
+     "ctx": {
+      "class": "complex"
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_strict[(2+4j)-(2+4j)]#0",
+  "test": "tests/validators/test_complex.py::test_complex_strict[(2+4j)-(2+4j)]",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "complex"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_strict[2.0-Err('Input should be an instance of complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_strict[2.0-Err('Input should be an instance of complex')]",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 2.0,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of complex",
+     "input": 2.0,
+     "ctx": {
+      "class": "complex"
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_strict[3-Err('Input should be an instance of complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_strict[3-Err('Input should be an instance of complex')]",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 3,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of complex",
+     "input": 3,
+     "ctx": {
+      "class": "complex"
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_strict[{'real': 'test', 'imag': 1}-Err('Input should be an instance of complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_strict[{'real': 'test', 'imag': 1}-Err('Input should be an instance of complex')]",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "real": "test",
+   "imag": 1
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of complex",
+     "input": {
+      "real": "test",
+      "imag": 1
+     },
+     "ctx": {
+      "class": "complex"
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_strict[{'real': 2, 'imag': 4}-Err('Input should be an instance of complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_strict[{'real': 2, 'imag': 4}-Err('Input should be an instance of complex')]",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "real": 2,
+   "imag": 4
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of complex",
+     "input": {
+      "real": 2,
+      "imag": 4
+     },
+     "ctx": {
+      "class": "complex"
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_strict[{'real': True, 'imag': 1}-Err('Input should be an instance of complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_strict[{'real': True, 'imag': 1}-Err('Input should be an instance of complex')]",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "real": true,
+   "imag": 1
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of complex",
+     "input": {
+      "real": true,
+      "imag": 1
+     },
+     "ctx": {
+      "class": "complex"
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_with_special_methods[<tests.validators.test_complex.ComplexWithComplex object at 0x...>-(3.14+0j)]#0",
+  "test": "tests/validators/test_complex.py::test_complex_with_special_methods[<tests.validators.test_complex.ComplexWithComplex object at 0x...>-(3.14+0j)]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ComplexWithComplex"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_with_special_methods[<tests.validators.test_complex.ComplexWithComplex object at 0x...>-(5+0j)]#0",
+  "test": "tests/validators/test_complex.py::test_complex_with_special_methods[<tests.validators.test_complex.ComplexWithComplex object at 0x...>-(5+0j)]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ComplexWithComplex"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_with_special_methods[<tests.validators.test_complex.ComplexWithFloat object at 0x...>-(2.5+0j)]#0",
+  "test": "tests/validators/test_complex.py::test_complex_with_special_methods[<tests.validators.test_complex.ComplexWithFloat object at 0x...>-(2.5+0j)]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ComplexWithFloat"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_with_special_methods[<tests.validators.test_complex.ComplexWithFloat object at 0x...>-(7+0j)]#0",
+  "test": "tests/validators/test_complex.py::test_complex_with_special_methods[<tests.validators.test_complex.ComplexWithFloat object at 0x...>-(7+0j)]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ComplexWithFloat"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_with_special_methods[<tests.validators.test_complex.ComplexWithIndex object at 0x...>-(10+0j)]#0",
+  "test": "tests/validators/test_complex.py::test_complex_with_special_methods[<tests.validators.test_complex.ComplexWithIndex object at 0x...>-(10+0j)]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ComplexWithIndex"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_with_special_methods[<tests.validators.test_complex.ComplexWithIndex object at 0x...>-(42+0j)]#0",
+  "test": "tests/validators/test_complex.py::test_complex_with_special_methods[<tests.validators.test_complex.ComplexWithIndex object at 0x...>-(42+0j)]",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ComplexWithIndex"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_with_special_methods_strict[<tests.validators.test_complex.ComplexWithComplex object at 0x...>-Err('Input should be an instance of complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_with_special_methods_strict[<tests.validators.test_complex.ComplexWithComplex object at 0x...>-Err('Input should be an instance of complex')]",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ComplexWithComplex"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of complex",
+     "input": {
+      "$object": "ComplexWithComplex"
+     },
+     "ctx": {
+      "class": "complex"
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_with_special_methods_strict[<tests.validators.test_complex.ComplexWithFloat object at 0x...>-Err('Input should be an instance of complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_with_special_methods_strict[<tests.validators.test_complex.ComplexWithFloat object at 0x...>-Err('Input should be an instance of complex')]",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ComplexWithFloat"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of complex",
+     "input": {
+      "$object": "ComplexWithFloat"
+     },
+     "ctx": {
+      "class": "complex"
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_complex_with_special_methods_strict[<tests.validators.test_complex.ComplexWithIndex object at 0x...>-Err('Input should be an instance of complex')]#0",
+  "test": "tests/validators/test_complex.py::test_complex_with_special_methods_strict[<tests.validators.test_complex.ComplexWithIndex object at 0x...>-Err('Input should be an instance of complex')]",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ComplexWithIndex"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of complex",
+     "input": {
+      "$object": "ComplexWithIndex"
+     },
+     "ctx": {
+      "class": "complex"
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_json_complex#0",
+  "test": "tests/validators/test_complex.py::test_json_complex",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"-1.23e+4+5.67e-8J\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_json_complex#1",
+  "test": "tests/validators/test_complex.py::test_json_complex",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_json_complex#2",
+  "test": "tests/validators/test_complex.py::test_json_complex",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.0",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_json_complex#3",
+  "test": "tests/validators/test_complex.py::test_json_complex",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_json_complex#4",
+  "test": "tests/validators/test_complex.py::test_json_complex",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"real\": 2, \"imag\": 4}",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "complex_type",
+     "loc": [],
+     "msg": "Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex",
+     "input": {
+      "real": 2,
+      "imag": 4
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_json_complex_strict#0",
+  "test": "tests/validators/test_complex.py::test_json_complex_strict",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"-1.23e+4+5.67e-8J\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_json_complex_strict#1",
+  "test": "tests/validators/test_complex.py::test_json_complex_strict",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_json_complex_strict#2",
+  "test": "tests/validators/test_complex.py::test_json_complex_strict",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "complex_str_parsing",
+     "loc": [],
+     "msg": "Input should be a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex",
+     "input": 1
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_json_complex_strict#3",
+  "test": "tests/validators/test_complex.py::test_json_complex_strict",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.0",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "complex_str_parsing",
+     "loc": [],
+     "msg": "Input should be a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex",
+     "input": 1.0
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_json_complex_strict#4",
+  "test": "tests/validators/test_complex.py::test_json_complex_strict",
+  "schema": {
+   "type": "complex",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"real\": 2, \"imag\": 4}",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "complex_type",
+     "loc": [],
+     "msg": "Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex",
+     "input": {
+      "real": 2,
+      "imag": 4
+     }
+    }
+   ],
+   "title": "complex"
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_nan_inf_complex#0",
+  "test": "tests/validators/test_complex.py::test_nan_inf_complex",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "NaN+Infinityj",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_overflow_complex#0",
+  "test": "tests/validators/test_complex.py::test_overflow_complex",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "5e600j",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_overflow_complex#1",
+  "test": "tests/validators/test_complex.py::test_overflow_complex",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-5e600j",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_complex.py::test_valid_complex_string_with_space#0",
+  "test": "tests/validators/test_complex.py::test_valid_complex_string_with_space",
+  "schema": {
+   "type": "complex"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "\t( -1.23+4.5J )\n",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "complex"
+   }
+  }
+ }
+]

@@ -1,0 +1,392 @@
+[
+ {
+  "id": "tests/validators/test_definitions.py::test_check_ref_used_ignores_metadata#0",
+  "test": "tests/validators/test_definitions.py::test_check_ref_used_ignores_metadata",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int",
+    "metadata": {
+     "type": "definition-ref",
+     "schema_ref": "foobar"
+    }
+   },
+   "ref": "foobar"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions.py::test_deep#0",
+  "test": "tests/validators/test_definitions.py::test_deep",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "definitions",
+      "schema": {
+       "type": "typed-dict",
+       "fields": {
+        "c": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        },
+        "d": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "definition-ref",
+          "schema_ref": "foobar"
+         }
+        }
+       }
+      },
+      "definitions": [
+       {
+        "type": "str",
+        "ref": "foobar"
+       }
+      ]
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": {
+    "c": 2,
+    "d": {
+     "$bytes": "ZGQ="
+    }
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": {
+     "c": 2,
+     "d": "dd"
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions.py::test_definition_chain#0",
+  "test": "tests/validators/test_definitions.py::test_definition_chain",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "foo"
+   },
+   "definitions": [
+    {
+     "type": "definition-ref",
+     "schema_ref": "bar",
+     "ref": "foo"
+    },
+    {
+     "type": "int",
+     "ref": "bar"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions.py::test_dict_repeat#0",
+  "test": "tests/validators/test_definitions.py::test_dict_repeat",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "dict",
+    "keys_schema": {
+     "type": "definition-ref",
+     "schema_ref": "foobar"
+    },
+    "values_schema": {
+     "type": "definition-ref",
+     "schema_ref": "foobar"
+    }
+   },
+   "definitions": [
+    {
+     "type": "int",
+     "ref": "foobar"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     "1",
+     "2"
+    ],
+    [
+     3,
+     "4"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions.py::test_dict_repeat#1",
+  "test": "tests/validators/test_definitions.py::test_dict_repeat",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "dict",
+    "keys_schema": {
+     "type": "definition-ref",
+     "schema_ref": "foobar"
+    },
+    "values_schema": {
+     "type": "definition-ref",
+     "schema_ref": "foobar"
+    }
+   },
+   "definitions": [
+    {
+     "type": "int",
+     "ref": "foobar"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyIxIjogMiwgIjMiOiAiNCJ9"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions.py::test_extract_used_refs_ignores_metadata#0",
+  "test": "tests/validators/test_definitions.py::test_extract_used_refs_ignores_metadata",
+  "schema": {
+   "type": "any",
+   "metadata": {
+    "type": "definition-ref"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions.py::test_ignored_def#0",
+  "test": "tests/validators/test_definitions.py::test_ignored_def",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   },
+   "definitions": [
+    {
+     "type": "int",
+     "ref": "foobar"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   "3"
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions.py::test_list_with_def#0",
+  "test": "tests/validators/test_definitions.py::test_list_with_def",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "definition-ref",
+     "schema_ref": "foobar"
+    }
+   },
+   "definitions": [
+    {
+     "type": "int",
+     "ref": "foobar"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   "3"
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions.py::test_list_with_def#1",
+  "test": "tests/validators/test_definitions.py::test_list_with_def",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "definition-ref",
+     "schema_ref": "foobar"
+    }
+   },
+   "definitions": [
+    {
+     "type": "int",
+     "ref": "foobar"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "WzEsIDIsICIzIl0="
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_definitions.py::test_use_after#0",
+  "test": "tests/validators/test_definitions.py::test_use_after",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "definitions",
+     "schema": {
+      "type": "definition-ref",
+      "schema_ref": "foobar"
+     },
+     "definitions": [
+      {
+       "type": "int",
+       "ref": "foobar"
+      }
+     ]
+    },
+    {
+     "type": "definition-ref",
+     "schema_ref": "foobar"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "1",
+   "2"
+  ],
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2
+    ]
+   }
+  }
+ }
+]

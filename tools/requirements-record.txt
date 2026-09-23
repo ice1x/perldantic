@@ -1,0 +1,11 @@
+# Recording conformance cases: the pydantic-core release matching upstream/UPSTREAM.md plus the
+# packages upstream's test suite imports.
+-r requirements-dev.txt
+pydantic-core==2.49.0
+dirty-equals
+inline-snapshot
+pytest-mock
+pytest-timeout
+python-dateutil
+tzdata
+typing-inspection>=0.4.1

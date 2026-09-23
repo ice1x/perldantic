@@ -1,0 +1,124 @@
+[
+ {
+  "id": "tests/validators/test_json_or_python.py::test_json_or_python#0",
+  "test": "tests/validators/test_json_or_python.py::test_json_or_python",
+  "schema": {
+   "type": "json-or-python",
+   "json_schema": {
+    "type": "function-after",
+    "function": {
+     "type": "no-info",
+     "function": {
+      "$class": "Foo"
+     }
+    },
+    "schema": {
+     "type": "str"
+    }
+   },
+   "python_schema": {
+    "type": "is-instance",
+    "cls": {
+     "$class": "Foo"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "Foo",
+    "abc"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$subclass": [
+     "Foo",
+     "abc"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_json_or_python.py::test_json_or_python#1",
+  "test": "tests/validators/test_json_or_python.py::test_json_or_python",
+  "schema": {
+   "type": "json-or-python",
+   "json_schema": {
+    "type": "function-after",
+    "function": {
+     "type": "no-info",
+     "function": {
+      "$class": "Foo"
+     }
+    },
+    "schema": {
+     "type": "str"
+    }
+   },
+   "python_schema": {
+    "type": "is-instance",
+    "cls": {
+     "$class": "Foo"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "abc",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of test_json_or_python.<locals>.Foo",
+     "input": "abc",
+     "ctx": {
+      "class": "test_json_or_python.<locals>.Foo"
+     }
+    }
+   ],
+   "title": "json-or-python[json=function-after[Foo(), str],python=is-instance[test_json_or_python.<locals>.Foo]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_json_or_python.py::test_json_or_python#2",
+  "test": "tests/validators/test_json_or_python.py::test_json_or_python",
+  "schema": {
+   "type": "json-or-python",
+   "json_schema": {
+    "type": "function-after",
+    "function": {
+     "type": "no-info",
+     "function": {
+      "$class": "Foo"
+     }
+    },
+    "schema": {
+     "type": "str"
+    }
+   },
+   "python_schema": {
+    "type": "is-instance",
+    "cls": {
+     "$class": "Foo"
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"abc\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$subclass": [
+     "Foo",
+     "abc"
+    ]
+   }
+  }
+ }
+]

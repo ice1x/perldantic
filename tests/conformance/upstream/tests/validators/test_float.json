@@ -1,0 +1,7904 @@
+[
+ {
+  "id": "tests/validators/test_float.py::test_allow_inf_nan_false_json#0",
+  "test": "tests/validators/test_float.py::test_allow_inf_nan_false_json",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "allow_inf_nan": false
+  },
+  "mode": "json",
+  "input": "123",
+  "options": {},
+  "expected": {
+   "output": 123.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_allow_inf_nan_false_json#1",
+  "test": "tests/validators/test_float.py::test_allow_inf_nan_false_json",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "allow_inf_nan": false
+  },
+  "mode": "json",
+  "input": "NaN",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": {
+      "$float": "nan"
+     }
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_allow_inf_nan_false_json#2",
+  "test": "tests/validators/test_float.py::test_allow_inf_nan_false_json",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "allow_inf_nan": false
+  },
+  "mode": "json",
+  "input": "Infinity",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": {
+      "$float": "inf"
+     }
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_allow_inf_nan_false_json#3",
+  "test": "tests/validators/test_float.py::test_allow_inf_nan_false_json",
+  "schema": {
+   "type": "float"
+  },
+  "config": {
+   "allow_inf_nan": false
+  },
+  "mode": "json",
+  "input": "-Infinity",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": {
+      "$float": "-inf"
+     }
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_allow_inf_nan_true_json#0",
+  "test": "tests/validators/test_float.py::test_allow_inf_nan_true_json",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "123",
+  "options": {},
+  "expected": {
+   "output": 123.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_allow_inf_nan_true_json#1",
+  "test": "tests/validators/test_float.py::test_allow_inf_nan_true_json",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "NaN",
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_allow_inf_nan_true_json#2",
+  "test": "tests/validators/test_float.py::test_allow_inf_nan_true_json",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "Infinity",
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_allow_inf_nan_true_json#3",
+  "test": "tests/validators/test_float.py::test_allow_inf_nan_true_json",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-Infinity",
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "-inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_allow_inf_nan_true_json#4",
+  "test": "tests/validators/test_float.py::test_allow_inf_nan_true_json",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"NaN\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_allow_inf_nan_true_json#5",
+  "test": "tests/validators/test_float.py::test_allow_inf_nan_true_json",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"Infinity\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_allow_inf_nan_true_json#6",
+  "test": "tests/validators/test_float.py::test_allow_inf_nan_true_json",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"-Infinity\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "-inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[json-  42.1  -42.1]#0",
+  "test": "tests/validators/test_float.py::test_float[json-  42.1  -42.1]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"  42.1  \"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42.1
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[json-0-0]#0",
+  "test": "tests/validators/test_float.py::test_float[json-0-0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[json-1-1]#0",
+  "test": "tests/validators/test_float.py::test_float[json-1-1]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[json-1.7976931348623157e+308-1.7976931348623157e+308]#0",
+  "test": "tests/validators/test_float.py::test_float[json-1.7976931348623157e+308-1.7976931348623157e+308]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.7976931348623157e+308",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1.7976931348623157e+308
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[json-10000000000.0-10000000000.0]#0",
+  "test": "tests/validators/test_float.py::test_float[json-10000000000.0-10000000000.0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "10000000000.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 10000000000.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[json-42.0-42]#0",
+  "test": "tests/validators/test_float.py::test_float[json-42.0-42]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "42.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[json-42.123-42.123]#0",
+  "test": "tests/validators/test_float.py::test_float[json-42.123-42.123]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"42.123\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42.123
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[json-42.5-42.5]#0",
+  "test": "tests/validators/test_float.py::test_float[json-42.5-42.5]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "42.5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42.5
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[json-42_int-42_int]#0",
+  "test": "tests/validators/test_float.py::test_float[json-42_int-42_int]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "42",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[json-42_str-42_int]#0",
+  "test": "tests/validators/test_float.py::test_float[json-42_str-42_int]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"42\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[json-9223372036854775808-9223372036854775808]#0",
+  "test": "tests/validators/test_float.py::test_float[json-9223372036854775808-9223372036854775808]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "9223372036854775808",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 9.223372036854776e+18
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[json-False-0]#0",
+  "test": "tests/validators/test_float.py::test_float[json-False-0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "false",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[json-True-1]#0",
+  "test": "tests/validators/test_float.py::test_float[json-True-1]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "true",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[json-input_value14-expected14]#0",
+  "test": "tests/validators/test_float.py::test_float[json-input_value14-expected14]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "float_type",
+     "loc": [],
+     "msg": "Input should be a valid number",
+     "input": [
+      1,
+      2
+     ]
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[json-wrong-expected13]#0",
+  "test": "tests/validators/test_float.py::test_float[json-wrong-expected13]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"wrong\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "wrong"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[python-  42.1  -42.1]#0",
+  "test": "tests/validators/test_float.py::test_float[python-  42.1  -42.1]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "  42.1  ",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42.1
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[python-0-0]#0",
+  "test": "tests/validators/test_float.py::test_float[python-0-0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[python-1-1]#0",
+  "test": "tests/validators/test_float.py::test_float[python-1-1]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[python-1.7976931348623157e+308-1.7976931348623157e+308]#0",
+  "test": "tests/validators/test_float.py::test_float[python-1.7976931348623157e+308-1.7976931348623157e+308]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1.7976931348623157e+308,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1.7976931348623157e+308
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[python-10000000000.0-10000000000.0]#0",
+  "test": "tests/validators/test_float.py::test_float[python-10000000000.0-10000000000.0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 10000000000.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 10000000000.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[python-42.0-42]#0",
+  "test": "tests/validators/test_float.py::test_float[python-42.0-42]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[python-42.123-42.123]#0",
+  "test": "tests/validators/test_float.py::test_float[python-42.123-42.123]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "42.123",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42.123
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[python-42.5-42.5]#0",
+  "test": "tests/validators/test_float.py::test_float[python-42.5-42.5]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42.5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42.5
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[python-42_int-42_int]#0",
+  "test": "tests/validators/test_float.py::test_float[python-42_int-42_int]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[python-42_str-42_int]#0",
+  "test": "tests/validators/test_float.py::test_float[python-42_str-42_int]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "42",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[python-9223372036854775808-9223372036854775808]#0",
+  "test": "tests/validators/test_float.py::test_float[python-9223372036854775808-9223372036854775808]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 9223372036854775808,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 9.223372036854776e+18
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[python-False-0]#0",
+  "test": "tests/validators/test_float.py::test_float[python-False-0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": false,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[python-True-1]#0",
+  "test": "tests/validators/test_float.py::test_float[python-True-1]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": true,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[python-input_value14-expected14]#0",
+  "test": "tests/validators/test_float.py::test_float[python-input_value14-expected14]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "float_type",
+     "loc": [],
+     "msg": "Input should be a valid number",
+     "input": [
+      1,
+      2
+     ]
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float[python-wrong-expected13]#0",
+  "test": "tests/validators/test_float.py::test_float[python-wrong-expected13]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "wrong",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "wrong"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_key[json]#0",
+  "test": "tests/validators/test_float.py::test_float_key[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "float"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"1\": 1, \"2\": 2}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1.0,
+      1
+     ],
+     [
+      2.0,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_key[json]#1",
+  "test": "tests/validators/test_float.py::test_float_key[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "float"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"1.5\": 1, \"2.4\": 2}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1.5,
+      1
+     ],
+     [
+      2.4,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_key[json]#2",
+  "test": "tests/validators/test_float.py::test_float_key[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "float"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "1.5": 1,
+   "2.5": 2
+  },
+  "options": {
+   "strict": true,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "float_type",
+     "loc": [
+      "1.5",
+      "[key]"
+     ],
+     "msg": "Input should be a valid number",
+     "input": "1.5"
+    },
+    {
+     "type": "float_type",
+     "loc": [
+      "2.5",
+      "[key]"
+     ],
+     "msg": "Input should be a valid number",
+     "input": "2.5"
+    }
+   ],
+   "title": "dict[float,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_key[json]#3",
+  "test": "tests/validators/test_float.py::test_float_key[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "float"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"1.5\": 1, \"2.5\": 2}",
+  "options": {
+   "strict": true,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1.5,
+      1
+     ],
+     [
+      2.5,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_key[python]#0",
+  "test": "tests/validators/test_float.py::test_float_key[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "float"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "1": 1,
+   "2": 2
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1.0,
+      1
+     ],
+     [
+      2.0,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_key[python]#1",
+  "test": "tests/validators/test_float.py::test_float_key[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "float"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "1.5": 1,
+   "2.4": 2
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1.5,
+      1
+     ],
+     [
+      2.4,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_key[python]#2",
+  "test": "tests/validators/test_float.py::test_float_key[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "float"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "1.5": 1,
+   "2.5": 2
+  },
+  "options": {
+   "strict": true,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "float_type",
+     "loc": [
+      "1.5",
+      "[key]"
+     ],
+     "msg": "Input should be a valid number",
+     "input": "1.5"
+    },
+    {
+     "type": "float_type",
+     "loc": [
+      "2.5",
+      "[key]"
+     ],
+     "msg": "Input should be a valid number",
+     "input": "2.5"
+    }
+   ],
+   "title": "dict[float,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_key[python]#3",
+  "test": "tests/validators/test_float.py::test_float_key[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "float"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"1.5\": 1, \"2.5\": 2}",
+  "options": {
+   "strict": true,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1.5,
+      1
+     ],
+     [
+      2.5,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[json-kwargs0-0-0]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[json-kwargs0-0-0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[json-kwargs1-123.456-123.456]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[json-kwargs1-123.456-123.456]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"123.456\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 123.456
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[json-kwargs10-1-expected10]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[json-kwargs10-1-expected10]",
+  "schema": {
+   "type": "float",
+   "lt": 0.123456
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than",
+     "loc": [],
+     "msg": "Input should be less than 0.123456",
+     "input": 1,
+     "ctx": {
+      "lt": 0.123456
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[json-kwargs11-nan-expected11]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[json-kwargs11-nan-expected11]",
+  "schema": {
+   "type": "float",
+   "lt": 0,
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "NaN",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than",
+     "loc": [],
+     "msg": "Input should be less than 0",
+     "input": {
+      "$float": "nan"
+     },
+     "ctx": {
+      "lt": 0.0
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[json-kwargs12-inf-inf]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[json-kwargs12-inf-inf]",
+  "schema": {
+   "type": "float",
+   "gt": 0,
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "Infinity",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[json-kwargs2-0-0]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[json-kwargs2-0-0]",
+  "schema": {
+   "type": "float",
+   "ge": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[json-kwargs3--0.1-expected3]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[json-kwargs3--0.1-expected3]",
+  "schema": {
+   "type": "float",
+   "ge": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than_equal",
+     "loc": [],
+     "msg": "Input should be greater than or equal to 0",
+     "input": -0.1,
+     "ctx": {
+      "ge": 0.0
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[json-kwargs4-0.1-0.1]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[json-kwargs4-0.1-0.1]",
+  "schema": {
+   "type": "float",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.1
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[json-kwargs5-0-expected5]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[json-kwargs5-0-expected5]",
+  "schema": {
+   "type": "float",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 0",
+     "input": 0,
+     "ctx": {
+      "gt": 0.0
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[json-kwargs6-0-0]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[json-kwargs6-0-0]",
+  "schema": {
+   "type": "float",
+   "le": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[json-kwargs7--1--1]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[json-kwargs7--1--1]",
+  "schema": {
+   "type": "float",
+   "le": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -1.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[json-kwargs8-0.1-expected8]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[json-kwargs8-0.1-expected8]",
+  "schema": {
+   "type": "float",
+   "le": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than_equal",
+     "loc": [],
+     "msg": "Input should be less than or equal to 0",
+     "input": 0.1,
+     "ctx": {
+      "le": 0.0
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[json-kwargs9-0-expected9]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[json-kwargs9-0-expected9]",
+  "schema": {
+   "type": "float",
+   "lt": 0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than",
+     "loc": [],
+     "msg": "Input should be less than 0",
+     "input": 0,
+     "ctx": {
+      "lt": 0.0
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[python-kwargs0-0-0]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[python-kwargs0-0-0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[python-kwargs1-123.456-123.456]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[python-kwargs1-123.456-123.456]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "123.456",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 123.456
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[python-kwargs10-1-expected10]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[python-kwargs10-1-expected10]",
+  "schema": {
+   "type": "float",
+   "lt": 0.123456
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than",
+     "loc": [],
+     "msg": "Input should be less than 0.123456",
+     "input": 1,
+     "ctx": {
+      "lt": 0.123456
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[python-kwargs11-nan-expected11]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[python-kwargs11-nan-expected11]",
+  "schema": {
+   "type": "float",
+   "lt": 0,
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than",
+     "loc": [],
+     "msg": "Input should be less than 0",
+     "input": {
+      "$float": "nan"
+     },
+     "ctx": {
+      "lt": 0.0
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[python-kwargs12-inf-inf]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[python-kwargs12-inf-inf]",
+  "schema": {
+   "type": "float",
+   "gt": 0,
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[python-kwargs2-0-0]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[python-kwargs2-0-0]",
+  "schema": {
+   "type": "float",
+   "ge": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[python-kwargs3--0.1-expected3]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[python-kwargs3--0.1-expected3]",
+  "schema": {
+   "type": "float",
+   "ge": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than_equal",
+     "loc": [],
+     "msg": "Input should be greater than or equal to 0",
+     "input": -0.1,
+     "ctx": {
+      "ge": 0.0
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[python-kwargs4-0.1-0.1]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[python-kwargs4-0.1-0.1]",
+  "schema": {
+   "type": "float",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.1
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[python-kwargs5-0-expected5]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[python-kwargs5-0-expected5]",
+  "schema": {
+   "type": "float",
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 0",
+     "input": 0,
+     "ctx": {
+      "gt": 0.0
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[python-kwargs6-0-0]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[python-kwargs6-0-0]",
+  "schema": {
+   "type": "float",
+   "le": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[python-kwargs7--1--1]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[python-kwargs7--1--1]",
+  "schema": {
+   "type": "float",
+   "le": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": -1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -1.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[python-kwargs8-0.1-expected8]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[python-kwargs8-0.1-expected8]",
+  "schema": {
+   "type": "float",
+   "le": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than_equal",
+     "loc": [],
+     "msg": "Input should be less than or equal to 0",
+     "input": 0.1,
+     "ctx": {
+      "le": 0.0
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_kwargs[python-kwargs9-0-expected9]#0",
+  "test": "tests/validators/test_float.py::test_float_kwargs[python-kwargs9-0-expected9]",
+  "schema": {
+   "type": "float",
+   "lt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than",
+     "loc": [],
+     "msg": "Input should be less than 0",
+     "input": 0,
+     "ctx": {
+      "lt": 0.0
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.01-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.01-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.01",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.01
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.015-Err('Input should be a multiple of 0.01')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.015-Err('Input should be a multiple of 0.01')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.015",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.01",
+     "input": -0.015,
+     "ctx": {
+      "multiple_of": 0.01
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.02-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.02-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.02",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.02
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.03-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.03-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.03",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.03
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.04-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.04-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.04",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.04
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.05-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.05-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.05",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.05
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.06-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.06-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.06",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.06
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.07-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.07-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.07",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.07
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.08-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.08-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.08",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.08
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.09-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.09-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.09",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.09
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.1-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--0.1-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.1
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--1e-05-Err('Input should be a multiple of 0.01')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01--1e-05-Err('Input should be a multiple of 0.01')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-1e-05",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.01",
+     "input": -1e-05,
+     "ctx": {
+      "multiple_of": 0.01
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.005-Err('Input should be a multiple of 0.01')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.005-Err('Input should be a multiple of 0.01')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.005",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.01",
+     "input": 0.005,
+     "ctx": {
+      "multiple_of": 0.01
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.01-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.01-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.01",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.01
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.02-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.02-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.02",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.02
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.03-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.03-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.03",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.03
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.04-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.04-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.04",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.04
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.05-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.05-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.05",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.05
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.06-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.06-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.06",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.06
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.07-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.07-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.07",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.07
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.08-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.08-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.08",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.08
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.09-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.09-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.09",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.09
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.1-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-0.1-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.1
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-1000000.005-Err('Input should be a multiple of 0.01')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-1000000.005-Err('Input should be a multiple of 0.01')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1000000.005",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.01",
+     "input": 1000000.005,
+     "ctx": {
+      "multiple_of": 0.01
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-1000000.01-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-1000000.01-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1000000.01",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1000000.01
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-1e-05-Err('Input should be a multiple of 0.01')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-1e-05-Err('Input should be a multiple of 0.01')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1e-05",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.01",
+     "input": 1e-05,
+     "ctx": {
+      "multiple_of": 0.01
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-50000000000-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.01-50000000000-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "json",
+  "input": "50000000000",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 50000000000.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.1-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.1-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.1
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.15-Err('Input should be a multiple of 0.1')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.15-Err('Input should be a multiple of 0.1')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.15",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.1",
+     "input": -0.15,
+     "ctx": {
+      "multiple_of": 0.1
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.2-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.2-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.2",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.2
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.3-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.3-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.3",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.3
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.4-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.4-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.4",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.4
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.5-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.5-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.5
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.6-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.6-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.6",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.6
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.7-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.7-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.7",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.7
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.8-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.8-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.8",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.8
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.9-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--0.9-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.9",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.9
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--1.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--1.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-1.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -1.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--1e-05-Err('Input should be a multiple of 0.1')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1--1e-05-Err('Input should be a multiple of 0.1')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-1e-05",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.1",
+     "input": -1e-05,
+     "ctx": {
+      "multiple_of": 0.1
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.05-Err('Input should be a multiple of 0.1')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.05-Err('Input should be a multiple of 0.1')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.05",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.1",
+     "input": 0.05,
+     "ctx": {
+      "multiple_of": 0.1
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.1-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.1-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.1
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.2-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.2-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.2",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.2
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.3-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.3-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.3",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.3
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.4-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.4-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.4",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.4
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.5-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.5-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.5
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.5001-Err('Input should be a multiple of 0.1')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.5001-Err('Input should be a multiple of 0.1')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.5001",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.1",
+     "input": 0.5001,
+     "ctx": {
+      "multiple_of": 0.1
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.6-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.6-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.6",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.6
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.7-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.7-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.7",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.7
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.8-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.8-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.8",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.8
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.9-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-0.9-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.9",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.9
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-1-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-1-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-1.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-1.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-1000000.05-Err('Input should be a multiple of 0.1')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-1000000.05-Err('Input should be a multiple of 0.1')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1000000.05",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.1",
+     "input": 1000000.05,
+     "ctx": {
+      "multiple_of": 0.1
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-1000000.1-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-1000000.1-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1000000.1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1000000.1
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-1e-05-Err('Input should be a multiple of 0.1')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-1e-05-Err('Input should be a multiple of 0.1')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1e-05",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.1",
+     "input": 1e-05,
+     "ctx": {
+      "multiple_of": 0.1
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-50000000000-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.1-50000000000-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "json",
+  "input": "50000000000",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 50000000000.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.5--0.5-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.5--0.5-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -0.5
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.5--0.75-Err('Input should be a multiple of 0.5')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.5--0.75-Err('Input should be a multiple of 0.5')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-0.75",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.5",
+     "input": -0.75,
+     "ctx": {
+      "multiple_of": 0.5
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.5--1.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.5--1.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-1.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -1.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.5--1.5-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.5--1.5-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-1.5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -1.5
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.5--2.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.5--2.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-2.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -2.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-0.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-0.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-0.49-Err('Input should be a multiple of 0.5')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-0.49-Err('Input should be a multiple of 0.5')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.49",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.5",
+     "input": 0.49,
+     "ctx": {
+      "multiple_of": 0.5
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-0.5-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-0.5-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.5
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-0.501-Err('Input should be a multiple of 0.5')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-0.501-Err('Input should be a multiple of 0.5')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.501",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.5",
+     "input": 0.501,
+     "ctx": {
+      "multiple_of": 0.5
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-0.6-Err('Input should be a multiple of 0.5')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-0.6-Err('Input should be a multiple of 0.5')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.6",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.5",
+     "input": 0.6,
+     "ctx": {
+      "multiple_of": 0.5
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-1.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-1.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-1.5-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-1.5-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1.5
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-1000000.49-Err('Input should be a multiple of 0.5')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-1000000.49-Err('Input should be a multiple of 0.5')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1000000.49",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.5",
+     "input": 1000000.49,
+     "ctx": {
+      "multiple_of": 0.5
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-1000000.5-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-1000000.5-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1000000.5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1000000.5
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-2.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-2.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "2.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 2.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-50000000000-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-0.5-50000000000-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "50000000000",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 50000000000.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-2.0--10.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-2.0--10.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-10.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -10.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-2.0--2.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-2.0--2.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-2.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -2.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-2.0--2.1-Err('Input should be a multiple of 2')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-2.0--2.1-Err('Input should be a multiple of 2')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-2.1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 2",
+     "input": -2.1,
+     "ctx": {
+      "multiple_of": 2.0
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-2.0--3.0-Err('Input should be a multiple of 2')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-2.0--3.0-Err('Input should be a multiple of 2')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-3.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 2",
+     "input": -3.0,
+     "ctx": {
+      "multiple_of": 2.0
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-2.0--4.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-2.0--4.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-4.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -4.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-2.0--6.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-2.0--6.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-6.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -6.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-2.0--8.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-2.0--8.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-8.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": -8.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-2.0-0.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-2.0-0.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-2.0-10.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-2.0-10.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "10.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 10.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-2.0-1000001.0-Err('Input should be a multiple of 2')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-2.0-1000001.0-Err('Input should be a multiple of 2')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1000001.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 2",
+     "input": 1000001.0,
+     "ctx": {
+      "multiple_of": 2.0
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-2.0-1000002.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-2.0-1000002.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1000002.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1000002.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-2.0-2.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-2.0-2.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "2.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 2.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-2.0-4.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-2.0-4.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "4.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 4.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-2.0-50000000000-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-2.0-50000000000-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "50000000000",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 50000000000.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-2.0-6.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-2.0-6.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "6.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 6.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[json-2.0-8.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[json-2.0-8.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "json",
+  "input": "8.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 8.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.01-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.01-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.01,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.01
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.015-Err('Input should be a multiple of 0.01')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.015-Err('Input should be a multiple of 0.01')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.015,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.01",
+     "input": -0.015,
+     "ctx": {
+      "multiple_of": 0.01
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.02-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.02-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.02,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.02
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.03-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.03-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.03,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.03
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.04-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.04-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.04,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.04
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.05-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.05-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.05,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.05
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.06-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.06-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.06,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.06
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.07-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.07-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.07,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.07
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.08-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.08-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.08,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.08
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.09-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.09-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.09,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.09
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.1-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--0.1-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.1
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--1e-05-Err('Input should be a multiple of 0.01')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01--1e-05-Err('Input should be a multiple of 0.01')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": -1e-05,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.01",
+     "input": -1e-05,
+     "ctx": {
+      "multiple_of": 0.01
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.005-Err('Input should be a multiple of 0.01')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.005-Err('Input should be a multiple of 0.01')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.005,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.01",
+     "input": 0.005,
+     "ctx": {
+      "multiple_of": 0.01
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.01-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.01-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.01,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.01
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.02-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.02-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.02,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.02
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.03-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.03-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.03,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.03
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.04-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.04-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.04,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.04
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.05-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.05-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.05,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.05
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.06-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.06-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.06,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.06
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.07-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.07-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.07,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.07
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.08-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.08-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.08,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.08
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.09-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.09-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.09,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.09
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.1-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-0.1-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.1
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-1000000.005-Err('Input should be a multiple of 0.01')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-1000000.005-Err('Input should be a multiple of 0.01')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1000000.005,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.01",
+     "input": 1000000.005,
+     "ctx": {
+      "multiple_of": 0.01
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-1000000.01-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-1000000.01-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1000000.01,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1000000.01
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-1e-05-Err('Input should be a multiple of 0.01')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-1e-05-Err('Input should be a multiple of 0.01')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1e-05,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.01",
+     "input": 1e-05,
+     "ctx": {
+      "multiple_of": 0.01
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-50000000000-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.01-50000000000-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.01
+  },
+  "config": null,
+  "mode": "python",
+  "input": 50000000000,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 50000000000.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.1-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.1-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.1
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.15-Err('Input should be a multiple of 0.1')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.15-Err('Input should be a multiple of 0.1')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.15,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.1",
+     "input": -0.15,
+     "ctx": {
+      "multiple_of": 0.1
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.2-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.2-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.2,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.2
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.3-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.3-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.3,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.3
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.4-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.4-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.4,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.4
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.5-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.5-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.5
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.6-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.6-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.6,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.6
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.7-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.7-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.7,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.7
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.8-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.8-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.8,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.8
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.9-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--0.9-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.9,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.9
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--1.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--1.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": -1.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -1.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--1e-05-Err('Input should be a multiple of 0.1')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1--1e-05-Err('Input should be a multiple of 0.1')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": -1e-05,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.1",
+     "input": -1e-05,
+     "ctx": {
+      "multiple_of": 0.1
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.05-Err('Input should be a multiple of 0.1')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.05-Err('Input should be a multiple of 0.1')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.05,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.1",
+     "input": 0.05,
+     "ctx": {
+      "multiple_of": 0.1
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.1-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.1-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.1
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.2-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.2-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.2,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.2
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.3-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.3-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.3,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.3
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.4-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.4-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.4,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.4
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.5-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.5-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.5
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.5001-Err('Input should be a multiple of 0.1')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.5001-Err('Input should be a multiple of 0.1')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.5001,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.1",
+     "input": 0.5001,
+     "ctx": {
+      "multiple_of": 0.1
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.6-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.6-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.6,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.6
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.7-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.7-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.7,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.7
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.8-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.8-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.8,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.8
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.9-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-0.9-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.9,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.9
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-1-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-1-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-1.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-1.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-1000000.05-Err('Input should be a multiple of 0.1')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-1000000.05-Err('Input should be a multiple of 0.1')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1000000.05,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.1",
+     "input": 1000000.05,
+     "ctx": {
+      "multiple_of": 0.1
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-1000000.1-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-1000000.1-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1000000.1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1000000.1
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-1e-05-Err('Input should be a multiple of 0.1')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-1e-05-Err('Input should be a multiple of 0.1')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1e-05,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.1",
+     "input": 1e-05,
+     "ctx": {
+      "multiple_of": 0.1
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-50000000000-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.1-50000000000-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.1
+  },
+  "config": null,
+  "mode": "python",
+  "input": 50000000000,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 50000000000.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.5--0.5-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.5--0.5-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -0.5
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.5--0.75-Err('Input should be a multiple of 0.5')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.5--0.75-Err('Input should be a multiple of 0.5')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "python",
+  "input": -0.75,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.5",
+     "input": -0.75,
+     "ctx": {
+      "multiple_of": 0.5
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.5--1.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.5--1.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "python",
+  "input": -1.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -1.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.5--1.5-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.5--1.5-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "python",
+  "input": -1.5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -1.5
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.5--2.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.5--2.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "python",
+  "input": -2.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -2.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-0.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-0.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-0.49-Err('Input should be a multiple of 0.5')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-0.49-Err('Input should be a multiple of 0.5')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.49,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.5",
+     "input": 0.49,
+     "ctx": {
+      "multiple_of": 0.5
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-0.5-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-0.5-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.5
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-0.501-Err('Input should be a multiple of 0.5')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-0.501-Err('Input should be a multiple of 0.5')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.501,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.5",
+     "input": 0.501,
+     "ctx": {
+      "multiple_of": 0.5
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-0.6-Err('Input should be a multiple of 0.5')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-0.6-Err('Input should be a multiple of 0.5')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.6,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.5",
+     "input": 0.6,
+     "ctx": {
+      "multiple_of": 0.5
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-1.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-1.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-1.5-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-1.5-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1.5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1.5
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-1000000.49-Err('Input should be a multiple of 0.5')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-1000000.49-Err('Input should be a multiple of 0.5')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1000000.49,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 0.5",
+     "input": 1000000.49,
+     "ctx": {
+      "multiple_of": 0.5
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-1000000.5-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-1000000.5-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1000000.5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1000000.5
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-2.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-2.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "python",
+  "input": 2.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 2.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-50000000000-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-0.5-50000000000-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 0.5
+  },
+  "config": null,
+  "mode": "python",
+  "input": 50000000000,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 50000000000.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-2.0--10.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-2.0--10.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "python",
+  "input": -10.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -10.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-2.0--2.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-2.0--2.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "python",
+  "input": -2.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -2.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-2.0--2.1-Err('Input should be a multiple of 2')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-2.0--2.1-Err('Input should be a multiple of 2')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "python",
+  "input": -2.1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 2",
+     "input": -2.1,
+     "ctx": {
+      "multiple_of": 2.0
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-2.0--3.0-Err('Input should be a multiple of 2')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-2.0--3.0-Err('Input should be a multiple of 2')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "python",
+  "input": -3.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 2",
+     "input": -3.0,
+     "ctx": {
+      "multiple_of": 2.0
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-2.0--4.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-2.0--4.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "python",
+  "input": -4.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -4.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-2.0--6.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-2.0--6.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "python",
+  "input": -6.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -6.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-2.0--8.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-2.0--8.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "python",
+  "input": -8.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": -8.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-2.0-0.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-2.0-0.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-2.0-10.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-2.0-10.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 10.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 10.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-2.0-1000001.0-Err('Input should be a multiple of 2')]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-2.0-1000001.0-Err('Input should be a multiple of 2')]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1000001.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "multiple_of",
+     "loc": [],
+     "msg": "Input should be a multiple of 2",
+     "input": 1000001.0,
+     "ctx": {
+      "multiple_of": 2.0
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-2.0-1000002.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-2.0-1000002.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1000002.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1000002.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-2.0-2.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-2.0-2.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 2.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 2.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-2.0-4.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-2.0-4.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 4.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 4.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-2.0-50000000000-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-2.0-50000000000-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 50000000000,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 50000000000.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-2.0-6.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-2.0-6.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 6.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 6.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_multiple_of[python-2.0-8.0-None]#0",
+  "test": "tests/validators/test_float.py::test_float_multiple_of[python-2.0-8.0-None]",
+  "schema": {
+   "type": "float",
+   "multiple_of": 2.0
+  },
+  "config": null,
+  "mode": "python",
+  "input": 8.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 8.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_nan[json]#0",
+  "test": "tests/validators/test_float.py::test_float_nan[json]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_nan[json]#1",
+  "test": "tests/validators/test_float.py::test_float_nan[json]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"-11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$float": "-inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_nan[json]#2",
+  "test": "tests/validators/test_float.py::test_float_nan[json]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"nan\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_nan[python]#0",
+  "test": "tests/validators/test_float.py::test_float_nan[python]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_nan[python]#1",
+  "test": "tests/validators/test_float.py::test_float_nan[python]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$float": "-inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_nan[python]#2",
+  "test": "tests/validators/test_float.py::test_float_nan[python]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "nan",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_not_json[input_value0-1.23]#0",
+  "test": "tests/validators/test_float.py::test_float_not_json[input_value0-1.23]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "1.23"
+  },
+  "options": {},
+  "expected": {
+   "output": 1.23
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_not_json[input_value1-1.0]#0",
+  "test": "tests/validators/test_float.py::test_float_not_json[input_value1-1.0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {},
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_strict[json-'42'-Err(\"Input should be a valid number [type=float_type, input_value='42', input_type=str]\")]#0",
+  "test": "tests/validators/test_float.py::test_float_strict[json-'42'-Err(\"Input should be a valid number [type=float_type, input_value='42', input_type=str]\")]",
+  "schema": {
+   "type": "float",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"42\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "float_type",
+     "loc": [],
+     "msg": "Input should be a valid number",
+     "input": "42"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_strict[json-0-0]#0",
+  "test": "tests/validators/test_float.py::test_float_strict[json-0-0]",
+  "schema": {
+   "type": "float",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_strict[json-1-1]#0",
+  "test": "tests/validators/test_float.py::test_float_strict[json-1-1]",
+  "schema": {
+   "type": "float",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_strict[json-42-42]#0",
+  "test": "tests/validators/test_float.py::test_float_strict[json-42-42]",
+  "schema": {
+   "type": "float",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "42",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_strict[json-42.0-42.0]#0",
+  "test": "tests/validators/test_float.py::test_float_strict[json-42.0-42.0]",
+  "schema": {
+   "type": "float",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "42.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_strict[json-42.5-42.5]#0",
+  "test": "tests/validators/test_float.py::test_float_strict[json-42.5-42.5]",
+  "schema": {
+   "type": "float",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "42.5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 42.5
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_strict[json-True-Err('Input should be a valid number [type=float_type, input_value=True, input_type=bool]')]#0",
+  "test": "tests/validators/test_float.py::test_float_strict[json-True-Err('Input should be a valid number [type=float_type, input_value=True, input_type=bool]')]",
+  "schema": {
+   "type": "float",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "true",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "float_type",
+     "loc": [],
+     "msg": "Input should be a valid number",
+     "input": true
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_strict[python-'42'-Err(\"Input should be a valid number [type=float_type, input_value='42', input_type=str]\")]#0",
+  "test": "tests/validators/test_float.py::test_float_strict[python-'42'-Err(\"Input should be a valid number [type=float_type, input_value='42', input_type=str]\")]",
+  "schema": {
+   "type": "float",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "42",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "float_type",
+     "loc": [],
+     "msg": "Input should be a valid number",
+     "input": "42"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_strict[python-0-0]#0",
+  "test": "tests/validators/test_float.py::test_float_strict[python-0-0]",
+  "schema": {
+   "type": "float",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_strict[python-1-1]#0",
+  "test": "tests/validators/test_float.py::test_float_strict[python-1-1]",
+  "schema": {
+   "type": "float",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_strict[python-42-42]#0",
+  "test": "tests/validators/test_float.py::test_float_strict[python-42-42]",
+  "schema": {
+   "type": "float",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_strict[python-42.0-42.0]#0",
+  "test": "tests/validators/test_float.py::test_float_strict[python-42.0-42.0]",
+  "schema": {
+   "type": "float",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_strict[python-42.5-42.5]#0",
+  "test": "tests/validators/test_float.py::test_float_strict[python-42.5-42.5]",
+  "schema": {
+   "type": "float",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42.5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 42.5
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_float_strict[python-True-Err('Input should be a valid number [type=float_type, input_value=True, input_type=bool]')]#0",
+  "test": "tests/validators/test_float.py::test_float_strict[python-True-Err('Input should be a valid number [type=float_type, input_value=True, input_type=bool]')]",
+  "schema": {
+   "type": "float",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": true,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "float_type",
+     "loc": [],
+     "msg": "Input should be a valid number",
+     "input": true
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_constrained_float_values[-inf-False-expected3]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_constrained_float_values[-inf-False-expected3]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": false,
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "-inf"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": {
+      "$float": "-inf"
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_constrained_float_values[-inf-True-expected2]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_constrained_float_values[-inf-True-expected2]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true,
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "-inf"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 0",
+     "input": {
+      "$float": "-inf"
+     },
+     "ctx": {
+      "gt": 0.0
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_constrained_float_values[inf-False-expected1]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_constrained_float_values[inf-False-expected1]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": false,
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": {
+      "$float": "inf"
+     }
+    }
+   ],
+   "title": "constrained-float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_constrained_float_values[inf-True-expected0]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_constrained_float_values[inf-True-expected0]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true,
+   "gt": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_float_values[nan-False-expected1-False]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_float_values[nan-False-expected1-False]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": false,
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": {
+      "$float": "nan"
+     }
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_float_values[nan-False-expected1-True]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_float_values[nan-False-expected1-True]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": false,
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": {
+      "$float": "nan"
+     }
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_float_values[nan-True-expected0-False]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_float_values[nan-True-expected0-False]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true,
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_float_values[nan-True-expected0-True]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_float_values[nan-True-expected0-True]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true,
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[json-+inf-False-expected4]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[json-+inf-False-expected4]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"+inf\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": "+inf"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[json-+inf-True-expected2]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[json-+inf-True-expected2]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"+inf\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[json-+infinity-False-expected6]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[json-+infinity-False-expected6]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"+infinity\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": "+infinity"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[json-+infinity-True-expected5]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[json-+infinity-True-expected5]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"+infinity\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[json--inf-False-expected8]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[json--inf-False-expected8]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"-inf\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": "-inf"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[json--inf-True-expected7]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[json--inf-True-expected7]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"-inf\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$float": "-inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[json--infinity-False-expected10]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[json--infinity-False-expected10]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"-infinity\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": "-infinity"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[json--infinity-True-expected9]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[json--infinity-True-expected9]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"-infinity\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$float": "-inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[json-0.7-False-0.7]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[json-0.7-False-0.7]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"0.7\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.7
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[json-0.7-True-0.7]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[json-0.7-True-0.7]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"0.7\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 0.7
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[json-NaN-False-expected1]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[json-NaN-False-expected1]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"NaN\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": "NaN"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[json-NaN-True-expected0]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[json-NaN-True-expected0]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"NaN\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[json-inf-True-expected3]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[json-inf-True-expected3]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"inf\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[json-pika-False-expected14]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[json-pika-False-expected14]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"pika\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "pika"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[json-pika-True-expected13]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[json-pika-True-expected13]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"pika\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "pika"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[python-+inf-False-expected4]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[python-+inf-False-expected4]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": "+inf",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": "+inf"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[python-+inf-True-expected2]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[python-+inf-True-expected2]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "+inf",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[python-+infinity-False-expected6]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[python-+infinity-False-expected6]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": "+infinity",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": "+infinity"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[python-+infinity-True-expected5]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[python-+infinity-True-expected5]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "+infinity",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[python--inf-False-expected8]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[python--inf-False-expected8]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-inf",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": "-inf"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[python--inf-True-expected7]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[python--inf-True-expected7]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-inf",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$float": "-inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[python--infinity-False-expected10]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[python--infinity-False-expected10]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-infinity",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": "-infinity"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[python--infinity-True-expected9]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[python--infinity-True-expected9]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-infinity",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$float": "-inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[python-0.7-False-0.7]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[python-0.7-False-0.7]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": "0.7",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.7
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[python-0.7-True-0.7]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[python-0.7-True-0.7]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "0.7",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 0.7
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[python-NaN-False-expected1]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[python-NaN-False-expected1]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": "NaN",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "finite_number",
+     "loc": [],
+     "msg": "Input should be a finite number",
+     "input": "NaN"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[python-NaN-True-expected0]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[python-NaN-True-expected0]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "NaN",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[python-inf-True-expected3]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[python-inf-True-expected3]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "inf",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[python-pika-False-expected14]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[python-pika-False-expected14]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": "pika",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "pika"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_non_finite_json_values[python-pika-True-expected13]#0",
+  "test": "tests/validators/test_float.py::test_non_finite_json_values[python-pika-True-expected13]",
+  "schema": {
+   "type": "float",
+   "allow_inf_nan": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "pika",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "pika"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_string_with_underscores#0",
+  "test": "tests/validators/test_float.py::test_string_with_underscores",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1_000_000.0",
+  "options": {},
+  "expected": {
+   "output": 1000000.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_string_with_underscores#1",
+  "test": "tests/validators/test_float.py::test_string_with_underscores",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1_000_000.0\"",
+  "options": {},
+  "expected": {
+   "output": 1000000.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_string_with_underscores#10",
+  "test": "tests/validators/test_float.py::test_string_with_underscores",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1_0.0_",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "1_0.0_"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_string_with_underscores#11",
+  "test": "tests/validators/test_float.py::test_string_with_underscores",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1_0.0_\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "1_0.0_"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_string_with_underscores#12",
+  "test": "tests/validators/test_float.py::test_string_with_underscores",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1._",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "1._"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_string_with_underscores#13",
+  "test": "tests/validators/test_float.py::test_string_with_underscores",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1._\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "1._"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_string_with_underscores#14",
+  "test": "tests/validators/test_float.py::test_string_with_underscores",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1_0__0.0",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "1_0__0.0"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_string_with_underscores#15",
+  "test": "tests/validators/test_float.py::test_string_with_underscores",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1_0__0.0\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "1_0__0.0"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_string_with_underscores#2",
+  "test": "tests/validators/test_float.py::test_string_with_underscores",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "_1",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "_1"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_string_with_underscores#3",
+  "test": "tests/validators/test_float.py::test_string_with_underscores",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"_1\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "_1"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_string_with_underscores#4",
+  "test": "tests/validators/test_float.py::test_string_with_underscores",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "_1.0",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "_1.0"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_string_with_underscores#5",
+  "test": "tests/validators/test_float.py::test_string_with_underscores",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"_1.0\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "_1.0"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_string_with_underscores#6",
+  "test": "tests/validators/test_float.py::test_string_with_underscores",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1__0",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "1__0"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_string_with_underscores#7",
+  "test": "tests/validators/test_float.py::test_string_with_underscores",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1__0\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "1__0"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_string_with_underscores#8",
+  "test": "tests/validators/test_float.py::test_string_with_underscores",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1.1__1",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "1.1__1"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_string_with_underscores#9",
+  "test": "tests/validators/test_float.py::test_string_with_underscores",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1.1__1\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "1.1__1"
+    }
+   ],
+   "title": "float"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_union_float[json]#0",
+  "test": "tests/validators/test_float.py::test_union_float[json]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "float",
+     "strict": true
+    },
+    {
+     "type": "float",
+     "multiple_of": 7
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"14\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 14.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_union_float[json]#1",
+  "test": "tests/validators/test_float.py::test_union_float[json]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "float",
+     "strict": true
+    },
+    {
+     "type": "float",
+     "multiple_of": 7
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 5.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_union_float[json]#2",
+  "test": "tests/validators/test_float.py::test_union_float[json]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "float",
+     "strict": true
+    },
+    {
+     "type": "float",
+     "multiple_of": 7
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"5\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "float_type",
+     "loc": [
+      "float"
+     ],
+     "msg": "Input should be a valid number",
+     "input": "5"
+    },
+    {
+     "type": "multiple_of",
+     "loc": [
+      "constrained-float"
+     ],
+     "msg": "Input should be a multiple of 7",
+     "input": "5",
+     "ctx": {
+      "multiple_of": 7.0
+     }
+    }
+   ],
+   "title": "union[float,constrained-float]"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_union_float[python]#0",
+  "test": "tests/validators/test_float.py::test_union_float[python]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "float",
+     "strict": true
+    },
+    {
+     "type": "float",
+     "multiple_of": 7
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "14",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 14.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_union_float[python]#1",
+  "test": "tests/validators/test_float.py::test_union_float[python]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "float",
+     "strict": true
+    },
+    {
+     "type": "float",
+     "multiple_of": 7
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 5.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_union_float[python]#2",
+  "test": "tests/validators/test_float.py::test_union_float[python]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "float",
+     "strict": true
+    },
+    {
+     "type": "float",
+     "multiple_of": 7
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "5",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "float_type",
+     "loc": [
+      "float"
+     ],
+     "msg": "Input should be a valid number",
+     "input": "5"
+    },
+    {
+     "type": "multiple_of",
+     "loc": [
+      "constrained-float"
+     ],
+     "msg": "Input should be a multiple of 7",
+     "input": "5",
+     "ctx": {
+      "multiple_of": 7.0
+     }
+    }
+   ],
+   "title": "union[float,constrained-float]"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_union_float_simple[json]#0",
+  "test": "tests/validators/test_float.py::test_union_float_simple[json]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "float"
+    },
+    {
+     "type": "list"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"5\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 5.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_union_float_simple[json]#1",
+  "test": "tests/validators/test_float.py::test_union_float_simple[json]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "float"
+    },
+    {
+     "type": "list"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"xxx\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [
+      "float"
+     ],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "xxx"
+    },
+    {
+     "type": "list_type",
+     "loc": [
+      "list[any]"
+     ],
+     "msg": "Input should be a valid array",
+     "input": "xxx"
+    }
+   ],
+   "title": "union[float,list[any]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_union_float_simple[python]#0",
+  "test": "tests/validators/test_float.py::test_union_float_simple[python]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "float"
+    },
+    {
+     "type": "list"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "5",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 5.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_union_float_simple[python]#1",
+  "test": "tests/validators/test_float.py::test_union_float_simple[python]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "float"
+    },
+    {
+     "type": "list"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "xxx",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "float_parsing",
+     "loc": [
+      "float"
+     ],
+     "msg": "Input should be a valid number, unable to parse string as a number",
+     "input": "xxx"
+    },
+    {
+     "type": "list_type",
+     "loc": [
+      "list[any]"
+     ],
+     "msg": "Input should be a valid list",
+     "input": "xxx"
+    }
+   ],
+   "title": "union[float,list[any]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1.0E+12-1000000000000.0]#0",
+  "test": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1.0E+12-1000000000000.0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.0E+12",
+  "options": {},
+  "expected": {
+   "output": 1000000000000.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1.0E-12-1e-12]#0",
+  "test": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1.0E-12-1e-12]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.0E-12",
+  "options": {},
+  "expected": {
+   "output": 1e-12
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1.0E12-1000000000000.0]#0",
+  "test": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1.0E12-1000000000000.0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.0E12",
+  "options": {},
+  "expected": {
+   "output": 1000000000000.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1.0e+12-1000000000000.0]#0",
+  "test": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1.0e+12-1000000000000.0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.0e+12",
+  "options": {},
+  "expected": {
+   "output": 1000000000000.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1.0e-12-1e-12]#0",
+  "test": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1.0e-12-1e-12]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.0e-12",
+  "options": {},
+  "expected": {
+   "output": 1e-12
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1.0e12-1000000000000.0]#0",
+  "test": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1.0e12-1000000000000.0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.0e12",
+  "options": {},
+  "expected": {
+   "output": 1000000000000.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[12E+1-120.0]#0",
+  "test": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[12E+1-120.0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "12E+1",
+  "options": {},
+  "expected": {
+   "output": 120.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[12E-1-1.2]#0",
+  "test": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[12E-1-1.2]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "12E-1",
+  "options": {},
+  "expected": {
+   "output": 1.2
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[12E1-120.0]#0",
+  "test": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[12E1-120.0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "12E1",
+  "options": {},
+  "expected": {
+   "output": 120.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[12e+1-120.0]#0",
+  "test": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[12e+1-120.0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "12e+1",
+  "options": {},
+  "expected": {
+   "output": 120.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[12e-1-1.2]#0",
+  "test": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[12e-1-1.2]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "12e-1",
+  "options": {},
+  "expected": {
+   "output": 1.2
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[12e1-120.0]#0",
+  "test": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[12e1-120.0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "12e1",
+  "options": {},
+  "expected": {
+   "output": 120.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1E+12-1000000000000.0]#0",
+  "test": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1E+12-1000000000000.0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1E+12",
+  "options": {},
+  "expected": {
+   "output": 1000000000000.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1E-12-1e-12]#0",
+  "test": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1E-12-1e-12]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1E-12",
+  "options": {},
+  "expected": {
+   "output": 1e-12
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1E12-1000000000000.0]#0",
+  "test": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1E12-1000000000000.0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1E12",
+  "options": {},
+  "expected": {
+   "output": 1000000000000.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1e+12-1000000000000.0]#0",
+  "test": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1e+12-1000000000000.0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1e+12",
+  "options": {},
+  "expected": {
+   "output": 1000000000000.0
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1e-12-1e-12]#0",
+  "test": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1e-12-1e-12]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1e-12",
+  "options": {},
+  "expected": {
+   "output": 1e-12
+  }
+ },
+ {
+  "id": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1e12-1000000000000.0]#0",
+  "test": "tests/validators/test_float.py::test_validate_scientific_notation_from_json[1e12-1000000000000.0]",
+  "schema": {
+   "type": "float"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1e12",
+  "options": {},
+  "expected": {
+   "output": 1000000000000.0
+  }
+ }
+]

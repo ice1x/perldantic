@@ -1,0 +1,138 @@
+[
+ {
+  "id": "tests/validators/test_is_subclass.py::test_custom_repr#0",
+  "test": "tests/validators/test_is_subclass.py::test_custom_repr",
+  "schema": {
+   "type": "is-subclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "cls_repr": "Spam"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$class": "Foo"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$class": "Foo"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_is_subclass.py::test_custom_repr#1",
+  "test": "tests/validators/test_is_subclass.py::test_custom_repr",
+  "schema": {
+   "type": "is-subclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "cls_repr": "Spam"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$class": "Bar"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_subclass_of",
+     "loc": [],
+     "msg": "Input should be a subclass of Spam",
+     "input": {
+      "$class": "Bar"
+     },
+     "ctx": {
+      "class": "Spam"
+     }
+    }
+   ],
+   "title": "is-subclass[Spam]"
+  }
+ },
+ {
+  "id": "tests/validators/test_is_subclass.py::test_is_subclass_basic#0",
+  "test": "tests/validators/test_is_subclass.py::test_is_subclass_basic",
+  "schema": {
+   "type": "is-subclass",
+   "cls": {
+    "$class": "Foo"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$class": "Foo"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$class": "Foo"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_is_subclass.py::test_is_subclass_basic#1",
+  "test": "tests/validators/test_is_subclass.py::test_is_subclass_basic",
+  "schema": {
+   "type": "is-subclass",
+   "cls": {
+    "$class": "Foo"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$class": "Bar"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_subclass_of",
+     "loc": [],
+     "msg": "Input should be a subclass of Foo",
+     "input": {
+      "$class": "Bar"
+     },
+     "ctx": {
+      "class": "Foo"
+     }
+    }
+   ],
+   "title": "is-subclass[Foo]"
+  }
+ },
+ {
+  "id": "tests/validators/test_is_subclass.py::test_is_subclass_json#0",
+  "test": "tests/validators/test_is_subclass.py::test_is_subclass_json",
+  "schema": {
+   "type": "is-subclass",
+   "cls": {
+    "$class": "Foo"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "'Foo'",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "json_invalid",
+     "loc": [],
+     "msg": "Invalid JSON: expected value at line 1 column 1",
+     "input": "'Foo'",
+     "ctx": {
+      "error": "expected value at line 1 column 1"
+     }
+    }
+   ],
+   "title": "is-subclass[Foo]"
+  }
+ }
+]

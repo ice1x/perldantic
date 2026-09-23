@@ -1,0 +1,3268 @@
+[
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_alias[json-{'Foo': 1}-((1,), {})]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_alias[json-{'Foo': 1}-((1,), {})]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "Foo"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"Foo\": 1}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_alias[json-{'a': 1}-Err('Foo\\\\n  Missing required argument [type=missing_argument,')]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_alias[json-{'a': 1}-Err('Foo\\\\n  Missing required argument [type=missing_argument,')]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "Foo"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"a\": 1}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing_argument",
+     "loc": [
+      "Foo"
+     ],
+     "msg": "Missing required argument",
+     "input": {
+      "a": 1
+     }
+    },
+    {
+     "type": "extra_forbidden",
+     "loc": [
+      "a"
+     ],
+     "msg": "Extra inputs are not permitted",
+     "input": 1
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_alias[python-ArgsKwargs((), {'Foo': 1})-((), {'a': 1})]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_alias[python-ArgsKwargs((), {'Foo': 1})-((), {'a': 1})]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "Foo"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_alias[python-ArgsKwargs((), {'a': 1})-Err('Foo\\\\n  Missing required argument [type=missing_argument,')]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_alias[python-ArgsKwargs((), {'a': 1})-Err('Foo\\\\n  Missing required argument [type=missing_argument,')]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "Foo"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing_argument",
+     "loc": [
+      "Foo"
+     ],
+     "msg": "Missing required argument",
+     "input": {
+      "$object": "ArgsKwargs"
+     }
+    },
+    {
+     "type": "unexpected_keyword_argument",
+     "loc": [
+      "a"
+     ],
+     "msg": "Unexpected keyword argument",
+     "input": 1
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_alias[python-ArgsKwargs((1,))-((1,), {})]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_alias[python-ArgsKwargs((1,))-((1,), {})]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "Foo"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_alias[python-{'Foo': 1}-((1,), {})]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_alias[python-{'Foo': 1}-((1,), {})]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "Foo"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "Foo": 1
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_alias[python-{'a': 1}-Err('Foo\\\\n  Missing required argument [type=missing_argument,')]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_alias[python-{'a': 1}-Err('Foo\\\\n  Missing required argument [type=missing_argument,')]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "Foo"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing_argument",
+     "loc": [
+      "Foo"
+     ],
+     "msg": "Missing required argument",
+     "input": {
+      "a": 1
+     }
+    },
+    {
+     "type": "extra_forbidden",
+     "loc": [
+      "a"
+     ],
+     "msg": "Extra inputs are not permitted",
+     "input": 1
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_alias_validate_by_name[json-{'Foo': 1}-((1,), {})]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_alias_validate_by_name[json-{'Foo': 1}-((1,), {})]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "Foo"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"Foo\": 1}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_alias_validate_by_name[json-{'a': 1}-((1,), {})]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_alias_validate_by_name[json-{'a': 1}-((1,), {})]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "Foo"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"a\": 1}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_alias_validate_by_name[python-ArgsKwargs((), {'Foo': 1})-((), {'a': 1})]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_alias_validate_by_name[python-ArgsKwargs((), {'Foo': 1})-((), {'a': 1})]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "Foo"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_alias_validate_by_name[python-ArgsKwargs((), {'a': 1, 'Foo': 2})-Err('a\\\\n  Unexpected keyword argument [type=unexpected_keyword_argument,')]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_alias_validate_by_name[python-ArgsKwargs((), {'a': 1, 'Foo': 2})-Err('a\\\\n  Unexpected keyword argument [type=unexpected_keyword_argument,')]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "Foo"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "unexpected_keyword_argument",
+     "loc": [
+      "a"
+     ],
+     "msg": "Unexpected keyword argument",
+     "input": 1
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_alias_validate_by_name[python-ArgsKwargs((), {'a': 1, 'b': 2})-Err('b\\\\n  Unexpected keyword argument [type=unexpected_keyword_argument,')]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_alias_validate_by_name[python-ArgsKwargs((), {'a': 1, 'b': 2})-Err('b\\\\n  Unexpected keyword argument [type=unexpected_keyword_argument,')]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "Foo"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "unexpected_keyword_argument",
+     "loc": [
+      "b"
+     ],
+     "msg": "Unexpected keyword argument",
+     "input": 2
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_alias_validate_by_name[python-ArgsKwargs((), {'a': 1})-((), {'a': 1})]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_alias_validate_by_name[python-ArgsKwargs((), {'a': 1})-((), {'a': 1})]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "Foo"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_alias_validate_by_name[python-ArgsKwargs((1,))-((1,), {})]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_alias_validate_by_name[python-ArgsKwargs((1,))-((1,), {})]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "Foo"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_alias_validate_by_name[python-{'Foo': 1}-((1,), {})]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_alias_validate_by_name[python-{'Foo': 1}-((1,), {})]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "Foo"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "Foo": 1
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_alias_validate_by_name[python-{'a': 1}-((1,), {})]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_alias_validate_by_name[python-{'a': 1}-((1,), {})]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "Foo"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-None-False-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-None-False-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": false
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-None-False-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-None-False-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": false
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-None-None-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-None-None-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": false
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-None-None-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-None-None-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": false
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-None-True-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-None-True-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": false
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-None-True-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-None-True-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": false
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-True-False-False]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-True-False-False]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false,
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": false
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-True-False-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-True-False-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": false
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-True-False-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-True-False-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": false
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-True-None-False]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-True-None-False]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": false
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-True-None-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-True-None-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": false
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-True-None-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-True-None-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": false
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-True-True-False]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-True-True-False]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": false
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-True-True-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-True-True-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": false
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-True-True-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[False-True-True-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": false
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-False-True-False]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-False-True-False]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": false,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-False-True-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-False-True-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": false,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-False-True-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-False-True-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": false,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-None-False-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-None-False-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-None-False-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-None-False-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-None-None-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-None-None-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-None-None-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-None-None-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-None-True-False]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-None-True-False]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-None-True-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-None-True-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-None-True-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-None-True-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-True-False-False]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-True-False-False]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false,
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-True-False-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-True-False-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-True-False-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-True-False-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-True-None-False]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-True-None-False]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-True-None-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-True-None-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-True-None-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-True-None-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-True-True-False]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-True-True-False]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-True-True-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-True-True-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-True-True-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[None-True-True-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-False-False-False]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-False-False-False]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false,
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": false,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-False-False-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-False-False-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": false,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-False-False-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-False-False-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": false,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-False-None-False]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-False-None-False]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": false,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-False-None-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-False-None-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": false,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-False-None-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-False-None-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": false,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-False-True-False]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-False-True-False]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": false,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-False-True-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-False-True-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": false,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-False-True-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-False-True-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": false,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-None-False-False]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-None-False-False]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false,
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-None-False-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-None-False-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-None-False-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-None-False-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-None-None-False]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-None-None-False]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-None-None-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-None-None-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-None-None-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-None-None-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-None-True-False]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-None-True-False]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-None-True-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-None-True-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-None-True-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-None-True-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-True-False-False]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-True-False-False]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false,
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-True-False-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-True-False-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-True-False-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-True-False-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-True-None-False]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-True-None-False]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-True-None-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-True-None-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-True-None-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-True-None-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-True-True-False]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-True-True-False]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-True-True-None]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-True-True-None]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-True-True-True]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_by_alias_and_name_config_interaction[True-True-True-True]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_only_allow_alias[python]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_only_allow_alias[python]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "str"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "FieldA"
+    }
+   ],
+   "validate_by_name": false,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": "hello"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_only_allow_alias[python]#1",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_only_allow_alias[python]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "str"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "FieldA"
+    }
+   ],
+   "validate_by_name": false,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "FieldA": "hello"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       "hello"
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_only_allow_alias[python]#2",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_only_allow_alias[python]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "str"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "FieldA"
+    }
+   ],
+   "validate_by_name": false,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": "hello"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing_argument",
+     "loc": [
+      "FieldA"
+     ],
+     "msg": "Missing required argument",
+     "input": {
+      "a": "hello"
+     }
+    },
+    {
+     "type": "extra_forbidden",
+     "loc": [
+      "a"
+     ],
+     "msg": "Extra inputs are not permitted",
+     "input": "hello"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_only_validate_by_name[python]#0",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_only_validate_by_name[python]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "str"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "FieldA"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": "hello"
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_only_validate_by_name[python]#1",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_only_validate_by_name[python]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "str"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "FieldA"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": "hello"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       "hello"
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_alias.py::test_only_validate_by_name[python]#2",
+  "test": "tests/validators/arguments_v3/test_alias.py::test_only_validate_by_name[python]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "str"
+     },
+     "mode": "positional_or_keyword",
+     "alias": "FieldA"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "FieldA": "hello"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing_argument",
+     "loc": [
+      "a"
+     ],
+     "msg": "Missing required argument",
+     "input": {
+      "FieldA": "hello"
+     }
+    },
+    {
+     "type": "extra_forbidden",
+     "loc": [
+      "FieldA"
+     ],
+     "msg": "Extra inputs are not permitted",
+     "input": "hello"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ }
+]

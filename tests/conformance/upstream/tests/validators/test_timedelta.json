@@ -1,0 +1,2248 @@
+[
+ {
+  "id": "tests/validators/test_timedelta.py::test_constraints_schema_validation#0",
+  "test": "tests/validators/test_timedelta.py::test_constraints_schema_validation",
+  "schema": {
+   "type": "timedelta",
+   "gt": 3,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 3 seconds",
+     "input": {
+      "$timedelta": [
+       0,
+       1,
+       0
+      ]
+     },
+     "ctx": {
+      "gt": "3 seconds"
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_dict_key[json]#0",
+  "test": "tests/validators/test_timedelta.py::test_dict_key[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "timedelta"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"P2DT1H\": 2, \"P2DT2H\": 4}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$timedelta": [
+        2,
+        3600,
+        0
+       ]
+      },
+      2
+     ],
+     [
+      {
+       "$timedelta": [
+        2,
+        7200,
+        0
+       ]
+      },
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_dict_key[json]#1",
+  "test": "tests/validators/test_timedelta.py::test_dict_key[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "timedelta"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"errordata\": 2}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "time_delta_parsing",
+     "loc": [
+      "errordata",
+      "[key]"
+     ],
+     "msg": "Input should be a valid duration, invalid digit in duration",
+     "input": "errordata",
+     "ctx": {
+      "error": "invalid digit in duration"
+     }
+    }
+   ],
+   "title": "dict[timedelta,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_dict_key[python]#0",
+  "test": "tests/validators/test_timedelta.py::test_dict_key[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "timedelta"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "P2DT1H": 2,
+   "P2DT2H": 4
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$timedelta": [
+        2,
+        3600,
+        0
+       ]
+      },
+      2
+     ],
+     [
+      {
+       "$timedelta": [
+        2,
+        7200,
+        0
+       ]
+      },
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_dict_key[python]#1",
+  "test": "tests/validators/test_timedelta.py::test_dict_key[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "timedelta"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "errordata": 2
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "time_delta_parsing",
+     "loc": [
+      "errordata",
+      "[key]"
+     ],
+     "msg": "Input should be a valid timedelta, invalid digit in duration",
+     "input": "errordata",
+     "ctx": {
+      "error": "invalid digit in duration"
+     }
+    }
+   ],
+   "title": "dict[timedelta,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_dict_py#0",
+  "test": "tests/validators/test_timedelta.py::test_dict_py",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "timedelta",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$timedelta": [
+       2,
+       3600,
+       0
+      ]
+     },
+     2
+    ],
+    [
+     {
+      "$timedelta": [
+       2,
+       7200,
+       0
+      ]
+     },
+     4
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$timedelta": [
+        2,
+        3600,
+        0
+       ]
+      },
+      2
+     ],
+     [
+      {
+       "$timedelta": [
+        2,
+        7200,
+        0
+       ]
+      },
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_dict_value[json]#0",
+  "test": "tests/validators/test_timedelta.py::test_dict_value[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "timedelta"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"2\": \"P2DT1H\", \"4\": \"P2DT2H\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      2,
+      {
+       "$timedelta": [
+        2,
+        3600,
+        0
+       ]
+      }
+     ],
+     [
+      4,
+      {
+       "$timedelta": [
+        2,
+        7200,
+        0
+       ]
+      }
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_dict_value[json]#1",
+  "test": "tests/validators/test_timedelta.py::test_dict_value[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "timedelta"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"4\": \"errordata\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "time_delta_parsing",
+     "loc": [
+      "4"
+     ],
+     "msg": "Input should be a valid duration, invalid digit in duration",
+     "input": "errordata",
+     "ctx": {
+      "error": "invalid digit in duration"
+     }
+    }
+   ],
+   "title": "dict[int,timedelta]"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_dict_value[python]#0",
+  "test": "tests/validators/test_timedelta.py::test_dict_value[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "timedelta"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     2,
+     "P2DT1H"
+    ],
+    [
+     4,
+     "P2DT2H"
+    ]
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      2,
+      {
+       "$timedelta": [
+        2,
+        3600,
+        0
+       ]
+      }
+     ],
+     [
+      4,
+      {
+       "$timedelta": [
+        2,
+        7200,
+        0
+       ]
+      }
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_dict_value[python]#1",
+  "test": "tests/validators/test_timedelta.py::test_dict_value[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "timedelta"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     4,
+     "errordata"
+    ]
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "time_delta_parsing",
+     "loc": [
+      4
+     ],
+     "msg": "Input should be a valid timedelta, invalid digit in duration",
+     "input": "errordata",
+     "ctx": {
+      "error": "invalid digit in duration"
+     }
+    }
+   ],
+   "title": "dict[int,timedelta]"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_large_value#0",
+  "test": "tests/validators/test_timedelta.py::test_large_value",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "123days, 12:34",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     123,
+     45240,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_large_value#1",
+  "test": "tests/validators/test_timedelta.py::test_large_value",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "999999999days, 12:34",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     999999999,
+     45240,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_large_value#2",
+  "test": "tests/validators/test_timedelta.py::test_large_value",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1000000000days, 12:34",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_delta_parsing",
+     "loc": [],
+     "msg": "Input should be a valid timedelta, durations may not exceed 999,999,999 days",
+     "input": "1000000000days, 12:34",
+     "ctx": {
+      "error": "durations may not exceed 999,999,999 days"
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta['02:03:04.05'-datetime.timedelta(seconds=7384, microseconds=50000)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta['02:03:04.05'-datetime.timedelta(seconds=7384, microseconds=50000)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "02:03:04.05",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     0,
+     7384,
+     50000
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta['02:03:04.05broken'-Err('Input should be a valid timedelta, unexpected extra characters at the end of the input')]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta['02:03:04.05broken'-Err('Input should be a valid timedelta, unexpected extra characters at the end of the input')]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "02:03:04.05broken",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_delta_parsing",
+     "loc": [],
+     "msg": "Input should be a valid timedelta, unexpected extra characters at the end of the input",
+     "input": "02:03:04.05broken",
+     "ctx": {
+      "error": "unexpected extra characters at the end of the input"
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta['P0Y0M3D2WT1H2M3.5S'-datetime.timedelta(days=17, seconds=3723, microseconds=500000)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta['P0Y0M3D2WT1H2M3.5S'-datetime.timedelta(days=17, seconds=3723, microseconds=500000)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "P0Y0M3D2WT1H2M3.5S",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     17,
+     3723,
+     500000
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta[(-1,)-Err('Input should be a valid timedelta [type=time_delta_type')]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta[(-1,)-Err('Input should be a valid timedelta [type=time_delta_type')]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    -1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_delta_type",
+     "loc": [],
+     "msg": "Input should be a valid timedelta",
+     "input": {
+      "$tuple": [
+       -1
+      ]
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta[-3601-datetime.timedelta(days=-1, seconds=82799)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta[-3601-datetime.timedelta(days=-1, seconds=82799)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": -3601,
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     -1,
+     82799,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta[-inf-Err('Input should be a valid timedelta, durations may not exceed 999,999,999 days')]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta[-inf-Err('Input should be a valid timedelta, durations may not exceed 999,999,999 days')]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "-inf"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_delta_parsing",
+     "loc": [],
+     "msg": "Input should be a valid timedelta, durations may not exceed 999,999,999 days",
+     "input": {
+      "$float": "-inf"
+     },
+     "ctx": {
+      "error": "durations may not exceed 999,999,999 days"
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta[3601-datetime.timedelta(seconds=3601)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta[3601-datetime.timedelta(seconds=3601)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 3601,
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     0,
+     3601,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta[Decimal('-3601.222222')-datetime.timedelta(days=-1, seconds=82798, microseconds=777778)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta[Decimal('-3601.222222')-datetime.timedelta(days=-1, seconds=82798, microseconds=777778)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "-3601.222222"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     -1,
+     82798,
+     777778
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta[Decimal('-3601.2222222')-datetime.timedelta(days=-1, seconds=82798, microseconds=777778)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta[Decimal('-3601.2222222')-datetime.timedelta(days=-1, seconds=82798, microseconds=777778)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "-3601.2222222"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     -1,
+     82798,
+     777778
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta[Decimal('-3601.2222227')-datetime.timedelta(days=-1, seconds=82798, microseconds=777777)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta[Decimal('-3601.2222227')-datetime.timedelta(days=-1, seconds=82798, microseconds=777777)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "-3601.2222227"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     -1,
+     82798,
+     777777
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta[Decimal('3601.123456')-datetime.timedelta(seconds=3601, microseconds=123456)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta[Decimal('3601.123456')-datetime.timedelta(seconds=3601, microseconds=123456)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "3601.123456"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     0,
+     3601,
+     123456
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta[Decimal('3601.1234562')-datetime.timedelta(seconds=3601, microseconds=123456)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta[Decimal('3601.1234562')-datetime.timedelta(seconds=3601, microseconds=123456)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "3601.1234562"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     0,
+     3601,
+     123456
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta[Decimal('3601.1234568')-datetime.timedelta(seconds=3601, microseconds=123457)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta[Decimal('3601.1234568')-datetime.timedelta(seconds=3601, microseconds=123457)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "3601.1234568"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     0,
+     3601,
+     123457
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta[b'-1'-Err('Input should be a valid timedelta, \"day\" identifier in duration not correctly formatted [type=time_delta_parsing')]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta[b'-1'-Err('Input should be a valid timedelta, \"day\" identifier in duration not correctly formatted [type=time_delta_parsing')]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "LTE="
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_delta_parsing",
+     "loc": [],
+     "msg": "Input should be a valid timedelta, \"day\" identifier in duration not correctly formatted",
+     "input": {
+      "$bytes": "LTE="
+     },
+     "ctx": {
+      "error": "\"day\" identifier in duration not correctly formatted"
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta[b'P0Y0M3D2WT1H2M3.5S'-datetime.timedelta(days=17, seconds=3723, microseconds=500000)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta[b'P0Y0M3D2WT1H2M3.5S'-datetime.timedelta(days=17, seconds=3723, microseconds=500000)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "UDBZME0zRDJXVDFIMk0zLjVT"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     17,
+     3723,
+     500000
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta[datetime.timedelta(days=-3, seconds=7201, microseconds=500000)-datetime.timedelta(days=-3, seconds=7201, microseconds=500000)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta[datetime.timedelta(days=-3, seconds=7201, microseconds=500000)-datetime.timedelta(days=-3, seconds=7201, microseconds=500000)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$timedelta": [
+    -3,
+    7201,
+    500000
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     -3,
+     7201,
+     500000
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta[datetime.timedelta(days=17, seconds=3723, microseconds=500000)-datetime.timedelta(days=17, seconds=3723, microseconds=500000)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta[datetime.timedelta(days=17, seconds=3723, microseconds=500000)-datetime.timedelta(days=17, seconds=3723, microseconds=500000)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$timedelta": [
+    17,
+    3723,
+    500000
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     17,
+     3723,
+     500000
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta[datetime.timedelta(days=999999999, seconds=86399, microseconds=999999)-datetime.timedelta(days=999999999, seconds=86399, microseconds=999999)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta[datetime.timedelta(days=999999999, seconds=86399, microseconds=999999)-datetime.timedelta(days=999999999, seconds=86399, microseconds=999999)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$timedelta": [
+    999999999,
+    86399,
+    999999
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     999999999,
+     86399,
+     999999
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta[inf-Err('Input should be a valid timedelta, durations may not exceed 999,999,999 days')]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta[inf-Err('Input should be a valid timedelta, durations may not exceed 999,999,999 days')]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_delta_parsing",
+     "loc": [],
+     "msg": "Input should be a valid timedelta, durations may not exceed 999,999,999 days",
+     "input": {
+      "$float": "inf"
+     },
+     "ctx": {
+      "error": "durations may not exceed 999,999,999 days"
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta[nan-Err('Input should be a valid timedelta, NaN values not permitted')]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta[nan-Err('Input should be a valid timedelta, NaN values not permitted')]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_delta_parsing",
+     "loc": [],
+     "msg": "Input should be a valid timedelta, NaN values not permitted",
+     "input": {
+      "$float": "nan"
+     },
+     "ctx": {
+      "error": "NaN values not permitted"
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_json['\"P0Y0M3D2WT1H2M3.5S\"'-datetime.timedelta(days=17, seconds=3723, microseconds=500000)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_json['\"P0Y0M3D2WT1H2M3.5S\"'-datetime.timedelta(days=17, seconds=3723, microseconds=500000)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"P0Y0M3D2WT1H2M3.5S\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     17,
+     3723,
+     500000
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_json['\"errordata\"'-Err('Input should be a valid duration, invalid digit in duration [type=time_delta_parsing')]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_json['\"errordata\"'-Err('Input should be a valid duration, invalid digit in duration [type=time_delta_parsing')]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"errordata\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_delta_parsing",
+     "loc": [],
+     "msg": "Input should be a valid duration, invalid digit in duration",
+     "input": "errordata",
+     "ctx": {
+      "error": "invalid digit in duration"
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_json['-3601'-datetime.timedelta(days=-1, seconds=82799)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_json['-3601'-datetime.timedelta(days=-1, seconds=82799)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-3601",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     -1,
+     82799,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_json['-3601.222222'-datetime.timedelta(days=-1, seconds=82798, microseconds=777778)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_json['-3601.222222'-datetime.timedelta(days=-1, seconds=82798, microseconds=777778)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-3601.222222",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     -1,
+     82798,
+     777778
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_json['-3601.2222222'-datetime.timedelta(days=-1, seconds=82798, microseconds=777778)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_json['-3601.2222222'-datetime.timedelta(days=-1, seconds=82798, microseconds=777778)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "-3601.2222222",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     -1,
+     82798,
+     777778
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_json['3600.999999'-datetime.timedelta(seconds=3600, microseconds=999999)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_json['3600.999999'-datetime.timedelta(seconds=3600, microseconds=999999)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "3600.999999",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     0,
+     3600,
+     999999
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_json['3601'-datetime.timedelta(seconds=3601)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_json['3601'-datetime.timedelta(seconds=3601)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "3601",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     0,
+     3601,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_json['3601.123456'-datetime.timedelta(seconds=3601, microseconds=123456)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_json['3601.123456'-datetime.timedelta(seconds=3601, microseconds=123456)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "3601.123456",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     0,
+     3601,
+     123456
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_json['true'-Err('Input should be a valid duration [type=time_delta_type')]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_json['true'-Err('Input should be a valid duration [type=time_delta_type')]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "true",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_delta_type",
+     "loc": [],
+     "msg": "Input should be a valid duration",
+     "input": true
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'ge': datetime.timedelta(0)}-'P0DT0.0S'-datetime.timedelta(0)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'ge': datetime.timedelta(0)}-'P0DT0.0S'-datetime.timedelta(0)]",
+  "schema": {
+   "type": "timedelta",
+   "ge": {
+    "$timedelta": [
+     0,
+     0,
+     0
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "P0DT0.0S",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     0,
+     0,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'ge': datetime.timedelta(days=3)}-'P2DT1H'-Err('Input should be greater than or equal to 3 days')]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'ge': datetime.timedelta(days=3)}-'P2DT1H'-Err('Input should be greater than or equal to 3 days')]",
+  "schema": {
+   "type": "timedelta",
+   "ge": {
+    "$timedelta": [
+     3,
+     0,
+     0
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "P2DT1H",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than_equal",
+     "loc": [],
+     "msg": "Input should be greater than or equal to 3 days",
+     "input": {
+      "$timedelta": [
+       2,
+       3600,
+       0
+      ]
+     },
+     "ctx": {
+      "ge": "3 days"
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'ge': datetime.timedelta(days=3)}-'P3D'-datetime.timedelta(days=3)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'ge': datetime.timedelta(days=3)}-'P3D'-datetime.timedelta(days=3)]",
+  "schema": {
+   "type": "timedelta",
+   "ge": {
+    "$timedelta": [
+     3,
+     0,
+     0
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "P3D",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     3,
+     0,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'ge': datetime.timedelta(days=3)}-'P3DT1H'-datetime.timedelta(days=3, seconds=3600)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'ge': datetime.timedelta(days=3)}-'P3DT1H'-datetime.timedelta(days=3, seconds=3600)]",
+  "schema": {
+   "type": "timedelta",
+   "ge": {
+    "$timedelta": [
+     3,
+     0,
+     0
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "P3DT1H",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     3,
+     3600,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'gt': datetime.timedelta(0)}-'-P0DT0.1S'-Err('Input should be greater than 0 seconds [type=greater_than')]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'gt': datetime.timedelta(0)}-'-P0DT0.1S'-Err('Input should be greater than 0 seconds [type=greater_than')]",
+  "schema": {
+   "type": "timedelta",
+   "gt": {
+    "$timedelta": [
+     0,
+     0,
+     0
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-P0DT0.1S",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 0 seconds",
+     "input": {
+      "$timedelta": [
+       -1,
+       86399,
+       900000
+      ]
+     },
+     "ctx": {
+      "gt": "0 seconds"
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'gt': datetime.timedelta(0)}-'P0DT0.0S'-Err('Input should be greater than 0 seconds [type=greater_than')]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'gt': datetime.timedelta(0)}-'P0DT0.0S'-Err('Input should be greater than 0 seconds [type=greater_than')]",
+  "schema": {
+   "type": "timedelta",
+   "gt": {
+    "$timedelta": [
+     0,
+     0,
+     0
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "P0DT0.0S",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 0 seconds",
+     "input": {
+      "$timedelta": [
+       0,
+       0,
+       0
+      ]
+     },
+     "ctx": {
+      "gt": "0 seconds"
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'gt': datetime.timedelta(days=-2, seconds=86399, microseconds=877000)}-'-PT86400.122S'-datetime.timedelta(days=-2, seconds=86399, microseconds=878000)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'gt': datetime.timedelta(days=-2, seconds=86399, microseconds=877000)}-'-PT86400.122S'-datetime.timedelta(days=-2, seconds=86399, microseconds=878000)]",
+  "schema": {
+   "type": "timedelta",
+   "gt": {
+    "$timedelta": [
+     -2,
+     86399,
+     877000
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-PT86400.122S",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     -2,
+     86399,
+     878000
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'gt': datetime.timedelta(days=-2, seconds=86399, microseconds=877000)}-'-PT86400.124S'-Err('Input should be greater than -2 days and 23 hours and 59 minutes and 59 seconds and 877000 microseconds [type=greater_than')]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'gt': datetime.timedelta(days=-2, seconds=86399, microseconds=877000)}-'-PT86400.124S'-Err('Input should be greater than -2 days and 23 hours and 59 minutes and 59 seconds and 877000 microseconds [type=greater_than')]",
+  "schema": {
+   "type": "timedelta",
+   "gt": {
+    "$timedelta": [
+     -2,
+     86399,
+     877000
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-PT86400.124S",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than -2 days and 23 hours and 59 minutes and 59 seconds and 877000 microseconds",
+     "input": {
+      "$timedelta": [
+       -2,
+       86399,
+       876000
+      ]
+     },
+     "ctx": {
+      "gt": "-2 days and 23 hours and 59 minutes and 59 seconds and 877000 microseconds"
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'gt': datetime.timedelta(days=-2, seconds=86399, microseconds=877000)}-datetime.timedelta(days=-2, seconds=86399, microseconds=878000)-datetime.timedelta(days=-2, seconds=86399, microseconds=878000)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'gt': datetime.timedelta(days=-2, seconds=86399, microseconds=877000)}-datetime.timedelta(days=-2, seconds=86399, microseconds=878000)-datetime.timedelta(days=-2, seconds=86399, microseconds=878000)]",
+  "schema": {
+   "type": "timedelta",
+   "gt": {
+    "$timedelta": [
+     -2,
+     86399,
+     877000
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$timedelta": [
+    -2,
+    86399,
+    878000
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     -2,
+     86399,
+     878000
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'gt': datetime.timedelta(days=3)}-'P3DT1H'-datetime.timedelta(days=3, seconds=3600)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'gt': datetime.timedelta(days=3)}-'P3DT1H'-datetime.timedelta(days=3, seconds=3600)]",
+  "schema": {
+   "type": "timedelta",
+   "gt": {
+    "$timedelta": [
+     3,
+     0,
+     0
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "P3DT1H",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     3,
+     3600,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'gt': datetime.timedelta(seconds=5400)}-'PT180S'-Err('Input should be greater than 1 hour and 30 minutes [type=greater_than')]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'gt': datetime.timedelta(seconds=5400)}-'PT180S'-Err('Input should be greater than 1 hour and 30 minutes [type=greater_than')]",
+  "schema": {
+   "type": "timedelta",
+   "gt": {
+    "$timedelta": [
+     0,
+     5400,
+     0
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "PT180S",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 1 hour and 30 minutes",
+     "input": {
+      "$timedelta": [
+       0,
+       180,
+       0
+      ]
+     },
+     "ctx": {
+      "gt": "1 hour and 30 minutes"
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'le': datetime.timedelta(days=-2, seconds=86399, microseconds=877000)}-'-PT86400.122S'-Err('Input should be less than or equal to -2 days and 23 hours and 59 minutes and 59 seconds and 877000 microseconds [type=less_than_equal')]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'le': datetime.timedelta(days=-2, seconds=86399, microseconds=877000)}-'-PT86400.122S'-Err('Input should be less than or equal to -2 days and 23 hours and 59 minutes and 59 seconds and 877000 microseconds [type=less_than_equal')]",
+  "schema": {
+   "type": "timedelta",
+   "le": {
+    "$timedelta": [
+     -2,
+     86399,
+     877000
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-PT86400.122S",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than_equal",
+     "loc": [],
+     "msg": "Input should be less than or equal to -2 days and 23 hours and 59 minutes and 59 seconds and 877000 microseconds",
+     "input": {
+      "$timedelta": [
+       -2,
+       86399,
+       878000
+      ]
+     },
+     "ctx": {
+      "le": "-2 days and 23 hours and 59 minutes and 59 seconds and 877000 microseconds"
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'le': datetime.timedelta(days=-2, seconds=86399, microseconds=877000)}-'-PT86400.123S'-datetime.timedelta(days=-2, seconds=86399, microseconds=877000)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'le': datetime.timedelta(days=-2, seconds=86399, microseconds=877000)}-'-PT86400.123S'-datetime.timedelta(days=-2, seconds=86399, microseconds=877000)]",
+  "schema": {
+   "type": "timedelta",
+   "le": {
+    "$timedelta": [
+     -2,
+     86399,
+     877000
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-PT86400.123S",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     -2,
+     86399,
+     877000
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'le': datetime.timedelta(days=-2, seconds=86399, microseconds=877000)}-'-PT86400.124S'-datetime.timedelta(days=-2, seconds=86399, microseconds=876000)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'le': datetime.timedelta(days=-2, seconds=86399, microseconds=877000)}-'-PT86400.124S'-datetime.timedelta(days=-2, seconds=86399, microseconds=876000)]",
+  "schema": {
+   "type": "timedelta",
+   "le": {
+    "$timedelta": [
+     -2,
+     86399,
+     877000
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-PT86400.124S",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     -2,
+     86399,
+     876000
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'le': datetime.timedelta(days=3)}-'P2DT1H'-datetime.timedelta(days=2, seconds=3600)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'le': datetime.timedelta(days=3)}-'P2DT1H'-datetime.timedelta(days=2, seconds=3600)]",
+  "schema": {
+   "type": "timedelta",
+   "le": {
+    "$timedelta": [
+     3,
+     0,
+     0
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "P2DT1H",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     2,
+     3600,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'le': datetime.timedelta(days=3)}-'P3DT0H'-datetime.timedelta(days=3)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'le': datetime.timedelta(days=3)}-'P3DT0H'-datetime.timedelta(days=3)]",
+  "schema": {
+   "type": "timedelta",
+   "le": {
+    "$timedelta": [
+     3,
+     0,
+     0
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "P3DT0H",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     3,
+     0,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'le': datetime.timedelta(days=3)}-'P3DT1H'-Err('Input should be less than or equal to 3 days')]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'le': datetime.timedelta(days=3)}-'P3DT1H'-Err('Input should be less than or equal to 3 days')]",
+  "schema": {
+   "type": "timedelta",
+   "le": {
+    "$timedelta": [
+     3,
+     0,
+     0
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "P3DT1H",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than_equal",
+     "loc": [],
+     "msg": "Input should be less than or equal to 3 days",
+     "input": {
+      "$timedelta": [
+       3,
+       3600,
+       0
+      ]
+     },
+     "ctx": {
+      "le": "3 days"
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'lt': datetime.timedelta(0)}-'-PT0S'-datetime.timedelta(0)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'lt': datetime.timedelta(0)}-'-PT0S'-datetime.timedelta(0)]",
+  "schema": {
+   "type": "timedelta",
+   "lt": {
+    "$timedelta": [
+     0,
+     0,
+     0
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-PT0S",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     0,
+     0,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'lt': datetime.timedelta(days=3)}-'P2DT1H'-datetime.timedelta(days=2, seconds=3600)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'lt': datetime.timedelta(days=3)}-'P2DT1H'-datetime.timedelta(days=2, seconds=3600)]",
+  "schema": {
+   "type": "timedelta",
+   "lt": {
+    "$timedelta": [
+     3,
+     0,
+     0
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "P2DT1H",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     2,
+     3600,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'lt': datetime.timedelta(days=3)}-'P3DT1H'-Err('Input should be less than 3 days')]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'lt': datetime.timedelta(days=3)}-'P3DT1H'-Err('Input should be less than 3 days')]",
+  "schema": {
+   "type": "timedelta",
+   "lt": {
+    "$timedelta": [
+     3,
+     0,
+     0
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "P3DT1H",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than",
+     "loc": [],
+     "msg": "Input should be less than 3 days",
+     "input": {
+      "$timedelta": [
+       3,
+       3600,
+       0
+      ]
+     },
+     "ctx": {
+      "lt": "3 days"
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'lt': datetime.timedelta(days=749, seconds=3661, microseconds=100000)}-'P2Y1W10DT48H60M61.100000S'-Err('Input should be less than 749 days and 1 hour and 1 minute and 1 second and 100000 microseconds')]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{'lt': datetime.timedelta(days=749, seconds=3661, microseconds=100000)}-'P2Y1W10DT48H60M61.100000S'-Err('Input should be less than 749 days and 1 hour and 1 minute and 1 second and 100000 microseconds')]",
+  "schema": {
+   "type": "timedelta",
+   "lt": {
+    "$timedelta": [
+     749,
+     3661,
+     100000
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "P2Y1W10DT48H60M61.100000S",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "less_than",
+     "loc": [],
+     "msg": "Input should be less than 749 days and 1 hour and 1 minute and 1 second and 100000 microseconds",
+     "input": {
+      "$timedelta": [
+       749,
+       3661,
+       100000
+      ]
+     },
+     "ctx": {
+      "lt": "749 days and 1 hour and 1 minute and 1 second and 100000 microseconds"
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{}-'P0Y0M3D2WT1H2M3S'-datetime.timedelta(days=17, seconds=3723)]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs[{}-'P0Y0M3D2WT1H2M3S'-datetime.timedelta(days=17, seconds=3723)]",
+  "schema": {
+   "type": "timedelta",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "P0Y0M3D2WT1H2M3S",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     17,
+     3723,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_kwargs_strict#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_kwargs_strict",
+  "schema": {
+   "type": "timedelta",
+   "strict": true,
+   "le": {
+    "$timedelta": [
+     3,
+     0,
+     0
+    ]
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$timedelta": [
+    2,
+    3600,
+    0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     2,
+     3600,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_strict[P0Y0M3D2WT1H2M3.5S-expected1]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_strict[P0Y0M3D2WT1H2M3.5S-expected1]",
+  "schema": {
+   "type": "timedelta",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "P0Y0M3D2WT1H2M3.5S",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_delta_type",
+     "loc": [],
+     "msg": "Input should be a valid timedelta",
+     "input": "P0Y0M3D2WT1H2M3.5S"
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_strict[P0Y0M3D2WT1H2M3.5S-expected2]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_strict[P0Y0M3D2WT1H2M3.5S-expected2]",
+  "schema": {
+   "type": "timedelta",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "UDBZME0zRDJXVDFIMk0zLjVT"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_delta_type",
+     "loc": [],
+     "msg": "Input should be a valid timedelta",
+     "input": {
+      "$bytes": "UDBZME0zRDJXVDFIMk0zLjVT"
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_strict[input_value0-expected0]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_strict[input_value0-expected0]",
+  "schema": {
+   "type": "timedelta",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$timedelta": [
+    17,
+    3723,
+    500000
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     17,
+     3723,
+     500000
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_strict_json[\"12345\"-expected1]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_strict_json[\"12345\"-expected1]",
+  "schema": {
+   "type": "timedelta",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"12345\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_delta_parsing",
+     "loc": [],
+     "msg": "Input should be a valid duration, invalid character in hour",
+     "input": "12345",
+     "ctx": {
+      "error": "invalid character in hour"
+     }
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_strict_json[\"P0Y0M3D2WT1H2M3.5S\"-expected0]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_strict_json[\"P0Y0M3D2WT1H2M3.5S\"-expected0]",
+  "schema": {
+   "type": "timedelta",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"P0Y0M3D2WT1H2M3.5S\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     17,
+     3723,
+     500000
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_timedelta_strict_json[true-expected2]#0",
+  "test": "tests/validators/test_timedelta.py::test_timedelta_strict_json[true-expected2]",
+  "schema": {
+   "type": "timedelta",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "true",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "time_delta_type",
+     "loc": [],
+     "msg": "Input should be a valid duration",
+     "input": true
+    }
+   ],
+   "title": "timedelta"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_union#0",
+  "test": "tests/validators/test_timedelta.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "timedelta",
+     "microseconds_precision": "truncate"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "P2DT1H",
+  "options": {},
+  "expected": {
+   "output": "P2DT1H"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_union#1",
+  "test": "tests/validators/test_timedelta.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "timedelta",
+     "microseconds_precision": "truncate"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$timedelta": [
+    2,
+    3600,
+    0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     2,
+     3600,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_union#2",
+  "test": "tests/validators/test_timedelta.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "timedelta",
+     "microseconds_precision": "truncate"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "P2DT1H",
+  "options": {},
+  "expected": {
+   "output": "P2DT1H"
+  }
+ },
+ {
+  "id": "tests/validators/test_timedelta.py::test_union#3",
+  "test": "tests/validators/test_timedelta.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "timedelta",
+     "microseconds_precision": "truncate"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$timedelta": [
+    2,
+    3600,
+    0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     2,
+     3600,
+     0
+    ]
+   }
+  }
+ }
+]

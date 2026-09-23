@@ -1,0 +1,539 @@
+[
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs[json-input_value2-expected2]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs[json-input_value2-expected2]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_kwargs_uniform"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs[json-input_value3-expected3]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs[json-input_value3-expected3]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_kwargs_uniform"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"kwargs\": {\"a\": 1, \"b\": 2}}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": 1,
+      "b": 2
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs[python-input_value0-expected0]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs[python-input_value0-expected0]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_kwargs_uniform"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs[python-input_value1-expected1]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs[python-input_value1-expected1]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_kwargs_uniform"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": 1,
+      "b": 2
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs[python-input_value2-expected2]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs[python-input_value2-expected2]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_kwargs_uniform"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs[python-input_value3-expected3]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs[python-input_value3-expected3]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_kwargs_uniform"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "kwargs": {
+    "a": 1,
+    "b": 2
+   }
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": 1,
+      "b": 2
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs_invalid_dict[json]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs_invalid_dict[json]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_kwargs_uniform"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"kwargs\": \"not_a_dict\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "dict_type",
+     "loc": [
+      "kwargs"
+     ],
+     "msg": "Input should be an object",
+     "input": "not_a_dict"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs_invalid_dict[python]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs_invalid_dict[python]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_kwargs_uniform"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "kwargs": "not_a_dict"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "dict_type",
+     "loc": [
+      "kwargs"
+     ],
+     "msg": "Input should be a valid dictionary",
+     "input": "not_a_dict"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs_validation_error[json-input_value2-err_loc2]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs_validation_error[json-input_value2-err_loc2]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_kwargs_uniform"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"kwargs\": {\"a\": \"not_an_int\"}}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "kwargs",
+      "a"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs_validation_error[json-input_value3-err_loc3]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs_validation_error[json-input_value3-err_loc3]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_kwargs_uniform"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"kwargs\": {\"a\": 1, \"b\": \"not_an_int\"}}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "kwargs",
+      "b"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs_validation_error[python-input_value0-err_loc0]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs_validation_error[python-input_value0-err_loc0]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_kwargs_uniform"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "a"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs_validation_error[python-input_value1-err_loc1]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs_validation_error[python-input_value1-err_loc1]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_kwargs_uniform"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "b"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs_validation_error[python-input_value2-err_loc2]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs_validation_error[python-input_value2-err_loc2]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_kwargs_uniform"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "kwargs": {
+    "a": "not_an_int"
+   }
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "kwargs",
+      "a"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs_validation_error[python-input_value3-err_loc3]#0",
+  "test": "tests/validators/arguments_v3/test_var_kwargs_uniform.py::test_var_kwargs_validation_error[python-input_value3-err_loc3]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "kwargs",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_kwargs_uniform"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "kwargs": {
+    "a": 1,
+    "b": "not_an_int"
+   }
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "kwargs",
+      "b"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ }
+]

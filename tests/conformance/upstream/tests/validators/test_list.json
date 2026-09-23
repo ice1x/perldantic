@@ -1,0 +1,3102 @@
+[
+ {
+  "id": "tests/validators/test_list.py::test_bad_iter[any]#0",
+  "test": "tests/validators/test_list.py::test_bad_iter[any]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "BadIter"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_bad_iter[int]#0",
+  "test": "tests/validators/test_list.py::test_bad_iter[int]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "BadIter"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_generator_error#0",
+  "test": "tests/validators/test_list.py::test_generator_error",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_length_ctx#0",
+  "test": "tests/validators/test_list.py::test_length_ctx",
+  "schema": {
+   "type": "list",
+   "min_length": 2,
+   "max_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_short",
+     "loc": [],
+     "msg": "List should have at least 2 items after validation, not 1",
+     "input": [
+      1
+     ],
+     "ctx": {
+      "field_type": "List",
+      "min_length": 2,
+      "actual_length": 1
+     }
+    }
+   ],
+   "title": "list[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_length_ctx#1",
+  "test": "tests/validators/test_list.py::test_length_ctx",
+  "schema": {
+   "type": "list",
+   "min_length": 2,
+   "max_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_long",
+     "loc": [],
+     "msg": "List should have at most 3 items after validation, not 4",
+     "input": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "ctx": {
+      "field_type": "List",
+      "max_length": 3,
+      "actual_length": 4
+     }
+    }
+   ],
+   "title": "list[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input='123', output=Err('Input should be a valid list [type=list_type,'), strict=False)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input='123', output=Err('Input should be a valid list [type=list_type,'), strict=False)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": "123",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": "123"
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input='123', output=Err('Input should be a valid list [type=list_type,'), strict=True)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input='123', output=Err('Input should be a valid list [type=list_type,'), strict=True)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "123",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": "123"
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=(1, 2, 3), output=Err('Input should be a valid list [type=list_type,'), strict=True)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=(1, 2, 3), output=Err('Input should be a valid list [type=list_type,'), strict=True)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$tuple": [
+       1,
+       2,
+       3
+      ]
+     }
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=(1, 2, 3), output=[1, 2, 3], strict=False)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=(1, 2, 3), output=[1, 2, 3], strict=False)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=<generator object <genexpr> at 0x...>, output=Err('Input should be a valid list [type=list_type,'), strict=True)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=<generator object <genexpr> at 0x...>, output=Err('Input should be a valid list [type=list_type,'), strict=True)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$object": "generator"
+     }
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=<generator object <genexpr> at 0x...>, output=[1, 2, 3], strict=False)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=<generator object <genexpr> at 0x...>, output=[1, 2, 3], strict=False)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=KeysView(MyMapping({1: 'a', 2: 'b', 3: 'c'})), output=Err('Input should be a valid list [type=list_type,'), strict=True)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=KeysView(MyMapping({1: 'a', 2: 'b', 3: 'c'})), output=Err('Input should be a valid list [type=list_type,'), strict=True)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "KeysView"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$object": "KeysView"
+     }
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=KeysView(MyMapping({1: 'a', 2: 'b', 3: 'c'})), output=[1, 2, 3], strict=False)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=KeysView(MyMapping({1: 'a', 2: 'b', 3: 'c'})), output=[1, 2, 3], strict=False)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "KeysView"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=MyMapping({1: 'a', 2: 'b', 3: 'c'}), output=Err('Input should be a valid list [type=list_type,'), strict=False)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=MyMapping({1: 'a', 2: 'b', 3: 'c'}), output=Err('Input should be a valid list [type=list_type,'), strict=False)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "MyMapping"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$object": "MyMapping"
+     }
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=MySequence([1, 2, 3]), output=Err('Input should be a valid list [type=list_type,'), strict=True)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=MySequence([1, 2, 3]), output=Err('Input should be a valid list [type=list_type,'), strict=True)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "MySequence"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$object": "MySequence"
+     }
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=MySequence([1, 2, 3]), output=[1, 2, 3], strict=False)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=MySequence([1, 2, 3]), output=[1, 2, 3], strict=False)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "MySequence"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=ValuesView(MyMapping({'a': 1, 'b': 2, 'c': 3})), output=Err('Input should be a valid list [type=list_type,'), strict=True)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=ValuesView(MyMapping({'a': 1, 'b': 2, 'c': 3})), output=Err('Input should be a valid list [type=list_type,'), strict=True)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ValuesView"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$object": "ValuesView"
+     }
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=ValuesView(MyMapping({'a': 1, 'b': 2, 'c': 3})), output=[1, 2, 3], strict=False)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=ValuesView(MyMapping({'a': 1, 'b': 2, 'c': 3})), output=[1, 2, 3], strict=False)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ValuesView"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=[1, 2, 3], output=[1, 2, 3], strict=False)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=[1, 2, 3], output=[1, 2, 3], strict=False)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=[1, 2, 3], output=[1, 2, 3], strict=None)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=[1, 2, 3], output=[1, 2, 3], strict=None)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=[1, 2, 3], output=[1, 2, 3], strict=True)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=[1, 2, 3], output=[1, 2, 3], strict=True)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=b'123', output=Err('Input should be a valid list [type=list_type,'), strict=False)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=b'123', output=Err('Input should be a valid list [type=list_type,'), strict=False)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "MTIz"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$bytes": "MTIz"
+     }
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=b'123', output=Err('Input should be a valid list [type=list_type,'), strict=True)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=b'123', output=Err('Input should be a valid list [type=list_type,'), strict=True)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "MTIz"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$bytes": "MTIz"
+     }
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=deque([1, 2, 3]), output=Err('Input should be a valid list [type=list_type,'), strict=True)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=deque([1, 2, 3]), output=Err('Input should be a valid list [type=list_type,'), strict=True)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$object": "deque"
+     }
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=deque([1, 2, 3]), output=[1, 2, 3], strict=False)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=deque([1, 2, 3]), output=[1, 2, 3], strict=False)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=dict_keys([1, 2, 3]), output=Err('Input should be a valid list [type=list_type,'), strict=True)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=dict_keys([1, 2, 3]), output=Err('Input should be a valid list [type=list_type,'), strict=True)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_keys"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$object": "dict_keys"
+     }
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=dict_keys([1, 2, 3]), output=[1, 2, 3], strict=False)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=dict_keys([1, 2, 3]), output=[1, 2, 3], strict=False)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_keys"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=dict_values([1, 2, 3]), output=Err('Input should be a valid list [type=list_type,'), strict=True)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=dict_values([1, 2, 3]), output=Err('Input should be a valid list [type=list_type,'), strict=True)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_values"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$object": "dict_values"
+     }
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=dict_values([1, 2, 3]), output=[1, 2, 3], strict=False)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=dict_values([1, 2, 3]), output=[1, 2, 3], strict=False)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_values"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=frozenset({1, 2, 3}), output=Err('Input should be a valid list [type=list_type,'), strict=True)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=frozenset({1, 2, 3}), output=Err('Input should be a valid list [type=list_type,'), strict=True)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$frozenset": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$frozenset": [
+       1,
+       2,
+       3
+      ]
+     }
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=frozenset({1, 2, 3}), output=[1, 2, 3], strict=False)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input=frozenset({1, 2, 3}), output=[1, 2, 3], strict=False)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$frozenset": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input={1, 2, 3}, output=Err('Input should be a valid list [type=list_type,'), strict=True)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input={1, 2, 3}, output=Err('Input should be a valid list [type=list_type,'), strict=True)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$set": [
+       1,
+       2,
+       3
+      ]
+     }
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input={1, 2, 3}, output=[1, 2, 3], strict=False)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input={1, 2, 3}, output=[1, 2, 3], strict=False)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input={1: 'a', 2: 'b', 3: 'c'}, output=Err('Input should be a valid list [type=list_type,'), strict=False)]#0",
+  "test": "tests/validators/test_list.py::test_list_allowed_inputs_python[ListInputTestCase(input={1: 'a', 2: 'b', 3: 'c'}, output=Err('Input should be a valid list [type=list_type,'), strict=False)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     "a"
+    ],
+    [
+     2,
+     "b"
+    ],
+    [
+     3,
+     "c"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$dict": [
+       [
+        1,
+        "a"
+       ],
+       [
+        2,
+        "b"
+       ],
+       [
+        3,
+        "c"
+       ]
+      ]
+     }
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_any[input_value0-expected0]#0",
+  "test": "tests/validators/test_list.py::test_list_any[input_value0-expected0]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [],
+  "options": {},
+  "expected": {
+   "output": []
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_any[input_value1-expected1]#0",
+  "test": "tests/validators/test_list.py::test_list_any[input_value1-expected1]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "2",
+   {
+    "$bytes": "Mw=="
+   }
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    "2",
+    {
+     "$bytes": "Mw=="
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_any[input_value2-expected2]#0",
+  "test": "tests/validators/test_list.py::test_list_any[input_value2-expected2]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$frozenset": [
+    {
+     "$bytes": "Mw=="
+    },
+    1,
+    "2"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    "2",
+    {
+     "$bytes": "Mw=="
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_any[input_value3-expected3]#0",
+  "test": "tests/validators/test_list.py::test_list_any[input_value3-expected3]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": []
+  },
+  "options": {},
+  "expected": {
+   "output": []
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_any[input_value4-expected4]#0",
+  "test": "tests/validators/test_list.py::test_list_any[input_value4-expected4]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    "2",
+    {
+     "$bytes": "Mw=="
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    "2",
+    {
+     "$bytes": "Mw=="
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_any[input_value5-expected5]#0",
+  "test": "tests/validators/test_list.py::test_list_any[input_value5-expected5]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    "2",
+    {
+     "$bytes": "Mw=="
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_any[input_value6-expected6]#0",
+  "test": "tests/validators/test_list.py::test_list_any[input_value6-expected6]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": [
+    {
+     "$bytes": "Mw=="
+    },
+    1,
+    "2"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    "2",
+    {
+     "$bytes": "Mw=="
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_dict_items_input[ListInputTestCase(input=ItemsView(MyMapping({1: 1, 2: 2, 3: 3})), output=Err('Input should be a valid list [type=list_type,'), strict=True)]#0",
+  "test": "tests/validators/test_list.py::test_list_dict_items_input[ListInputTestCase(input=ItemsView(MyMapping({1: 1, 2: 2, 3: 3})), output=Err('Input should be a valid list [type=list_type,'), strict=True)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ItemsView"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$object": "ItemsView"
+     }
+    }
+   ],
+   "title": "list[tuple[int, int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_dict_items_input[ListInputTestCase(input=ItemsView(MyMapping({1: 1, 2: 2, 3: 3})), output=[(1, 1), (2, 2), (3, 3)], strict=False)]#0",
+  "test": "tests/validators/test_list.py::test_list_dict_items_input[ListInputTestCase(input=ItemsView(MyMapping({1: 1, 2: 2, 3: 3})), output=[(1, 1), (2, 2), (3, 3)], strict=False)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   },
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ItemsView"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    {
+     "$tuple": [
+      1,
+      1
+     ]
+    },
+    {
+     "$tuple": [
+      2,
+      2
+     ]
+    },
+    {
+     "$tuple": [
+      3,
+      3
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_dict_items_input[ListInputTestCase(input=dict_items([(1, 1), (2, 2), (3, 3)]), output=Err('Input should be a valid list [type=list_type,'), strict=True)]#0",
+  "test": "tests/validators/test_list.py::test_list_dict_items_input[ListInputTestCase(input=dict_items([(1, 1), (2, 2), (3, 3)]), output=Err('Input should be a valid list [type=list_type,'), strict=True)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_items"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$object": "dict_items"
+     }
+    }
+   ],
+   "title": "list[tuple[int, int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_dict_items_input[ListInputTestCase(input=dict_items([(1, 1), (2, 2), (3, 3)]), output=[(1, 1), (2, 2), (3, 3)], strict=False)]#0",
+  "test": "tests/validators/test_list.py::test_list_dict_items_input[ListInputTestCase(input=dict_items([(1, 1), (2, 2), (3, 3)]), output=[(1, 1), (2, 2), (3, 3)], strict=False)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   },
+   "strict": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_items"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    {
+     "$tuple": [
+      1,
+      1
+     ]
+    },
+    {
+     "$tuple": [
+      2,
+      2
+     ]
+    },
+    {
+     "$tuple": [
+      3,
+      3
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_error[input_value0-0]#0",
+  "test": "tests/validators/test_list.py::test_list_error[input_value0-0]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "wrong"
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      0
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_error[input_value1-0]#0",
+  "test": "tests/validators/test_list.py::test_list_error[input_value1-0]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    "wrong"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      0
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_error[input_value2-0]#0",
+  "test": "tests/validators/test_list.py::test_list_error[input_value2-0]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      0
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_error[input_value3-3]#0",
+  "test": "tests/validators/test_list.py::test_list_error[input_value3-3]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3,
+   "wrong"
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      3
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_error[input_value4-3]#0",
+  "test": "tests/validators/test_list.py::test_list_error[input_value4-3]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3,
+    "wrong",
+    4
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      3
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_error[input_value5-3]#0",
+  "test": "tests/validators/test_list.py::test_list_error[input_value5-3]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      3
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_fail_fast[fail_fast]#0",
+  "test": "tests/validators/test_list.py::test_list_fail_fast[fail_fast]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "fail_fast": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "not-num",
+   "again"
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not-num"
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_fail_fast[not_fail_fast]#0",
+  "test": "tests/validators/test_list.py::test_list_fail_fast[not_fail_fast]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "fail_fast": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "not-num",
+   "again"
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not-num"
+    },
+    {
+     "type": "int_parsing",
+     "loc": [
+      2
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "again"
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_from_dict_items[Any]#0",
+  "test": "tests/validators/test_list.py::test_list_from_dict_items[Any]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_items"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    {
+     "$tuple": [
+      1,
+      10
+     ]
+    },
+    {
+     "$tuple": [
+      2,
+      20
+     ]
+    },
+    {
+     "$tuple": [
+      "3",
+      "30"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_from_dict_items[Tuple[Any, Any]]#0",
+  "test": "tests/validators/test_list.py::test_list_from_dict_items[Tuple[Any, Any]]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "any"
+     }
+    ],
+    "variadic_item_index": 0
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_items"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    {
+     "$tuple": [
+      1,
+      10
+     ]
+    },
+    {
+     "$tuple": [
+      2,
+      20
+     ]
+    },
+    {
+     "$tuple": [
+      "3",
+      "30"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_from_dict_items[Tuple[int, int]]#0",
+  "test": "tests/validators/test_list.py::test_list_from_dict_items[Tuple[int, int]]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     }
+    ],
+    "variadic_item_index": 0
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_items"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    {
+     "$tuple": [
+      1,
+      10
+     ]
+    },
+    {
+     "$tuple": [
+      2,
+      20
+     ]
+    },
+    {
+     "$tuple": [
+      3,
+      30
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_function#0",
+  "test": "tests/validators/test_list.py::test_list_function",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "function-plain",
+    "function": {
+     "type": "with-info",
+     "function": {
+      "$function": "f"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    2,
+    4,
+    6
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_function_internal_error#0",
+  "test": "tests/validators/test_list.py::test_list_function_internal_error",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "function-plain",
+    "function": {
+     "type": "with-info",
+     "function": {
+      "$function": "f"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2
+  ],
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "RuntimeError",
+    "message": "error 1"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_function_val_error#0",
+  "test": "tests/validators/test_list.py::test_list_function_val_error",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "function-plain",
+    "function": {
+     "type": "with-info",
+     "function": {
+      "$function": "f"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "value_error",
+     "loc": [
+      0
+     ],
+     "msg": "Value error, error 1",
+     "input": 1,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "ValueError",
+        "error 1"
+       ]
+      }
+     }
+    },
+    {
+     "type": "value_error",
+     "loc": [
+      1
+     ],
+     "msg": "Value error, error 2",
+     "input": 2,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "ValueError",
+        "error 2"
+       ]
+      }
+     }
+    }
+   ],
+   "title": "list[function-plain[f()]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_int['456'-Err(\"Input should be a valid list [type=list_type, input_value='456', input_type=str]\")]#0",
+  "test": "tests/validators/test_list.py::test_list_int['456'-Err(\"Input should be a valid list [type=list_type, input_value='456', input_type=str]\")]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "456",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": "456"
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_int[(1, 2, '3')-[1, 2, 3]]#0",
+  "test": "tests/validators/test_list.py::test_list_int[(1, 2, '3')-[1, 2, 3]]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    "3"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_int[<generator object <genexpr> at 0x...>-[1, 2, 3]]#0",
+  "test": "tests/validators/test_list.py::test_list_int[<generator object <genexpr> at 0x...>-[1, 2, 3]]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_int[<generator object gen_ints at 0x...>-[1, 2, 3]]#0",
+  "test": "tests/validators/test_list.py::test_list_int[<generator object gen_ints at 0x...>-[1, 2, 3]]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_int[[1, 2, '3']-[1, 2, 3]]#0",
+  "test": "tests/validators/test_list.py::test_list_int[[1, 2, '3']-[1, 2, 3]]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   "3"
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_int[b'789'-Err(\"Input should be a valid list [type=list_type, input_value=b'789', input_type=bytes]\")]#0",
+  "test": "tests/validators/test_list.py::test_list_int[b'789'-Err(\"Input should be a valid list [type=list_type, input_value=b'789', input_type=bytes]\")]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "Nzg5"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$bytes": "Nzg5"
+     }
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_int[deque([1, 2, '3'])-[1, 2, 3]]#0",
+  "test": "tests/validators/test_list.py::test_list_int[deque([1, 2, '3'])-[1, 2, 3]]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_int[dict_keys([1, 2, '3'])-[1, 2, 3]]#0",
+  "test": "tests/validators/test_list.py::test_list_int[dict_keys([1, 2, '3'])-[1, 2, 3]]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_keys"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_int[dict_values([10, 20, '30'])-[10, 20, 30]]#0",
+  "test": "tests/validators/test_list.py::test_list_int[dict_values([10, 20, '30'])-[10, 20, 30]]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_values"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    10,
+    20,
+    30
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_int[frozenset({1, 2, '3'})-IsList(1, 2, 3, check_order=False)]#0",
+  "test": "tests/validators/test_list.py::test_list_int[frozenset({1, 2, '3'})-IsList(1, 2, 3, check_order=False)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$frozenset": [
+    1,
+    2,
+    "3"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_int[{1, 2, '3'}-IsList(1, 2, 3, check_order=False)]#0",
+  "test": "tests/validators/test_list.py::test_list_int[{1, 2, '3'}-IsList(1, 2, 3, check_order=False)]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    "3"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_int[{1: 10, 2: 20, '3': '30'}-Err('Input should be a valid list [type=list_type,')]#0",
+  "test": "tests/validators/test_list.py::test_list_int[{1: 10, 2: 20, '3': '30'}-Err('Input should be a valid list [type=list_type,')]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     10
+    ],
+    [
+     2,
+     20
+    ],
+    [
+     "3",
+     "30"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$dict": [
+       [
+        1,
+        10
+       ],
+       [
+        2,
+        20
+       ],
+       [
+        "3",
+        "30"
+       ]
+      ]
+     }
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_json#0",
+  "test": "tests/validators/test_list.py::test_list_json",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, \"2\", 3]",
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_json#1",
+  "test": "tests/validators/test_list.py::test_list_json",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": 1
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_length_constraints[kwargs0-input_value0-expected0]#0",
+  "test": "tests/validators/test_list.py::test_list_length_constraints[kwargs0-input_value0-expected0]",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3,
+    4
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_length_constraints[kwargs1-input_value1-expected1]#0",
+  "test": "tests/validators/test_list.py::test_list_length_constraints[kwargs1-input_value1-expected1]",
+  "schema": {
+   "type": "list",
+   "min_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3,
+    4
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_length_constraints[kwargs2-input_value2-expected2]#0",
+  "test": "tests/validators/test_list.py::test_list_length_constraints[kwargs2-input_value2-expected2]",
+  "schema": {
+   "type": "list",
+   "min_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_short",
+     "loc": [],
+     "msg": "List should have at least 3 items after validation, not 2",
+     "input": [
+      1,
+      2
+     ],
+     "ctx": {
+      "field_type": "List",
+      "min_length": 3,
+      "actual_length": 2
+     }
+    }
+   ],
+   "title": "list[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_length_constraints[kwargs3-input_value3-expected3]#0",
+  "test": "tests/validators/test_list.py::test_list_length_constraints[kwargs3-input_value3-expected3]",
+  "schema": {
+   "type": "list",
+   "min_length": 1
+  },
+  "config": null,
+  "mode": "python",
+  "input": [],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_short",
+     "loc": [],
+     "msg": "List should have at least 1 item after validation, not 0",
+     "input": [],
+     "ctx": {
+      "field_type": "List",
+      "min_length": 1,
+      "actual_length": 0
+     }
+    }
+   ],
+   "title": "list[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_length_constraints[kwargs4-input_value4-expected4]#0",
+  "test": "tests/validators/test_list.py::test_list_length_constraints[kwargs4-input_value4-expected4]",
+  "schema": {
+   "type": "list",
+   "max_length": 4
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3,
+    4
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_length_constraints[kwargs5-input_value5-expected5]#0",
+  "test": "tests/validators/test_list.py::test_list_length_constraints[kwargs5-input_value5-expected5]",
+  "schema": {
+   "type": "list",
+   "max_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_long",
+     "loc": [],
+     "msg": "List should have at most 3 items after validation, not 4",
+     "input": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "ctx": {
+      "field_type": "List",
+      "max_length": 3,
+      "actual_length": 4
+     }
+    }
+   ],
+   "title": "list[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_length_constraints[kwargs6-input_value6-expected6]#0",
+  "test": "tests/validators/test_list.py::test_list_length_constraints[kwargs6-input_value6-expected6]",
+  "schema": {
+   "type": "list",
+   "max_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_long",
+     "loc": [],
+     "msg": "List should have at most 3 items after validation, not 7",
+     "input": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+     ],
+     "ctx": {
+      "field_type": "List",
+      "max_length": 3,
+      "actual_length": 7
+     }
+    }
+   ],
+   "title": "list[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_length_constraints[kwargs7-input_value7-expected7]#0",
+  "test": "tests/validators/test_list.py::test_list_length_constraints[kwargs7-input_value7-expected7]",
+  "schema": {
+   "type": "list",
+   "max_length": 1
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_long",
+     "loc": [],
+     "msg": "List should have at most 1 item after validation, not 2",
+     "input": [
+      1,
+      2
+     ],
+     "ctx": {
+      "field_type": "List",
+      "max_length": 1,
+      "actual_length": 2
+     }
+    }
+   ],
+   "title": "list[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_length_constraints[kwargs8-infinite_generator-expected8]#0",
+  "test": "tests/validators/test_list.py::test_list_length_constraints[kwargs8-infinite_generator-expected8]",
+  "schema": {
+   "type": "list",
+   "max_length": 44
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_long",
+     "loc": [],
+     "msg": "List should have at most 44 items after validation, not more",
+     "input": {
+      "$object": "generator"
+     },
+     "ctx": {
+      "field_type": "List",
+      "max_length": 44,
+      "actual_length": null
+     }
+    }
+   ],
+   "title": "list[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_length_constraints[kwargs9-input_value9-expected9]#0",
+  "test": "tests/validators/test_list.py::test_list_length_constraints[kwargs9-input_value9-expected9]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "max_length": 4
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_long",
+     "loc": [],
+     "msg": "List should have at most 4 items after validation, not 9",
+     "input": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+     ],
+     "ctx": {
+      "field_type": "List",
+      "max_length": 4,
+      "actual_length": 9
+     }
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_length_constraints_omit[input_value0-expected0]#0",
+  "test": "tests/validators/test_list.py::test_list_length_constraints_omit[input_value0-expected0]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   },
+   "max_length": 4
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3,
+    4
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_length_constraints_omit[input_value1-expected1]#0",
+  "test": "tests/validators/test_list.py::test_list_length_constraints_omit[input_value1-expected1]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   },
+   "max_length": 4
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3,
+   4,
+   5
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_long",
+     "loc": [],
+     "msg": "List should have at most 4 items after validation, not 5",
+     "input": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "ctx": {
+      "field_type": "List",
+      "max_length": 4,
+      "actual_length": 5
+     }
+    }
+   ],
+   "title": "list[default[int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_length_constraints_omit[input_value2-expected2]#0",
+  "test": "tests/validators/test_list.py::test_list_length_constraints_omit[input_value2-expected2]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   },
+   "max_length": 4
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3,
+   "x",
+   4
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3,
+    4
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_no_copy#0",
+  "test": "tests/validators/test_list.py::test_list_no_copy",
+  "schema": {
+   "type": "list"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_py_or_json[json-'5'-Err(\"Input should be a valid (list|array) \\\\\\\\[type=list_type, input_value='5', input_type=str\\\\\\\\]\")]#0",
+  "test": "tests/validators/test_list.py::test_list_py_or_json[json-'5'-Err(\"Input should be a valid (list|array) \\\\\\\\[type=list_type, input_value='5', input_type=str\\\\\\\\]\")]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"5\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": "5"
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_py_or_json[json-5-Err('Input should be a valid (list|array) \\\\\\\\[type=list_type, input_value=5, input_type=int\\\\\\\\]')]#0",
+  "test": "tests/validators/test_list.py::test_list_py_or_json[json-5-Err('Input should be a valid (list|array) \\\\\\\\[type=list_type, input_value=5, input_type=int\\\\\\\\]')]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": 5
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_py_or_json[json-[1, 2, '3']-[1, 2, 3]]#0",
+  "test": "tests/validators/test_list.py::test_list_py_or_json[json-[1, 2, '3']-[1, 2, 3]]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2, \"3\"]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_py_or_json[json-[1, 2, 3]-[1, 2, 3]]#0",
+  "test": "tests/validators/test_list.py::test_list_py_or_json[json-[1, 2, 3]-[1, 2, 3]]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2, 3]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_py_or_json[python-'5'-Err(\"Input should be a valid (list|array) \\\\\\\\[type=list_type, input_value='5', input_type=str\\\\\\\\]\")]#0",
+  "test": "tests/validators/test_list.py::test_list_py_or_json[python-'5'-Err(\"Input should be a valid (list|array) \\\\\\\\[type=list_type, input_value='5', input_type=str\\\\\\\\]\")]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "5",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": "5"
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_py_or_json[python-5-Err('Input should be a valid (list|array) \\\\\\\\[type=list_type, input_value=5, input_type=int\\\\\\\\]')]#0",
+  "test": "tests/validators/test_list.py::test_list_py_or_json[python-5-Err('Input should be a valid (list|array) \\\\\\\\[type=list_type, input_value=5, input_type=int\\\\\\\\]')]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": 5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": 5
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_py_or_json[python-[1, 2, '3']-[1, 2, 3]]#0",
+  "test": "tests/validators/test_list.py::test_list_py_or_json[python-[1, 2, '3']-[1, 2, 3]]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   "3"
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_py_or_json[python-[1, 2, 3]-[1, 2, 3]]#0",
+  "test": "tests/validators/test_list.py::test_list_py_or_json[python-[1, 2, 3]-[1, 2, 3]]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_strict#0",
+  "test": "tests/validators/test_list.py::test_list_strict",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   "33"
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    33
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_list_strict#1",
+  "test": "tests/validators/test_list.py::test_list_strict",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    "33"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": {
+      "$tuple": [
+       1,
+       2,
+       "33"
+      ]
+     }
+    }
+   ],
+   "title": "list[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_max_length_fail_fast[False]#0",
+  "test": "tests/validators/test_list.py::test_max_length_fail_fast[False]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "function-after",
+    "function": {
+     "type": "no-info",
+     "function": {
+      "$function": "f"
+     }
+    },
+    "schema": {
+     "type": "int"
+    }
+   },
+   "max_length": 10
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_long",
+     "loc": [],
+     "msg": "List should have at most 10 items after validation, not 15",
+     "input": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+     ],
+     "ctx": {
+      "field_type": "List",
+      "max_length": 10,
+      "actual_length": 15
+     }
+    }
+   ],
+   "title": "list[function-after[f(), int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_list.py::test_max_length_fail_fast[True]#0",
+  "test": "tests/validators/test_list.py::test_max_length_fail_fast[True]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "function-after",
+    "function": {
+     "type": "no-info",
+     "function": {
+      "$function": "f"
+     }
+    },
+    "schema": {
+     "type": "int"
+    }
+   },
+   "max_length": 10
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   0,
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8,
+   9,
+   10,
+   11,
+   12,
+   13,
+   14
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_long",
+     "loc": [],
+     "msg": "List should have at most 10 items after validation, not 15",
+     "input": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14
+     ],
+     "ctx": {
+      "field_type": "List",
+      "max_length": 10,
+      "actual_length": 15
+     }
+    }
+   ],
+   "title": "list[function-after[f(), int]]"
+  }
+ }
+]

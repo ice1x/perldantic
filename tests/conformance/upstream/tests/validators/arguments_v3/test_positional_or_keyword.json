@@ -1,0 +1,670 @@
+[
+ {
+  "id": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_only_error_required[json-input_value1]#0",
+  "test": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_only_error_required[json-input_value1]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing_argument",
+     "loc": [
+      "a"
+     ],
+     "msg": "Missing required argument",
+     "input": {}
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_only_error_required[python-input_value0]#0",
+  "test": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_only_error_required[python-input_value0]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing_argument",
+     "loc": [
+      "a"
+     ],
+     "msg": "Missing required argument",
+     "input": {
+      "$object": "ArgsKwargs"
+     }
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_only_error_required[python-input_value1]#0",
+  "test": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_only_error_required[python-input_value1]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing_argument",
+     "loc": [
+      "a"
+     ],
+     "msg": "Missing required argument",
+     "input": {}
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword[json-input_value4-expected4]#0",
+  "test": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword[json-input_value4-expected4]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "bool"
+      },
+      "default": true
+     },
+     "mode": "positional_or_keyword"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"a\": 1, \"b\": true}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       true
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword[json-input_value5-expected5]#0",
+  "test": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword[json-input_value5-expected5]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "bool"
+      },
+      "default": true
+     },
+     "mode": "positional_or_keyword"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"a\": 1}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       true
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword[python-input_value0-expected0]#0",
+  "test": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword[python-input_value0-expected0]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "bool"
+      },
+      "default": true
+     },
+     "mode": "positional_or_keyword"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       true
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword[python-input_value1-expected1]#0",
+  "test": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword[python-input_value1-expected1]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "bool"
+      },
+      "default": true
+     },
+     "mode": "positional_or_keyword"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1
+      ]
+     },
+     {
+      "b": true
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword[python-input_value2-expected2]#0",
+  "test": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword[python-input_value2-expected2]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "bool"
+      },
+      "default": true
+     },
+     "mode": "positional_or_keyword"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1
+      ]
+     },
+     {
+      "b": true
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword[python-input_value3-expected3]#0",
+  "test": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword[python-input_value3-expected3]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "bool"
+      },
+      "default": true
+     },
+     "mode": "positional_or_keyword"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": 1,
+      "b": true
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword[python-input_value4-expected4]#0",
+  "test": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword[python-input_value4-expected4]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "bool"
+      },
+      "default": true
+     },
+     "mode": "positional_or_keyword"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": true
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       true
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword[python-input_value5-expected5]#0",
+  "test": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword[python-input_value5-expected5]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "bool"
+      },
+      "default": true
+     },
+     "mode": "positional_or_keyword"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       true
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword_validation_error[json-input_value2-err_loc2]#0",
+  "test": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword_validation_error[json-input_value2-err_loc2]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"a\": \"not_an_int\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "a"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword_validation_error[python-input_value0-err_loc0]#0",
+  "test": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword_validation_error[python-input_value0-err_loc0]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      0
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword_validation_error[python-input_value1-err_loc1]#0",
+  "test": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword_validation_error[python-input_value1-err_loc1]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "a"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword_validation_error[python-input_value2-err_loc2]#0",
+  "test": "tests/validators/arguments_v3/test_positional_or_keyword.py::test_positional_or_keyword_validation_error[python-input_value2-err_loc2]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_or_keyword"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": "not_an_int"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "a"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ }
+]

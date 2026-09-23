@@ -1,0 +1,2035 @@
+[
+ {
+  "id": "tests/validators/test_deque.py::test_deque_any[input_value0-expected0]#0",
+  "test": "tests/validators/test_deque.py::test_deque_any[input_value0-expected0]",
+  "schema": {
+   "type": "deque"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [],
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_any[input_value1-expected1]#0",
+  "test": "tests/validators/test_deque.py::test_deque_any[input_value1-expected1]",
+  "schema": {
+   "type": "deque"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "2",
+   {
+    "$bytes": "Mw=="
+   }
+  ],
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_any[input_value2-expected2]#0",
+  "test": "tests/validators/test_deque.py::test_deque_any[input_value2-expected2]",
+  "schema": {
+   "type": "deque"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_as_dict_keys[json]#0",
+  "test": "tests/validators/test_deque.py::test_deque_as_dict_keys[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "deque"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"foo\": \"bar\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [
+      "foo",
+      "[key]"
+     ],
+     "msg": "Input should be a valid array",
+     "input": "foo"
+    },
+    {
+     "type": "int_parsing",
+     "loc": [
+      "foo"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "bar"
+    }
+   ],
+   "title": "dict[deque[any],int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_as_dict_keys[python]#0",
+  "test": "tests/validators/test_deque.py::test_deque_as_dict_keys[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "deque"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": "bar"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [
+      "foo",
+      "[key]"
+     ],
+     "msg": "Input should be a valid deque",
+     "input": "foo"
+    },
+    {
+     "type": "int_parsing",
+     "loc": [
+      "foo"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "bar"
+    }
+   ],
+   "title": "dict[deque[any],int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_fail_fast[fail_fast]#0",
+  "test": "tests/validators/test_deque.py::test_deque_fail_fast[fail_fast]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   },
+   "fail_fast": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "not-num",
+   "again"
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not-num"
+    }
+   ],
+   "title": "deque[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_fail_fast[not_fail_fast]#0",
+  "test": "tests/validators/test_deque.py::test_deque_fail_fast[not_fail_fast]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   },
+   "fail_fast": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "not-num",
+   "again"
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not-num"
+    },
+    {
+     "type": "int_parsing",
+     "loc": [
+      2
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "again"
+    }
+   ],
+   "title": "deque[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_from_dict_items[Any]#0",
+  "test": "tests/validators/test_deque.py::test_deque_from_dict_items[Any]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_items"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_from_dict_items[Tuple[Any, Any]]#0",
+  "test": "tests/validators/test_deque.py::test_deque_from_dict_items[Tuple[Any, Any]]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "any"
+     }
+    ],
+    "variadic_item_index": 0
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_items"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_from_dict_items[Tuple[int, int]]#0",
+  "test": "tests/validators/test_deque.py::test_deque_from_dict_items[Tuple[int, int]]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     }
+    ],
+    "variadic_item_index": 0
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_items"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_both[json-input_value0-expected0]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_both[json-input_value0-expected0]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_both[json-input_value1-expected1]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_both[json-input_value1-expected1]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2, 3]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_both[json-input_value2-expected2]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_both[json-input_value2-expected2]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2, \"3\"]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_both[json-input_value3-expected3]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_both[json-input_value3-expected3]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2, 3, 2, 3]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_both[python-input_value0-expected0]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_both[python-input_value0-expected0]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_both[python-input_value1-expected1]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_both[python-input_value1-expected1]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_both[python-input_value2-expected2]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_both[python-input_value2-expected2]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   "3"
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_both[python-input_value3-expected3]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_both[python-input_value3-expected3]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3,
+   2,
+   3
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_python[<genexpr>-expected11]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_python[<genexpr>-expected11]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_python[abc-expected15]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_python[abc-expected15]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "abc",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [],
+     "msg": "Input should be a valid deque",
+     "input": "abc"
+    }
+   ],
+   "title": "deque[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_python[abc-expected16]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_python[abc-expected16]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "YWJj"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [],
+     "msg": "Input should be a valid deque",
+     "input": {
+      "$bytes": "YWJj"
+     }
+    }
+   ],
+   "title": "deque[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_python[input_value0-expected0]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_python[input_value0-expected0]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_python[input_value1-expected1]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_python[input_value1-expected1]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_python[input_value10-expected10]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_python[input_value10-expected10]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     10
+    ],
+    [
+     2,
+     20
+    ],
+    [
+     "3",
+     "30"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [],
+     "msg": "Input should be a valid deque",
+     "input": {
+      "$dict": [
+       [
+        1,
+        10
+       ],
+       [
+        2,
+        20
+       ],
+       [
+        "3",
+        "30"
+       ]
+      ]
+     }
+    }
+   ],
+   "title": "deque[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_python[input_value12-expected12]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_python[input_value12-expected12]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "abc"
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      0
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "abc"
+    }
+   ],
+   "title": "deque[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_python[input_value13-expected13]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_python[input_value13-expected13]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   "wrong"
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      2
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "deque[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_python[input_value14-expected14]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_python[input_value14-expected14]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [],
+     "msg": "Input should be a valid deque",
+     "input": {
+      "$dict": [
+       [
+        1,
+        2
+       ]
+      ]
+     }
+    }
+   ],
+   "title": "deque[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_python[input_value2-expected2]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_python[input_value2-expected2]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   "3"
+  ],
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_python[input_value3-expected3]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_python[input_value3-expected3]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [],
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_python[input_value4-expected4]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_python[input_value4-expected4]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    "3"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_python[input_value5-expected5]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_python[input_value5-expected5]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": []
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_python[input_value6-expected6]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_python[input_value6-expected6]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_python[input_value7-expected7]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_python[input_value7-expected7]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$frozenset": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_python[input_value8-expected8]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_python[input_value8-expected8]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_keys"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_ints_python[input_value9-expected9]#0",
+  "test": "tests/validators/test_deque.py::test_deque_ints_python[input_value9-expected9]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "dict_values"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_json_error_message#0",
+  "test": "tests/validators/test_deque.py::test_deque_json_error_message",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"abc\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": "abc"
+    }
+   ],
+   "title": "deque[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs0-input_value0-expected0]#0",
+  "test": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs0-input_value0-expected0]",
+  "schema": {
+   "type": "deque",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs1-input_value1-expected1]#0",
+  "test": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs1-input_value1-expected1]",
+  "schema": {
+   "type": "deque",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs10-input_value10-expected10]#0",
+  "test": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs10-input_value10-expected10]",
+  "schema": {
+   "type": "deque",
+   "min_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_short",
+     "loc": [],
+     "msg": "Deque should have at least 3 items after validation, not 2",
+     "input": {
+      "$object": "deque"
+     },
+     "ctx": {
+      "field_type": "Deque",
+      "min_length": 3,
+      "actual_length": 2
+     }
+    }
+   ],
+   "title": "deque[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs11-input_value11-expected11]#0",
+  "test": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs11-input_value11-expected11]",
+  "schema": {
+   "type": "deque",
+   "max_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs12-input_value12-expected12]#0",
+  "test": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs12-input_value12-expected12]",
+  "schema": {
+   "type": "deque",
+   "max_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_long",
+     "loc": [],
+     "msg": "Deque should have at most 3 items after validation, not 4",
+     "input": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "ctx": {
+      "field_type": "Deque",
+      "max_length": 3,
+      "actual_length": 4
+     }
+    }
+   ],
+   "title": "deque[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs13-input_value13-expected13]#0",
+  "test": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs13-input_value13-expected13]",
+  "schema": {
+   "type": "deque",
+   "max_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_long",
+     "loc": [],
+     "msg": "Deque should have at most 3 items after validation, not 4",
+     "input": {
+      "$object": "deque"
+     },
+     "ctx": {
+      "field_type": "Deque",
+      "max_length": 3,
+      "actual_length": 4
+     }
+    }
+   ],
+   "title": "deque[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs14-input_value14-expected14]#0",
+  "test": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs14-input_value14-expected14]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   },
+   "max_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_long",
+     "loc": [],
+     "msg": "Deque should have at most 3 items after validation, not 4",
+     "input": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "ctx": {
+      "field_type": "Deque",
+      "max_length": 3,
+      "actual_length": 4
+     }
+    }
+   ],
+   "title": "deque[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs15-infinite_generator-expected15]#0",
+  "test": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs15-infinite_generator-expected15]",
+  "schema": {
+   "type": "deque",
+   "max_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_long",
+     "loc": [],
+     "msg": "Deque should have at most 3 items after validation, not more",
+     "input": {
+      "$object": "generator"
+     },
+     "ctx": {
+      "field_type": "Deque",
+      "max_length": 3,
+      "actual_length": null
+     }
+    }
+   ],
+   "title": "deque[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs2-input_value2-expected2]#0",
+  "test": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs2-input_value2-expected2]",
+  "schema": {
+   "type": "deque",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [],
+     "msg": "Input should be a valid deque",
+     "input": [
+      1,
+      2,
+      3
+     ]
+    }
+   ],
+   "title": "deque[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs3-input_value3-expected3]#0",
+  "test": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs3-input_value3-expected3]",
+  "schema": {
+   "type": "deque",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": [],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [],
+     "msg": "Input should be a valid deque",
+     "input": []
+    }
+   ],
+   "title": "deque[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs4-input_value4-expected4]#0",
+  "test": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs4-input_value4-expected4]",
+  "schema": {
+   "type": "deque",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": []
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [],
+     "msg": "Input should be a valid deque",
+     "input": {
+      "$tuple": []
+     }
+    }
+   ],
+   "title": "deque[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs5-input_value5-expected5]#0",
+  "test": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs5-input_value5-expected5]",
+  "schema": {
+   "type": "deque",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [],
+     "msg": "Input should be a valid deque",
+     "input": {
+      "$tuple": [
+       1,
+       2,
+       3
+      ]
+     }
+    }
+   ],
+   "title": "deque[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs6-input_value6-expected6]#0",
+  "test": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs6-input_value6-expected6]",
+  "schema": {
+   "type": "deque",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [],
+     "msg": "Input should be a valid deque",
+     "input": {
+      "$set": [
+       1,
+       2,
+       3
+      ]
+     }
+    }
+   ],
+   "title": "deque[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs7-abc-expected7]#0",
+  "test": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs7-abc-expected7]",
+  "schema": {
+   "type": "deque",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "abc",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [],
+     "msg": "Input should be a valid deque",
+     "input": "abc"
+    }
+   ],
+   "title": "deque[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs8-input_value8-expected8]#0",
+  "test": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs8-input_value8-expected8]",
+  "schema": {
+   "type": "deque",
+   "min_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs9-input_value9-expected9]#0",
+  "test": "tests/validators/test_deque.py::test_deque_kwargs_python[kwargs9-input_value9-expected9]",
+  "schema": {
+   "type": "deque",
+   "min_length": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "too_short",
+     "loc": [],
+     "msg": "Deque should have at least 3 items after validation, not 2",
+     "input": [
+      1,
+      2
+     ],
+     "ctx": {
+      "field_type": "Deque",
+      "min_length": 3,
+      "actual_length": 2
+     }
+    }
+   ],
+   "title": "deque[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_maxlen_not_set_for_other_inputs#0",
+  "test": "tests/validators/test_deque.py::test_deque_maxlen_not_set_for_other_inputs",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_maxlen_not_set_for_other_inputs#1",
+  "test": "tests/validators/test_deque.py::test_deque_maxlen_not_set_for_other_inputs",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2, 3]",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_maxlen_preserved[None-input_value0]#0",
+  "test": "tests/validators/test_deque.py::test_deque_maxlen_preserved[None-input_value0]",
+  "schema": {
+   "type": "deque"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_maxlen_preserved[None-input_value1]#0",
+  "test": "tests/validators/test_deque.py::test_deque_maxlen_preserved[None-input_value1]",
+  "schema": {
+   "type": "deque"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_maxlen_preserved[None-input_value2]#0",
+  "test": "tests/validators/test_deque.py::test_deque_maxlen_preserved[None-input_value2]",
+  "schema": {
+   "type": "deque"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_maxlen_preserved[items_schema1-input_value0]#0",
+  "test": "tests/validators/test_deque.py::test_deque_maxlen_preserved[items_schema1-input_value0]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_maxlen_preserved[items_schema1-input_value1]#0",
+  "test": "tests/validators/test_deque.py::test_deque_maxlen_preserved[items_schema1-input_value1]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_maxlen_preserved[items_schema1-input_value2]#0",
+  "test": "tests/validators/test_deque.py::test_deque_maxlen_preserved[items_schema1-input_value2]",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_multiple_errors#0",
+  "test": "tests/validators/test_deque.py::test_deque_multiple_errors",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "a",
+   {
+    "$tuple": [
+     1,
+     2
+    ]
+   },
+   []
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      0
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "a"
+    },
+    {
+     "type": "int_type",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid integer",
+     "input": {
+      "$tuple": [
+       1,
+       2
+      ]
+     }
+    },
+    {
+     "type": "int_type",
+     "loc": [
+      2
+     ],
+     "msg": "Input should be a valid integer",
+     "input": []
+    }
+   ],
+   "title": "deque[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_no_validators_both[json-1-expected2]#0",
+  "test": "tests/validators/test_deque.py::test_deque_no_validators_both[json-1-expected2]",
+  "schema": {
+   "type": "deque"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": 1
+    }
+   ],
+   "title": "deque[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_no_validators_both[json-1.0-expected3]#0",
+  "test": "tests/validators/test_deque.py::test_deque_no_validators_both[json-1.0-expected3]",
+  "schema": {
+   "type": "deque"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": 1.0
+    }
+   ],
+   "title": "deque[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_no_validators_both[json-False-expected4]#0",
+  "test": "tests/validators/test_deque.py::test_deque_no_validators_both[json-False-expected4]",
+  "schema": {
+   "type": "deque"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "false",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": false
+    }
+   ],
+   "title": "deque[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_no_validators_both[json-foo-expected1]#0",
+  "test": "tests/validators/test_deque.py::test_deque_no_validators_both[json-foo-expected1]",
+  "schema": {
+   "type": "deque"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foo\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": "foo"
+    }
+   ],
+   "title": "deque[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_no_validators_both[json-input_value0-expected0]#0",
+  "test": "tests/validators/test_deque.py::test_deque_no_validators_both[json-input_value0-expected0]",
+  "schema": {
+   "type": "deque"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2.5, \"3\"]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_no_validators_both[python-1-expected2]#0",
+  "test": "tests/validators/test_deque.py::test_deque_no_validators_both[python-1-expected2]",
+  "schema": {
+   "type": "deque"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [],
+     "msg": "Input should be a valid deque",
+     "input": 1
+    }
+   ],
+   "title": "deque[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_no_validators_both[python-1.0-expected3]#0",
+  "test": "tests/validators/test_deque.py::test_deque_no_validators_both[python-1.0-expected3]",
+  "schema": {
+   "type": "deque"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [],
+     "msg": "Input should be a valid deque",
+     "input": 1.0
+    }
+   ],
+   "title": "deque[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_no_validators_both[python-False-expected4]#0",
+  "test": "tests/validators/test_deque.py::test_deque_no_validators_both[python-False-expected4]",
+  "schema": {
+   "type": "deque"
+  },
+  "config": null,
+  "mode": "python",
+  "input": false,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [],
+     "msg": "Input should be a valid deque",
+     "input": false
+    }
+   ],
+   "title": "deque[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_no_validators_both[python-foo-expected1]#0",
+  "test": "tests/validators/test_deque.py::test_deque_no_validators_both[python-foo-expected1]",
+  "schema": {
+   "type": "deque"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foo",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "deque_type",
+     "loc": [],
+     "msg": "Input should be a valid deque",
+     "input": "foo"
+    }
+   ],
+   "title": "deque[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_no_validators_both[python-input_value0-expected0]#0",
+  "test": "tests/validators/test_deque.py::test_deque_no_validators_both[python-input_value0-expected0]",
+  "schema": {
+   "type": "deque"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2.5,
+   "3"
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_strict_json#0",
+  "test": "tests/validators/test_deque.py::test_deque_strict_json",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2]",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_deque_subclass#0",
+  "test": "tests/validators/test_deque.py::test_deque_subclass",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "MyDeque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_generator_error#0",
+  "test": "tests/validators/test_deque.py::test_generator_error",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_no_copy#0",
+  "test": "tests/validators/test_deque.py::test_no_copy",
+  "schema": {
+   "type": "deque"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_union_deque_list[input_value0-expected0]#0",
+  "test": "tests/validators/test_deque.py::test_union_deque_list[input_value0-expected0]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "deque"
+    },
+    {
+     "type": "list"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_deque.py::test_union_deque_list[input_value1-expected1]#0",
+  "test": "tests/validators/test_deque.py::test_union_deque_list[input_value1-expected1]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "deque"
+    },
+    {
+     "type": "list"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ }
+]

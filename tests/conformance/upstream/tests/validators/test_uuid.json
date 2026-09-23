@@ -1,0 +1,2161 @@
+[
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[0-expected33]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[0-expected33]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_type",
+     "loc": [],
+     "msg": "UUID input should be a string, bytes or UUID object",
+     "input": 0
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[00000000-0000-0000-0000-000000000000-expected5]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[00000000-0000-0000-0000-000000000000-expected5]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "00000000-0000-0000-0000-000000000000",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "00000000-0000-0000-0000-000000000000"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[00000000-0000-4000-0000-000000000000-expected14]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[00000000-0000-4000-0000-000000000000-expected14]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "00000000-0000-4000-0000-000000000000",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "00000000-0000-4000-0000-000000000000"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[00000000-0000-4000-0000-000000000000-expected15]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[00000000-0000-4000-0000-000000000000-expected15]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "MyStr",
+    "00000000-0000-4000-0000-000000000000"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "00000000-0000-4000-0000-000000000000"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[00000000-8000-4000-8000-000000000000-expected13]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[00000000-8000-4000-8000-000000000000-expected13]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "00000000-8000-4000-8000-000000000000",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "00000000-8000-4000-8000-000000000000"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[0194fdc2-5d6a-733c-97f9-2feeb9d2a609-expected11]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[0194fdc2-5d6a-733c-97f9-2feeb9d2a609-expected11]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "0194fdc2-5d6a-733c-97f9-2feeb9d2a609",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "0194fdc2-5d6a-733c-97f9-2feeb9d2a609"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[12345678-1234-1234-1234-1234567890123-expected23]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[12345678-1234-1234-1234-1234567890123-expected23]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12345678-1234-1234-1234-1234567890123",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_parsing",
+     "loc": [],
+     "msg": "Input should be a valid UUID, invalid group length in group 4: expected 12, found 13",
+     "input": "12345678-1234-1234-1234-1234567890123",
+     "ctx": {
+      "error": "invalid group length in group 4: expected 12, found 13"
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[12345678-1234-1234-1234-567812345678-expected0]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[12345678-1234-1234-1234-567812345678-expected0]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12345678-1234-1234-1234-567812345678",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "12345678-1234-1234-1234-567812345678"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[12345678-1234-5678-1234-5678123456789-expected22]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[12345678-1234-5678-1234-5678123456789-expected22]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12345678-1234-5678-1234-5678123456789",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_parsing",
+     "loc": [],
+     "msg": "Input should be a valid UUID, invalid group length in group 4: expected 12, found 13",
+     "input": "12345678-1234-5678-1234-5678123456789",
+     "ctx": {
+      "error": "invalid group length in group 4: expected 12, found 13"
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[123e4567-e89b-12d3-a456-426655440000-expected3]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[123e4567-e89b-12d3-a456-426655440000-expected3]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "123e4567-e89b-12d3-a456-426655440000",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "123e4567-e89b-12d3-a456-426655440000"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[1b4e28ba-2fa1-11d2-883f-0016d3cca42-expected28]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[1b4e28ba-2fa1-11d2-883f-0016d3cca42-expected28]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1b4e28ba-2fa1-11d2-883f-0016d3cca42",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_parsing",
+     "loc": [],
+     "msg": "Input should be a valid UUID, invalid group length in group 4: expected 12, found 11",
+     "input": "1b4e28ba-2fa1-11d2-883f-0016d3cca42",
+     "ctx": {
+      "error": "invalid group length in group 4: expected 12, found 11"
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[1b4e28ba-2fa1-11d2-883f-0016d3cca427-expected6]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[1b4e28ba-2fa1-11d2-883f-0016d3cca427-expected6]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1b4e28ba-2fa1-11d2-883f-0016d3cca427",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "1b4e28ba-2fa1-11d2-883f-0016d3cca427"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[1efea93d-7bb8-6ea0-afdc-e76cbc0c8e05-expected10]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[1efea93d-7bb8-6ea0-afdc-e76cbc0c8e05-expected10]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1efea93d-7bb8-6ea0-afdc-e76cbc0c8e05",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "1efea93d-7bb8-6ea0-afdc-e76cbc0c8e05"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[214850178493633095719753750962310141912-expected32]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[214850178493633095719753750962310141912-expected32]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 214850178493633095719753750962310141912,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_type",
+     "loc": [],
+     "msg": "UUID input should be a string, bytes or UUID object",
+     "input": 214850178493633095719753750962310141912
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[550e8400-e29b-41d4-a716-446655440000-expected1]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[550e8400-e29b-41d4-a716-446655440000-expected1]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "550e8400-e29b-41d4-a716-446655440000",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "550e8400-e29b-41d4-a716-446655440000"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[550e8400-e29b-41d4-a716-expected25]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[550e8400-e29b-41d4-a716-expected25]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "550e8400-e29b-41d4-a716",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_parsing",
+     "loc": [],
+     "msg": "Input should be a valid UUID, invalid group count: expected 5, found 4",
+     "input": "550e8400-e29b-41d4-a716",
+     "ctx": {
+      "error": "invalid group count: expected 5, found 4"
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[6ba7b810-9dad-11d1-80b4-00c04fd430c-expected29]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[6ba7b810-9dad-11d1-80b4-00c04fd430c-expected29]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "6ba7b810-9dad-11d1-80b4-00c04fd430c",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_parsing",
+     "loc": [],
+     "msg": "Input should be a valid UUID, invalid group length in group 4: expected 12, found 11",
+     "input": "6ba7b810-9dad-11d1-80b4-00c04fd430c",
+     "ctx": {
+      "error": "invalid group length in group 4: expected 12, found 11"
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[6ba7b810-9dad-11d1-80b4-00c04fd430c8-expected7]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[6ba7b810-9dad-11d1-80b4-00c04fd430c8-expected7]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "6ba7b810-9dad-11d1-80b4-00c04fd430c8",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "6ba7b810-9dad-11d1-80b4-00c04fd430c8"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[886313e1-3b8a-5372-9b90-0c9aee199e5-expected30]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[886313e1-3b8a-5372-9b90-0c9aee199e5-expected30]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "886313e1-3b8a-5372-9b90-0c9aee199e5",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_parsing",
+     "loc": [],
+     "msg": "Input should be a valid UUID, invalid group length in group 4: expected 12, found 11",
+     "input": "886313e1-3b8a-5372-9b90-0c9aee199e5",
+     "ctx": {
+      "error": "invalid group length in group 4: expected 12, found 11"
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[886313e1-3b8a-5372-9b90-0c9aee199e5d-expected8]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[886313e1-3b8a-5372-9b90-0c9aee199e5d-expected8]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "886313e1-3b8a-5372-9b90-0c9aee199e5d",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "886313e1-3b8a-5372-9b90-0c9aee199e5d"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[\\x00\\x00\\x00\\x000\\x00\\x00\\x00\\x000\\x00\\x00\\x00\\x000\\x00\\x00\\x00\\x000-expected24]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[\\x00\\x00\\x00\\x000\\x00\\x00\\x00\\x000\\x00\\x00\\x00\\x000\\x00\\x00\\x00\\x000-expected24]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "AAAAADAAAAAAMAAAAAAwAAAAADA="
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_parsing",
+     "loc": [],
+     "msg": "Input should be a valid UUID, invalid length: expected 16 bytes, found 20",
+     "input": {
+      "$bytes": "AAAAADAAAAAAMAAAAAAwAAAAADA="
+     },
+     "ctx": {
+      "error": "invalid length: expected 16 bytes, found 20"
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00-expected17]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00\\x00-expected17]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "AAAAAAAAAAAAAAAAAAAAAA=="
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "00000000-0000-0000-0000-000000000000"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[\\x124Vx\\x124Vx\\x124Vx\\x124Vx-expected16]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[\\x124Vx\\x124Vx\\x124Vx\\x124Vx-expected16]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "EjRWeBI0VngSNFZ4EjRWeA=="
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "12345678-1234-5678-1234-567812345678"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[c0a8f9a8-aa5e-482b-a067-9cb3a51f5c1-expected31]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[c0a8f9a8-aa5e-482b-a067-9cb3a51f5c1-expected31]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "c0a8f9a8-aa5e-482b-a067-9cb3a51f5c1",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_parsing",
+     "loc": [],
+     "msg": "Input should be a valid UUID, invalid group length in group 4: expected 12, found 11",
+     "input": "c0a8f9a8-aa5e-482b-a067-9cb3a51f5c1",
+     "ctx": {
+      "error": "invalid group length in group 4: expected 12, found 11"
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[c0a8f9a8-aa5e-482b-a067-9cb3a51f5c11-expected9]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[c0a8f9a8-aa5e-482b-a067-9cb3a51f5c11-expected9]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "c0a8f9a8-aa5e-482b-a067-9cb3a51f5c11",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "c0a8f9a8-aa5e-482b-a067-9cb3a51f5c11"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[c0a8f9a8-aa5e-882b-a067-9cb3a51f5c11-expected12]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[c0a8f9a8-aa5e-882b-a067-9cb3a51f5c11-expected12]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "c0a8f9a8-aa5e-882b-a067-9cb3a51f5c11",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "c0a8f9a8-aa5e-882b-a067-9cb3a51f5c11"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[de305d54-75b4-431b-adb2-eb6b9e54601-expected27]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[de305d54-75b4-431b-adb2-eb6b9e54601-expected27]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "de305d54-75b4-431b-adb2-eb6b9e54601",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_parsing",
+     "loc": [],
+     "msg": "Input should be a valid UUID, invalid group length in group 4: expected 12, found 11",
+     "input": "de305d54-75b4-431b-adb2-eb6b9e54601",
+     "ctx": {
+      "error": "invalid group length in group 4: expected 12, found 11"
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[de305d54-75b4-431b-adb2-eb6b9e546014-expected4]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[de305d54-75b4-431b-adb2-eb6b9e546014-expected4]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "de305d54-75b4-431b-adb2-eb6b9e546014",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "de305d54-75b4-431b-adb2-eb6b9e546014"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[ebcdab58-6eb8-46fb-a190-d07a33e9eac8-expected18]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[ebcdab58-6eb8-46fb-a190-d07a33e9eac8-expected18]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "ZWJjZGFiNTgtNmViOC00NmZiLWExOTAtZDA3YTMzZTllYWM4"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "ebcdab58-6eb8-46fb-a190-d07a33e9eac8"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[f47ac10b-58cc-4372-a567-0e02b2c3d47-expected26]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[f47ac10b-58cc-4372-a567-0e02b2c3d47-expected26]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "f47ac10b-58cc-4372-a567-0e02b2c3d47",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_parsing",
+     "loc": [],
+     "msg": "Input should be a valid UUID, invalid group length in group 4: expected 12, found 11",
+     "input": "f47ac10b-58cc-4372-a567-0e02b2c3d47",
+     "ctx": {
+      "error": "invalid group length in group 4: expected 12, found 11"
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[f47ac10b-58cc-4372-a567-0e02b2c3d479-expected2]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[f47ac10b-58cc-4372-a567-0e02b2c3d479-expected2]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "f47ac10b-58cc-4372-a567-0e02b2c3d479",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[input_value19-expected19]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[input_value19-expected19]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "12345678-1234-5678-1234-567812345678"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "12345678-1234-5678-1234-567812345678"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[input_value20-expected20]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[input_value20-expected20]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "550e8400-e29b-41d4-a716-446655440000"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "550e8400-e29b-41d4-a716-446655440000"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid[not-a-valid-uuid-expected21]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid[not-a-valid-uuid-expected21]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "not-a-valid-uuid",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_parsing",
+     "loc": [],
+     "msg": "Input should be a valid UUID, invalid character: found `n` at 0",
+     "input": "not-a-valid-uuid",
+     "ctx": {
+      "error": "invalid character: found `n` at 0"
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_copy#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_copy",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "a6cc5730-2261-11ee-9c43-2eb5a363657c",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "a6cc5730-2261-11ee-9c43-2eb5a363657c"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_deepcopy#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_deepcopy",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "a6cc5730-2261-11ee-9c43-2eb5a363657c",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "a6cc5730-2261-11ee-9c43-2eb5a363657c"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_json[json-10.0-expected3]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_json[json-10.0-expected3]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "10.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_type",
+     "loc": [],
+     "msg": "UUID input should be a string, bytes or UUID object",
+     "input": 10.0
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_json[json-12345678123456781234567812345678-expected1]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_json[json-12345678123456781234567812345678-expected1]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"12345678123456781234567812345678\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$uuid": "12345678-1234-5678-1234-567812345678"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_json[json-214850178493633095719753750962310141912-expected6]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_json[json-214850178493633095719753750962310141912-expected6]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "214850178493633095719753750962310141912",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_type",
+     "loc": [],
+     "msg": "UUID input should be a string, bytes or UUID object",
+     "input": 214850178493633095719753750962310141912
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_json[json-24197857161011715162171839636988778104-expected7]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_json[json-24197857161011715162171839636988778104-expected7]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "24197857161011715162171839636988778104",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_type",
+     "loc": [],
+     "msg": "UUID input should be a string, bytes or UUID object",
+     "input": 24197857161011715162171839636988778104
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_json[json-None-expected4]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_json[json-None-expected4]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "null",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_type",
+     "loc": [],
+     "msg": "UUID input should be a string, bytes or UUID object",
+     "input": null
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_json[json-True-expected5]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_json[json-True-expected5]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "true",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_type",
+     "loc": [],
+     "msg": "UUID input should be a string, bytes or UUID object",
+     "input": true
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_json[json-a6cc5730-2261-11ee-9c43-2eb5a363657c-expected0]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_json[json-a6cc5730-2261-11ee-9c43-2eb5a363657c-expected0]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"a6cc5730-2261-11ee-9c43-2eb5a363657c\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$uuid": "a6cc5730-2261-11ee-9c43-2eb5a363657c"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_json[json-c0a8f9a8-aa5e-482b-a067-9cb3a51f5c1-expected2]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_json[json-c0a8f9a8-aa5e-482b-a067-9cb3a51f5c1-expected2]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"c0a8f9a8-aa5e-482b-a067-9cb3a51f5c1\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_parsing",
+     "loc": [],
+     "msg": "Input should be a valid UUID, invalid group length in group 4: expected 12, found 11",
+     "input": "c0a8f9a8-aa5e-482b-a067-9cb3a51f5c1",
+     "ctx": {
+      "error": "invalid group length in group 4: expected 12, found 11"
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_json[python-10.0-expected3]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_json[python-10.0-expected3]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 10.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_type",
+     "loc": [],
+     "msg": "UUID input should be a string, bytes or UUID object",
+     "input": 10.0
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_json[python-12345678123456781234567812345678-expected1]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_json[python-12345678123456781234567812345678-expected1]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12345678123456781234567812345678",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$uuid": "12345678-1234-5678-1234-567812345678"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_json[python-214850178493633095719753750962310141912-expected6]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_json[python-214850178493633095719753750962310141912-expected6]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 214850178493633095719753750962310141912,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_type",
+     "loc": [],
+     "msg": "UUID input should be a string, bytes or UUID object",
+     "input": 214850178493633095719753750962310141912
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_json[python-24197857161011715162171839636988778104-expected7]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_json[python-24197857161011715162171839636988778104-expected7]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 24197857161011715162171839636988778104,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_type",
+     "loc": [],
+     "msg": "UUID input should be a string, bytes or UUID object",
+     "input": 24197857161011715162171839636988778104
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_json[python-None-expected4]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_json[python-None-expected4]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": null,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_type",
+     "loc": [],
+     "msg": "UUID input should be a string, bytes or UUID object",
+     "input": null
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_json[python-True-expected5]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_json[python-True-expected5]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": true,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_type",
+     "loc": [],
+     "msg": "UUID input should be a string, bytes or UUID object",
+     "input": true
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_json[python-a6cc5730-2261-11ee-9c43-2eb5a363657c-expected0]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_json[python-a6cc5730-2261-11ee-9c43-2eb5a363657c-expected0]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "a6cc5730-2261-11ee-9c43-2eb5a363657c",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$uuid": "a6cc5730-2261-11ee-9c43-2eb5a363657c"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_json[python-c0a8f9a8-aa5e-482b-a067-9cb3a51f5c1-expected2]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_json[python-c0a8f9a8-aa5e-482b-a067-9cb3a51f5c1-expected2]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "c0a8f9a8-aa5e-482b-a067-9cb3a51f5c1",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_parsing",
+     "loc": [],
+     "msg": "Input should be a valid UUID, invalid group length in group 4: expected 12, found 11",
+     "input": "c0a8f9a8-aa5e-482b-a067-9cb3a51f5c1",
+     "ctx": {
+      "error": "invalid group length in group 4: expected 12, found 11"
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_strict[12345678-1234-5678-1234-567812345678-expected1]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_strict[12345678-1234-5678-1234-567812345678-expected1]",
+  "schema": {
+   "type": "uuid",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "12345678-1234-5678-1234-567812345678",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of UUID",
+     "input": "12345678-1234-5678-1234-567812345678",
+     "ctx": {
+      "class": "UUID"
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_strict[12345678-1234-5678-1234-567812345678-expected2]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_strict[12345678-1234-5678-1234-567812345678-expected2]",
+  "schema": {
+   "type": "uuid",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "MTIzNDU2NzgtMTIzNC01Njc4LTEyMzQtNTY3ODEyMzQ1Njc4"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of UUID",
+     "input": {
+      "$bytes": "MTIzNDU2NzgtMTIzNC01Njc4LTEyMzQtNTY3ODEyMzQ1Njc4"
+     },
+     "ctx": {
+      "class": "UUID"
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_strict[1654646400-expected3]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_strict[1654646400-expected3]",
+  "schema": {
+   "type": "uuid",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1654646400,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "is_instance_of",
+     "loc": [],
+     "msg": "Input should be an instance of UUID",
+     "input": 1654646400,
+     "ctx": {
+      "class": "UUID"
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_strict[input_value0-expected0]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_strict[input_value0-expected0]",
+  "schema": {
+   "type": "uuid",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "12345678-1234-5678-1234-567812345678"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "12345678-1234-5678-1234-567812345678"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[00000000-0000-4000-0000-000000000000-4-expected38]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[00000000-0000-4000-0000-000000000000-4-expected38]",
+  "schema": {
+   "type": "uuid",
+   "version": 4
+  },
+  "config": null,
+  "mode": "python",
+  "input": "00000000-0000-4000-0000-000000000000",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_version",
+     "loc": [],
+     "msg": "UUID version 4 expected",
+     "input": "00000000-0000-4000-0000-000000000000",
+     "ctx": {
+      "expected_version": 4
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[00000000-0000-4000-0000-000000000000-None-expected16]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[00000000-0000-4000-0000-000000000000-None-expected16]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "00000000-0000-4000-0000-000000000000",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "00000000-0000-4000-0000-000000000000"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[00000000-7fff-4000-7fff-000000000000-None-expected18]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[00000000-7fff-4000-7fff-000000000000-None-expected18]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "00000000-7fff-4000-7fff-000000000000",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "00000000-7fff-4000-7fff-000000000000"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[00000000-8000-4000-8000-000000000000-4-expected14]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[00000000-8000-4000-8000-000000000000-4-expected14]",
+  "schema": {
+   "type": "uuid",
+   "version": 4
+  },
+  "config": null,
+  "mode": "python",
+  "input": "00000000-8000-4000-8000-000000000000",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "00000000-8000-4000-8000-000000000000"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[0194fdc2-5d6a-733c-97f9-2feeb9d2a609-7-expected8]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[0194fdc2-5d6a-733c-97f9-2feeb9d2a609-7-expected8]",
+  "schema": {
+   "type": "uuid",
+   "version": 7
+  },
+  "config": null,
+  "mode": "python",
+  "input": "0194fdc2-5d6a-733c-97f9-2feeb9d2a609",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "0194fdc2-5d6a-733c-97f9-2feeb9d2a609"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[04e4aeb3-8f20-30d0-8852-d295e1265eed-3-expected2]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[04e4aeb3-8f20-30d0-8852-d295e1265eed-3-expected2]",
+  "schema": {
+   "type": "uuid",
+   "version": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": "04e4aeb3-8f20-30d0-8852-d295e1265eed",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "04e4aeb3-8f20-30d0-8852-d295e1265eed"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[04e4aeb3-8f20-30d0-8852-d295e1265eed-4-expected32]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[04e4aeb3-8f20-30d0-8852-d295e1265eed-4-expected32]",
+  "schema": {
+   "type": "uuid",
+   "version": 4
+  },
+  "config": null,
+  "mode": "python",
+  "input": "04e4aeb3-8f20-30d0-8852-d295e1265eed",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_version",
+     "loc": [],
+     "msg": "UUID version 4 expected",
+     "input": "04e4aeb3-8f20-30d0-8852-d295e1265eed",
+     "ctx": {
+      "expected_version": 4
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[08ed0736-fb95-5cc5-85ed-37e4f3df9b29-1-expected36]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[08ed0736-fb95-5cc5-85ed-37e4f3df9b29-1-expected36]",
+  "schema": {
+   "type": "uuid",
+   "version": 1
+  },
+  "config": null,
+  "mode": "python",
+  "input": "08ed0736-fb95-5cc5-85ed-37e4f3df9b29",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_version",
+     "loc": [],
+     "msg": "UUID version 1 expected",
+     "input": "08ed0736-fb95-5cc5-85ed-37e4f3df9b29",
+     "ctx": {
+      "expected_version": 1
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[0e7ac198-9acd-4c0c-b4b4-761974bf71d7-3-expected34]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[0e7ac198-9acd-4c0c-b4b4-761974bf71d7-3-expected34]",
+  "schema": {
+   "type": "uuid",
+   "version": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": "0e7ac198-9acd-4c0c-b4b4-761974bf71d7",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_version",
+     "loc": [],
+     "msg": "UUID version 3 expected",
+     "input": "0e7ac198-9acd-4c0c-b4b4-761974bf71d7",
+     "ctx": {
+      "expected_version": 3
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[0e7ac198-9acd-4c0c-b4b4-761974bf71d7-4-expected4]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[0e7ac198-9acd-4c0c-b4b4-761974bf71d7-4-expected4]",
+  "schema": {
+   "type": "uuid",
+   "version": 4
+  },
+  "config": null,
+  "mode": "python",
+  "input": "0e7ac198-9acd-4c0c-b4b4-761974bf71d7",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "0e7ac198-9acd-4c0c-b4b4-761974bf71d7"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[0e7ac198-9acd-4c0c-b4b4-761974bf71d7-4-expected6]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[0e7ac198-9acd-4c0c-b4b4-761974bf71d7-4-expected6]",
+  "schema": {
+   "type": "uuid",
+   "version": 4
+  },
+  "config": null,
+  "mode": "python",
+  "input": "0e7ac198-9acd-4c0c-b4b4-761974bf71d7",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "0e7ac198-9acd-4c0c-b4b4-761974bf71d7"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[1efea93d-7bb8-6ea0-afdc-e76cbc0c8e05-6-expected10]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[1efea93d-7bb8-6ea0-afdc-e76cbc0c8e05-6-expected10]",
+  "schema": {
+   "type": "uuid",
+   "version": 6
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1efea93d-7bb8-6ea0-afdc-e76cbc0c8e05",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "1efea93d-7bb8-6ea0-afdc-e76cbc0c8e05"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[1efea93d-7bb8-6ea0-afdc-e76cbc0c8e05-8-expected24]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[1efea93d-7bb8-6ea0-afdc-e76cbc0c8e05-8-expected24]",
+  "schema": {
+   "type": "uuid",
+   "version": 8
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1efea93d-7bb8-6ea0-afdc-e76cbc0c8e05",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_version",
+     "loc": [],
+     "msg": "UUID version 8 expected",
+     "input": "1efea93d-7bb8-6ea0-afdc-e76cbc0c8e05",
+     "ctx": {
+      "expected_version": 8
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[a6cc5730-2261-11ee-9c43-2eb5a363657c-1-expected0]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[a6cc5730-2261-11ee-9c43-2eb5a363657c-1-expected0]",
+  "schema": {
+   "type": "uuid",
+   "version": 1
+  },
+  "config": null,
+  "mode": "python",
+  "input": "a6cc5730-2261-11ee-9c43-2eb5a363657c",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "a6cc5730-2261-11ee-9c43-2eb5a363657c"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[a6cc5730-2261-11ee-9c43-2eb5a363657c-5-expected30]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[a6cc5730-2261-11ee-9c43-2eb5a363657c-5-expected30]",
+  "schema": {
+   "type": "uuid",
+   "version": 5
+  },
+  "config": null,
+  "mode": "python",
+  "input": "a6cc5730-2261-11ee-9c43-2eb5a363657c",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_version",
+     "loc": [],
+     "msg": "UUID version 5 expected",
+     "input": "a6cc5730-2261-11ee-9c43-2eb5a363657c",
+     "ctx": {
+      "expected_version": 5
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[a6cc5730-2261-11ee-9c43-2eb5a363657c-7-expected28]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[a6cc5730-2261-11ee-9c43-2eb5a363657c-7-expected28]",
+  "schema": {
+   "type": "uuid",
+   "version": 7
+  },
+  "config": null,
+  "mode": "python",
+  "input": "a6cc5730-2261-11ee-9c43-2eb5a363657c",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_version",
+     "loc": [],
+     "msg": "UUID version 7 expected",
+     "input": "a6cc5730-2261-11ee-9c43-2eb5a363657c",
+     "ctx": {
+      "expected_version": 7
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[b34b6755-f49c-3bd2-6f06-131a708c2bf3-None-expected21]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[b34b6755-f49c-3bd2-6f06-131a708c2bf3-None-expected21]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "b34b6755-f49c-3bd2-6f06-131a708c2bf3",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "b34b6755-f49c-3bd2-6f06-131a708c2bf3"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[c0a8f9a8-aa5e-882b-a067-9cb3a51f5c11-6-expected26]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[c0a8f9a8-aa5e-882b-a067-9cb3a51f5c11-6-expected26]",
+  "schema": {
+   "type": "uuid",
+   "version": 6
+  },
+  "config": null,
+  "mode": "python",
+  "input": "c0a8f9a8-aa5e-882b-a067-9cb3a51f5c11",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_version",
+     "loc": [],
+     "msg": "UUID version 6 expected",
+     "input": "c0a8f9a8-aa5e-882b-a067-9cb3a51f5c11",
+     "ctx": {
+      "expected_version": 6
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[c0a8f9a8-aa5e-882b-a067-9cb3a51f5c11-8-expected12]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[c0a8f9a8-aa5e-882b-a067-9cb3a51f5c11-8-expected12]",
+  "schema": {
+   "type": "uuid",
+   "version": 8
+  },
+  "config": null,
+  "mode": "python",
+  "input": "c0a8f9a8-aa5e-882b-a067-9cb3a51f5c11",
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "c0a8f9a8-aa5e-882b-a067-9cb3a51f5c11"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value1-1-expected1]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value1-1-expected1]",
+  "schema": {
+   "type": "uuid",
+   "version": 1
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "a6cc5730-2261-11ee-9c43-2eb5a363657c"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "a6cc5730-2261-11ee-9c43-2eb5a363657c"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value11-6-expected11]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value11-6-expected11]",
+  "schema": {
+   "type": "uuid",
+   "version": 6
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "1efea93d-7bb8-6ea0-afdc-e76cbc0c8e05"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "1efea93d-7bb8-6ea0-afdc-e76cbc0c8e05"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value13-8-expected13]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value13-8-expected13]",
+  "schema": {
+   "type": "uuid",
+   "version": 8
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "c0a8f9a8-aa5e-882b-a067-9cb3a51f5c11"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "c0a8f9a8-aa5e-882b-a067-9cb3a51f5c11"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value15-4-expected15]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value15-4-expected15]",
+  "schema": {
+   "type": "uuid",
+   "version": 4
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "00000000-8000-4000-8000-000000000000"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "00000000-8000-4000-8000-000000000000"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value17-None-expected17]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value17-None-expected17]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "00000000-0000-4000-0000-000000000000"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "00000000-0000-4000-0000-000000000000"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value19-None-expected19]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value19-None-expected19]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "00000000-7fff-4000-7fff-000000000000"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "00000000-7fff-4000-7fff-000000000000"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value20-4-expected20]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value20-4-expected20]",
+  "schema": {
+   "type": "uuid",
+   "version": 4
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "00000000-7fff-4000-7fff-000000000000"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_version",
+     "loc": [],
+     "msg": "UUID version 4 expected",
+     "input": {
+      "$uuid": "00000000-7fff-4000-7fff-000000000000"
+     },
+     "ctx": {
+      "expected_version": 4
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value22-None-expected22]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value22-None-expected22]",
+  "schema": {
+   "type": "uuid"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "b34b6755-f49c-3bd2-6f06-131a708c2bf3"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "b34b6755-f49c-3bd2-6f06-131a708c2bf3"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value23-4-expected23]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value23-4-expected23]",
+  "schema": {
+   "type": "uuid",
+   "version": 4
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "b34b6755-f49c-3bd2-6f06-131a708c2bf3"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_version",
+     "loc": [],
+     "msg": "UUID version 4 expected",
+     "input": {
+      "$uuid": "b34b6755-f49c-3bd2-6f06-131a708c2bf3"
+     },
+     "ctx": {
+      "expected_version": 4
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value25-8-expected25]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value25-8-expected25]",
+  "schema": {
+   "type": "uuid",
+   "version": 8
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "1efea93d-7bb8-6ea0-afdc-e76cbc0c8e05"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_version",
+     "loc": [],
+     "msg": "UUID version 8 expected",
+     "input": {
+      "$uuid": "1efea93d-7bb8-6ea0-afdc-e76cbc0c8e05"
+     },
+     "ctx": {
+      "expected_version": 8
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value27-6-expected27]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value27-6-expected27]",
+  "schema": {
+   "type": "uuid",
+   "version": 6
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "c0a8f9a8-aa5e-882b-a067-9cb3a51f5c11"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_version",
+     "loc": [],
+     "msg": "UUID version 6 expected",
+     "input": {
+      "$uuid": "c0a8f9a8-aa5e-882b-a067-9cb3a51f5c11"
+     },
+     "ctx": {
+      "expected_version": 6
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value29-7-expected29]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value29-7-expected29]",
+  "schema": {
+   "type": "uuid",
+   "version": 7
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "a6cc5730-2261-11ee-9c43-2eb5a363657c"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_version",
+     "loc": [],
+     "msg": "UUID version 7 expected",
+     "input": {
+      "$uuid": "a6cc5730-2261-11ee-9c43-2eb5a363657c"
+     },
+     "ctx": {
+      "expected_version": 7
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value3-3-expected3]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value3-3-expected3]",
+  "schema": {
+   "type": "uuid",
+   "version": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "04e4aeb3-8f20-30d0-8852-d295e1265eed"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "04e4aeb3-8f20-30d0-8852-d295e1265eed"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value31-5-expected31]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value31-5-expected31]",
+  "schema": {
+   "type": "uuid",
+   "version": 5
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "a6cc5730-2261-11ee-9c43-2eb5a363657c"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_version",
+     "loc": [],
+     "msg": "UUID version 5 expected",
+     "input": {
+      "$uuid": "a6cc5730-2261-11ee-9c43-2eb5a363657c"
+     },
+     "ctx": {
+      "expected_version": 5
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value33-4-expected33]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value33-4-expected33]",
+  "schema": {
+   "type": "uuid",
+   "version": 4
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "04e4aeb3-8f20-30d0-8852-d295e1265eed"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_version",
+     "loc": [],
+     "msg": "UUID version 4 expected",
+     "input": {
+      "$uuid": "04e4aeb3-8f20-30d0-8852-d295e1265eed"
+     },
+     "ctx": {
+      "expected_version": 4
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value35-3-expected35]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value35-3-expected35]",
+  "schema": {
+   "type": "uuid",
+   "version": 3
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "0e7ac198-9acd-4c0c-b4b4-761974bf71d7"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_version",
+     "loc": [],
+     "msg": "UUID version 3 expected",
+     "input": {
+      "$uuid": "0e7ac198-9acd-4c0c-b4b4-761974bf71d7"
+     },
+     "ctx": {
+      "expected_version": 3
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value37-1-expected37]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value37-1-expected37]",
+  "schema": {
+   "type": "uuid",
+   "version": 1
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "08ed0736-fb95-5cc5-85ed-37e4f3df9b29"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_version",
+     "loc": [],
+     "msg": "UUID version 1 expected",
+     "input": {
+      "$uuid": "08ed0736-fb95-5cc5-85ed-37e4f3df9b29"
+     },
+     "ctx": {
+      "expected_version": 1
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value39-4-expected39]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value39-4-expected39]",
+  "schema": {
+   "type": "uuid",
+   "version": 4
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "00000000-0000-4000-0000-000000000000"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "uuid_version",
+     "loc": [],
+     "msg": "UUID version 4 expected",
+     "input": {
+      "$uuid": "00000000-0000-4000-0000-000000000000"
+     },
+     "ctx": {
+      "expected_version": 4
+     }
+    }
+   ],
+   "title": "uuid"
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value5-4-expected5]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value5-4-expected5]",
+  "schema": {
+   "type": "uuid",
+   "version": 4
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "0e7ac198-9acd-4c0c-b4b4-761974bf71d7"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "0e7ac198-9acd-4c0c-b4b4-761974bf71d7"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value7-4-expected7]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value7-4-expected7]",
+  "schema": {
+   "type": "uuid",
+   "version": 4
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "0e7ac198-9acd-4c0c-b4b4-761974bf71d7"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "0e7ac198-9acd-4c0c-b4b4-761974bf71d7"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_version[input_value9-7-expected9]#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_version[input_value9-7-expected9]",
+  "schema": {
+   "type": "uuid",
+   "version": 7
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "0194fdc2-5d6a-733c-97f9-2feeb9d2a609"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$uuid": "0194fdc2-5d6a-733c-97f9-2feeb9d2a609"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_wrap_json#0",
+  "test": "tests/validators/test_uuid.py::test_uuid_wrap_json",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "<lambda>"
+    }
+   },
+   "schema": {
+    "type": "uuid"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$uuid": "a6cc5730-2261-11ee-9c43-2eb5a363657c"
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": {
+    "$uuid": "a6cc5730-2261-11ee-9c43-2eb5a363657c"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_uuid.py::test_uuid_wrap_json#1",
+  "test": "tests/validators/test_uuid.py::test_uuid_wrap_json",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "<lambda>"
+    }
+   },
+   "schema": {
+    "type": "uuid"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"a6cc5730-2261-11ee-9c43-2eb5a363657c\"",
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": {
+    "$uuid": "a6cc5730-2261-11ee-9c43-2eb5a363657c"
+   }
+  }
+ }
+]

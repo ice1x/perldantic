@@ -1,0 +1,74 @@
+[
+ {
+  "id": "tests/validators/test_none.py::test_json_none#0",
+  "test": "tests/validators/test_none.py::test_json_none",
+  "schema": {
+   "type": "none"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "null",
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/validators/test_none.py::test_json_none#1",
+  "test": "tests/validators/test_none.py::test_json_none",
+  "schema": {
+   "type": "none"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "none_required",
+     "loc": [],
+     "msg": "Input should be null",
+     "input": 1
+    }
+   ],
+   "title": "none"
+  }
+ },
+ {
+  "id": "tests/validators/test_none.py::test_python_none#0",
+  "test": "tests/validators/test_none.py::test_python_none",
+  "schema": {
+   "type": "none"
+  },
+  "config": null,
+  "mode": "python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/validators/test_none.py::test_python_none#1",
+  "test": "tests/validators/test_none.py::test_python_none",
+  "schema": {
+   "type": "none"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "none_required",
+     "loc": [],
+     "msg": "Input should be None",
+     "input": 1
+    }
+   ],
+   "title": "none"
+  }
+ }
+]

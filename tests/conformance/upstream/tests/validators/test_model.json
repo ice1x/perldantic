@@ -1,0 +1,3676 @@
+[
+ {
+  "id": "tests/validators/test_model.py::test_bad_sub_schema#0",
+  "test": "tests/validators/test_model.py::test_bad_sub_schema",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "'int' object is not an instance of 'tuple'"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_frozen#0",
+  "test": "tests/validators/test_model.py::test_frozen",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "f": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     }
+    }
+   },
+   "frozen": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "f": "x"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "f": "x"
+     },
+     "fields_set": [
+      "f"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_function_plain_ask#0",
+  "test": "tests/validators/test_model.py::test_function_plain_ask",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "function-plain",
+    "function": {
+     "type": "no-info",
+     "function": {
+      "$function": "f"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test"
+     },
+     "fields_set": [
+      "field_a"
+     ],
+     "extra": {
+      "$dict": [
+       [
+        1,
+        2
+       ]
+      ]
+     }
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_internal_error#0",
+  "test": "tests/validators/test_model.py::test_internal_error",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "int"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "f": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "f": 123
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "AttributeError",
+    "message": "'int' object has no attribute '__dict__'"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class#0",
+  "test": "tests/validators/test_model.py::test_model_class",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test",
+   "field_b": 12
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test",
+      "field_b": 12
+     },
+     "fields_set": [
+      "field_a",
+      "field_b"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class#1",
+  "test": "tests/validators/test_model.py::test_model_class",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test",
+   "field_b": 12
+  },
+  "options": {
+   "strict": true
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test",
+      "field_b": 12
+     },
+     "fields_set": [
+      "field_a",
+      "field_b"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_extra[allow-None]#0",
+  "test": "tests/validators/test_model.py::test_model_class_extra[allow-None]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    },
+    "extra_behavior": "allow"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test",
+   "field_b": 12,
+   "field_c": "extra"
+  },
+  "options": {
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test",
+      "field_b": 12
+     },
+     "fields_set": [
+      "field_a",
+      "field_b",
+      "field_c"
+     ],
+     "extra": {
+      "field_c": "extra"
+     }
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_extra[ignore-allow]#0",
+  "test": "tests/validators/test_model.py::test_model_class_extra[ignore-allow]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    },
+    "extra_behavior": "ignore"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test",
+   "field_b": 12,
+   "field_c": "extra"
+  },
+  "options": {
+   "extra": "allow"
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test",
+      "field_b": 12
+     },
+     "fields_set": [
+      "field_a",
+      "field_b",
+      "field_c"
+     ],
+     "extra": {
+      "field_c": "extra"
+     }
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_extra_forbid[forbid-None]#0",
+  "test": "tests/validators/test_model.py::test_model_class_extra_forbid[forbid-None]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    },
+    "extra_behavior": "forbid"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test",
+   "field_b": 12
+  },
+  "options": {
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test",
+      "field_b": 12
+     },
+     "fields_set": [
+      "field_a",
+      "field_b"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_extra_forbid[forbid-None]#1",
+  "test": "tests/validators/test_model.py::test_model_class_extra_forbid[forbid-None]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    },
+    "extra_behavior": "forbid"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$model": {
+    "class": "Wrapper",
+    "fields": {
+     "_inner": {
+      "$model": {
+       "class": "MyModel",
+       "fields": {
+        "field_a": "test",
+        "field_b": 12
+       },
+       "fields_set": [
+        "field_a",
+        "field_b"
+       ],
+       "extra": null
+      }
+     }
+    },
+    "fields_set": [
+     "field_a",
+     "field_b"
+    ],
+    "extra": null
+   }
+  },
+  "options": {
+   "from_attributes": true,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test",
+      "field_b": 12
+     },
+     "fields_set": [
+      "field_a",
+      "field_b"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_extra_forbid[forbid-None]#2",
+  "test": "tests/validators/test_model.py::test_model_class_extra_forbid[forbid-None]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    },
+    "extra_behavior": "forbid"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test",
+   "field_b": 12,
+   "field_c": "extra"
+  },
+  "options": {
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "extra_forbidden",
+     "loc": [
+      "field_c"
+     ],
+     "msg": "Extra inputs are not permitted",
+     "input": "extra"
+    }
+   ],
+   "title": "MyModel"
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_extra_forbid[ignore-forbid]#0",
+  "test": "tests/validators/test_model.py::test_model_class_extra_forbid[ignore-forbid]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    },
+    "extra_behavior": "ignore"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test",
+   "field_b": 12
+  },
+  "options": {
+   "extra": "forbid"
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test",
+      "field_b": 12
+     },
+     "fields_set": [
+      "field_a",
+      "field_b"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_extra_forbid[ignore-forbid]#1",
+  "test": "tests/validators/test_model.py::test_model_class_extra_forbid[ignore-forbid]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    },
+    "extra_behavior": "ignore"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$model": {
+    "class": "Wrapper",
+    "fields": {
+     "_inner": {
+      "$model": {
+       "class": "MyModel",
+       "fields": {
+        "field_a": "test",
+        "field_b": 12
+       },
+       "fields_set": [
+        "field_a",
+        "field_b"
+       ],
+       "extra": null
+      }
+     }
+    },
+    "fields_set": [
+     "field_a",
+     "field_b"
+    ],
+    "extra": null
+   }
+  },
+  "options": {
+   "from_attributes": true,
+   "extra": "forbid"
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test",
+      "field_b": 12
+     },
+     "fields_set": [
+      "field_a",
+      "field_b"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_extra_forbid[ignore-forbid]#2",
+  "test": "tests/validators/test_model.py::test_model_class_extra_forbid[ignore-forbid]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    },
+    "extra_behavior": "ignore"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test",
+   "field_b": 12,
+   "field_c": "extra"
+  },
+  "options": {
+   "extra": "forbid"
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "extra_forbidden",
+     "loc": [
+      "field_c"
+     ],
+     "msg": "Extra inputs are not permitted",
+     "input": "extra"
+    }
+   ],
+   "title": "MyModel"
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_extra_forbid_from_attributes[allow]#0",
+  "test": "tests/validators/test_model.py::test_model_class_extra_forbid_from_attributes[allow]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    },
+    "extra_behavior": "allow",
+    "from_attributes": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "Data"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test",
+      "field_b": 12
+     },
+     "fields_set": [
+      "field_a",
+      "field_b"
+     ],
+     "extra": {}
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_extra_forbid_from_attributes[forbid]#0",
+  "test": "tests/validators/test_model.py::test_model_class_extra_forbid_from_attributes[forbid]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    },
+    "extra_behavior": "forbid",
+    "from_attributes": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "Data"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test",
+      "field_b": 12
+     },
+     "fields_set": [
+      "field_a",
+      "field_b"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_extra_forbid_from_attributes[ignore]#0",
+  "test": "tests/validators/test_model.py::test_model_class_extra_forbid_from_attributes[ignore]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    },
+    "extra_behavior": "ignore",
+    "from_attributes": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "Data"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test",
+      "field_b": 12
+     },
+     "fields_set": [
+      "field_a",
+      "field_b"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_function_after#0",
+  "test": "tests/validators/test_model.py::test_model_class_function_after",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "function-after",
+    "function": {
+     "type": "with-info",
+     "function": {
+      "$function": "f"
+     }
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "field_a": {
+       "type": "model-field",
+       "schema": {
+        "type": "str"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test",
+      "x": "y"
+     },
+     "fields_set": [
+      "field_a"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_instance_direct#0",
+  "test": "tests/validators/test_model.py::test_model_class_instance_direct",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test"
+     },
+     "fields_set": [
+      "field_a"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_instance_direct#1",
+  "test": "tests/validators/test_model.py::test_model_class_instance_direct",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "MyModel"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_instance_subclass#0",
+  "test": "tests/validators/test_model.py::test_model_class_instance_subclass",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     }
+    }
+   },
+   "post_init": "model_post_init"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "MySubModel"
+  },
+  "options": {
+   "context": "call1"
+  },
+  "expected": {
+   "output": {
+    "$object": "MySubModel"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_instance_subclass#1",
+  "test": "tests/validators/test_model.py::test_model_class_instance_subclass",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     }
+    }
+   },
+   "post_init": "model_post_init"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": {
+    "$bytes": "aGVsbG8="
+   }
+  },
+  "options": {
+   "context": "call2"
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "hello"
+     },
+     "fields_set": [
+      "field_a"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_instance_subclass_revalidate#0",
+  "test": "tests/validators/test_model.py::test_model_class_instance_subclass_revalidate",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     }
+    }
+   },
+   "post_init": "model_post_init",
+   "revalidate_instances": "always"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$model": {
+    "class": "MySubModel",
+    "fields": {
+     "field_a": "init_a",
+     "field_b": "init_b"
+    },
+    "fields_set": [],
+    "extra": {}
+   }
+  },
+  "options": {
+   "context": "call1"
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "init_a"
+     },
+     "fields_set": [],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_instance_subclass_revalidate#1",
+  "test": "tests/validators/test_model.py::test_model_class_instance_subclass_revalidate",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     }
+    }
+   },
+   "post_init": "model_post_init",
+   "revalidate_instances": "always"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$model": {
+    "class": "MySubModel",
+    "fields": {
+     "field_a": "init_a",
+     "field_b": "init_b"
+    },
+    "fields_set": [
+     "fruit_loop"
+    ],
+    "extra": {}
+   }
+  },
+  "options": {
+   "context": "call2"
+  },
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "init_a"
+     },
+     "fields_set": [
+      "fruit_loop"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_root_validator_after#0",
+  "test": "tests/validators/test_model.py::test_model_class_root_validator_after",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "function-after",
+    "function": {
+     "type": "no-info",
+     "function": {
+      "$function": "f"
+     }
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "field_a": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": 123
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": 123
+     },
+     "fields_set": [
+      "field_a"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_root_validator_after#1",
+  "test": "tests/validators/test_model.py::test_model_class_root_validator_after",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "function-after",
+    "function": {
+     "type": "no-info",
+     "function": {
+      "$function": "f"
+     }
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "field_a": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": 456
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [],
+     "msg": "Assertion failed, assert 456 == 123",
+     "input": {
+      "field_a": 456
+     },
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        "assert 456 == 123"
+       ]
+      }
+     }
+    }
+   ],
+   "title": "MyModel"
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_root_validator_before#0",
+  "test": "tests/validators/test_model.py::test_model_class_root_validator_before",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "function-before",
+    "function": {
+     "type": "with-info",
+     "function": {
+      "$function": "f"
+     }
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "field_a": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": 123
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": 123
+     },
+     "fields_set": [
+      "field_a"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_root_validator_before#1",
+  "test": "tests/validators/test_model.py::test_model_class_root_validator_before",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "function-before",
+    "function": {
+     "type": "with-info",
+     "function": {
+      "$function": "f"
+     }
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "field_a": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": 456
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [],
+     "msg": "Assertion failed, assert 456 == 123",
+     "input": {
+      "field_a": 456
+     },
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        "assert 456 == 123"
+       ]
+      }
+     }
+    }
+   ],
+   "title": "MyModel"
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_root_validator_wrap#0",
+  "test": "tests/validators/test_model.py::test_model_class_root_validator_wrap",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "function-wrap",
+    "function": {
+     "type": "with-info",
+     "function": {
+      "$function": "f"
+     }
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "field_a": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": 123
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": 123
+     },
+     "fields_set": [
+      "field_a"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_root_validator_wrap#1",
+  "test": "tests/validators/test_model.py::test_model_class_root_validator_wrap",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "function-wrap",
+    "function": {
+     "type": "with-info",
+     "function": {
+      "$function": "f"
+     }
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "field_a": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": 456
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [],
+     "msg": "Assertion failed, assert 456 == 123",
+     "input": {
+      "field_a": 456
+     },
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        "assert 456 == 123"
+       ]
+      }
+     }
+    }
+   ],
+   "title": "MyModel"
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_setattr#0",
+  "test": "tests/validators/test_model.py::test_model_class_setattr",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test"
+     },
+     "fields_set": [
+      "field_a"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_strict#0",
+  "test": "tests/validators/test_model.py::test_model_class_strict",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "MyModel"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_strict#1",
+  "test": "tests/validators/test_model.py::test_model_class_strict",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test",
+   "field_b": 12
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test",
+      "field_b": 12
+     },
+     "fields_set": [
+      "field_a",
+      "field_b"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_strict#2",
+  "test": "tests/validators/test_model.py::test_model_class_strict",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "MySubModel"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "MySubModel"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_class_strict_json#0",
+  "test": "tests/validators/test_model.py::test_model_class_strict_json",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     },
+     "field_c": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "int"
+       },
+       "default": 42
+      }
+     }
+    }
+   },
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"field_a\": \"foobar\", \"field_b\": \"123\"}",
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "foobar",
+      "field_b": 123,
+      "field_c": 42
+     },
+     "fields_set": [
+      "field_a",
+      "field_b"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_error#0",
+  "test": "tests/validators/test_model.py::test_model_error",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    },
+    "model_name": "MyModel"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test",
+   "field_b": 12
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test",
+      "field_b": 12
+     },
+     "fields_set": [
+      "field_a",
+      "field_b"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_error#1",
+  "test": "tests/validators/test_model.py::test_model_error",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    },
+    "model_name": "MyModel"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "MyModel"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_error#2",
+  "test": "tests/validators/test_model.py::test_model_error",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    },
+    "model_name": "MyModel"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"field_a\": \"3\", \"field_b\": 4}",
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "3",
+      "field_b": 4
+     },
+     "fields_set": [
+      "field_a",
+      "field_b"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_error#3",
+  "test": "tests/validators/test_model.py::test_model_error",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    },
+    "model_name": "MyModel"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "OtherModel"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "model_type",
+     "loc": [],
+     "msg": "Input should be a valid dictionary or instance of MyModel",
+     "input": {
+      "$object": "OtherModel"
+     },
+     "ctx": {
+      "class_name": "MyModel"
+     }
+    }
+   ],
+   "title": "MyModel"
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_error#4",
+  "test": "tests/validators/test_model.py::test_model_error",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    },
+    "model_name": "MyModel"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "123",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "model_type",
+     "loc": [],
+     "msg": "Input should be an object",
+     "input": 123,
+     "ctx": {
+      "class_name": "MyModel"
+     }
+    }
+   ],
+   "title": "MyModel"
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_from_defaultdict#0",
+  "test": "tests/validators/test_model.py::test_model_from_defaultdict",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$subclass": [
+    "defaultdict",
+    {}
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "missing",
+     "loc": [
+      "field_a"
+     ],
+     "msg": "Field required",
+     "input": {
+      "$subclass": [
+       "defaultdict",
+       {}
+      ]
+     }
+    }
+   ],
+   "title": "MyModel"
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_with_enum_int_field_validation_should_succeed_for_any_type_equality_checks#0",
+  "test": "tests/validators/test_model.py::test_model_with_enum_int_field_validation_should_succeed_for_any_type_equality_checks",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "enum_field": {
+      "type": "model-field",
+      "schema": {
+       "type": "enum",
+       "cls": {
+        "$class": "EnumClass"
+       },
+       "members": [
+        {
+         "$enum": [
+          "EnumClass",
+          1
+         ]
+        },
+        {
+         "$enum": [
+          "EnumClass",
+          2
+         ]
+        },
+        {
+         "$enum": [
+          "EnumClass",
+          3
+         ]
+        }
+       ]
+      }
+     },
+     "enum_field_2": {
+      "type": "model-field",
+      "schema": {
+       "type": "enum",
+       "cls": {
+        "$class": "EnumClass"
+       },
+       "members": [
+        {
+         "$enum": [
+          "EnumClass",
+          1
+         ]
+        },
+        {
+         "$enum": [
+          "EnumClass",
+          2
+         ]
+        },
+        {
+         "$enum": [
+          "EnumClass",
+          3
+         ]
+        }
+       ]
+      }
+     },
+     "enum_field_3": {
+      "type": "model-field",
+      "schema": {
+       "type": "enum",
+       "cls": {
+        "$class": "EnumClass"
+       },
+       "members": [
+        {
+         "$enum": [
+          "EnumClass",
+          1
+         ]
+        },
+        {
+         "$enum": [
+          "EnumClass",
+          2
+         ]
+        },
+        {
+         "$enum": [
+          "EnumClass",
+          3
+         ]
+        }
+       ]
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"enum_field\": 1, \"enum_field_2\": 2, \"enum_field_3\": 3}",
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "enum_field": {
+       "$enum": [
+        "EnumClass",
+        1
+       ]
+      },
+      "enum_field_2": {
+       "$enum": [
+        "EnumClass",
+        2
+       ]
+      },
+      "enum_field_3": {
+       "$enum": [
+        "EnumClass",
+        3
+       ]
+      }
+     },
+     "fields_set": [
+      "enum_field",
+      "enum_field_2",
+      "enum_field_3"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_model_with_enum_int_field_validation_should_succeed_for_any_type_equality_checks#1",
+  "test": "tests/validators/test_model.py::test_model_with_enum_int_field_validation_should_succeed_for_any_type_equality_checks",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "enum_field": {
+      "type": "model-field",
+      "schema": {
+       "type": "enum",
+       "cls": {
+        "$class": "EnumClass"
+       },
+       "members": [
+        {
+         "$enum": [
+          "EnumClass",
+          1
+         ]
+        },
+        {
+         "$enum": [
+          "EnumClass",
+          2
+         ]
+        },
+        {
+         "$enum": [
+          "EnumClass",
+          3
+         ]
+        }
+       ]
+      }
+     },
+     "enum_field_2": {
+      "type": "model-field",
+      "schema": {
+       "type": "enum",
+       "cls": {
+        "$class": "EnumClass"
+       },
+       "members": [
+        {
+         "$enum": [
+          "EnumClass",
+          1
+         ]
+        },
+        {
+         "$enum": [
+          "EnumClass",
+          2
+         ]
+        },
+        {
+         "$enum": [
+          "EnumClass",
+          3
+         ]
+        }
+       ]
+      }
+     },
+     "enum_field_3": {
+      "type": "model-field",
+      "schema": {
+       "type": "enum",
+       "cls": {
+        "$class": "EnumClass"
+       },
+       "members": [
+        {
+         "$enum": [
+          "EnumClass",
+          1
+         ]
+        },
+        {
+         "$enum": [
+          "EnumClass",
+          2
+         ]
+        },
+        {
+         "$enum": [
+          "EnumClass",
+          3
+         ]
+        }
+       ]
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "enum_field": {
+    "$decimal": "1"
+   },
+   "enum_field_2": {
+    "$decimal": "2"
+   },
+   "enum_field_3": {
+    "$object": "IntWrappable"
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "enum_field": {
+       "$enum": [
+        "EnumClass",
+        1
+       ]
+      },
+      "enum_field_2": {
+       "$enum": [
+        "EnumClass",
+        2
+       ]
+      },
+      "enum_field_3": {
+       "$enum": [
+        "EnumClass",
+        3
+       ]
+      }
+     },
+     "fields_set": [
+      "enum_field",
+      "enum_field_2",
+      "enum_field_3"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_post_init#0",
+  "test": "tests/validators/test_model.py::test_post_init",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   },
+   "post_init": "call_me_maybe"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test",
+   "field_b": 12
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test",
+      "field_b": 12
+     },
+     "fields_set": [
+      "field_a",
+      "field_b"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_post_init_internal_error#0",
+  "test": "tests/validators/test_model.py::test_post_init_internal_error",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     }
+    }
+   },
+   "post_init": "wrong_signature"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test"
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "test_post_init_internal_error.<locals>.MyModel.wrong_signature() takes 1 positional argument but 2 were given"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_post_init_mutate#0",
+  "test": "tests/validators/test_model.py::test_post_init_mutate",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   },
+   "post_init": "call_me_maybe"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test",
+   "field_b": 12
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "testtest",
+      "field_b": 12
+     },
+     "fields_set": [
+      "field_a"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_post_init_validation_error#0",
+  "test": "tests/validators/test_model.py::test_post_init_validation_error",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     }
+    }
+   },
+   "post_init": "call_me_maybe"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test"
+     },
+     "fields_set": [
+      "field_a"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_post_init_validation_error#1",
+  "test": "tests/validators/test_model.py::test_post_init_validation_error",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     }
+    }
+   },
+   "post_init": "call_me_maybe"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test"
+  },
+  "options": {
+   "strict": null,
+   "context": {
+    "error": 1
+   }
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "value_error",
+     "loc": [],
+     "msg": "Value error, this is broken: test",
+     "input": {
+      "field_a": "test"
+     },
+     "ctx": {
+      "error": {
+       "$exception": [
+        "ValueError",
+        "this is broken: test"
+       ]
+      }
+     }
+    }
+   ],
+   "title": "MyModel"
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_revalidate_always#0",
+  "test": "tests/validators/test_model.py::test_revalidate_always",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   },
+   "revalidate_instances": "always"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test",
+   "field_b": 12
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test",
+      "field_b": 12
+     },
+     "fields_set": [
+      "field_a",
+      "field_b"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_revalidate_always#1",
+  "test": "tests/validators/test_model.py::test_revalidate_always",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   },
+   "revalidate_instances": "always"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$model": {
+    "class": "MyModel",
+    "fields": {
+     "field_a": "x",
+     "field_b": 42
+    },
+    "fields_set": [
+     "field_a"
+    ],
+    "extra": {}
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "x",
+      "field_b": 42
+     },
+     "fields_set": [
+      "field_a"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_revalidate_always#2",
+  "test": "tests/validators/test_model.py::test_revalidate_always",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   },
+   "revalidate_instances": "always"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$model": {
+    "class": "MyModel",
+    "fields": {
+     "field_a": "x",
+     "field_b": "not int"
+    },
+    "fields_set": [
+     "field_a"
+    ],
+    "extra": {}
+   }
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "field_b"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not int"
+    }
+   ],
+   "title": "MyModel"
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_revalidate_always#3",
+  "test": "tests/validators/test_model.py::test_revalidate_always",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   },
+   "revalidate_instances": "always"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "AttributeError",
+    "message": "'MyModel' object has no attribute '__pydantic_fields_set__'"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_revalidate_extra#0",
+  "test": "tests/validators/test_model.py::test_revalidate_extra",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    },
+    "extra_behavior": "allow"
+   },
+   "config": {
+    "revalidate_instances": "always"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test",
+   "field_b": 12,
+   "more": {
+    "$tuple": [
+     1,
+     2,
+     3
+    ]
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test",
+      "field_b": 12
+     },
+     "fields_set": [
+      "field_a",
+      "field_b",
+      "more"
+     ],
+     "extra": {
+      "more": {
+       "$tuple": [
+        1,
+        2,
+        3
+       ]
+      }
+     }
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_revalidate_extra#1",
+  "test": "tests/validators/test_model.py::test_revalidate_extra",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    },
+    "extra_behavior": "allow"
+   },
+   "config": {
+    "revalidate_instances": "always"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$model": {
+    "class": "MyModel",
+    "fields": {
+     "field_a": "x",
+     "field_b": 42
+    },
+    "fields_set": [
+     "another",
+     "field_a",
+     "field_b"
+    ],
+    "extra": {
+     "another": 42.5
+    }
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "x",
+      "field_b": 42
+     },
+     "fields_set": [
+      "another",
+      "field_a",
+      "field_b"
+     ],
+     "extra": {
+      "another": 42.5
+     }
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_revalidate_post_init#0",
+  "test": "tests/validators/test_model.py::test_revalidate_post_init",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   },
+   "post_init": "call_me_maybe",
+   "config": {
+    "revalidate_instances": "always"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test",
+   "field_b": 12
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test",
+      "field_b": 12
+     },
+     "fields_set": [
+      "field_a",
+      "field_b"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_revalidate_post_init#1",
+  "test": "tests/validators/test_model.py::test_revalidate_post_init",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   },
+   "post_init": "call_me_maybe",
+   "config": {
+    "revalidate_instances": "always"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$model": {
+    "class": "MyModel",
+    "fields": {
+     "field_a": "x",
+     "field_b": 42
+    },
+    "fields_set": [
+     "field_a"
+    ],
+    "extra": {}
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "x",
+      "field_b": 42
+     },
+     "fields_set": [
+      "field_a"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_revalidate_subclass_instances#0",
+  "test": "tests/validators/test_model.py::test_revalidate_subclass_instances",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   },
+   "revalidate_instances": "subclass-instances"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "MyModel"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_revalidate_subclass_instances#1",
+  "test": "tests/validators/test_model.py::test_revalidate_subclass_instances",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   },
+   "revalidate_instances": "subclass-instances"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$model": {
+    "class": "MySubModel",
+    "fields": {
+     "field_a": "init_a",
+     "field_b": 123,
+     "field_c": "init_c"
+    },
+    "fields_set": [],
+    "extra": {}
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "init_a",
+      "field_b": 123
+     },
+     "fields_set": [],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_revalidate_subclass_instances#2",
+  "test": "tests/validators/test_model.py::test_revalidate_subclass_instances",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   },
+   "revalidate_instances": "subclass-instances"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$model": {
+    "class": "MySubModel",
+    "fields": {
+     "field_a": "init_a",
+     "field_b": "not an int",
+     "field_c": "init_c"
+    },
+    "fields_set": [],
+    "extra": {}
+   }
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "field_b"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not an int"
+    }
+   ],
+   "title": "MyModel"
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_tagged_union_sub_schema#0",
+  "test": "tests/validators/test_model.py::test_tagged_union_sub_schema",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "tagged-union",
+    "choices": {
+     "apple": {
+      "type": "model-fields",
+      "fields": {
+       "foo": {
+        "type": "model-field",
+        "schema": {
+         "type": "str"
+        }
+       },
+       "bar": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     },
+     "banana": {
+      "type": "model-fields",
+      "fields": {
+       "foo": {
+        "type": "model-field",
+        "schema": {
+         "type": "str"
+        }
+       },
+       "spam": {
+        "type": "model-field",
+        "schema": {
+         "type": "list",
+         "items_schema": {
+          "type": "int"
+         }
+        }
+       }
+      }
+     }
+    },
+    "discriminator": "foo"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": "apple",
+   "bar": "123"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "foo": "apple",
+      "bar": 123
+     },
+     "fields_set": [
+      "bar",
+      "foo"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_tagged_union_sub_schema#1",
+  "test": "tests/validators/test_model.py::test_tagged_union_sub_schema",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "tagged-union",
+    "choices": {
+     "apple": {
+      "type": "model-fields",
+      "fields": {
+       "foo": {
+        "type": "model-field",
+        "schema": {
+         "type": "str"
+        }
+       },
+       "bar": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     },
+     "banana": {
+      "type": "model-fields",
+      "fields": {
+       "foo": {
+        "type": "model-field",
+        "schema": {
+         "type": "str"
+        }
+       },
+       "spam": {
+        "type": "model-field",
+        "schema": {
+         "type": "list",
+         "items_schema": {
+          "type": "int"
+         }
+        }
+       }
+      }
+     }
+    },
+    "discriminator": "foo"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": "banana",
+   "spam": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "foo": "banana",
+      "spam": [
+       1,
+       2,
+       3
+      ]
+     },
+     "fields_set": [
+      "foo",
+      "spam"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_union_sub_schema#0",
+  "test": "tests/validators/test_model.py::test_union_sub_schema",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "union",
+    "choices": [
+     {
+      "type": "model-fields",
+      "fields": {
+       "foo": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     },
+     {
+      "type": "model-fields",
+      "fields": {
+       "bar": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "foo": "123"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "foo": 123
+     },
+     "fields_set": [
+      "foo"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_union_sub_schema#1",
+  "test": "tests/validators/test_model.py::test_union_sub_schema",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "union",
+    "choices": [
+     {
+      "type": "model-fields",
+      "fields": {
+       "foo": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     },
+     {
+      "type": "model-fields",
+      "fields": {
+       "bar": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "bar": "123"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "bar": 123
+     },
+     "fields_set": [
+      "bar"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_validate_assignment_function#0",
+  "test": "tests/validators/test_model.py::test_validate_assignment_function",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "func"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      }
+     },
+     "field_c": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "x",
+   "field_b": 123,
+   "field_c": 456
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "x",
+      "field_b": 246,
+      "field_c": 456
+     },
+     "fields_set": [
+      "field_a",
+      "field_b",
+      "field_c"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_validate_assignment_model_validator_function[with_info_after_validator_function-call10-call20]#0",
+  "test": "tests/validators/test_model.py::test_validate_assignment_model_validator_function[with_info_after_validator_function-call10-call20]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "function-after",
+    "function": {
+     "type": "with-info",
+     "function": {
+      "$function": "f"
+     }
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "a": {
+       "type": "model-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "int"
+        },
+        "default": 1
+       }
+      },
+      "b": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "b": 2
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "a": 1,
+      "b": 2
+     },
+     "fields_set": [
+      "b"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_validate_assignment_model_validator_function[with_info_before_validator_function-call11-call21]#0",
+  "test": "tests/validators/test_model.py::test_validate_assignment_model_validator_function[with_info_before_validator_function-call11-call21]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "function-before",
+    "function": {
+     "type": "with-info",
+     "function": {
+      "$function": "f"
+     }
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "a": {
+       "type": "model-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "int"
+        },
+        "default": 1
+       }
+      },
+      "b": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "b": 2
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "a": 1,
+      "b": 2
+     },
+     "fields_set": [
+      "b"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_model.py::test_validate_assignment_model_validator_function[with_info_wrap_validator_function-call12-call22]#0",
+  "test": "tests/validators/test_model.py::test_validate_assignment_model_validator_function[with_info_wrap_validator_function-call12-call22]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "function-wrap",
+    "function": {
+     "type": "with-info",
+     "function": {
+      "$function": "f"
+     }
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "a": {
+       "type": "model-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "int"
+        },
+        "default": 1
+       }
+      },
+      "b": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "b": 2
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "a": 1,
+      "b": 2
+     },
+     "fields_set": [
+      "b"
+     ],
+     "extra": null
+    }
+   }
+  }
+ }
+]

@@ -1,0 +1,1050 @@
+[
+ {
+  "id": "tests/validators/test_json.py::test_any[json-\"a\"-a]#0",
+  "test": "tests/validators/test_json.py::test_any[json-\"a\"-a]",
+  "schema": {
+   "type": "json"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"\\\"a\\\"\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": "a"
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_any[json-1-1]#0",
+  "test": "tests/validators/test_json.py::test_any[json-1-1]",
+  "schema": {
+   "type": "json"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_any[json-44-expected5]#0",
+  "test": "tests/validators/test_json.py::test_any[json-44-expected5]",
+  "schema": {
+   "type": "json"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "44",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "json_type",
+     "loc": [],
+     "msg": "JSON input should be string, bytes or bytearray",
+     "input": 44
+    }
+   ],
+   "title": "json[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_any[json-[1, 2, 3, \"4\"]-expected3]#0",
+  "test": "tests/validators/test_json.py::test_any[json-[1, 2, 3, \"4\"]-expected3]",
+  "schema": {
+   "type": "json"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"[1, 2, 3, \\\"4\\\"]\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3,
+    "4"
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_any[json-{\"a\": 1}-expected0]#0",
+  "test": "tests/validators/test_json.py::test_any[json-{\"a\": 1}-expected0]",
+  "schema": {
+   "type": "json"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"{\\\"a\\\": 1}\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_any[json-{1: 2}-expected4]#0",
+  "test": "tests/validators/test_json.py::test_any[json-{1: 2}-expected4]",
+  "schema": {
+   "type": "json"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"{1: 2}\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "json_invalid",
+     "loc": [],
+     "msg": "Invalid JSON: key must be a string at line 1 column 2",
+     "input": "{1: 2}",
+     "ctx": {
+      "error": "key must be a string at line 1 column 2"
+     }
+    }
+   ],
+   "title": "json[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_any[python-\"a\"-a]#0",
+  "test": "tests/validators/test_json.py::test_any[python-\"a\"-a]",
+  "schema": {
+   "type": "json"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "\"a\"",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": "a"
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_any[python-1-1]#0",
+  "test": "tests/validators/test_json.py::test_any[python-1-1]",
+  "schema": {
+   "type": "json"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_any[python-44-expected5]#0",
+  "test": "tests/validators/test_json.py::test_any[python-44-expected5]",
+  "schema": {
+   "type": "json"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 44,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "json_type",
+     "loc": [],
+     "msg": "JSON input should be string, bytes or bytearray",
+     "input": 44
+    }
+   ],
+   "title": "json[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_any[python-[1, 2, 3, \"4\"]-expected3]#0",
+  "test": "tests/validators/test_json.py::test_any[python-[1, 2, 3, \"4\"]-expected3]",
+  "schema": {
+   "type": "json"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "[1, 2, 3, \"4\"]",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3,
+    "4"
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_any[python-{\"a\": 1}-expected0]#0",
+  "test": "tests/validators/test_json.py::test_any[python-{\"a\": 1}-expected0]",
+  "schema": {
+   "type": "json"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "{\"a\": 1}",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_any[python-{1: 2}-expected4]#0",
+  "test": "tests/validators/test_json.py::test_any[python-{1: 2}-expected4]",
+  "schema": {
+   "type": "json"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "{1: 2}",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "json_invalid",
+     "loc": [],
+     "msg": "Invalid JSON: key must be a string at line 1 column 2",
+     "input": "{1: 2}",
+     "ctx": {
+      "error": "key must be a string at line 1 column 2"
+     }
+    }
+   ],
+   "title": "json[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_any_python[bytearray]#0",
+  "test": "tests/validators/test_json.py::test_any_python[bytearray]",
+  "schema": {
+   "type": "json"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytearray": "eyJhIjogMX0="
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_any_python[bytearray_invalid]#0",
+  "test": "tests/validators/test_json.py::test_any_python[bytearray_invalid]",
+  "schema": {
+   "type": "json"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytearray": "eHg="
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "json_invalid",
+     "loc": [],
+     "msg": "Invalid JSON: expected value at line 1 column 1",
+     "input": {
+      "$bytearray": "eHg="
+     },
+     "ctx": {
+      "error": "expected value at line 1 column 1"
+     }
+    }
+   ],
+   "title": "json[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_any_python[bytes]#0",
+  "test": "tests/validators/test_json.py::test_any_python[bytes]",
+  "schema": {
+   "type": "json"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "eyJhIjogMX0="
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_any_python[bytes_invalid]#0",
+  "test": "tests/validators/test_json.py::test_any_python[bytes_invalid]",
+  "schema": {
+   "type": "json"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "eHg="
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "json_invalid",
+     "loc": [],
+     "msg": "Invalid JSON: expected value at line 1 column 1",
+     "input": {
+      "$bytes": "eHg="
+     },
+     "ctx": {
+      "error": "expected value at line 1 column 1"
+     }
+    }
+   ],
+   "title": "json[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_any_python[str]#0",
+  "test": "tests/validators/test_json.py::test_any_python[str]",
+  "schema": {
+   "type": "json"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "{\"a\": 1}",
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_any_python[str_invalid]#0",
+  "test": "tests/validators/test_json.py::test_any_python[str_invalid]",
+  "schema": {
+   "type": "json"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "xx",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "json_invalid",
+     "loc": [],
+     "msg": "Invalid JSON: expected value at line 1 column 1",
+     "input": "xx",
+     "ctx": {
+      "error": "expected value at line 1 column 1"
+     }
+    }
+   ],
+   "title": "json[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_any_python[str_unicode]#0",
+  "test": "tests/validators/test_json.py::test_any_python[str_unicode]",
+  "schema": {
+   "type": "json"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "str-with-surrogates"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_unicode",
+     "loc": [],
+     "msg": "Input should be a valid string, unable to parse raw data as a unicode string",
+     "input": {
+      "$object": "str-with-surrogates"
+     }
+    }
+   ],
+   "title": "json[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_dict_key[json]#0",
+  "test": "tests/validators/test_json.py::test_dict_key[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "json",
+    "schema": {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "int"
+      }
+     ]
+    }
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"[1]\": 4}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$tuple": [
+        1
+       ]
+      },
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_dict_key[json]#1",
+  "test": "tests/validators/test_json.py::test_dict_key[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "json",
+    "schema": {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "int"
+      }
+     ]
+    }
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"x\": 4}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "json_invalid",
+     "loc": [
+      "x",
+      "[key]"
+     ],
+     "msg": "Invalid JSON: expected value at line 1 column 1",
+     "input": "x",
+     "ctx": {
+      "error": "expected value at line 1 column 1"
+     }
+    }
+   ],
+   "title": "dict[json[tuple[int]],int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_dict_key[python]#0",
+  "test": "tests/validators/test_json.py::test_dict_key[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "json",
+    "schema": {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "int"
+      }
+     ]
+    }
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "[1]": 4
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$tuple": [
+        1
+       ]
+      },
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_dict_key[python]#1",
+  "test": "tests/validators/test_json.py::test_dict_key[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "json",
+    "schema": {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "int"
+      }
+     ]
+    }
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": 4
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "json_invalid",
+     "loc": [
+      "x",
+      "[key]"
+     ],
+     "msg": "Invalid JSON: expected value at line 1 column 1",
+     "input": "x",
+     "ctx": {
+      "error": "expected value at line 1 column 1"
+     }
+    }
+   ],
+   "title": "dict[json[tuple[int]],int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_enum#0",
+  "test": "tests/validators/test_json.py::test_enum",
+  "schema": {
+   "type": "json",
+   "schema": {
+    "type": "lax-or-strict",
+    "lax_schema": {
+     "type": "function-after",
+     "function": {
+      "type": "no-info",
+      "function": {
+       "$class": "MyEnum"
+      }
+     },
+     "schema": {
+      "type": "str"
+     }
+    },
+    "strict_schema": {
+     "type": "is-instance",
+     "cls": {
+      "$class": "MyEnum"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "\"a\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     "a"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_enum#1",
+  "test": "tests/validators/test_json.py::test_enum",
+  "schema": {
+   "type": "json",
+   "schema": {
+    "type": "lax-or-strict",
+    "lax_schema": {
+     "type": "function-after",
+     "function": {
+      "type": "no-info",
+      "function": {
+       "$class": "MyEnum"
+      }
+     },
+     "schema": {
+      "type": "str"
+     }
+    },
+    "strict_schema": {
+     "type": "is-instance",
+     "cls": {
+      "$class": "MyEnum"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "\"b\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     "b"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_enum#2",
+  "test": "tests/validators/test_json.py::test_enum",
+  "schema": {
+   "type": "json",
+   "schema": {
+    "type": "lax-or-strict",
+    "lax_schema": {
+     "type": "function-after",
+     "function": {
+      "type": "no-info",
+      "function": {
+       "$class": "MyEnum"
+      }
+     },
+     "schema": {
+      "type": "str"
+     }
+    },
+    "strict_schema": {
+     "type": "is-instance",
+     "cls": {
+      "$class": "MyEnum"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "\"c\"",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "value_error",
+     "loc": [],
+     "msg": "Value error, 'c' is not a valid test_enum.<locals>.MyEnum",
+     "input": "c",
+     "ctx": {
+      "error": {
+       "$exception": [
+        "ValueError",
+        "'c' is not a valid test_enum.<locals>.MyEnum"
+       ]
+      }
+     }
+    }
+   ],
+   "title": "json[lax-or-strict[lax=function-after[MyEnum(), str],strict=is-instance[test_enum.<locals>.MyEnum]]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_list_int[json-\"x\"-expected3]#0",
+  "test": "tests/validators/test_json.py::test_list_int[json-\"x\"-expected3]",
+  "schema": {
+   "type": "json",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"\\\"x\\\"\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": "x"
+    }
+   ],
+   "title": "json[list[int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_list_int[json-44-expected2]#0",
+  "test": "tests/validators/test_json.py::test_list_int[json-44-expected2]",
+  "schema": {
+   "type": "json",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"44\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": 44
+    }
+   ],
+   "title": "json[list[int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_list_int[json-[1, 2, 3, \"4\"]-expected1]#0",
+  "test": "tests/validators/test_json.py::test_list_int[json-[1, 2, 3, \"4\"]-expected1]",
+  "schema": {
+   "type": "json",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"[1, 2, 3, \\\"4\\\"]\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3,
+    4
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_list_int[json-[1, 2, 3, \"err\"]-expected4]#0",
+  "test": "tests/validators/test_json.py::test_list_int[json-[1, 2, 3, \"err\"]-expected4]",
+  "schema": {
+   "type": "json",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"[1, 2, 3, \\\"err\\\"]\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      3
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "err"
+    }
+   ],
+   "title": "json[list[int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_list_int[json-[1]-expected0]#0",
+  "test": "tests/validators/test_json.py::test_list_int[json-[1]-expected0]",
+  "schema": {
+   "type": "json",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"[1]\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": [
+    1
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_list_int[python-\"x\"-expected3]#0",
+  "test": "tests/validators/test_json.py::test_list_int[python-\"x\"-expected3]",
+  "schema": {
+   "type": "json",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "\"x\"",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": "x"
+    }
+   ],
+   "title": "json[list[int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_list_int[python-44-expected2]#0",
+  "test": "tests/validators/test_json.py::test_list_int[python-44-expected2]",
+  "schema": {
+   "type": "json",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "44",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "list_type",
+     "loc": [],
+     "msg": "Input should be a valid list",
+     "input": 44
+    }
+   ],
+   "title": "json[list[int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_list_int[python-[1, 2, 3, \"4\"]-expected1]#0",
+  "test": "tests/validators/test_json.py::test_list_int[python-[1, 2, 3, \"4\"]-expected1]",
+  "schema": {
+   "type": "json",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "[1, 2, 3, \"4\"]",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3,
+    4
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_list_int[python-[1, 2, 3, \"err\"]-expected4]#0",
+  "test": "tests/validators/test_json.py::test_list_int[python-[1, 2, 3, \"err\"]-expected4]",
+  "schema": {
+   "type": "json",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "[1, 2, 3, \"err\"]",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      3
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "err"
+    }
+   ],
+   "title": "json[list[int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_json.py::test_list_int[python-[1]-expected0]#0",
+  "test": "tests/validators/test_json.py::test_list_int[python-[1]-expected0]",
+  "schema": {
+   "type": "json",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "[1]",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": [
+    1
+   ]
+  }
+ }
+]

@@ -1,0 +1,7307 @@
+[
+ {
+  "id": "tests/validators/test_allow_partial.py::test_dataclass#0",
+  "test": "tests/validators/test_allow_partial.py::test_dataclass",
+  "schema": {
+   "type": "dataclass-args",
+   "dataclass_name": "MyDataclass",
+   "fields": [
+    {
+     "type": "dataclass-field",
+     "name": "a",
+     "schema": {
+      "type": "str"
+     },
+     "kw_only": false
+    },
+    {
+     "type": "dataclass-field",
+     "name": "b",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "str",
+       "min_length": 2
+      }
+     },
+     "kw_only": false
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": "x",
+   "b": [
+    "ab",
+    "cd"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "a": "x",
+      "b": [
+       "ab",
+       "cd"
+      ]
+     },
+     null
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_dataclass#1",
+  "test": "tests/validators/test_allow_partial.py::test_dataclass",
+  "schema": {
+   "type": "dataclass-args",
+   "dataclass_name": "MyDataclass",
+   "fields": [
+    {
+     "type": "dataclass-field",
+     "name": "a",
+     "schema": {
+      "type": "str"
+     },
+     "kw_only": false
+    },
+    {
+     "type": "dataclass-field",
+     "name": "b",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "str",
+       "min_length": 2
+      }
+     },
+     "kw_only": false
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": "x",
+   "b": [
+    "ab",
+    "cd"
+   ]
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "a": "x",
+      "b": [
+       "ab",
+       "cd"
+      ]
+     },
+     null
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_dataclass#2",
+  "test": "tests/validators/test_allow_partial.py::test_dataclass",
+  "schema": {
+   "type": "dataclass-args",
+   "dataclass_name": "MyDataclass",
+   "fields": [
+    {
+     "type": "dataclass-field",
+     "name": "a",
+     "schema": {
+      "type": "str"
+     },
+     "kw_only": false
+    },
+    {
+     "type": "dataclass-field",
+     "name": "b",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "str",
+       "min_length": 2
+      }
+     },
+     "kw_only": false
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": "x",
+   "b": [
+    "ab",
+    "c"
+   ]
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "string_too_short",
+     "loc": [
+      "b",
+      1
+     ],
+     "msg": "String should have at least 2 characters",
+     "input": "c",
+     "ctx": {
+      "min_length": 2
+     }
+    }
+   ],
+   "title": "dataclass-args[MyDataclass]"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_dict#0",
+  "test": "tests/validators/test_allow_partial.py::test_dict",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     "1",
+     2
+    ],
+    [
+     3,
+     "4"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_dict#1",
+  "test": "tests/validators/test_allow_partial.py::test_dict",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     "1",
+     2
+    ],
+    [
+     3,
+     "4"
+    ]
+   ]
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_dict#2",
+  "test": "tests/validators/test_allow_partial.py::test_dict",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "MyMapping"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_dict#3",
+  "test": "tests/validators/test_allow_partial.py::test_dict",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     "1",
+     2
+    ],
+    [
+     3,
+     "wrong"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      3
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "dict[int,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_dict#4",
+  "test": "tests/validators/test_allow_partial.py::test_dict",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     "1",
+     2
+    ],
+    [
+     3,
+     "x"
+    ]
+   ]
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_dict#5",
+  "test": "tests/validators/test_allow_partial.py::test_dict",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     "1",
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     5,
+     "6"
+    ],
+    [
+     7,
+     "x"
+    ]
+   ]
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ],
+     [
+      5,
+      6
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_dict#6",
+  "test": "tests/validators/test_allow_partial.py::test_dict",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     "1",
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     5,
+     "x"
+    ],
+    [
+     7,
+     "8"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      5
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "x"
+    }
+   ],
+   "title": "dict[int,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_dict#7",
+  "test": "tests/validators/test_allow_partial.py::test_dict",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     "1",
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     5,
+     "x"
+    ],
+    [
+     7,
+     "x"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      5
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "x"
+    },
+    {
+     "type": "int_parsing",
+     "loc": [
+      7
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "x"
+    }
+   ],
+   "title": "dict[int,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_dict#8",
+  "test": "tests/validators/test_allow_partial.py::test_dict",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     "1",
+     2
+    ],
+    [
+     3,
+     4
+    ],
+    [
+     "x",
+     6
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "x",
+      "[key]"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "x"
+    }
+   ],
+   "title": "dict[int,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_dict_list#0",
+  "test": "tests/validators/test_allow_partial.py::test_dict_list",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int",
+     "ge": 10
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     "1",
+     [
+      20,
+      30
+     ]
+    ],
+    [
+     3,
+     [
+      40,
+      "50"
+     ]
+    ]
+   ]
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      [
+       20,
+       30
+      ]
+     ],
+     [
+      3,
+      [
+       40,
+       50
+      ]
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_dict_list#1",
+  "test": "tests/validators/test_allow_partial.py::test_dict_list",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int",
+     "ge": 10
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     "1",
+     [
+      20,
+      30
+     ]
+    ],
+    [
+     3,
+     [
+      40,
+      5
+     ]
+    ]
+   ]
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      [
+       20,
+       30
+      ]
+     ],
+     [
+      3,
+      [
+       40
+      ]
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_dict_list#2",
+  "test": "tests/validators/test_allow_partial.py::test_dict_list",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "int"
+   },
+   "values_schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int",
+     "ge": 10
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     "1",
+     [
+      20,
+      3
+     ]
+    ],
+    [
+     3,
+     [
+      40,
+      50
+     ]
+    ]
+   ]
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than_equal",
+     "loc": [
+      "1",
+      1
+     ],
+     "msg": "Input should be greater than or equal to 10",
+     "input": 3,
+     "ctx": {
+      "ge": 10
+     }
+    }
+   ],
+   "title": "dict[int,list[constrained-int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#0",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 11,
+   "b": [
+    {
+     "a": 10,
+     "b": 20
+    },
+    {
+     "a": 30,
+     "b": 40
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {
+      "a": 30,
+      "b": 40
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#1",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 11,
+   "b": [
+    {
+     "a": 10,
+     "b": 20
+    },
+    {
+     "a": 30,
+     "b": 4
+    }
+   ]
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {
+      "a": 30
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#10",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIg=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {}
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#11",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjo="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {}
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#12",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjog"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {}
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#13",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMQ=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {}
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#14",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTE="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#15",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEs"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#16",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsIA=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#17",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICI="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#18",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJi"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#19",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIg=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#2",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 11,
+   "b": [
+    {
+     "a": 10,
+     "b": 20
+    },
+    {
+     "$dict": [
+      [
+       "a",
+       30
+      ],
+      [
+       123,
+       4
+      ]
+     ]
+    }
+   ]
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#20",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjo="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#21",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjog"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#22",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogWw=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": []
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#23",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3s="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#24",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3si"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#25",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYQ=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#26",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#27",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#28",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IA=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#29",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDE="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#3",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 11,
+   "b": [
+    {
+     "a": 10,
+     "b": 2
+    },
+    {
+     "a": 30
+    }
+   ]
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#30",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEw"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#31",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLA=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#32",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCA="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#33",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAi"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#34",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYg=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#35",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#36",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#37",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IA=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#38",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDI="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#39",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIw"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#4",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "b": [
+    {
+     "a": 10,
+     "b": 20
+    },
+    {
+     "a": 3
+    }
+   ],
+   "a": 11
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than_equal",
+     "loc": [
+      "b",
+      1,
+      "a"
+     ],
+     "msg": "Input should be greater than or equal to 10",
+     "input": 3,
+     "ctx": {
+      "ge": 10
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#40",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfQ=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#41",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSw="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#42",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwg"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#43",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgew=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#44",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgeyI="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#45",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgeyJh"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#46",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgeyJhIg=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#47",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgeyJhIjo="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#48",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgeyJhIjog"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#49",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgeyJhIjogMw=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#5",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 11,
+   "b": [
+    {
+     "a": 1,
+     "b": 20
+    },
+    {
+     "a": 3,
+     "b": 40
+    }
+   ]
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#50",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgeyJhIjogMzA="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {
+      "a": 30
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#51",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgeyJhIjogMzAs"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {
+      "a": 30
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#52",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgeyJhIjogMzAsIA=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {
+      "a": 30
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#53",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgeyJhIjogMzAsICI="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {
+      "a": 30
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#54",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgeyJhIjogMzAsICJi"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {
+      "a": 30
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#55",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgeyJhIjogMzAsICJiIg=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {
+      "a": 30
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#56",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgeyJhIjogMzAsICJiIjo="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {
+      "a": 30
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#57",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgeyJhIjogMzAsICJiIjog"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {
+      "a": 30
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#58",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgeyJhIjogMzAsICJiIjogNA=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {
+      "a": 30
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#59",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgeyJhIjogMzAsICJiIjogNDA="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {
+      "a": 30,
+      "b": 40
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#6",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgeyJhIjogMzAsICJiIjogNDB9XX0="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {
+      "a": 30,
+      "b": 40
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#60",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgeyJhIjogMzAsICJiIjogNDB9"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {
+      "a": 30,
+      "b": 40
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#61",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogW3siYSI6IDEwLCAiYiI6IDIwfSwgeyJhIjogMzAsICJiIjogNDB9XQ=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": [
+     {
+      "a": 10,
+      "b": 20
+     },
+     {
+      "a": 30,
+      "b": 40
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#7",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "ew=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {}
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#8",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyI="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {}
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_double_nested#9",
+  "test": "tests/validators/test_allow_partial.py::test_double_nested",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "list",
+      "items_schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "int",
+        "ge": 10
+       }
+      }
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJh"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {}
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_json[None]#0",
+  "test": "tests/validators/test_allow_partial.py::test_json[None]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "{\"a\": 1}",
+   "{\"b\": 2}"
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    {
+     "a": 1
+    },
+    {
+     "b": 2
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_json[None]#1",
+  "test": "tests/validators/test_allow_partial.py::test_json[None]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "{\"a\": 1}",
+   "{\"b\": 2}"
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    {
+     "a": 1
+    },
+    {
+     "b": 2
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_json[None]#2",
+  "test": "tests/validators/test_allow_partial.py::test_json[None]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "{\"a\": 1}",
+   "xxx"
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    {
+     "a": 1
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_json[None]#3",
+  "test": "tests/validators/test_allow_partial.py::test_json[None]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "{\"a\": 1}",
+   "{\"b\": 2"
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    {
+     "a": 1
+    },
+    {
+     "b": 2
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_json[None]#4",
+  "test": "tests/validators/test_allow_partial.py::test_json[None]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[\"{\\\"a\\\": 1}\", \"{\\\"b\\\": 2}",
+  "options": {
+   "allow_partial": "trailing-strings"
+  },
+  "expected": {
+   "output": [
+    {
+     "a": 1
+    },
+    {
+     "b": 2
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_json[None]#5",
+  "test": "tests/validators/test_allow_partial.py::test_json[None]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[\"{\\\"a\\\": 1}\", \"{\\\"b\\\": 2",
+  "options": {
+   "allow_partial": "trailing-strings"
+  },
+  "expected": {
+   "output": [
+    {
+     "a": 1
+    },
+    {
+     "b": 2
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_json[json_nested_type1]#0",
+  "test": "tests/validators/test_allow_partial.py::test_json[json_nested_type1]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json",
+    "schema": {
+     "type": "dict",
+     "keys_schema": {
+      "type": "str"
+     },
+     "values_schema": {
+      "type": "int"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "{\"a\": 1}",
+   "{\"b\": 2}"
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    {
+     "a": 1
+    },
+    {
+     "b": 2
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_json[json_nested_type1]#1",
+  "test": "tests/validators/test_allow_partial.py::test_json[json_nested_type1]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json",
+    "schema": {
+     "type": "dict",
+     "keys_schema": {
+      "type": "str"
+     },
+     "values_schema": {
+      "type": "int"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "{\"a\": 1}",
+   "{\"b\": 2}"
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    {
+     "a": 1
+    },
+    {
+     "b": 2
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_json[json_nested_type1]#2",
+  "test": "tests/validators/test_allow_partial.py::test_json[json_nested_type1]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json",
+    "schema": {
+     "type": "dict",
+     "keys_schema": {
+      "type": "str"
+     },
+     "values_schema": {
+      "type": "int"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "{\"a\": 1}",
+   "xxx"
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    {
+     "a": 1
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_json[json_nested_type1]#3",
+  "test": "tests/validators/test_allow_partial.py::test_json[json_nested_type1]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json",
+    "schema": {
+     "type": "dict",
+     "keys_schema": {
+      "type": "str"
+     },
+     "values_schema": {
+      "type": "int"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "{\"a\": 1}",
+   "{\"b\": 2"
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    {
+     "a": 1
+    },
+    {
+     "b": 2
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_json[json_nested_type1]#4",
+  "test": "tests/validators/test_allow_partial.py::test_json[json_nested_type1]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json",
+    "schema": {
+     "type": "dict",
+     "keys_schema": {
+      "type": "str"
+     },
+     "values_schema": {
+      "type": "int"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[\"{\\\"a\\\": 1}\", \"{\\\"b\\\": 2}",
+  "options": {
+   "allow_partial": "trailing-strings"
+  },
+  "expected": {
+   "output": [
+    {
+     "a": 1
+    },
+    {
+     "b": 2
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_json[json_nested_type1]#5",
+  "test": "tests/validators/test_allow_partial.py::test_json[json_nested_type1]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json",
+    "schema": {
+     "type": "dict",
+     "keys_schema": {
+      "type": "str"
+     },
+     "values_schema": {
+      "type": "int"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[\"{\\\"a\\\": 1}\", \"{\\\"b\\\": 2",
+  "options": {
+   "allow_partial": "trailing-strings"
+  },
+  "expected": {
+   "output": [
+    {
+     "a": 1
+    },
+    {
+     "b": 2
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_json_trailing_strings#0",
+  "test": "tests/validators/test_allow_partial.py::test_json_trailing_strings",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "{\"a\": 1}",
+   "{\"b\": \"x"
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    {
+     "a": 1
+    },
+    {}
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_json_trailing_strings#1",
+  "test": "tests/validators/test_allow_partial.py::test_json_trailing_strings",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "{\"a\": 1}",
+   "{\"b\": \"x"
+  ],
+  "options": {
+   "allow_partial": "trailing-strings"
+  },
+  "expected": {
+   "output": [
+    {
+     "a": 1
+    },
+    {
+     "b": "x"
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_json_trailing_strings#2",
+  "test": "tests/validators/test_allow_partial.py::test_json_trailing_strings",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[\"{\\\"a\\\": 1}\", \"{\\\"b\\\": 2}\"]",
+  "options": {},
+  "expected": {
+   "output": [
+    {
+     "a": 1
+    },
+    {
+     "b": 2
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_json_trailing_strings#3",
+  "test": "tests/validators/test_allow_partial.py::test_json_trailing_strings",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[\"{\\\"a\\\": 1}\", \"{\\\"b\\\": 2, \\\"c\\\": \\\"x",
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    {
+     "a": 1
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_json_trailing_strings#4",
+  "test": "tests/validators/test_allow_partial.py::test_json_trailing_strings",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[\"{\\\"a\\\": 1}\", \"{\\\"b\\\": 2, \\\"c\\\": \\\"x",
+  "options": {
+   "allow_partial": "trailing-strings"
+  },
+  "expected": {
+   "output": [
+    {
+     "a": 1
+    },
+    {
+     "b": 2,
+     "c": "x"
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_list#0",
+  "test": "tests/validators/test_allow_partial.py::test_list",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   [
+    3,
+    4
+   ]
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    {
+     "$tuple": [
+      1,
+      2
+     ]
+    },
+    {
+     "$tuple": [
+      3,
+      4
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_list#1",
+  "test": "tests/validators/test_allow_partial.py::test_list",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   [
+    3,
+    4
+   ]
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    {
+     "$tuple": [
+      1,
+      2
+     ]
+    },
+    {
+     "$tuple": [
+      3,
+      4
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_list#10",
+  "test": "tests/validators/test_allow_partial.py::test_list",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "W1sxLCAyXSwgWzMs"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    {
+     "$tuple": [
+      1,
+      2
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_list#2",
+  "test": "tests/validators/test_allow_partial.py::test_list",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   "wrong"
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "tuple_type",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid tuple",
+     "input": "wrong"
+    }
+   ],
+   "title": "list[tuple[int, int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_list#3",
+  "test": "tests/validators/test_allow_partial.py::test_list",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   "wrong"
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    {
+     "$tuple": [
+      1,
+      2
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_list#4",
+  "test": "tests/validators/test_allow_partial.py::test_list",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   []
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    {
+     "$tuple": [
+      1,
+      2
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_list#5",
+  "test": "tests/validators/test_allow_partial.py::test_list",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   [
+    3
+   ]
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    {
+     "$tuple": [
+      1,
+      2
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_list#6",
+  "test": "tests/validators/test_allow_partial.py::test_list",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   [
+    3,
+    "x"
+   ]
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    {
+     "$tuple": [
+      1,
+      2
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_list#7",
+  "test": "tests/validators/test_allow_partial.py::test_list",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   "wrong",
+   [
+    3,
+    4
+   ]
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "tuple_type",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid tuple",
+     "input": "wrong"
+    }
+   ],
+   "title": "list[tuple[int, int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_list#8",
+  "test": "tests/validators/test_allow_partial.py::test_list",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   "wrong",
+   "wrong"
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "tuple_type",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid tuple",
+     "input": "wrong"
+    },
+    {
+     "type": "tuple_type",
+     "loc": [
+      2
+     ],
+     "msg": "Input should be a valid tuple",
+     "input": "wrong"
+    }
+   ],
+   "title": "list[tuple[int, int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_list#9",
+  "test": "tests/validators/test_allow_partial.py::test_list",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "W1sxLCAyXSwgWzMsIDRdXQ=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    {
+     "$tuple": [
+      1,
+      2
+     ]
+    },
+    {
+     "$tuple": [
+      3,
+      4
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_non_partial_typed_dict#0",
+  "test": "tests/validators/test_allow_partial.py::test_non_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     },
+     "required": true
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 11,
+   "b": "12",
+   "c": 13
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": 12,
+    "c": 13
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_non_partial_typed_dict#1",
+  "test": "tests/validators/test_allow_partial.py::test_non_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     },
+     "required": true
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 11,
+   "b": "12",
+   "c": 1
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [
+      "c"
+     ],
+     "msg": "Input should be greater than 10",
+     "input": 1,
+     "ctx": {
+      "gt": 10
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_non_partial_typed_dict#2",
+  "test": "tests/validators/test_allow_partial.py::test_non_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     },
+     "required": true
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 11,
+   "b": "12",
+   "c": 1
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": 12
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_non_partial_typed_dict#3",
+  "test": "tests/validators/test_allow_partial.py::test_non_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     },
+     "required": true
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 11,
+   "c": 12
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing",
+     "loc": [
+      "b"
+     ],
+     "msg": "Field required",
+     "input": {
+      "a": 11,
+      "c": 12
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_non_partial_typed_dict#4",
+  "test": "tests/validators/test_allow_partial.py::test_non_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     },
+     "required": true
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 11,
+   "c": 12,
+   "b": 1
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [
+      "b"
+     ],
+     "msg": "Input should be greater than 10",
+     "input": 1,
+     "ctx": {
+      "gt": 10
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_nullable#0",
+  "test": "tests/validators/test_allow_partial.py::test_nullable",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "str",
+     "min_length": 2
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": null,
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_nullable#1",
+  "test": "tests/validators/test_allow_partial.py::test_nullable",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "str",
+     "min_length": 2
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "ab",
+   "cd"
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    "ab",
+    "cd"
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_nullable#2",
+  "test": "tests/validators/test_allow_partial.py::test_nullable",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "str",
+     "min_length": 2
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "ab",
+   "c"
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    "ab"
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_nullable#3",
+  "test": "tests/validators/test_allow_partial.py::test_nullable",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "str",
+     "min_length": 2
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[\"ab\", \"cd\"]",
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    "ab",
+    "cd"
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_nullable#4",
+  "test": "tests/validators/test_allow_partial.py::test_nullable",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "str",
+     "min_length": 2
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[\"ab\", \"cd",
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    "ab"
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_nullable#5",
+  "test": "tests/validators/test_allow_partial.py::test_nullable",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "str",
+     "min_length": 2
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[\"ab\", \"cd",
+  "options": {
+   "allow_partial": "trailing-strings"
+  },
+  "expected": {
+   "output": [
+    "ab",
+    "cd"
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_nullable#6",
+  "test": "tests/validators/test_allow_partial.py::test_nullable",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "str",
+     "min_length": 2
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[\"ab\", \"c",
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": [
+    "ab"
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_nullable#7",
+  "test": "tests/validators/test_allow_partial.py::test_nullable",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "str",
+     "min_length": 2
+    }
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[\"ab\", \"c",
+  "options": {
+   "allow_partial": "trailing-strings"
+  },
+  "expected": {
+   "output": [
+    "ab"
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_partial_typed_dict#0",
+  "test": "tests/validators/test_allow_partial.py::test_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 11,
+   "b": "12",
+   "c": 13
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": 12,
+    "c": 13
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_partial_typed_dict#1",
+  "test": "tests/validators/test_allow_partial.py::test_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "MyMapping"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": 12,
+    "c": 13
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_partial_typed_dict#10",
+  "test": "tests/validators/test_allow_partial.py::test_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogIjEyIiwgImMiOiAx"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": 12
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_partial_typed_dict#11",
+  "test": "tests/validators/test_allow_partial.py::test_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogIjEyIiwgImMiOg=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": 12
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_partial_typed_dict#12",
+  "test": "tests/validators/test_allow_partial.py::test_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogIjEyIiwgImMi"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": 12
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_partial_typed_dict#13",
+  "test": "tests/validators/test_allow_partial.py::test_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogIjEyIiwgImM="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": 12
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_partial_typed_dict#14",
+  "test": "tests/validators/test_allow_partial.py::test_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogIjEyIiwgIg=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": 12
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_partial_typed_dict#15",
+  "test": "tests/validators/test_allow_partial.py::test_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogIjEyIiwg"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": 12
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_partial_typed_dict#16",
+  "test": "tests/validators/test_allow_partial.py::test_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogIjEyIiw="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": 12
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_partial_typed_dict#17",
+  "test": "tests/validators/test_allow_partial.py::test_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJhIjogMTEsICJiIjogIjEyIg=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": 12
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_partial_typed_dict#2",
+  "test": "tests/validators/test_allow_partial.py::test_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 11,
+   "b": "12",
+   "c": 13
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": 12,
+    "c": 13
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_partial_typed_dict#3",
+  "test": "tests/validators/test_allow_partial.py::test_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 11,
+   "b": "12",
+   "c": 1
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [
+      "c"
+     ],
+     "msg": "Input should be greater than 10",
+     "input": 1,
+     "ctx": {
+      "gt": 10
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_partial_typed_dict#4",
+  "test": "tests/validators/test_allow_partial.py::test_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 11,
+   "b": "12",
+   "c": 1
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": 12
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_partial_typed_dict#5",
+  "test": "tests/validators/test_allow_partial.py::test_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "MyMapping"
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": 12
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_partial_typed_dict#6",
+  "test": "tests/validators/test_allow_partial.py::test_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 11,
+   "c": 13,
+   "b": 1
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "c": 13
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_partial_typed_dict#7",
+  "test": "tests/validators/test_allow_partial.py::test_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 11,
+   "c": 1,
+   "b": 12
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [
+      "c"
+     ],
+     "msg": "Input should be greater than 10",
+     "input": 1,
+     "ctx": {
+      "gt": 10
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_partial_typed_dict#8",
+  "test": "tests/validators/test_allow_partial.py::test_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJiIjogIjEyIiwgImEiOiAxMSwgImMiOiAxM30="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": 12,
+    "c": 13
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_partial_typed_dict#9",
+  "test": "tests/validators/test_allow_partial.py::test_partial_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    },
+    "c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int",
+      "gt": 10
+     }
+    }
+   },
+   "total": false
+  },
+  "config": null,
+  "mode": "json",
+  "input": {
+   "$bytes": "eyJiIjogIjEyIiwgImEiOiAxMSwgImMiOiAxMw=="
+  },
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "a": 11,
+    "b": 12,
+    "c": 13
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]#0",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]",
+  "schema": {
+   "type": "frozenset",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   [
+    3,
+    4
+   ]
+  ],
+  "options": {},
+  "expected": {
+   "output": {
+    "$frozenset": [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     {
+      "$tuple": [
+       3,
+       4
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]#1",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]",
+  "schema": {
+   "type": "frozenset",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   [
+    3,
+    4
+   ]
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$frozenset": [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     {
+      "$tuple": [
+       3,
+       4
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]#2",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]",
+  "schema": {
+   "type": "frozenset",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   "wrong"
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "tuple_type",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid tuple",
+     "input": "wrong"
+    }
+   ],
+   "title": "frozenset[tuple[int, int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]#3",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]",
+  "schema": {
+   "type": "frozenset",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   "wrong"
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$frozenset": [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]#4",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]",
+  "schema": {
+   "type": "frozenset",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   [
+    3,
+    4
+   ],
+   "wrong"
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$frozenset": [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     {
+      "$tuple": [
+       3,
+       4
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]#5",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]",
+  "schema": {
+   "type": "frozenset",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   []
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$frozenset": [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]#6",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]",
+  "schema": {
+   "type": "frozenset",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   [
+    3
+   ]
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$frozenset": [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]#7",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]",
+  "schema": {
+   "type": "frozenset",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   [
+    3,
+    "x"
+   ]
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$frozenset": [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]#8",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]",
+  "schema": {
+   "type": "frozenset",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   "wrong",
+   [
+    3,
+    4
+   ]
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "tuple_type",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid tuple",
+     "input": "wrong"
+    }
+   ],
+   "title": "frozenset[tuple[int, int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]#9",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[frozenset_schema]",
+  "schema": {
+   "type": "frozenset",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   "wrong",
+   "wrong"
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "tuple_type",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid tuple",
+     "input": "wrong"
+    },
+    {
+     "type": "tuple_type",
+     "loc": [
+      2
+     ],
+     "msg": "Input should be a valid tuple",
+     "input": "wrong"
+    }
+   ],
+   "title": "frozenset[tuple[int, int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]#0",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   [
+    3,
+    4
+   ]
+  ],
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     {
+      "$tuple": [
+       3,
+       4
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]#1",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   [
+    3,
+    4
+   ]
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$set": [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     {
+      "$tuple": [
+       3,
+       4
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]#2",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   "wrong"
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "tuple_type",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid tuple",
+     "input": "wrong"
+    }
+   ],
+   "title": "set[tuple[int, int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]#3",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   "wrong"
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$set": [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]#4",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   [
+    3,
+    4
+   ],
+   "wrong"
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$set": [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     {
+      "$tuple": [
+       3,
+       4
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]#5",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   []
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$set": [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]#6",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   [
+    3
+   ]
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$set": [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]#7",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   [
+    3,
+    "x"
+   ]
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$set": [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]#8",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   "wrong",
+   [
+    3,
+    4
+   ]
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "tuple_type",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid tuple",
+     "input": "wrong"
+    }
+   ],
+   "title": "set[tuple[int, int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]#9",
+  "test": "tests/validators/test_allow_partial.py::test_set_frozenset[set_schema]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    1,
+    2
+   ],
+   "wrong",
+   "wrong"
+  ],
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "tuple_type",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid tuple",
+     "input": "wrong"
+    },
+    {
+     "type": "tuple_type",
+     "loc": [
+      2
+     ],
+     "msg": "Input should be a valid tuple",
+     "input": "wrong"
+    }
+   ],
+   "title": "set[tuple[int, int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_tuple_list#0",
+  "test": "tests/validators/test_allow_partial.py::test_tuple_list",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "list",
+     "items_schema": {
+      "type": "int"
+     }
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    "1",
+    "2"
+   ],
+   "3"
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     [
+      1,
+      2
+     ],
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_tuple_list#1",
+  "test": "tests/validators/test_allow_partial.py::test_tuple_list",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "list",
+     "items_schema": {
+      "type": "int"
+     }
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    "1",
+    "2"
+   ],
+   "x"
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "x"
+    }
+   ],
+   "title": "tuple[list[int], int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_allow_partial.py::test_tuple_list#2",
+  "test": "tests/validators/test_allow_partial.py::test_tuple_list",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "list",
+     "items_schema": {
+      "type": "int"
+     }
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   [
+    "1",
+    "x"
+   ],
+   "2"
+  ],
+  "options": {
+   "allow_partial": true
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      0,
+      1
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "x"
+    }
+   ],
+   "title": "tuple[list[int], int]"
+  }
+ }
+]

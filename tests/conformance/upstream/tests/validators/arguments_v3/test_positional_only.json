@@ -1,0 +1,455 @@
+[
+ {
+  "id": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only[json-input_value2]#0",
+  "test": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only[json-input_value2]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_only"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "bool"
+      },
+      "default": true
+     },
+     "mode": "positional_only"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"a\": 1, \"b\": true}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       true
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only[json-input_value3]#0",
+  "test": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only[json-input_value3]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_only"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "bool"
+      },
+      "default": true
+     },
+     "mode": "positional_only"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"a\": 1}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       true
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only[python-input_value0]#0",
+  "test": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only[python-input_value0]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_only"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "bool"
+      },
+      "default": true
+     },
+     "mode": "positional_only"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       true
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only[python-input_value1]#0",
+  "test": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only[python-input_value1]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_only"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "bool"
+      },
+      "default": true
+     },
+     "mode": "positional_only"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       true
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only[python-input_value2]#0",
+  "test": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only[python-input_value2]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_only"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "bool"
+      },
+      "default": true
+     },
+     "mode": "positional_only"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": true
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       true
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only[python-input_value3]#0",
+  "test": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only[python-input_value3]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_only"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "bool"
+      },
+      "default": true
+     },
+     "mode": "positional_only"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       true
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only_error_required[python]#0",
+  "test": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only_error_required[python]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_only"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing_positional_only_argument",
+     "loc": [
+      0
+     ],
+     "msg": "Missing required positional only argument",
+     "input": {
+      "$object": "ArgsKwargs"
+     }
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only_error_required[python]#1",
+  "test": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only_error_required[python]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_only"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing_positional_only_argument",
+     "loc": [
+      "a"
+     ],
+     "msg": "Missing required positional only argument",
+     "input": {}
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only_validation_error[python]#0",
+  "test": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only_validation_error[python]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_only"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      0
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only_validation_error[python]#1",
+  "test": "tests/validators/arguments_v3/test_positional_only.py::test_positional_only_validation_error[python]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_only"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": "not_an_int"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "a"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ }
+]

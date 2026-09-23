@@ -1,0 +1,517 @@
+[
+ {
+  "id": "tests/validators/test_chain.py::test_chain#0",
+  "test": "tests/validators/test_chain.py::test_chain",
+  "schema": {
+   "type": "chain",
+   "steps": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "function-plain",
+     "function": {
+      "type": "with-info",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1.44",
+  "options": {},
+  "expected": {
+   "output": {
+    "$decimal": "1.44"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_chain.py::test_chain#1",
+  "test": "tests/validators/test_chain.py::test_chain",
+  "schema": {
+   "type": "chain",
+   "steps": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "function-plain",
+     "function": {
+      "type": "with-info",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "MS40NA=="
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$decimal": "1.44"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_chain.py::test_chain_error#0",
+  "test": "tests/validators/test_chain.py::test_chain_error",
+  "schema": {
+   "type": "chain",
+   "steps": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "123",
+  "options": {},
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/validators/test_chain.py::test_chain_error#1",
+  "test": "tests/validators/test_chain.py::test_chain_error",
+  "schema": {
+   "type": "chain",
+   "steps": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "MTIz"
+  },
+  "options": {},
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/validators/test_chain.py::test_chain_error#2",
+  "test": "tests/validators/test_chain.py::test_chain_error",
+  "schema": {
+   "type": "chain",
+   "steps": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "abc",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "abc"
+    }
+   ],
+   "title": "chain[str,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_chain.py::test_chain_many#0",
+  "test": "tests/validators/test_chain.py::test_chain_many",
+  "schema": {
+   "type": "chain",
+   "steps": [
+    {
+     "type": "function-plain",
+     "function": {
+      "type": "with-info",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    },
+    {
+     "type": "function-plain",
+     "function": {
+      "type": "with-info",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    },
+    {
+     "type": "function-plain",
+     "function": {
+      "type": "with-info",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    },
+    {
+     "type": "function-plain",
+     "function": {
+      "type": "with-info",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input",
+  "options": {},
+  "expected": {
+   "output": "input-1-2-3-4"
+  }
+ },
+ {
+  "id": "tests/validators/test_chain.py::test_chain_one#0",
+  "test": "tests/validators/test_chain.py::test_chain_one",
+  "schema": {
+   "type": "chain",
+   "steps": [
+    {
+     "type": "function-plain",
+     "function": {
+      "type": "with-info",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input",
+  "options": {},
+  "expected": {
+   "output": "input-1"
+  }
+ },
+ {
+  "id": "tests/validators/test_chain.py::test_flatten#0",
+  "test": "tests/validators/test_chain.py::test_flatten",
+  "schema": {
+   "type": "chain",
+   "steps": [
+    {
+     "type": "function-plain",
+     "function": {
+      "type": "with-info",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    },
+    {
+     "type": "chain",
+     "steps": [
+      {
+       "type": "function-plain",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       }
+      },
+      {
+       "type": "function-plain",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       }
+      }
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "input",
+  "options": {},
+  "expected": {
+   "output": "input-1-2-3"
+  }
+ },
+ {
+  "id": "tests/validators/test_chain.py::test_json[json-1-expected1]#0",
+  "test": "tests/validators/test_chain.py::test_json[json-1-expected1]",
+  "schema": {
+   "type": "chain",
+   "steps": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "str"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    },
+    {
+     "type": "function-plain",
+     "function": {
+      "type": "with-info",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$decimal": "1"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_chain.py::test_json[json-1.44-expected0]#0",
+  "test": "tests/validators/test_chain.py::test_json[json-1.44-expected0]",
+  "schema": {
+   "type": "chain",
+   "steps": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "str"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    },
+    {
+     "type": "function-plain",
+     "function": {
+      "type": "with-info",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"1.44\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$decimal": "1.44"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_chain.py::test_json[json-1.44-expected2]#0",
+  "test": "tests/validators/test_chain.py::test_json[json-1.44-expected2]",
+  "schema": {
+   "type": "chain",
+   "steps": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "str"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    },
+    {
+     "type": "function-plain",
+     "function": {
+      "type": "with-info",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.44",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$decimal": "1.439999999999999946709294817992486059665679931640625"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_chain.py::test_json[python-1-expected1]#0",
+  "test": "tests/validators/test_chain.py::test_json[python-1-expected1]",
+  "schema": {
+   "type": "chain",
+   "steps": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "str"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    },
+    {
+     "type": "function-plain",
+     "function": {
+      "type": "with-info",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$decimal": "1"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_chain.py::test_json[python-1.44-expected0]#0",
+  "test": "tests/validators/test_chain.py::test_json[python-1.44-expected0]",
+  "schema": {
+   "type": "chain",
+   "steps": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "str"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    },
+    {
+     "type": "function-plain",
+     "function": {
+      "type": "with-info",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1.44",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$decimal": "1.44"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_chain.py::test_json[python-1.44-expected2]#0",
+  "test": "tests/validators/test_chain.py::test_json[python-1.44-expected2]",
+  "schema": {
+   "type": "chain",
+   "steps": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "str"
+      },
+      {
+       "type": "float"
+      }
+     ]
+    },
+    {
+     "type": "function-plain",
+     "function": {
+      "type": "with-info",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1.44,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$decimal": "1.439999999999999946709294817992486059665679931640625"
+   }
+  }
+ }
+]

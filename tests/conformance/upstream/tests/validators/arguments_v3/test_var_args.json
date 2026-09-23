@@ -1,0 +1,631 @@
+[
+ {
+  "id": "tests/validators/arguments_v3/test_var_args.py::test_var_args[json-input_value2-expected2]#0",
+  "test": "tests/validators/arguments_v3/test_var_args.py::test_var_args[json-input_value2-expected2]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "args",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_args"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"args\": []}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_args.py::test_var_args[json-input_value3-expected3]#0",
+  "test": "tests/validators/arguments_v3/test_var_args.py::test_var_args[json-input_value3-expected3]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "args",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_args"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"args\": [1, 2, 3]}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       2,
+       3
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_args.py::test_var_args[json-input_value4-expected4]#0",
+  "test": "tests/validators/arguments_v3/test_var_args.py::test_var_args[json-input_value4-expected4]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "args",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_args"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"args\": [1, 2, 3]}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       2,
+       3
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_args.py::test_var_args[python-input_value0-expected0]#0",
+  "test": "tests/validators/arguments_v3/test_var_args.py::test_var_args[python-input_value0-expected0]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "args",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_args"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_args.py::test_var_args[python-input_value1-expected1]#0",
+  "test": "tests/validators/arguments_v3/test_var_args.py::test_var_args[python-input_value1-expected1]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "args",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_args"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       2,
+       3
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_args.py::test_var_args[python-input_value2-expected2]#0",
+  "test": "tests/validators/arguments_v3/test_var_args.py::test_var_args[python-input_value2-expected2]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "args",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_args"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "args": {
+    "$tuple": []
+   }
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_args.py::test_var_args[python-input_value3-expected3]#0",
+  "test": "tests/validators/arguments_v3/test_var_args.py::test_var_args[python-input_value3-expected3]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "args",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_args"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "args": {
+    "$tuple": [
+     1,
+     2,
+     3
+    ]
+   }
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       2,
+       3
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_args.py::test_var_args[python-input_value4-expected4]#0",
+  "test": "tests/validators/arguments_v3/test_var_args.py::test_var_args[python-input_value4-expected4]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "args",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_args"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "args": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       2,
+       3
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_args.py::test_var_args_invalid_tuple[json]#0",
+  "test": "tests/validators/arguments_v3/test_var_args.py::test_var_args_invalid_tuple[json]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "args",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_args"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"args\": \"not_a_tuple\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "tuple_type",
+     "loc": [
+      "args"
+     ],
+     "msg": "Input should be a valid array",
+     "input": "not_a_tuple"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_args.py::test_var_args_invalid_tuple[python]#0",
+  "test": "tests/validators/arguments_v3/test_var_args.py::test_var_args_invalid_tuple[python]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "args",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_args"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "args": "not_a_tuple"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "tuple_type",
+     "loc": [
+      "args"
+     ],
+     "msg": "Input should be a valid tuple",
+     "input": "not_a_tuple"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_args.py::test_var_args_validation_error[json-input_value2-err_loc2]#0",
+  "test": "tests/validators/arguments_v3/test_var_args.py::test_var_args_validation_error[json-input_value2-err_loc2]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "args",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_args"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"args\": [\"not_an_int\"]}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "args",
+      0
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_args.py::test_var_args_validation_error[json-input_value3-err_loc3]#0",
+  "test": "tests/validators/arguments_v3/test_var_args.py::test_var_args_validation_error[json-input_value3-err_loc3]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "args",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_args"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"args\": [1, \"not_an_int\"]}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "args",
+      1
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_args.py::test_var_args_validation_error[python-input_value0-err_loc0]#0",
+  "test": "tests/validators/arguments_v3/test_var_args.py::test_var_args_validation_error[python-input_value0-err_loc0]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "args",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_args"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      0
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_args.py::test_var_args_validation_error[python-input_value1-err_loc1]#0",
+  "test": "tests/validators/arguments_v3/test_var_args.py::test_var_args_validation_error[python-input_value1-err_loc1]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "args",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_args"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_args.py::test_var_args_validation_error[python-input_value2-err_loc2]#0",
+  "test": "tests/validators/arguments_v3/test_var_args.py::test_var_args_validation_error[python-input_value2-err_loc2]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "args",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_args"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "args": [
+    "not_an_int"
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "args",
+      0
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_var_args.py::test_var_args_validation_error[python-input_value3-err_loc3]#0",
+  "test": "tests/validators/arguments_v3/test_var_args.py::test_var_args_validation_error[python-input_value3-err_loc3]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "args",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "var_args"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "args": [
+    1,
+    "not_an_int"
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "args",
+      1
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "not_an_int"
+    }
+   ],
+   "title": "arguments-v3"
+  }
+ }
+]

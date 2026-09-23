@@ -1,0 +1,9265 @@
+[
+ {
+  "id": "tests/validators/test_with_default.py::test_arguments#0",
+  "test": "tests/validators/test_with_default.py::test_arguments",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "int"
+      },
+      "default_factory": {
+       "$function": "<lambda>"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 2
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": 2
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_arguments#1",
+  "test": "tests/validators/test_with_default.py::test_arguments",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "int"
+      },
+      "default_factory": {
+       "$function": "<lambda>"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "ArgsKwargs"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       2
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_arguments#2",
+  "test": "tests/validators/test_with_default.py::test_arguments",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "int"
+      },
+      "default_factory": {
+       "$function": "<lambda>"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": []
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_deepcopy_mutable_defaults#0",
+  "test": "tests/validators/test_with_default.py::test_deepcopy_mutable_defaults",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "int_list_with_default": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       },
+       "default": []
+      }
+     },
+     "str_dict_with_default": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "dict",
+        "keys_schema": {
+         "type": "str"
+        },
+        "values_schema": {
+         "type": "str"
+        }
+       },
+       "default": {}
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "int_list_with_default": [],
+      "str_dict_with_default": {}
+     },
+     "fields_set": [],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_default_validate_default_after_validator_field_name#0",
+  "test": "tests/validators/test_with_default.py::test_default_validate_default_after_validator_field_name",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "a": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "function-after",
+        "function": {
+         "type": "with-info",
+         "function": {
+          "$function": "val_func"
+         }
+        },
+        "schema": {
+         "type": "str"
+        }
+       },
+       "default": "default"
+      }
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Model",
+     "fields": {
+      "a": "default"
+     },
+     "fields_set": [],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_dict_keys#0",
+  "test": "tests/validators/test_with_default.py::test_dict_keys",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     "a"
+    ],
+    [
+     "2",
+     "b"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      "a"
+     ],
+     [
+      2,
+      "b"
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_dict_keys#1",
+  "test": "tests/validators/test_with_default.py::test_dict_keys",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     "a"
+    ],
+    [
+     "wrong",
+     "b"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      "a"
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_dict_keys#2",
+  "test": "tests/validators/test_with_default.py::test_dict_keys",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     "a"
+    ],
+    [
+     "wrong",
+     "b"
+    ],
+    [
+     3,
+     "c"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      "a"
+     ],
+     [
+      3,
+      "c"
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_dict_values[json]#0",
+  "test": "tests/validators/test_with_default.py::test_dict_values[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"a\": 1, \"b\": \"2\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": 2
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_dict_values[json]#1",
+  "test": "tests/validators/test_with_default.py::test_dict_values[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"a\": 1, \"b\": \"wrong\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_dict_values[json]#2",
+  "test": "tests/validators/test_with_default.py::test_dict_values[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"a\": 1, \"b\": \"wrong\", \"c\": \"3\"}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "c": 3
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_dict_values[python]#0",
+  "test": "tests/validators/test_with_default.py::test_dict_values[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": "2"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": 2
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_dict_values[python]#1",
+  "test": "tests/validators/test_with_default.py::test_dict_values[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": "wrong"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_dict_values[python]#2",
+  "test": "tests/validators/test_with_default.py::test_dict_values[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "a": 1,
+   "b": "wrong",
+   "c": "3"
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "c": 3
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_factory_missing_arg#0",
+  "test": "tests/validators/test_with_default.py::test_factory_missing_arg",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "int"
+   },
+   "default_factory": {
+    "$function": "broken"
+   },
+   "default_factory_takes_data": false,
+   "on_error": "default"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42,
+  "options": {},
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_factory_missing_arg#1",
+  "test": "tests/validators/test_with_default.py::test_factory_missing_arg",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "int"
+   },
+   "default_factory": {
+    "$function": "broken"
+   },
+   "default_factory_takes_data": false,
+   "on_error": "default"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "42",
+  "options": {},
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_factory_missing_arg#2",
+  "test": "tests/validators/test_with_default.py::test_factory_missing_arg",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "int"
+   },
+   "default_factory": {
+    "$function": "broken"
+   },
+   "default_factory_takes_data": false,
+   "on_error": "default"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "wrong",
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "test_factory_missing_arg.<locals>.broken() missing 1 required positional argument: 'x'"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_factory_runtime_error#0",
+  "test": "tests/validators/test_with_default.py::test_factory_runtime_error",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "int"
+   },
+   "default_factory": {
+    "$function": "broken"
+   },
+   "on_error": "default"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42,
+  "options": {},
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_factory_runtime_error#1",
+  "test": "tests/validators/test_with_default.py::test_factory_runtime_error",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "int"
+   },
+   "default_factory": {
+    "$function": "broken"
+   },
+   "on_error": "default"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "42",
+  "options": {},
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_factory_runtime_error#2",
+  "test": "tests/validators/test_with_default.py::test_factory_runtime_error",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "int"
+   },
+   "default_factory": {
+    "$function": "broken"
+   },
+   "on_error": "default"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "wrong",
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "RuntimeError",
+    "message": "this is broken"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_list[input_value0-expected0]#0",
+  "test": "tests/validators/test_with_default.py::test_list[input_value0-expected0]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "2",
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_list[input_value1-expected1]#0",
+  "test": "tests/validators/test_with_default.py::test_list[input_value1-expected1]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "wrong",
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_list[input_value2-expected2]#0",
+  "test": "tests/validators/test_with_default.py::test_list[input_value2-expected2]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    "2",
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_list[input_value3-expected3]#0",
+  "test": "tests/validators/test_with_default.py::test_list[input_value3-expected3]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    "wrong",
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_list[input_value4-expected4]#0",
+  "test": "tests/validators/test_with_default.py::test_list[input_value4-expected4]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_list[input_value5-expected5]#0",
+  "test": "tests/validators/test_with_default.py::test_list[input_value5-expected5]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_list_json[json-input_value0-expected0]#0",
+  "test": "tests/validators/test_with_default.py::test_list_json[json-input_value0-expected0]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2, 3]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_list_json[json-input_value1-expected1]#0",
+  "test": "tests/validators/test_with_default.py::test_list_json[json-input_value1-expected1]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, \"2\", 3]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_list_json[json-input_value2-expected2]#0",
+  "test": "tests/validators/test_with_default.py::test_list_json[json-input_value2-expected2]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, \"wrong\", 3]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": [
+    1,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_list_json[python-input_value0-expected0]#0",
+  "test": "tests/validators/test_with_default.py::test_list_json[python-input_value0-expected0]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_list_json[python-input_value1-expected1]#0",
+  "test": "tests/validators/test_with_default.py::test_list_json[python-input_value1-expected1]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "2",
+   3
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_list_json[python-input_value2-expected2]#0",
+  "test": "tests/validators/test_with_default.py::test_list_json[python-input_value2-expected2]",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "wrong",
+   3
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": [
+    1,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_model_class#0",
+  "test": "tests/validators/test_with_default.py::test_model_class",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "default",
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "field_a": {
+       "type": "model-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "field_b": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "on_error": "default",
+    "default": {
+     "$tuple": [
+      {
+       "field_a": "[default-a]",
+       "field_b": "[default-b]"
+      },
+      null,
+      {
+       "$set": []
+      }
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test",
+   "field_b": 12
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "test",
+      "field_b": 12
+     },
+     "fields_set": [
+      "field_a",
+      "field_b"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_model_class#1",
+  "test": "tests/validators/test_with_default.py::test_model_class",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "default",
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "field_a": {
+       "type": "model-field",
+       "schema": {
+        "type": "str"
+       }
+      },
+      "field_b": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "on_error": "default",
+    "default": {
+     "$tuple": [
+      {
+       "field_a": "[default-a]",
+       "field_b": "[default-b]"
+      },
+      null,
+      {
+       "$set": []
+      }
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "field_a": "test",
+   "field_b": "wrong"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "MyModel",
+     "fields": {
+      "field_a": "[default-a]",
+      "field_b": "[default-b]"
+     },
+     "fields_set": [],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_on_error_default#0",
+  "test": "tests/validators/test_with_default.py::test_on_error_default",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "int"
+   },
+   "on_error": "default",
+   "default": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42,
+  "options": {},
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_on_error_default#1",
+  "test": "tests/validators/test_with_default.py::test_on_error_default",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "int"
+   },
+   "on_error": "default",
+   "default": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": "42",
+  "options": {},
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_on_error_default#2",
+  "test": "tests/validators/test_with_default.py::test_on_error_default",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "int"
+   },
+   "on_error": "default",
+   "default": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": "wrong",
+  "options": {},
+  "expected": {
+   "output": 2
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_on_error_default_factory#0",
+  "test": "tests/validators/test_with_default.py::test_on_error_default_factory",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "int"
+   },
+   "default_factory": {
+    "$function": "<lambda>"
+   },
+   "on_error": "default"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42,
+  "options": {},
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_on_error_default_factory#1",
+  "test": "tests/validators/test_with_default.py::test_on_error_default_factory",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "int"
+   },
+   "default_factory": {
+    "$function": "<lambda>"
+   },
+   "on_error": "default"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "42",
+  "options": {},
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_on_error_default_factory#2",
+  "test": "tests/validators/test_with_default.py::test_on_error_default_factory",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "int"
+   },
+   "default_factory": {
+    "$function": "<lambda>"
+   },
+   "on_error": "default"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "wrong",
+  "options": {},
+  "expected": {
+   "output": 17
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_on_error_default_not_int#0",
+  "test": "tests/validators/test_with_default.py::test_on_error_default_not_int",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "int"
+   },
+   "on_error": "default",
+   "default": [
+    1,
+    2,
+    3
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42,
+  "options": {},
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_on_error_default_not_int#1",
+  "test": "tests/validators/test_with_default.py::test_on_error_default_not_int",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "int"
+   },
+   "on_error": "default",
+   "default": [
+    1,
+    2,
+    3
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "42",
+  "options": {},
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_on_error_default_not_int#2",
+  "test": "tests/validators/test_with_default.py::test_on_error_default_not_int",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "int"
+   },
+   "on_error": "default",
+   "default": [
+    1,
+    2,
+    3
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "wrong",
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_on_error_omit#0",
+  "test": "tests/validators/test_with_default.py::test_on_error_omit",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "int"
+   },
+   "on_error": "omit"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 42,
+  "options": {},
+  "expected": {
+   "output": 42
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_on_error_omit#1",
+  "test": "tests/validators/test_with_default.py::test_on_error_omit",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "int"
+   },
+   "on_error": "omit"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "wrong",
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "SchemaError",
+    "message": "Uncaught Omit error, please check your usage of `default` validators."
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_set[input_value0-expected0]#0",
+  "test": "tests/validators/test_with_default.py::test_set[input_value0-expected0]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$set": [
+    1,
+    3,
+    "2"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_set[input_value1-expected1]#0",
+  "test": "tests/validators/test_with_default.py::test_set[input_value1-expected1]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "2",
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_set[input_value2-expected2]#0",
+  "test": "tests/validators/test_with_default.py::test_set[input_value2-expected2]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "wrong",
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_set[input_value3-expected3]#0",
+  "test": "tests/validators/test_with_default.py::test_set[input_value3-expected3]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_set[input_value4-expected4]#0",
+  "test": "tests/validators/test_with_default.py::test_set[input_value4-expected4]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "default",
+    "schema": {
+     "type": "int"
+    },
+    "on_error": "omit"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_tuple_positional#0",
+  "test": "tests/validators/test_with_default.py::test_tuple_positional",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "default",
+     "schema": {
+      "type": "int"
+     },
+     "default": 42
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    "2"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_tuple_positional#1",
+  "test": "tests/validators/test_with_default.py::test_tuple_positional",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "default",
+     "schema": {
+      "type": "int"
+     },
+     "default": 42
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "2"
+  ],
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_tuple_positional#2",
+  "test": "tests/validators/test_with_default.py::test_tuple_positional",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "default",
+     "schema": {
+      "type": "int"
+     },
+     "default": 42
+    }
+   ]
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, \"2\"]",
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_tuple_positional#3",
+  "test": "tests/validators/test_with_default.py::test_tuple_positional",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "default",
+     "schema": {
+      "type": "int"
+     },
+     "default": 42
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     42
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_tuple_positional_omit#0",
+  "test": "tests/validators/test_with_default.py::test_tuple_positional_omit",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "int"
+    },
+    {
+     "type": "default",
+     "schema": {
+      "type": "int"
+     },
+     "on_error": "omit"
+    }
+   ],
+   "variadic_item_index": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    "2"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_tuple_positional_omit#1",
+  "test": "tests/validators/test_with_default.py::test_tuple_positional_omit",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "int"
+    },
+    {
+     "type": "default",
+     "schema": {
+      "type": "int"
+     },
+     "on_error": "omit"
+    }
+   ],
+   "variadic_item_index": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    "2",
+    3,
+    "4"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2,
+     3,
+     4
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_tuple_positional_omit#2",
+  "test": "tests/validators/test_with_default.py::test_tuple_positional_omit",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "int"
+    },
+    {
+     "type": "default",
+     "schema": {
+      "type": "int"
+     },
+     "on_error": "omit"
+    }
+   ],
+   "variadic_item_index": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    "2",
+    "wrong",
+    "4"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2,
+     4
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_tuple_positional_omit#3",
+  "test": "tests/validators/test_with_default.py::test_tuple_positional_omit",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "int"
+    },
+    {
+     "type": "default",
+     "schema": {
+      "type": "int"
+     },
+     "on_error": "omit"
+    }
+   ],
+   "variadic_item_index": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    "2",
+    3,
+    "x4"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_tuple_positional_omit#4",
+  "test": "tests/validators/test_with_default.py::test_tuple_positional_omit",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "int"
+    },
+    {
+     "type": "default",
+     "schema": {
+      "type": "int"
+     },
+     "on_error": "omit"
+    }
+   ],
+   "variadic_item_index": 2
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, \"2\", 3, \"x4\"]",
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_tuple_variable[json]#0",
+  "test": "tests/validators/test_with_default.py::test_tuple_variable[json]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "default",
+     "schema": {
+      "type": "int"
+     },
+     "on_error": "omit"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_tuple_variable[json]#1",
+  "test": "tests/validators/test_with_default.py::test_tuple_variable[json]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "default",
+     "schema": {
+      "type": "int"
+     },
+     "on_error": "omit"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "2",
+   3
+  ],
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_tuple_variable[json]#2",
+  "test": "tests/validators/test_with_default.py::test_tuple_variable[json]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "default",
+     "schema": {
+      "type": "int"
+     },
+     "on_error": "omit"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "wrong",
+   3
+  ],
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_tuple_variable[python]#0",
+  "test": "tests/validators/test_with_default.py::test_tuple_variable[python]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "default",
+     "schema": {
+      "type": "int"
+     },
+     "on_error": "omit"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_tuple_variable[python]#1",
+  "test": "tests/validators/test_with_default.py::test_tuple_variable[python]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "default",
+     "schema": {
+      "type": "int"
+     },
+     "on_error": "omit"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "2",
+   3
+  ],
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_tuple_variable[python]#2",
+  "test": "tests/validators/test_with_default.py::test_tuple_variable[python]",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "default",
+     "schema": {
+      "type": "int"
+     },
+     "on_error": "omit"
+    }
+   ],
+   "variadic_item_index": 0
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "wrong",
+   3
+  ],
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_typed_dict_default#0",
+  "test": "tests/validators/test_with_default.py::test_typed_dict_default",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    },
+    "y": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "str"
+      },
+      "default": "[default]"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "x",
+   "y": "y"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "x",
+    "y": "y"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_typed_dict_default#1",
+  "test": "tests/validators/test_with_default.py::test_typed_dict_default",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    },
+    "y": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "str"
+      },
+      "default": "[default]"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "x"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "x",
+    "y": "[default]"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_typed_dict_error#0",
+  "test": "tests/validators/test_with_default.py::test_typed_dict_error",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    },
+    "y": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "str"
+      },
+      "default_factory": {
+       "$function": "<lambda>"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "x",
+   "y": "y"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "x",
+    "y": "y"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_typed_dict_error#1",
+  "test": "tests/validators/test_with_default.py::test_typed_dict_error",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    },
+    "y": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "str"
+      },
+      "default_factory": {
+       "$function": "<lambda>"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "x"
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "test_typed_dict_error.<locals>.<lambda>() missing 1 required positional argument: 'y'"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_typed_dict_omit#0",
+  "test": "tests/validators/test_with_default.py::test_typed_dict_omit",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    },
+    "y": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "str"
+      },
+      "on_error": "omit"
+     },
+     "required": false
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "x",
+   "y": "y"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "x",
+    "y": "y"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_typed_dict_omit#1",
+  "test": "tests/validators/test_with_default.py::test_typed_dict_omit",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    },
+    "y": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "str"
+      },
+      "on_error": "omit"
+     },
+     "required": false
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "x"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "x"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_typed_dict_omit#2",
+  "test": "tests/validators/test_with_default.py::test_typed_dict_omit",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    },
+    "y": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "str"
+      },
+      "on_error": "omit"
+     },
+     "required": false
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "x",
+   "y": 42
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "x"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_use_default_error#0",
+  "test": "tests/validators/test_with_default.py::test_use_default_error",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "function-wrap",
+    "function": {
+     "type": "no-info",
+     "function": {
+      "$function": "val_func"
+     }
+    },
+    "schema": {
+     "type": "int"
+    }
+   },
+   "default": 10
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_use_default_error#1",
+  "test": "tests/validators/test_with_default.py::test_use_default_error",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "function-wrap",
+    "function": {
+     "type": "no-info",
+     "function": {
+      "$function": "val_func"
+     }
+    },
+    "schema": {
+     "type": "int"
+    }
+   },
+   "default": 10
+  },
+  "config": null,
+  "mode": "python",
+  "input": "",
+  "options": {},
+  "expected": {
+   "output": 10
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_use_default_error#2",
+  "test": "tests/validators/test_with_default.py::test_use_default_error",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "function-wrap",
+    "function": {
+     "type": "no-info",
+     "function": {
+      "$function": "val_func"
+     }
+    },
+    "schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "",
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "SchemaError",
+    "message": "Uncaught `PydanticUseDefault` exception: the error was raised in a field validator and no default value is available for that field."
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_use_default_error#3",
+  "test": "tests/validators/test_with_default.py::test_use_default_error",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "val_func"
+    }
+   },
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "",
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "SchemaError",
+    "message": "Uncaught `PydanticUseDefault` exception: the error was raised in a field validator and no default value is available for that field."
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[after-False-False]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[after-False-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[after-False-False]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[after-False-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[after-False-None]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[after-False-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[after-False-None]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[after-False-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[after-False-True]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[after-False-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[after-False-True]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[after-False-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[after-None-False]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[after-None-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[after-None-False]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[after-None-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[after-None-None]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[after-None-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[after-None-None]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[after-None-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[after-None-True]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[after-None-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[after-None-True]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[after-None-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 84
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[after-True-False]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[after-True-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[after-True-False]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[after-True-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 84
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[after-True-None]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[after-True-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[after-True-None]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[after-True-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 84
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[after-True-True]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[after-True-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[after-True-True]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[after-True-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 84
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[before-False-False]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[before-False-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[before-False-False]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[before-False-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[before-False-None]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[before-False-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[before-False-None]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[before-False-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[before-False-True]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[before-False-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[before-False-True]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[before-False-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[before-None-False]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[before-None-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[before-None-False]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[before-None-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[before-None-None]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[before-None-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[before-None-None]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[before-None-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[before-None-True]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[before-None-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[before-None-True]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[before-None-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 84
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[before-True-False]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[before-True-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[before-True-False]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[before-True-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 84
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[before-True-None]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[before-True-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[before-True-None]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[before-True-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 84
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[before-True-True]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[before-True-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[before-True-True]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[before-True-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-before",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 84
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-after-False-False]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-after-False-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-after-False-False]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-after-False-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-after-False-None]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-after-False-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-after-False-None]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-after-False-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-after-False-True]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-after-False-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-after-False-True]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-after-False-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-after-None-False]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-after-None-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-after-None-False]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-after-None-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-after-None-None]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-after-None-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-after-None-None]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-after-None-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-after-None-True]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-after-None-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-after-None-True]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-after-None-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 84
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-after-True-False]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-after-True-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-after-True-False]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-after-True-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 84
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-after-True-None]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-after-True-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-after-True-None]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-after-True-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 84
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-after-True-True]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-after-True-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-after-True-True]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-after-True-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 84
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-before-False-False]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-before-False-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-before-False-False]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-before-False-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-before-False-None]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-before-False-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-before-False-None]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-before-False-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-before-False-True]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-before-False-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-before-False-True]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-before-False-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": false,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-before-None-False]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-before-None-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-before-None-False]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-before-None-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-before-None-None]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-before-None-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-before-None-None]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-before-None-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "42"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-before-None-True]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-before-None-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-before-None-True]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-before-None-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 84
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-before-True-False]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-before-True-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-before-True-False]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-before-True-False]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 84
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-before-True-None]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-before-True-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-before-True-None]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-before-True-None]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 84
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-before-True-True]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-before-True-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 4
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default[wrap-before-True-True]#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default[wrap-before-True-True]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-wrap",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "int"
+       }
+      },
+      "validate_default": true,
+      "default": "42"
+     }
+    }
+   },
+   "config": {
+    "validate_default": true
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 84
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_error_tuple#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_error_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "default",
+     "schema": {
+      "type": "int"
+     },
+     "validate_default": true,
+     "default": "wrong"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    "2"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     2
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_error_tuple#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default_error_tuple",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "default",
+     "schema": {
+      "type": "int"
+     },
+     "validate_default": true,
+     "default": "wrong"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": []
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      0
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "wrong"
+    }
+   ],
+   "title": "tuple[default[int]]"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_error_typed_dict#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_error_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "int"
+      },
+      "validate_default": true,
+      "default": "xx"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": "2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 2
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_error_typed_dict#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default_error_typed_dict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "int"
+      },
+      "validate_default": true,
+      "default": "xx"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      "x"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "xx"
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_factory#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_factory",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "default",
+     "schema": {
+      "type": "int"
+     },
+     "default_factory": {
+      "$function": "<lambda>"
+     }
+    }
+   ]
+  },
+  "config": {
+   "validate_default": true
+  },
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    "2"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     2
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_factory#1",
+  "test": "tests/validators/test_with_default.py::test_validate_default_factory",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "default",
+     "schema": {
+      "type": "int"
+     },
+     "default_factory": {
+      "$function": "<lambda>"
+     }
+    }
+   ]
+  },
+  "config": {
+   "validate_default": true
+  },
+  "mode": "python",
+  "input": {
+   "$tuple": []
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     42
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value0-expected0-model_fields_schema-model_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value0-expected0-model_fields_schema-model_field]",
+  "schema": {
+   "type": "model-fields",
+   "fields": {
+    "x": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "model-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "missing",
+     "loc": [
+      "z"
+     ],
+     "msg": "Field required",
+     "input": {}
+    }
+   ],
+   "title": "model-fields"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value0-expected0-typed_dict_schema-typed_dict_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value0-expected0-typed_dict_schema-typed_dict_field]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "missing",
+     "loc": [
+      "z"
+     ],
+     "msg": "Field required",
+     "input": {}
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value1-expected1-model_fields_schema-model_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value1-expected1-model_fields_schema-model_field]",
+  "schema": {
+   "type": "model-fields",
+   "fields": {
+    "x": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "model-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "model-fields"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value1-expected1-typed_dict_schema-typed_dict_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value1-expected1-typed_dict_schema-typed_dict_field]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value10-expected10-model_fields_schema-model_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value10-expected10-model_fields_schema-model_field]",
+  "schema": {
+   "type": "model-fields",
+   "fields": {
+    "x": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "model-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": 1,
+   "y": 1,
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": 1,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": 1,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "model-fields"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value10-expected10-typed_dict_schema-typed_dict_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value10-expected10-typed_dict_schema-typed_dict_field]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": 1,
+   "y": 1,
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": 1,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": 1,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value2-expected2-model_fields_schema-model_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value2-expected2-model_fields_schema-model_field]",
+  "schema": {
+   "type": "model-fields",
+   "fields": {
+    "x": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "model-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": null
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "missing",
+     "loc": [
+      "z"
+     ],
+     "msg": "Field required",
+     "input": {
+      "x": null
+     }
+    }
+   ],
+   "title": "model-fields"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value2-expected2-typed_dict_schema-typed_dict_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value2-expected2-typed_dict_schema-typed_dict_field]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": null
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "missing",
+     "loc": [
+      "z"
+     ],
+     "msg": "Field required",
+     "input": {
+      "x": null
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value3-expected3-model_fields_schema-model_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value3-expected3-model_fields_schema-model_field]",
+  "schema": {
+   "type": "model-fields",
+   "fields": {
+    "x": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "model-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": null,
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "model-fields"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value3-expected3-typed_dict_schema-typed_dict_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value3-expected3-typed_dict_schema-typed_dict_field]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": null,
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value4-expected4-model_fields_schema-model_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value4-expected4-model_fields_schema-model_field]",
+  "schema": {
+   "type": "model-fields",
+   "fields": {
+    "x": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "model-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "y": null
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "missing",
+     "loc": [
+      "z"
+     ],
+     "msg": "Field required",
+     "input": {
+      "y": null
+     }
+    }
+   ],
+   "title": "model-fields"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value4-expected4-typed_dict_schema-typed_dict_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value4-expected4-typed_dict_schema-typed_dict_field]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "y": null
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "missing",
+     "loc": [
+      "z"
+     ],
+     "msg": "Field required",
+     "input": {
+      "y": null
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value5-expected5-model_fields_schema-model_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value5-expected5-model_fields_schema-model_field]",
+  "schema": {
+   "type": "model-fields",
+   "fields": {
+    "x": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "model-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "y": null,
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "model-fields"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value5-expected5-typed_dict_schema-typed_dict_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value5-expected5-typed_dict_schema-typed_dict_field]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "y": null,
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value6-expected6-model_fields_schema-model_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value6-expected6-model_fields_schema-model_field]",
+  "schema": {
+   "type": "model-fields",
+   "fields": {
+    "x": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "model-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": null,
+   "y": null
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "missing",
+     "loc": [
+      "z"
+     ],
+     "msg": "Field required",
+     "input": {
+      "x": null,
+      "y": null
+     }
+    }
+   ],
+   "title": "model-fields"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value6-expected6-typed_dict_schema-typed_dict_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value6-expected6-typed_dict_schema-typed_dict_field]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": null,
+   "y": null
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "missing",
+     "loc": [
+      "z"
+     ],
+     "msg": "Field required",
+     "input": {
+      "x": null,
+      "y": null
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value7-expected7-model_fields_schema-model_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value7-expected7-model_fields_schema-model_field]",
+  "schema": {
+   "type": "model-fields",
+   "fields": {
+    "x": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "model-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": null,
+   "y": null,
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "model-fields"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value7-expected7-typed_dict_schema-typed_dict_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value7-expected7-typed_dict_schema-typed_dict_field]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": null,
+   "y": null,
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value8-expected8-model_fields_schema-model_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value8-expected8-model_fields_schema-model_field]",
+  "schema": {
+   "type": "model-fields",
+   "fields": {
+    "x": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "model-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": 1,
+   "y": null,
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": 1,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "model-fields"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value8-expected8-typed_dict_schema-typed_dict_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value8-expected8-typed_dict_schema-typed_dict_field]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": 1,
+   "y": null,
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": 1,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value9-expected9-model_fields_schema-model_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value9-expected9-model_fields_schema-model_field]",
+  "schema": {
+   "type": "model-fields",
+   "fields": {
+    "x": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "model-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "model-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": null,
+   "y": 1,
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": 1,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "model-fields"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises[input_value9-expected9-typed_dict_schema-typed_dict_field]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises[input_value9-expected9-typed_dict_schema-typed_dict_field]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "y": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    "z": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": null,
+   "y": 1,
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": 1,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "typed-dict"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value0-expected0]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value0-expected0]",
+  "schema": {
+   "type": "dataclass-args",
+   "dataclass_name": "XYZ",
+   "fields": [
+    {
+     "type": "dataclass-field",
+     "name": "x",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "y",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "z",
+     "schema": {
+      "type": "str"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "missing",
+     "loc": [
+      "z"
+     ],
+     "msg": "Field required",
+     "input": {}
+    }
+   ],
+   "title": "dataclass-args[XYZ]"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value1-expected1]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value1-expected1]",
+  "schema": {
+   "type": "dataclass-args",
+   "dataclass_name": "XYZ",
+   "fields": [
+    {
+     "type": "dataclass-field",
+     "name": "x",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "y",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "z",
+     "schema": {
+      "type": "str"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "dataclass-args[XYZ]"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value10-expected10]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value10-expected10]",
+  "schema": {
+   "type": "dataclass-args",
+   "dataclass_name": "XYZ",
+   "fields": [
+    {
+     "type": "dataclass-field",
+     "name": "x",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "y",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "z",
+     "schema": {
+      "type": "str"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": 1,
+   "y": 1,
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": 1,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": 1,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "dataclass-args[XYZ]"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value2-expected2]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value2-expected2]",
+  "schema": {
+   "type": "dataclass-args",
+   "dataclass_name": "XYZ",
+   "fields": [
+    {
+     "type": "dataclass-field",
+     "name": "x",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "y",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "z",
+     "schema": {
+      "type": "str"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": null
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "missing",
+     "loc": [
+      "z"
+     ],
+     "msg": "Field required",
+     "input": {
+      "x": null
+     }
+    }
+   ],
+   "title": "dataclass-args[XYZ]"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value3-expected3]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value3-expected3]",
+  "schema": {
+   "type": "dataclass-args",
+   "dataclass_name": "XYZ",
+   "fields": [
+    {
+     "type": "dataclass-field",
+     "name": "x",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "y",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "z",
+     "schema": {
+      "type": "str"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": null,
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "dataclass-args[XYZ]"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value4-expected4]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value4-expected4]",
+  "schema": {
+   "type": "dataclass-args",
+   "dataclass_name": "XYZ",
+   "fields": [
+    {
+     "type": "dataclass-field",
+     "name": "x",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "y",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "z",
+     "schema": {
+      "type": "str"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "y": null
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "missing",
+     "loc": [
+      "z"
+     ],
+     "msg": "Field required",
+     "input": {
+      "y": null
+     }
+    }
+   ],
+   "title": "dataclass-args[XYZ]"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value5-expected5]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value5-expected5]",
+  "schema": {
+   "type": "dataclass-args",
+   "dataclass_name": "XYZ",
+   "fields": [
+    {
+     "type": "dataclass-field",
+     "name": "x",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "y",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "z",
+     "schema": {
+      "type": "str"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "y": null,
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "dataclass-args[XYZ]"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value6-expected6]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value6-expected6]",
+  "schema": {
+   "type": "dataclass-args",
+   "dataclass_name": "XYZ",
+   "fields": [
+    {
+     "type": "dataclass-field",
+     "name": "x",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "y",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "z",
+     "schema": {
+      "type": "str"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": null,
+   "y": null
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "missing",
+     "loc": [
+      "z"
+     ],
+     "msg": "Field required",
+     "input": {
+      "x": null,
+      "y": null
+     }
+    }
+   ],
+   "title": "dataclass-args[XYZ]"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value7-expected7]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value7-expected7]",
+  "schema": {
+   "type": "dataclass-args",
+   "dataclass_name": "XYZ",
+   "fields": [
+    {
+     "type": "dataclass-field",
+     "name": "x",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "y",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "z",
+     "schema": {
+      "type": "str"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": null,
+   "y": null,
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "dataclass-args[XYZ]"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value8-expected8]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value8-expected8]",
+  "schema": {
+   "type": "dataclass-args",
+   "dataclass_name": "XYZ",
+   "fields": [
+    {
+     "type": "dataclass-field",
+     "name": "x",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "y",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "z",
+     "schema": {
+      "type": "str"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": 1,
+   "y": null,
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": 1,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "dataclass-args[XYZ]"
+  }
+ },
+ {
+  "id": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value9-expected9]#0",
+  "test": "tests/validators/test_with_default.py::test_validate_default_raises_dataclass[input_value9-expected9]",
+  "schema": {
+   "type": "dataclass-args",
+   "dataclass_name": "XYZ",
+   "fields": [
+    {
+     "type": "dataclass-field",
+     "name": "x",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "y",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "<lambda>"
+        }
+       },
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "validate_default": true,
+      "default": null
+     }
+    },
+    {
+     "type": "dataclass-field",
+     "name": "z",
+     "schema": {
+      "type": "str"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": null,
+   "y": 1,
+   "z": "some str"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "assertion_error",
+     "loc": [
+      "x"
+     ],
+     "msg": "Assertion failed, ",
+     "input": null,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    },
+    {
+     "type": "assertion_error",
+     "loc": [
+      "y"
+     ],
+     "msg": "Assertion failed, ",
+     "input": 1,
+     "ctx": {
+      "error": {
+       "$exception": [
+        "AssertionError",
+        ""
+       ]
+      }
+     }
+    }
+   ],
+   "title": "dataclass-args[XYZ]"
+  }
+ }
+]

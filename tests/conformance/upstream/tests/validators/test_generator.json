@@ -1,0 +1,1210 @@
+[
+ {
+  "id": "tests/validators/test_generator.py::test_error_index[json]#0",
+  "test": "tests/validators/test_generator.py::test_error_index[json]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[\"wrong\"]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_error_index[json]#1",
+  "test": "tests/validators/test_generator.py::test_error_index[json]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2, 3, \"wrong\", 4]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_error_index[python]#0",
+  "test": "tests/validators/test_generator.py::test_error_index[python]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   "wrong"
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_error_index[python]#1",
+  "test": "tests/validators/test_generator.py::test_error_index[python]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3,
+   "wrong",
+   4
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_any[json-'123'-['1', '2', '3']]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_any[json-'123'-['1', '2', '3']]",
+  "schema": {
+   "type": "generator"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"123\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_any[json-5-Err('[type=iterable_type, input_value=5, input_type=int]')]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_any[json-5-Err('[type=iterable_type, input_value=5, input_type=int]')]",
+  "schema": {
+   "type": "generator"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "iterable_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": 5
+    }
+   ],
+   "title": "generator[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_any[json-[1, 'wrong']-[1, 'wrong']]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_any[json-[1, 'wrong']-[1, 'wrong']]",
+  "schema": {
+   "type": "generator"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, \"wrong\"]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_any[json-[1, 2, '3']-[1, 2, '3']]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_any[json-[1, 2, '3']-[1, 2, '3']]",
+  "schema": {
+   "type": "generator"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2, \"3\"]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_any[json-[1, 2, 3]-[1, 2, 3]]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_any[json-[1, 2, 3]-[1, 2, 3]]",
+  "schema": {
+   "type": "generator"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2, 3]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_any[json-{'1': 2, '3': 4}-['1', '3']]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_any[json-{'1': 2, '3': 4}-['1', '3']]",
+  "schema": {
+   "type": "generator"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"1\": 2, \"3\": 4}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_any[python-'123'-['1', '2', '3']]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_any[python-'123'-['1', '2', '3']]",
+  "schema": {
+   "type": "generator"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "123",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_any[python-5-Err('[type=iterable_type, input_value=5, input_type=int]')]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_any[python-5-Err('[type=iterable_type, input_value=5, input_type=int]')]",
+  "schema": {
+   "type": "generator"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "iterable_type",
+     "loc": [],
+     "msg": "Input should be iterable",
+     "input": 5
+    }
+   ],
+   "title": "generator[any]"
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_any[python-[1, 'wrong']-[1, 'wrong']]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_any[python-[1, 'wrong']-[1, 'wrong']]",
+  "schema": {
+   "type": "generator"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "wrong"
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_any[python-[1, 2, '3']-[1, 2, '3']]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_any[python-[1, 2, '3']-[1, 2, '3']]",
+  "schema": {
+   "type": "generator"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   "3"
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_any[python-[1, 2, 3]-[1, 2, 3]]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_any[python-[1, 2, 3]-[1, 2, 3]]",
+  "schema": {
+   "type": "generator"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_any[python-{'1': 2, '3': 4}-['1', '3']]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_any[python-{'1': 2, '3': 4}-['1', '3']]",
+  "schema": {
+   "type": "generator"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "1": 2,
+   "3": 4
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_hide_input[json-config0-type=iterable_type, input_value=5, input_type=int]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_hide_input[json-config0-type=iterable_type, input_value=5, input_type=int]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": {},
+  "mode": "json",
+  "input": "5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "iterable_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": 5
+    }
+   ],
+   "title": "generator[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_hide_input[json-config1-type=iterable_type, input_value=5, input_type=int]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_hide_input[json-config1-type=iterable_type, input_value=5, input_type=int]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": {
+   "hide_input_in_errors": false
+  },
+  "mode": "json",
+  "input": "5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "iterable_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": 5
+    }
+   ],
+   "title": "generator[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_hide_input[json-config2-type=iterable_type]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_hide_input[json-config2-type=iterable_type]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": {
+   "hide_input_in_errors": true
+  },
+  "mode": "json",
+  "input": "5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "iterable_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": 5
+    }
+   ],
+   "title": "generator[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_hide_input[python-config0-type=iterable_type, input_value=5, input_type=int]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_hide_input[python-config0-type=iterable_type, input_value=5, input_type=int]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": {},
+  "mode": "python",
+  "input": 5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "iterable_type",
+     "loc": [],
+     "msg": "Input should be iterable",
+     "input": 5
+    }
+   ],
+   "title": "generator[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_hide_input[python-config1-type=iterable_type, input_value=5, input_type=int]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_hide_input[python-config1-type=iterable_type, input_value=5, input_type=int]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": {
+   "hide_input_in_errors": false
+  },
+  "mode": "python",
+  "input": 5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "iterable_type",
+     "loc": [],
+     "msg": "Input should be iterable",
+     "input": 5
+    }
+   ],
+   "title": "generator[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_hide_input[python-config2-type=iterable_type]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_hide_input[python-config2-type=iterable_type]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": {
+   "hide_input_in_errors": true
+  },
+  "mode": "python",
+  "input": 5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "iterable_type",
+     "loc": [],
+     "msg": "Input should be iterable",
+     "input": 5
+    }
+   ],
+   "title": "generator[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_int[json-'123'-[1, 2, 3]]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_int[json-'123'-[1, 2, 3]]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"123\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_int[json-5-Err('[type=iterable_type, input_value=5, input_type=int]')]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_int[json-5-Err('[type=iterable_type, input_value=5, input_type=int]')]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "5",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "iterable_type",
+     "loc": [],
+     "msg": "Input should be a valid array",
+     "input": 5
+    }
+   ],
+   "title": "generator[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_int[json-[1, 'wrong']-Err(\"[type=int_parsing, input_value='wrong', input_type=str]\")]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_int[json-[1, 'wrong']-Err(\"[type=int_parsing, input_value='wrong', input_type=str]\")]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, \"wrong\"]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_int[json-[1, 2, '3']-[1, 2, 3]]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_int[json-[1, 2, '3']-[1, 2, 3]]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2, \"3\"]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_int[json-[1, 2, 3]-[1, 2, 3]]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_int[json-[1, 2, 3]-[1, 2, 3]]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2, 3]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_int[json-{1: 2, 3: 4}-[1, 3]]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_int[json-{1: 2, 3: 4}-[1, 3]]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"1\": 2, \"3\": 4}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_int[python-'123'-[1, 2, 3]]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_int[python-'123'-[1, 2, 3]]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": "123",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_int[python-5-Err('[type=iterable_type, input_value=5, input_type=int]')]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_int[python-5-Err('[type=iterable_type, input_value=5, input_type=int]')]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": 5,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "iterable_type",
+     "loc": [],
+     "msg": "Input should be iterable",
+     "input": 5
+    }
+   ],
+   "title": "generator[int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_int[python-[1, 'wrong']-Err(\"[type=int_parsing, input_value='wrong', input_type=str]\")]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_int[python-[1, 'wrong']-Err(\"[type=int_parsing, input_value='wrong', input_type=str]\")]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   "wrong"
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_int[python-[1, 2, '3']-[1, 2, 3]]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_int[python-[1, 2, '3']-[1, 2, 3]]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   "3"
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_int[python-[1, 2, 3]-[1, 2, 3]]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_int[python-[1, 2, 3]-[1, 2, 3]]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_json_int[python-{1: 2, 3: 4}-[1, 3]]#0",
+  "test": "tests/validators/test_generator.py::test_generator_json_int[python-{1: 2, 3: 4}-[1, 3]]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     4
+    ]
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_too_long#0",
+  "test": "tests/validators/test_generator.py::test_generator_too_long",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   },
+   "max_length": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_generator_too_short#0",
+  "test": "tests/validators/test_generator.py::test_generator_too_short",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   },
+   "min_length": 4
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_too_long[json]#0",
+  "test": "tests/validators/test_generator.py::test_too_long[json]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   },
+   "max_length": 2
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_too_long[json]#1",
+  "test": "tests/validators/test_generator.py::test_too_long[json]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   },
+   "max_length": 2
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_too_long[json]#2",
+  "test": "tests/validators/test_generator.py::test_too_long[json]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   },
+   "max_length": 2
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2, 3]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_too_long[python]#0",
+  "test": "tests/validators/test_generator.py::test_too_long[python]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   },
+   "max_length": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_too_long[python]#1",
+  "test": "tests/validators/test_generator.py::test_too_long[python]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   },
+   "max_length": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_too_long[python]#2",
+  "test": "tests/validators/test_generator.py::test_too_long[python]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   },
+   "max_length": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_too_short[json]#0",
+  "test": "tests/validators/test_generator.py::test_too_short[json]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   },
+   "min_length": 2
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2, 3]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_too_short[json]#1",
+  "test": "tests/validators/test_generator.py::test_too_short[json]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   },
+   "min_length": 2
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_too_short[json]#2",
+  "test": "tests/validators/test_generator.py::test_too_short[json]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   },
+   "min_length": 2
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_too_short[python]#0",
+  "test": "tests/validators/test_generator.py::test_too_short[python]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   },
+   "min_length": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_too_short[python]#1",
+  "test": "tests/validators/test_generator.py::test_too_short[python]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   },
+   "min_length": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_generator.py::test_too_short[python]#2",
+  "test": "tests/validators/test_generator.py::test_too_short[python]",
+  "schema": {
+   "type": "generator",
+   "items_schema": {
+    "type": "int"
+   },
+   "min_length": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$object": "ValidatorIterator"
+   }
+  }
+ }
+]

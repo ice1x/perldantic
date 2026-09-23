@@ -1,0 +1,3015 @@
+[
+ {
+  "id": "tests/validators/test_datetime.py::test_aware#1",
+  "test": "tests/validators/test_datetime.py::test_aware",
+  "schema": {
+   "type": "datetime",
+   "tz_constraint": "aware",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14Z",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_aware#3",
+  "test": "tests/validators/test_datetime.py::test_aware",
+  "schema": {
+   "type": "datetime",
+   "tz_constraint": "aware",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "timezone_aware",
+     "loc": [],
+     "msg": "Input should have timezone info",
+     "input": "2022-06-08T12:13:14"
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_aware_specific#1",
+  "test": "tests/validators/test_datetime.py::test_aware_specific",
+  "schema": {
+   "type": "datetime",
+   "tz_constraint": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14Z",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_aware_specific#4",
+  "test": "tests/validators/test_datetime.py::test_aware_specific",
+  "schema": {
+   "type": "datetime",
+   "tz_constraint": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14+01:00",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "timezone_offset",
+     "loc": [],
+     "msg": "Timezone offset of 0 required, got 3600",
+     "input": "2022-06-08T12:13:14+01:00",
+     "ctx": {
+      "tz_expected": 0,
+      "tz_actual": 3600
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_constraints_schema_validation#0",
+  "test": "tests/validators/test_datetime.py::test_constraints_schema_validation",
+  "schema": {
+   "type": "datetime",
+   "gt": "2020-01-01T00:00:00",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2019-01-01T00:00:00",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 2020-01-01T00:00:00",
+     "input": "2019-01-01T00:00:00",
+     "ctx": {
+      "gt": "2020-01-01T00:00:00"
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_custom_invalid_tz#0",
+  "test": "tests/validators/test_datetime.py::test_custom_invalid_tz",
+  "schema": {
+   "type": "datetime",
+   "gt": {
+    "$datetime": "2022-01-01T15:00:00"
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "datetime"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_object_invalid",
+     "loc": [],
+     "msg": "Invalid datetime object, got NotImplementedError: a tzinfo subclass must implement utcoffset()",
+     "input": {
+      "$object": "datetime"
+     },
+     "ctx": {
+      "error": "NotImplementedError: a tzinfo subclass must implement utcoffset()"
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_custom_timezone_repr#0",
+  "test": "tests/validators/test_datetime.py::test_custom_timezone_repr",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14-12:15",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14-12:15"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_custom_timezone_utc_repr#0",
+  "test": "tests/validators/test_datetime.py::test_custom_timezone_utc_repr",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14Z",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_custom_tz#0",
+  "test": "tests/validators/test_datetime.py::test_custom_tz",
+  "schema": {
+   "type": "datetime",
+   "gt": {
+    "$datetime": "2022-01-01T15:00:00"
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$datetime": "2022-01-01T16:00:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-01-01T16:00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[+-expected22]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[+-expected22]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "+",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_from_date_parsing",
+     "loc": [],
+     "msg": "Input should be a valid datetime or date, input is too short",
+     "input": "+",
+     "ctx": {
+      "error": "input is too short"
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[--expected21]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[--expected21]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "-",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_from_date_parsing",
+     "loc": [],
+     "msg": "Input should be a valid datetime or date, input is too short",
+     "input": "-",
+     "ctx": {
+      "error": "input is too short"
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[-80000000000000-expected17]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[-80000000000000-expected17]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": -80000000000000,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_parsing",
+     "loc": [],
+     "msg": "Input should be a valid datetime, dates before 0000 are not supported as unix timestamps",
+     "input": -80000000000000,
+     "ctx": {
+      "error": "dates before 0000 are not supported as unix timestamps"
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[-inf-expected20]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[-inf-expected20]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "-inf"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_parsing",
+     "loc": [],
+     "msg": "Input should be a valid datetime, dates before 0000 are not supported as unix timestamps",
+     "input": {
+      "$float": "-inf"
+     },
+     "ctx": {
+      "error": "dates before 0000 are not supported as unix timestamps"
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[0000-12-31T23:59:59.999999Z-expected25]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[0000-12-31T23:59:59.999999Z-expected25]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "0000-12-31T23:59:59.999999Z",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_parsing",
+     "loc": [],
+     "msg": "Input should be a valid datetime, year 0 is out of range",
+     "input": "0000-12-31T23:59:59.999999Z",
+     "ctx": {
+      "error": "year 0 is out of range"
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[0001-01-01T00:00:00.000000Z-expected24]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[0001-01-01T00:00:00.000000Z-expected24]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "0001-01-01T00:00:00.000000Z",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "0001-01-01T00:00:00+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[1000000000000-expected4]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[1000000000000-expected4]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1000000000000",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2001-09-09T01:46:40+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[1654646400-expected10]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[1654646400-expected10]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1654646400",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T00:00:00+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[1654646400.1234568-expected14]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[1654646400.1234568-expected14]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "1654646400.1234568",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T00:00:00.123457+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[2022-01-01-expected2]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[2022-01-01-expected2]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-01-01",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-01-01T00:00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[2022-02-30-expected23]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[2022-02-30-expected23]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-02-30",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_from_date_parsing",
+     "loc": [],
+     "msg": "Input should be a valid datetime or date, day value is outside expected range",
+     "input": "2022-02-30",
+     "ctx": {
+      "error": "day value is outside expected range"
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[2022-06-08T12:13:14-expected3]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[2022-06-08T12:13:14-expected3]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[2022-06-08T12:13:14-expected5]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[2022-06-08T12:13:14-expected5]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "MjAyMi0wNi0wOFQxMjoxMzoxNA=="
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[2022-06-08T12:13:14Z-expected6]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[2022-06-08T12:13:14Z-expected6]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "MjAyMi0wNi0wOFQxMjoxMzoxNFo="
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[253402300800000-expected16]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[253402300800000-expected16]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 253402300800000,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_parsing",
+     "loc": [],
+     "msg": "Input should be a valid datetime, dates after 9999 are not supported as unix timestamps",
+     "input": 253402300800000,
+     "ctx": {
+      "error": "dates after 9999 are not supported as unix timestamps"
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[inf-expected19]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[inf-expected19]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_parsing",
+     "loc": [],
+     "msg": "Input should be a valid datetime, dates after 9999 are not supported as unix timestamps",
+     "input": {
+      "$float": "inf"
+     },
+     "ctx": {
+      "error": "dates after 9999 are not supported as unix timestamps"
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[input_value0-expected0]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[input_value0-expected0]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$datetime": "2022-06-08T12:13:14"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[input_value1-expected1]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[input_value1-expected1]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$date": "2022-06-08"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T00:00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[input_value11-expected11]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[input_value11-expected11]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "1654646400.123456"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T00:00:00.123456+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[input_value12-expected12]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[input_value12-expected12]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "1654646400.1234564"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T00:00:00.123456+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[input_value13-expected13]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[input_value13-expected13]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "1654646400.1234568"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T00:00:00.123457+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[input_value15-expected15]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[input_value15-expected15]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "1654646400123.456"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T00:00:00.123456+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[input_value7-expected7]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[input_value7-expected7]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$tuple": [
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_type",
+     "loc": [],
+     "msg": "Input should be a valid datetime",
+     "input": {
+      "$tuple": [
+       1
+      ]
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[input_value8-expected8]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[input_value8-expected8]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "01:02:03"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_type",
+     "loc": [],
+     "msg": "Input should be a valid datetime",
+     "input": {
+      "$time": "01:02:03"
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[input_value9-expected9]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[input_value9-expected9]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "1654646400"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T00:00:00+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime[nan-expected18]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime[nan-expected18]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_parsing",
+     "loc": [],
+     "msg": "Input should be a valid datetime, NaN values not permitted",
+     "input": {
+      "$float": "nan"
+     },
+     "ctx": {
+      "error": "NaN values not permitted"
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_future[json-1655205632-expected4]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_future[json-1655205632-expected4]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "future",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1655205632",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_future",
+     "loc": [],
+     "msg": "Input should be in the future",
+     "input": 1655205632
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_future[json-2022-06-08T12:13:14-expected3]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_future[json-2022-06-08T12:13:14-expected3]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "future",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2022-06-08T12:13:14\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_future",
+     "loc": [],
+     "msg": "Input should be in the future",
+     "input": "2022-06-08T12:13:14"
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_future[json-2068-06-08T12:13:14-expected0]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_future[json-2068-06-08T12:13:14-expected0]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "future",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2068-06-08T12:13:14\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2068-06-08T12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_future[json-2068-06-08T12:13:14Z-expected1]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_future[json-2068-06-08T12:13:14Z-expected1]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "future",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2068-06-08T12:13:14Z\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2068-06-08T12:13:14+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_future[json-3105730800-expected2]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_future[json-3105730800-expected2]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "future",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "3105730800",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2068-05-31T23:00:00+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_future[python-1655205632-expected4]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_future[python-1655205632-expected4]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "future",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1655205632,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_future",
+     "loc": [],
+     "msg": "Input should be in the future",
+     "input": 1655205632
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_future[python-2022-06-08T12:13:14-expected3]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_future[python-2022-06-08T12:13:14-expected3]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "future",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_future",
+     "loc": [],
+     "msg": "Input should be in the future",
+     "input": "2022-06-08T12:13:14"
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_future[python-2068-06-08T12:13:14-expected0]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_future[python-2068-06-08T12:13:14-expected0]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "future",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2068-06-08T12:13:14",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2068-06-08T12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_future[python-2068-06-08T12:13:14Z-expected1]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_future[python-2068-06-08T12:13:14Z-expected1]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "future",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2068-06-08T12:13:14Z",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2068-06-08T12:13:14+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_future[python-3105730800-expected2]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_future[python-3105730800-expected2]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "future",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 3105730800,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2068-05-31T23:00:00+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[json-1655205632-expected4]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[json-1655205632-expected4]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1655205632",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-14T11:20:32+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[json-1655205632.331557-expected5]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[json-1655205632.331557-expected5]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1655205632.331557",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-14T11:20:32.331557+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[json-2022-06-08T12:13:14+12:15-expected2]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[json-2022-06-08T12:13:14+12:15-expected2]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2022-06-08T12:13:14+12:15\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14+12:15"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[json-2022-06-08T12:13:14+23:59-expected3]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[json-2022-06-08T12:13:14+23:59-expected3]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2022-06-08T12:13:14+23:59\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14+23:59"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[json-2022-06-08T12:13:14+24:00-expected6]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[json-2022-06-08T12:13:14+24:00-expected6]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2022-06-08T12:13:14+24:00\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_from_date_parsing",
+     "loc": [],
+     "msg": "Input should be a valid datetime or date, unexpected extra characters at the end of the input",
+     "input": "2022-06-08T12:13:14+24:00",
+     "ctx": {
+      "error": "unexpected extra characters at the end of the input"
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[json-2022-06-08T12:13:14-expected0]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[json-2022-06-08T12:13:14-expected0]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2022-06-08T12:13:14\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[json-2022-06-08T12:13:14Z-expected1]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[json-2022-06-08T12:13:14Z-expected1]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2022-06-08T12:13:14Z\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[json-None-expected8]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[json-None-expected8]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "null",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_type",
+     "loc": [],
+     "msg": "Input should be a valid datetime",
+     "input": null
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[json-True-expected7]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[json-True-expected7]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "true",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_type",
+     "loc": [],
+     "msg": "Input should be a valid datetime",
+     "input": true
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[json-input_value9-expected9]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[json-input_value9-expected9]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[1, 2, 3]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_type",
+     "loc": [],
+     "msg": "Input should be a valid datetime",
+     "input": [
+      1,
+      2,
+      3
+     ]
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[python-1655205632-expected4]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[python-1655205632-expected4]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1655205632,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-14T11:20:32+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[python-1655205632.331557-expected5]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[python-1655205632.331557-expected5]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1655205632.331557,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-14T11:20:32.331557+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[python-2022-06-08T12:13:14+12:15-expected2]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[python-2022-06-08T12:13:14+12:15-expected2]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14+12:15",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14+12:15"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[python-2022-06-08T12:13:14+23:59-expected3]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[python-2022-06-08T12:13:14+23:59-expected3]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14+23:59",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14+23:59"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[python-2022-06-08T12:13:14+24:00-expected6]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[python-2022-06-08T12:13:14+24:00-expected6]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14+24:00",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_from_date_parsing",
+     "loc": [],
+     "msg": "Input should be a valid datetime or date, unexpected extra characters at the end of the input",
+     "input": "2022-06-08T12:13:14+24:00",
+     "ctx": {
+      "error": "unexpected extra characters at the end of the input"
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[python-2022-06-08T12:13:14-expected0]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[python-2022-06-08T12:13:14-expected0]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[python-2022-06-08T12:13:14Z-expected1]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[python-2022-06-08T12:13:14Z-expected1]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14Z",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[python-None-expected8]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[python-None-expected8]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "python",
+  "input": null,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_type",
+     "loc": [],
+     "msg": "Input should be a valid datetime",
+     "input": null
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[python-True-expected7]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[python-True-expected7]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "python",
+  "input": true,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_type",
+     "loc": [],
+     "msg": "Input should be a valid datetime",
+     "input": true
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_json[python-input_value9-expected9]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_json[python-input_value9-expected9]",
+  "schema": {
+   "type": "datetime"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_type",
+     "loc": [],
+     "msg": "Input should be a valid datetime",
+     "input": [
+      1,
+      2,
+      3
+     ]
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_past[json-1655205632-expected2]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_past[json-1655205632-expected2]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "past",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1655205632",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-14T11:20:32+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_past[json-2022-06-08T12:13:14-expected0]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_past[json-2022-06-08T12:13:14-expected0]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "past",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2022-06-08T12:13:14\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_past[json-2022-06-08T12:13:14Z-expected1]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_past[json-2022-06-08T12:13:14Z-expected1]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "past",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2022-06-08T12:13:14Z\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_past[json-2068-06-08T12:13:14-expected3]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_past[json-2068-06-08T12:13:14-expected3]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "past",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2068-06-08T12:13:14\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_past",
+     "loc": [],
+     "msg": "Input should be in the past",
+     "input": "2068-06-08T12:13:14"
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_past[json-3105730800-expected4]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_past[json-3105730800-expected4]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "past",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "3105730800",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_past",
+     "loc": [],
+     "msg": "Input should be in the past",
+     "input": 3105730800
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_past[python-1655205632-expected2]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_past[python-1655205632-expected2]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "past",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1655205632,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-14T11:20:32+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_past[python-2022-06-08T12:13:14-expected0]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_past[python-2022-06-08T12:13:14-expected0]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "past",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_past[python-2022-06-08T12:13:14Z-expected1]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_past[python-2022-06-08T12:13:14Z-expected1]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "past",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14Z",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_past[python-2068-06-08T12:13:14-expected3]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_past[python-2068-06-08T12:13:14-expected3]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "past",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2068-06-08T12:13:14",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_past",
+     "loc": [],
+     "msg": "Input should be in the past",
+     "input": "2068-06-08T12:13:14"
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_past[python-3105730800-expected4]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_past[python-3105730800-expected4]",
+  "schema": {
+   "type": "datetime",
+   "now_op": "past",
+   "now_utc_offset": 0,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 3105730800,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_past",
+     "loc": [],
+     "msg": "Input should be in the past",
+     "input": 3105730800
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_strict[1654646400-expected5]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_strict[1654646400-expected5]",
+  "schema": {
+   "type": "datetime",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1654646400,
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_type",
+     "loc": [],
+     "msg": "Input should be a valid datetime",
+     "input": 1654646400
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_strict[2022-06-08T12:13:14-expected2]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_strict[2022-06-08T12:13:14-expected2]",
+  "schema": {
+   "type": "datetime",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_type",
+     "loc": [],
+     "msg": "Input should be a valid datetime",
+     "input": "2022-06-08T12:13:14"
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_strict[2022-06-08T12:13:14-expected3]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_strict[2022-06-08T12:13:14-expected3]",
+  "schema": {
+   "type": "datetime",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "MjAyMi0wNi0wOFQxMjoxMzoxNA=="
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_type",
+     "loc": [],
+     "msg": "Input should be a valid datetime",
+     "input": {
+      "$bytes": "MjAyMi0wNi0wOFQxMjoxMzoxNA=="
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_strict[input_value0-expected0]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_strict[input_value0-expected0]",
+  "schema": {
+   "type": "datetime",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$datetime": "2022-06-08T12:13:14"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_strict[input_value1-expected1]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_strict[input_value1-expected1]",
+  "schema": {
+   "type": "datetime",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$date": "2022-06-08"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_type",
+     "loc": [],
+     "msg": "Input should be a valid datetime",
+     "input": {
+      "$date": "2022-06-08"
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_strict[input_value4-expected4]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_strict[input_value4-expected4]",
+  "schema": {
+   "type": "datetime",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$time": "01:02:03"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_type",
+     "loc": [],
+     "msg": "Input should be a valid datetime",
+     "input": {
+      "$time": "01:02:03"
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_strict[input_value6-expected6]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_strict[input_value6-expected6]",
+  "schema": {
+   "type": "datetime",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$decimal": "1654646400"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_type",
+     "loc": [],
+     "msg": "Input should be a valid datetime",
+     "input": {
+      "$decimal": "1654646400"
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_strict_json[123-expected2]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_strict_json[123-expected2]",
+  "schema": {
+   "type": "datetime",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "123",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_type",
+     "loc": [],
+     "msg": "Input should be a valid datetime",
+     "input": 123
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_strict_json[123.4-expected3]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_strict_json[123.4-expected3]",
+  "schema": {
+   "type": "datetime",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "123.4",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_type",
+     "loc": [],
+     "msg": "Input should be a valid datetime",
+     "input": 123.4
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_strict_json[2022-06-08T12:13:14-expected0]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_strict_json[2022-06-08T12:13:14-expected0]",
+  "schema": {
+   "type": "datetime",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2022-06-08T12:13:14\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_strict_json[2022-06-08T12:13:14Z-expected1]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_strict_json[2022-06-08T12:13:14Z-expected1]",
+  "schema": {
+   "type": "datetime",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"2022-06-08T12:13:14Z\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_datetime_strict_json[True-expected4]#0",
+  "test": "tests/validators/test_datetime.py::test_datetime_strict_json[True-expected4]",
+  "schema": {
+   "type": "datetime",
+   "strict": true,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "true",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "datetime_type",
+     "loc": [],
+     "msg": "Input should be a valid datetime",
+     "input": true
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_dict[json]#0",
+  "test": "tests/validators/test_datetime.py::test_dict[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"2000-01-01T00:00\": 2, \"2000-01-02T00:00\": 4}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$datetime": "2000-01-01T00:00:00"
+      },
+      2
+     ],
+     [
+      {
+       "$datetime": "2000-01-02T00:00:00"
+      },
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_dict[python]#0",
+  "test": "tests/validators/test_datetime.py::test_dict[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "2000-01-01T00:00": 2,
+   "2000-01-02T00:00": 4
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$datetime": "2000-01-01T00:00:00"
+      },
+      2
+     ],
+     [
+      {
+       "$datetime": "2000-01-02T00:00:00"
+      },
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_dict_py#0",
+  "test": "tests/validators/test_datetime.py::test_dict_py",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2000-01-01T00:00:00"
+     },
+     2
+    ],
+    [
+     {
+      "$datetime": "2000-01-02T00:00:00"
+     },
+     4
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$datetime": "2000-01-01T00:00:00"
+      },
+      2
+     ],
+     [
+      {
+       "$datetime": "2000-01-02T00:00:00"
+      },
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_keep_tz#0",
+  "test": "tests/validators/test_datetime.py::test_keep_tz",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$datetime": "2022-06-14T12:13:14+01:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-14T12:13:14+01:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_keep_tz_bound#0",
+  "test": "tests/validators/test_datetime.py::test_keep_tz_bound",
+  "schema": {
+   "type": "datetime",
+   "gt": {
+    "$datetime": "2022-01-01T00:00:00"
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$datetime": "2022-06-14T12:13:14+01:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-14T12:13:14+01:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_keep_tz_bound#1",
+  "test": "tests/validators/test_datetime.py::test_keep_tz_bound",
+  "schema": {
+   "type": "datetime",
+   "gt": {
+    "$datetime": "2022-01-01T00:00:00"
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$datetime": "2021-06-14T00:00:00+01:00"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 2022-01-01T00:00:00",
+     "input": {
+      "$datetime": "2021-06-14T00:00:00+01:00"
+     },
+     "ctx": {
+      "gt": "2022-01-01T00:00:00"
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_naive#1",
+  "test": "tests/validators/test_datetime.py::test_naive",
+  "schema": {
+   "type": "datetime",
+   "tz_constraint": "naive",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_naive#3",
+  "test": "tests/validators/test_datetime.py::test_naive",
+  "schema": {
+   "type": "datetime",
+   "tz_constraint": "naive",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14Z",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "timezone_naive",
+     "loc": [],
+     "msg": "Input should not have timezone info",
+     "input": "2022-06-08T12:13:14Z"
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_neg_7200#3",
+  "test": "tests/validators/test_datetime.py::test_neg_7200",
+  "schema": {
+   "type": "datetime",
+   "tz_constraint": -7200,
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14Z",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "timezone_offset",
+     "loc": [],
+     "msg": "Timezone offset of -7200 required, got 0",
+     "input": "2022-06-08T12:13:14Z",
+     "ctx": {
+      "tz_expected": -7200,
+      "tz_actual": 0
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_tz_cmp#0",
+  "test": "tests/validators/test_datetime.py::test_tz_cmp",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14-12:15",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14-12:15"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_tz_cmp#1",
+  "test": "tests/validators/test_datetime.py::test_tz_cmp",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14-12:14",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14-12:14"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_tz_comparison#0",
+  "test": "tests/validators/test_datetime.py::test_tz_comparison",
+  "schema": {
+   "type": "datetime",
+   "le": {
+    "$datetime": "2022-01-01T15:00:00+00:00"
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-01-01T16:00:00+01:00",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-01-01T16:00:00+01:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_tz_comparison#1",
+  "test": "tests/validators/test_datetime.py::test_tz_comparison",
+  "schema": {
+   "type": "datetime",
+   "ge": {
+    "$datetime": "2022-01-01T15:00:00+00:00"
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-01-01T16:00:00+01:00",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-01-01T16:00:00+01:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_tz_comparison#2",
+  "test": "tests/validators/test_datetime.py::test_tz_comparison",
+  "schema": {
+   "type": "datetime",
+   "gt": {
+    "$datetime": "2022-01-01T15:00:00+00:00"
+   },
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-01-01T16:00:00+01:00",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "greater_than",
+     "loc": [],
+     "msg": "Input should be greater than 2022-01-01T15:00:00Z",
+     "input": "2022-01-01T16:00:00+01:00",
+     "ctx": {
+      "gt": "2022-01-01T15:00:00Z"
+     }
+    }
+   ],
+   "title": "datetime"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_tz_hash#0",
+  "test": "tests/validators/test_datetime.py::test_tz_hash",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-01T12:13:14-12:15",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-01T12:13:14-12:15"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_tz_hash#1",
+  "test": "tests/validators/test_datetime.py::test_tz_hash",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-02T12:13:14-12:15",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-02T12:13:14-12:15"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_tz_hash#2",
+  "test": "tests/validators/test_datetime.py::test_tz_hash",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-03T12:13:14-12:15",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-03T12:13:14-12:15"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_tz_hash#3",
+  "test": "tests/validators/test_datetime.py::test_tz_hash",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-04T12:13:14-12:15",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-04T12:13:14-12:15"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_tz_hash#4",
+  "test": "tests/validators/test_datetime.py::test_tz_hash",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-05T12:13:14-12:15",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-05T12:13:14-12:15"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_tz_hash#5",
+  "test": "tests/validators/test_datetime.py::test_tz_hash",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-06T12:13:14-12:15",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-06T12:13:14-12:15"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_tz_hash#6",
+  "test": "tests/validators/test_datetime.py::test_tz_hash",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-07T12:13:14-12:15",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-07T12:13:14-12:15"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_tz_hash#7",
+  "test": "tests/validators/test_datetime.py::test_tz_hash",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-08T12:13:14-12:15",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T12:13:14-12:15"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_tz_hash#8",
+  "test": "tests/validators/test_datetime.py::test_tz_hash",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-06-09T12:13:14-12:15",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-09T12:13:14-12:15"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_tz_info_copy#0",
+  "test": "tests/validators/test_datetime.py::test_tz_info_copy",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2023-02-15T16:23:44.037Z",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2023-02-15T16:23:44.037000+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_tz_info_deepcopy#0",
+  "test": "tests/validators/test_datetime.py::test_tz_info_deepcopy",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2023-02-15T16:23:44.037Z",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2023-02-15T16:23:44.037000+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_union#0",
+  "test": "tests/validators/test_datetime.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "datetime",
+     "microseconds_precision": "truncate"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-01-02T00:00",
+  "options": {},
+  "expected": {
+   "output": "2022-01-02T00:00"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_union#1",
+  "test": "tests/validators/test_datetime.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "datetime",
+     "microseconds_precision": "truncate"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$datetime": "2022-01-02T00:00:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-01-02T00:00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_union#2",
+  "test": "tests/validators/test_datetime.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "datetime",
+     "microseconds_precision": "truncate"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "2022-01-02T00:00",
+  "options": {},
+  "expected": {
+   "output": "2022-01-02T00:00"
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_union#3",
+  "test": "tests/validators/test_datetime.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "datetime",
+     "microseconds_precision": "truncate"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$datetime": "2022-01-02T00:00:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-01-02T00:00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[infer-1654646400-expected11]#0",
+  "test": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[infer-1654646400-expected11]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "val_temporal_unit": "infer"
+  },
+  "mode": "python",
+  "input": 1654646400,
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T00:00:00+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[infer-1654646400123-expected12]#0",
+  "test": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[infer-1654646400123-expected12]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "val_temporal_unit": "infer"
+  },
+  "mode": "python",
+  "input": 1654646400123,
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T00:00:00.123000+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[infer-1654646400123.456-expected13]#0",
+  "test": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[infer-1654646400123.456-expected13]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "val_temporal_unit": "infer"
+  },
+  "mode": "python",
+  "input": 1654646400123.456,
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T00:00:00.123456+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[infer-8640000000.0-expected14]#0",
+  "test": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[infer-8640000000.0-expected14]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "val_temporal_unit": "infer"
+  },
+  "mode": "python",
+  "input": 8640000000.0,
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2243-10-17T00:00:00+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[infer-92534400000.0-expected15]#0",
+  "test": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[infer-92534400000.0-expected15]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "val_temporal_unit": "infer"
+  },
+  "mode": "python",
+  "input": 92534400000.0,
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "1972-12-07T00:00:00+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[milliseconds-1654646400-expected5]#0",
+  "test": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[milliseconds-1654646400-expected5]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "val_temporal_unit": "milliseconds"
+  },
+  "mode": "python",
+  "input": 1654646400,
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "1970-01-20T03:37:26.400000+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[milliseconds-1654646400123-expected6]#0",
+  "test": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[milliseconds-1654646400123-expected6]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "val_temporal_unit": "milliseconds"
+  },
+  "mode": "python",
+  "input": 1654646400123,
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T00:00:00.123000+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[milliseconds-1654646400123-expected7]#0",
+  "test": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[milliseconds-1654646400123-expected7]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "val_temporal_unit": "milliseconds"
+  },
+  "mode": "python",
+  "input": "1654646400123",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T00:00:00.123000+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[milliseconds-1654646400123.456-expected10]#0",
+  "test": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[milliseconds-1654646400123.456-expected10]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "val_temporal_unit": "milliseconds"
+  },
+  "mode": "python",
+  "input": 1654646400123.456,
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T00:00:00.123456+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[milliseconds-8640000000.0-expected8]#0",
+  "test": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[milliseconds-8640000000.0-expected8]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "val_temporal_unit": "milliseconds"
+  },
+  "mode": "python",
+  "input": 8640000000.0,
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "1970-04-11T00:00:00+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[milliseconds-92534400000.0-expected9]#0",
+  "test": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[milliseconds-92534400000.0-expected9]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "val_temporal_unit": "milliseconds"
+  },
+  "mode": "python",
+  "input": 92534400000.0,
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "1972-12-07T00:00:00+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[seconds-1654646400-expected0]#0",
+  "test": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[seconds-1654646400-expected0]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "val_temporal_unit": "seconds"
+  },
+  "mode": "python",
+  "input": 1654646400,
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T00:00:00+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[seconds-1654646400-expected1]#0",
+  "test": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[seconds-1654646400-expected1]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "val_temporal_unit": "seconds"
+  },
+  "mode": "python",
+  "input": "1654646400",
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T00:00:00+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[seconds-1654646400.123456-expected2]#0",
+  "test": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[seconds-1654646400.123456-expected2]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "val_temporal_unit": "seconds"
+  },
+  "mode": "python",
+  "input": 1654646400.123456,
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-06-08T00:00:00.123456+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[seconds-8640000000.0-expected3]#0",
+  "test": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[seconds-8640000000.0-expected3]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "val_temporal_unit": "seconds"
+  },
+  "mode": "python",
+  "input": 8640000000.0,
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2243-10-17T00:00:00+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[seconds-92534400000.0-expected4]#0",
+  "test": "tests/validators/test_datetime.py::test_val_temporal_unit_datetime[seconds-92534400000.0-expected4]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "val_temporal_unit": "seconds"
+  },
+  "mode": "python",
+  "input": 92534400000.0,
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "4902-04-20T00:00:00+00:00"
+   }
+  }
+ }
+]

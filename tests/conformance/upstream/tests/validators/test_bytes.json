@@ -1,0 +1,1118 @@
+[
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts0-foo-foo]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts0-foo-foo]",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foo\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$bytes": "Zm9v"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts0-foo-foo]#1",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts0-foo-foo]",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foo\"",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$bytes": "Zm9v"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts1-foo-foo]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts1-foo-foo]",
+  "schema": {
+   "type": "bytes",
+   "max_length": 5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foo\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$bytes": "Zm9v"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts1-foo-foo]#1",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts1-foo-foo]",
+  "schema": {
+   "type": "bytes",
+   "max_length": 5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foo\"",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$bytes": "Zm9v"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts2-foobar-expected2]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts2-foobar-expected2]",
+  "schema": {
+   "type": "bytes",
+   "max_length": 5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foobar\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_too_long",
+     "loc": [],
+     "msg": "Data should have at most 5 bytes",
+     "input": "foobar",
+     "ctx": {
+      "max_length": 5
+     }
+    }
+   ],
+   "title": "constrained-bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts2-foobar-expected2]#1",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts2-foobar-expected2]",
+  "schema": {
+   "type": "bytes",
+   "max_length": 5
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foobar\"",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_too_long",
+     "loc": [],
+     "msg": "Data should have at most 5 bytes",
+     "input": "foobar",
+     "ctx": {
+      "max_length": 5
+     }
+    }
+   ],
+   "title": "constrained-bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts3-foo-foo]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts3-foo-foo]",
+  "schema": {
+   "type": "bytes",
+   "min_length": 2
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foo\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$bytes": "Zm9v"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts3-foo-foo]#1",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts3-foo-foo]",
+  "schema": {
+   "type": "bytes",
+   "min_length": 2
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foo\"",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$bytes": "Zm9v"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts4-f-expected4]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts4-f-expected4]",
+  "schema": {
+   "type": "bytes",
+   "min_length": 2
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"f\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_too_short",
+     "loc": [],
+     "msg": "Data should have at least 2 bytes",
+     "input": "f",
+     "ctx": {
+      "min_length": 2
+     }
+    }
+   ],
+   "title": "constrained-bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts4-f-expected4]#1",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts4-f-expected4]",
+  "schema": {
+   "type": "bytes",
+   "min_length": 2
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"f\"",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_too_short",
+     "loc": [],
+     "msg": "Data should have at least 2 bytes",
+     "input": "f",
+     "ctx": {
+      "min_length": 2
+     }
+    }
+   ],
+   "title": "constrained-bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts5-1-expected5]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts5-1-expected5]",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_type",
+     "loc": [],
+     "msg": "Input should be a valid bytes",
+     "input": 1
+    }
+   ],
+   "title": "bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts5-1-expected5]#1",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts5-1-expected5]",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_type",
+     "loc": [],
+     "msg": "Input should be a valid bytes",
+     "input": 1
+    }
+   ],
+   "title": "bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts6-1.0-expected6]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts6-1.0-expected6]",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_type",
+     "loc": [],
+     "msg": "Input should be a valid bytes",
+     "input": 1.0
+    }
+   ],
+   "title": "bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts6-1.0-expected6]#1",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts6-1.0-expected6]",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.0",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_type",
+     "loc": [],
+     "msg": "Input should be a valid bytes",
+     "input": 1.0
+    }
+   ],
+   "title": "bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts7-input7-expected7]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts7-input7-expected7]",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_type",
+     "loc": [],
+     "msg": "Input should be a valid bytes",
+     "input": []
+    }
+   ],
+   "title": "bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts7-input7-expected7]#1",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts7-input7-expected7]",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[]",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_type",
+     "loc": [],
+     "msg": "Input should be a valid bytes",
+     "input": []
+    }
+   ],
+   "title": "bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts8-input8-expected8]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts8-input8-expected8]",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_type",
+     "loc": [],
+     "msg": "Input should be a valid bytes",
+     "input": {}
+    }
+   ],
+   "title": "bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts8-input8-expected8]#1",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[json-opts8-input8-expected8]",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{}",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_type",
+     "loc": [],
+     "msg": "Input should be a valid bytes",
+     "input": {}
+    }
+   ],
+   "title": "bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[python-opts0-foo-foo]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[python-opts0-foo-foo]",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foo",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$bytes": "Zm9v"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[python-opts1-foo-foo]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[python-opts1-foo-foo]",
+  "schema": {
+   "type": "bytes",
+   "max_length": 5
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foo",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$bytes": "Zm9v"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[python-opts2-foobar-expected2]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[python-opts2-foobar-expected2]",
+  "schema": {
+   "type": "bytes",
+   "max_length": 5
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foobar",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_too_long",
+     "loc": [],
+     "msg": "Data should have at most 5 bytes",
+     "input": "foobar",
+     "ctx": {
+      "max_length": 5
+     }
+    }
+   ],
+   "title": "constrained-bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[python-opts3-foo-foo]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[python-opts3-foo-foo]",
+  "schema": {
+   "type": "bytes",
+   "min_length": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foo",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$bytes": "Zm9v"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[python-opts4-f-expected4]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[python-opts4-f-expected4]",
+  "schema": {
+   "type": "bytes",
+   "min_length": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": "f",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_too_short",
+     "loc": [],
+     "msg": "Data should have at least 2 bytes",
+     "input": "f",
+     "ctx": {
+      "min_length": 2
+     }
+    }
+   ],
+   "title": "constrained-bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[python-opts5-1-expected5]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[python-opts5-1-expected5]",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_type",
+     "loc": [],
+     "msg": "Input should be a valid bytes",
+     "input": 1
+    }
+   ],
+   "title": "bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[python-opts6-1.0-expected6]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[python-opts6-1.0-expected6]",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_type",
+     "loc": [],
+     "msg": "Input should be a valid bytes",
+     "input": 1.0
+    }
+   ],
+   "title": "bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[python-opts7-input7-expected7]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[python-opts7-input7-expected7]",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_type",
+     "loc": [],
+     "msg": "Input should be a valid bytes",
+     "input": []
+    }
+   ],
+   "title": "bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes[python-opts8-input8-expected8]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes[python-opts8-input8-expected8]",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {},
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_type",
+     "loc": [],
+     "msg": "Input should be a valid bytes",
+     "input": {}
+    }
+   ],
+   "title": "bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes_python_bytes[opts0-foo-foo]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes_python_bytes[opts0-foo-foo]",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "Zm9v"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$bytes": "Zm9v"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes_python_bytes[opts1-foo-foo]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes_python_bytes[opts1-foo-foo]",
+  "schema": {
+   "type": "bytes",
+   "max_length": 5
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "Zm9v"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$bytes": "Zm9v"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes_python_bytes[opts2-foobar-expected2]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes_python_bytes[opts2-foobar-expected2]",
+  "schema": {
+   "type": "bytes",
+   "max_length": 5
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "Zm9vYmFy"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_too_long",
+     "loc": [],
+     "msg": "Data should have at most 5 bytes",
+     "input": {
+      "$bytes": "Zm9vYmFy"
+     },
+     "ctx": {
+      "max_length": 5
+     }
+    }
+   ],
+   "title": "constrained-bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes_python_bytes[opts3-foo-foo]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes_python_bytes[opts3-foo-foo]",
+  "schema": {
+   "type": "bytes",
+   "min_length": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "Zm9v"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$bytes": "Zm9v"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes_python_bytes[opts4-f-expected4]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes_python_bytes[opts4-f-expected4]",
+  "schema": {
+   "type": "bytes",
+   "min_length": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "Zg=="
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_too_short",
+     "loc": [],
+     "msg": "Data should have at least 2 bytes",
+     "input": {
+      "$bytes": "Zg=="
+     },
+     "ctx": {
+      "min_length": 2
+     }
+    }
+   ],
+   "title": "constrained-bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_constrained_bytes_python_bytes[opts5-bytes?-bytes?]#0",
+  "test": "tests/validators/test_bytes.py::test_constrained_bytes_python_bytes[opts5-bytes?-bytes?]",
+  "schema": {
+   "type": "bytes",
+   "max_length": 6,
+   "min_length": 1,
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "Ynl0ZXM/"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$bytes": "Ynl0ZXM/"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_lax_bytes_validator#0",
+  "test": "tests/validators/test_bytes.py::test_lax_bytes_validator",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "Zm9v"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$bytes": "Zm9v"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_lax_bytes_validator#1",
+  "test": "tests/validators/test_bytes.py::test_lax_bytes_validator",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "output": {
+    "$bytes": "Zm9v"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_lax_bytes_validator#2",
+  "test": "tests/validators/test_bytes.py::test_lax_bytes_validator",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytearray": "Zm9v"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$bytes": "Zm9v"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_lax_bytes_validator#3",
+  "test": "tests/validators/test_bytes.py::test_lax_bytes_validator",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foo\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$bytes": "Zm9v"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_lax_bytes_validator#4",
+  "test": "tests/validators/test_bytes.py::test_lax_bytes_validator",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "🐈 Hello",
+  "options": {},
+  "expected": {
+   "output": {
+    "$bytes": "8J+QiCBIZWxsbw=="
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_lax_bytes_validator#5",
+  "test": "tests/validators/test_bytes.py::test_lax_bytes_validator",
+  "schema": {
+   "type": "bytes"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$object": "str-with-surrogates"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "string_unicode",
+     "loc": [],
+     "msg": "Input should be a valid string, unable to parse raw data as a unicode string",
+     "input": {
+      "$object": "str-with-surrogates"
+     }
+    }
+   ],
+   "title": "bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_length_ctx#0",
+  "test": "tests/validators/test_bytes.py::test_length_ctx",
+  "schema": {
+   "type": "bytes",
+   "max_length": 3,
+   "min_length": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "MQ=="
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_too_short",
+     "loc": [],
+     "msg": "Data should have at least 2 bytes",
+     "input": {
+      "$bytes": "MQ=="
+     },
+     "ctx": {
+      "min_length": 2
+     }
+    }
+   ],
+   "title": "constrained-bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_length_ctx#1",
+  "test": "tests/validators/test_bytes.py::test_length_ctx",
+  "schema": {
+   "type": "bytes",
+   "max_length": 3,
+   "min_length": 2
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "MTIzNA=="
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_too_long",
+     "loc": [],
+     "msg": "Data should have at most 3 bytes",
+     "input": {
+      "$bytes": "MTIzNA=="
+     },
+     "ctx": {
+      "max_length": 3
+     }
+    }
+   ],
+   "title": "constrained-bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_strict_bytes_validator#0",
+  "test": "tests/validators/test_bytes.py::test_strict_bytes_validator",
+  "schema": {
+   "type": "bytes",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "Zm9v"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$bytes": "Zm9v"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_strict_bytes_validator#1",
+  "test": "tests/validators/test_bytes.py::test_strict_bytes_validator",
+  "schema": {
+   "type": "bytes",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"foo\"",
+  "options": {},
+  "expected": {
+   "output": {
+    "$bytes": "Zm9v"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_strict_bytes_validator#2",
+  "test": "tests/validators/test_bytes.py::test_strict_bytes_validator",
+  "schema": {
+   "type": "bytes",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_type",
+     "loc": [],
+     "msg": "Input should be a valid bytes",
+     "input": "foo"
+    }
+   ],
+   "title": "bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_strict_bytes_validator#3",
+  "test": "tests/validators/test_bytes.py::test_strict_bytes_validator",
+  "schema": {
+   "type": "bytes",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytearray": "Zm9v"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "bytes_type",
+     "loc": [],
+     "msg": "Input should be a valid bytes",
+     "input": {
+      "$bytearray": "Zm9v"
+     }
+    }
+   ],
+   "title": "bytes"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_union#0",
+  "test": "tests/validators/test_bytes.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str",
+     "strict": true
+    },
+    {
+     "type": "bytes",
+     "strict": true
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": "oh, a string",
+  "options": {},
+  "expected": {
+   "output": "oh, a string"
+  }
+ },
+ {
+  "id": "tests/validators/test_bytes.py::test_union#1",
+  "test": "tests/validators/test_bytes.py::test_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str",
+     "strict": true
+    },
+    {
+     "type": "bytes",
+     "strict": true
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$bytes": "b2gsIGJ5dGVz"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$bytes": "b2gsIGJ5dGVz"
+   }
+  }
+ }
+]

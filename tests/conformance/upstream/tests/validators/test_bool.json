@@ -1,0 +1,1495 @@
+[
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-0-False]#0",
+  "test": "tests/validators/test_bool.py::test_bool[json-0-False]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-0-False]#1",
+  "test": "tests/validators/test_bool.py::test_bool[json-0-False]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-0.0-False]#0",
+  "test": "tests/validators/test_bool.py::test_bool[json-0.0-False]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-0.0-False]#1",
+  "test": "tests/validators/test_bool.py::test_bool[json-0.0-False]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "0.0",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-1-True]#0",
+  "test": "tests/validators/test_bool.py::test_bool[json-1-True]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-1-True]#1",
+  "test": "tests/validators/test_bool.py::test_bool[json-1-True]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-1.0-True]#0",
+  "test": "tests/validators/test_bool.py::test_bool[json-1.0-True]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-1.0-True]#1",
+  "test": "tests/validators/test_bool.py::test_bool[json-1.0-True]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.0",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-1.1-expected13]#0",
+  "test": "tests/validators/test_bool.py::test_bool[json-1.1-expected13]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.1",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_type",
+     "loc": [],
+     "msg": "Input should be a valid boolean",
+     "input": 1.1
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-1.1-expected13]#1",
+  "test": "tests/validators/test_bool.py::test_bool[json-1.1-expected13]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "1.1",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_type",
+     "loc": [],
+     "msg": "Input should be a valid boolean",
+     "input": 1.1
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-2-expected11]#0",
+  "test": "tests/validators/test_bool.py::test_bool[json-2-expected11]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "2",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_parsing",
+     "loc": [],
+     "msg": "Input should be a valid boolean, unable to interpret input",
+     "input": 2
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-2-expected11]#1",
+  "test": "tests/validators/test_bool.py::test_bool[json-2-expected11]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "2",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_parsing",
+     "loc": [],
+     "msg": "Input should be a valid boolean, unable to interpret input",
+     "input": 2
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-2-expected14]#0",
+  "test": "tests/validators/test_bool.py::test_bool[json-2-expected14]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "2",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_parsing",
+     "loc": [],
+     "msg": "Input should be a valid boolean, unable to interpret input",
+     "input": 2
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-2-expected14]#1",
+  "test": "tests/validators/test_bool.py::test_bool[json-2-expected14]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "2",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_parsing",
+     "loc": [],
+     "msg": "Input should be a valid boolean, unable to interpret input",
+     "input": 2
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-2.0-expected15]#0",
+  "test": "tests/validators/test_bool.py::test_bool[json-2.0-expected15]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "2.0",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_parsing",
+     "loc": [],
+     "msg": "Input should be a valid boolean, unable to interpret input",
+     "input": 2.0
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-2.0-expected15]#1",
+  "test": "tests/validators/test_bool.py::test_bool[json-2.0-expected15]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "2.0",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_parsing",
+     "loc": [],
+     "msg": "Input should be a valid boolean, unable to interpret input",
+     "input": 2.0
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-False-False]#0",
+  "test": "tests/validators/test_bool.py::test_bool[json-False-False]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "false",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-False-False]#1",
+  "test": "tests/validators/test_bool.py::test_bool[json-False-False]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "false",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-True-True]#0",
+  "test": "tests/validators/test_bool.py::test_bool[json-True-True]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "true",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-True-True]#1",
+  "test": "tests/validators/test_bool.py::test_bool[json-True-True]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "true",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-cheese-expected10]#0",
+  "test": "tests/validators/test_bool.py::test_bool[json-cheese-expected10]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"cheese\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_parsing",
+     "loc": [],
+     "msg": "Input should be a valid boolean, unable to interpret input",
+     "input": "cheese"
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-cheese-expected10]#1",
+  "test": "tests/validators/test_bool.py::test_bool[json-cheese-expected10]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"cheese\"",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_parsing",
+     "loc": [],
+     "msg": "Input should be a valid boolean, unable to interpret input",
+     "input": "cheese"
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-false-False]#0",
+  "test": "tests/validators/test_bool.py::test_bool[json-false-False]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"false\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-false-False]#1",
+  "test": "tests/validators/test_bool.py::test_bool[json-false-False]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"false\"",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-input_value12-expected12]#0",
+  "test": "tests/validators/test_bool.py::test_bool[json-input_value12-expected12]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[]",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_type",
+     "loc": [],
+     "msg": "Input should be a valid boolean",
+     "input": []
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-input_value12-expected12]#1",
+  "test": "tests/validators/test_bool.py::test_bool[json-input_value12-expected12]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "[]",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_type",
+     "loc": [],
+     "msg": "Input should be a valid boolean",
+     "input": []
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-no-False]#0",
+  "test": "tests/validators/test_bool.py::test_bool[json-no-False]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"no\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-no-False]#1",
+  "test": "tests/validators/test_bool.py::test_bool[json-no-False]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"no\"",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-true-True]#0",
+  "test": "tests/validators/test_bool.py::test_bool[json-true-True]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"true\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-true-True]#1",
+  "test": "tests/validators/test_bool.py::test_bool[json-true-True]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"true\"",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-yes-True]#0",
+  "test": "tests/validators/test_bool.py::test_bool[json-yes-True]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"yes\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[json-yes-True]#1",
+  "test": "tests/validators/test_bool.py::test_bool[json-yes-True]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"yes\"",
+  "options": {
+   "strict": null,
+   "context": null
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[python-0-False]#0",
+  "test": "tests/validators/test_bool.py::test_bool[python-0-False]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[python-0.0-False]#0",
+  "test": "tests/validators/test_bool.py::test_bool[python-0.0-False]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 0.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[python-1-True]#0",
+  "test": "tests/validators/test_bool.py::test_bool[python-1-True]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[python-1.0-True]#0",
+  "test": "tests/validators/test_bool.py::test_bool[python-1.0-True]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[python-1.1-expected13]#0",
+  "test": "tests/validators/test_bool.py::test_bool[python-1.1-expected13]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 1.1,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_type",
+     "loc": [],
+     "msg": "Input should be a valid boolean",
+     "input": 1.1
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[python-2-expected11]#0",
+  "test": "tests/validators/test_bool.py::test_bool[python-2-expected11]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 2,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_parsing",
+     "loc": [],
+     "msg": "Input should be a valid boolean, unable to interpret input",
+     "input": 2
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[python-2-expected14]#0",
+  "test": "tests/validators/test_bool.py::test_bool[python-2-expected14]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 2,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_parsing",
+     "loc": [],
+     "msg": "Input should be a valid boolean, unable to interpret input",
+     "input": 2
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[python-2.0-expected15]#0",
+  "test": "tests/validators/test_bool.py::test_bool[python-2.0-expected15]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "python",
+  "input": 2.0,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_parsing",
+     "loc": [],
+     "msg": "Input should be a valid boolean, unable to interpret input",
+     "input": 2.0
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[python-False-False]#0",
+  "test": "tests/validators/test_bool.py::test_bool[python-False-False]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "python",
+  "input": false,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[python-True-True]#0",
+  "test": "tests/validators/test_bool.py::test_bool[python-True-True]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "python",
+  "input": true,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[python-cheese-expected10]#0",
+  "test": "tests/validators/test_bool.py::test_bool[python-cheese-expected10]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "cheese",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_parsing",
+     "loc": [],
+     "msg": "Input should be a valid boolean, unable to interpret input",
+     "input": "cheese"
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[python-false-False]#0",
+  "test": "tests/validators/test_bool.py::test_bool[python-false-False]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "false",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[python-input_value12-expected12]#0",
+  "test": "tests/validators/test_bool.py::test_bool[python-input_value12-expected12]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "python",
+  "input": [],
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_type",
+     "loc": [],
+     "msg": "Input should be a valid boolean",
+     "input": []
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[python-no-False]#0",
+  "test": "tests/validators/test_bool.py::test_bool[python-no-False]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "no",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[python-true-True]#0",
+  "test": "tests/validators/test_bool.py::test_bool[python-true-True]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "true",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool[python-yes-True]#0",
+  "test": "tests/validators/test_bool.py::test_bool[python-yes-True]",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "yes",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool_error#0",
+  "test": "tests/validators/test_bool.py::test_bool_error",
+  "schema": {
+   "type": "bool"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "wrong",
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_parsing",
+     "loc": [],
+     "msg": "Input should be a valid boolean, unable to interpret input",
+     "input": "wrong"
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool_key[json]#0",
+  "test": "tests/validators/test_bool.py::test_bool_key[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "bool"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"true\": 1, \"false\": 2}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      true,
+      1
+     ],
+     [
+      false,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool_key[json]#1",
+  "test": "tests/validators/test_bool.py::test_bool_key[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "bool"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"true\": 1, \"off\": 2}",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      true,
+      1
+     ],
+     [
+      false,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool_key[json]#2",
+  "test": "tests/validators/test_bool.py::test_bool_key[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "bool"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"true\": 1, \"off\": 2}",
+  "options": {
+   "strict": false,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      true,
+      1
+     ],
+     [
+      false,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool_key[json]#3",
+  "test": "tests/validators/test_bool.py::test_bool_key[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "bool"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "true": 1,
+   "off": 2
+  },
+  "options": {
+   "strict": true,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_type",
+     "loc": [
+      "true",
+      "[key]"
+     ],
+     "msg": "Input should be a valid boolean",
+     "input": "true"
+    },
+    {
+     "type": "bool_type",
+     "loc": [
+      "off",
+      "[key]"
+     ],
+     "msg": "Input should be a valid boolean",
+     "input": "off"
+    }
+   ],
+   "title": "dict[bool,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool_key[json]#4",
+  "test": "tests/validators/test_bool.py::test_bool_key[json]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "bool"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"true\": 1, \"off\": 2}",
+  "options": {
+   "strict": true,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      true,
+      1
+     ],
+     [
+      false,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool_key[python]#0",
+  "test": "tests/validators/test_bool.py::test_bool_key[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "bool"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$dict": [
+    [
+     true,
+     1
+    ],
+    [
+     false,
+     2
+    ]
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      true,
+      1
+     ],
+     [
+      false,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool_key[python]#1",
+  "test": "tests/validators/test_bool.py::test_bool_key[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "bool"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "true": 1,
+   "off": 2
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      true,
+      1
+     ],
+     [
+      false,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool_key[python]#2",
+  "test": "tests/validators/test_bool.py::test_bool_key[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "bool"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "true": 1,
+   "off": 2
+  },
+  "options": {
+   "strict": false,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      true,
+      1
+     ],
+     [
+      false,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool_key[python]#3",
+  "test": "tests/validators/test_bool.py::test_bool_key[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "bool"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "true": 1,
+   "off": 2
+  },
+  "options": {
+   "strict": true,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_type",
+     "loc": [
+      "true",
+      "[key]"
+     ],
+     "msg": "Input should be a valid boolean",
+     "input": "true"
+    },
+    {
+     "type": "bool_type",
+     "loc": [
+      "off",
+      "[key]"
+     ],
+     "msg": "Input should be a valid boolean",
+     "input": "off"
+    }
+   ],
+   "title": "dict[bool,int]"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool_key[python]#4",
+  "test": "tests/validators/test_bool.py::test_bool_key[python]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "bool"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "json",
+  "input": "{\"true\": 1, \"off\": 2}",
+  "options": {
+   "strict": true,
+   "context": null
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      true,
+      1
+     ],
+     [
+      false,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool_strict[json]#0",
+  "test": "tests/validators/test_bool.py::test_bool_strict[json]",
+  "schema": {
+   "type": "bool",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "true",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool_strict[json]#1",
+  "test": "tests/validators/test_bool.py::test_bool_strict[json]",
+  "schema": {
+   "type": "bool",
+   "strict": true
+  },
+  "config": null,
+  "mode": "json",
+  "input": "\"true\"",
+  "options": {
+   "strict": null,
+   "extra": null,
+   "context": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_type",
+     "loc": [],
+     "msg": "Input should be a valid boolean",
+     "input": "true"
+    }
+   ],
+   "title": "bool"
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool_strict[python]#0",
+  "test": "tests/validators/test_bool.py::test_bool_strict[python]",
+  "schema": {
+   "type": "bool",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": true,
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/validators/test_bool.py::test_bool_strict[python]#1",
+  "test": "tests/validators/test_bool.py::test_bool_strict[python]",
+  "schema": {
+   "type": "bool",
+   "strict": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": "true",
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_type",
+     "loc": [],
+     "msg": "Input should be a valid boolean",
+     "input": "true"
+    }
+   ],
+   "title": "bool"
+  }
+ }
+]
