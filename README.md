@@ -1,2 +1,83 @@
 # perldantic
-Pydantic for Perl with Rust core
+
+Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `pydantic-core` Rust engine. See [docs/PLAN.md](docs/PLAN.md).
+
+## Tasks
+
+- [ ] 00001 — Scaffold & upstream import
+  - [ ] 00002 — Cargo workspace: `crates/perldantic-core`, `ffi/`
+  - [ ] 00003 — CPAN dist skeleton: `Makefile.PL` (FFI::Build::MM), `cpanfile`, `lib/Perldantic.pm` stub
+  - [ ] 00004 — CI: cargo fmt/clippy/test + prove, Perl 5.36/5.38/5.40, Linux & macOS
+  - [ ] 00005 — `upstream/UPSTREAM.md`: base commit `0384c970e`, upstream → perldantic file map
+  - [ ] 00006 — `NOTICE` with pydantic-core MIT attribution
+  - [ ] 00007 — `docs/DIVERGENCES.md`: register of intentional deviations from pydantic
+- [ ] 00008 — Python-free core foundation
+  - [ ] 00009 — `Value` neutral data model
+  - [ ] 00010 — `CoreError` / `CoreResult` replacing `PyErr` / `PyResult`
+  - [ ] 00011 — `CoreSchema` serde enum, pydantic `core_schema` wire-compatible (P0 types)
+  - [ ] 00012 — Port `errors/`: `ErrorType` codes & message templates, `ValLineError`, `Location`
+  - [ ] 00013 — `ValidationError` output identical to pydantic `errors()` / `json()`
+  - [ ] 00014 — Port `Input` trait without `'py`; `input_json.rs` on jiter without `python`
+  - [ ] 00015 — `input_value.rs`: `Input` for `Value`
+  - [ ] 00016 — `ValidationState`, `RecursionGuard`, `Definitions`
+- [ ] 00017 — Conformance suite
+  - [ ] 00018 — Case format spec: schema + input + mode → output | errors
+  - [ ] 00019 — Extractor of cases from `pydantic-core/tests/validators`
+  - [ ] 00020 — Rust conformance runner in `cargo test`
+- [ ] 00021 — P0 validators
+  - [ ] 00022 — `none`, `any`, `bool`
+  - [ ] 00023 — `int` (incl. bigint), `float`
+  - [ ] 00024 — `str` (constraints, pattern), `bytes`
+  - [ ] 00025 — `literal`, `nullable`, `default`
+  - [ ] 00026 — `list`, `tuple`, `dict`
+  - [ ] 00027 — `union`: smart, left_to_right, tagged
+  - [ ] 00028 — `model_fields`, `model` (fields_set, extra behaviour)
+  - [ ] 00029 — `definitions` / `definition-ref` (recursive schemas)
+  - [ ] 00030 — `lax_or_strict`, `custom_error`
+- [ ] 00031 — Serialization & JSON Schema
+  - [ ] 00032 — Serializer `Value` → JSON (serde)
+  - [ ] 00033 — Serializer `Value` → `Value`: include/exclude, by_alias, exclude_none/unset/defaults
+  - [ ] 00034 — JSON Schema generator (Draft 2020-12, `$defs`) for P0 types
+  - [ ] 00035 — Snapshot tests against pydantic output
+- [ ] 00036 — FFI (C ABI)
+  - [ ] 00037 — Handles: validator new/free, validate, serialize, json_schema, string_free
+  - [ ] 00038 — Panic safety: `catch_unwind` on every export
+  - [ ] 00039 — C header generation (cbindgen)
+- [ ] 00040 — Perl MVP
+  - [ ] 00041 — `Perldantic::FFI` binding (FFI::Platypus, FFI::Build::File::Cargo)
+  - [ ] 00042 — `Perldantic::Types`: Int Str Num Bool Any ArrayRef[] HashRef[] Tuple[] Optional[] Enum[] Literal[]
+  - [ ] 00043 — `Perldantic::Model` DSL: `field`, `model_config`, generated accessors
+  - [ ] 00044 — `model_validate[_json]`, `model_dump[_json]`, `model_json_schema`, `model_copy`, `model_fields_set`
+  - [ ] 00045 — `Perldantic::TypeAdapter`
+  - [ ] 00046 — `Perldantic::ValidationError`: errors, error_count, json, stringification
+  - [ ] 00047 — Lazy per-class validator cache
+  - [ ] 00048 — Perl conformance runner `t/conformance.t`
+  - [ ] 00049 — Leak tests (Test::LeakTrace)
+- [ ] 00050 — P1 types & callbacks
+  - [ ] 00051 — `date`, `time`, `datetime`, `timedelta` (speedate; Time::Moment / DateTime)
+  - [ ] 00052 — `decimal` (Math::BigFloat), `uuid`, `url` / `multi-host-url`
+  - [ ] 00053 — `enum`, `set`, `frozenset`, `chain`, `json`, `typed_dict`
+  - [ ] 00054 — `function-before/after/wrap/plain` via `HostCallback`
+  - [ ] 00055 — Perl `validator`, `model_validator`, `field_serializer`, `computed_field`
+  - [ ] 00056 — `InstanceOf[]` and Type::Tiny interop
+- [ ] 00057 — Native SV bridge
+  - [ ] 00058 — XS `Input` over SV (strict mode via SV flags)
+  - [ ] 00059 — `Value` → SV without JSON
+  - [ ] 00060 — Benchmarks vs phase 1 and Type::Tiny+Moo → `docs/BENCHMARKS.md`
+- [ ] 00061 — Integration scenarios
+  - [ ] 00062 — CBT journal entry
+  - [ ] 00063 — Story/book editor: recursive chapters
+  - [ ] 00064 — IT task manager: tagged union by kind, deadlines
+  - [ ] 00065 — ERP order: Decimal totals, cross-field model validator
+  - [ ] 00066 — Bug tracker: URL/UUID, `extra => 'forbid'`, JSON import/export
+- [ ] 00067 — Docs & release 0.1.0
+  - [ ] 00068 — POD for all modules
+  - [ ] 00069 — `docs/MIGRATING_FROM_PYDANTIC.md`
+  - [ ] 00070 — CPAN release `Perldantic-0.01`, tag `v0.1.0`
+- [ ] 00071 — Backlog (post-0.1)
+  - [ ] 00072 — `arguments` / `call`: Perl sub signature validation
+  - [ ] 00073 — Moo/Moose integration
+  - [ ] 00074 — Prebuilt binaries / Alien dist
+  - [ ] 00075 — Automated upstream sync
+
+MIT — see [LICENSE](LICENSE) and `NOTICE`.
