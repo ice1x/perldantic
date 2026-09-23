@@ -1,0 +1,950 @@
+[
+ {
+  "id": "tests/test_type_alias_type.py::test_intermediate_type_aliases#0",
+  "test": "tests/test_type_alias_type.py::test_intermediate_type_aliases",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "my_int_seq": {
+      "type": "model-field",
+      "schema": {
+       "type": "json-or-python",
+       "json_schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       },
+       "python_schema": {
+        "type": "chain",
+        "steps": [
+         {
+          "type": "is-instance",
+          "cls": {
+           "$function": "Sequence"
+          },
+          "cls_repr": "Sequence"
+         },
+         {
+          "type": "function-wrap",
+          "function": {
+           "type": "no-info",
+           "function": {
+            "$function": "sequence_validator"
+           }
+          },
+          "schema": {
+           "type": "list",
+           "items_schema": {
+            "type": "int"
+           }
+          }
+         }
+        ]
+       },
+       "serialization": {
+        "type": "function-wrap",
+        "function": {
+         "$function": "serialize_sequence_via_list"
+        },
+        "info_arg": true,
+        "schema": {
+         "type": "int"
+        }
+       },
+       "ref": "tests.test_type_alias_type.MyIntSeq:1"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "MyModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.test_type_alias_type.test_intermediate_type_aliases.<locals>.MyModel:2"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "MyIntSeq": {
+        "items": {
+         "type": "integer"
+        },
+        "type": "array"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "my_int_seq": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/MyIntSeq"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "my_int_seq"
+      ]
+     ],
+     [
+      "title",
+      "MyModel"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_alias_type.py::test_nested_generic_type_alias_type#0",
+  "test": "tests/test_type_alias_type.py::test_nested_generic_type_alias_type",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_1": {
+      "type": "model-field",
+      "schema": {
+       "type": "list",
+       "items_schema": {
+        "type": "bool"
+       },
+       "ref": "tests.test_type_alias_type.MyList:1[bool:2]"
+      },
+      "metadata": {}
+     },
+     "field_2": {
+      "type": "model-field",
+      "schema": {
+       "type": "list",
+       "items_schema": {
+        "type": "str"
+       },
+       "ref": "tests.test_type_alias_type.MyList:1[str:3]"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "MyModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.test_type_alias_type.test_nested_generic_type_alias_type.<locals>.MyModel:4"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "MyList_bool_": {
+        "items": {
+         "type": "boolean"
+        },
+        "type": "array"
+       },
+       "MyList_str_": {
+        "items": {
+         "type": "string"
+        },
+        "type": "array"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "field_1": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/MyList_bool_"
+         ]
+        ]
+       },
+       "field_2": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/MyList_str_"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "field_1",
+       "field_2"
+      ]
+     ],
+     [
+      "title",
+      "MyModel"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_alias_type.py::test_non_specified_generic_type_alias_type#0",
+  "test": "tests/test_type_alias_type.py::test_non_specified_generic_type_alias_type",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   },
+   "ref": "tests.test_type_alias_type.MyList:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "items": {},
+    "type": "array"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_alias_type.py::test_recursive_generic_type_alias#0",
+  "test": "tests/test_type_alias_type.py::test_recursive_generic_type_alias",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "tests.test_type_alias_type.RecursiveGenericAlias:1[int:2]"
+   },
+   "definitions": [
+    {
+     "type": "list",
+     "items_schema": {
+      "type": "union",
+      "choices": [
+       {
+        "type": "definition-ref",
+        "schema_ref": "tests.test_type_alias_type.RecursiveGenericAlias:1[int:2]"
+       },
+       {
+        "type": "int"
+       }
+      ]
+     },
+     "ref": "tests.test_type_alias_type.RecursiveGenericAlias:1[int:2]"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "RecursiveGenericAlias_int_": {
+        "items": {
+         "anyOf": [
+          {
+           "$dict": [
+            [
+             "$ref",
+             "#/$defs/RecursiveGenericAlias_int_"
+            ]
+           ]
+          },
+          {
+           "type": "integer"
+          }
+         ]
+        },
+        "type": "array"
+       }
+      }
+     ],
+     [
+      "$ref",
+      "#/$defs/RecursiveGenericAlias_int_"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_alias_type.py::test_recursive_generic_type_alias_annotated#0",
+  "test": "tests/test_type_alias_type.py::test_recursive_generic_type_alias_annotated",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "union",
+     "choices": [
+      {
+       "type": "definition-ref",
+       "schema_ref": "tests.test_type_alias_type.RecursiveGenericAlias:1[int:2]"
+      },
+      {
+       "type": "int"
+      }
+     ]
+    },
+    "ref": "tests.test_type_alias_type.RecursiveGenericAlias:1[int:2]_MaxLen(max_length=1)",
+    "max_length": 1
+   },
+   "definitions": [
+    {
+     "type": "list",
+     "items_schema": {
+      "type": "union",
+      "choices": [
+       {
+        "type": "definition-ref",
+        "schema_ref": "tests.test_type_alias_type.RecursiveGenericAlias:1[int:2]"
+       },
+       {
+        "type": "int"
+       }
+      ]
+     },
+     "ref": "tests.test_type_alias_type.RecursiveGenericAlias:1[int:2]"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "RecursiveGenericAlias_int_": {
+        "items": {
+         "anyOf": [
+          {
+           "$dict": [
+            [
+             "$ref",
+             "#/$defs/RecursiveGenericAlias_int_"
+            ]
+           ]
+          },
+          {
+           "type": "integer"
+          }
+         ]
+        },
+        "type": "array"
+       }
+      }
+     ],
+     [
+      "items",
+      {
+       "anyOf": [
+        {
+         "$dict": [
+          [
+           "$ref",
+           "#/$defs/RecursiveGenericAlias_int_"
+          ]
+         ]
+        },
+        {
+         "type": "integer"
+        }
+       ]
+      }
+     ],
+     [
+      "maxItems",
+      1
+     ],
+     [
+      "type",
+      "array"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_alias_type.py::test_recursive_generic_type_alias_annotated_defs#0",
+  "test": "tests/test_type_alias_type.py::test_recursive_generic_type_alias_annotated_defs",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "definition-ref",
+      "schema_ref": "tests.test_type_alias_type.RecursiveGenericAlias:1[int:2]_MaxLen(max_length=1)"
+     },
+     {
+      "type": "definition-ref",
+      "schema_ref": "tests.test_type_alias_type.RecursiveGenericAlias:1[int:2]_MaxLen(max_length=1)"
+     }
+    ]
+   },
+   "definitions": [
+    {
+     "type": "list",
+     "items_schema": {
+      "type": "union",
+      "choices": [
+       {
+        "type": "definition-ref",
+        "schema_ref": "tests.test_type_alias_type.RecursiveGenericAlias:1[int:2]"
+       },
+       {
+        "type": "int"
+       }
+      ]
+     },
+     "ref": "tests.test_type_alias_type.RecursiveGenericAlias:1[int:2]_MaxLen(max_length=1)",
+     "max_length": 1
+    },
+    {
+     "type": "list",
+     "items_schema": {
+      "type": "union",
+      "choices": [
+       {
+        "type": "definition-ref",
+        "schema_ref": "tests.test_type_alias_type.RecursiveGenericAlias:1[int:2]"
+       },
+       {
+        "type": "int"
+       }
+      ]
+     },
+     "ref": "tests.test_type_alias_type.RecursiveGenericAlias:1[int:2]"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "RecursiveGenericAlias_int_": {
+        "items": {
+         "anyOf": [
+          {
+           "$dict": [
+            [
+             "$ref",
+             "#/$defs/RecursiveGenericAlias_int_"
+            ]
+           ]
+          },
+          {
+           "type": "integer"
+          }
+         ]
+        },
+        "type": "array"
+       },
+       "RecursiveGenericAlias_int__MaxLen_max_length_1_": {
+        "items": {
+         "anyOf": [
+          {
+           "$dict": [
+            [
+             "$ref",
+             "#/$defs/RecursiveGenericAlias_int_"
+            ]
+           ]
+          },
+          {
+           "type": "integer"
+          }
+         ]
+        },
+        "maxItems": 1,
+        "type": "array"
+       }
+      }
+     ],
+     [
+      "maxItems",
+      2
+     ],
+     [
+      "minItems",
+      2
+     ],
+     [
+      "prefixItems",
+      [
+       {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/RecursiveGenericAlias_int__MaxLen_max_length_1_"
+         ]
+        ]
+       },
+       {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/RecursiveGenericAlias_int__MaxLen_max_length_1_"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "type",
+      "array"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_alias_type.py::test_recursive_type_alias#0",
+  "test": "tests/test_type_alias_type.py::test_recursive_type_alias",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "tests.test_type_alias_type.JsonType:1"
+   },
+   "definitions": [
+    {
+     "type": "nullable",
+     "schema": {
+      "type": "union",
+      "choices": [
+       {
+        "type": "list",
+        "items_schema": {
+         "type": "definition-ref",
+         "schema_ref": "tests.test_type_alias_type.JsonType:1"
+        }
+       },
+       {
+        "type": "dict",
+        "keys_schema": {
+         "type": "str"
+        },
+        "values_schema": {
+         "type": "definition-ref",
+         "schema_ref": "tests.test_type_alias_type.JsonType:1"
+        }
+       },
+       {
+        "type": "str"
+       },
+       {
+        "type": "int"
+       },
+       {
+        "type": "float"
+       },
+       {
+        "type": "bool"
+       }
+      ]
+     },
+     "ref": "tests.test_type_alias_type.JsonType:1"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "JsonType": {
+        "anyOf": [
+         {
+          "items": {
+           "$dict": [
+            [
+             "$ref",
+             "#/$defs/JsonType"
+            ]
+           ]
+          },
+          "type": "array"
+         },
+         {
+          "additionalProperties": {
+           "$dict": [
+            [
+             "$ref",
+             "#/$defs/JsonType"
+            ]
+           ]
+          },
+          "type": "object"
+         },
+         {
+          "type": "string"
+         },
+         {
+          "type": "integer"
+         },
+         {
+          "type": "number"
+         },
+         {
+          "type": "boolean"
+         },
+         {
+          "type": "null"
+         }
+        ]
+       }
+      }
+     ],
+     [
+      "$ref",
+      "#/$defs/JsonType"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_alias_type.py::test_recursive_type_alias_name#0",
+  "test": "tests/test_type_alias_type.py::test_recursive_type_alias_name",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "tests.test_type_alias_type.MyRecursiveType:1"
+   },
+   "definitions": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "dataclass",
+       "cls": {
+        "$class": "MyGeneric"
+       },
+       "generic_origin": {
+        "$class": "MyGeneric"
+       },
+       "fields": [
+        "field"
+       ],
+       "schema": {
+        "type": "dataclass-args",
+        "dataclass_name": "MyGeneric",
+        "fields": [
+         {
+          "type": "dataclass-field",
+          "name": "field",
+          "schema": {
+           "type": "definition-ref",
+           "schema_ref": "tests.test_type_alias_type.MyRecursiveType:1"
+          },
+          "kw_only": false,
+          "init": true,
+          "metadata": {}
+         }
+        ],
+        "computed_fields": [],
+        "collect_init_only": false
+       },
+       "post_init": false,
+       "frozen": false,
+       "slots": false,
+       "config": {
+        "title": "MyGeneric"
+       },
+       "ref": "tests.test_type_alias_type.test_recursive_type_alias_name.<locals>.MyGeneric:2[MyRecursiveType:1]"
+      },
+      {
+       "type": "int"
+      }
+     ],
+     "ref": "tests.test_type_alias_type.MyRecursiveType:1"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "MyGeneric_MyRecursiveType_": {
+        "properties": {
+         "field": {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/MyRecursiveType"
+           ]
+          ]
+         }
+        },
+        "required": [
+         "field"
+        ],
+        "title": "MyGeneric",
+        "type": "object"
+       },
+       "MyRecursiveType": {
+        "anyOf": [
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/MyGeneric_MyRecursiveType_"
+           ]
+          ]
+         },
+         {
+          "type": "integer"
+         }
+        ]
+       }
+      }
+     ],
+     [
+      "$ref",
+      "#/$defs/MyRecursiveType"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_alias_type.py::test_type_alias#0",
+  "test": "tests/test_type_alias_type.py::test_type_alias",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "ref": "tests.test_type_alias_type.MyList:1[int:2]"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "items": {
+     "type": "integer"
+    },
+    "type": "array"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_alias_type.py::test_type_alias_annotated#0",
+  "test": "tests/test_type_alias_type.py::test_type_alias_annotated",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int"
+   },
+   "ref": "tests.test_type_alias_type.MyList:1[int:2]_MaxLen(max_length=1)",
+   "max_length": 1
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "items": {
+     "type": "integer"
+    },
+    "maxItems": 1,
+    "type": "array"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_alias_type.py::test_type_alias_annotated_defs#0",
+  "test": "tests/test_type_alias_type.py::test_type_alias_annotated_defs",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "definition-ref",
+      "schema_ref": "tests.test_type_alias_type.MyList:1[int:2]_MaxLen(max_length=1)"
+     },
+     {
+      "type": "definition-ref",
+      "schema_ref": "tests.test_type_alias_type.MyList:1[int:2]_MaxLen(max_length=1)"
+     }
+    ]
+   },
+   "definitions": [
+    {
+     "type": "list",
+     "items_schema": {
+      "type": "int"
+     },
+     "ref": "tests.test_type_alias_type.MyList:1[int:2]_MaxLen(max_length=1)",
+     "max_length": 1
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "MyList_int__MaxLen_max_length_1_": {
+        "items": {
+         "type": "integer"
+        },
+        "maxItems": 1,
+        "type": "array"
+       }
+      }
+     ],
+     [
+      "maxItems",
+      2
+     ],
+     [
+      "minItems",
+      2
+     ],
+     [
+      "prefixItems",
+      [
+       {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/MyList_int__MaxLen_max_length_1_"
+         ]
+        ]
+       },
+       {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/MyList_int__MaxLen_max_length_1_"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "type",
+      "array"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_alias_type.py::test_type_alias_type_with_metadata#0",
+  "test": "tests/test_type_alias_type.py::test_type_alias_type_with_metadata",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "tests.test_type_alias_type.A:1",
+    "metadata": {
+     "pydantic_js_annotation_functions": [
+      {
+       "$function": "__get_pydantic_json_schema__"
+      }
+     ]
+    },
+    "ref": "tests.test_type_alias_type.B:2"
+   },
+   "definitions": [
+    {
+     "type": "int",
+     "ref": "tests.test_type_alias_type.A:1"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "extra": 1,
+    "type": "int"
+   }
+  },
+  "warnings": []
+ }
+]

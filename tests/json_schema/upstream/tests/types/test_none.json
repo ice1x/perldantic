@@ -1,0 +1,232 @@
+[
+ {
+  "id": "tests/types/test_none.py::test_none[None]#0",
+  "test": "tests/types/test_none.py::test_none[None]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "my_none": {
+      "type": "model-field",
+      "schema": {
+       "type": "none"
+      },
+      "metadata": {}
+     },
+     "my_none_list": {
+      "type": "model-field",
+      "schema": {
+       "type": "list",
+       "items_schema": {
+        "type": "none"
+       }
+      },
+      "metadata": {}
+     },
+     "my_none_dict": {
+      "type": "model-field",
+      "schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "none"
+       }
+      },
+      "metadata": {}
+     },
+     "my_json_none": {
+      "type": "model-field",
+      "schema": {
+       "type": "json",
+       "schema": {
+        "type": "none"
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.types.test_none.test_none.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "my_none": {
+      "title": "My None",
+      "type": "null"
+     },
+     "my_none_list": {
+      "items": {
+       "type": "null"
+      },
+      "title": "My None List",
+      "type": "array"
+     },
+     "my_none_dict": {
+      "additionalProperties": {
+       "type": "null"
+      },
+      "title": "My None Dict",
+      "type": "object"
+     },
+     "my_json_none": {
+      "contentMediaType": "application/json",
+      "contentSchema": {
+       "type": "null"
+      },
+      "title": "My Json None",
+      "type": "string"
+     }
+    },
+    "required": [
+     "my_none",
+     "my_none_list",
+     "my_none_dict",
+     "my_json_none"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/types/test_none.py::test_none_literal#0",
+  "test": "tests/types/test_none.py::test_none_literal",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "my_none": {
+      "type": "model-field",
+      "schema": {
+       "type": "literal",
+       "expected": [
+        null
+       ]
+      },
+      "metadata": {}
+     },
+     "my_none_list": {
+      "type": "model-field",
+      "schema": {
+       "type": "list",
+       "items_schema": {
+        "type": "literal",
+        "expected": [
+         null
+        ]
+       }
+      },
+      "metadata": {}
+     },
+     "my_none_dict": {
+      "type": "model-field",
+      "schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "literal",
+        "expected": [
+         null
+        ]
+       }
+      },
+      "metadata": {}
+     },
+     "my_json_none": {
+      "type": "model-field",
+      "schema": {
+       "type": "json",
+       "schema": {
+        "type": "literal",
+        "expected": [
+         null
+        ]
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.types.test_none.test_none_literal.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "my_none": {
+      "const": null,
+      "title": "My None",
+      "type": "null"
+     },
+     "my_none_list": {
+      "items": {
+       "const": null,
+       "type": "null"
+      },
+      "title": "My None List",
+      "type": "array"
+     },
+     "my_none_dict": {
+      "additionalProperties": {
+       "const": null,
+       "type": "null"
+      },
+      "title": "My None Dict",
+      "type": "object"
+     },
+     "my_json_none": {
+      "contentMediaType": "application/json",
+      "contentSchema": {
+       "const": null,
+       "type": "null"
+      },
+      "title": "My Json None",
+      "type": "string"
+     }
+    },
+    "required": [
+     "my_none",
+     "my_none_list",
+     "my_none_dict",
+     "my_json_none"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ }
+]

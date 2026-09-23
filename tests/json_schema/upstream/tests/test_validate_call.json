@@ -1,0 +1,440 @@
+[
+ {
+  "id": "tests/test_validate_call.py::test_json_schema#0",
+  "test": "tests/test_validate_call.py::test_json_schema",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "schema": {
+       "type": "int",
+       "metadata": {}
+      },
+      "mode": "positional_or_keyword"
+     },
+     {
+      "name": "b",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "int",
+        "metadata": {}
+       },
+       "default": null
+      },
+      "mode": "positional_or_keyword"
+     }
+    ]
+   },
+   "function": {
+    "$function": "foo"
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": false,
+    "properties": {
+     "a": {
+      "title": "A",
+      "type": "integer"
+     },
+     "b": {
+      "default": null,
+      "title": "B",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "a"
+    ],
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_validate_call.py::test_json_schema#1",
+  "test": "tests/test_validate_call.py::test_json_schema",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "schema": {
+       "type": "int",
+       "metadata": {}
+      },
+      "mode": "positional_only"
+     },
+     {
+      "name": "b",
+      "schema": {
+       "type": "int",
+       "metadata": {}
+      },
+      "mode": "positional_or_keyword"
+     }
+    ]
+   },
+   "function": {
+    "$function": "foo"
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "maxItems": 2,
+    "minItems": 2,
+    "prefixItems": [
+     {
+      "title": "A",
+      "type": "integer"
+     },
+     {
+      "title": "B",
+      "type": "integer"
+     }
+    ],
+    "type": "array"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_validate_call.py::test_json_schema#2",
+  "test": "tests/test_validate_call.py::test_json_schema",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "schema": {
+       "type": "int",
+       "metadata": {}
+      },
+      "mode": "positional_only"
+     },
+     {
+      "name": "b",
+      "schema": {
+       "type": "int",
+       "metadata": {}
+      },
+      "mode": "keyword_only"
+     },
+     {
+      "name": "c",
+      "schema": {
+       "type": "int",
+       "metadata": {}
+      },
+      "mode": "keyword_only"
+     }
+    ]
+   },
+   "function": {
+    "$function": "foo"
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "error": [
+    "PydanticInvalidForJsonSchema",
+    "Unable to generate JSON schema for arguments validator with positional-only and keyword-only arguments\n\nFor further information visit https://errors.pydantic.dev/2.14/u/invalid-for-json-schema"
+   ]
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_validate_call.py::test_json_schema#3",
+  "test": "tests/test_validate_call.py::test_json_schema",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [],
+    "var_args_schema": {
+     "type": "int"
+    }
+   },
+   "function": {
+    "$function": "foo"
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "items": {
+     "type": "integer"
+    },
+    "type": "array"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_validate_call.py::test_json_schema#4",
+  "test": "tests/test_validate_call.py::test_json_schema",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "schema": {
+       "type": "int",
+       "metadata": {}
+      },
+      "mode": "positional_or_keyword"
+     }
+    ],
+    "var_args_schema": {
+     "type": "int"
+    }
+   },
+   "function": {
+    "$function": "foo"
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "items": {
+     "type": "integer"
+    },
+    "minItems": 1,
+    "prefixItems": [
+     {
+      "title": "A",
+      "type": "integer"
+     }
+    ],
+    "type": "array"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_validate_call.py::test_json_schema#5",
+  "test": "tests/test_validate_call.py::test_json_schema",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [],
+    "var_kwargs_mode": "uniform",
+    "var_kwargs_schema": {
+     "type": "int"
+    }
+   },
+   "function": {
+    "$function": "foo"
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": {
+     "type": "integer"
+    },
+    "properties": {},
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_validate_call.py::test_json_schema#6",
+  "test": "tests/test_validate_call.py::test_json_schema",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "schema": {
+       "type": "int",
+       "metadata": {}
+      },
+      "mode": "positional_or_keyword",
+      "alias": "A"
+     }
+    ]
+   },
+   "function": {
+    "$function": "foo"
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": false,
+    "properties": {
+     "A": {
+      "title": "A",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "A"
+    ],
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_validate_call.py::test_json_schema_custom_title#0",
+  "test": "tests/test_validate_call.py::test_json_schema_custom_title",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "a",
+      "schema": {
+       "type": "int",
+       "metadata": {
+        "pydantic_js_updates": {
+         "title": "atest"
+        }
+       }
+      },
+      "mode": "positional_or_keyword"
+     }
+    ]
+   },
+   "function": {
+    "$function": "func"
+   }
+  },
+  "config": {},
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": false,
+    "properties": {
+     "a": {
+      "title": "atest",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "a"
+    ],
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_validate_call.py::test_json_schema_title_not_set_on_ref#0",
+  "test": "tests/test_validate_call.py::test_json_schema_title_not_set_on_ref",
+  "schema": {
+   "type": "call",
+   "arguments_schema": {
+    "type": "arguments",
+    "arguments_schema": [
+     {
+      "name": "m",
+      "schema": {
+       "type": "model",
+       "cls": {
+        "$class": "Model"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {},
+        "model_name": "Model",
+        "computed_fields": []
+       },
+       "custom_init": false,
+       "root_model": false,
+       "config": {
+        "title": "Model"
+       },
+       "ref": "tests.test_validate_call.test_json_schema_title_not_set_on_ref.<locals>.Model:1"
+      },
+      "mode": "positional_or_keyword"
+     }
+    ]
+   },
+   "function": {
+    "$function": "func"
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Model": {
+        "properties": {},
+        "title": "Model",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "additionalProperties",
+      false
+     ],
+     [
+      "properties",
+      {
+       "m": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Model"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "m"
+      ]
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ }
+]

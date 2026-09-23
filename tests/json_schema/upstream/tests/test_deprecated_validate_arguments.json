@@ -1,0 +1,312 @@
+[
+ {
+  "id": "tests/test_deprecated_validate_arguments.py::test_config_title#0",
+  "test": "tests/test_deprecated_validate_arguments.py::test_config_title",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Foo"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "a": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     },
+     "v__duplicate_kwargs": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "function-after",
+        "function": {
+         "type": "no-info",
+         "function": {
+          "$function": "check_duplicate_kwargs"
+         }
+        },
+        "schema": {
+         "type": "list",
+         "items_schema": {
+          "type": "str"
+         }
+        }
+       },
+       "default": null
+      },
+      "metadata": {}
+     },
+     "b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     },
+     "args": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "function-after",
+        "function": {
+         "type": "no-info",
+         "function": {
+          "$function": "check_args"
+         }
+        },
+        "schema": {
+         "type": "list",
+         "items_schema": {
+          "type": "any"
+         }
+        }
+       },
+       "default": null
+      },
+      "metadata": {}
+     },
+     "kwargs": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "function-after",
+        "function": {
+         "type": "no-info",
+         "function": {
+          "$function": "check_kwargs"
+         }
+        },
+        "schema": {
+         "type": "dict",
+         "keys_schema": {
+          "type": "any"
+         },
+         "values_schema": {
+          "type": "any"
+         }
+        }
+       },
+       "default": null
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Foo",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "extra_fields_behavior": "forbid",
+    "title": "Testing"
+   },
+   "ref": "pydantic.deprecated.decorator.Foo:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": false,
+    "properties": {
+     "a": {
+      "title": "A",
+      "type": "integer"
+     },
+     "v__duplicate_kwargs": {
+      "default": null,
+      "items": {
+       "type": "string"
+      },
+      "title": "V  Duplicate Kwargs",
+      "type": "array"
+     },
+     "b": {
+      "title": "B",
+      "type": "integer"
+     },
+     "args": {
+      "default": null,
+      "items": {},
+      "title": "Args",
+      "type": "array"
+     },
+     "kwargs": {
+      "additionalProperties": true,
+      "default": null,
+      "title": "Kwargs",
+      "type": "object"
+     }
+    },
+    "required": [
+     "a",
+     "b"
+    ],
+    "title": "Testing",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_deprecated_validate_arguments.py::test_wrap#0",
+  "test": "tests/test_deprecated_validate_arguments.py::test_wrap",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "FooBar"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "a": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     },
+     "v__duplicate_kwargs": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "function-after",
+        "function": {
+         "type": "no-info",
+         "function": {
+          "$function": "check_duplicate_kwargs"
+         }
+        },
+        "schema": {
+         "type": "list",
+         "items_schema": {
+          "type": "str"
+         }
+        }
+       },
+       "default": null
+      },
+      "metadata": {}
+     },
+     "b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     },
+     "args": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "function-after",
+        "function": {
+         "type": "no-info",
+         "function": {
+          "$function": "check_args"
+         }
+        },
+        "schema": {
+         "type": "list",
+         "items_schema": {
+          "type": "any"
+         }
+        }
+       },
+       "default": null
+      },
+      "metadata": {}
+     },
+     "kwargs": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "function-after",
+        "function": {
+         "type": "no-info",
+         "function": {
+          "$function": "check_kwargs"
+         }
+        },
+        "schema": {
+         "type": "dict",
+         "keys_schema": {
+          "type": "any"
+         },
+         "values_schema": {
+          "type": "any"
+         }
+        }
+       },
+       "default": null
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "FooBar",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "extra_fields_behavior": "forbid",
+    "title": "FooBar"
+   },
+   "ref": "pydantic.deprecated.decorator.FooBar:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": false,
+    "properties": {
+     "a": {
+      "title": "A",
+      "type": "integer"
+     },
+     "v__duplicate_kwargs": {
+      "default": null,
+      "items": {
+       "type": "string"
+      },
+      "title": "V  Duplicate Kwargs",
+      "type": "array"
+     },
+     "b": {
+      "title": "B",
+      "type": "integer"
+     },
+     "args": {
+      "default": null,
+      "items": {},
+      "title": "Args",
+      "type": "array"
+     },
+     "kwargs": {
+      "additionalProperties": true,
+      "default": null,
+      "title": "Kwargs",
+      "type": "object"
+     }
+    },
+    "required": [
+     "a",
+     "b"
+    ],
+    "title": "FooBar",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ }
+]

@@ -1,0 +1,175 @@
+[
+ {
+  "id": "tests/types/test_pattern.py::test_compiled_pattern_in_field[Field]#0",
+  "test": "tests/types/test_pattern.py::test_compiled_pattern_in_field[Field]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Foobar"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "str_regex": {
+      "type": "model-field",
+      "schema": {
+       "type": "str",
+       "pattern": {
+        "$object": "Pattern"
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Foobar",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Foobar"
+   },
+   "ref": "tests.types.test_pattern.test_compiled_pattern_in_field.<locals>.Foobar:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "str_regex": {
+      "pattern": "^whatev.r\\d$",
+      "title": "Str Regex",
+      "type": "string"
+     }
+    },
+    "required": [
+     "str_regex"
+    ],
+    "title": "Foobar",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/types/test_pattern.py::test_pattern[Pattern[bytes]]#0",
+  "test": "tests/types/test_pattern.py::test_pattern[Pattern[bytes]]",
+  "schema": {
+   "type": "function-plain",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "pattern_bytes_validator"
+    }
+   },
+   "metadata": {
+    "pydantic_js_functions": [
+     {
+      "$function": "<lambda>"
+     }
+    ]
+   },
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "attrgetter"
+    },
+    "return_schema": {
+     "type": "str"
+    },
+    "when_used": "json"
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "format": "regex",
+    "type": "string"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/types/test_pattern.py::test_pattern[Pattern[str]]#0",
+  "test": "tests/types/test_pattern.py::test_pattern[Pattern[str]]",
+  "schema": {
+   "type": "function-plain",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "pattern_str_validator"
+    }
+   },
+   "metadata": {
+    "pydantic_js_functions": [
+     {
+      "$function": "<lambda>"
+     }
+    ]
+   },
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "attrgetter"
+    },
+    "return_schema": {
+     "type": "str"
+    },
+    "when_used": "json"
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "format": "regex",
+    "type": "string"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/types/test_pattern.py::test_pattern[re.Pattern]#0",
+  "test": "tests/types/test_pattern.py::test_pattern[re.Pattern]",
+  "schema": {
+   "type": "function-plain",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "pattern_either_validator"
+    }
+   },
+   "metadata": {
+    "pydantic_js_functions": [
+     {
+      "$function": "<lambda>"
+     }
+    ]
+   },
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "attrgetter"
+    },
+    "return_schema": {
+     "type": "str"
+    },
+    "when_used": "json"
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "format": "regex",
+    "type": "string"
+   }
+  },
+  "warnings": []
+ }
+]

@@ -1,0 +1,25 @@
+[
+ {
+  "id": "tests/test_meta.py::test_invalid_json_schema_raises#0",
+  "test": "tests/test_meta.py::test_invalid_json_schema_raises",
+  "schema": {
+   "type": "int",
+   "metadata": {
+    "pydantic_js_annotation_functions": [
+     {
+      "$function": "__get_pydantic_json_schema__"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "type": "invalid"
+   }
+  },
+  "warnings": []
+ }
+]

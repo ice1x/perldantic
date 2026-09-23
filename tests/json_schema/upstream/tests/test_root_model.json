@@ -1,0 +1,247 @@
+[
+ {
+  "id": "tests/test_root_model.py::test_json_schema_extra_on_field#0",
+  "test": "tests/test_root_model.py::test_json_schema_extra_on_field",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "str"
+   },
+   "custom_init": false,
+   "root_model": true,
+   "config": {
+    "title": "Model",
+    "json_schema_extra": {
+     "schema key": "schema value"
+    }
+   },
+   "metadata": {
+    "pydantic_js_extra": {
+     "schema key": "schema value"
+    }
+   },
+   "ref": "tests.test_root_model.test_json_schema_extra_on_field.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "schema key": "schema value",
+    "title": "Model",
+    "type": "string"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_root_model.py::test_json_schema_extra_on_model#0",
+  "test": "tests/test_root_model.py::test_json_schema_extra_on_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "str"
+   },
+   "custom_init": false,
+   "root_model": true,
+   "config": {
+    "title": "Model",
+    "json_schema_extra": {
+     "schema key": "schema value"
+    }
+   },
+   "ref": "tests.test_root_model.test_json_schema_extra_on_model.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "schema key": "schema value",
+    "title": "Model",
+    "type": "string"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_root_model.py::test_json_schema_extra_on_model_and_on_field#0",
+  "test": "tests/test_root_model.py::test_json_schema_extra_on_model_and_on_field",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "str"
+   },
+   "custom_init": false,
+   "root_model": true,
+   "config": {
+    "title": "Model",
+    "json_schema_extra": {
+     "$function": "encode"
+    }
+   },
+   "metadata": {
+    "pydantic_js_extra": {
+     "schema key on field": "schema value on field"
+    }
+   },
+   "ref": "tests.test_root_model.test_json_schema_extra_on_model_and_on_field.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "error": [
+    "ValueError",
+    "\"model_config['json_schema_extra']\" and \"Field.json_schema_extra\" on \"RootModel.root\" field must not be set simultaneously"
+   ]
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_root_model.py::test_model_with_both_docstring_and_field_description#0",
+  "test": "tests/test_root_model.py::test_model_with_both_docstring_and_field_description",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "AModel"
+   },
+   "schema": {
+    "type": "int"
+   },
+   "custom_init": false,
+   "root_model": true,
+   "config": {
+    "title": "AModel"
+   },
+   "metadata": {
+    "pydantic_js_updates": {
+     "description": "More detailed description"
+    }
+   },
+   "ref": "tests.test_root_model.test_model_with_both_docstring_and_field_description.<locals>.AModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "description": "More detailed description",
+    "title": "AModel",
+    "type": "integer"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_root_model.py::test_model_with_field_description#0",
+  "test": "tests/test_root_model.py::test_model_with_field_description",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "AModel"
+   },
+   "schema": {
+    "type": "int"
+   },
+   "custom_init": false,
+   "root_model": true,
+   "config": {
+    "title": "AModel"
+   },
+   "metadata": {
+    "pydantic_js_updates": {
+     "description": "abc"
+    }
+   },
+   "ref": "tests.test_root_model.test_model_with_field_description.<locals>.AModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "description": "abc",
+    "title": "AModel",
+    "type": "integer"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_root_model.py::test_root_model_json_schema_meta#0",
+  "test": "tests/test_root_model.py::test_root_model_json_schema_meta",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel[int]"
+   },
+   "generic_origin": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "int"
+   },
+   "custom_init": false,
+   "root_model": true,
+   "config": {
+    "title": "RootModel[int]"
+   },
+   "ref": "pydantic.root_model.RootModel:1[int:2]"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "title": "RootModel[int]",
+    "type": "integer"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_root_model.py::test_root_model_json_schema_meta#1",
+  "test": "tests/test_root_model.py::test_root_model_json_schema_meta",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "SubclassedModel"
+   },
+   "schema": {
+    "type": "int"
+   },
+   "custom_init": false,
+   "root_model": true,
+   "config": {
+    "title": "SubclassedModel"
+   },
+   "metadata": {
+    "pydantic_js_updates": {
+     "description": "Subclassed Model docstring"
+    }
+   },
+   "ref": "tests.test_root_model.test_root_model_json_schema_meta.<locals>.SubclassedModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "description": "Subclassed Model docstring",
+    "title": "SubclassedModel",
+    "type": "integer"
+   }
+  },
+  "warnings": []
+ }
+]

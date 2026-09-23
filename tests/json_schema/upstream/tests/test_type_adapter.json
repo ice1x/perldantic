@@ -1,0 +1,1339 @@
+[
+ {
+  "id": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-Annotated-config10]#0",
+  "test": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-Annotated-config10]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "tests.test_type_adapter.DynamicModel:1",
+    "metadata": {
+     "pydantic_js_updates": {
+      "title": "abc"
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "DynamicModel"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "x": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        },
+        "metadata": {}
+       }
+      },
+      "model_name": "DynamicModel",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "DynamicModel"
+     },
+     "ref": "tests.test_type_adapter.DynamicModel:1"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "DynamicModel": {
+        "properties": {
+         "x": {
+          "title": "X",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "x"
+        ],
+        "title": "DynamicModel",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "$ref",
+      "#/$defs/DynamicModel"
+     ],
+     [
+      "title",
+      "abc"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-Annotated-config11]#0",
+  "test": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-Annotated-config11]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "tests.test_type_adapter.DynamicSubModel:1",
+    "metadata": {
+     "pydantic_js_updates": {
+      "title": "abc"
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "DynamicSubModel"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "x": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        },
+        "metadata": {}
+       },
+       "y": {
+        "type": "model-field",
+        "schema": {
+         "type": "default",
+         "schema": {
+          "type": "nullable",
+          "schema": {
+           "type": "int"
+          }
+         },
+         "default": null
+        },
+        "metadata": {}
+       }
+      },
+      "model_name": "DynamicSubModel",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "DynamicSubModel"
+     },
+     "ref": "tests.test_type_adapter.DynamicSubModel:1"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "DynamicSubModel": {
+        "properties": {
+         "x": {
+          "title": "X",
+          "type": "integer"
+         },
+         "y": {
+          "anyOf": [
+           {
+            "type": "integer"
+           },
+           {
+            "type": "null"
+           }
+          ],
+          "default": null,
+          "title": "Y"
+         }
+        },
+        "required": [
+         "x"
+        ],
+        "title": "DynamicSubModel",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "$ref",
+      "#/$defs/DynamicSubModel"
+     ],
+     [
+      "title",
+      "abc"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-Annotated-config12]#0",
+  "test": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-Annotated-config12]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "tests.test_type_adapter.defer_build_test_models.<locals>.DataClassModel:1",
+    "metadata": {
+     "pydantic_js_updates": {
+      "title": "abc"
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "dataclass",
+     "cls": {
+      "$class": "DataClassModel"
+     },
+     "fields": [
+      "x"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "DataClassModel",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "x",
+        "schema": {
+         "type": "int"
+        },
+        "kw_only": false,
+        "init": true,
+        "metadata": {}
+       }
+      ],
+      "computed_fields": [],
+      "collect_init_only": false
+     },
+     "post_init": false,
+     "frozen": false,
+     "slots": false,
+     "config": {
+      "title": "DataClassModel"
+     },
+     "ref": "tests.test_type_adapter.defer_build_test_models.<locals>.DataClassModel:1"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "DataClassModel": {
+        "properties": {
+         "x": {
+          "title": "X",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "x"
+        ],
+        "title": "DataClassModel",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "$ref",
+      "#/$defs/DataClassModel"
+     ],
+     [
+      "title",
+      "abc"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-Annotated-config13]#0",
+  "test": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-Annotated-config13]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "tests.test_type_adapter.defer_build_test_models.<locals>.SubDataClassModel:1",
+    "metadata": {
+     "pydantic_js_updates": {
+      "title": "abc"
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "dataclass",
+     "cls": {
+      "$class": "SubDataClassModel"
+     },
+     "fields": [
+      "x",
+      "y"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "SubDataClassModel",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "x",
+        "schema": {
+         "type": "int"
+        },
+        "kw_only": false,
+        "init": true,
+        "metadata": {}
+       },
+       {
+        "type": "dataclass-field",
+        "name": "y",
+        "schema": {
+         "type": "default",
+         "schema": {
+          "type": "nullable",
+          "schema": {
+           "type": "int"
+          }
+         },
+         "default": null
+        },
+        "kw_only": false,
+        "init": true,
+        "metadata": {}
+       }
+      ],
+      "computed_fields": [],
+      "collect_init_only": false
+     },
+     "post_init": false,
+     "frozen": false,
+     "slots": false,
+     "config": {
+      "title": "SubDataClassModel"
+     },
+     "ref": "tests.test_type_adapter.defer_build_test_models.<locals>.SubDataClassModel:1"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "SubDataClassModel": {
+        "properties": {
+         "x": {
+          "title": "X",
+          "type": "integer"
+         },
+         "y": {
+          "anyOf": [
+           {
+            "type": "integer"
+           },
+           {
+            "type": "null"
+           }
+          ],
+          "default": null,
+          "title": "Y"
+         }
+        },
+        "required": [
+         "x"
+        ],
+        "title": "SubDataClassModel",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "$ref",
+      "#/$defs/SubDataClassModel"
+     ],
+     [
+      "title",
+      "abc"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-Annotated-config14]#0",
+  "test": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-Annotated-config14]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "tests.test_type_adapter.defer_build_test_models.<locals>.TypedDictModel:1",
+    "metadata": {
+     "pydantic_js_updates": {
+      "title": "abc"
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "x": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       },
+       "required": true,
+       "metadata": {}
+      }
+     },
+     "cls": {
+      "$class": "TypedDictModel"
+     },
+     "computed_fields": [],
+     "extra_behavior": "ignore",
+     "config": {
+      "title": "TypedDictModel"
+     },
+     "ref": "tests.test_type_adapter.defer_build_test_models.<locals>.TypedDictModel:1"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "TypedDictModel": {
+        "properties": {
+         "x": {
+          "title": "X",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "x"
+        ],
+        "title": "TypedDictModel",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "$ref",
+      "#/$defs/TypedDictModel"
+     ],
+     [
+      "title",
+      "abc"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-Annotated-config15]#0",
+  "test": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-Annotated-config15]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "int"
+   },
+   "metadata": {
+    "pydantic_js_updates": {
+     "title": "abc"
+    }
+   }
+  },
+  "config": {},
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": {
+     "type": "integer"
+    },
+    "title": "abc",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-Annotated-config8]#0",
+  "test": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-Annotated-config8]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "tests.test_type_adapter.defer_build_test_models.<locals>.Model:1",
+    "metadata": {
+     "pydantic_js_updates": {
+      "title": "abc"
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Model"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "x": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        },
+        "metadata": {}
+       }
+      },
+      "model_name": "Model",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "Model"
+     },
+     "ref": "tests.test_type_adapter.defer_build_test_models.<locals>.Model:1"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Model": {
+        "properties": {
+         "x": {
+          "title": "X",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "x"
+        ],
+        "title": "Model",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "$ref",
+      "#/$defs/Model"
+     ],
+     [
+      "title",
+      "abc"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-Annotated-config9]#0",
+  "test": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-Annotated-config9]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "tests.test_type_adapter.defer_build_test_models.<locals>.SubModel:1",
+    "metadata": {
+     "pydantic_js_updates": {
+      "title": "abc"
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "SubModel"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "x": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        },
+        "metadata": {}
+       },
+       "y": {
+        "type": "model-field",
+        "schema": {
+         "type": "default",
+         "schema": {
+          "type": "nullable",
+          "schema": {
+           "type": "int"
+          }
+         },
+         "default": null
+        },
+        "metadata": {}
+       }
+      },
+      "model_name": "SubModel",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "SubModel"
+     },
+     "ref": "tests.test_type_adapter.defer_build_test_models.<locals>.SubModel:1"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "SubModel": {
+        "properties": {
+         "x": {
+          "title": "X",
+          "type": "integer"
+         },
+         "y": {
+          "anyOf": [
+           {
+            "type": "integer"
+           },
+           {
+            "type": "null"
+           }
+          ],
+          "default": null,
+          "title": "Y"
+         }
+        },
+        "required": [
+         "x"
+        ],
+        "title": "SubModel",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "$ref",
+      "#/$defs/SubModel"
+     ],
+     [
+      "title",
+      "abc"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-DataClassModel-config4]#0",
+  "test": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-DataClassModel-config4]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "DataClassModel"
+   },
+   "fields": [
+    "x"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "DataClassModel",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "x",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "DataClassModel"
+   },
+   "ref": "tests.test_type_adapter.defer_build_test_models.<locals>.DataClassModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "title": "X",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "x"
+    ],
+    "title": "DataClassModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-DynamicModel-config2]#0",
+  "test": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-DynamicModel-config2]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "DynamicModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "DynamicModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "DynamicModel"
+   },
+   "ref": "tests.test_type_adapter.DynamicModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "title": "X",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "x"
+    ],
+    "title": "DynamicModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-DynamicSubModel-config3]#0",
+  "test": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-DynamicSubModel-config3]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "DynamicSubModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     },
+     "y": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       },
+       "default": null
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "DynamicSubModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "DynamicSubModel"
+   },
+   "ref": "tests.test_type_adapter.DynamicSubModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "title": "X",
+      "type": "integer"
+     },
+     "y": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Y"
+     }
+    },
+    "required": [
+     "x"
+    ],
+    "title": "DynamicSubModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-Model-config0]#0",
+  "test": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-Model-config0]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_type_adapter.defer_build_test_models.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "title": "X",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "x"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-SubDataClassModel-config5]#0",
+  "test": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-SubDataClassModel-config5]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "SubDataClassModel"
+   },
+   "fields": [
+    "x",
+    "y"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "SubDataClassModel",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "x",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     },
+     {
+      "type": "dataclass-field",
+      "name": "y",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       },
+       "default": null
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "SubDataClassModel"
+   },
+   "ref": "tests.test_type_adapter.defer_build_test_models.<locals>.SubDataClassModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "title": "X",
+      "type": "integer"
+     },
+     "y": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Y"
+     }
+    },
+    "required": [
+     "x"
+    ],
+    "title": "SubDataClassModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-SubModel-config1]#0",
+  "test": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-SubModel-config1]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "SubModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     },
+     "y": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       },
+       "default": null
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "SubModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "SubModel"
+   },
+   "ref": "tests.test_type_adapter.defer_build_test_models.<locals>.SubModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "title": "X",
+      "type": "integer"
+     },
+     "y": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Y"
+     }
+    },
+    "required": [
+     "x"
+    ],
+    "title": "SubModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-TypedDictModel-config6]#0",
+  "test": "tests/test_type_adapter.py::test_core_schema_respects_defer_build[schema-TypedDictModel-config6]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "x": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     },
+     "required": true,
+     "metadata": {}
+    }
+   },
+   "cls": {
+    "$class": "TypedDictModel"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "TypedDictModel"
+   },
+   "ref": "tests.test_type_adapter.defer_build_test_models.<locals>.TypedDictModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "title": "X",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "x"
+    ],
+    "title": "TypedDictModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_adapter.py::test_global_namespace_variables[json_schema-False]#0",
+  "test": "tests/test_type_adapter.py::test_global_namespace_variables[json_schema-False]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": {
+     "items": {
+      "type": "integer"
+     },
+     "type": "array"
+    },
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_adapter.py::test_global_namespace_variables[json_schema-True]#0",
+  "test": "tests/test_type_adapter.py::test_global_namespace_variables[json_schema-True]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": {},
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": {
+     "items": {
+      "type": "integer"
+     },
+     "type": "array"
+    },
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_adapter.py::test_model_global_namespace_variables[json_schema-False]#0",
+  "test": "tests/test_type_adapter.py::test_model_global_namespace_variables[json_schema-False]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "MyModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.test_type_adapter.test_model_global_namespace_variables.<locals>.MyModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "additionalProperties": {
+       "items": {
+        "type": "integer"
+       },
+       "type": "array"
+      },
+      "title": "X",
+      "type": "object"
+     }
+    },
+    "required": [
+     "x"
+    ],
+    "title": "MyModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_adapter.py::test_model_local_namespace_variables[json_schema-False]#0",
+  "test": "tests/test_type_adapter.py::test_model_local_namespace_variables[json_schema-False]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "int"
+        }
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "MyModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.test_type_adapter.test_model_local_namespace_variables.<locals>.MyModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "additionalProperties": {
+       "items": {
+        "type": "integer"
+       },
+       "type": "array"
+      },
+      "title": "X",
+      "type": "object"
+     }
+    },
+    "required": [
+     "x"
+    ],
+    "title": "MyModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_type_adapter.py::test_ta_config_used_for_json_schema#0",
+  "test": "tests/test_type_adapter.py::test_ta_config_used_for_json_schema",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "bytes"
+   }
+  },
+  "config": {
+   "ser_json_bytes": "base64"
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "items": {
+     "format": "base64url",
+     "type": "string"
+    },
+    "type": "array"
+   }
+  },
+  "warnings": []
+ }
+]

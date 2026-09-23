@@ -1,0 +1,808 @@
+[
+ {
+  "id": "tests/test_serialize.py::test_annotated_computed_field_custom_serializer#0",
+  "test": "tests/test_serialize.py::test_annotated_computed_field_custom_serializer",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "two_x",
+      "return_schema": {
+       "type": "int",
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "<lambda>"
+        },
+        "info_arg": false,
+        "return_schema": {
+         "type": "str"
+        }
+       }
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true
+       }
+      }
+     },
+     {
+      "type": "computed-field",
+      "property_name": "triple_x",
+      "return_schema": {
+       "type": "int",
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "<lambda>"
+        },
+        "info_arg": false,
+        "return_schema": {
+         "type": "str"
+        }
+       }
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true
+       }
+      }
+     },
+     {
+      "type": "computed-field",
+      "property_name": "quadruple_x_plus_one",
+      "return_schema": {
+       "type": "int",
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "<lambda>"
+        },
+        "info_arg": false,
+        "return_schema": {
+         "type": "int"
+        }
+       }
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true
+       }
+      }
+     }
+    ]
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_serialize.test_annotated_computed_field_custom_serializer.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "title": "X",
+      "type": "integer"
+     },
+     "two_x": {
+      "readOnly": true,
+      "title": "Two X",
+      "type": "string"
+     },
+     "triple_x": {
+      "readOnly": true,
+      "title": "Triple X",
+      "type": "string"
+     },
+     "quadruple_x_plus_one": {
+      "readOnly": true,
+      "title": "Quadruple X Plus One",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "x",
+     "two_x",
+     "triple_x",
+     "quadruple_x_plus_one"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_serialize.py::test_forward_ref_for_classmethod_computed_fields#0",
+  "test": "tests/test_serialize.py::test_forward_ref_for_classmethod_computed_fields",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {},
+    "model_name": "Model",
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "two_y",
+      "return_schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true
+       }
+      }
+     }
+    ]
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_serialize.test_forward_ref_for_classmethod_computed_fields.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "two_y": {
+      "readOnly": true,
+      "title": "Two Y",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "two_y"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_serialize.py::test_forward_ref_for_computed_fields#0",
+  "test": "tests/test_serialize.py::test_forward_ref_for_computed_fields",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "two_x",
+      "return_schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true
+       }
+      }
+     }
+    ]
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_serialize.test_forward_ref_for_computed_fields.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "title": "X",
+      "type": "integer"
+     },
+     "two_x": {
+      "readOnly": true,
+      "title": "Two X",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "x",
+     "two_x"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_serialize.py::test_forward_ref_for_serializers[plain-False]#0",
+  "test": "tests/test_serialize.py::test_forward_ref_for_serializers[plain-False]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int",
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "ser_model_method"
+        },
+        "is_field_serializer": true,
+        "info_arg": false,
+        "return_schema": {
+         "type": "model",
+         "cls": {
+          "$class": "OtherModel"
+         },
+         "schema": {
+          "type": "model-fields",
+          "fields": {
+           "y": {
+            "type": "model-field",
+            "schema": {
+             "type": "int"
+            },
+            "metadata": {}
+           }
+          },
+          "model_name": "OtherModel",
+          "computed_fields": []
+         },
+         "custom_init": false,
+         "root_model": false,
+         "config": {
+          "title": "OtherModel"
+         },
+         "ref": "tests.test_serialize.test_forward_ref_for_serializers.<locals>.OtherModel:1"
+        }
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_serialize.test_forward_ref_for_serializers.<locals>.Model:2"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "OtherModel": {
+        "properties": {
+         "y": {
+          "title": "Y",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "y"
+        ],
+        "title": "OtherModel",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "x": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/OtherModel"
+         ],
+         [
+          "title",
+          "X"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "x"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_serialize.py::test_forward_ref_for_serializers[plain-True]#0",
+  "test": "tests/test_serialize.py::test_forward_ref_for_serializers[plain-True]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int",
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "ser_model_func"
+        },
+        "info_arg": false,
+        "return_schema": {
+         "type": "model",
+         "cls": {
+          "$class": "OtherModel"
+         },
+         "schema": {
+          "type": "model-fields",
+          "fields": {
+           "y": {
+            "type": "model-field",
+            "schema": {
+             "type": "int"
+            },
+            "metadata": {}
+           }
+          },
+          "model_name": "OtherModel",
+          "computed_fields": []
+         },
+         "custom_init": false,
+         "root_model": false,
+         "config": {
+          "title": "OtherModel"
+         },
+         "ref": "tests.test_serialize.test_forward_ref_for_serializers.<locals>.OtherModel:1"
+        }
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_serialize.test_forward_ref_for_serializers.<locals>.Model:2"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "OtherModel": {
+        "properties": {
+         "y": {
+          "title": "Y",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "y"
+        ],
+        "title": "OtherModel",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "x": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/OtherModel"
+         ],
+         [
+          "title",
+          "X"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "x"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_serialize.py::test_forward_ref_for_serializers[wrap-False]#0",
+  "test": "tests/test_serialize.py::test_forward_ref_for_serializers[wrap-False]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int",
+       "serialization": {
+        "type": "function-wrap",
+        "function": {
+         "$function": "ser_model_method"
+        },
+        "is_field_serializer": true,
+        "info_arg": false,
+        "return_schema": {
+         "type": "model",
+         "cls": {
+          "$class": "OtherModel"
+         },
+         "schema": {
+          "type": "model-fields",
+          "fields": {
+           "y": {
+            "type": "model-field",
+            "schema": {
+             "type": "int"
+            },
+            "metadata": {}
+           }
+          },
+          "model_name": "OtherModel",
+          "computed_fields": []
+         },
+         "custom_init": false,
+         "root_model": false,
+         "config": {
+          "title": "OtherModel"
+         },
+         "ref": "tests.test_serialize.test_forward_ref_for_serializers.<locals>.OtherModel:1"
+        }
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_serialize.test_forward_ref_for_serializers.<locals>.Model:2"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "OtherModel": {
+        "properties": {
+         "y": {
+          "title": "Y",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "y"
+        ],
+        "title": "OtherModel",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "x": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/OtherModel"
+         ],
+         [
+          "title",
+          "X"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "x"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_serialize.py::test_forward_ref_for_serializers[wrap-True]#0",
+  "test": "tests/test_serialize.py::test_forward_ref_for_serializers[wrap-True]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int",
+       "serialization": {
+        "type": "function-wrap",
+        "function": {
+         "$function": "ser_model_func"
+        },
+        "info_arg": false,
+        "return_schema": {
+         "type": "model",
+         "cls": {
+          "$class": "OtherModel"
+         },
+         "schema": {
+          "type": "model-fields",
+          "fields": {
+           "y": {
+            "type": "model-field",
+            "schema": {
+             "type": "int"
+            },
+            "metadata": {}
+           }
+          },
+          "model_name": "OtherModel",
+          "computed_fields": []
+         },
+         "custom_init": false,
+         "root_model": false,
+         "config": {
+          "title": "OtherModel"
+         },
+         "ref": "tests.test_serialize.test_forward_ref_for_serializers.<locals>.OtherModel:1"
+        }
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_serialize.test_forward_ref_for_serializers.<locals>.Model:2"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "OtherModel": {
+        "properties": {
+         "y": {
+          "title": "Y",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "y"
+        ],
+        "title": "OtherModel",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "x": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/OtherModel"
+         ],
+         [
+          "title",
+          "X"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "x"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_serialize.py::test_plain_serializer_with_std_type#0",
+  "test": "tests/test_serialize.py::test_plain_serializer_with_std_type",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int",
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$class": "float"
+        },
+        "info_arg": false,
+        "return_schema": {
+         "type": "float"
+        }
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "MyModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.test_serialize.test_plain_serializer_with_std_type.<locals>.MyModel:1"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "title": "X",
+      "type": "number"
+     }
+    },
+    "required": [
+     "x"
+    ],
+    "title": "MyModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ }
+]

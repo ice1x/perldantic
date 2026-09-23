@@ -1,0 +1,65 @@
+[
+ {
+  "id": "tests/test_parse.py::test_model_validate_root#0",
+  "test": "tests/test_parse.py::test_model_validate_root",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "function-before",
+    "function": {
+     "type": "no-info",
+     "function": {
+      "$function": "populate_root"
+     }
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "root": {
+       "type": "model-field",
+       "schema": {
+        "type": "str"
+       },
+       "metadata": {}
+      }
+     },
+     "model_name": "MyModel",
+     "computed_fields": []
+    }
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MyModel"
+   },
+   "serialization": {
+    "type": "function-wrap",
+    "function": {
+     "$function": "_serialize"
+    },
+    "info_arg": true
+   },
+   "ref": "tests.test_parse.test_model_validate_root.<locals>.MyModel:1",
+   "metadata": {
+    "pydantic_js_functions": [
+     {
+      "$function": "__get_pydantic_json_schema__"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "title": "Root",
+    "type": "string"
+   }
+  },
+  "warnings": []
+ }
+]

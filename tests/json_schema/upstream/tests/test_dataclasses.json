@@ -1,0 +1,1717 @@
+[
+ {
+  "id": "tests/test_dataclasses.py::test_complex_nested_vanilla_dataclass#0",
+  "test": "tests/test_dataclasses.py::test_complex_nested_vanilla_dataclass",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "model",
+    "cls": {
+     "$class": "M"
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "s": {
+       "type": "model-field",
+       "schema": {
+        "type": "dataclass",
+        "cls": {
+         "$class": "Sentence"
+        },
+        "fields": [
+         "relations"
+        ],
+        "schema": {
+         "type": "dataclass-args",
+         "dataclass_name": "Sentence",
+         "fields": [
+          {
+           "type": "dataclass-field",
+           "name": "relations",
+           "schema": {
+            "type": "dataclass",
+            "cls": {
+             "$class": "BinaryRelation"
+            },
+            "fields": [
+             "subject",
+             "object",
+             "label"
+            ],
+            "schema": {
+             "type": "dataclass-args",
+             "dataclass_name": "BinaryRelation",
+             "fields": [
+              {
+               "type": "dataclass-field",
+               "name": "subject",
+               "schema": {
+                "type": "definition-ref",
+                "schema_ref": "tests.test_dataclasses.test_complex_nested_vanilla_dataclass.<locals>.LabeledSpan:1"
+               },
+               "kw_only": false,
+               "init": true,
+               "metadata": {}
+              },
+              {
+               "type": "dataclass-field",
+               "name": "object",
+               "schema": {
+                "type": "definition-ref",
+                "schema_ref": "tests.test_dataclasses.test_complex_nested_vanilla_dataclass.<locals>.LabeledSpan:1"
+               },
+               "kw_only": false,
+               "init": true,
+               "metadata": {}
+              },
+              {
+               "type": "dataclass-field",
+               "name": "label",
+               "schema": {
+                "type": "str"
+               },
+               "kw_only": false,
+               "init": true,
+               "metadata": {}
+              }
+             ],
+             "computed_fields": [],
+             "collect_init_only": false
+            },
+            "post_init": false,
+            "frozen": false,
+            "slots": false,
+            "config": {
+             "title": "BinaryRelation"
+            },
+            "ref": "tests.test_dataclasses.test_complex_nested_vanilla_dataclass.<locals>.BinaryRelation:2"
+           },
+           "kw_only": false,
+           "init": true,
+           "metadata": {}
+          }
+         ],
+         "computed_fields": [],
+         "collect_init_only": false
+        },
+        "post_init": false,
+        "frozen": false,
+        "slots": false,
+        "config": {
+         "title": "Sentence"
+        },
+        "ref": "tests.test_dataclasses.test_complex_nested_vanilla_dataclass.<locals>.Sentence:3"
+       },
+       "metadata": {}
+      }
+     },
+     "model_name": "M",
+     "computed_fields": []
+    },
+    "custom_init": false,
+    "root_model": false,
+    "config": {
+     "title": "M"
+    },
+    "ref": "tests.test_dataclasses.test_complex_nested_vanilla_dataclass.<locals>.M:4"
+   },
+   "definitions": [
+    {
+     "type": "dataclass",
+     "cls": {
+      "$class": "LabeledSpan"
+     },
+     "fields": [
+      "first",
+      "last",
+      "label"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "LabeledSpan",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "first",
+        "schema": {
+         "type": "int"
+        },
+        "kw_only": false,
+        "init": true,
+        "metadata": {}
+       },
+       {
+        "type": "dataclass-field",
+        "name": "last",
+        "schema": {
+         "type": "int"
+        },
+        "kw_only": false,
+        "init": true,
+        "metadata": {}
+       },
+       {
+        "type": "dataclass-field",
+        "name": "label",
+        "schema": {
+         "type": "str"
+        },
+        "kw_only": false,
+        "init": true,
+        "metadata": {}
+       }
+      ],
+      "computed_fields": [],
+      "collect_init_only": false
+     },
+     "post_init": false,
+     "frozen": false,
+     "slots": false,
+     "config": {
+      "title": "LabeledSpan"
+     },
+     "ref": "tests.test_dataclasses.test_complex_nested_vanilla_dataclass.<locals>.LabeledSpan:1"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "BinaryRelation": {
+        "properties": {
+         "subject": {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/LabeledSpan"
+           ]
+          ]
+         },
+         "object": {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/LabeledSpan"
+           ]
+          ]
+         },
+         "label": {
+          "title": "Label",
+          "type": "string"
+         }
+        },
+        "required": [
+         "subject",
+         "object",
+         "label"
+        ],
+        "title": "BinaryRelation",
+        "type": "object"
+       },
+       "LabeledSpan": {
+        "properties": {
+         "first": {
+          "title": "First",
+          "type": "integer"
+         },
+         "last": {
+          "title": "Last",
+          "type": "integer"
+         },
+         "label": {
+          "title": "Label",
+          "type": "string"
+         }
+        },
+        "required": [
+         "first",
+         "last",
+         "label"
+        ],
+        "title": "LabeledSpan",
+        "type": "object"
+       },
+       "Sentence": {
+        "properties": {
+         "relations": {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/BinaryRelation"
+           ]
+          ]
+         }
+        },
+        "required": [
+         "relations"
+        ],
+        "title": "Sentence",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "s": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Sentence"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "s"
+      ]
+     ],
+     [
+      "title",
+      "M"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_dataclasses.py::test_dataclass_fields_rebuilt_before_schema_generation#0",
+  "test": "tests/test_dataclasses.py::test_dataclass_fields_rebuilt_before_schema_generation",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "A"
+   },
+   "fields": [
+    "a"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "A",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "bool"
+       },
+       "default": true
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "a"
+       },
+       "pydantic_js_extra": {
+        "$function": "update_schema"
+       }
+      }
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "A"
+   },
+   "ref": "tests.test_dataclasses.test_dataclass_fields_rebuilt_before_schema_generation.<locals>.A:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "a": {
+      "default": true,
+      "test": "a",
+      "title": "a",
+      "type": "boolean"
+     }
+    },
+    "title": "A",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_dataclasses.py::test_dataclass_referenced_twice#0",
+  "test": "tests/test_dataclasses.py::test_dataclass_referenced_twice",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "model",
+    "cls": {
+     "$class": "Users"
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "user": {
+       "type": "model-field",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "tests.test_dataclasses.test_dataclass_referenced_twice.<locals>.User:1"
+       },
+       "metadata": {}
+      },
+      "other_user": {
+       "type": "model-field",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "tests.test_dataclasses.test_dataclass_referenced_twice.<locals>.User:1"
+       },
+       "metadata": {}
+      }
+     },
+     "model_name": "Users",
+     "computed_fields": []
+    },
+    "custom_init": false,
+    "root_model": false,
+    "config": {
+     "title": "Users"
+    },
+    "ref": "tests.test_dataclasses.test_dataclass_referenced_twice.<locals>.Users:2"
+   },
+   "definitions": [
+    {
+     "type": "dataclass",
+     "cls": {
+      "$class": "User"
+     },
+     "fields": [
+      "id",
+      "name"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "User",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "id",
+        "schema": {
+         "type": "int"
+        },
+        "kw_only": false,
+        "init": true,
+        "metadata": {}
+       },
+       {
+        "type": "dataclass-field",
+        "name": "name",
+        "schema": {
+         "type": "str"
+        },
+        "kw_only": false,
+        "init": true,
+        "metadata": {}
+       }
+      ],
+      "computed_fields": [],
+      "collect_init_only": false
+     },
+     "post_init": false,
+     "frozen": false,
+     "slots": false,
+     "config": {
+      "title": "User"
+     },
+     "ref": "tests.test_dataclasses.test_dataclass_referenced_twice.<locals>.User:1"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "User": {
+        "properties": {
+         "id": {
+          "title": "Id",
+          "type": "integer"
+         },
+         "name": {
+          "title": "Name",
+          "type": "string"
+         }
+        },
+        "required": [
+         "id",
+         "name"
+        ],
+        "title": "User",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "user": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/User"
+         ]
+        ]
+       },
+       "other_user": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/User"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "user",
+       "other_user"
+      ]
+     ],
+     [
+      "title",
+      "Users"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_dataclasses.py::test_discriminated_union_basemodel_instance_value#0",
+  "test": "tests/test_dataclasses.py::test_discriminated_union_basemodel_instance_value",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Top"
+   },
+   "fields": [
+    "sub"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Top",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "sub",
+      "schema": {
+       "type": "tagged-union",
+       "choices": {
+        "a": {
+         "type": "dataclass",
+         "cls": {
+          "$class": "A"
+         },
+         "fields": [
+          "l"
+         ],
+         "schema": {
+          "type": "dataclass-args",
+          "dataclass_name": "A",
+          "fields": [
+           {
+            "type": "dataclass-field",
+            "name": "l",
+            "schema": {
+             "type": "literal",
+             "expected": [
+              "a"
+             ]
+            },
+            "kw_only": false,
+            "init": true,
+            "metadata": {}
+           }
+          ],
+          "computed_fields": [],
+          "collect_init_only": false
+         },
+         "post_init": false,
+         "frozen": false,
+         "slots": false,
+         "config": {
+          "title": "A"
+         },
+         "ref": "tests.test_dataclasses.test_discriminated_union_basemodel_instance_value.<locals>.A:1"
+        },
+        "b": {
+         "type": "dataclass",
+         "cls": {
+          "$class": "B"
+         },
+         "fields": [
+          "l"
+         ],
+         "schema": {
+          "type": "dataclass-args",
+          "dataclass_name": "B",
+          "fields": [
+           {
+            "type": "dataclass-field",
+            "name": "l",
+            "schema": {
+             "type": "literal",
+             "expected": [
+              "b"
+             ]
+            },
+            "kw_only": false,
+            "init": true,
+            "metadata": {}
+           }
+          ],
+          "computed_fields": [],
+          "collect_init_only": false
+         },
+         "post_init": false,
+         "frozen": false,
+         "slots": false,
+         "config": {
+          "title": "B"
+         },
+         "ref": "tests.test_dataclasses.test_discriminated_union_basemodel_instance_value.<locals>.B:2"
+        }
+       },
+       "discriminator": "l",
+       "strict": false,
+       "from_attributes": true
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "Top"
+   },
+   "ref": "tests.test_dataclasses.test_discriminated_union_basemodel_instance_value.<locals>.Top:3"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "A": {
+        "properties": {
+         "l": {
+          "const": "a",
+          "title": "L",
+          "type": "string"
+         }
+        },
+        "required": [
+         "l"
+        ],
+        "title": "A",
+        "type": "object"
+       },
+       "B": {
+        "properties": {
+         "l": {
+          "const": "b",
+          "title": "L",
+          "type": "string"
+         }
+        },
+        "required": [
+         "l"
+        ],
+        "title": "B",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "sub": {
+        "discriminator": {
+         "mapping": {
+          "a": "#/$defs/A",
+          "b": "#/$defs/B"
+         },
+         "propertyName": "l"
+        },
+        "oneOf": [
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/A"
+           ]
+          ]
+         },
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/B"
+           ]
+          ]
+         }
+        ],
+        "title": "Sub"
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "sub"
+      ]
+     ],
+     [
+      "title",
+      "Top"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_dataclasses.py::test_json_schema_with_computed_field#0",
+  "test": "tests/test_dataclasses.py::test_json_schema_with_computed_field",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "dc": {
+      "type": "model-field",
+      "schema": {
+       "type": "dataclass",
+       "cls": {
+        "$class": "MyDataclass"
+       },
+       "fields": [
+        "x"
+       ],
+       "schema": {
+        "type": "dataclass-args",
+        "dataclass_name": "MyDataclass",
+        "fields": [
+         {
+          "type": "dataclass-field",
+          "name": "x",
+          "schema": {
+           "type": "int"
+          },
+          "kw_only": false,
+          "init": true,
+          "metadata": {}
+         }
+        ],
+        "computed_fields": [
+         {
+          "type": "computed-field",
+          "property_name": "double_x",
+          "return_schema": {
+           "type": "int"
+          },
+          "metadata": {
+           "pydantic_js_updates": {
+            "readOnly": true
+           }
+          }
+         }
+        ],
+        "collect_init_only": false
+       },
+       "post_init": false,
+       "frozen": false,
+       "slots": false,
+       "config": {
+        "title": "MyDataclass"
+       },
+       "ref": "tests.test_dataclasses.test_json_schema_with_computed_field.<locals>.MyDataclass:1"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_dataclasses.test_json_schema_with_computed_field.<locals>.Model:2"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "MyDataclass": {
+        "properties": {
+         "x": {
+          "title": "X",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "x"
+        ],
+        "title": "MyDataclass",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "dc": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/MyDataclass"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "dc"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_dataclasses.py::test_json_schema_with_computed_field#1",
+  "test": "tests/test_dataclasses.py::test_json_schema_with_computed_field",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "dc": {
+      "type": "model-field",
+      "schema": {
+       "type": "dataclass",
+       "cls": {
+        "$class": "MyDataclass"
+       },
+       "fields": [
+        "x"
+       ],
+       "schema": {
+        "type": "dataclass-args",
+        "dataclass_name": "MyDataclass",
+        "fields": [
+         {
+          "type": "dataclass-field",
+          "name": "x",
+          "schema": {
+           "type": "int"
+          },
+          "kw_only": false,
+          "init": true,
+          "metadata": {}
+         }
+        ],
+        "computed_fields": [
+         {
+          "type": "computed-field",
+          "property_name": "double_x",
+          "return_schema": {
+           "type": "int"
+          },
+          "metadata": {
+           "pydantic_js_updates": {
+            "readOnly": true
+           }
+          }
+         }
+        ],
+        "collect_init_only": false
+       },
+       "post_init": false,
+       "frozen": false,
+       "slots": false,
+       "config": {
+        "title": "MyDataclass"
+       },
+       "ref": "tests.test_dataclasses.test_json_schema_with_computed_field.<locals>.MyDataclass:1"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_dataclasses.test_json_schema_with_computed_field.<locals>.Model:2"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "MyDataclass": {
+        "properties": {
+         "x": {
+          "title": "X",
+          "type": "integer"
+         },
+         "double_x": {
+          "readOnly": true,
+          "title": "Double X",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "x",
+         "double_x"
+        ],
+        "title": "MyDataclass",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "dc": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/MyDataclass"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "dc"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_dataclasses.py::test_metadata#0",
+  "test": "tests/test_dataclasses.py::test_metadata",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Test"
+   },
+   "fields": [
+    "value"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Test",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "value",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_extra": {
+        "a": "b"
+       }
+      }
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "Test"
+   },
+   "ref": "tests.test_dataclasses.test_metadata.<locals>.Test:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "value": {
+      "a": "b",
+      "title": "Value",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "value"
+    ],
+    "title": "Test",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_dataclasses.py::test_nested_schema#0",
+  "test": "tests/test_dataclasses.py::test_nested_schema",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Outer"
+   },
+   "fields": [
+    "n"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Outer",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "n",
+      "schema": {
+       "type": "dataclass",
+       "cls": {
+        "$class": "Nested"
+       },
+       "fields": [
+        "number"
+       ],
+       "schema": {
+        "type": "dataclass-args",
+        "dataclass_name": "Nested",
+        "fields": [
+         {
+          "type": "dataclass-field",
+          "name": "number",
+          "schema": {
+           "type": "int"
+          },
+          "kw_only": false,
+          "init": true,
+          "metadata": {}
+         }
+        ],
+        "computed_fields": [],
+        "collect_init_only": false
+       },
+       "post_init": false,
+       "frozen": false,
+       "slots": false,
+       "config": {
+        "title": "Nested"
+       },
+       "ref": "tests.test_dataclasses.test_nested_schema.<locals>.Nested:1"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "Outer"
+   },
+   "ref": "tests.test_dataclasses.test_nested_schema.<locals>.Outer:2"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Nested": {
+        "properties": {
+         "number": {
+          "title": "Number",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "number"
+        ],
+        "title": "Nested",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "n": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Nested"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "n"
+      ]
+     ],
+     [
+      "title",
+      "Outer"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_dataclasses.py::test_override_builtin_dataclass_nested_schema#0",
+  "test": "tests/test_dataclasses.py::test_override_builtin_dataclass_nested_schema",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "File"
+   },
+   "fields": [
+    "filename",
+    "meta"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "File",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "filename",
+      "schema": {
+       "type": "str"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     },
+     {
+      "type": "dataclass-field",
+      "name": "meta",
+      "schema": {
+       "type": "dataclass",
+       "cls": {
+        "$class": "Meta"
+       },
+       "fields": [
+        "modified_date",
+        "seen_count"
+       ],
+       "schema": {
+        "type": "dataclass-args",
+        "dataclass_name": "Meta",
+        "fields": [
+         {
+          "type": "dataclass-field",
+          "name": "modified_date",
+          "schema": {
+           "type": "nullable",
+           "schema": {
+            "type": "datetime",
+            "microseconds_precision": "truncate"
+           }
+          },
+          "kw_only": false,
+          "init": true,
+          "metadata": {}
+         },
+         {
+          "type": "dataclass-field",
+          "name": "seen_count",
+          "schema": {
+           "type": "int"
+          },
+          "kw_only": false,
+          "init": true,
+          "metadata": {}
+         }
+        ],
+        "computed_fields": [],
+        "collect_init_only": false
+       },
+       "post_init": false,
+       "frozen": false,
+       "slots": false,
+       "config": {
+        "title": "Meta"
+       },
+       "ref": "tests.test_dataclasses.test_override_builtin_dataclass_nested_schema.<locals>.Meta:1"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "File"
+   },
+   "ref": "tests.test_dataclasses.test_override_builtin_dataclass_nested_schema.<locals>.File:2"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Meta": {
+        "properties": {
+         "modified_date": {
+          "anyOf": [
+           {
+            "format": "date-time",
+            "type": "string"
+           },
+           {
+            "type": "null"
+           }
+          ],
+          "title": "Modified Date"
+         },
+         "seen_count": {
+          "title": "Seen Count",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "modified_date",
+         "seen_count"
+        ],
+        "title": "Meta",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "filename": {
+        "title": "Filename",
+        "type": "string"
+       },
+       "meta": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Meta"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "filename",
+       "meta"
+      ]
+     ],
+     [
+      "title",
+      "File"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_dataclasses.py::test_schema#0",
+  "test": "tests/test_dataclasses.py::test_schema",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "User"
+   },
+   "fields": [
+    "id",
+    "name",
+    "aliases",
+    "signup_ts",
+    "age",
+    "height"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "User",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "id",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     },
+     {
+      "type": "dataclass-field",
+      "name": "name",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "str"
+       },
+       "default": "John Doe"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     },
+     {
+      "type": "dataclass-field",
+      "name": "aliases",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "dict",
+        "keys_schema": {
+         "type": "str"
+        },
+        "values_schema": {
+         "type": "str"
+        }
+       },
+       "default_factory": {
+        "$function": "<lambda>"
+       },
+       "default_factory_takes_data": false
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     },
+     {
+      "type": "dataclass-field",
+      "name": "signup_ts",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "datetime",
+        "microseconds_precision": "truncate"
+       },
+       "default": null
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     },
+     {
+      "type": "dataclass-field",
+      "name": "age",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       },
+       "default": null
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "The age of the user",
+        "description": "do not lie!"
+       }
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "height",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int",
+         "ge": 50,
+         "le": 300
+        }
+       },
+       "default": null
+      },
+      "kw_only": false,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "The height in cm"
+       }
+      }
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "User"
+   },
+   "ref": "tests.test_dataclasses.test_schema.<locals>.User:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "id": {
+      "title": "Id",
+      "type": "integer"
+     },
+     "name": {
+      "default": "John Doe",
+      "title": "Name",
+      "type": "string"
+     },
+     "aliases": {
+      "additionalProperties": {
+       "type": "string"
+      },
+      "title": "Aliases",
+      "type": "object"
+     },
+     "signup_ts": {
+      "default": null,
+      "format": "date-time",
+      "title": "Signup Ts",
+      "type": "string"
+     },
+     "age": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "description": "do not lie!",
+      "title": "The age of the user"
+     },
+     "height": {
+      "anyOf": [
+       {
+        "maximum": 300,
+        "minimum": 50,
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "The height in cm"
+     }
+    },
+    "required": [
+     "id"
+    ],
+    "title": "User",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_dataclasses.py::test_schema_description_set#0",
+  "test": "tests/test_dataclasses.py::test_schema_description_set",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "A"
+   },
+   "fields": [
+    "x"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "A",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "x",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "A"
+   },
+   "ref": "tests.test_dataclasses.test_schema_description_set.<locals>.A:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "description": "my description",
+    "properties": {
+     "x": {
+      "title": "X",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "x"
+    ],
+    "title": "A",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_dataclasses.py::test_schema_description_unset#0",
+  "test": "tests/test_dataclasses.py::test_schema_description_unset",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "A"
+   },
+   "fields": [
+    "x"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "A",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "x",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "A"
+   },
+   "ref": "tests.test_dataclasses.test_schema_description_unset.<locals>.A:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "title": "X",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "x"
+    ],
+    "title": "A",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_dataclasses.py::test_schema_description_unset#1",
+  "test": "tests/test_dataclasses.py::test_schema_description_unset",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "B"
+   },
+   "fields": [
+    "x"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "B",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "x",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "B"
+   },
+   "ref": "tests.test_dataclasses.test_schema_description_unset.<locals>.B:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "title": "X",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "x"
+    ],
+    "title": "B",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ }
+]

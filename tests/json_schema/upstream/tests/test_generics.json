@@ -1,0 +1,884 @@
+[
+ {
+  "id": "tests/test_generics.py::test_child_schema#0",
+  "test": "tests/test_generics.py::test_child_schema",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Child[int]"
+   },
+   "generic_origin": {
+    "$class": "Child"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "a": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Child[int]",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Child[int]"
+   },
+   "ref": "tests.test_generics.test_child_schema.<locals>.Child:1[int:2]"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "a": {
+      "title": "A",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "a"
+    ],
+    "title": "Child[int]",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_generics.py::test_custom_schema#0",
+  "test": "tests/test_generics.py::test_custom_schema",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel[int]"
+   },
+   "generic_origin": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "a": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "int"
+       },
+       "default": 1
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "description": "Custom"
+       }
+      }
+     }
+    },
+    "model_name": "MyModel[int]",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MyModel[int]"
+   },
+   "ref": "tests.test_generics.test_custom_schema.<locals>.MyModel:1[int:2]"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "a": {
+      "default": 1,
+      "description": "Custom",
+      "title": "A",
+      "type": "integer"
+     }
+    },
+    "title": "MyModel[int]",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_generics.py::test_generic_any_or_never#0",
+  "test": "tests/test_generics.py::test_generic_any_or_never",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "GenericModel[Any]"
+   },
+   "generic_origin": {
+    "$class": "GenericModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "f": {
+      "type": "model-field",
+      "schema": {
+       "type": "any"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "GenericModel[Any]",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "GenericModel[Any]"
+   },
+   "ref": "tests.test_generics.test_generic_any_or_never.<locals>.GenericModel:1[Any:2]"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "f": {
+      "title": "F"
+     }
+    },
+    "required": [
+     "f"
+    ],
+    "title": "GenericModel[Any]",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_generics.py::test_generic_any_or_never#1",
+  "test": "tests/test_generics.py::test_generic_any_or_never",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "GenericModel[Never]"
+   },
+   "generic_origin": {
+    "$class": "GenericModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "f": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "GenericModel[Never]",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "GenericModel[Never]"
+   },
+   "ref": "tests.test_generics.test_generic_any_or_never.<locals>.GenericModel:1[Never:2]"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "f": {
+      "title": "F",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "f"
+    ],
+    "title": "GenericModel[Never]",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_generics.py::test_generic_enum_bound#0",
+  "test": "tests/test_generics.py::test_generic_enum_bound",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model[test_generic_enum_bound.<locals>.MyEnum]"
+   },
+   "generic_origin": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "enum",
+       "cls": {
+        "$class": "MyEnum"
+       },
+       "members": [
+        {
+         "$enum": [
+          "MyEnum",
+          1
+         ]
+        }
+       ],
+       "ref": "tests.test_generics.test_generic_enum_bound.<locals>.MyEnum:1",
+       "metadata": {
+        "pydantic_js_functions": [
+         {
+          "$function": "get_json_schema"
+         }
+        ]
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model[test_generic_enum_bound.<locals>.MyEnum]",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model[test_generic_enum_bound.<locals>.MyEnum]"
+   },
+   "ref": "tests.test_generics.test_generic_enum_bound.<locals>.Model:2[test_generic_enum_bound.<locals>.MyEnum:1]"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "MyEnum": {
+        "enum": [
+         1
+        ],
+        "title": "MyEnum",
+        "type": "integer"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "x": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/MyEnum"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "x"
+      ]
+     ],
+     [
+      "title",
+      "Model[test_generic_enum_bound.<locals>.MyEnum]"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_generics.py::test_generic_enums#0",
+  "test": "tests/test_generics.py::test_generic_enums",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "g_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "model",
+       "cls": {
+        "$class": "GModel[test_generic_enums.<locals>.EnumA]"
+       },
+       "generic_origin": {
+        "$class": "GModel"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "x": {
+          "type": "model-field",
+          "schema": {
+           "type": "enum",
+           "cls": {
+            "$class": "EnumA"
+           },
+           "members": [
+            {
+             "$enum": [
+              "EnumA",
+              "a"
+             ]
+            }
+           ],
+           "sub_type": "str",
+           "ref": "tests.test_generics.test_generic_enums.<locals>.EnumA:1",
+           "metadata": {
+            "pydantic_js_functions": [
+             {
+              "$function": "get_json_schema"
+             }
+            ]
+           }
+          },
+          "metadata": {}
+         }
+        },
+        "model_name": "GModel[test_generic_enums.<locals>.EnumA]",
+        "computed_fields": []
+       },
+       "custom_init": false,
+       "root_model": false,
+       "config": {
+        "title": "GModel[test_generic_enums.<locals>.EnumA]"
+       },
+       "ref": "tests.test_generics.test_generic_enums.<locals>.GModel:2[test_generic_enums.<locals>.EnumA:1]"
+      },
+      "metadata": {}
+     },
+     "g_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "model",
+       "cls": {
+        "$class": "GModel[test_generic_enums.<locals>.EnumB]"
+       },
+       "generic_origin": {
+        "$class": "GModel"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "x": {
+          "type": "model-field",
+          "schema": {
+           "type": "enum",
+           "cls": {
+            "$class": "EnumB"
+           },
+           "members": [
+            {
+             "$enum": [
+              "EnumB",
+              "b"
+             ]
+            }
+           ],
+           "sub_type": "str",
+           "ref": "tests.test_generics.test_generic_enums.<locals>.EnumB:3",
+           "metadata": {
+            "pydantic_js_functions": [
+             {
+              "$function": "get_json_schema"
+             }
+            ]
+           }
+          },
+          "metadata": {}
+         }
+        },
+        "model_name": "GModel[test_generic_enums.<locals>.EnumB]",
+        "computed_fields": []
+       },
+       "custom_init": false,
+       "root_model": false,
+       "config": {
+        "title": "GModel[test_generic_enums.<locals>.EnumB]"
+       },
+       "ref": "tests.test_generics.test_generic_enums.<locals>.GModel:2[test_generic_enums.<locals>.EnumB:3]"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_generics.test_generic_enums.<locals>.Model:4"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "EnumA": {
+        "enum": [
+         "a"
+        ],
+        "title": "EnumA",
+        "type": "string"
+       },
+       "EnumB": {
+        "enum": [
+         "b"
+        ],
+        "title": "EnumB",
+        "type": "string"
+       },
+       "GModel_EnumA_": {
+        "properties": {
+         "x": {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/EnumA"
+           ]
+          ]
+         }
+        },
+        "required": [
+         "x"
+        ],
+        "title": "GModel[test_generic_enums.<locals>.EnumA]",
+        "type": "object"
+       },
+       "GModel_EnumB_": {
+        "properties": {
+         "x": {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/EnumB"
+           ]
+          ]
+         }
+        },
+        "required": [
+         "x"
+        ],
+        "title": "GModel[test_generic_enums.<locals>.EnumB]",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "g_a": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/GModel_EnumA_"
+         ]
+        ]
+       },
+       "g_b": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/GModel_EnumB_"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "g_a",
+       "g_b"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_generics.py::test_generic_intenum_bound#0",
+  "test": "tests/test_generics.py::test_generic_intenum_bound",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model[test_generic_intenum_bound.<locals>.MyEnum]"
+   },
+   "generic_origin": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "enum",
+       "cls": {
+        "$class": "MyEnum"
+       },
+       "members": [
+        {
+         "$enum": [
+          "MyEnum",
+          1
+         ]
+        }
+       ],
+       "sub_type": "int",
+       "ref": "tests.test_generics.test_generic_intenum_bound.<locals>.MyEnum:1",
+       "metadata": {
+        "pydantic_js_functions": [
+         {
+          "$function": "get_json_schema"
+         }
+        ]
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model[test_generic_intenum_bound.<locals>.MyEnum]",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model[test_generic_intenum_bound.<locals>.MyEnum]"
+   },
+   "ref": "tests.test_generics.test_generic_intenum_bound.<locals>.Model:2[test_generic_intenum_bound.<locals>.MyEnum:1]"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "MyEnum": {
+        "enum": [
+         1
+        ],
+        "title": "MyEnum",
+        "type": "integer"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "x": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/MyEnum"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "x"
+      ]
+     ],
+     [
+      "title",
+      "Model[test_generic_intenum_bound.<locals>.MyEnum]"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_generics.py::test_parse_generic_json#0",
+  "test": "tests/test_generics.py::test_parse_generic_json",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MessageWrapper[test_parse_generic_json.<locals>.Payload]"
+   },
+   "generic_origin": {
+    "$class": "MessageWrapper"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "message": {
+      "type": "model-field",
+      "schema": {
+       "type": "json",
+       "schema": {
+        "type": "model",
+        "cls": {
+         "$class": "Payload"
+        },
+        "schema": {
+         "type": "model-fields",
+         "fields": {
+          "payload_field": {
+           "type": "model-field",
+           "schema": {
+            "type": "str"
+           },
+           "metadata": {}
+          }
+         },
+         "model_name": "Payload",
+         "computed_fields": []
+        },
+        "custom_init": false,
+        "root_model": false,
+        "config": {
+         "title": "Payload"
+        },
+        "ref": "tests.test_generics.test_parse_generic_json.<locals>.Payload:1"
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "MessageWrapper[test_parse_generic_json.<locals>.Payload]",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MessageWrapper[test_parse_generic_json.<locals>.Payload]"
+   },
+   "ref": "tests.test_generics.test_parse_generic_json.<locals>.MessageWrapper:2[test_parse_generic_json.<locals>.Payload:1]"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Payload": {
+        "properties": {
+         "payload_field": {
+          "title": "Payload Field",
+          "type": "string"
+         }
+        },
+        "required": [
+         "payload_field"
+        ],
+        "title": "Payload",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "message": {
+        "contentMediaType": "application/json",
+        "contentSchema": {
+         "$dict": [
+          [
+           "$ref",
+           "#/$defs/Payload"
+          ]
+         ]
+        },
+        "title": "Message",
+        "type": "string"
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "message"
+      ]
+     ],
+     [
+      "title",
+      "MessageWrapper[test_parse_generic_json.<locals>.Payload]"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_generics.py::test_parse_generic_json#1",
+  "test": "tests/test_generics.py::test_parse_generic_json",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MessageWrapper[test_parse_generic_json.<locals>.Payload]"
+   },
+   "generic_origin": {
+    "$class": "MessageWrapper"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "message": {
+      "type": "model-field",
+      "schema": {
+       "type": "json",
+       "schema": {
+        "type": "model",
+        "cls": {
+         "$class": "Payload"
+        },
+        "schema": {
+         "type": "model-fields",
+         "fields": {
+          "payload_field": {
+           "type": "model-field",
+           "schema": {
+            "type": "str"
+           },
+           "metadata": {}
+          }
+         },
+         "model_name": "Payload",
+         "computed_fields": []
+        },
+        "custom_init": false,
+        "root_model": false,
+        "config": {
+         "title": "Payload"
+        },
+        "ref": "tests.test_generics.test_parse_generic_json.<locals>.Payload:1"
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "MessageWrapper[test_parse_generic_json.<locals>.Payload]",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MessageWrapper[test_parse_generic_json.<locals>.Payload]"
+   },
+   "ref": "tests.test_generics.test_parse_generic_json.<locals>.MessageWrapper:2[test_parse_generic_json.<locals>.Payload:1]"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Payload": {
+        "properties": {
+         "payload_field": {
+          "title": "Payload Field",
+          "type": "string"
+         }
+        },
+        "required": [
+         "payload_field"
+        ],
+        "title": "Payload",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "message": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Payload"
+         ],
+         [
+          "title",
+          "Message"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "message"
+      ]
+     ],
+     [
+      "title",
+      "MessageWrapper[test_parse_generic_json.<locals>.Payload]"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ }
+]

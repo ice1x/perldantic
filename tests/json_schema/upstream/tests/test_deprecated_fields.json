@@ -1,0 +1,481 @@
+[
+ {
+  "id": "tests/test_deprecated_fields.py::test_computed_field_deprecated#0",
+  "test": "tests/test_deprecated_fields.py::test_computed_field_deprecated",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {},
+    "model_name": "Model",
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "p1",
+      "return_schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true,
+        "deprecated": true
+       }
+      }
+     },
+     {
+      "type": "computed-field",
+      "property_name": "p2",
+      "return_schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true,
+        "deprecated": true
+       }
+      }
+     },
+     {
+      "type": "computed-field",
+      "property_name": "p3",
+      "return_schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true,
+        "deprecated": true
+       }
+      }
+     },
+     {
+      "type": "computed-field",
+      "property_name": "p4",
+      "return_schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true,
+        "deprecated": true
+       }
+      }
+     },
+     {
+      "type": "computed-field",
+      "property_name": "p5",
+      "return_schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true,
+        "deprecated": true
+       }
+      }
+     }
+    ]
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_deprecated_fields.test_computed_field_deprecated.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "p1": {
+      "deprecated": true,
+      "readOnly": true,
+      "title": "P1",
+      "type": "integer"
+     },
+     "p2": {
+      "deprecated": true,
+      "readOnly": true,
+      "title": "P2",
+      "type": "integer"
+     },
+     "p3": {
+      "deprecated": true,
+      "readOnly": true,
+      "title": "P3",
+      "type": "integer"
+     },
+     "p4": {
+      "deprecated": true,
+      "readOnly": true,
+      "title": "P4",
+      "type": "integer"
+     },
+     "p5": {
+      "deprecated": true,
+      "readOnly": true,
+      "title": "P5",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "p1",
+     "p2",
+     "p3",
+     "p4",
+     "p5"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_deprecated_fields.py::test_computed_field_deprecated_deprecated_class#0",
+  "test": "tests/test_deprecated_fields.py::test_computed_field_deprecated_deprecated_class",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {},
+    "model_name": "Model",
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "p1",
+      "return_schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true,
+        "deprecated": true
+       }
+      }
+     },
+     {
+      "type": "computed-field",
+      "property_name": "p2",
+      "return_schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true,
+        "deprecated": true
+       }
+      }
+     },
+     {
+      "type": "computed-field",
+      "property_name": "p3",
+      "return_schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true,
+        "deprecated": true
+       }
+      }
+     }
+    ]
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_deprecated_fields.test_computed_field_deprecated_deprecated_class.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "p1": {
+      "deprecated": true,
+      "readOnly": true,
+      "title": "P1",
+      "type": "integer"
+     },
+     "p2": {
+      "deprecated": true,
+      "readOnly": true,
+      "title": "P2",
+      "type": "integer"
+     },
+     "p3": {
+      "deprecated": true,
+      "readOnly": true,
+      "title": "P3",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "p1",
+     "p2",
+     "p3"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_deprecated_fields.py::test_deprecated_fields#0",
+  "test": "tests/test_deprecated_fields.py::test_deprecated_fields",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "a": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "deprecated": true
+       }
+      }
+     },
+     "b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "deprecated": true
+       }
+      }
+     },
+     "c": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_deprecated_fields.test_deprecated_fields.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "a": {
+      "deprecated": true,
+      "title": "A",
+      "type": "integer"
+     },
+     "b": {
+      "deprecated": true,
+      "title": "B",
+      "type": "integer"
+     },
+     "c": {
+      "title": "C",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "a",
+     "b",
+     "c"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_deprecated_fields.py::test_deprecated_fields_deprecated_class#0",
+  "test": "tests/test_deprecated_fields.py::test_deprecated_fields_deprecated_class",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "a": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "deprecated": true
+       }
+      }
+     },
+     "b": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "int"
+       },
+       "default": 1
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "deprecated": true
+       }
+      }
+     },
+     "c": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "int"
+       },
+       "default": 1
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "deprecated": true
+       }
+      }
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_deprecated_fields.test_deprecated_fields_deprecated_class.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "a": {
+      "deprecated": true,
+      "title": "A",
+      "type": "integer"
+     },
+     "b": {
+      "default": 1,
+      "deprecated": true,
+      "title": "B",
+      "type": "integer"
+     },
+     "c": {
+      "default": 1,
+      "deprecated": true,
+      "title": "C",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "a"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_deprecated_fields.py::test_deprecated_with_boolean#0",
+  "test": "tests/test_deprecated_fields.py::test_deprecated_with_boolean",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "a": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "deprecated": true
+       }
+      }
+     },
+     "b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_deprecated_fields.test_deprecated_with_boolean.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "a": {
+      "deprecated": true,
+      "title": "A",
+      "type": "integer"
+     },
+     "b": {
+      "title": "B",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "a",
+     "b"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ }
+]

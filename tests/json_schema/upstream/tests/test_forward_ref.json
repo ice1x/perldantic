@@ -1,0 +1,51 @@
+[
+ {
+  "id": "tests/test_forward_ref.py::test_pydantic_extra_generic_forward_ref#0",
+  "test": "tests/test_forward_ref.py::test_pydantic_extra_generic_forward_ref",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model[int]"
+   },
+   "generic_origin": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {},
+    "model_name": "Model[int]",
+    "computed_fields": [],
+    "extras_schema": {
+     "type": "list",
+     "items_schema": {
+      "type": "int"
+     }
+    }
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "extra_fields_behavior": "allow",
+    "title": "Model[int]"
+   },
+   "ref": "tests.test_forward_ref.test_pydantic_extra_generic_forward_ref.<locals>.Model:1[int:2]"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": {
+     "items": {
+      "type": "integer"
+     },
+     "type": "array"
+    },
+    "properties": {},
+    "title": "Model[int]",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ }
+]

@@ -1,0 +1,61 @@
+[
+ {
+  "id": "tests/types/test_enum.py::test_enum_with_no_cases#0",
+  "test": "tests/types/test_enum.py::test_enum_with_no_cases",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "e": {
+      "type": "model-field",
+      "schema": {
+       "type": "is-instance",
+       "cls": {
+        "$class": "MyEnum"
+       },
+       "metadata": {
+        "pydantic_js_functions": [
+         {
+          "$function": "get_json_schema_no_cases"
+         }
+        ]
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "MyModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.types.test_enum.test_enum_with_no_cases.<locals>.MyModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "e": {
+      "enum": [],
+      "title": "MyEnum"
+     }
+    },
+    "required": [
+     "e"
+    ],
+    "title": "MyModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ }
+]

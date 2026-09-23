@@ -1,0 +1,68 @@
+[
+ {
+  "id": "tests/test_types_zoneinfo.py::test_zoneinfo_json_schema#0",
+  "test": "tests/test_types_zoneinfo.py::test_zoneinfo_json_schema",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "ZoneInfoModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "tz": {
+      "type": "model-field",
+      "schema": {
+       "type": "function-plain",
+       "function": {
+        "type": "no-info",
+        "function": {
+         "$function": "validate_str_is_valid_iana_tz"
+        }
+       },
+       "metadata": {
+        "pydantic_js_functions": [
+         {
+          "$function": "<lambda>"
+         }
+        ]
+       },
+       "serialization": {
+        "type": "to-string"
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "ZoneInfoModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "ZoneInfoModel"
+   },
+   "ref": "tests.test_types_zoneinfo.ZoneInfoModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "tz": {
+      "format": "zoneinfo",
+      "title": "Tz",
+      "type": "string"
+     }
+    },
+    "required": [
+     "tz"
+    ],
+    "title": "ZoneInfoModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ }
+]

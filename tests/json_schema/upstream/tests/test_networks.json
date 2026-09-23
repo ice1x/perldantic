@@ -1,0 +1,96 @@
+[
+ {
+  "id": "tests/test_networks.py::test_json_schema#0",
+  "test": "tests/test_networks.py::test_json_schema",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "wrap_val"
+    }
+   },
+   "schema": {
+    "type": "url",
+    "max_length": 2083,
+    "allowed_schemes": [
+     "http",
+     "https"
+    ]
+   },
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "serialize_url"
+    },
+    "info_arg": true
+   },
+   "metadata": {
+    "pydantic_js_functions": [
+     {
+      "$function": "__get_pydantic_json_schema__"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "format": "uri",
+    "maxLength": 2083,
+    "minLength": 1,
+    "type": "string"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_networks.py::test_json_schema#1",
+  "test": "tests/test_networks.py::test_json_schema",
+  "schema": {
+   "type": "function-wrap",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "wrap_val"
+    }
+   },
+   "schema": {
+    "type": "url",
+    "max_length": 2083,
+    "allowed_schemes": [
+     "http",
+     "https"
+    ]
+   },
+   "serialization": {
+    "type": "function-plain",
+    "function": {
+     "$function": "serialize_url"
+    },
+    "info_arg": true
+   },
+   "metadata": {
+    "pydantic_js_functions": [
+     {
+      "$function": "__get_pydantic_json_schema__"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "format": "uri",
+    "maxLength": 2083,
+    "minLength": 1,
+    "type": "string"
+   }
+  },
+  "warnings": []
+ }
+]

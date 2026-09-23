@@ -1,0 +1,629 @@
+[
+ {
+  "id": "tests/test_docs_extraction.py::test_dataclass_docs_extraction#0",
+  "test": "tests/test_docs_extraction.py::test_dataclass_docs_extraction",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "fields": [
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "g",
+    "h",
+    "j"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyModel",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "description": "A docs"
+       }
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "int"
+       },
+       "default": 1
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "description": "B docs"
+       }
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "c",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "int"
+       },
+       "default": 1
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     },
+     {
+      "type": "dataclass-field",
+      "name": "d",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "int"
+       },
+       "default": 1
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     },
+     {
+      "type": "dataclass-field",
+      "name": "e",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "int"
+       },
+       "default": 1
+      },
+      "kw_only": false,
+      "metadata": {
+       "pydantic_js_updates": {
+        "description": "Real description e"
+       }
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "g",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "int"
+       },
+       "default": 1
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "description": "G docs"
+       }
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "h",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "int"
+       },
+       "default": 1
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "description": "H docs"
+       }
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "j",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "int"
+       },
+       "default": 1
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "description": "Real description j"
+       }
+      }
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.test_docs_extraction.test_dataclass_docs_extraction.<locals>.MyModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "a": {
+      "description": "A docs",
+      "title": "A",
+      "type": "integer"
+     },
+     "b": {
+      "default": 1,
+      "description": "B docs",
+      "title": "B",
+      "type": "integer"
+     },
+     "c": {
+      "default": 1,
+      "title": "C",
+      "type": "integer"
+     },
+     "d": {
+      "default": 1,
+      "title": "D",
+      "type": "integer"
+     },
+     "e": {
+      "default": 1,
+      "description": "Real description e",
+      "title": "E",
+      "type": "integer"
+     },
+     "g": {
+      "default": 1,
+      "description": "G docs",
+      "title": "G",
+      "type": "integer"
+     },
+     "h": {
+      "default": 1,
+      "description": "H docs",
+      "title": "H",
+      "type": "integer"
+     },
+     "j": {
+      "default": 1,
+      "description": "Real description j",
+      "title": "J",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "a"
+    ],
+    "title": "MyModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_docs_extraction.py::test_stdlib_docs_extraction#0",
+  "test": "tests/test_docs_extraction.py::test_stdlib_docs_extraction",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "fields": [
+    "a"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyModel",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "description": "A docs"
+       }
+      }
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.test_docs_extraction.test_stdlib_docs_extraction.<locals>.MyModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "a": {
+      "description": "A docs",
+      "title": "A",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "a"
+    ],
+    "title": "MyModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_docs_extraction.py::test_stdlib_docs_extraction_duplicate_class#0",
+  "test": "tests/test_docs_extraction.py::test_stdlib_docs_extraction_duplicate_class",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "fields": [
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyModel",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.test_docs_extraction.test_stdlib_docs_extraction_duplicate_class.<locals>.MyModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "b": {
+      "title": "B",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "b"
+    ],
+    "title": "MyModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_docs_extraction.py::test_stdlib_docs_extraction_inheritance#0",
+  "test": "tests/test_docs_extraction.py::test_stdlib_docs_extraction_inheritance",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyStdlibDataclass"
+   },
+   "fields": [
+    "a",
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyStdlibDataclass",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "description": "B docs"
+       }
+      }
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyStdlibDataclass"
+   },
+   "ref": "tests.test_docs_extraction.test_stdlib_docs_extraction_inheritance.<locals>.MyStdlibDataclass:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "a": {
+      "title": "A",
+      "type": "integer"
+     },
+     "b": {
+      "description": "B docs",
+      "title": "B",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "a",
+     "b"
+    ],
+    "title": "MyStdlibDataclass",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_docs_extraction.py::test_typeddict#0",
+  "test": "tests/test_docs_extraction.py::test_typeddict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     },
+     "required": true,
+     "metadata": {}
+    }
+   },
+   "cls": {
+    "$class": "MyModel"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.test_docs_extraction.test_typeddict.<locals>.MyModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "a": {
+      "title": "A",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "a"
+    ],
+    "title": "MyModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_docs_extraction.py::test_typeddict#1",
+  "test": "tests/test_docs_extraction.py::test_typeddict",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "description": "A docs"
+      }
+     }
+    }
+   },
+   "cls": {
+    "$class": "MyModel"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.test_docs_extraction.test_typeddict.<locals>.MyModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "a": {
+      "description": "A docs",
+      "title": "A",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "a"
+    ],
+    "title": "MyModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_docs_extraction.py::test_typeddict_as_field#0",
+  "test": "tests/test_docs_extraction.py::test_typeddict_as_field",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "td": {
+      "type": "model-field",
+      "schema": {
+       "type": "typed-dict",
+       "fields": {
+        "a": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         },
+         "required": true,
+         "metadata": {
+          "pydantic_js_updates": {
+           "description": "A docs"
+          }
+         }
+        }
+       },
+       "cls": {
+        "$class": "ModelTDAsField"
+       },
+       "computed_fields": [],
+       "extra_behavior": "ignore",
+       "config": {
+        "title": "ModelTDAsField"
+       },
+       "ref": "tests.test_docs_extraction.test_typeddict_as_field.<locals>.ModelTDAsField:1"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "MyModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.test_docs_extraction.test_typeddict_as_field.<locals>.MyModel:2"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "ModelTDAsField": {
+        "properties": {
+         "a": {
+          "description": "A docs",
+          "title": "A",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "a"
+        ],
+        "title": "ModelTDAsField",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "td": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/ModelTDAsField"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "td"
+      ]
+     ],
+     [
+      "title",
+      "MyModel"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ }
+]

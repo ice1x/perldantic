@@ -1,0 +1,78 @@
+[
+ {
+  "id": "tests/types/unions/test_union.py::test_default_union_types#0",
+  "test": "tests/types/unions/test_union.py::test_default_union_types",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bool"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "anyOf": [
+     {
+      "type": "integer"
+     },
+     {
+      "type": "boolean"
+     },
+     {
+      "type": "string"
+     }
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/types/unions/test_union.py::test_default_union_types_left_to_right#0",
+  "test": "tests/types/unions/test_union.py::test_default_union_types_left_to_right",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bool"
+    },
+    {
+     "type": "str"
+    }
+   ],
+   "mode": "left_to_right",
+   "metadata": {}
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "anyOf": [
+     {
+      "type": "integer"
+     },
+     {
+      "type": "boolean"
+     },
+     {
+      "type": "string"
+     }
+    ]
+   }
+  },
+  "warnings": []
+ }
+]

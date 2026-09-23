@@ -1,0 +1,713 @@
+[
+ {
+  "id": "tests/test_missing_sentinel.py::test_missing_sentinel_constraints_pushdown#0",
+  "test": "tests/test_missing_sentinel.py::test_missing_sentinel_constraints_pushdown",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "f1": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "missing-sentinel",
+        "schema": {
+         "type": "int",
+         "ge": 1
+        }
+       },
+       "default": {
+        "$object": "sentinel"
+       }
+      },
+      "metadata": {}
+     },
+     "f2": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "missing-sentinel",
+        "schema": {
+         "type": "int",
+         "ge": 1
+        }
+       },
+       "default": {
+        "$object": "sentinel"
+       }
+      },
+      "metadata": {}
+     },
+     "f3": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "missing-sentinel",
+        "schema": {
+         "type": "function-after",
+         "function": {
+          "type": "no-info",
+          "function": {
+           "$function": "partial"
+          }
+         },
+         "schema": {
+          "type": "union",
+          "choices": [
+           {
+            "type": "int"
+           },
+           {
+            "type": "str"
+           }
+          ]
+         },
+         "metadata": {
+          "pydantic_js_updates": {
+           "ge": 1
+          }
+         }
+        }
+       },
+       "default": {
+        "$object": "sentinel"
+       }
+      },
+      "metadata": {}
+     },
+     "f4": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "missing-sentinel",
+        "schema": {
+         "type": "nullable",
+         "schema": {
+          "type": "function-after",
+          "function": {
+           "type": "no-info",
+           "function": {
+            "$function": "partial"
+           }
+          },
+          "schema": {
+           "type": "union",
+           "choices": [
+            {
+             "type": "int"
+            },
+            {
+             "type": "str"
+            }
+           ]
+          },
+          "metadata": {
+           "pydantic_js_updates": {
+            "ge": 1
+           }
+          }
+         }
+        }
+       },
+       "default": {
+        "$object": "sentinel"
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_missing_sentinel.test_missing_sentinel_constraints_pushdown.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "f1": {
+      "minimum": 1,
+      "title": "F1",
+      "type": "integer"
+     },
+     "f2": {
+      "minimum": 1,
+      "title": "F2",
+      "type": "integer"
+     },
+     "f3": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "string"
+       }
+      ],
+      "ge": 1,
+      "title": "F3"
+     },
+     "f4": {
+      "anyOf": [
+       {
+        "anyOf": [
+         {
+          "type": "integer"
+         },
+         {
+          "type": "string"
+         }
+        ],
+        "ge": 1
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "title": "F4"
+     }
+    },
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_missing_sentinel.py::test_missing_sentinel_discriminated_union#0",
+  "test": "tests/test_missing_sentinel.py::test_missing_sentinel_discriminated_union",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "model",
+    "cls": {
+     "$class": "Model"
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "pet1": {
+       "type": "model-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "missing-sentinel",
+         "schema": {
+          "type": "tagged-union",
+          "choices": {
+           "cat": {
+            "type": "definition-ref",
+            "schema_ref": "tests.test_missing_sentinel.test_missing_sentinel_discriminated_union.<locals>.Cat:1"
+           },
+           "dog": {
+            "type": "definition-ref",
+            "schema_ref": "tests.test_missing_sentinel.test_missing_sentinel_discriminated_union.<locals>.Dog:2"
+           }
+          },
+          "discriminator": "kind",
+          "strict": false,
+          "from_attributes": true
+         }
+        },
+        "default": {
+         "$object": "sentinel"
+        }
+       },
+       "metadata": {}
+      },
+      "pet2": {
+       "type": "model-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "missing-sentinel",
+         "schema": {
+          "type": "nullable",
+          "schema": {
+           "type": "tagged-union",
+           "choices": {
+            "cat": {
+             "type": "definition-ref",
+             "schema_ref": "tests.test_missing_sentinel.test_missing_sentinel_discriminated_union.<locals>.Cat:1"
+            },
+            "dog": {
+             "type": "definition-ref",
+             "schema_ref": "tests.test_missing_sentinel.test_missing_sentinel_discriminated_union.<locals>.Dog:2"
+            }
+           },
+           "discriminator": "kind",
+           "strict": false,
+           "from_attributes": true
+          }
+         }
+        },
+        "default": {
+         "$object": "sentinel"
+        }
+       },
+       "metadata": {}
+      },
+      "pet3": {
+       "type": "model-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "missing-sentinel",
+         "schema": {
+          "type": "tagged-union",
+          "choices": {
+           "cat": {
+            "type": "definition-ref",
+            "schema_ref": "tests.test_missing_sentinel.test_missing_sentinel_discriminated_union.<locals>.Cat:1"
+           },
+           "dog": {
+            "type": "definition-ref",
+            "schema_ref": "tests.test_missing_sentinel.test_missing_sentinel_discriminated_union.<locals>.Dog:2"
+           }
+          },
+          "discriminator": "kind",
+          "strict": false,
+          "from_attributes": true
+         }
+        },
+        "default": {
+         "$object": "sentinel"
+        }
+       },
+       "metadata": {}
+      },
+      "pet4": {
+       "type": "model-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "missing-sentinel",
+         "schema": {
+          "type": "tagged-union",
+          "choices": {
+           "cat": {
+            "type": "missing-sentinel",
+            "schema": {
+             "type": "definition-ref",
+             "schema_ref": "tests.test_missing_sentinel.test_missing_sentinel_discriminated_union.<locals>.Cat:1"
+            },
+            "ref": "tests.test_missing_sentinel.MissingCat:3"
+           },
+           "dog": {
+            "type": "definition-ref",
+            "schema_ref": "tests.test_missing_sentinel.test_missing_sentinel_discriminated_union.<locals>.Dog:2"
+           }
+          },
+          "discriminator": "kind",
+          "strict": false,
+          "from_attributes": true
+         }
+        },
+        "default": {
+         "$object": "sentinel"
+        }
+       },
+       "metadata": {}
+      }
+     },
+     "model_name": "Model",
+     "computed_fields": []
+    },
+    "custom_init": false,
+    "root_model": false,
+    "config": {
+     "title": "Model"
+    },
+    "ref": "tests.test_missing_sentinel.test_missing_sentinel_discriminated_union.<locals>.Model:4"
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Cat"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "kind": {
+        "type": "model-field",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "cat"
+         ]
+        },
+        "metadata": {}
+       }
+      },
+      "model_name": "Cat",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "Cat"
+     },
+     "ref": "tests.test_missing_sentinel.test_missing_sentinel_discriminated_union.<locals>.Cat:1"
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Dog"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "kind": {
+        "type": "model-field",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "dog"
+         ]
+        },
+        "metadata": {}
+       }
+      },
+      "model_name": "Dog",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "Dog"
+     },
+     "ref": "tests.test_missing_sentinel.test_missing_sentinel_discriminated_union.<locals>.Dog:2"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Cat": {
+        "properties": {
+         "kind": {
+          "const": "cat",
+          "title": "Kind",
+          "type": "string"
+         }
+        },
+        "required": [
+         "kind"
+        ],
+        "title": "Cat",
+        "type": "object"
+       },
+       "Dog": {
+        "properties": {
+         "kind": {
+          "const": "dog",
+          "title": "Kind",
+          "type": "string"
+         }
+        },
+        "required": [
+         "kind"
+        ],
+        "title": "Dog",
+        "type": "object"
+       },
+       "MissingCat": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Cat"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "pet1": {
+        "discriminator": {
+         "mapping": {
+          "cat": "#/$defs/Cat",
+          "dog": "#/$defs/Dog"
+         },
+         "propertyName": "kind"
+        },
+        "oneOf": [
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/Cat"
+           ]
+          ]
+         },
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/Dog"
+           ]
+          ]
+         }
+        ],
+        "title": "Pet1"
+       },
+       "pet2": {
+        "anyOf": [
+         {
+          "discriminator": {
+           "mapping": {
+            "cat": "#/$defs/Cat",
+            "dog": "#/$defs/Dog"
+           },
+           "propertyName": "kind"
+          },
+          "oneOf": [
+           {
+            "$dict": [
+             [
+              "$ref",
+              "#/$defs/Cat"
+             ]
+            ]
+           },
+           {
+            "$dict": [
+             [
+              "$ref",
+              "#/$defs/Dog"
+             ]
+            ]
+           }
+          ]
+         },
+         {
+          "type": "null"
+         }
+        ],
+        "title": "Pet2"
+       },
+       "pet3": {
+        "discriminator": {
+         "mapping": {
+          "cat": "#/$defs/Cat",
+          "dog": "#/$defs/Dog"
+         },
+         "propertyName": "kind"
+        },
+        "oneOf": [
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/Cat"
+           ]
+          ]
+         },
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/Dog"
+           ]
+          ]
+         }
+        ],
+        "title": "Pet3"
+       },
+       "pet4": {
+        "discriminator": {
+         "mapping": {
+          "cat": "#/$defs/MissingCat",
+          "dog": "#/$defs/Dog"
+         },
+         "propertyName": "kind"
+        },
+        "oneOf": [
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/MissingCat"
+           ]
+          ]
+         },
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/Dog"
+           ]
+          ]
+         }
+        ],
+        "title": "Pet4"
+       }
+      }
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_missing_sentinel.py::test_missing_sentinel_json_schema#0",
+  "test": "tests/test_missing_sentinel.py::test_missing_sentinel_json_schema",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "f": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "missing-sentinel",
+        "schema": {
+         "type": "int"
+        }
+       },
+       "default": {
+        "$object": "sentinel"
+       }
+      },
+      "metadata": {}
+     },
+     "g": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "missing-sentinel"
+       },
+       "default": {
+        "$object": "sentinel"
+       }
+      },
+      "metadata": {}
+     },
+     "h": {
+      "type": "model-field",
+      "schema": {
+       "type": "missing-sentinel"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_missing_sentinel.test_missing_sentinel_json_schema.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "f": {
+      "title": "F",
+      "type": "integer"
+     }
+    },
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_missing_sentinel.py::test_missing_sentinel_none_union#0",
+  "test": "tests/test_missing_sentinel.py::test_missing_sentinel_none_union",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "f": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "missing-sentinel",
+        "schema": {
+         "type": "none"
+        }
+       },
+       "default": {
+        "$object": "sentinel"
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_missing_sentinel.test_missing_sentinel_none_union.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "f": {
+      "title": "F",
+      "type": "null"
+     }
+    },
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ }
+]

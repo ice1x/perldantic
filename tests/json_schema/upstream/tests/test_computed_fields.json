@@ -1,0 +1,561 @@
+[
+ {
+  "id": "tests/test_computed_fields.py::test_computed_fields_json_schema#0",
+  "test": "tests/test_computed_fields.py::test_computed_fields_json_schema",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Rectangle"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "width": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     },
+     "length": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Rectangle",
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "area",
+      "return_schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true,
+        "description": "An awesome area"
+       }
+      }
+     },
+     {
+      "type": "computed-field",
+      "property_name": "area2",
+      "return_schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true,
+        "title": "Pikarea",
+        "description": "Another area",
+        "examples": [
+         100,
+         200
+        ]
+       },
+       "pydantic_js_extra": {
+        "foo": 42
+       }
+      }
+     }
+    ]
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Rectangle"
+   },
+   "ref": "tests.test_computed_fields.test_computed_fields_json_schema.<locals>.Rectangle:1"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "width": {
+      "title": "Width",
+      "type": "integer"
+     },
+     "length": {
+      "title": "Length",
+      "type": "integer"
+     },
+     "area": {
+      "description": "An awesome area",
+      "readOnly": true,
+      "title": "Area",
+      "type": "integer"
+     },
+     "area2": {
+      "description": "Another area",
+      "examples": [
+       100,
+       200
+      ],
+      "foo": 42,
+      "readOnly": true,
+      "title": "Pikarea",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "width",
+     "length",
+     "area",
+     "area2"
+    ],
+    "title": "Rectangle",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_computed_fields.py::test_multiple_references_to_schema[make_base_model]#0",
+  "test": "tests/test_computed_fields.py::test_multiple_references_to_schema[make_base_model]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "model",
+    "cls": {
+     "$class": "Model"
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {},
+     "model_name": "Model",
+     "computed_fields": [
+      {
+       "type": "computed-field",
+       "property_name": "comp_1",
+       "return_schema": {
+        "type": "definition-ref",
+        "schema_ref": "tests.test_computed_fields.make_base_model.<locals>.CompModel:1"
+       },
+       "metadata": {
+        "pydantic_js_updates": {
+         "readOnly": true
+        }
+       }
+      },
+      {
+       "type": "computed-field",
+       "property_name": "comp_2",
+       "return_schema": {
+        "type": "definition-ref",
+        "schema_ref": "tests.test_computed_fields.make_base_model.<locals>.CompModel:1"
+       },
+       "metadata": {
+        "pydantic_js_updates": {
+         "readOnly": true
+        }
+       }
+      }
+     ]
+    },
+    "custom_init": false,
+    "root_model": false,
+    "config": {
+     "title": "Model"
+    },
+    "ref": "tests.test_computed_fields.make_base_model.<locals>.Model:2"
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "CompModel"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {},
+      "model_name": "CompModel",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "CompModel"
+     },
+     "ref": "tests.test_computed_fields.make_base_model.<locals>.CompModel:1"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {},
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_computed_fields.py::test_multiple_references_to_schema[make_base_model]#1",
+  "test": "tests/test_computed_fields.py::test_multiple_references_to_schema[make_base_model]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "model",
+    "cls": {
+     "$class": "Model"
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {},
+     "model_name": "Model",
+     "computed_fields": [
+      {
+       "type": "computed-field",
+       "property_name": "comp_1",
+       "return_schema": {
+        "type": "definition-ref",
+        "schema_ref": "tests.test_computed_fields.make_base_model.<locals>.CompModel:1"
+       },
+       "metadata": {
+        "pydantic_js_updates": {
+         "readOnly": true
+        }
+       }
+      },
+      {
+       "type": "computed-field",
+       "property_name": "comp_2",
+       "return_schema": {
+        "type": "definition-ref",
+        "schema_ref": "tests.test_computed_fields.make_base_model.<locals>.CompModel:1"
+       },
+       "metadata": {
+        "pydantic_js_updates": {
+         "readOnly": true
+        }
+       }
+      }
+     ]
+    },
+    "custom_init": false,
+    "root_model": false,
+    "config": {
+     "title": "Model"
+    },
+    "ref": "tests.test_computed_fields.make_base_model.<locals>.Model:2"
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "CompModel"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {},
+      "model_name": "CompModel",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "CompModel"
+     },
+     "ref": "tests.test_computed_fields.make_base_model.<locals>.CompModel:1"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "CompModel": {
+        "properties": {},
+        "title": "CompModel",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "comp_1": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/CompModel"
+         ],
+         [
+          "readOnly",
+          true
+         ]
+        ]
+       },
+       "comp_2": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/CompModel"
+         ],
+         [
+          "readOnly",
+          true
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "comp_1",
+       "comp_2"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_computed_fields.py::test_multiple_references_to_schema[make_dataclass]#0",
+  "test": "tests/test_computed_fields.py::test_multiple_references_to_schema[make_dataclass]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "dataclass",
+    "cls": {
+     "$class": "Model"
+    },
+    "fields": [],
+    "schema": {
+     "type": "dataclass-args",
+     "dataclass_name": "Model",
+     "fields": [],
+     "computed_fields": [
+      {
+       "type": "computed-field",
+       "property_name": "comp_1",
+       "return_schema": {
+        "type": "definition-ref",
+        "schema_ref": "tests.test_computed_fields.make_dataclass.<locals>.CompModel:1"
+       },
+       "metadata": {
+        "pydantic_js_updates": {
+         "readOnly": true
+        }
+       }
+      },
+      {
+       "type": "computed-field",
+       "property_name": "comp_2",
+       "return_schema": {
+        "type": "definition-ref",
+        "schema_ref": "tests.test_computed_fields.make_dataclass.<locals>.CompModel:1"
+       },
+       "metadata": {
+        "pydantic_js_updates": {
+         "readOnly": true
+        }
+       }
+      }
+     ],
+     "collect_init_only": false
+    },
+    "post_init": false,
+    "frozen": false,
+    "slots": false,
+    "config": {
+     "title": "Model"
+    },
+    "ref": "tests.test_computed_fields.make_dataclass.<locals>.Model:2"
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "CompModel"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {},
+      "model_name": "CompModel",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "CompModel"
+     },
+     "ref": "tests.test_computed_fields.make_dataclass.<locals>.CompModel:1"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {},
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_computed_fields.py::test_multiple_references_to_schema[make_dataclass]#1",
+  "test": "tests/test_computed_fields.py::test_multiple_references_to_schema[make_dataclass]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "dataclass",
+    "cls": {
+     "$class": "Model"
+    },
+    "fields": [],
+    "schema": {
+     "type": "dataclass-args",
+     "dataclass_name": "Model",
+     "fields": [],
+     "computed_fields": [
+      {
+       "type": "computed-field",
+       "property_name": "comp_1",
+       "return_schema": {
+        "type": "definition-ref",
+        "schema_ref": "tests.test_computed_fields.make_dataclass.<locals>.CompModel:1"
+       },
+       "metadata": {
+        "pydantic_js_updates": {
+         "readOnly": true
+        }
+       }
+      },
+      {
+       "type": "computed-field",
+       "property_name": "comp_2",
+       "return_schema": {
+        "type": "definition-ref",
+        "schema_ref": "tests.test_computed_fields.make_dataclass.<locals>.CompModel:1"
+       },
+       "metadata": {
+        "pydantic_js_updates": {
+         "readOnly": true
+        }
+       }
+      }
+     ],
+     "collect_init_only": false
+    },
+    "post_init": false,
+    "frozen": false,
+    "slots": false,
+    "config": {
+     "title": "Model"
+    },
+    "ref": "tests.test_computed_fields.make_dataclass.<locals>.Model:2"
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "CompModel"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {},
+      "model_name": "CompModel",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "CompModel"
+     },
+     "ref": "tests.test_computed_fields.make_dataclass.<locals>.CompModel:1"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "CompModel": {
+        "properties": {},
+        "title": "CompModel",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "comp_1": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/CompModel"
+         ],
+         [
+          "readOnly",
+          true
+         ]
+        ]
+       },
+       "comp_2": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/CompModel"
+         ],
+         [
+          "readOnly",
+          true
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "comp_1",
+       "comp_2"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ }
+]

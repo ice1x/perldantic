@@ -21,13 +21,14 @@ def test_records_the_schema_options_and_encoded_output(fake):
     name = fake.pystr()
     schema = cs.model_schema(model_class(name), cs.model_fields_schema({}))
 
-    def generate(options, schema, mode):
+    def generate(options, schema, mode, config):
         return {'title': schema['cls'].__name__, 'default': math.inf, 'mode': mode, **options}
 
     case = record_case(generate, 'c', schema, mode='serialization', by_alias=False)
 
     assert case['schema']['cls'] == {'$class': name}
     assert case['options'] == {'by_alias': False}
+    assert case['config'] is None
     assert case['expected'] == {'json_schema': {
         'title': name, 'default': {'$float': 'inf'}, 'mode': 'serialization', 'by_alias': False,
     }}
@@ -37,7 +38,7 @@ def test_records_the_schema_options_and_encoded_output(fake):
 def test_records_errors_and_warnings(fake):
     message = fake.sentence()
 
-    def generate(options, schema, mode):
+    def generate(options, schema, mode, config):
         warnings.warn(message)
         raise KeyError('x')
 
@@ -54,6 +55,11 @@ def test_case_ids_are_unique():
 
 def test_writes_every_case(tmp_path):
     out = tmp_path / 'nested' / 'cases.json'
-    write(record(lambda options, schema, mode: {}), out)
+    write(record(lambda options, schema, mode, config: {}), out)
     recorded = json.loads(out.read_text())
     assert [c['id'] for c in recorded] == [case_id for case_id, _, _ in cases()]
+
+
+def test_records_the_config_with_core_names():
+    case = record_case(lambda *args: {}, 'c', cs.int_schema(), config={'extra': 'forbid', 'title': ''})
+    assert case['config'] == {'extra_fields_behavior': 'forbid', 'title': ''}

@@ -1,0 +1,777 @@
+[
+ {
+  "id": "tests/test_types.py::test_annotated_default_value#0",
+  "test": "tests/test_types.py::test_annotated_default_value",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    },
+    "metadata": {}
+   },
+   "default": [
+    "1",
+    "2"
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "default": [
+     "1",
+     "2"
+    ],
+    "items": {
+     "type": "integer"
+    },
+    "type": "array"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types.py::test_annotated_default_value_functional_validator#0",
+  "test": "tests/test_types.py::test_annotated_default_value_functional_validator",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "function-after",
+    "function": {
+     "type": "no-info",
+     "function": {
+      "$function": "<lambda>"
+     }
+    },
+    "schema": {
+     "type": "list",
+     "items_schema": {
+      "type": "int"
+     }
+    },
+    "metadata": {}
+   },
+   "default": [
+    "1",
+    "2"
+   ]
+  },
+  "config": {
+   "validate_default": true
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "default": [
+     "1",
+     "2"
+    ],
+    "items": {
+     "type": "integer"
+    },
+    "type": "array"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types.py::test_annotated_default_value_functional_validator#1",
+  "test": "tests/test_types.py::test_annotated_default_value_functional_validator",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "function-after",
+    "function": {
+     "type": "no-info",
+     "function": {
+      "$function": "<lambda>"
+     }
+    },
+    "schema": {
+     "type": "list",
+     "items_schema": {
+      "type": "int"
+     },
+     "metadata": {}
+    }
+   },
+   "default": [
+    "1",
+    "2"
+   ]
+  },
+  "config": {
+   "validate_default": true
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "default": [
+     "1",
+     "2"
+    ],
+    "items": {
+     "type": "integer"
+    },
+    "type": "array"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types.py::test_annotated_default_value_validate_default#0",
+  "test": "tests/test_types.py::test_annotated_default_value_validate_default",
+  "schema": {
+   "type": "default",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    },
+    "metadata": {}
+   },
+   "default": [
+    "1",
+    "2"
+   ]
+  },
+  "config": {
+   "validate_default": true
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "default": [
+     "1",
+     "2"
+    ],
+    "items": {
+     "type": "integer"
+    },
+    "type": "array"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types.py::test_base64[Base64Bytes-bytes-input]#0",
+  "test": "tests/test_types.py::test_base64[Base64Bytes-bytes-input]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "base64_value": {
+      "type": "model-field",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "decode"
+        }
+       },
+       "schema": {
+        "type": "bytes"
+       },
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "encode"
+        }
+       },
+       "metadata": {
+        "pydantic_js_annotation_functions": [
+         {
+          "$function": "__get_pydantic_json_schema__"
+         }
+        ]
+       }
+      },
+      "metadata": {}
+     },
+     "base64_value_or_none": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "function-after",
+         "function": {
+          "type": "with-info",
+          "function": {
+           "$function": "decode"
+          }
+         },
+         "schema": {
+          "type": "bytes"
+         },
+         "serialization": {
+          "type": "function-plain",
+          "function": {
+           "$function": "encode"
+          }
+         },
+         "metadata": {
+          "pydantic_js_annotation_functions": [
+           {
+            "$function": "__get_pydantic_json_schema__"
+           }
+          ]
+         }
+        }
+       },
+       "default": null
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_types.test_base64.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "base64_value": {
+      "format": "base64",
+      "title": "Base64 Value",
+      "type": "string"
+     },
+     "base64_value_or_none": {
+      "anyOf": [
+       {
+        "format": "base64",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Base64 Value Or None"
+     }
+    },
+    "required": [
+     "base64_value"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types.py::test_base64[Base64Str-bytes-input]#0",
+  "test": "tests/test_types.py::test_base64[Base64Str-bytes-input]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "base64_value": {
+      "type": "model-field",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "decode_str"
+        }
+       },
+       "schema": {
+        "type": "str"
+       },
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "encode_str"
+        }
+       },
+       "metadata": {
+        "pydantic_js_annotation_functions": [
+         {
+          "$function": "__get_pydantic_json_schema__"
+         }
+        ]
+       }
+      },
+      "metadata": {}
+     },
+     "base64_value_or_none": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "function-after",
+         "function": {
+          "type": "with-info",
+          "function": {
+           "$function": "decode_str"
+          }
+         },
+         "schema": {
+          "type": "str"
+         },
+         "serialization": {
+          "type": "function-plain",
+          "function": {
+           "$function": "encode_str"
+          }
+         },
+         "metadata": {
+          "pydantic_js_annotation_functions": [
+           {
+            "$function": "__get_pydantic_json_schema__"
+           }
+          ]
+         }
+        }
+       },
+       "default": null
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_types.test_base64.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "base64_value": {
+      "format": "base64",
+      "title": "Base64 Value",
+      "type": "string"
+     },
+     "base64_value_or_none": {
+      "anyOf": [
+       {
+        "format": "base64",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Base64 Value Or None"
+     }
+    },
+    "required": [
+     "base64_value"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types.py::test_base64url[Base64UrlBytes-reversible]#0",
+  "test": "tests/test_types.py::test_base64url[Base64UrlBytes-reversible]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "base64url_value": {
+      "type": "model-field",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "decode"
+        }
+       },
+       "schema": {
+        "type": "bytes"
+       },
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "encode"
+        }
+       },
+       "metadata": {
+        "pydantic_js_annotation_functions": [
+         {
+          "$function": "__get_pydantic_json_schema__"
+         }
+        ]
+       }
+      },
+      "metadata": {}
+     },
+     "base64url_value_or_none": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "function-after",
+         "function": {
+          "type": "with-info",
+          "function": {
+           "$function": "decode"
+          }
+         },
+         "schema": {
+          "type": "bytes"
+         },
+         "serialization": {
+          "type": "function-plain",
+          "function": {
+           "$function": "encode"
+          }
+         },
+         "metadata": {
+          "pydantic_js_annotation_functions": [
+           {
+            "$function": "__get_pydantic_json_schema__"
+           }
+          ]
+         }
+        }
+       },
+       "default": null
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_types.test_base64url.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "base64url_value": {
+      "format": "base64url",
+      "title": "Base64Url Value",
+      "type": "string"
+     },
+     "base64url_value_or_none": {
+      "anyOf": [
+       {
+        "format": "base64url",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Base64Url Value Or None"
+     }
+    },
+    "required": [
+     "base64url_value"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types.py::test_base64url[Base64UrlStr-reversible]#0",
+  "test": "tests/test_types.py::test_base64url[Base64UrlStr-reversible]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "base64url_value": {
+      "type": "model-field",
+      "schema": {
+       "type": "function-after",
+       "function": {
+        "type": "with-info",
+        "function": {
+         "$function": "decode_str"
+        }
+       },
+       "schema": {
+        "type": "str"
+       },
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "encode_str"
+        }
+       },
+       "metadata": {
+        "pydantic_js_annotation_functions": [
+         {
+          "$function": "__get_pydantic_json_schema__"
+         }
+        ]
+       }
+      },
+      "metadata": {}
+     },
+     "base64url_value_or_none": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "function-after",
+         "function": {
+          "type": "with-info",
+          "function": {
+           "$function": "decode_str"
+          }
+         },
+         "schema": {
+          "type": "str"
+         },
+         "serialization": {
+          "type": "function-plain",
+          "function": {
+           "$function": "encode_str"
+          }
+         },
+         "metadata": {
+          "pydantic_js_annotation_functions": [
+           {
+            "$function": "__get_pydantic_json_schema__"
+           }
+          ]
+         }
+        }
+       },
+       "default": null
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_types.test_base64url.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "base64url_value": {
+      "format": "base64url",
+      "title": "Base64Url Value",
+      "type": "string"
+     },
+     "base64url_value_or_none": {
+      "anyOf": [
+       {
+        "format": "base64url",
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Base64Url Value Or None"
+     }
+    },
+    "required": [
+     "base64url_value"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types.py::test_instanceof_invalid_core_schema#0",
+  "test": "tests/test_types.py::test_instanceof_invalid_core_schema",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "a": {
+      "type": "model-field",
+      "schema": {
+       "type": "is-instance",
+       "cls": {
+        "$class": "MyClass"
+       }
+      },
+      "metadata": {}
+     },
+     "b": {
+      "type": "model-field",
+      "schema": {
+       "type": "nullable",
+       "schema": {
+        "type": "is-instance",
+        "cls": {
+         "$class": "MyClass"
+        }
+       }
+      },
+      "metadata": {}
+     },
+     "c": {
+      "type": "model-field",
+      "schema": {
+       "type": "is-instance",
+       "cls": {
+        "$class": "ClassWithInvalidAnnotations"
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "MyModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.test_types.test_instanceof_invalid_core_schema.<locals>.MyModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "error": [
+    "PydanticInvalidForJsonSchema",
+    "Cannot generate a JsonSchema for core_schema.IsInstanceSchema (<class 'tests.test_types.test_instanceof_invalid_core_schema.<locals>.MyClass'>)\n\nFor further information visit https://errors.pydantic.dev/2.14/u/invalid-for-json-schema"
+   ]
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types.py::test_skip_validation_json_schema#0",
+  "test": "tests/test_types.py::test_skip_validation_json_schema",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "A"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "any",
+       "metadata": {
+        "pydantic_js_annotation_functions": [
+         {
+          "$function": "<lambda>"
+         }
+        ]
+       },
+       "serialization": {
+        "type": "function-wrap",
+        "function": {
+         "$function": "<lambda>"
+        },
+        "schema": {
+         "type": "int"
+        }
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "A",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "A"
+   },
+   "ref": "tests.test_types.test_skip_validation_json_schema.<locals>.A:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "title": "X",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "x"
+    ],
+    "title": "A",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ }
+]

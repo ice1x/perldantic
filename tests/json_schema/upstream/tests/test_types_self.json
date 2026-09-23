@@ -1,0 +1,111 @@
+[
+ {
+  "id": "tests/test_types_self.py::test_self_type_json_schema[typing-self]#0",
+  "test": "tests/test_types_self.py::test_self_type_json_schema[typing-self]",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "tests.test_types_self.test_self_type_json_schema.<locals>.SelfRef:1"
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "SelfRef"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "x": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        },
+        "metadata": {}
+       },
+       "refs": {
+        "type": "model-field",
+        "schema": {
+         "type": "default",
+         "schema": {
+          "type": "nullable",
+          "schema": {
+           "type": "list",
+           "items_schema": {
+            "type": "definition-ref",
+            "schema_ref": "tests.test_types_self.test_self_type_json_schema.<locals>.SelfRef:1"
+           }
+          }
+         },
+         "default": []
+        },
+        "metadata": {}
+       }
+      },
+      "model_name": "SelfRef",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "SelfRef"
+     },
+     "ref": "tests.test_types_self.test_self_type_json_schema.<locals>.SelfRef:1"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "SelfRef": {
+        "properties": {
+         "x": {
+          "title": "X",
+          "type": "integer"
+         },
+         "refs": {
+          "anyOf": [
+           {
+            "items": {
+             "$dict": [
+              [
+               "$ref",
+               "#/$defs/SelfRef"
+              ]
+             ]
+            },
+            "type": "array"
+           },
+           {
+            "type": "null"
+           }
+          ],
+          "default": [],
+          "title": "Refs"
+         }
+        },
+        "required": [
+         "x"
+        ],
+        "title": "SelfRef",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "$ref",
+      "#/$defs/SelfRef"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ }
+]

@@ -1,0 +1,284 @@
+[
+ {
+  "id": "tests/test_main.py::test_extra_generic_class#0",
+  "test": "tests/test_main.py::test_extra_generic_class",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model[int]"
+   },
+   "generic_origin": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {},
+    "model_name": "Model[int]",
+    "computed_fields": [],
+    "extras_schema": {
+     "type": "int"
+    }
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "extra_fields_behavior": "allow",
+    "title": "Model[int]"
+   },
+   "ref": "tests.test_main.test_extra_generic_class.<locals>.Model:1[int:2]"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": {
+     "type": "integer"
+    },
+    "properties": {},
+    "title": "Model[int]",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_main.py::test_extra_generic_class_subclass#0",
+  "test": "tests/test_main.py::test_extra_generic_class_subclass",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Sub"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {},
+    "model_name": "Sub",
+    "computed_fields": [],
+    "extras_schema": {
+     "type": "int"
+    }
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "extra_fields_behavior": "allow",
+    "title": "Sub"
+   },
+   "ref": "tests.test_main.test_extra_generic_class_subclass.<locals>.Sub:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": {
+     "type": "integer"
+    },
+    "properties": {},
+    "title": "Sub",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_main.py::test_extra_validator_field#0",
+  "test": "tests/test_main.py::test_extra_validator_field",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {},
+    "model_name": "Model",
+    "computed_fields": [],
+    "extras_schema": {
+     "type": "int"
+    }
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "extra_fields_behavior": "allow",
+    "title": "Model"
+   },
+   "ref": "tests.test_main.test_extra_validator_field.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": {
+     "type": "integer"
+    },
+    "properties": {},
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_main.py::test_extra_validator_named#0",
+  "test": "tests/test_main.py::test_extra_validator_named",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Child"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "y": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Child",
+    "computed_fields": [],
+    "extras_schema": {
+     "type": "model",
+     "cls": {
+      "$class": "Foo"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "x": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        },
+        "metadata": {}
+       }
+      },
+      "model_name": "Foo",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "Foo"
+     },
+     "ref": "tests.test_main.test_extra_validator_named.<locals>.Foo:1"
+    }
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "extra_fields_behavior": "allow",
+    "title": "Child"
+   },
+   "ref": "tests.test_main.test_extra_validator_named.<locals>.Child:2"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Foo": {
+        "properties": {
+         "x": {
+          "title": "X",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "x"
+        ],
+        "title": "Foo",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "additionalProperties",
+      {
+       "$dict": [
+        [
+         "$ref",
+         "#/$defs/Foo"
+        ]
+       ]
+      }
+     ],
+     [
+      "properties",
+      {
+       "y": {
+        "title": "Y",
+        "type": "integer"
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "y"
+      ]
+     ],
+     [
+      "title",
+      "Child"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_main.py::test_extra_validator_scalar#0",
+  "test": "tests/test_main.py::test_extra_validator_scalar",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Child"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {},
+    "model_name": "Child",
+    "computed_fields": [],
+    "extras_schema": {
+     "type": "int"
+    }
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "extra_fields_behavior": "allow",
+    "title": "Child"
+   },
+   "ref": "tests.test_main.test_extra_validator_scalar.<locals>.Child:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": {
+     "type": "integer"
+    },
+    "properties": {},
+    "title": "Child",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ }
+]

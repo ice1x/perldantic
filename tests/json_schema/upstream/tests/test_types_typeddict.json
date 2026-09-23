@@ -1,0 +1,1185 @@
+[
+ {
+  "id": "tests/test_types_typeddict.py::test_typed_dict_inheritance_schema[typing.TypedDict-typing.Required]#0",
+  "test": "tests/test_types_typeddict.py::test_typed_dict_inheritance_schema[typing.TypedDict-typing.Required]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "t": {
+      "type": "model-field",
+      "schema": {
+       "type": "typed-dict",
+       "fields": {
+        "a": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         },
+         "required": false,
+         "metadata": {}
+        },
+        "b": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "str"
+         },
+         "required": true,
+         "metadata": {}
+        },
+        "c": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         },
+         "required": true,
+         "metadata": {}
+        },
+        "d": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "str"
+         },
+         "required": false,
+         "metadata": {}
+        }
+       },
+       "cls": {
+        "$class": "DataTD"
+       },
+       "computed_fields": [],
+       "extra_behavior": "ignore",
+       "config": {
+        "title": "DataTD"
+       },
+       "ref": "tests.test_types_typeddict.test_typed_dict_inheritance_schema.<locals>.DataTD:1"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_types_typeddict.test_typed_dict_inheritance_schema.<locals>.Model:2"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "DataTD": {
+        "properties": {
+         "a": {
+          "title": "A",
+          "type": "integer"
+         },
+         "b": {
+          "title": "B",
+          "type": "string"
+         },
+         "c": {
+          "title": "C",
+          "type": "integer"
+         },
+         "d": {
+          "title": "D",
+          "type": "string"
+         }
+        },
+        "required": [
+         "b",
+         "c"
+        ],
+        "title": "DataTD",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "t": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/DataTD"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "t"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types_typeddict.py::test_typeddict_annotated_nonoptional_schema[typing.TypedDict]#0",
+  "test": "tests/test_types_typeddict.py::test_typeddict_annotated_nonoptional_schema[typing.TypedDict]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "data_td": {
+      "type": "model-field",
+      "schema": {
+       "type": "typed-dict",
+       "fields": {
+        "a": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "nullable",
+          "schema": {
+           "type": "int"
+          }
+         },
+         "required": true,
+         "metadata": {}
+        },
+        "b": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "default",
+          "schema": {
+           "type": "nullable",
+           "schema": {
+            "type": "int"
+           }
+          },
+          "default": 42
+         },
+         "required": false,
+         "metadata": {}
+        },
+        "c": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "nullable",
+          "schema": {
+           "type": "int"
+          }
+         },
+         "required": true,
+         "metadata": {
+          "pydantic_js_updates": {
+           "description": "Test"
+          }
+         }
+        }
+       },
+       "cls": {
+        "$class": "DataTD"
+       },
+       "computed_fields": [],
+       "extra_behavior": "ignore",
+       "config": {
+        "title": "DataTD"
+       },
+       "ref": "tests.test_types_typeddict.test_typeddict_annotated_nonoptional_schema.<locals>.DataTD:1"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_types_typeddict.test_typeddict_annotated_nonoptional_schema.<locals>.Model:2"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "DataTD": {
+        "properties": {
+         "a": {
+          "anyOf": [
+           {
+            "type": "integer"
+           },
+           {
+            "type": "null"
+           }
+          ],
+          "title": "A"
+         },
+         "b": {
+          "anyOf": [
+           {
+            "type": "integer"
+           },
+           {
+            "type": "null"
+           }
+          ],
+          "default": 42,
+          "title": "B"
+         },
+         "c": {
+          "anyOf": [
+           {
+            "type": "integer"
+           },
+           {
+            "type": "null"
+           }
+          ],
+          "description": "Test",
+          "title": "C"
+         }
+        },
+        "required": [
+         "a",
+         "c"
+        ],
+        "title": "DataTD",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "data_td": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/DataTD"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "data_td"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types_typeddict.py::test_typeddict_closed#0",
+  "test": "tests/test_types_typeddict.py::test_typeddict_closed",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "f": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     },
+     "required": true,
+     "metadata": {}
+    }
+   },
+   "cls": {
+    "$class": "TD"
+   },
+   "computed_fields": [],
+   "extra_behavior": "forbid",
+   "config": {
+    "title": "TD"
+   },
+   "ref": "tests.test_types_typeddict.test_typeddict_closed.<locals>.TD:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": false,
+    "properties": {
+     "f": {
+      "title": "F",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "f"
+    ],
+    "title": "TD",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types_typeddict.py::test_typeddict_core_schema_no_cls_extra_config#0",
+  "test": "tests/test_types_typeddict.py::test_typeddict_core_schema_no_cls_extra_config",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {},
+   "config": {
+    "extra_fields_behavior": "forbid"
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": false,
+    "properties": {},
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types_typeddict.py::test_typeddict_core_schema_no_cls_extra_config#1",
+  "test": "tests/test_types_typeddict.py::test_typeddict_core_schema_no_cls_extra_config",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {},
+   "config": {
+    "extra_fields_behavior": "allow"
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": true,
+    "properties": {},
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types_typeddict.py::test_typeddict_core_schema_no_cls_extra_config_with_extas_schema#0",
+  "test": "tests/test_types_typeddict.py::test_typeddict_core_schema_no_cls_extra_config_with_extas_schema",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {},
+   "extras_schema": {
+    "type": "int"
+   },
+   "config": {
+    "extra_fields_behavior": "allow"
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": {
+     "type": "integer"
+    },
+    "properties": {},
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types_typeddict.py::test_typeddict_extraitems_any#0",
+  "test": "tests/test_types_typeddict.py::test_typeddict_extraitems_any",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "f": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     },
+     "required": true,
+     "metadata": {}
+    }
+   },
+   "cls": {
+    "$class": "TD"
+   },
+   "computed_fields": [],
+   "extras_schema": {
+    "type": "any"
+   },
+   "extra_behavior": "allow",
+   "config": {
+    "title": "TD"
+   },
+   "ref": "tests.test_types_typeddict.test_typeddict_extraitems_any.<locals>.TD:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": true,
+    "properties": {
+     "f": {
+      "title": "F",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "f"
+    ],
+    "title": "TD",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types_typeddict.py::test_typeddict_extraitems_constrained#0",
+  "test": "tests/test_types_typeddict.py::test_typeddict_extraitems_constrained",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "f": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     },
+     "required": true,
+     "metadata": {}
+    }
+   },
+   "cls": {
+    "$class": "TD"
+   },
+   "computed_fields": [],
+   "extras_schema": {
+    "type": "str"
+   },
+   "extra_behavior": "allow",
+   "config": {
+    "title": "TD"
+   },
+   "ref": "tests.test_types_typeddict.test_typeddict_extraitems_constrained.<locals>.TD:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": {
+     "type": "string"
+    },
+    "properties": {
+     "f": {
+      "title": "F",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "f"
+    ],
+    "title": "TD",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types_typeddict.py::test_typeddict_not_required_schema[typing.TypedDict-typing.Required]#0",
+  "test": "tests/test_types_typeddict.py::test_typeddict_not_required_schema[typing.TypedDict-typing.Required]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "t": {
+      "type": "model-field",
+      "schema": {
+       "type": "typed-dict",
+       "fields": {
+        "a": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         },
+         "required": false,
+         "metadata": {}
+        },
+        "b": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "str"
+         },
+         "required": true,
+         "metadata": {}
+        },
+        "c": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         },
+         "required": false,
+         "metadata": {}
+        }
+       },
+       "cls": {
+        "$class": "DataTD"
+       },
+       "computed_fields": [],
+       "extra_behavior": "ignore",
+       "config": {
+        "title": "DataTD"
+       },
+       "ref": "tests.test_types_typeddict.test_typeddict_not_required_schema.<locals>.DataTD:1"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_types_typeddict.test_typeddict_not_required_schema.<locals>.Model:2"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "DataTD": {
+        "properties": {
+         "a": {
+          "title": "A",
+          "type": "integer"
+         },
+         "b": {
+          "title": "B",
+          "type": "string"
+         },
+         "c": {
+          "title": "C",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "b"
+        ],
+        "title": "DataTD",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "t": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/DataTD"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "t"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types_typeddict.py::test_typeddict_required[typing.TypedDict-typing.Required]#0",
+  "test": "tests/test_types_typeddict.py::test_typeddict_required[typing.TypedDict-typing.Required]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "t": {
+      "type": "model-field",
+      "schema": {
+       "type": "typed-dict",
+       "fields": {
+        "a": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         },
+         "required": false,
+         "metadata": {}
+        },
+        "b": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "str"
+         },
+         "required": true,
+         "metadata": {}
+        }
+       },
+       "cls": {
+        "$class": "DataTD"
+       },
+       "computed_fields": [],
+       "extra_behavior": "ignore",
+       "config": {
+        "title": "DataTD"
+       },
+       "ref": "tests.test_types_typeddict.test_typeddict_required.<locals>.DataTD:1"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_types_typeddict.test_typeddict_required.<locals>.Model:2"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "DataTD": {
+        "properties": {
+         "a": {
+          "title": "A",
+          "type": "integer"
+         },
+         "b": {
+          "title": "B",
+          "type": "string"
+         }
+        },
+        "required": [
+         "b"
+        ],
+        "title": "DataTD",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "t": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/DataTD"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "t"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types_typeddict.py::test_typeddict_schema[typing.TypedDict]#0",
+  "test": "tests/test_types_typeddict.py::test_typeddict_schema[typing.TypedDict]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "data": {
+      "type": "model-field",
+      "schema": {
+       "type": "model",
+       "cls": {
+        "$class": "Data"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "a": {
+          "type": "model-field",
+          "schema": {
+           "type": "int"
+          },
+          "metadata": {}
+         }
+        },
+        "model_name": "Data",
+        "computed_fields": []
+       },
+       "custom_init": false,
+       "root_model": false,
+       "config": {
+        "title": "Data"
+       },
+       "ref": "tests.test_types_typeddict.test_typeddict_schema.<locals>.Data:1"
+      },
+      "metadata": {}
+     },
+     "data_td": {
+      "type": "model-field",
+      "schema": {
+       "type": "typed-dict",
+       "fields": {
+        "a": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         },
+         "required": true,
+         "metadata": {}
+        }
+       },
+       "cls": {
+        "$class": "DataTD"
+       },
+       "computed_fields": [],
+       "extra_behavior": "ignore",
+       "config": {
+        "title": "DataTD"
+       },
+       "ref": "tests.test_types_typeddict.test_typeddict_schema.<locals>.DataTD:2"
+      },
+      "metadata": {}
+     },
+     "custom_td": {
+      "type": "model-field",
+      "schema": {
+       "type": "typed-dict",
+       "fields": {
+        "b": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int",
+          "gt": 0
+         },
+         "required": true,
+         "metadata": {}
+        }
+       },
+       "cls": {
+        "$class": "CustomTD"
+       },
+       "computed_fields": [],
+       "extra_behavior": "ignore",
+       "config": {
+        "title": "CustomTD"
+       },
+       "ref": "tests.test_types_typeddict.test_typeddict_schema.<locals>.CustomTD:3"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_types_typeddict.test_typeddict_schema.<locals>.Model:4"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "CustomTD": {
+        "properties": {
+         "b": {
+          "exclusiveMinimum": 0,
+          "title": "B",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "b"
+        ],
+        "title": "CustomTD",
+        "type": "object"
+       },
+       "Data": {
+        "properties": {
+         "a": {
+          "title": "A",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "a"
+        ],
+        "title": "Data",
+        "type": "object"
+       },
+       "DataTD": {
+        "properties": {
+         "a": {
+          "title": "A",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "a"
+        ],
+        "title": "DataTD",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "data": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Data"
+         ]
+        ]
+       },
+       "data_td": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/DataTD"
+         ]
+        ]
+       },
+       "custom_td": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/CustomTD"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "data",
+       "data_td",
+       "custom_td"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_types_typeddict.py::test_typeddict_schema[typing.TypedDict]#1",
+  "test": "tests/test_types_typeddict.py::test_typeddict_schema[typing.TypedDict]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "data": {
+      "type": "model-field",
+      "schema": {
+       "type": "model",
+       "cls": {
+        "$class": "Data"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "a": {
+          "type": "model-field",
+          "schema": {
+           "type": "int"
+          },
+          "metadata": {}
+         }
+        },
+        "model_name": "Data",
+        "computed_fields": []
+       },
+       "custom_init": false,
+       "root_model": false,
+       "config": {
+        "title": "Data"
+       },
+       "ref": "tests.test_types_typeddict.test_typeddict_schema.<locals>.Data:1"
+      },
+      "metadata": {}
+     },
+     "data_td": {
+      "type": "model-field",
+      "schema": {
+       "type": "typed-dict",
+       "fields": {
+        "a": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         },
+         "required": true,
+         "metadata": {}
+        }
+       },
+       "cls": {
+        "$class": "DataTD"
+       },
+       "computed_fields": [],
+       "extra_behavior": "ignore",
+       "config": {
+        "title": "DataTD"
+       },
+       "ref": "tests.test_types_typeddict.test_typeddict_schema.<locals>.DataTD:2"
+      },
+      "metadata": {}
+     },
+     "custom_td": {
+      "type": "model-field",
+      "schema": {
+       "type": "typed-dict",
+       "fields": {
+        "b": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int",
+          "gt": 0
+         },
+         "required": true,
+         "metadata": {}
+        }
+       },
+       "cls": {
+        "$class": "CustomTD"
+       },
+       "computed_fields": [],
+       "extra_behavior": "ignore",
+       "config": {
+        "title": "CustomTD"
+       },
+       "ref": "tests.test_types_typeddict.test_typeddict_schema.<locals>.CustomTD:3"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_types_typeddict.test_typeddict_schema.<locals>.Model:4"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "CustomTD": {
+        "properties": {
+         "b": {
+          "exclusiveMinimum": 0,
+          "title": "B",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "b"
+        ],
+        "title": "CustomTD",
+        "type": "object"
+       },
+       "Data": {
+        "properties": {
+         "a": {
+          "title": "A",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "a"
+        ],
+        "title": "Data",
+        "type": "object"
+       },
+       "DataTD": {
+        "properties": {
+         "a": {
+          "title": "A",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "a"
+        ],
+        "title": "DataTD",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "data": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Data"
+         ]
+        ]
+       },
+       "data_td": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/DataTD"
+         ]
+        ]
+       },
+       "custom_td": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/CustomTD"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "data",
+       "data_td",
+       "custom_td"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ }
+]

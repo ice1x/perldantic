@@ -9,6 +9,8 @@ pytest-timeout
 python-dateutil
 tzdata
 typing-inspection>=0.4.1
-# pydantic's own runtime dependencies, for recording JSON Schema cases (tools/json_schema/record.sh)
-annotated-types>=0.6.0
-typing-extensions>=4.16.0
+# pydantic at the upstream base commit: JSON Schema generation lives in its Python layer
+# (tools/json_schema/record.sh records it).
+pydantic @ git+https://github.com/pydantic/pydantic@0384c970e37a59b344e75161eb106ea9996378ba
+# imported by pydantic's test suite, which tools/json_schema/record.sh runs
+jsonschema

@@ -42,6 +42,7 @@ fn notice_attributes_pydantic_core() {
     let notice = fs::read_to_string(repo_root().join("NOTICE")).unwrap();
     assert!(notice.contains("pydantic-core"));
     assert!(notice.contains("MIT"));
+    assert!(notice.contains("pydantic/json_schema.py"));
 }
 
 #[test]
@@ -49,6 +50,20 @@ fn conformance_recording_pins_the_upstream_release() {
     let requirements =
         fs::read_to_string(repo_root().join("tools/requirements-record.txt")).unwrap();
     let pin = format!("pydantic-core=={}", perldantic_core::UPSTREAM_VERSION);
+    assert!(
+        requirements.lines().any(|line| line.trim() == pin),
+        "tools/requirements-record.txt must pin {pin}"
+    );
+}
+
+#[test]
+fn json_schema_recording_pins_pydantic_at_the_upstream_commit() {
+    let requirements =
+        fs::read_to_string(repo_root().join("tools/requirements-record.txt")).unwrap();
+    let pin = format!(
+        "pydantic @ git+https://github.com/pydantic/pydantic@{}",
+        perldantic_core::UPSTREAM_COMMIT
+    );
     assert!(
         requirements.lines().any(|line| line.trim() == pin),
         "tools/requirements-record.txt must pin {pin}"

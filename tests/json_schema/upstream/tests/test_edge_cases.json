@@ -1,0 +1,748 @@
+[
+ {
+  "id": "tests/test_edge_cases.py::test_hashable_json_schema#0",
+  "test": "tests/test_edge_cases.py::test_hashable_json_schema",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "v": {
+      "type": "model-field",
+      "schema": {
+       "type": "custom-error",
+       "schema": {
+        "type": "json-or-python",
+        "json_schema": {
+         "type": "chain",
+         "steps": [
+          {
+           "type": "any"
+          },
+          {
+           "type": "is-instance",
+           "cls": {
+            "$class": "Hashable"
+           }
+          }
+         ]
+        },
+        "python_schema": {
+         "type": "is-instance",
+         "cls": {
+          "$class": "Hashable"
+         }
+        }
+       },
+       "custom_error_type": "is_hashable",
+       "custom_error_message": "Input should be hashable"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_edge_cases.test_hashable_json_schema.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "v": {
+      "title": "V"
+     }
+    },
+    "required": [
+     "v"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_edge_cases.py::test_none_list#0",
+  "test": "tests/test_edge_cases.py::test_none_list",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "v": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "none"
+        }
+       },
+       "default": [
+        null
+       ]
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_edge_cases.test_none_list.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "v": {
+      "default": [
+       null
+      ],
+      "items": {
+       "type": "null"
+      },
+      "title": "V",
+      "type": "array"
+     }
+    },
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_edge_cases.py::test_recursive_root_models_in_discriminated_union#0",
+  "test": "tests/test_edge_cases.py::test_recursive_root_models_in_discriminated_union",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "model",
+    "cls": {
+     "$class": "Outer"
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "a": {
+       "type": "model-field",
+       "schema": {
+        "type": "tagged-union",
+        "choices": {
+         "1": {
+          "type": "definition-ref",
+          "schema_ref": "tests.test_edge_cases.test_recursive_root_models_in_discriminated_union.<locals>.Root1:1"
+         },
+         "2": {
+          "type": "definition-ref",
+          "schema_ref": "tests.test_edge_cases.test_recursive_root_models_in_discriminated_union.<locals>.Root2:2"
+         }
+        },
+        "discriminator": "kind",
+        "strict": false,
+        "from_attributes": true
+       },
+       "metadata": {}
+      },
+      "b": {
+       "type": "model-field",
+       "schema": {
+        "type": "tagged-union",
+        "choices": {
+         "1": {
+          "type": "definition-ref",
+          "schema_ref": "tests.test_edge_cases.test_recursive_root_models_in_discriminated_union.<locals>.Root1:1"
+         },
+         "2": {
+          "type": "definition-ref",
+          "schema_ref": "tests.test_edge_cases.test_recursive_root_models_in_discriminated_union.<locals>.Root2:2"
+         }
+        },
+        "discriminator": "kind",
+        "strict": false,
+        "from_attributes": true
+       },
+       "metadata": {}
+      }
+     },
+     "model_name": "Outer",
+     "computed_fields": []
+    },
+    "custom_init": false,
+    "root_model": false,
+    "config": {
+     "title": "Outer"
+    },
+    "ref": "tests.test_edge_cases.test_recursive_root_models_in_discriminated_union.<locals>.Outer:3"
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Root1"
+     },
+     "schema": {
+      "type": "model",
+      "cls": {
+       "$class": "Model1"
+      },
+      "schema": {
+       "type": "model-fields",
+       "fields": {
+        "kind": {
+         "type": "model-field",
+         "schema": {
+          "type": "default",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "1"
+           ]
+          },
+          "default": "1"
+         },
+         "metadata": {}
+        },
+        "two": {
+         "type": "model-field",
+         "schema": {
+          "type": "nullable",
+          "schema": {
+           "type": "definition-ref",
+           "schema_ref": "tests.test_edge_cases.test_recursive_root_models_in_discriminated_union.<locals>.Model2:4"
+          }
+         },
+         "metadata": {}
+        }
+       },
+       "model_name": "Model1",
+       "computed_fields": []
+      },
+      "custom_init": false,
+      "root_model": false,
+      "config": {
+       "title": "Model1"
+      },
+      "ref": "tests.test_edge_cases.test_recursive_root_models_in_discriminated_union.<locals>.Model1:5"
+     },
+     "custom_init": false,
+     "root_model": true,
+     "config": {
+      "title": "Root1"
+     },
+     "ref": "tests.test_edge_cases.test_recursive_root_models_in_discriminated_union.<locals>.Root1:1"
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Model2"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "kind": {
+        "type": "model-field",
+        "schema": {
+         "type": "default",
+         "schema": {
+          "type": "literal",
+          "expected": [
+           "2"
+          ]
+         },
+         "default": "2"
+        },
+        "metadata": {}
+       },
+       "one": {
+        "type": "model-field",
+        "schema": {
+         "type": "nullable",
+         "schema": {
+          "type": "model",
+          "cls": {
+           "$class": "Model1"
+          },
+          "schema": {
+           "type": "model-fields",
+           "fields": {
+            "kind": {
+             "type": "model-field",
+             "schema": {
+              "type": "default",
+              "schema": {
+               "type": "literal",
+               "expected": [
+                "1"
+               ]
+              },
+              "default": "1"
+             },
+             "metadata": {}
+            },
+            "two": {
+             "type": "model-field",
+             "schema": {
+              "type": "nullable",
+              "schema": {
+               "type": "definition-ref",
+               "schema_ref": "tests.test_edge_cases.test_recursive_root_models_in_discriminated_union.<locals>.Model2:4"
+              }
+             },
+             "metadata": {}
+            }
+           },
+           "model_name": "Model1",
+           "computed_fields": []
+          },
+          "custom_init": false,
+          "root_model": false,
+          "config": {
+           "title": "Model1"
+          },
+          "ref": "tests.test_edge_cases.test_recursive_root_models_in_discriminated_union.<locals>.Model1:5"
+         }
+        },
+        "metadata": {}
+       }
+      },
+      "model_name": "Model2",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "Model2"
+     },
+     "ref": "tests.test_edge_cases.test_recursive_root_models_in_discriminated_union.<locals>.Model2:4"
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Root2"
+     },
+     "schema": {
+      "type": "definition-ref",
+      "schema_ref": "tests.test_edge_cases.test_recursive_root_models_in_discriminated_union.<locals>.Model2:4"
+     },
+     "custom_init": false,
+     "root_model": true,
+     "config": {
+      "title": "Root2"
+     },
+     "ref": "tests.test_edge_cases.test_recursive_root_models_in_discriminated_union.<locals>.Root2:2"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Model1": {
+        "properties": {
+         "kind": {
+          "const": "1",
+          "default": "1",
+          "title": "Kind",
+          "type": "string"
+         },
+         "two": {
+          "anyOf": [
+           {
+            "$dict": [
+             [
+              "$ref",
+              "#/$defs/Model2"
+             ]
+            ]
+           },
+           {
+            "type": "null"
+           }
+          ]
+         }
+        },
+        "required": [
+         "two"
+        ],
+        "title": "Model1",
+        "type": "object"
+       },
+       "Model2": {
+        "properties": {
+         "kind": {
+          "const": "2",
+          "default": "2",
+          "title": "Kind",
+          "type": "string"
+         },
+         "one": {
+          "anyOf": [
+           {
+            "$dict": [
+             [
+              "$ref",
+              "#/$defs/Model1"
+             ]
+            ]
+           },
+           {
+            "type": "null"
+           }
+          ]
+         }
+        },
+        "required": [
+         "one"
+        ],
+        "title": "Model2",
+        "type": "object"
+       },
+       "Root1": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Model1"
+         ],
+         [
+          "title",
+          "Root1"
+         ]
+        ]
+       },
+       "Root2": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Model2"
+         ],
+         [
+          "title",
+          "Root2"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "a": {
+        "discriminator": {
+         "mapping": {
+          "1": "#/$defs/Root1",
+          "2": "#/$defs/Root2"
+         },
+         "propertyName": "kind"
+        },
+        "oneOf": [
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/Root1"
+           ]
+          ]
+         },
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/Root2"
+           ]
+          ]
+         }
+        ],
+        "title": "A"
+       },
+       "b": {
+        "discriminator": {
+         "mapping": {
+          "1": "#/$defs/Root1",
+          "2": "#/$defs/Root2"
+         },
+         "propertyName": "kind"
+        },
+        "oneOf": [
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/Root1"
+           ]
+          ]
+         },
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/Root2"
+           ]
+          ]
+         }
+        ],
+        "title": "B"
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "a",
+       "b"
+      ]
+     ],
+     [
+      "title",
+      "Outer"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_edge_cases.py::test_self#0",
+  "test": "tests/test_edge_cases.py::test_self",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "self": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_edge_cases.test_self.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "self": {
+      "title": "Self",
+      "type": "string"
+     }
+    },
+    "required": [
+     "self"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_edge_cases.py::test_type_var_any#0",
+  "test": "tests/test_edge_cases.py::test_type_var_any",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "foo": {
+      "type": "model-field",
+      "schema": {
+       "type": "any"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "MyModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.test_edge_cases.test_type_var_any.<locals>.MyModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "foo": {
+      "title": "Foo"
+     }
+    },
+    "required": [
+     "foo"
+    ],
+    "title": "MyModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_edge_cases.py::test_type_var_bound#0",
+  "test": "tests/test_edge_cases.py::test_type_var_bound",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "foo": {
+      "type": "model-field",
+      "schema": {
+       "type": "int",
+       "serialization": {
+        "type": "any"
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "MyModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.test_edge_cases.test_type_var_bound.<locals>.MyModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "foo": {
+      "title": "Foo",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "foo"
+    ],
+    "title": "MyModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_edge_cases.py::test_type_var_constraint#0",
+  "test": "tests/test_edge_cases.py::test_type_var_constraint",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "foo": {
+      "type": "model-field",
+      "schema": {
+       "type": "union",
+       "choices": [
+        {
+         "type": "int"
+        },
+        {
+         "type": "str"
+        }
+       ]
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "MyModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.test_edge_cases.test_type_var_constraint.<locals>.MyModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "foo": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "string"
+       }
+      ],
+      "title": "Foo"
+     }
+    },
+    "required": [
+     "foo"
+    ],
+    "title": "MyModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ }
+]

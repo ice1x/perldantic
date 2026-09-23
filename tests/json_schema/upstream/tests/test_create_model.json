@@ -1,0 +1,223 @@
+[
+ {
+  "id": "tests/test_create_model.py::test_create_model_field_and_model_title#0",
+  "test": "tests/test_create_model.py::test_create_model_field_and_model_title",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "M"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field-title"
+       }
+      }
+     }
+    },
+    "model_name": "M",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "abc"
+   },
+   "ref": "tests.test_create_model.M:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "a": {
+      "title": "field-title",
+      "type": "string"
+     }
+    },
+    "required": [
+     "a"
+    ],
+    "title": "abc",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_create_model.py::test_create_model_field_description#0",
+  "test": "tests/test_create_model.py::test_create_model_field_description",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "M"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "description": "descr"
+       }
+      }
+     }
+    },
+    "model_name": "M",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "M"
+   },
+   "ref": "tests.test_create_model.M:1",
+   "metadata": {
+    "pydantic_js_updates": {
+     "description": "Some doc"
+    }
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "description": "Some doc",
+    "properties": {
+     "a": {
+      "description": "descr",
+      "title": "A",
+      "type": "string"
+     }
+    },
+    "required": [
+     "a"
+    ],
+    "title": "M",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_create_model.py::test_json_schema_with_inner_models_with_duplicate_names#0",
+  "test": "tests/test_create_model.py::test_json_schema_with_inner_models_with_duplicate_names",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "a"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "outer": {
+      "type": "model-field",
+      "schema": {
+       "type": "model",
+       "cls": {
+        "$class": "a"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "inner": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          },
+          "metadata": {}
+         }
+        },
+        "model_name": "a",
+        "computed_fields": []
+       },
+       "custom_init": false,
+       "root_model": false,
+       "config": {
+        "title": "a"
+       },
+       "ref": "tests.test_create_model.a:1"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "a",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "a"
+   },
+   "ref": "tests.test_create_model.a:2"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "a": {
+        "properties": {
+         "inner": {
+          "title": "Inner",
+          "type": "string"
+         }
+        },
+        "required": [
+         "inner"
+        ],
+        "title": "a",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "outer": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/a"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "outer"
+      ]
+     ],
+     [
+      "title",
+      "a"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ }
+]

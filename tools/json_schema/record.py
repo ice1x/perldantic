@@ -4,7 +4,7 @@ JSON Schema generation lives in pydantic's Python layer (`pydantic/json_schema.p
 pydantic-core, so the oracle is pydantic itself at the upstream base commit; `record.sh` puts
 that checkout on the import path. Each recorded case is:
 
-    {"id", "schema", "mode", "options",
+    {"id", "schema", "config", "mode", "options",
      "expected": {"json_schema": ...} | {"error": [type_name, message]},
      "warnings": [message, ...]}
 
@@ -25,8 +25,9 @@ from typing import Any
 from pydantic_core import core_schema as cs
 
 from conformance.encoding import encode
+from json_schema.recorder import host_config
 
-Generate = Callable[[dict[str, Any], Any, str], Any]
+Generate = Callable[[dict[str, Any], Any, str, Any], Any]
 
 
 def model_class(name: str, **config: Any) -> type:
@@ -35,17 +36,25 @@ def model_class(name: str, **config: Any) -> type:
 
 
 def record_case(
-    generate: Generate, case_id: str, schema: Any, mode: str = 'validation', **options: Any
+    generate: Generate,
+    case_id: str,
+    schema: Any,
+    mode: str = 'validation',
+    config: dict[str, Any] | None = None,
+    **options: Any,
 ) -> dict[str, Any]:
+    """Record one `generate` call; `config` is a pydantic `ConfigDict` for the whole schema, as
+    `TypeAdapter(..., config=...)` passes it."""
     with warnings.catch_warnings(record=True) as caught:
         warnings.simplefilter('always')
         try:
-            expected = {'json_schema': encode(generate(options, schema, mode))}
+            expected = {'json_schema': encode(generate(options, schema, mode, config))}
         except Exception as e:  # noqa: BLE001 - the error is the recorded outcome
             expected = {'error': [type(e).__name__, str(e)]}
     return {
         'id': case_id,
         'schema': encode(schema),
+        'config': None if config is None else encode(host_config(config)),
         'mode': mode,
         'options': options,
         'expected': expected,
@@ -53,10 +62,12 @@ def record_case(
     }
 
 
-def pydantic_generate(options: dict[str, Any], schema: Any, mode: str) -> Any:
+def pydantic_generate(options: dict[str, Any], schema: Any, mode: str, config: Any) -> Any:
     from pydantic.json_schema import GenerateJsonSchema
 
-    return GenerateJsonSchema(**options).generate(schema, mode=mode)
+    generator = GenerateJsonSchema(**options)
+    with generator._config_wrapper_stack.push(config):
+        return generator.generate(schema, mode=mode)
 
 
 def cases() -> Iterator[tuple[str, Any, dict[str, Any]]]:
@@ -211,6 +222,9 @@ def cases() -> Iterator[tuple[str, Any, dict[str, Any]]]:
     yield 'serialization_schema', to_string, {'mode': 'serialization'}
     yield 'serialization_schema_in_validation_mode', to_string, {}
     yield 'plain_reference', cs.list_schema(cs.int_schema(ref='my.Int:9')), {}
+    yield 'top_level_config', cs.list_schema(cs.tuple_schema([cs.bytes_schema(), cs.str_schema()])), {
+        'config': {'ser_json_bytes': 'base64', 'str_max_length': 4, 'title': 'ignored'},
+    }
     yield 'dict_reference_keys', cs.definitions_schema(
         cs.dict_schema(cs.definition_reference_schema('k:1'), cs.int_schema()),
         [cs.str_schema(min_length=2, ref='k:1')],
