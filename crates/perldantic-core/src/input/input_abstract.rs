@@ -12,6 +12,7 @@ use crate::lookup_key::LookupPath;
 use crate::validators::config::ValBytesMode;
 use crate::value::Value;
 
+use super::InputType;
 use super::return_enums::{EitherBytes, EitherFloat, EitherInt, EitherString, ValidationMatch};
 
 pub type ValMatch<T> = ValResult<ValidationMatch<T>>;
@@ -111,6 +112,13 @@ pub trait Input: fmt::Debug {
         Self: 'a;
 
     fn validate_tuple(&self, strict: bool) -> ValMatch<Self::Tuple<'_>>;
+
+    /// `validate_tuple` for input of `input_type`: Perl has no tuples, so a Perl array is an
+    /// exact tuple even in strict mode.
+    fn validate_tuple_as(&self, strict: bool, input_type: InputType) -> ValMatch<Self::Tuple<'_>> {
+        let _ = input_type;
+        self.validate_tuple(strict)
+    }
 }
 
 /// Abstracts over owned and borrowed items yielded while iterating collections.

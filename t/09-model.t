@@ -123,6 +123,10 @@ subtest 'nested and recursive models' => sub {
     is $tree->children->[0]->children->[0]->name, 'b';
     my $e = dies { Test::Node->new(name => 'root', children => [{children => []}]) };
     is $e->errors->[0]{loc}, ['children', 0, 'name'];
+    $e = dies { Test::Node->new(name => 'root', children => {}) };
+    is $e->errors->[0]{msg}, 'Input should be an array reference', 'messages use Perl words';
+    $e = dies { Test::Segment->new(from => [1]) };
+    is $e->errors->[0]{msg}, 'Input should be a hash reference or an instance of Test::Point';
 
     my $s = Test::Segment->new(from => {x => 1}, to => Test::Point->new(x => 2, y => 3));
     isa_ok $s->from, 'Test::Point';

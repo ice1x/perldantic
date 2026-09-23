@@ -22,6 +22,8 @@ pub enum InputType {
     Json,
     /// String-only data such as environment variables.
     String,
+    /// Perl data: validated like host data, reported in Perl words (docs/DIVERGENCES.md #8).
+    Perl,
 }
 
 impl InputType {
@@ -30,6 +32,7 @@ impl InputType {
             Self::Python => "python",
             Self::Json => "json",
             Self::String => "string",
+            Self::Perl => "perl",
         }
     }
 }
@@ -42,6 +45,7 @@ impl TryFrom<&str> for InputType {
             "python" => Ok(Self::Python),
             "json" => Ok(Self::Json),
             "string" => Ok(Self::String),
+            "perl" => Ok(Self::Perl),
             s => Err(crate::CoreError::Value(format!("Invalid error mode: {s}"))),
         }
     }
@@ -57,7 +61,12 @@ mod input_type_tests {
 
     #[test]
     fn round_trips_names() {
-        for t in [InputType::Python, InputType::Json, InputType::String] {
+        for t in [
+            InputType::Python,
+            InputType::Json,
+            InputType::String,
+            InputType::Perl,
+        ] {
             assert_eq!(InputType::try_from(t.as_str()), Ok(t));
         }
     }

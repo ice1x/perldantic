@@ -37,7 +37,9 @@ PdValidator *pd_validator_new(const char *schema, const char *config, char **err
 void pd_validator_free(PdValidator *validator);
 
 // Validate host data (upstream `validate_python`): `input` is wire JSON, `options` a wire JSON
-// object of keyword options or null. Returns a result envelope.
+// object of keyword options or null. The extra option `input_type` is `"perl"` (the default:
+// Perl words in error messages, arrays accepted as strict tuples) or `"python"` (exactly
+// `validate_python`). Returns a result envelope.
 //
 // # Safety
 // `validator` is null or a live handle; string arguments are null or NUL-terminated.

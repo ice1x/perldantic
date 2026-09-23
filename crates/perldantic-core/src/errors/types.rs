@@ -817,6 +817,30 @@ impl ErrorType {
         }
     }
 
+    /// Perl input (docs/DIVERGENCES.md #8): Perl's words for the kinds of data, pydantic's
+    /// templates otherwise.
+    pub fn message_template_perl(&self) -> &'static str {
+        match self {
+            Self::NoneRequired { .. } => "Input should be undef",
+            Self::ListType { .. }
+            | Self::DequeType { .. }
+            | Self::TupleType { .. }
+            | Self::SetType { .. }
+            | Self::FrozenSetType { .. } => "Input should be an array reference",
+            Self::DictType { .. }
+            | Self::FrozenDictType { .. }
+            | Self::OrderedDictType { .. }
+            | Self::CounterType { .. } => "Input should be a hash reference",
+            Self::ModelType { .. } => {
+                "Input should be a hash reference or an instance of {class_name}"
+            }
+            Self::ModelAttributesType { .. } => {
+                "Input should be a hash reference or an object to extract fields from"
+            }
+            _ => self.message_template_python(),
+        }
+    }
+
     pub fn type_string(&self) -> String {
         match self {
             Self::CustomError { error_type, .. } => error_type.clone(),
@@ -827,7 +851,18 @@ impl ErrorType {
     pub fn render_message(&self, input_type: InputType) -> CoreResult<String> {
         let tmpl = match input_type {
             InputType::Python => self.message_template_python(),
-            _ => self.message_template_json(),
+            InputType::Perl => self.message_template_perl(),
+            InputType::Json | InputType::String => self.message_template_json(),
+        };
+        // Perl calls the containers arrays and hashes; the context keeps pydantic's names.
+        let perl_field_type = |field_type: &str| -> String {
+            match (input_type, field_type) {
+                (InputType::Perl, "List" | "Tuple" | "Set" | "Frozenset" | "Deque") => {
+                    "Array".into()
+                }
+                (InputType::Perl, "Dictionary") => "Hash".into(),
+                _ => field_type.to_owned(),
+            }
         };
         match self {
             Self::NoSuchAttribute { attribute, .. } => render!(tmpl, attribute),
@@ -862,6 +897,7 @@ impl ErrorType {
                 ..
             } => {
                 let expected_plural = plural_s(*min_length);
+                let field_type = perl_field_type(field_type);
                 to_string_render!(tmpl, field_type, min_length, actual_length, expected_plural,)
             }
             Self::TooLong {
@@ -873,6 +909,7 @@ impl ErrorType {
                 let expected_plural = plural_s(*max_length);
                 let actual_length =
                     actual_length.map_or_else(|| "more".to_owned(), |v| v.to_string());
+                let field_type = perl_field_type(field_type);
                 to_string_render!(tmpl, field_type, max_length, actual_length, expected_plural,)
             }
             Self::StringTooShort { min_length, .. } | Self::BytesTooShort { min_length, .. } => {

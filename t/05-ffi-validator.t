@@ -68,6 +68,21 @@ subtest 'tuples and byte strings reach the core' => sub {
     is $pair->validate_json(qq{[1, "\xc3\xa9"]}), [1, "\xc3\xa9"], 'bytes come back as octets';
 };
 
+subtest 'Perl data is reported in Perl words' => sub {
+    my $e = dies { Perldantic::FFI::Validator->new({type => 'list'})->validate({}) };
+    is $e->errors->[0]{msg}, 'Input should be an array reference';
+    $e = dies { Perldantic::FFI::Validator->new({type => 'dict', min_length => 1})->validate({}) };
+    is $e->errors->[0]{msg}, 'Hash should have at least 1 item after validation, not 0';
+    $e = dies { Perldantic::FFI::Validator->new({type => 'none'})->validate(1) };
+    is $e->errors->[0]{msg}, 'Input should be undef';
+    $e = dies { Perldantic::FFI::Validator->new({type => 'list'})->validate({}, {input_type => 'python'}) };
+    is $e->errors->[0]{msg}, 'Input should be a valid list', "input_type => 'python' keeps pydantic's words";
+    $e = dies { Perldantic::FFI::Validator->new({type => 'list'})->validate_json('{}') };
+    is $e->errors->[0]{msg}, 'Input should be a valid array', 'JSON input keeps JSON words';
+    my $pair = Perldantic::FFI::Validator->new({type => 'tuple', items_schema => [{type => 'int'}]});
+    is $pair->validate([1], {strict => 1}), [1], 'arrays are strict tuples';
+};
+
 subtest 'bad schemas raise a SchemaError' => sub {
     my $e = dies { Perldantic::FFI::Validator->new({type => 'nope'}) };
     isa_ok $e, 'Perldantic::SchemaError';

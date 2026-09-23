@@ -15,6 +15,7 @@ use crate::lookup_key::LookupPath;
 use crate::validators::config::ValBytesMode;
 use crate::value::{Dict, Value};
 
+use super::InputType;
 use super::input_abstract::{
     BorrowInput, ConsumeIterator, Input, ValMatch, ValidatedDict, ValidatedList, ValidatedTuple,
 };
@@ -208,6 +209,15 @@ impl Input for Value {
             Value::Tuple(items) => Ok(ValidationMatch::exact(items)),
             Value::List(items) | Value::Set(items) if !strict => Ok(ValidationMatch::lax(items)),
             _ => Err(ValError::new(ErrorTypeDefaults::TupleType, self)),
+        }
+    }
+
+    fn validate_tuple_as(&self, strict: bool, input_type: InputType) -> ValMatch<&[Value]> {
+        match self {
+            Value::List(items) if input_type == InputType::Perl => {
+                Ok(ValidationMatch::exact(items))
+            }
+            _ => self.validate_tuple(strict),
         }
     }
 }

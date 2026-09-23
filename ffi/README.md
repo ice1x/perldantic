@@ -16,6 +16,10 @@ FFI::Build::File::Cargo builds it at install time. This is phase 1 of the transp
 - **Options:** passed as a JSON object with pydantic's keyword names (`strict`, `context`,
   `by_alias`, `exclude_none`, `indent`, `mode`, ...). An unknown name is a `TypeError`, as in
   Python.
+- **Perl input:** `pd_validator_validate` reads host data as Perl data by default: error
+  messages use Perl words (hash reference, array reference, undef) and arrays satisfy strict
+  tuples (docs/DIVERGENCES.md #8). The option `"input_type": "python"` gives exactly pydantic's
+  `validate_python`.
 - **Results:** every `char *` a call returns is a result envelope, released with
   `pd_string_free`. It takes one of three forms:
   - `{"ok": ...}`, where serializer results add `"warning"` and JSON Schema results add
