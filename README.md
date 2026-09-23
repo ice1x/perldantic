@@ -54,7 +54,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00048 — Perl conformance runner `t/conformance.t`
   - [x] 00049 — Leak tests (Test::LeakTrace)
   - [ ] 00077 — Roles (`with`) and method modifiers for models; model objects passed as input kept, not copied
-  - [ ] 00076 — Perl input type in the core: Perl-worded error messages (hash/array reference, undef), sorted hash keys, arrays as strict tuples
+  - [x] 00076 — Perl input type in the core: Perl-worded error messages (hash/array reference, undef), sorted hash keys, arrays as strict tuples
 - [ ] 00050 — P1 types & callbacks
   - [ ] 00051 — `Date`, `Time`, `DateTime`, `Duration` (core: `date`, `time`, `datetime`, `timedelta`; speedate; Time::Moment / DateTime)
   - [ ] 00052 — `Decimal` (Math::BigFloat), `Uuid`, `Url` (core: `decimal`, `uuid`, `url` / `multi-host-url`)

@@ -92,6 +92,35 @@ fn validation_returns_wire_values() {
 }
 
 #[test]
+fn host_data_is_perl_input_unless_told_otherwise() {
+    let list = validator(r#"{"type": "list"}"#);
+    assert!(
+        validate(list, "1", None).contains(r#""msg":"Input should be an array reference""#),
+        "Perl words by default"
+    );
+    assert!(
+        validate(list, "1", Some(r#"{"input_type": "python"}"#))
+            .contains(r#""msg":"Input should be a valid list""#),
+        "pydantic's words on request"
+    );
+    assert_eq!(
+        validate(list, "1", Some(r#"{"input_type": "yaml"}"#)),
+        r#"{"error":{"type":"ValueError","message":"invalid value for 'input_type': 'yaml'"}}"#
+    );
+    let pair = validator(r#"{"type": "tuple", "items_schema": [{"type": "int"}]}"#);
+    assert_eq!(
+        validate(pair, "[1]", Some(r#"{"strict": true}"#)),
+        r#"{"ok":{"$tuple":[1]}}"#,
+        "Perl arrays are strict tuples"
+    );
+    // SAFETY: returned by pd_validator_new.
+    unsafe {
+        pd_validator_free(list);
+        pd_validator_free(pair);
+    }
+}
+
+#[test]
 fn validation_errors_carry_context() {
     let handle = validator(r#"{"type": "int", "gt": 3}"#);
     let envelope = validate(handle, "2", None);

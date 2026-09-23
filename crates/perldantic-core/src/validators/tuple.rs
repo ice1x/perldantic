@@ -302,7 +302,7 @@ impl Validator for TupleValidator {
         state.allow_partial = PartialMode::Off;
 
         let collection = input
-            .validate_tuple(state.strict_or(self.strict))?
+            .validate_tuple_as(state.strict_or(self.strict), state.extra().input_type)?
             .unpack(state);
         let actual_length = collection.len();
 

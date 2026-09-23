@@ -284,7 +284,9 @@ pub unsafe extern "C" fn pd_validator_free(validator: *mut PdValidator) {
 }
 
 /// Validate host data (upstream `validate_python`): `input` is wire JSON, `options` a wire JSON
-/// object of keyword options or null. Returns a result envelope.
+/// object of keyword options or null. The extra option `input_type` is `"perl"` (the default:
+/// Perl words in error messages, arrays accepted as strict tuples) or `"python"` (exactly
+/// `validate_python`). Returns a result envelope.
 ///
 /// # Safety
 /// `validator` is null or a live handle; string arguments are null or NUL-terminated.
@@ -303,10 +305,11 @@ pub unsafe extern "C" fn pd_validator_validate(
                 options_arg(options)?,
             )
         };
-        let options = options::validate_options(&options).map_err(|e| core_error(&e))?;
+        let (options, input_type) =
+            options::host_validate_options(&options).map_err(|e| core_error(&e))?;
         let output = validator
             .0
-            .validate_value(&input, &options)
+            .validate_value_as(&input, input_type, &options)
             .map_err(|e| validate_error(&e))?;
         Ok(ok_envelope(&wire::encode(&output)))
     }))

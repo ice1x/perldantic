@@ -1,8 +1,9 @@
 //! Keyword options of the calls, passed as a wire JSON object with pydantic's argument names.
 
 use perldantic_core::{
-    CoreError, CoreResult, Dict, ExtraBehavior, JsonOptions, JsonSchemaMode, JsonSchemaOptions,
-    PartialMode, SerMode, SerializeOptions, UnionFormat, ValidateOptions, Value, WarningsMode,
+    CoreError, CoreResult, Dict, ExtraBehavior, InputType, JsonOptions, JsonSchemaMode,
+    JsonSchemaOptions, PartialMode, SerMode, SerializeOptions, UnionFormat, ValidateOptions, Value,
+    WarningsMode,
 };
 
 fn unexpected(key: &str) -> CoreError {
@@ -77,6 +78,31 @@ pub fn validate_options(options: &Dict) -> CoreResult<ValidateOptions> {
         }
     }
     Ok(opts)
+}
+
+/// Options of host-data validation: those of `validate_python`, plus `input_type`, which
+/// selects how the data is read: `"perl"` (the default; Perl words in messages, arrays as
+/// strict tuples) or `"python"` (exactly pydantic's `validate_python`).
+pub fn host_validate_options(options: &Dict) -> CoreResult<(ValidateOptions, InputType)> {
+    let mut rest = Dict::new();
+    let mut input_type = InputType::Perl;
+    for (key, value) in options.iter() {
+        match (key, value) {
+            (Value::Str(k), Value::Str(s))
+                if k == "input_type" && (s == "perl" || s == "python") =>
+            {
+                input_type = InputType::try_from(s.as_str())?;
+            }
+            (Value::Str(k), other) if k == "input_type" => {
+                return Err(CoreError::Value(format!(
+                    "invalid value for 'input_type': {}",
+                    other.repr()
+                )));
+            }
+            _ => rest.insert(key.clone(), value.clone()),
+        }
+    }
+    Ok((validate_options(&rest)?, input_type))
 }
 
 /// Options of `to_python` / `to_json`.
@@ -179,6 +205,20 @@ mod tests {
         assert_eq!(opts.by_alias, None);
         assert_eq!(opts.by_name, Some(false));
         assert_eq!(opts.from_attributes, Some(true));
+    }
+
+    #[test]
+    fn host_options_choose_the_input_type() {
+        let (opts, input_type) = host_validate_options(&dict(r#"{"strict": true}"#)).unwrap();
+        assert_eq!((opts.strict, input_type), (Some(true), InputType::Perl));
+        let (_, input_type) = host_validate_options(&dict(r#"{"input_type": "python"}"#)).unwrap();
+        assert_eq!(input_type, InputType::Python);
+        assert_eq!(
+            host_validate_options(&dict(r#"{"input_type": "json"}"#))
+                .unwrap_err()
+                .to_string(),
+            "invalid value for 'input_type': 'json'"
+        );
     }
 
     #[test]

@@ -219,7 +219,8 @@ sub run_validator_case ($case) {
             my $json = ref $input ? $$input : $input;
             run_call(sub { $validator->validate_json($json, $options) });
         }
-        : run_call(sub { $validator->validate($input, $options) });
+        # Recorded from validate_python: read the data as Python would, not as Perl.
+        : run_call(sub { $validator->validate($input, {%$options, input_type => 'python'}) });
 
     if (node_has($expected, 'output')) {
         return 'expected output, got ' . ($result->{error} // '') if exists $result->{error};

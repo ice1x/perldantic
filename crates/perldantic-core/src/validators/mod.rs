@@ -135,8 +135,19 @@ impl SchemaValidator {
         input: &Value,
         options: &ValidateOptions,
     ) -> Result<Value, ValidateError> {
-        self.validate(input, InputType::Python, options)
-            .map_err(|e| self.prepare_error(e, InputType::Python))
+        self.validate_value_as(input, InputType::Python, options)
+    }
+
+    /// Validate host data read as `input_type`: `Python` is upstream `validate_python`, `Perl`
+    /// reports errors in Perl words and lets arrays satisfy strict tuples.
+    pub fn validate_value_as(
+        &self,
+        input: &Value,
+        input_type: InputType,
+        options: &ValidateOptions,
+    ) -> Result<Value, ValidateError> {
+        self.validate(input, input_type, options)
+            .map_err(|e| self.prepare_error(e, input_type))
     }
 
     /// Validate a JSON document (upstream `validate_json`).
