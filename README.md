@@ -29,7 +29,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00023 — `int` (incl. bigint), `float`
   - [x] 00024 — `str` (constraints, pattern), `bytes`
   - [ ] 00025 — `literal`, `nullable`, `default`
-  - [ ] 00026 — `list`, `tuple`, `dict`
+  - [ ] 00026 — `list`, `tuple`, `dict` (Perl: `ArrayRef`, `Tuple`, `HashRef`/`Map`)
   - [ ] 00027 — `union`: smart, left_to_right, tagged
   - [ ] 00028 — `model_fields`, `model` (fields_set, extra behaviour)
   - [ ] 00029 — `definitions` / `definition-ref` (recursive schemas)
@@ -45,14 +45,15 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [ ] 00039 — C header generation (cbindgen)
 - [ ] 00040 — Perl MVP
   - [ ] 00041 — `Perldantic::FFI` binding (FFI::Platypus, FFI::Build::File::Cargo)
-  - [ ] 00042 — `Perldantic::Types`: Int Str Num Bool Any ArrayRef[] HashRef[] Tuple[] Optional[] Enum[] Literal[]
-  - [ ] 00043 — `Perldantic::Model` DSL: `field`, `model_config`, generated accessors
+  - [ ] 00042 — `Perldantic::Types` in Types::Standard vocabulary: Any Undef Maybe[] Bool Int Num Str Bytes ArrayRef[] Tuple[] HashRef[] Map[] Dict[] Enum[] Literal[] InstanceOf[]
+  - [ ] 00043 — Moo/Moose-style models: `use Perldantic` replaces `use Moo`; `has` with Moo options + constraints, `new` validates, `extends`/`with`/`BUILD`; `model_config`
   - [ ] 00044 — `model_validate[_json]`, `model_dump[_json]`, `model_json_schema`, `model_copy`, `model_fields_set`
   - [ ] 00045 — `Perldantic::TypeAdapter`
   - [ ] 00046 — Exception objects (never string dies): `Perldantic::Error` base, `ValidationError` (errors, error_count, json, stringification), `SchemaError`, `UsageError`, `InternalError`
   - [ ] 00047 — Lazy per-class validator cache
   - [ ] 00048 — Perl conformance runner `t/conformance.t`
   - [ ] 00049 — Leak tests (Test::LeakTrace)
+  - [ ] 00076 — Perl input type in the core: Perl-worded error messages (hash/array reference, undef), sorted hash keys, arrays as strict tuples
 - [ ] 00050 — P1 types & callbacks
   - [ ] 00051 — `date`, `time`, `datetime`, `timedelta` (speedate; Time::Moment / DateTime)
   - [ ] 00052 — `decimal` (Math::BigFloat), `uuid`, `url` / `multi-host-url`
