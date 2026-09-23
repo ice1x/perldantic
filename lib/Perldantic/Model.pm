@@ -15,8 +15,10 @@ use Perldantic::Wire;
 
 # Declarations per model class: {fields => [spec, ...], config => {...}, parent => class}.
 our %META;
-# Compiled validators and serializers per class, dropped whenever any declaration changes.
-my (%VALIDATOR, %SERIALIZER);
+# Compiled validators and serializers per class, and the classes each one was built from (the
+# models its schema reaches and their parents). A declaration in a class drops exactly the
+# compiled objects built from it.
+my (%VALIDATOR, %SERIALIZER, %DEPENDS_ON);
 # Per-object state that is not a field: {fields_set => {name => 1}, extra => {...}}.
 Hash::Util::FieldHash::fieldhash(my %STATE);
 
@@ -51,9 +53,21 @@ sub _meta ($class) { $META{$class} //= {fields => [], config => {}} }
 # Bumped by every declaration, so that other caches (TypeAdapter) know to rebuild.
 our $GENERATION = 0;
 
-sub _changed () {
-    %VALIDATOR = %SERIALIZER = ();
+sub _changed ($class) {
+    for my $user (keys %DEPENDS_ON) {
+        next if !$DEPENDS_ON{$user}{$class};
+        delete $VALIDATOR{$user};
+        delete $SERIALIZER{$user};
+        delete $DEPENDS_ON{$user};
+    }
     $GENERATION++;
+}
+
+# A class and its Perldantic ancestors.
+sub _lineage ($class) {
+    my @lineage;
+    for (my $c = $class; defined $c; $c = _meta($c)->{parent}) { push @lineage, $c }
+    return @lineage;
 }
 
 sub _is_model ($class) { !ref $class && defined $class && exists $META{$class} }
@@ -67,7 +81,7 @@ sub _declare_has ($class, $names, %options) {
         @$fields = ((grep { $_->{name} ne $name } @$fields), $spec);
         _install_accessors($class, $spec);
     }
-    _changed();
+    _changed($class);
 }
 
 sub _field_spec ($class, $name, %options) {
@@ -192,7 +206,7 @@ sub _declare_extends ($class, $parent) {
     no strict 'refs';
     @{"${class}::ISA"} = ($parent);
     _meta($class)->{parent} = $parent;
-    _changed();
+    _changed($class);
 }
 
 sub _declare_config ($class, %settings) {
@@ -202,7 +216,7 @@ sub _declare_config ($class, %settings) {
             if $key eq 'extra' && ($settings{$key} // '') !~ /\A(?:allow|ignore|forbid)\z/;
         _meta($class)->{config}{$key} = $settings{$key};
     }
-    _changed();
+    _changed($class);
 }
 
 # ---- schema -------------------------------------------------------------------------------
@@ -291,16 +305,17 @@ sub _model_schema ($class, $visit, $for_json_schema) {
 
 # The core schema of a class: its model and every model it refers to, as definitions.
 sub core_schema ($class, %options) {
-    return _linked_schema({type => 'is-instance', cls => $class}, $options{for_json_schema});
+    return _linked_schema({type => 'is-instance', cls => $class}, $options{for_json_schema}, $options{depends_on});
 }
 
 # A core schema in which model classes (`is-instance` of a model) refer to definitions of their
 # model schemas, collected with every model they reach in turn.
-sub _linked_schema ($schema, $for_json_schema = 0) {
+sub _linked_schema ($schema, $for_json_schema = 0, $depends_on = {}) {
     my (%seen, @definitions);
     # __SUB__ rather than a closure over $visit, which would be a reference cycle.
     my $visit = sub ($model) {
         return if $seen{$model}++;
+        $depends_on->{$_} = 1 for _lineage($model);
         push @definitions, _model_schema($model, __SUB__, !!$for_json_schema);
     };
     my $linked = _link($schema, $visit);
@@ -308,13 +323,17 @@ sub _linked_schema ($schema, $for_json_schema = 0) {
     return {type => 'definitions', schema => $linked, definitions => \@definitions};
 }
 
-sub _validator ($class) {
-    return $VALIDATOR{$class} //= Perldantic::FFI::Validator->new($class->core_schema);
+sub _compiled ($cache, $compiler, $class) {
+    return $cache->{$class} //= do {
+        my %depends_on;
+        my $compiled = $compiler->new($class->core_schema(depends_on => \%depends_on));
+        $DEPENDS_ON{$class} = {%{$DEPENDS_ON{$class} // {}}, %depends_on};
+        $compiled;
+    };
 }
 
-sub _serializer ($class) {
-    return $SERIALIZER{$class} //= Perldantic::FFI::Serializer->new($class->core_schema);
-}
+sub _validator ($class)  { _compiled(\%VALIDATOR,  'Perldantic::FFI::Validator',  $class) }
+sub _serializer ($class) { _compiled(\%SERIALIZER, 'Perldantic::FFI::Serializer', $class) }
 
 # ---- instances ----------------------------------------------------------------------------
 
@@ -490,8 +509,9 @@ Perldantic::Model - base class of Perldantic models
 =head1 DESCRIPTION
 
 Every class that says C<use Perldantic> inherits from this one. The declarations of the class
-(see L<Perldantic>) become a pydantic C<model> core schema. The validator is compiled on first
-use and rebuilt after any later declaration.
+(see L<Perldantic>) become a pydantic C<model> core schema. The validator and the serializer of
+a class are compiled on first use and cached. A later declaration drops only the compiled objects
+built from the class it changes: its own, its subclasses' and those of models that contain it.
 
 Objects are blessed hashes of their fields, like Moo objects. Nested models are objects too, and
 a field that was neither given nor defaulted is absent from the hash.
