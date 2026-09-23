@@ -67,7 +67,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `input/return_enums.rs` | `crates/perldantic-core/src/input/return_enums.rs` | P0 | partial | `ValidationMatch`, `Either*`, `Int`, `MaxLengthCheck`, vec iteration helpers; set helpers and Python iterators pending/dropped |
 | `input/shared.rs` | `crates/perldantic-core/src/input/shared.rs` | P0 | ported | decimal/fraction helpers belong to P1/dropped types |
 | `lib.rs` | `crates/perldantic-core/src/lib.rs` | P0 | pending | rewrite: public Rust API, no #[pymodule] |
-| `lookup_key.rs` | `crates/perldantic-core/src/lookup_key.rs` | P0 | partial | alias parsing and path lookups in host data and JSON; `LookupPathCollection`/`LookupType` come with models; no attribute lookups |
+| `lookup_key.rs` | `crates/perldantic-core/src/lookup_key.rs` | P0 | ported | host data has no attributes, so attribute lookups are dropped |
 | `py_gc.rs` | - | drop | dropped | Python GC integration |
 | `recursion_guard.rs` | `crates/perldantic-core/src/recursion_guard.rs` | P0 | ported | safe inline array instead of `MaybeUninit` |
 | `schema_gather.rs` | `crates/perldantic-core/src/schema_gather.rs` | P1 | pending | schema traversal for cleaning |
@@ -164,14 +164,14 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/missing_sentinel.rs` | - | drop | dropped | Python-only type |
 | `validators/mod.rs` | `crates/perldantic-core/src/validators/mod.rs` | P0 | partial | `SchemaValidator` (new, validate_value, validate_json), `Extra`, build dispatch, `Validator`/`BuildValidator`; more methods as validators need them |
 | `validators/model.rs` | `crates/perldantic-core/src/validators/model.rs` | P0 | pending |  |
-| `validators/model_fields.rs` | `crates/perldantic-core/src/validators/model_fields.rs` | P0 | pending |  |
+| `validators/model_fields.rs` | `crates/perldantic-core/src/validators/model_fields.rs` | P0 | partial | output is `(dict, extra, set)`; `validate_assignment` comes with the Perl model API; no attribute input |
 | `validators/named_tuple.rs` | - | drop | dropped | Python-only type |
 | `validators/none.rs` | `crates/perldantic-core/src/validators/none.rs` | P0 | ported |  |
 | `validators/nullable.rs` | `crates/perldantic-core/src/validators/nullable.rs` | P0 | ported |  |
 | `validators/ordered_dict.rs` | - | drop | dropped | Python-only type |
 | `validators/prebuilt.rs` | - | drop | dropped | reuses validators attached to Python classes |
 | `validators/set.rs` | `crates/perldantic-core/src/validators/set.rs` | P1 | pending |  |
-| `validators/shared/lookup_tree.rs` | `crates/perldantic-core/src/validators/shared/lookup_tree.rs` | P0 | pending |  |
+| `validators/shared/lookup_tree.rs` | `crates/perldantic-core/src/validators/shared/lookup_tree.rs` | P0 | ported | index lookups in a `BTreeMap` for a deterministic order |
 | `validators/shared/mod.rs` | `crates/perldantic-core/src/validators/shared/mod.rs` | P0 | pending |  |
 | `validators/string.rs` | `crates/perldantic-core/src/validators/string.rs` | P0 | ported | `python-re` engine unavailable (divergence 7); no regex LRU cache yet |
 | `validators/time.rs` | `crates/perldantic-core/src/validators/time.rs` | P1 | pending |  |

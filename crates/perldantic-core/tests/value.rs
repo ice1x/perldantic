@@ -233,3 +233,18 @@ fn python_equality_of_containers() {
     assert!(dict(vec![(Value::Int(1), s("x"))]).py_eq(&dict(vec![(Value::Bool(true), s("x"))])));
     assert!(!dict(vec![(s("a"), Value::Int(1))]).py_eq(&dict(vec![(s("a"), Value::Int(2))])));
 }
+
+#[test]
+fn sets_are_unordered_and_print_like_python() {
+    let set = Value::Set(vec![s("a"), s("b")]);
+    assert_eq!(set.type_name(), "set");
+    assert_eq!(set.repr(), "{'a', 'b'}");
+    assert_eq!(Value::Set(vec![]).repr(), "set()");
+    assert_eq!(set, Value::Set(vec![s("b"), s("a")]));
+    assert_ne!(set, Value::Set(vec![s("a")]));
+    assert!(set.py_eq(&Value::Set(vec![s("b"), s("a")])));
+    assert!(Value::Set(vec![Value::Int(1)]).py_eq(&Value::Set(vec![Value::Float(1.0)])));
+    assert!(!set.py_eq(&Value::List(vec![s("a"), s("b")])));
+    // JSON has no sets: they serialize as arrays, like pydantic's to_json.
+    assert_eq!(serde_json::to_string(&set).unwrap(), r#"["a","b"]"#);
+}

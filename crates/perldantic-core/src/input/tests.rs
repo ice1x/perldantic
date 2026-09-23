@@ -581,3 +581,26 @@ fn only_host_data_exposes_itself_as_a_value() {
     assert_eq!(json("1").as_value(), None);
     assert_eq!("1".as_value(), None);
 }
+
+#[test]
+fn sets_are_lax_lists_and_tuples() {
+    let set = Value::Set(vec![Value::Int(1), Value::Int(2)]);
+    assert_eq!(
+        set.validate_list(false).unwrap().exactness(),
+        Exactness::Lax
+    );
+    assert_eq!(err_type(set.validate_list(true)), "list_type");
+    assert_eq!(
+        set.validate_tuple(false).unwrap().exactness(),
+        Exactness::Lax
+    );
+    assert_eq!(err_type(set.validate_tuple(true)), "tuple_type");
+    assert_eq!(err_type(set.validate_dict(false)), "dict_type");
+}
+
+#[test]
+fn only_json_exposes_itself_as_json() {
+    assert!(json("1").as_json().is_some());
+    assert!(Value::Int(1).as_json().is_none());
+    assert!("1".as_json().is_none());
+}

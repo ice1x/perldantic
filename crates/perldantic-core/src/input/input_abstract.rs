@@ -4,6 +4,8 @@
 
 use std::fmt;
 
+use jiter::JsonValue;
+
 use crate::core_error::CoreResult;
 use crate::errors::{ErrorTypeDefaults, LocItem, ValError, ValResult};
 use crate::lookup_key::LookupPath;
@@ -29,6 +31,11 @@ pub trait Input: fmt::Debug {
 
     /// The host data itself when the input is host data, not JSON (upstream `as_python`).
     fn as_value(&self) -> Option<&Value> {
+        None
+    }
+
+    /// The JSON value itself when the input is JSON.
+    fn as_json(&self) -> Option<&JsonValue<'_>> {
         None
     }
 

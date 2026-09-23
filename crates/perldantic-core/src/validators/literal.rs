@@ -51,10 +51,10 @@ impl EqTable {
     }
 }
 
-/// Whether Python could hash the value (lists and dicts, also inside tuples, cannot be).
+/// Whether Python could hash the value (lists, dicts and sets, also inside tuples, cannot be).
 fn is_hashable(value: &Value) -> bool {
     match value {
-        Value::List(_) | Value::Dict(_) => false,
+        Value::List(_) | Value::Dict(_) | Value::Set(_) => false,
         Value::Tuple(items) => items.iter().all(is_hashable),
         _ => true,
     }

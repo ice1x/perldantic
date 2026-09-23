@@ -7,6 +7,7 @@ use std::fmt;
 use jiter::{JsonObject, JsonValue};
 
 use crate::core_error::{CoreError, CoreResult};
+use crate::errors::{LocItem, Location, ValLineError};
 use crate::value::{Dict, Value};
 
 /// The error pyo3 reports when a value is not of the expected Python type.
@@ -140,6 +141,40 @@ impl LookupPath {
     pub fn first_key(&self) -> &str {
         &self.first_item.0
     }
+
+    /// get the first item in the path
+    pub fn first_item(&self) -> &PathItemString {
+        &self.first_item
+    }
+
+    pub fn rest(&self) -> &[PathItem] {
+        &self.rest
+    }
+
+    pub fn loc(&self) -> Location {
+        let mut location = Vec::with_capacity(1 + self.rest.len());
+        for item in self.rest.iter().rev() {
+            location.push(item.to_loc_item());
+        }
+        location.push(LocItem::from(self.first_item.0.clone()));
+        Location::List(location)
+    }
+
+    pub fn apply_error_loc(
+        &self,
+        mut line_error: ValLineError,
+        loc_by_alias: bool,
+        field_name: &str,
+    ) -> ValLineError {
+        if loc_by_alias {
+            for path_item in self.rest.iter().rev() {
+                line_error = line_error.with_outer_location(path_item.to_loc_item());
+            }
+            line_error.with_outer_location(self.first_item.0.clone())
+        } else {
+            line_error.with_outer_location(field_name)
+        }
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -240,6 +275,15 @@ impl PathItem {
         }
     }
 
+    fn to_loc_item(&self) -> LocItem {
+        match self {
+            Self::S(PathItemString(key)) => LocItem::from(key.clone()),
+            Self::Pos(index) => LocItem::from(*index),
+            #[allow(clippy::cast_possible_wrap)] // path indices never approach i64::MAX
+            Self::Neg(index) => LocItem::from(-(*index as i64)),
+        }
+    }
+
     pub fn json_obj_get<'a, 'data>(
         &self,
         json_obj: &'a JsonObject<'data>,
@@ -251,6 +295,82 @@ impl PathItem {
                 .find_map(|(k, v)| (k == key.as_str()).then_some(v)),
             _ => None,
         }
+    }
+}
+
+/// The paths a field is looked up by: its name, and its aliases if any.
+#[derive(Debug)]
+#[allow(clippy::struct_field_names)]
+pub struct LookupPathCollection {
+    pub by_name: LookupPath,
+    pub by_alias: Vec<LookupPath>,
+}
+
+impl LookupPathCollection {
+    pub fn new(validation_alias: Option<&Value>, field_name: &str) -> CoreResult<Self> {
+        let by_name = LookupPath {
+            first_item: PathItemString(field_name.to_owned()),
+            rest: Vec::new(),
+        };
+        let by_alias = validation_alias
+            .map(validation_alias_paths)
+            .transpose()?
+            .unwrap_or_default();
+        Ok(Self { by_name, by_alias })
+    }
+
+    /// Returns the lookup paths to use based on the provided `lookup_type`. At least one path
+    /// will always be returned.
+    pub fn lookup_paths(&self, lookup_type: LookupType) -> impl Iterator<Item = &LookupPath> {
+        let by_alias = lookup_type
+            .matches(LookupType::Alias)
+            .then_some(&self.by_alias)
+            .into_iter()
+            .flatten();
+
+        // always use the name if no alias is defined
+        let by_name = (self.by_alias.is_empty() || lookup_type.matches(LookupType::Name))
+            .then_some(&self.by_name);
+
+        by_alias.chain(by_name)
+    }
+
+    /// Returns the error location to use based on the provided `lookup_type` and
+    /// `loc_by_alias`.
+    pub fn error_loc(&self, lookup_type: LookupType, loc_by_alias: bool) -> Location {
+        if loc_by_alias
+            && lookup_type.matches(LookupType::Alias)
+            && let Some(first_alias) = &self.by_alias.first()
+        {
+            return first_alias.loc();
+        }
+        self.by_name.loc()
+    }
+}
+
+/// Whether this lookup represents a name or an alias
+#[derive(Debug, Clone, Copy, Eq, PartialEq)]
+#[repr(u8)]
+pub enum LookupType {
+    Name = 1,
+    Alias = 2,
+    Both = 3,
+}
+
+impl LookupType {
+    pub fn from_bools(validate_by_alias: bool, validate_by_name: bool) -> CoreResult<LookupType> {
+        match (validate_by_alias, validate_by_name) {
+            (true, true) => Ok(LookupType::Both),
+            (true, false) => Ok(LookupType::Alias),
+            (false, true) => Ok(LookupType::Name),
+            (false, false) => Err(CoreError::Value(
+                "`validate_by_name` and `validate_by_alias` cannot both be set to `False`.".into(),
+            )),
+        }
+    }
+
+    pub fn matches(self, other: LookupType) -> bool {
+        (self as u8 & other as u8) != 0
     }
 }
 
