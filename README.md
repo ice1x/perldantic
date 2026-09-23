@@ -52,7 +52,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00046 — Exception objects (never string dies): `Perldantic::Error` base, `ValidationError` (errors, error_count, json, stringification), `SchemaError`, `UsageError`, `SerializationError`, `InternalError`
   - [x] 00047 — Lazy per-class validator cache
   - [x] 00048 — Perl conformance runner `t/conformance.t`
-  - [ ] 00049 — Leak tests (Test::LeakTrace)
+  - [x] 00049 — Leak tests (Test::LeakTrace)
   - [ ] 00077 — Roles (`with`) and method modifiers for models; model objects passed as input kept, not copied
   - [ ] 00076 — Perl input type in the core: Perl-worded error messages (hash/array reference, undef), sorted hash keys, arrays as strict tuples
 - [ ] 00050 — P1 types & callbacks

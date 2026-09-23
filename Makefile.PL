@@ -24,7 +24,8 @@ WriteMakefile(
             'FFI::Platypus::Lang::Rust' => '0.17',
         },
         TEST_REQUIRES => {
-            'Test2::V0' => '0.000159',
+            'Test2::V0'       => '0.000159',
+            'Test::LeakTrace' => '0.17',
         },
         META_MERGE => {
             'meta-spec' => { version => 2 },
