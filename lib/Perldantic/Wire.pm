@@ -15,14 +15,17 @@ use Perldantic::Error;
 
 our @EXPORT_OK = qw(tuple set bytes);
 
-my $JSON = Cpanel::JSON::XS->new->utf8->canonical->allow_bignum->unblessed_bool;
+my $JSON = Cpanel::JSON::XS->new->utf8->canonical->allow_nonref->allow_bignum->unblessed_bool;
 
 sub tuple (@items) { bless [@items], 'Perldantic::Wire::Tuple' }
 sub set (@items)   { bless [@items], 'Perldantic::Wire::Set' }
 sub bytes ($octets) { bless \(my $copy = $octets), 'Perldantic::Wire::Bytes' }
 
 sub encode ($value) {
-    return $JSON->encode(_tag($value));
+    my $tagged = _tag($value);
+    my $json   = eval { $JSON->encode($tagged) };
+    Perldantic::InternalError->throw(message => "Cannot encode a value for the core: $@") if !defined $json;
+    return $json;
 }
 
 sub decode ($json) {
