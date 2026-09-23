@@ -1,0 +1,4 @@
+# FFI::Build::File::Cargo runs cargo from ffi/ and expects the library in ffi/target/release.
+# Inside the workspace cargo would otherwise build into the workspace root target/.
+[build]
+target-dir = "target"

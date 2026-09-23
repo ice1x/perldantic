@@ -1,0 +1,8 @@
+Perldantic
+Copyright (c) 2026 ice1x
+
+This product includes software derived from pydantic-core
+(https://github.com/pydantic/pydantic, directory pydantic-core/),
+Copyright (c) 2022 Samuel Colvin, licensed under the MIT License.
+The upstream sources are vendored unmodified in upstream/pydantic-core/,
+with their original license in upstream/pydantic-core/LICENSE.

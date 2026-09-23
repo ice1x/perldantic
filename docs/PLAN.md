@@ -137,6 +137,23 @@ say encode_json(Ticket->model_json_schema);
 my $ints = Perldantic::TypeAdapter->new(ArrayRef[Int])->validate_python([1, "2"]);
 ```
 
+### Errors are exception objects
+
+Perldantic never dies with a plain string. Every failure is raised as an exception object
+(`die $obj`) from one class hierarchy. Each object carries a descriptive, Perl-oriented message,
+and every class documents in POD when it is thrown.
+
+| Class | Raised when | Payload |
+|---|---|---|
+| `Perldantic::Error` | Base class, never thrown directly | `message`, `throw`, stringification via `overload` |
+| `Perldantic::ValidationError` | Input does not match the schema | `errors` (list of `{type, loc, msg, input, ctx}`, same codes as pydantic), `error_count`, `title`, `json`; stringifies like pydantic's `str(ValidationError)` |
+| `Perldantic::SchemaError` | A model or type definition is invalid, or uses an unsupported schema type | `message`, `schema_path` |
+| `Perldantic::UsageError` | The API is called incorrectly, e.g. an unknown `field` option or a bad argument | `message`, the caller's file and line |
+| `Perldantic::InternalError` | The Rust core panics or the FFI boundary fails | `message`, `cause` |
+
+Messages name what failed and where, in Perl terms: the model package, the field and the
+expected type, e.g. `Ticket->model_validate: 2 validation errors for Ticket`.
+
 Perl-specific decisions:
 
 | Issue | Decision |

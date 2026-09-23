@@ -1,0 +1,13 @@
+requires 'perl', '5.036';
+requires 'FFI::Platypus', '2.00';
+requires 'FFI::Platypus::Lang::Rust', '0.17';
+
+on configure => sub {
+    requires 'ExtUtils::MakeMaker', '6.64';
+    requires 'FFI::Build::MM', '2.00';
+    requires 'FFI::Build::File::Cargo', '0.17';
+};
+
+on test => sub {
+    requires 'Test2::V0', '0.000159';
+};

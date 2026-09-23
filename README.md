@@ -4,13 +4,13 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
 
 ## Tasks
 
-- [ ] 00001 — Scaffold & upstream import
-  - [ ] 00002 — Cargo workspace: `crates/perldantic-core`, `ffi/`
-  - [ ] 00003 — CPAN dist skeleton: `Makefile.PL` (FFI::Build::MM), `cpanfile`, `lib/Perldantic.pm` stub
-  - [ ] 00004 — CI: cargo fmt/clippy/test + prove, Perl 5.36/5.38/5.40, Linux & macOS
-  - [ ] 00005 — `upstream/UPSTREAM.md`: base commit `0384c970e`, upstream → perldantic file map
-  - [ ] 00006 — `NOTICE` with pydantic-core MIT attribution
-  - [ ] 00007 — `docs/DIVERGENCES.md`: register of intentional deviations from pydantic
+- [x] 00001 — Scaffold & upstream import
+  - [x] 00002 — Cargo workspace: `crates/perldantic-core`, `ffi/`
+  - [x] 00003 — CPAN dist skeleton: `Makefile.PL` (FFI::Build::MM), `cpanfile`, `lib/Perldantic.pm` stub
+  - [x] 00004 — CI: cargo fmt/clippy/test + prove, Perl 5.36/5.38/5.40, Linux & macOS
+  - [x] 00005 — `upstream/UPSTREAM.md`: base commit `0384c970e`, upstream → perldantic file map
+  - [x] 00006 — `NOTICE` with pydantic-core MIT attribution
+  - [x] 00007 — `docs/DIVERGENCES.md`: register of intentional deviations from pydantic
 - [ ] 00008 — Python-free core foundation
   - [ ] 00009 — `Value` neutral data model
   - [ ] 00010 — `CoreError` / `CoreResult` replacing `PyErr` / `PyResult`
@@ -49,7 +49,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [ ] 00043 — `Perldantic::Model` DSL: `field`, `model_config`, generated accessors
   - [ ] 00044 — `model_validate[_json]`, `model_dump[_json]`, `model_json_schema`, `model_copy`, `model_fields_set`
   - [ ] 00045 — `Perldantic::TypeAdapter`
-  - [ ] 00046 — `Perldantic::ValidationError`: errors, error_count, json, stringification
+  - [ ] 00046 — Exception objects (never string dies): `Perldantic::Error` base, `ValidationError` (errors, error_count, json, stringification), `SchemaError`, `UsageError`, `InternalError`
   - [ ] 00047 — Lazy per-class validator cache
   - [ ] 00048 — Perl conformance runner `t/conformance.t`
   - [ ] 00049 — Leak tests (Test::LeakTrace)
