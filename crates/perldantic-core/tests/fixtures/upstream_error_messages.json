@@ -1,0 +1,774 @@
+[
+ {
+  "type": "no_such_attribute",
+  "message": "Object has no attribute 'wrong_name'",
+  "context": {
+   "attribute": "wrong_name"
+  }
+ },
+ {
+  "type": "json_invalid",
+  "message": "Invalid JSON: foobar",
+  "context": {
+   "error": "foobar"
+  }
+ },
+ {
+  "type": "json_type",
+  "message": "JSON input should be string, bytes or bytearray",
+  "context": null
+ },
+ {
+  "type": "needs_python_object",
+  "message": "Cannot check `isinstance` when validating from json, use a JsonOrPython validator instead",
+  "context": {
+   "method_name": "isinstance"
+  }
+ },
+ {
+  "type": "recursion_loop",
+  "message": "Recursion error - cyclic reference detected",
+  "context": null
+ },
+ {
+  "type": "model_type",
+  "message": "Input should be a valid dictionary or instance of Foobar",
+  "context": {
+   "class_name": "Foobar"
+  }
+ },
+ {
+  "type": "model_attributes_type",
+  "message": "Input should be a valid dictionary or object to extract fields from",
+  "context": null
+ },
+ {
+  "type": "dataclass_exact_type",
+  "message": "Input should be an instance of Foobar",
+  "context": {
+   "class_name": "Foobar"
+  }
+ },
+ {
+  "type": "dataclass_type",
+  "message": "Input should be a dictionary or an instance of Foobar",
+  "context": {
+   "class_name": "Foobar"
+  }
+ },
+ {
+  "type": "named_tuple_type",
+  "message": "Input should be a tuple, list, dictionary or an instance of Foobar",
+  "context": {
+   "class_name": "Foobar"
+  }
+ },
+ {
+  "type": "default_factory_not_called",
+  "message": "The default factory uses validated data, but at least one validation error occurred",
+  "context": null
+ },
+ {
+  "type": "missing",
+  "message": "Field required",
+  "context": null
+ },
+ {
+  "type": "frozen_field",
+  "message": "Field is frozen",
+  "context": null
+ },
+ {
+  "type": "frozen_instance",
+  "message": "Instance is frozen",
+  "context": null
+ },
+ {
+  "type": "extra_forbidden",
+  "message": "Extra inputs are not permitted",
+  "context": null
+ },
+ {
+  "type": "invalid_key",
+  "message": "Keys should be strings",
+  "context": null
+ },
+ {
+  "type": "get_attribute_error",
+  "message": "Error extracting attribute: foo",
+  "context": {
+   "error": "foo"
+  }
+ },
+ {
+  "type": "none_required",
+  "message": "Input should be None",
+  "context": null
+ },
+ {
+  "type": "enum",
+  "message": "Input should be foo",
+  "context": {
+   "expected": "foo"
+  }
+ },
+ {
+  "type": "greater_than",
+  "message": "Input should be greater than 42.1",
+  "context": {
+   "gt": 42.1
+  }
+ },
+ {
+  "type": "greater_than",
+  "message": "Input should be greater than 42.1",
+  "context": {
+   "gt": "42.1"
+  }
+ },
+ {
+  "type": "greater_than",
+  "message": "Input should be greater than 2020-01-01",
+  "context": {
+   "gt": "2020-01-01"
+  }
+ },
+ {
+  "type": "greater_than_equal",
+  "message": "Input should be greater than or equal to 42.1",
+  "context": {
+   "ge": 42.1
+  }
+ },
+ {
+  "type": "less_than",
+  "message": "Input should be less than 42.1",
+  "context": {
+   "lt": 42.1
+  }
+ },
+ {
+  "type": "less_than_equal",
+  "message": "Input should be less than or equal to 42.1",
+  "context": {
+   "le": 42.1
+  }
+ },
+ {
+  "type": "finite_number",
+  "message": "Input should be a finite number",
+  "context": null
+ },
+ {
+  "type": "too_short",
+  "message": "Foobar should have at least 42 items after validation, not 40",
+  "context": {
+   "field_type": "Foobar",
+   "min_length": 42,
+   "actual_length": 40
+  }
+ },
+ {
+  "type": "too_long",
+  "message": "Foobar should have at most 42 items after validation, not 50",
+  "context": {
+   "field_type": "Foobar",
+   "max_length": 42,
+   "actual_length": 50
+  }
+ },
+ {
+  "type": "string_type",
+  "message": "Input should be a valid string",
+  "context": null
+ },
+ {
+  "type": "string_unicode",
+  "message": "Input should be a valid string, unable to parse raw data as a unicode string",
+  "context": null
+ },
+ {
+  "type": "string_pattern_mismatch",
+  "message": "String should match pattern 'foo'",
+  "context": {
+   "pattern": "foo"
+  }
+ },
+ {
+  "type": "string_not_ascii",
+  "message": "String should contain only ASCII characters",
+  "context": null
+ },
+ {
+  "type": "string_too_short",
+  "message": "String should have at least 42 characters",
+  "context": {
+   "min_length": 42
+  }
+ },
+ {
+  "type": "string_too_short",
+  "message": "String should have at least 1 character",
+  "context": {
+   "min_length": 1
+  }
+ },
+ {
+  "type": "string_too_long",
+  "message": "String should have at most 42 characters",
+  "context": {
+   "max_length": 42
+  }
+ },
+ {
+  "type": "string_too_long",
+  "message": "String should have at most 1 character",
+  "context": {
+   "max_length": 1
+  }
+ },
+ {
+  "type": "dict_type",
+  "message": "Input should be a valid dictionary",
+  "context": null
+ },
+ {
+  "type": "frozen_dict_type",
+  "message": "Input should be a valid frozendict",
+  "context": null
+ },
+ {
+  "type": "ordered_dict_type",
+  "message": "Input should be a valid OrderedDict",
+  "context": null
+ },
+ {
+  "type": "counter_type",
+  "message": "Input should be a valid Counter",
+  "context": null
+ },
+ {
+  "type": "mapping_type",
+  "message": "Input should be a valid mapping, error: foobar",
+  "context": {
+   "error": "foobar"
+  }
+ },
+ {
+  "type": "iterable_type",
+  "message": "Input should be iterable",
+  "context": null
+ },
+ {
+  "type": "iteration_error",
+  "message": "Error iterating over object, error: foobar",
+  "context": {
+   "error": "foobar"
+  }
+ },
+ {
+  "type": "list_type",
+  "message": "Input should be a valid list",
+  "context": null
+ },
+ {
+  "type": "deque_type",
+  "message": "Input should be a valid deque",
+  "context": null
+ },
+ {
+  "type": "tuple_type",
+  "message": "Input should be a valid tuple",
+  "context": null
+ },
+ {
+  "type": "set_item_not_hashable",
+  "message": "Set items should be hashable",
+  "context": null
+ },
+ {
+  "type": "set_type",
+  "message": "Input should be a valid set",
+  "context": null
+ },
+ {
+  "type": "bool_type",
+  "message": "Input should be a valid boolean",
+  "context": null
+ },
+ {
+  "type": "bool_parsing",
+  "message": "Input should be a valid boolean, unable to interpret input",
+  "context": null
+ },
+ {
+  "type": "int_type",
+  "message": "Input should be a valid integer",
+  "context": null
+ },
+ {
+  "type": "int_parsing",
+  "message": "Input should be a valid integer, unable to parse string as an integer",
+  "context": null
+ },
+ {
+  "type": "int_parsing_size",
+  "message": "Unable to parse input string as an integer, exceeded maximum size",
+  "context": null
+ },
+ {
+  "type": "int_from_float",
+  "message": "Input should be a valid integer, got a number with a fractional part",
+  "context": null
+ },
+ {
+  "type": "multiple_of",
+  "message": "Input should be a multiple of 42.1",
+  "context": {
+   "multiple_of": 42.1
+  }
+ },
+ {
+  "type": "greater_than",
+  "message": "Input should be greater than 42.1",
+  "context": {
+   "gt": 42.1
+  }
+ },
+ {
+  "type": "greater_than_equal",
+  "message": "Input should be greater than or equal to 42.1",
+  "context": {
+   "ge": 42.1
+  }
+ },
+ {
+  "type": "less_than",
+  "message": "Input should be less than 42.1",
+  "context": {
+   "lt": 42.1
+  }
+ },
+ {
+  "type": "less_than_equal",
+  "message": "Input should be less than or equal to 42.1",
+  "context": {
+   "le": 42.1
+  }
+ },
+ {
+  "type": "float_type",
+  "message": "Input should be a valid number",
+  "context": null
+ },
+ {
+  "type": "float_parsing",
+  "message": "Input should be a valid number, unable to parse string as a number",
+  "context": null
+ },
+ {
+  "type": "bytes_type",
+  "message": "Input should be a valid bytes",
+  "context": null
+ },
+ {
+  "type": "bytes_too_short",
+  "message": "Data should have at least 42 bytes",
+  "context": {
+   "min_length": 42
+  }
+ },
+ {
+  "type": "bytes_too_short",
+  "message": "Data should have at least 1 byte",
+  "context": {
+   "min_length": 1
+  }
+ },
+ {
+  "type": "bytes_too_long",
+  "message": "Data should have at most 42 bytes",
+  "context": {
+   "max_length": 42
+  }
+ },
+ {
+  "type": "bytes_too_long",
+  "message": "Data should have at most 1 byte",
+  "context": {
+   "max_length": 1
+  }
+ },
+ {
+  "type": "bytes_invalid_encoding",
+  "message": "Data should be valid base64: Invalid byte 1, offset 1",
+  "context": {
+   "encoding": "base64",
+   "encoding_error": "Invalid byte 1, offset 1"
+  }
+ },
+ {
+  "type": "bytes_invalid_encoding",
+  "message": "Data should be valid hex: Odd number of digits",
+  "context": {
+   "encoding": "hex",
+   "encoding_error": "Odd number of digits"
+  }
+ },
+ {
+  "type": "value_error",
+  "message": "Value error, foobar",
+  "context": {
+   "error": "foobar"
+  }
+ },
+ {
+  "type": "assertion_error",
+  "message": "Assertion failed, foobar",
+  "context": {
+   "error": "foobar"
+  }
+ },
+ {
+  "type": "literal_error",
+  "message": "Input should be foo",
+  "context": {
+   "expected": "foo"
+  }
+ },
+ {
+  "type": "literal_error",
+  "message": "Input should be foo or bar",
+  "context": {
+   "expected": "foo or bar"
+  }
+ },
+ {
+  "type": "missing_sentinel_error",
+  "message": "Input should be the 'MISSING' sentinel",
+  "context": null
+ },
+ {
+  "type": "ellipsis_error",
+  "message": "Input should be the 'Ellipsis' literal",
+  "context": null
+ },
+ {
+  "type": "date_type",
+  "message": "Input should be a valid date",
+  "context": null
+ },
+ {
+  "type": "date_parsing",
+  "message": "Input should be a valid date in the format YYYY-MM-DD, foobar",
+  "context": {
+   "error": "foobar"
+  }
+ },
+ {
+  "type": "date_from_datetime_parsing",
+  "message": "Input should be a valid date or datetime, foobar",
+  "context": {
+   "error": "foobar"
+  }
+ },
+ {
+  "type": "date_from_datetime_inexact",
+  "message": "Datetimes provided to dates should have zero time - e.g. be exact dates",
+  "context": null
+ },
+ {
+  "type": "date_past",
+  "message": "Date should be in the past",
+  "context": null
+ },
+ {
+  "type": "date_future",
+  "message": "Date should be in the future",
+  "context": null
+ },
+ {
+  "type": "time_type",
+  "message": "Input should be a valid time",
+  "context": null
+ },
+ {
+  "type": "time_parsing",
+  "message": "Input should be in a valid time format, foobar",
+  "context": {
+   "error": "foobar"
+  }
+ },
+ {
+  "type": "datetime_type",
+  "message": "Input should be a valid datetime",
+  "context": null
+ },
+ {
+  "type": "datetime_parsing",
+  "message": "Input should be a valid datetime, foobar",
+  "context": {
+   "error": "foobar"
+  }
+ },
+ {
+  "type": "datetime_from_date_parsing",
+  "message": "Input should be a valid datetime or date, foobar",
+  "context": {
+   "error": "foobar"
+  }
+ },
+ {
+  "type": "datetime_object_invalid",
+  "message": "Invalid datetime object, got foobar",
+  "context": {
+   "error": "foobar"
+  }
+ },
+ {
+  "type": "datetime_past",
+  "message": "Input should be in the past",
+  "context": null
+ },
+ {
+  "type": "datetime_future",
+  "message": "Input should be in the future",
+  "context": null
+ },
+ {
+  "type": "timezone_naive",
+  "message": "Input should not have timezone info",
+  "context": null
+ },
+ {
+  "type": "timezone_aware",
+  "message": "Input should have timezone info",
+  "context": null
+ },
+ {
+  "type": "timezone_offset",
+  "message": "Timezone offset of 0 required, got 60",
+  "context": {
+   "tz_expected": 0,
+   "tz_actual": 60
+  }
+ },
+ {
+  "type": "time_delta_type",
+  "message": "Input should be a valid timedelta",
+  "context": null
+ },
+ {
+  "type": "time_delta_parsing",
+  "message": "Input should be a valid timedelta, foobar",
+  "context": {
+   "error": "foobar"
+  }
+ },
+ {
+  "type": "frozen_set_type",
+  "message": "Input should be a valid frozenset",
+  "context": null
+ },
+ {
+  "type": "is_instance_of",
+  "message": "Input should be an instance of Foo",
+  "context": {
+   "class": "Foo"
+  }
+ },
+ {
+  "type": "is_subclass_of",
+  "message": "Input should be a subclass of Foo",
+  "context": {
+   "class": "Foo"
+  }
+ },
+ {
+  "type": "callable_type",
+  "message": "Input should be callable",
+  "context": null
+ },
+ {
+  "type": "union_tag_invalid",
+  "message": "Input tag 'foo' found using bar does not match any of the expected tags: baz",
+  "context": {
+   "discriminator": "bar",
+   "tag": "foo",
+   "expected_tags": "baz"
+  }
+ },
+ {
+  "type": "union_tag_not_found",
+  "message": "Unable to extract tag using discriminator foo",
+  "context": {
+   "discriminator": "foo"
+  }
+ },
+ {
+  "type": "arguments_type",
+  "message": "Arguments must be a tuple, list or a dictionary",
+  "context": null
+ },
+ {
+  "type": "missing_argument",
+  "message": "Missing required argument",
+  "context": null
+ },
+ {
+  "type": "unexpected_keyword_argument",
+  "message": "Unexpected keyword argument",
+  "context": null
+ },
+ {
+  "type": "missing_keyword_only_argument",
+  "message": "Missing required keyword only argument",
+  "context": null
+ },
+ {
+  "type": "unexpected_positional_argument",
+  "message": "Unexpected positional argument",
+  "context": null
+ },
+ {
+  "type": "missing_positional_only_argument",
+  "message": "Missing required positional only argument",
+  "context": null
+ },
+ {
+  "type": "multiple_argument_values",
+  "message": "Got multiple values for argument",
+  "context": null
+ },
+ {
+  "type": "url_type",
+  "message": "URL input should be a string or URL",
+  "context": null
+ },
+ {
+  "type": "url_parsing",
+  "message": "Input should be a valid URL, Foobar",
+  "context": {
+   "error": "Foobar"
+  }
+ },
+ {
+  "type": "url_syntax_violation",
+  "message": "Input violated strict URL syntax rules, Foobar",
+  "context": {
+   "error": "Foobar"
+  }
+ },
+ {
+  "type": "url_too_long",
+  "message": "URL should have at most 42 characters",
+  "context": {
+   "max_length": 42
+  }
+ },
+ {
+  "type": "url_too_long",
+  "message": "URL should have at most 1 character",
+  "context": {
+   "max_length": 1
+  }
+ },
+ {
+  "type": "url_scheme",
+  "message": "URL scheme should be \"foo\", \"bar\" or \"spam\"",
+  "context": {
+   "expected_schemes": "\"foo\", \"bar\" or \"spam\""
+  }
+ },
+ {
+  "type": "uuid_type",
+  "message": "UUID input should be a string, bytes or UUID object",
+  "context": null
+ },
+ {
+  "type": "uuid_parsing",
+  "message": "Input should be a valid UUID, Foobar",
+  "context": {
+   "error": "Foobar"
+  }
+ },
+ {
+  "type": "uuid_version",
+  "message": "UUID version 42 expected",
+  "context": {
+   "expected_version": 42
+  }
+ },
+ {
+  "type": "decimal_type",
+  "message": "Decimal input should be an integer, float, string or Decimal object",
+  "context": null
+ },
+ {
+  "type": "decimal_parsing",
+  "message": "Input should be a valid decimal",
+  "context": null
+ },
+ {
+  "type": "fraction_type",
+  "message": "Fraction input should be an integer, float, string or Fraction object",
+  "context": null
+ },
+ {
+  "type": "fraction_parsing",
+  "message": "Input is not a valid fraction",
+  "context": null
+ },
+ {
+  "type": "decimal_max_digits",
+  "message": "Decimal input should have no more than 42 digits in total",
+  "context": {
+   "max_digits": 42
+  }
+ },
+ {
+  "type": "decimal_max_digits",
+  "message": "Decimal input should have no more than 1 digit in total",
+  "context": {
+   "max_digits": 1
+  }
+ },
+ {
+  "type": "decimal_max_places",
+  "message": "Decimal input should have no more than 42 decimal places",
+  "context": {
+   "decimal_places": 42
+  }
+ },
+ {
+  "type": "decimal_max_places",
+  "message": "Decimal input should have no more than 1 decimal place",
+  "context": {
+   "decimal_places": 1
+  }
+ },
+ {
+  "type": "decimal_whole_digits",
+  "message": "Decimal input should have no more than 42 digits before the decimal point",
+  "context": {
+   "whole_digits": 42
+  }
+ },
+ {
+  "type": "decimal_whole_digits",
+  "message": "Decimal input should have no more than 1 digit before the decimal point",
+  "context": {
+   "whole_digits": 1
+  }
+ },
+ {
+  "type": "complex_type",
+  "message": "Input should be a valid python complex object, a number, or a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex",
+  "context": null
+ },
+ {
+  "type": "complex_str_parsing",
+  "message": "Input should be a valid complex string following the rules at https://docs.python.org/3/library/functions.html#complex",
+  "context": null
+ }
+]

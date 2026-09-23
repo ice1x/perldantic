@@ -30,7 +30,7 @@ It is excluded from the Cargo workspace and never built. Do not edit it.
 ## File map
 
 Priority follows [docs/PLAN.md](../docs/PLAN.md): P0 = MVP, P1/P2 = later stages, drop = Python-only.
-Status: `pending` → `ported` (or `dropped`).
+Status: `pending` → `partial` → `ported` (or `dropped`).
 
 | Upstream file | Perldantic file | Priority | Status | Notes |
 |---|---|---|---|---|
@@ -45,12 +45,12 @@ Status: `pending` → `ported` (or `dropped`).
 | `common/prebuilt.rs` | - | drop | dropped | reuses validators attached to Python classes |
 | `common/union.rs` | `crates/perldantic-core/src/common/union.rs` | P0 | pending |  |
 | `definitions.rs` | `crates/perldantic-core/src/definitions.rs` | P0 | pending |  |
-| `errors/line_error.rs` | `crates/perldantic-core/src/errors/line_error.rs` | P0 | pending |  |
-| `errors/location.rs` | `crates/perldantic-core/src/errors/location.rs` | P0 | pending |  |
-| `errors/mod.rs` | `crates/perldantic-core/src/errors/mod.rs` | P0 | pending |  |
-| `errors/types.rs` | `crates/perldantic-core/src/errors/types.rs` | P0 | pending |  |
-| `errors/validation_exception.rs` | `crates/perldantic-core/src/errors/validation_exception.rs` | P0 | pending |  |
-| `errors/value_exception.rs` | `crates/perldantic-core/src/errors/value_exception.rs` | P0 | pending |  |
+| `errors/line_error.rs` | `crates/perldantic-core/src/errors/line_error.rs` | P0 | ported |  |
+| `errors/location.rs` | `crates/perldantic-core/src/errors/location.rs` | P0 | ported |  |
+| `errors/mod.rs` | `crates/perldantic-core/src/errors/mod.rs` | P0 | ported |  |
+| `errors/types.rs` | `crates/perldantic-core/src/errors/types.rs` | P0 | ported |  |
+| `errors/validation_exception.rs` | `crates/perldantic-core/src/errors/validation_error.rs` | P0 | ported | renamed; `PyLineError` folded into `ErrorDetails` |
+| `errors/value_exception.rs` | `crates/perldantic-core/src/errors/value_exception.rs` | P0 | partial | custom-message formatting ported into `types.rs`; exception classes belong to the host |
 | `input/datetime.rs` | `crates/perldantic-core/src/input/datetime.rs` | P1 | pending |  |
 | `input/input_abstract.rs` | `crates/perldantic-core/src/input/input_abstract.rs` | P0 | pending |  |
 | `input/input_json.rs` | `crates/perldantic-core/src/input/input_json.rs` | P0 | pending |  |
@@ -117,7 +117,7 @@ Status: `pending` → `ported` (or `dropped`).
 | `serializers/type_serializers/url.rs` | `crates/perldantic-core/src/serializers/type_serializers/url.rs` | P1 | pending |  |
 | `serializers/type_serializers/uuid.rs` | `crates/perldantic-core/src/serializers/type_serializers/uuid.rs` | P1 | pending |  |
 | `serializers/type_serializers/with_default.rs` | `crates/perldantic-core/src/serializers/type_serializers/with_default.rs` | P0 | pending |  |
-| `tools.rs` | `crates/perldantic-core/src/tools.rs` | P0 | pending |  |
+| `tools.rs` | `crates/perldantic-core/src/tools.rs` | P0 | partial | truncation helpers ported |
 | `url.rs` | `crates/perldantic-core/src/url.rs` | P1 | pending |  |
 | `validators/any.rs` | `crates/perldantic-core/src/validators/any.rs` | P0 | pending |  |
 | `validators/arguments.rs` | `crates/perldantic-core/src/validators/arguments.rs` | P2 | pending |  |
