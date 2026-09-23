@@ -28,7 +28,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00022 — `Undef`, `Any`, `Bool` (core: `none`, `any`, `bool`)
   - [x] 00023 — `Int` (incl. big ints), `Num` (core: `int`, `float`)
   - [x] 00024 — `Str` (constraints, pattern), `Bytes` (core: `str`, `bytes`)
-  - [ ] 00025 — `Literal[]`, `Maybe[]`, defaults (core: `literal`, `nullable`, `default`)
+  - [x] 00025 — `Literal[]`, `Maybe[]`, defaults (core: `literal`, `nullable`, `default`)
   - [ ] 00026 — `ArrayRef[]`, `Tuple[]`, `HashRef[]` / `Map[]` (core: `list`, `tuple`, `dict`)
   - [ ] 00027 — Unions: smart, left-to-right, tagged (core: `union`, `tagged-union`)
   - [ ] 00028 — Models: fields, fields set, extra keys (core: `model-fields`, `model`)

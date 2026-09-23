@@ -50,6 +50,10 @@ impl Input for Value {
         self.clone()
     }
 
+    fn as_value(&self) -> Option<&Value> {
+        Some(self)
+    }
+
     fn is_none(&self) -> bool {
         matches!(self, Value::None)
     }

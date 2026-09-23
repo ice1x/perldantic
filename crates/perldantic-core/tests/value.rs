@@ -209,3 +209,27 @@ fn int_and_big_int_compare_by_value() {
     assert_ne!(Value::Int(5), Value::BigInt(BigInt::from(6)));
     assert_ne!(Value::Int(1), Value::Float(1.0));
 }
+
+#[test]
+fn python_equality_crosses_numeric_types() {
+    // Python: True == 1 == 1.0, and hash-equal keys collide in dicts and literals.
+    assert!(Value::Bool(true).py_eq(&Value::Int(1)));
+    assert!(Value::Int(1).py_eq(&Value::Float(1.0)));
+    assert!(Value::Bool(false).py_eq(&Value::Float(0.0)));
+    assert!(Value::from(BigInt::from(2).pow(70)).py_eq(&Value::Float(2f64.powi(70))));
+    assert!(!Value::Int(1).py_eq(&Value::Float(1.5)));
+    assert!(!Value::Float(f64::NAN).py_eq(&Value::Float(f64::NAN)));
+    assert!(!Value::Int(1).py_eq(&s("1")));
+    assert!(!Value::None.py_eq(&Value::Bool(false)));
+    assert!(!s("a").py_eq(&Value::Bytes(b"a".to_vec())));
+}
+
+#[test]
+fn python_equality_of_containers() {
+    let list = Value::List(vec![Value::Int(1), Value::Bool(true)]);
+    assert!(list.py_eq(&Value::List(vec![Value::Float(1.0), Value::Int(1)])));
+    // list and tuple are never equal, even with equal items.
+    assert!(!list.py_eq(&Value::Tuple(vec![Value::Int(1), Value::Int(1)])));
+    assert!(dict(vec![(Value::Int(1), s("x"))]).py_eq(&dict(vec![(Value::Bool(true), s("x"))])));
+    assert!(!dict(vec![(s("a"), Value::Int(1))]).py_eq(&dict(vec![(s("a"), Value::Int(2))])));
+}

@@ -17,3 +17,4 @@ they differ.
 | 7 | `regex_engine="python-re"` | Patterns run with Python's `re` module | Schema error `Invalid regex engine: python-re`; only `rust-regex` (the default) is available | There is no Python `re` outside Python; a Perl-regex engine through host callbacks may follow |
 | 8 | Error messages for Perl input (planned, 00076) | "Input should be a valid dictionary / list / None" | "Input should be a hash reference / an array reference / undef"; error codes unchanged | Perl has hashes, arrays and undef, not dicts, lists and None |
 | 9 | Order of Perl hash keys (planned, 00076) | Dicts keep insertion order | Perl hashes are converted with sorted keys | Perl hashes have no order; sorting makes outputs and errors deterministic |
+| 10 | Invalid `default` with `validate_default` and `on_error='default'` | Recurses until the process crashes (stack overflow) | The default's own validation error is raised | A crash is never the intended behaviour |

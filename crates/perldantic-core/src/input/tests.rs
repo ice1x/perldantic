@@ -573,3 +573,11 @@ fn loc_items_from_dict_keys() {
     assert_eq!(LocItem::from(&Value::Bool(true)), LocItem::from(1_i64));
     assert_eq!(LocItem::from(&Value::Float(1.5)), LocItem::from("1.5"));
 }
+
+#[test]
+fn only_host_data_exposes_itself_as_a_value() {
+    let v = Value::Int(1);
+    assert_eq!(v.as_value(), Some(&Value::Int(1)));
+    assert_eq!(json("1").as_value(), None);
+    assert_eq!("1".as_value(), None);
+}
