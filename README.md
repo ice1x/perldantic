@@ -26,7 +26,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00020 — Rust conformance runner in `cargo test`
 - [ ] 00021 — P0 validators
   - [x] 00022 — `none`, `any`, `bool`
-  - [ ] 00023 — `int` (incl. bigint), `float`
+  - [x] 00023 — `int` (incl. bigint), `float`
   - [ ] 00024 — `str` (constraints, pattern), `bytes`
   - [ ] 00025 — `literal`, `nullable`, `default`
   - [ ] 00026 — `list`, `tuple`, `dict`

@@ -147,13 +147,13 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/dict.rs` | `crates/perldantic-core/src/validators/dict.rs` | P0 | pending |  |
 | `validators/ellipsis.rs` | - | drop | dropped | Python-only type |
 | `validators/enum_.rs` | `crates/perldantic-core/src/validators/enum_.rs` | P1 | pending |  |
-| `validators/float.rs` | `crates/perldantic-core/src/validators/float.rs` | P0 | pending |  |
+| `validators/float.rs` | `crates/perldantic-core/src/validators/float.rs` | P0 | ported |  |
 | `validators/fraction.rs` | - | drop | dropped | Python-only type |
 | `validators/frozendict.rs` | - | drop | dropped | Python-only type |
 | `validators/frozenset.rs` | `crates/perldantic-core/src/validators/frozenset.rs` | P1 | pending |  |
 | `validators/function.rs` | `crates/perldantic-core/src/validators/function.rs` | P1 | pending |  |
 | `validators/generator.rs` | `crates/perldantic-core/src/validators/generator.rs` | P2 | pending |  |
-| `validators/int.rs` | `crates/perldantic-core/src/validators/int.rs` | P0 | pending |  |
+| `validators/int.rs` | `crates/perldantic-core/src/validators/int.rs` | P0 | ported |  |
 | `validators/is_instance.rs` | `crates/perldantic-core/src/validators/is_instance.rs` | P2 | pending |  |
 | `validators/is_subclass.rs` | - | drop | dropped | Python-only type |
 | `validators/json.rs` | `crates/perldantic-core/src/validators/json.rs` | P1 | pending |  |

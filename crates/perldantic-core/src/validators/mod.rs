@@ -17,6 +17,8 @@ use crate::value::{Dict, Value};
 mod any;
 mod bool;
 pub(crate) mod config;
+mod float;
+mod int;
 mod none;
 pub(crate) mod validation_state;
 
@@ -259,7 +261,14 @@ macro_rules! validators {
     };
 }
 
-validators!(any::AnyValidator, bool::BoolValidator, none::NoneValidator,);
+// One validator per line; braces keep rustfmt from reflowing the list.
+validators! {
+    any::AnyValidator,
+    bool::BoolValidator,
+    float::FloatBuilder,
+    int::IntValidator,
+    none::NoneValidator,
+}
 
 /// Build the validator for a schema dict.
 pub(crate) fn build_validator(
@@ -285,7 +294,27 @@ fn failed_to_build_validator(val_type: &str, err: &CoreError) -> CoreError {
 pub enum CombinedValidator {
     Any(any::AnyValidator),
     Bool(bool::BoolValidator),
+    Float(float::FloatValidator),
+    ConstrainedFloat(float::ConstrainedFloatValidator),
+    Int(int::IntValidator),
+    // Boxed: much larger than most validators.
+    ConstrainedInt(Box<int::ConstrainedIntValidator>),
     None(none::NoneValidator),
+}
+
+/// Rarely used, large validators are boxed in `CombinedValidator`; delegate to the inner one.
+impl<T: Validator> Validator for Box<T> {
+    fn validate(
+        &self,
+        input: &(impl Input + ?Sized),
+        state: &mut ValidationState<'_>,
+    ) -> ValResult<Value> {
+        (**self).validate(input, state)
+    }
+
+    fn get_name(&self) -> &str {
+        (**self).get_name()
+    }
 }
 
 /// Implemented by all validators.
