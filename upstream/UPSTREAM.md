@@ -160,14 +160,14 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/json_or_python.rs` | - | drop | dropped | Python-only type |
 | `validators/lax_or_strict.rs` | `crates/perldantic-core/src/validators/lax_or_strict.rs` | P0 | pending |  |
 | `validators/list.rs` | `crates/perldantic-core/src/validators/list.rs` | P0 | pending |  |
-| `validators/literal.rs` | `crates/perldantic-core/src/validators/literal.rs` | P0 | pending |  |
+| `validators/literal.rs` | `crates/perldantic-core/src/validators/literal.rs` | P0 | partial | hash lookups replaced by Python-equality tables (`Value::py_eq`); enum lookups come with `enum` |
 | `validators/missing_sentinel.rs` | - | drop | dropped | Python-only type |
 | `validators/mod.rs` | `crates/perldantic-core/src/validators/mod.rs` | P0 | partial | `SchemaValidator` (new, validate_value, validate_json), `Extra`, build dispatch, `Validator`/`BuildValidator`; more methods as validators need them |
 | `validators/model.rs` | `crates/perldantic-core/src/validators/model.rs` | P0 | pending |  |
 | `validators/model_fields.rs` | `crates/perldantic-core/src/validators/model_fields.rs` | P0 | pending |  |
 | `validators/named_tuple.rs` | - | drop | dropped | Python-only type |
 | `validators/none.rs` | `crates/perldantic-core/src/validators/none.rs` | P0 | ported |  |
-| `validators/nullable.rs` | `crates/perldantic-core/src/validators/nullable.rs` | P0 | pending |  |
+| `validators/nullable.rs` | `crates/perldantic-core/src/validators/nullable.rs` | P0 | ported |  |
 | `validators/ordered_dict.rs` | - | drop | dropped | Python-only type |
 | `validators/prebuilt.rs` | - | drop | dropped | reuses validators attached to Python classes |
 | `validators/set.rs` | `crates/perldantic-core/src/validators/set.rs` | P1 | pending |  |
@@ -182,4 +182,4 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/url.rs` | `crates/perldantic-core/src/validators/url.rs` | P1 | pending |  |
 | `validators/uuid.rs` | `crates/perldantic-core/src/validators/uuid.rs` | P1 | pending |  |
 | `validators/validation_state.rs` | `crates/perldantic-core/src/validators/validation_state.rs` | P0 | ported | `self_instance` and the Python string cache dropped |
-| `validators/with_default.rs` | `crates/perldantic-core/src/validators/with_default.rs` | P0 | pending |  |
+| `validators/with_default.rs` | `crates/perldantic-core/src/validators/with_default.rs` | P0 | partial | `default_factory` waits for host callbacks; defaults are always copied; invalid defaults with `on_error='default'` report their error (DIVERGENCES #10) |

@@ -26,6 +26,11 @@ pub trait Input: fmt::Debug {
         self.as_error_value()
     }
 
+    /// The host data itself when the input is host data, not JSON (upstream `as_python`).
+    fn as_value(&self) -> Option<&Value> {
+        None
+    }
+
     fn is_none(&self) -> bool {
         false
     }

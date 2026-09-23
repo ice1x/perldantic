@@ -9,7 +9,7 @@ use jiter::{JsonValue, PartialMode};
 use crate::build_tools::{ExtraBehavior, SchemaDict, schema_err};
 use crate::core_error::{CoreError, CoreResult};
 use crate::definitions::{Definitions, DefinitionsBuilder};
-use crate::errors::{ErrorType, ValError, ValResult, ValidationError};
+use crate::errors::{ErrorType, LocItem, ValError, ValResult, ValidationError};
 use crate::input::{Input, InputType};
 use crate::recursion_guard::RecursionState;
 use crate::value::{Dict, Value};
@@ -20,9 +20,12 @@ mod bytes;
 pub(crate) mod config;
 mod float;
 mod int;
+mod literal;
 mod none;
+mod nullable;
 mod string;
 pub(crate) mod validation_state;
+mod with_default;
 
 use validation_state::ValidationState;
 
@@ -270,8 +273,11 @@ validators! {
     bytes::BytesValidator,
     float::FloatBuilder,
     int::IntValidator,
+    literal::LiteralValidator,
     none::NoneValidator,
+    nullable::NullableValidator,
     string::StrValidator,
+    with_default::WithDefaultValidator,
 }
 
 /// Build the validator for a schema dict.
@@ -305,9 +311,12 @@ pub enum CombinedValidator {
     Int(int::IntValidator),
     // Boxed: much larger than most validators.
     ConstrainedInt(Box<int::ConstrainedIntValidator>),
+    Literal(literal::LiteralValidator),
     None(none::NoneValidator),
+    Nullable(nullable::NullableValidator),
     Str(string::StrValidator),
     StrConstrained(string::StrConstrainedValidator),
+    WithDefault(with_default::WithDefaultValidator),
 }
 
 /// Rarely used, large validators are boxed in `CombinedValidator`; delegate to the inner one.
@@ -318,6 +327,14 @@ impl<T: Validator> Validator for Box<T> {
         state: &mut ValidationState<'_>,
     ) -> ValResult<Value> {
         (**self).validate(input, state)
+    }
+
+    fn default_value(
+        &self,
+        outer_loc: Option<impl Into<LocItem>>,
+        state: &mut ValidationState<'_>,
+    ) -> ValResult<Option<Value>> {
+        (**self).default_value(outer_loc, state)
     }
 
     fn get_name(&self) -> &str {
@@ -334,6 +351,16 @@ pub(crate) trait Validator: Send + Sync + Debug {
         input: &(impl Input + ?Sized),
         state: &mut ValidationState<'_>,
     ) -> ValResult<Value>;
+
+    /// The default for a missing input: `Some` only for `default` schemas. `outer_loc` is added
+    /// to errors from validating the default.
+    fn default_value(
+        &self,
+        _outer_loc: Option<impl Into<LocItem>>,
+        _state: &mut ValidationState<'_>,
+    ) -> ValResult<Option<Value>> {
+        Ok(None)
+    }
 
     /// The name used in union error locations and as the default error title.
     fn get_name(&self) -> &str;

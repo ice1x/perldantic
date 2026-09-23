@@ -12,6 +12,7 @@ use crate::core_error::{CoreError, CoreResult};
 
 use jiter::JsonValue;
 use num_bigint::BigInt;
+use num_traits::FromPrimitive;
 use serde::ser::{SerializeMap, SerializeSeq};
 use serde::{Serialize, Serializer};
 
@@ -62,6 +63,41 @@ impl Value {
             .map_err(|e| {
                 CoreError::Value(format!("Invalid JSON: {}", e.description(json.as_bytes())))
             })
+    }
+
+    /// Python's `==`: numbers compare across `bool`, `int` and `float`, containers compare
+    /// item by item. Plain `==` on `Value` keeps variants apart instead.
+    pub fn py_eq(&self, other: &Self) -> bool {
+        if let (Some(a), Some(b)) = (self.as_py_number(), other.as_py_number()) {
+            return a.py_eq(&b);
+        }
+        match (self, other) {
+            (Self::None, Self::None) => true,
+            (Self::Str(a), Self::Str(b)) => a == b,
+            (Self::Bytes(a), Self::Bytes(b)) => a == b,
+            (Self::List(a), Self::List(b)) | (Self::Tuple(a), Self::Tuple(b)) => {
+                a.len() == b.len() && a.iter().zip(b).all(|(x, y)| x.py_eq(y))
+            }
+            (Self::Dict(a), Self::Dict(b)) => {
+                a.len() == b.len()
+                    && a.iter().all(|(k, v)| {
+                        b.iter()
+                            .find(|(other_k, _)| k.py_eq(other_k))
+                            .is_some_and(|(_, other_v)| v.py_eq(other_v))
+                    })
+            }
+            _ => false,
+        }
+    }
+
+    fn as_py_number(&self) -> Option<PyNumber> {
+        match self {
+            Self::Bool(b) => Some(PyNumber::Int(BigInt::from(u8::from(*b)))),
+            Self::Int(i) => Some(PyNumber::Int(BigInt::from(*i))),
+            Self::BigInt(i) => Some(PyNumber::Int(i.clone())),
+            Self::Float(f) => Some(PyNumber::Float(*f)),
+            _ => None,
+        }
     }
 
     /// Python's `type(value).__name__`.
@@ -258,6 +294,24 @@ fn is_printable(c: char) -> bool {
             | 0xe0020..=0xe007f
             | 0xf_0000..=0x10_ffff
     )
+}
+
+/// A number as Python compares it: integers exactly, floats against integers only when integral.
+enum PyNumber {
+    Int(BigInt),
+    Float(f64),
+}
+
+impl PyNumber {
+    fn py_eq(&self, other: &Self) -> bool {
+        match (self, other) {
+            (Self::Int(a), Self::Int(b)) => a == b,
+            (Self::Float(a), Self::Float(b)) => a == b,
+            (Self::Int(i), Self::Float(f)) | (Self::Float(f), Self::Int(i)) => {
+                f.fract() == 0.0 && BigInt::from_f64(*f).is_some_and(|f| f == *i)
+            }
+        }
+    }
 }
 
 impl Serialize for Value {
