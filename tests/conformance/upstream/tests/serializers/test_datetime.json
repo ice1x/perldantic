@@ -1,0 +1,3910 @@
+[
+ {
+  "id": "tests/serializers/test_datetime.py::test_any_datetime_key#0",
+  "test": "tests/serializers/test_datetime.py::test_any_datetime_key",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2022-12-02T12:13:14"
+     },
+     1
+    ],
+    [
+     {
+      "$date": "2022-12-02"
+     },
+     2
+    ],
+    [
+     {
+      "$time": "12:13:14"
+     },
+     3
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "2022-12-02T12:13:14": 1,
+    "2022-12-02": 2,
+    "12:13:14": 3
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_any_datetime_key#1",
+  "test": "tests/serializers/test_datetime.py::test_any_datetime_key",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2022-12-02T12:13:14"
+     },
+     1
+    ],
+    [
+     {
+      "$date": "2022-12-02"
+     },
+     2
+    ],
+    [
+     {
+      "$time": "12:13:14"
+     },
+     3
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"2022-12-02T12:13:14\":1,\"2022-12-02\":2,\"12:13:14\":3}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_date[dt0-2024-01-01-\"2024-01-01\"-expected_to_python_dict0-{\"2024-01-01\":\"foo\"}-iso8601]#0",
+  "test": "tests/serializers/test_datetime.py::test_config_date[dt0-2024-01-01-\"2024-01-01\"-expected_to_python_dict0-{\"2024-01-01\":\"foo\"}-iso8601]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "ser_json_temporal": "iso8601"
+  },
+  "mode": "to_python",
+  "input": {
+   "$date": "2024-01-01"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2024-01-01"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_date[dt0-2024-01-01-\"2024-01-01\"-expected_to_python_dict0-{\"2024-01-01\":\"foo\"}-iso8601]#1",
+  "test": "tests/serializers/test_datetime.py::test_config_date[dt0-2024-01-01-\"2024-01-01\"-expected_to_python_dict0-{\"2024-01-01\":\"foo\"}-iso8601]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "ser_json_temporal": "iso8601"
+  },
+  "mode": "to_python",
+  "input": {
+   "$date": "2024-01-01"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2024-01-01"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_date[dt0-2024-01-01-\"2024-01-01\"-expected_to_python_dict0-{\"2024-01-01\":\"foo\"}-iso8601]#2",
+  "test": "tests/serializers/test_datetime.py::test_config_date[dt0-2024-01-01-\"2024-01-01\"-expected_to_python_dict0-{\"2024-01-01\":\"foo\"}-iso8601]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "ser_json_temporal": "iso8601"
+  },
+  "mode": "to_json",
+  "input": {
+   "$date": "2024-01-01"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2024-01-01\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_date[dt0-2024-01-01-\"2024-01-01\"-expected_to_python_dict0-{\"2024-01-01\":\"foo\"}-iso8601]#3",
+  "test": "tests/serializers/test_datetime.py::test_config_date[dt0-2024-01-01-\"2024-01-01\"-expected_to_python_dict0-{\"2024-01-01\":\"foo\"}-iso8601]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "ser_json_temporal": "iso8601"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$date": "2024-01-01"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$date": "2024-01-01"
+      },
+      "foo"
+     ]
+    ]
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `date` - serialized value may not be as expected [input_value={datetime.date(2024, 1, 1): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_date[dt0-2024-01-01-\"2024-01-01\"-expected_to_python_dict0-{\"2024-01-01\":\"foo\"}-iso8601]#4",
+  "test": "tests/serializers/test_datetime.py::test_config_date[dt0-2024-01-01-\"2024-01-01\"-expected_to_python_dict0-{\"2024-01-01\":\"foo\"}-iso8601]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "ser_json_temporal": "iso8601"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$date": "2024-01-01"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "2024-01-01": "foo"
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `date` - serialized value may not be as expected [input_value={datetime.date(2024, 1, 1): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_date[dt0-2024-01-01-\"2024-01-01\"-expected_to_python_dict0-{\"2024-01-01\":\"foo\"}-iso8601]#5",
+  "test": "tests/serializers/test_datetime.py::test_config_date[dt0-2024-01-01-\"2024-01-01\"-expected_to_python_dict0-{\"2024-01-01\":\"foo\"}-iso8601]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "ser_json_temporal": "iso8601"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$date": "2024-01-01"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"2024-01-01\":\"foo\"}",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `date` - serialized value may not be as expected [input_value={datetime.date(2024, 1, 1): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_date[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]#0",
+  "test": "tests/serializers/test_datetime.py::test_config_date[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$date": "2024-01-01"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2024-01-01"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_date[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]#1",
+  "test": "tests/serializers/test_datetime.py::test_config_date[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$date": "2024-01-01"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1704067200.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_date[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]#2",
+  "test": "tests/serializers/test_datetime.py::test_config_date[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$date": "2024-01-01"
+  },
+  "options": {},
+  "expected": {
+   "json": "1704067200.0"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_date[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]#3",
+  "test": "tests/serializers/test_datetime.py::test_config_date[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$date": "2024-01-01"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$date": "2024-01-01"
+      },
+      "foo"
+     ]
+    ]
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `date` - serialized value may not be as expected [input_value={datetime.date(2024, 1, 1): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_date[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]#4",
+  "test": "tests/serializers/test_datetime.py::test_config_date[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$date": "2024-01-01"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1704067200": "foo"
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `date` - serialized value may not be as expected [input_value={datetime.date(2024, 1, 1): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_date[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]#5",
+  "test": "tests/serializers/test_datetime.py::test_config_date[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$date": "2024-01-01"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1704067200\":\"foo\"}",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `date` - serialized value may not be as expected [input_value={datetime.date(2024, 1, 1): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_date[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]#0",
+  "test": "tests/serializers/test_datetime.py::test_config_date[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$date": "2024-01-01"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2024-01-01"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_date[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]#1",
+  "test": "tests/serializers/test_datetime.py::test_config_date[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$date": "2024-01-01"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1704067200000.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_date[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]#2",
+  "test": "tests/serializers/test_datetime.py::test_config_date[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$date": "2024-01-01"
+  },
+  "options": {},
+  "expected": {
+   "json": "1704067200000.0"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_date[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]#3",
+  "test": "tests/serializers/test_datetime.py::test_config_date[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$date": "2024-01-01"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$date": "2024-01-01"
+      },
+      "foo"
+     ]
+    ]
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `date` - serialized value may not be as expected [input_value={datetime.date(2024, 1, 1): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_date[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]#4",
+  "test": "tests/serializers/test_datetime.py::test_config_date[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$date": "2024-01-01"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1704067200000": "foo"
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `date` - serialized value may not be as expected [input_value={datetime.date(2024, 1, 1): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_date[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]#5",
+  "test": "tests/serializers/test_datetime.py::test_config_date[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "date"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$date": "2024-01-01"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1704067200000\":\"foo\"}",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `date` - serialized value may not be as expected [input_value={datetime.date(2024, 1, 1): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt0-2024-01-01T00:00:00-\"2024-01-01T00:00:00\"-expected_to_python_dict0-{\"2024-01-01T00:00:00\":\"foo\"}-iso8601]#0",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt0-2024-01-01T00:00:00-\"2024-01-01T00:00:00\"-expected_to_python_dict0-{\"2024-01-01T00:00:00\":\"foo\"}-iso8601]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "iso8601"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2024-01-01T00:00:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2024-01-01T00:00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt0-2024-01-01T00:00:00-\"2024-01-01T00:00:00\"-expected_to_python_dict0-{\"2024-01-01T00:00:00\":\"foo\"}-iso8601]#1",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt0-2024-01-01T00:00:00-\"2024-01-01T00:00:00\"-expected_to_python_dict0-{\"2024-01-01T00:00:00\":\"foo\"}-iso8601]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "iso8601"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2024-01-01T00:00:00"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2024-01-01T00:00:00"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt0-2024-01-01T00:00:00-\"2024-01-01T00:00:00\"-expected_to_python_dict0-{\"2024-01-01T00:00:00\":\"foo\"}-iso8601]#2",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt0-2024-01-01T00:00:00-\"2024-01-01T00:00:00\"-expected_to_python_dict0-{\"2024-01-01T00:00:00\":\"foo\"}-iso8601]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "iso8601"
+  },
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2024-01-01T00:00:00"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2024-01-01T00:00:00\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt0-2024-01-01T00:00:00-\"2024-01-01T00:00:00\"-expected_to_python_dict0-{\"2024-01-01T00:00:00\":\"foo\"}-iso8601]#3",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt0-2024-01-01T00:00:00-\"2024-01-01T00:00:00\"-expected_to_python_dict0-{\"2024-01-01T00:00:00\":\"foo\"}-iso8601]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "iso8601"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2024-01-01T00:00:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$datetime": "2024-01-01T00:00:00"
+      },
+      "foo"
+     ]
+    ]
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `datetime` - serialized value may not be as expected [input_value={datetime.datetime(2024, 1, 1, 0, 0): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt0-2024-01-01T00:00:00-\"2024-01-01T00:00:00\"-expected_to_python_dict0-{\"2024-01-01T00:00:00\":\"foo\"}-iso8601]#4",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt0-2024-01-01T00:00:00-\"2024-01-01T00:00:00\"-expected_to_python_dict0-{\"2024-01-01T00:00:00\":\"foo\"}-iso8601]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "iso8601"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2024-01-01T00:00:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "2024-01-01T00:00:00": "foo"
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `datetime` - serialized value may not be as expected [input_value={datetime.datetime(2024, 1, 1, 0, 0): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt0-2024-01-01T00:00:00-\"2024-01-01T00:00:00\"-expected_to_python_dict0-{\"2024-01-01T00:00:00\":\"foo\"}-iso8601]#5",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt0-2024-01-01T00:00:00-\"2024-01-01T00:00:00\"-expected_to_python_dict0-{\"2024-01-01T00:00:00\":\"foo\"}-iso8601]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "iso8601"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2024-01-01T00:00:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"2024-01-01T00:00:00\":\"foo\"}",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `datetime` - serialized value may not be as expected [input_value={datetime.datetime(2024, 1, 1, 0, 0): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]#0",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2024-01-01T00:00:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2024-01-01T00:00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]#1",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2024-01-01T00:00:00"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1704067200.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]#2",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2024-01-01T00:00:00"
+  },
+  "options": {},
+  "expected": {
+   "json": "1704067200.0"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]#3",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2024-01-01T00:00:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$datetime": "2024-01-01T00:00:00"
+      },
+      "foo"
+     ]
+    ]
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `datetime` - serialized value may not be as expected [input_value={datetime.datetime(2024, 1, 1, 0, 0): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]#4",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2024-01-01T00:00:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1704067200": "foo"
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `datetime` - serialized value may not be as expected [input_value={datetime.datetime(2024, 1, 1, 0, 0): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]#5",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt1-1704067200.0-1704067200.0-expected_to_python_dict1-{\"1704067200\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2024-01-01T00:00:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1704067200\":\"foo\"}",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `datetime` - serialized value may not be as expected [input_value={datetime.datetime(2024, 1, 1, 0, 0): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]#0",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2024-01-01T00:00:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2024-01-01T00:00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]#1",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2024-01-01T00:00:00"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1704067200000.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]#2",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2024-01-01T00:00:00"
+  },
+  "options": {},
+  "expected": {
+   "json": "1704067200000.0"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]#3",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2024-01-01T00:00:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$datetime": "2024-01-01T00:00:00"
+      },
+      "foo"
+     ]
+    ]
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `datetime` - serialized value may not be as expected [input_value={datetime.datetime(2024, 1, 1, 0, 0): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]#4",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2024-01-01T00:00:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1704067200000": "foo"
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `datetime` - serialized value may not be as expected [input_value={datetime.datetime(2024, 1, 1, 0, 0): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]#5",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt2-1704067200000.0-1704067200000.0-expected_to_python_dict2-{\"1704067200000\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2024-01-01T00:00:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1704067200000\":\"foo\"}",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `datetime` - serialized value may not be as expected [input_value={datetime.datetime(2024, 1, 1, 0, 0): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt3-1704070861.000023-1704070861.000023-expected_to_python_dict3-{\"1704070861.000023\":\"foo\"}-seconds]#0",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt3-1704070861.000023-1704070861.000023-expected_to_python_dict3-{\"1704070861.000023\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2024-01-01T01:01:01.000023"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2024-01-01T01:01:01.000023"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt3-1704070861.000023-1704070861.000023-expected_to_python_dict3-{\"1704070861.000023\":\"foo\"}-seconds]#1",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt3-1704070861.000023-1704070861.000023-expected_to_python_dict3-{\"1704070861.000023\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2024-01-01T01:01:01.000023"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1704070861.000023
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt3-1704070861.000023-1704070861.000023-expected_to_python_dict3-{\"1704070861.000023\":\"foo\"}-seconds]#2",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt3-1704070861.000023-1704070861.000023-expected_to_python_dict3-{\"1704070861.000023\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2024-01-01T01:01:01.000023"
+  },
+  "options": {},
+  "expected": {
+   "json": "1704070861.000023"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt3-1704070861.000023-1704070861.000023-expected_to_python_dict3-{\"1704070861.000023\":\"foo\"}-seconds]#3",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt3-1704070861.000023-1704070861.000023-expected_to_python_dict3-{\"1704070861.000023\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2024-01-01T01:01:01.000023"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$datetime": "2024-01-01T01:01:01.000023"
+      },
+      "foo"
+     ]
+    ]
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `datetime` - serialized value may not be as expected [input_value={datetime.datetime(2024, ... 1, 1, 1, 1, 23): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt3-1704070861.000023-1704070861.000023-expected_to_python_dict3-{\"1704070861.000023\":\"foo\"}-seconds]#4",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt3-1704070861.000023-1704070861.000023-expected_to_python_dict3-{\"1704070861.000023\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2024-01-01T01:01:01.000023"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1704070861.000023": "foo"
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `datetime` - serialized value may not be as expected [input_value={datetime.datetime(2024, ... 1, 1, 1, 1, 23): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt3-1704070861.000023-1704070861.000023-expected_to_python_dict3-{\"1704070861.000023\":\"foo\"}-seconds]#5",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt3-1704070861.000023-1704070861.000023-expected_to_python_dict3-{\"1704070861.000023\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2024-01-01T01:01:01.000023"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1704070861.000023\":\"foo\"}",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `datetime` - serialized value may not be as expected [input_value={datetime.datetime(2024, ... 1, 1, 1, 1, 23): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt4-1704070861000.023-1704070861000.023-expected_to_python_dict4-{\"1704070861000.023\":\"foo\"}-milliseconds]#0",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt4-1704070861000.023-1704070861000.023-expected_to_python_dict4-{\"1704070861000.023\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2024-01-01T01:01:01.000023"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2024-01-01T01:01:01.000023"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt4-1704070861000.023-1704070861000.023-expected_to_python_dict4-{\"1704070861000.023\":\"foo\"}-milliseconds]#1",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt4-1704070861000.023-1704070861000.023-expected_to_python_dict4-{\"1704070861000.023\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2024-01-01T01:01:01.000023"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1704070861000.023
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt4-1704070861000.023-1704070861000.023-expected_to_python_dict4-{\"1704070861000.023\":\"foo\"}-milliseconds]#2",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt4-1704070861000.023-1704070861000.023-expected_to_python_dict4-{\"1704070861000.023\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2024-01-01T01:01:01.000023"
+  },
+  "options": {},
+  "expected": {
+   "json": "1704070861000.023"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt4-1704070861000.023-1704070861000.023-expected_to_python_dict4-{\"1704070861000.023\":\"foo\"}-milliseconds]#3",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt4-1704070861000.023-1704070861000.023-expected_to_python_dict4-{\"1704070861000.023\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2024-01-01T01:01:01.000023"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$datetime": "2024-01-01T01:01:01.000023"
+      },
+      "foo"
+     ]
+    ]
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `datetime` - serialized value may not be as expected [input_value={datetime.datetime(2024, ... 1, 1, 1, 1, 23): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt4-1704070861000.023-1704070861000.023-expected_to_python_dict4-{\"1704070861000.023\":\"foo\"}-milliseconds]#4",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt4-1704070861000.023-1704070861000.023-expected_to_python_dict4-{\"1704070861000.023\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2024-01-01T01:01:01.000023"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1704070861000.023": "foo"
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `datetime` - serialized value may not be as expected [input_value={datetime.datetime(2024, ... 1, 1, 1, 1, 23): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime[dt4-1704070861000.023-1704070861000.023-expected_to_python_dict4-{\"1704070861000.023\":\"foo\"}-milliseconds]#5",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime[dt4-1704070861000.023-1704070861000.023-expected_to_python_dict4-{\"1704070861000.023\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2024-01-01T01:01:01.000023"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1704070861000.023\":\"foo\"}",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `datetime` - serialized value may not be as expected [input_value={datetime.datetime(2024, ... 1, 1, 1, 1, 23): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt0-1767225600.0-1767225600.0-1767225600-seconds]#0",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt0-1767225600.0-1767225600.0-1767225600-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2026-01-01T00:00:00+00:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2026-01-01T00:00:00+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt0-1767225600.0-1767225600.0-1767225600-seconds]#1",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt0-1767225600.0-1767225600.0-1767225600-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2026-01-01T00:00:00+00:00"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1767225600.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt0-1767225600.0-1767225600.0-1767225600-seconds]#2",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt0-1767225600.0-1767225600.0-1767225600-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2026-01-01T00:00:00+00:00"
+  },
+  "options": {},
+  "expected": {
+   "json": "1767225600.0"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt0-1767225600.0-1767225600.0-1767225600-seconds]#3",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt0-1767225600.0-1767225600.0-1767225600-seconds]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2026-01-01T00:00:00+00:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1767225600": "foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt0-1767225600.0-1767225600.0-1767225600-seconds]#4",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt0-1767225600.0-1767225600.0-1767225600-seconds]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2026-01-01T00:00:00+00:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1767225600\":\"foo\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt1-1767225600000.0-1767225600000.0-1767225600000-milliseconds]#0",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt1-1767225600000.0-1767225600000.0-1767225600000-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2026-01-01T00:00:00+00:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2026-01-01T00:00:00+00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt1-1767225600000.0-1767225600000.0-1767225600000-milliseconds]#1",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt1-1767225600000.0-1767225600000.0-1767225600000-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2026-01-01T00:00:00+00:00"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1767225600000.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt1-1767225600000.0-1767225600000.0-1767225600000-milliseconds]#2",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt1-1767225600000.0-1767225600000.0-1767225600000-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2026-01-01T00:00:00+00:00"
+  },
+  "options": {},
+  "expected": {
+   "json": "1767225600000.0"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt1-1767225600000.0-1767225600000.0-1767225600000-milliseconds]#3",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt1-1767225600000.0-1767225600000.0-1767225600000-milliseconds]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2026-01-01T00:00:00+00:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1767225600000": "foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt1-1767225600000.0-1767225600000.0-1767225600000-milliseconds]#4",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt1-1767225600000.0-1767225600000.0-1767225600000-milliseconds]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2026-01-01T00:00:00+00:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1767225600000\":\"foo\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt2-1767243600.0-1767243600.0-1767243600-seconds]#0",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt2-1767243600.0-1767243600.0-1767243600-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2026-01-01T00:00:00-05:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2026-01-01T00:00:00-05:00"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt2-1767243600.0-1767243600.0-1767243600-seconds]#1",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt2-1767243600.0-1767243600.0-1767243600-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2026-01-01T00:00:00-05:00"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1767243600.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt2-1767243600.0-1767243600.0-1767243600-seconds]#2",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt2-1767243600.0-1767243600.0-1767243600-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2026-01-01T00:00:00-05:00"
+  },
+  "options": {},
+  "expected": {
+   "json": "1767243600.0"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt2-1767243600.0-1767243600.0-1767243600-seconds]#3",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt2-1767243600.0-1767243600.0-1767243600-seconds]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2026-01-01T00:00:00-05:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1767243600": "foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt2-1767243600.0-1767243600.0-1767243600-seconds]#4",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt2-1767243600.0-1767243600.0-1767243600-seconds]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2026-01-01T00:00:00-05:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1767243600\":\"foo\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt3-1767243600000.0-1767243600000.0-1767243600000-milliseconds]#0",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt3-1767243600000.0-1767243600000.0-1767243600000-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2026-01-01T00:00:00-05:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2026-01-01T00:00:00-05:00"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt3-1767243600000.0-1767243600000.0-1767243600000-milliseconds]#1",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt3-1767243600000.0-1767243600000.0-1767243600000-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2026-01-01T00:00:00-05:00"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1767243600000.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt3-1767243600000.0-1767243600000.0-1767243600000-milliseconds]#2",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt3-1767243600000.0-1767243600000.0-1767243600000-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2026-01-01T00:00:00-05:00"
+  },
+  "options": {},
+  "expected": {
+   "json": "1767243600000.0"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt3-1767243600000.0-1767243600000.0-1767243600000-milliseconds]#3",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt3-1767243600000.0-1767243600000.0-1767243600000-milliseconds]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2026-01-01T00:00:00-05:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1767243600000": "foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt3-1767243600000.0-1767243600000.0-1767243600000-milliseconds]#4",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt3-1767243600000.0-1767243600000.0-1767243600000-milliseconds]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2026-01-01T00:00:00-05:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1767243600000\":\"foo\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt4-1767216600.0-1767216600.0-1767216600-seconds]#0",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt4-1767216600.0-1767216600.0-1767216600-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2026-01-01T00:00:00+02:30"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2026-01-01T00:00:00+02:30"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt4-1767216600.0-1767216600.0-1767216600-seconds]#1",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt4-1767216600.0-1767216600.0-1767216600-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2026-01-01T00:00:00+02:30"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1767216600.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt4-1767216600.0-1767216600.0-1767216600-seconds]#2",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt4-1767216600.0-1767216600.0-1767216600-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2026-01-01T00:00:00+02:30"
+  },
+  "options": {},
+  "expected": {
+   "json": "1767216600.0"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt4-1767216600.0-1767216600.0-1767216600-seconds]#3",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt4-1767216600.0-1767216600.0-1767216600-seconds]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2026-01-01T00:00:00+02:30"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1767216600": "foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt4-1767216600.0-1767216600.0-1767216600-seconds]#4",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt4-1767216600.0-1767216600.0-1767216600-seconds]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2026-01-01T00:00:00+02:30"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1767216600\":\"foo\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt5-1767247261.000023-1767247261.000023-1767247261.000023-seconds]#0",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt5-1767247261.000023-1767247261.000023-1767247261.000023-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2026-01-01T01:01:01.000023-05:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2026-01-01T01:01:01.000023-05:00"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt5-1767247261.000023-1767247261.000023-1767247261.000023-seconds]#1",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt5-1767247261.000023-1767247261.000023-1767247261.000023-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2026-01-01T01:01:01.000023-05:00"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1767247261.000023
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt5-1767247261.000023-1767247261.000023-1767247261.000023-seconds]#2",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt5-1767247261.000023-1767247261.000023-1767247261.000023-seconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2026-01-01T01:01:01.000023-05:00"
+  },
+  "options": {},
+  "expected": {
+   "json": "1767247261.000023"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt5-1767247261.000023-1767247261.000023-1767247261.000023-seconds]#3",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt5-1767247261.000023-1767247261.000023-1767247261.000023-seconds]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2026-01-01T01:01:01.000023-05:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1767247261.000023": "foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt5-1767247261.000023-1767247261.000023-1767247261.000023-seconds]#4",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt5-1767247261.000023-1767247261.000023-1767247261.000023-seconds]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2026-01-01T01:01:01.000023-05:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1767247261.000023\":\"foo\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt6-1767247261000.023-1767247261000.023-1767247261000.023-milliseconds]#0",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt6-1767247261000.023-1767247261000.023-1767247261000.023-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2026-01-01T01:01:01.000023-05:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2026-01-01T01:01:01.000023-05:00"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt6-1767247261000.023-1767247261000.023-1767247261000.023-milliseconds]#1",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt6-1767247261000.023-1767247261000.023-1767247261000.023-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2026-01-01T01:01:01.000023-05:00"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1767247261000.023
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt6-1767247261000.023-1767247261000.023-1767247261000.023-milliseconds]#2",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt6-1767247261000.023-1767247261000.023-1767247261000.023-milliseconds]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2026-01-01T01:01:01.000023-05:00"
+  },
+  "options": {},
+  "expected": {
+   "json": "1767247261000.023"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt6-1767247261000.023-1767247261000.023-1767247261000.023-milliseconds]#3",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt6-1767247261000.023-1767247261000.023-1767247261000.023-milliseconds]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2026-01-01T01:01:01.000023-05:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1767247261000.023": "foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt6-1767247261000.023-1767247261000.023-1767247261000.023-milliseconds]#4",
+  "test": "tests/serializers/test_datetime.py::test_config_datetime_tz_aware[dt6-1767247261000.023-1767247261000.023-1767247261000.023-milliseconds]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2026-01-01T01:01:01.000023-05:00"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1767247261000.023\":\"foo\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_time[t0-03:14:01.059263-\"03:14:01.059263\"-expected_to_python_dict0-{\"03:14:01.059263\":\"foo\"}-iso8601]#0",
+  "test": "tests/serializers/test_datetime.py::test_config_time[t0-03:14:01.059263-\"03:14:01.059263\"-expected_to_python_dict0-{\"03:14:01.059263\":\"foo\"}-iso8601]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "iso8601"
+  },
+  "mode": "to_python",
+  "input": {
+   "$time": "03:14:01.059263"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "03:14:01.059263"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_time[t0-03:14:01.059263-\"03:14:01.059263\"-expected_to_python_dict0-{\"03:14:01.059263\":\"foo\"}-iso8601]#1",
+  "test": "tests/serializers/test_datetime.py::test_config_time[t0-03:14:01.059263-\"03:14:01.059263\"-expected_to_python_dict0-{\"03:14:01.059263\":\"foo\"}-iso8601]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "iso8601"
+  },
+  "mode": "to_python",
+  "input": {
+   "$time": "03:14:01.059263"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "03:14:01.059263"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_time[t0-03:14:01.059263-\"03:14:01.059263\"-expected_to_python_dict0-{\"03:14:01.059263\":\"foo\"}-iso8601]#2",
+  "test": "tests/serializers/test_datetime.py::test_config_time[t0-03:14:01.059263-\"03:14:01.059263\"-expected_to_python_dict0-{\"03:14:01.059263\":\"foo\"}-iso8601]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "iso8601"
+  },
+  "mode": "to_json",
+  "input": {
+   "$time": "03:14:01.059263"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"03:14:01.059263\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_time[t0-03:14:01.059263-\"03:14:01.059263\"-expected_to_python_dict0-{\"03:14:01.059263\":\"foo\"}-iso8601]#3",
+  "test": "tests/serializers/test_datetime.py::test_config_time[t0-03:14:01.059263-\"03:14:01.059263\"-expected_to_python_dict0-{\"03:14:01.059263\":\"foo\"}-iso8601]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "iso8601"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$time": "03:14:01.059263"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$time": "03:14:01.059263"
+      },
+      "foo"
+     ]
+    ]
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `time` - serialized value may not be as expected [input_value={datetime.time(3, 14, 1, 59263): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_time[t0-03:14:01.059263-\"03:14:01.059263\"-expected_to_python_dict0-{\"03:14:01.059263\":\"foo\"}-iso8601]#4",
+  "test": "tests/serializers/test_datetime.py::test_config_time[t0-03:14:01.059263-\"03:14:01.059263\"-expected_to_python_dict0-{\"03:14:01.059263\":\"foo\"}-iso8601]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "iso8601"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$time": "03:14:01.059263"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "03:14:01.059263": "foo"
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `time` - serialized value may not be as expected [input_value={datetime.time(3, 14, 1, 59263): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_time[t0-03:14:01.059263-\"03:14:01.059263\"-expected_to_python_dict0-{\"03:14:01.059263\":\"foo\"}-iso8601]#5",
+  "test": "tests/serializers/test_datetime.py::test_config_time[t0-03:14:01.059263-\"03:14:01.059263\"-expected_to_python_dict0-{\"03:14:01.059263\":\"foo\"}-iso8601]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "iso8601"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$time": "03:14:01.059263"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"03:14:01.059263\":\"foo\"}",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `time` - serialized value may not be as expected [input_value={datetime.time(3, 14, 1, 59263): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_time[t1-11641.059263-11641.059263-expected_to_python_dict1-{\"11641.059263\":\"foo\"}-seconds]#0",
+  "test": "tests/serializers/test_datetime.py::test_config_time[t1-11641.059263-11641.059263-expected_to_python_dict1-{\"11641.059263\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$time": "03:14:01.059263"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "03:14:01.059263"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_time[t1-11641.059263-11641.059263-expected_to_python_dict1-{\"11641.059263\":\"foo\"}-seconds]#1",
+  "test": "tests/serializers/test_datetime.py::test_config_time[t1-11641.059263-11641.059263-expected_to_python_dict1-{\"11641.059263\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$time": "03:14:01.059263"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 11641.059263
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_time[t1-11641.059263-11641.059263-expected_to_python_dict1-{\"11641.059263\":\"foo\"}-seconds]#2",
+  "test": "tests/serializers/test_datetime.py::test_config_time[t1-11641.059263-11641.059263-expected_to_python_dict1-{\"11641.059263\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$time": "03:14:01.059263"
+  },
+  "options": {},
+  "expected": {
+   "json": "11641.059263"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_time[t1-11641.059263-11641.059263-expected_to_python_dict1-{\"11641.059263\":\"foo\"}-seconds]#3",
+  "test": "tests/serializers/test_datetime.py::test_config_time[t1-11641.059263-11641.059263-expected_to_python_dict1-{\"11641.059263\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$time": "03:14:01.059263"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$time": "03:14:01.059263"
+      },
+      "foo"
+     ]
+    ]
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `time` - serialized value may not be as expected [input_value={datetime.time(3, 14, 1, 59263): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_time[t1-11641.059263-11641.059263-expected_to_python_dict1-{\"11641.059263\":\"foo\"}-seconds]#4",
+  "test": "tests/serializers/test_datetime.py::test_config_time[t1-11641.059263-11641.059263-expected_to_python_dict1-{\"11641.059263\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$time": "03:14:01.059263"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "11641.059263": "foo"
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `time` - serialized value may not be as expected [input_value={datetime.time(3, 14, 1, 59263): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_time[t1-11641.059263-11641.059263-expected_to_python_dict1-{\"11641.059263\":\"foo\"}-seconds]#5",
+  "test": "tests/serializers/test_datetime.py::test_config_time[t1-11641.059263-11641.059263-expected_to_python_dict1-{\"11641.059263\":\"foo\"}-seconds]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "seconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$time": "03:14:01.059263"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"11641.059263\":\"foo\"}",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `time` - serialized value may not be as expected [input_value={datetime.time(3, 14, 1, 59263): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_time[t2-11641059.263-11641059.263-expected_to_python_dict2-{\"11641059.263\":\"foo\"}-milliseconds]#0",
+  "test": "tests/serializers/test_datetime.py::test_config_time[t2-11641059.263-11641059.263-expected_to_python_dict2-{\"11641059.263\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$time": "03:14:01.059263"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "03:14:01.059263"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_time[t2-11641059.263-11641059.263-expected_to_python_dict2-{\"11641059.263\":\"foo\"}-milliseconds]#1",
+  "test": "tests/serializers/test_datetime.py::test_config_time[t2-11641059.263-11641059.263-expected_to_python_dict2-{\"11641059.263\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$time": "03:14:01.059263"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 11641059.263
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_time[t2-11641059.263-11641059.263-expected_to_python_dict2-{\"11641059.263\":\"foo\"}-milliseconds]#2",
+  "test": "tests/serializers/test_datetime.py::test_config_time[t2-11641059.263-11641059.263-expected_to_python_dict2-{\"11641059.263\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$time": "03:14:01.059263"
+  },
+  "options": {},
+  "expected": {
+   "json": "11641059.263"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_time[t2-11641059.263-11641059.263-expected_to_python_dict2-{\"11641059.263\":\"foo\"}-milliseconds]#3",
+  "test": "tests/serializers/test_datetime.py::test_config_time[t2-11641059.263-11641059.263-expected_to_python_dict2-{\"11641059.263\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$time": "03:14:01.059263"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$time": "03:14:01.059263"
+      },
+      "foo"
+     ]
+    ]
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `time` - serialized value may not be as expected [input_value={datetime.time(3, 14, 1, 59263): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_time[t2-11641059.263-11641059.263-expected_to_python_dict2-{\"11641059.263\":\"foo\"}-milliseconds]#4",
+  "test": "tests/serializers/test_datetime.py::test_config_time[t2-11641059.263-11641059.263-expected_to_python_dict2-{\"11641059.263\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$time": "03:14:01.059263"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "11641059.263": "foo"
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `time` - serialized value may not be as expected [input_value={datetime.time(3, 14, 1, 59263): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_config_time[t2-11641059.263-11641059.263-expected_to_python_dict2-{\"11641059.263\":\"foo\"}-milliseconds]#5",
+  "test": "tests/serializers/test_datetime.py::test_config_time[t2-11641059.263-11641059.263-expected_to_python_dict2-{\"11641059.263\":\"foo\"}-milliseconds]",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": {
+   "ser_json_temporal": "milliseconds"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$time": "03:14:01.059263"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"11641059.263\":\"foo\"}",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `time` - serialized value may not be as expected [input_value={datetime.time(3, 14, 1, 59263): 'foo'}, input_type=dict])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_date#0",
+  "test": "tests/serializers/test_datetime.py::test_date",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$date": "2022-12-02"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-12-02"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_date#1",
+  "test": "tests/serializers/test_datetime.py::test_date",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$date": "2022-12-02"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2022-12-02"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_date#2",
+  "test": "tests/serializers/test_datetime.py::test_date",
+  "schema": {
+   "type": "date"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$date": "2022-12-02"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2022-12-02\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_date_datetime_union#0",
+  "test": "tests/serializers/test_datetime.py::test_date_datetime_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "date"
+    },
+    {
+     "type": "datetime",
+     "microseconds_precision": "truncate"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2022-12-02T01:00:00"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-12-02T01:00:00"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_date_datetime_union#1",
+  "test": "tests/serializers/test_datetime.py::test_date_datetime_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "date"
+    },
+    {
+     "type": "datetime",
+     "microseconds_precision": "truncate"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2022-12-02T01:00:00"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2022-12-02T01:00:00"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_date_datetime_union#2",
+  "test": "tests/serializers/test_datetime.py::test_date_datetime_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "date"
+    },
+    {
+     "type": "datetime",
+     "microseconds_precision": "truncate"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2022-12-02T01:00:00"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2022-12-02T01:00:00\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_date_key#0",
+  "test": "tests/serializers/test_datetime.py::test_date_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "date"
+   },
+   "values_schema": {
+    "type": "date"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$date": "2022-12-02"
+     },
+     {
+      "$date": "2022-12-02"
+     }
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$date": "2022-12-02"
+      },
+      {
+       "$date": "2022-12-02"
+      }
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_date_key#1",
+  "test": "tests/serializers/test_datetime.py::test_date_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "date"
+   },
+   "values_schema": {
+    "type": "date"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$date": "2022-12-02"
+     },
+     {
+      "$date": "2022-12-02"
+     }
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "2022-12-02": "2022-12-02"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_date_key#2",
+  "test": "tests/serializers/test_datetime.py::test_date_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "date"
+   },
+   "values_schema": {
+    "type": "date"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$date": "2022-12-02"
+     },
+     {
+      "$date": "2022-12-02"
+     }
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"2022-12-02\":\"2022-12-02\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime#0",
+  "test": "tests/serializers/test_datetime.py::test_datetime",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2022-12-02T12:13:14"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$datetime": "2022-12-02T12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime#1",
+  "test": "tests/serializers/test_datetime.py::test_datetime",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2022-12-02T12:13:14"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2022-12-02T12:13:14"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime#2",
+  "test": "tests/serializers/test_datetime.py::test_datetime",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2022-12-02T12:13:14"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2022-12-02T12:13:14\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime#3",
+  "test": "tests/serializers/test_datetime.py::test_datetime",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 123,
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `datetime` - serialized value may not be as expected [input_value=123, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime#4",
+  "test": "tests/serializers/test_datetime.py::test_datetime",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "json": "123",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `datetime` - serialized value may not be as expected [input_value=123, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value0-2022-12-02T12:13:14]#0",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value0-2022-12-02T12:13:14]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2022-12-02T12:13:14"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2022-12-02T12:13:14"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value0-2022-12-02T12:13:14]#1",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value0-2022-12-02T12:13:14]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2022-12-02T12:13:14"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2022-12-02T12:13:14\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value1-2022-12-02T12:00:00Z]#0",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value1-2022-12-02T12:00:00Z]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2022-12-02T12:00:00+00:00"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2022-12-02T12:00:00Z"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value1-2022-12-02T12:00:00Z]#1",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value1-2022-12-02T12:00:00Z]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2022-12-02T12:00:00+00:00"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2022-12-02T12:00:00Z\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value2-2022-12-02T12:00:00+02:00]#0",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value2-2022-12-02T12:00:00+02:00]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2022-12-02T12:00:00+02:00"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2022-12-02T12:00:00+02:00"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value2-2022-12-02T12:00:00+02:00]#1",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value2-2022-12-02T12:00:00+02:00]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2022-12-02T12:00:00+02:00"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2022-12-02T12:00:00+02:00\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value3-2022-12-02T12:00:00+02:30]#0",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value3-2022-12-02T12:00:00+02:30]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2022-12-02T12:00:00+02:30"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2022-12-02T12:00:00+02:30"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value3-2022-12-02T12:00:00+02:30]#1",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value3-2022-12-02T12:00:00+02:30]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2022-12-02T12:00:00+02:30"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2022-12-02T12:00:00+02:30\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value4-2022-12-02T12:00:00-02:00]#0",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value4-2022-12-02T12:00:00-02:00]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2022-12-02T12:00:00-02:00"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2022-12-02T12:00:00-02:00"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value4-2022-12-02T12:00:00-02:00]#1",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value4-2022-12-02T12:00:00-02:00]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2022-12-02T12:00:00-02:00"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2022-12-02T12:00:00-02:00\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value5-2022-12-02T12:00:00-02:30]#0",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value5-2022-12-02T12:00:00-02:30]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2022-12-02T12:00:00-02:30"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2022-12-02T12:00:00-02:30"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value5-2022-12-02T12:00:00-02:30]#1",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value5-2022-12-02T12:00:00-02:30]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2022-12-02T12:00:00-02:30"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2022-12-02T12:00:00-02:30\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value6-2022-12-02T12:13:14.123456]#0",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value6-2022-12-02T12:13:14.123456]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2022-12-02T12:13:14.123456"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2022-12-02T12:13:14.123456"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value6-2022-12-02T12:13:14.123456]#1",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value6-2022-12-02T12:13:14.123456]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2022-12-02T12:13:14.123456"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2022-12-02T12:13:14.123456\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value7-2022-12-02T12:13:14.000123]#0",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value7-2022-12-02T12:13:14.000123]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2022-12-02T12:13:14.000123"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2022-12-02T12:13:14.000123"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value7-2022-12-02T12:13:14.000123]#1",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value7-2022-12-02T12:13:14.000123]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2022-12-02T12:13:14.000123"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2022-12-02T12:13:14.000123\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value8-2022-12-02T12:13:14.123000]#0",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value8-2022-12-02T12:13:14.123000]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2022-12-02T12:13:14.123000"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2022-12-02T12:13:14.123000"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value8-2022-12-02T12:13:14.123000]#1",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value8-2022-12-02T12:13:14.123000]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2022-12-02T12:13:14.123000"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2022-12-02T12:13:14.123000\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value9-2022-12-02T12:13:14.123456-02:00]#0",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value9-2022-12-02T12:13:14.123456-02:00]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2022-12-02T12:13:14.123456-02:00"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2022-12-02T12:13:14.123456-02:00"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_json[value9-2022-12-02T12:13:14.123456-02:00]#1",
+  "test": "tests/serializers/test_datetime.py::test_datetime_json[value9-2022-12-02T12:13:14.123456-02:00]",
+  "schema": {
+   "type": "datetime",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2022-12-02T12:13:14.123456-02:00"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2022-12-02T12:13:14.123456-02:00\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_key#0",
+  "test": "tests/serializers/test_datetime.py::test_datetime_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2022-12-02T12:13:14"
+     },
+     {
+      "$datetime": "2022-12-02T12:13:14"
+     }
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$datetime": "2022-12-02T12:13:14"
+      },
+      {
+       "$datetime": "2022-12-02T12:13:14"
+      }
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_key#1",
+  "test": "tests/serializers/test_datetime.py::test_datetime_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2022-12-02T12:13:14"
+     },
+     {
+      "$datetime": "2022-12-02T12:13:14"
+     }
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "2022-12-02T12:13:14": "2022-12-02T12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_datetime_key#2",
+  "test": "tests/serializers/test_datetime.py::test_datetime_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "datetime",
+    "microseconds_precision": "truncate"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$datetime": "2022-12-02T12:13:14"
+     },
+     {
+      "$datetime": "2022-12-02T12:13:14"
+     }
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"2022-12-02T12:13:14\":\"2022-12-02T12:13:14\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_time#0",
+  "test": "tests/serializers/test_datetime.py::test_time",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$time": "12:13:14"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$time": "12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_time#1",
+  "test": "tests/serializers/test_datetime.py::test_time",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$time": "12:13:14"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "12:13:14"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_time#2",
+  "test": "tests/serializers/test_datetime.py::test_time",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$time": "12:13:14.123456"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "12:13:14.123456"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_time#3",
+  "test": "tests/serializers/test_datetime.py::test_time",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$time": "12:13:14"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"12:13:14\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_time#4",
+  "test": "tests/serializers/test_datetime.py::test_time",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$time": "12:13:14.123456"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"12:13:14.123456\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_time#5",
+  "test": "tests/serializers/test_datetime.py::test_time",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$time": "12:13:14.000123"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"12:13:14.000123\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_time#6",
+  "test": "tests/serializers/test_datetime.py::test_time",
+  "schema": {
+   "type": "time",
+   "microseconds_precision": "truncate"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$time": "12:13:14.123000"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"12:13:14.123000\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_time_key#0",
+  "test": "tests/serializers/test_datetime.py::test_time_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "time",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "time",
+    "microseconds_precision": "truncate"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$time": "12:13:14"
+     },
+     {
+      "$time": "12:13:14"
+     }
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$time": "12:13:14"
+      },
+      {
+       "$time": "12:13:14"
+      }
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_time_key#1",
+  "test": "tests/serializers/test_datetime.py::test_time_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "time",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "time",
+    "microseconds_precision": "truncate"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$time": "12:13:14"
+     },
+     {
+      "$time": "12:13:14"
+     }
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "12:13:14": "12:13:14"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_time_key#2",
+  "test": "tests/serializers/test_datetime.py::test_time_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "time",
+    "microseconds_precision": "truncate"
+   },
+   "values_schema": {
+    "type": "time",
+    "microseconds_precision": "truncate"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$time": "12:13:14"
+     },
+     {
+      "$time": "12:13:14"
+     }
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"12:13:14\":\"12:13:14\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_union_date_respects_downcasts_correctly#0",
+  "test": "tests/serializers/test_datetime.py::test_union_date_respects_downcasts_correctly",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "date"
+    },
+    {
+     "type": "json",
+     "schema": {
+      "type": "function-plain",
+      "function": {
+       "type": "no-info",
+       "function": {
+        "$function": "<lambda>"
+       }
+      },
+      "serialization": {
+       "type": "function-plain",
+       "function": {
+        "$function": "<lambda>"
+       }
+      }
+     },
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_union_datetime_downcasts_correctly#0",
+  "test": "tests/serializers/test_datetime.py::test_union_datetime_downcasts_correctly",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "datetime",
+     "microseconds_precision": "truncate"
+    },
+    {
+     "type": "json",
+     "schema": {
+      "type": "function-plain",
+      "function": {
+       "type": "no-info",
+       "function": {
+        "$function": "<lambda>"
+       }
+      },
+      "serialization": {
+       "type": "function-plain",
+       "function": {
+        "$function": "<lambda>"
+       }
+      }
+     },
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_datetime.py::test_union_time_respects_downcasts_correctly#0",
+  "test": "tests/serializers/test_datetime.py::test_union_time_respects_downcasts_correctly",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "time",
+     "microseconds_precision": "truncate"
+    },
+    {
+     "type": "json",
+     "schema": {
+      "type": "function-plain",
+      "function": {
+       "type": "no-info",
+       "function": {
+        "$function": "<lambda>"
+       }
+      },
+      "serialization": {
+       "type": "function-plain",
+       "function": {
+        "$function": "<lambda>"
+       }
+      }
+     },
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ }
+]

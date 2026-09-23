@@ -1,0 +1,400 @@
+[
+ {
+  "id": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_dict_key#0",
+  "test": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "missing-sentinel",
+    "schema": {
+     "type": "int"
+    }
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1": 2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_dict_key#1",
+  "test": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "missing-sentinel",
+    "schema": {
+     "type": "int"
+    }
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1\":2}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_dict_key#2",
+  "test": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "missing-sentinel",
+    "schema": {
+     "type": "int"
+    }
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$object": "sentinel"
+     },
+     2
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Error serializing to JSON: PydanticSerializationError: Unable to serialize unknown type: <class 'typing_extensions.sentinel'>"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_inner_schema#0",
+  "test": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_inner_schema",
+  "schema": {
+   "type": "missing-sentinel",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "sentinel"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "sentinel"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_inner_schema#1",
+  "test": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_inner_schema",
+  "schema": {
+   "type": "missing-sentinel",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_inner_schema#2",
+  "test": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_inner_schema",
+  "schema": {
+   "type": "missing-sentinel",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_inner_schema#3",
+  "test": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_inner_schema",
+  "schema": {
+   "type": "missing-sentinel",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_inner_schema#4",
+  "test": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_inner_schema",
+  "schema": {
+   "type": "missing-sentinel",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "sentinel"
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Error serializing to JSON: 'MISSING' can't be serialized to JSON"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_inner_schema_serialization_warning#0",
+  "test": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_inner_schema_serialization_warning",
+  "schema": {
+   "type": "missing-sentinel",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "hello",
+  "options": {},
+  "expected": {
+   "output": "hello",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value='hello', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_no_inner_schema#0",
+  "test": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_no_inner_schema",
+  "schema": {
+   "type": "missing-sentinel"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "sentinel"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "sentinel"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_no_inner_schema#1",
+  "test": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_no_inner_schema",
+  "schema": {
+   "type": "missing-sentinel"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationUnexpectedValue",
+    "message": "Expected 'MISSING' sentinel"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_no_inner_schema#2",
+  "test": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_no_inner_schema",
+  "schema": {
+   "type": "missing-sentinel"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "sentinel"
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Error serializing to JSON: 'MISSING' can't be serialized to JSON"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_typed_dict_field_omitted#0",
+  "test": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_typed_dict_field_omitted",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "f": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "missing-sentinel",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": {
+       "$object": "sentinel"
+      }
+     }
+    },
+    "g": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "f": {
+    "$object": "sentinel"
+   },
+   "g": 1
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "g": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_typed_dict_field_omitted#1",
+  "test": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_typed_dict_field_omitted",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "f": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "missing-sentinel",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": {
+       "$object": "sentinel"
+      }
+     }
+    },
+    "g": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "f": 1,
+   "g": 1
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "f": 1,
+    "g": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_typed_dict_field_omitted#2",
+  "test": "tests/serializers/test_missing_sentinel.py::test_missing_sentinel_typed_dict_field_omitted",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "f": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "missing-sentinel",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "default": {
+       "$object": "sentinel"
+      }
+     }
+    },
+    "g": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "f": {
+    "$object": "sentinel"
+   },
+   "g": 1
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"g\":1}"
+  }
+ }
+]

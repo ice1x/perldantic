@@ -1,13 +1,14 @@
-"""pytest plugin that records `SchemaValidator` calls as conformance cases.
+"""pytest plugin that records `SchemaValidator` and `SchemaSerializer` calls as conformance cases.
 
 Run upstream's own tests with it to capture what pydantic-core actually does:
 
     python -m pytest tests/validators -p conformance.recorder --conformance-out=<dir>
 
 After collection, every `SchemaValidator` name bound in a test module (under the rootdir) is
-wrapped. Each `validate_python` / `validate_json` call is recorded with its schema, config,
-input, keyword options and outcome (output value, validation errors or exception), encoded with
-`conformance.encoding`. Cases are deduplicated, sorted by id and written to one JSON file per
+wrapped, and so is every `SchemaSerializer` name. Each `validate_python` / `validate_json` /
+`to_python` / `to_json` call is recorded with its schema, config, input, keyword options and
+outcome (output value, JSON text, validation errors or exception, plus serializer warnings),
+encoded with `conformance.encoding`. Cases are deduplicated, sorted by id and written to one JSON file per
 test module, mirroring the test paths under the output directory.
 
 Hypothesis-driven tests are not recorded: their inputs are random and would make the recorded
@@ -19,6 +20,7 @@ from __future__ import annotations
 import json
 import re
 import sys
+import warnings
 from pathlib import Path
 from typing import Any
 
@@ -128,11 +130,64 @@ class RecordingValidator:
         return self._call('validate_json', 'json', input_value, recorded, kwargs)
 
 
-class RecordingFactory:
-    """Stands in for the `SchemaValidator` class in test modules."""
+class RecordingSerializer:
+    """Proxy around a real SchemaSerializer that records serialization calls."""
 
-    def __init__(self, cls: Any) -> None:
+    def __init__(self, inner: Any, schema: Any, config: Any) -> None:
+        self._inner = inner
+        self._schema = schema
+        self._config = config
+
+    def __getattr__(self, name: str) -> Any:
+        return getattr(self._inner, name)
+
+    def __repr__(self) -> str:
+        return repr(self._inner)
+
+    def __reduce__(self) -> Any:
+        # Pickle as the real serializer; unpickled copies are not recorded.
+        return self._inner.__reduce__()
+
+    def _call(self, method: str, value: Any, kwargs: dict[str, Any]) -> Any:
+        recorded_input = _safe_encode(value)
+        try:
+            with warnings.catch_warnings(record=True) as caught:
+                warnings.simplefilter('always')
+                output = getattr(self._inner, method)(value, **kwargs)
+        except Exception as exc:
+            expected: dict[str, Any] = {
+                'exception': {'type': type(exc).__name__, 'message': _stable(str(exc))}
+            }
+            _record(self._schema, self._config, method, recorded_input, kwargs, expected)
+            raise
+        finally:
+            # Re-emit outside the recording block, so the tests' own warning checks still see
+            # them (inside it they would be caught again).
+            for w in caught:
+                warnings.warn_explicit(w.message, w.category, w.filename, w.lineno)
+        messages = [_stable(str(w.message)) for w in caught]
+        if isinstance(output, bytes):
+            expected = {'json': output.decode()}
+        else:
+            expected = {'output': _safe_encode(output)}
+        if messages:
+            expected['warnings'] = messages
+        _record(self._schema, self._config, method, recorded_input, kwargs, expected)
+        return output
+
+    def to_python(self, value: Any, **kwargs: Any) -> Any:
+        return self._call('to_python', value, kwargs)
+
+    def to_json(self, value: Any, **kwargs: Any) -> Any:
+        return self._call('to_json', value, kwargs)
+
+
+class RecordingFactory:
+    """Stands in for the `SchemaValidator` or `SchemaSerializer` class in test modules."""
+
+    def __init__(self, cls: Any, proxy: type = RecordingValidator) -> None:
         self._cls = cls
+        self._proxy = proxy
 
     def __getattr__(self, name: str) -> Any:
         return getattr(self._cls, name)
@@ -141,7 +196,7 @@ class RecordingFactory:
         inner = self._cls(*args, **kwargs)
         schema = args[0] if args else kwargs.get('schema')
         config = args[1] if len(args) > 1 else kwargs.get('config')
-        return RecordingValidator(inner, schema, config)
+        return self._proxy(inner, schema, config)
 
 
 @pytest.hookimpl(trylast=True)
@@ -149,8 +204,12 @@ def pytest_collection_finish(session: pytest.Session) -> None:
     root = str(session.config.rootpath)
     for module in list(sys.modules.values()):
         path = getattr(module, '__file__', None) or ''
-        if path.startswith(root) and 'SchemaValidator' in vars(module):
+        if not path.startswith(root):
+            continue
+        if 'SchemaValidator' in vars(module):
             module.SchemaValidator = RecordingFactory(module.SchemaValidator)
+        if 'SchemaSerializer' in vars(module):
+            module.SchemaSerializer = RecordingFactory(module.SchemaSerializer, RecordingSerializer)
 
 
 @pytest.hookimpl(hookwrapper=True)

@@ -1,0 +1,709 @@
+[
+ {
+  "id": "tests/serializers/test_json.py::test_custom_serializer#0",
+  "test": "tests/serializers/test_json.py::test_custom_serializer",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_custom_serializer#1",
+  "test": "tests/serializers/test_json.py::test_custom_serializer",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1": 2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_custom_serializer#2",
+  "test": "tests/serializers/test_json.py::test_custom_serializer",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json",
+   "round_trip": true
+  },
+  "expected": {
+   "output": "{\"1\":2}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_custom_serializer#3",
+  "test": "tests/serializers/test_json.py::test_custom_serializer",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1\":2}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_custom_serializer#4",
+  "test": "tests/serializers/test_json.py::test_custom_serializer",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ]
+   ]
+  },
+  "options": {
+   "round_trip": true
+  },
+  "expected": {
+   "json": "\"{\\\"1\\\":2}\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_dict_key_json#0",
+  "test": "tests/serializers/test_json.py::test_dict_key_json",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "json"
+   },
+   "values_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     3
+    ],
+    [
+     {
+      "$tuple": [
+       4,
+       5
+      ]
+     },
+     9
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$tuple": [
+        1,
+        2
+       ]
+      },
+      3
+     ],
+     [
+      {
+       "$tuple": [
+        4,
+        5
+       ]
+      },
+      9
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_dict_key_json#1",
+  "test": "tests/serializers/test_json.py::test_dict_key_json",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "json"
+   },
+   "values_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     3
+    ],
+    [
+     {
+      "$tuple": [
+       4,
+       5
+      ]
+     },
+     9
+    ]
+   ]
+  },
+  "options": {
+   "round_trip": true
+  },
+  "expected": {
+   "output": {
+    "[1,2]": 3,
+    "[4,5]": 9
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_dict_key_json#2",
+  "test": "tests/serializers/test_json.py::test_dict_key_json",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "json"
+   },
+   "values_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     3
+    ],
+    [
+     {
+      "$tuple": [
+       4,
+       5
+      ]
+     },
+     9
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1,2": 3,
+    "4,5": 9
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_dict_key_json#3",
+  "test": "tests/serializers/test_json.py::test_dict_key_json",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "json"
+   },
+   "values_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     3
+    ],
+    [
+     {
+      "$tuple": [
+       4,
+       5
+      ]
+     },
+     9
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json",
+   "round_trip": true
+  },
+  "expected": {
+   "output": {
+    "[1,2]": 3,
+    "[4,5]": 9
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_dict_key_json#4",
+  "test": "tests/serializers/test_json.py::test_dict_key_json",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "json"
+   },
+   "values_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     3
+    ],
+    [
+     {
+      "$tuple": [
+       4,
+       5
+      ]
+     },
+     9
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1,2\":3,\"4,5\":9}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_dict_key_json#5",
+  "test": "tests/serializers/test_json.py::test_dict_key_json",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "json"
+   },
+   "values_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     3
+    ],
+    [
+     {
+      "$tuple": [
+       4,
+       5
+      ]
+     },
+     9
+    ]
+   ]
+  },
+  "options": {
+   "round_trip": true
+  },
+  "expected": {
+   "json": "{\"[1,2]\":3,\"[4,5]\":9}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_json_int#0",
+  "test": "tests/serializers/test_json.py::test_json_int",
+  "schema": {
+   "type": "json",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_json_int#1",
+  "test": "tests/serializers/test_json.py::test_json_int",
+  "schema": {
+   "type": "json",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "round_trip": true
+  },
+  "expected": {
+   "output": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_json_int#2",
+  "test": "tests/serializers/test_json.py::test_json_int",
+  "schema": {
+   "type": "json",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_json_int#3",
+  "test": "tests/serializers/test_json.py::test_json_int",
+  "schema": {
+   "type": "json",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json",
+   "round_trip": true
+  },
+  "expected": {
+   "output": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_json_int#4",
+  "test": "tests/serializers/test_json.py::test_json_int",
+  "schema": {
+   "type": "json",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_json_int#5",
+  "test": "tests/serializers/test_json.py::test_json_int",
+  "schema": {
+   "type": "json",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {
+   "round_trip": true
+  },
+  "expected": {
+   "json": "\"1\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_list_json#0",
+  "test": "tests/serializers/test_json.py::test_list_json",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   [
+    1,
+    2
+   ],
+   null
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    "a",
+    [
+     1,
+     2
+    ],
+    null
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_list_json#1",
+  "test": "tests/serializers/test_json.py::test_list_json",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   [
+    1,
+    2
+   ],
+   null
+  ],
+  "options": {
+   "round_trip": true
+  },
+  "expected": {
+   "output": [
+    "\"a\"",
+    "[1,2]",
+    "null"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_list_json#2",
+  "test": "tests/serializers/test_json.py::test_list_json",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   [
+    1,
+    2
+   ],
+   null
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "a",
+    [
+     1,
+     2
+    ],
+    null
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_list_json#3",
+  "test": "tests/serializers/test_json.py::test_list_json",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   [
+    1,
+    2
+   ],
+   null
+  ],
+  "options": {
+   "mode": "json",
+   "round_trip": true
+  },
+  "expected": {
+   "output": [
+    "\"a\"",
+    "[1,2]",
+    "null"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_list_json#4",
+  "test": "tests/serializers/test_json.py::test_list_json",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "a",
+   [
+    1,
+    2
+   ],
+   null
+  ],
+  "options": {},
+  "expected": {
+   "json": "[\"a\",[1,2],null]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_json.py::test_list_json#5",
+  "test": "tests/serializers/test_json.py::test_list_json",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "json"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "a",
+   [
+    1,
+    2
+   ],
+   null
+  ],
+  "options": {
+   "round_trip": true
+  },
+  "expected": {
+   "json": "[\"\\\"a\\\"\",\"[1,2]\",\"null\"]"
+  }
+ }
+]

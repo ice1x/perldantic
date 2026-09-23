@@ -1,0 +1,463 @@
+[
+ {
+  "id": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema0-value0-expected_python0-[1,\"a\"]]#0",
+  "test": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema0-value0-expected_python0-[1,\"a\"]]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   "a"
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    "a"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema0-value0-expected_python0-[1,\"a\"]]#1",
+  "test": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema0-value0-expected_python0-[1,\"a\"]]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   1,
+   "a"
+  ],
+  "options": {},
+  "expected": {
+   "json": "[1,\"a\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema1-value1-expected_python1-[1,2]]#0",
+  "test": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema1-value1-expected_python1-[1,2]]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema1-value1-expected_python1-[1,2]]#1",
+  "test": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema1-value1-expected_python1-[1,2]]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   1,
+   2
+  ],
+  "options": {},
+  "expected": {
+   "json": "[1,2]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema2-value2-expected_python2-[1,\"a\"]]#0",
+  "test": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema2-value2-expected_python2-[1,\"a\"]]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "str"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    "a"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     "a"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema2-value2-expected_python2-[1,\"a\"]]#1",
+  "test": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema2-value2-expected_python2-[1,\"a\"]]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "tuple",
+    "items_schema": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "str"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    1,
+    "a"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,\"a\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema3-value3-expected_python3-{\"a\":1}]#0",
+  "test": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema3-value3-expected_python3-{\"a\":1}]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "dict",
+    "keys_schema": {
+     "type": "str"
+    },
+    "values_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema3-value3-expected_python3-{\"a\":1}]#1",
+  "test": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema3-value3-expected_python3-{\"a\":1}]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "dict",
+    "keys_schema": {
+     "type": "str"
+    },
+    "values_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "a": 1
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema4-value4-expected_python4-{\"a\":1}]#0",
+  "test": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema4-value4-expected_python4-{\"a\":1}]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "typed-dict",
+    "fields": {
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1,
+   "b": 2
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema4-value4-expected_python4-{\"a\":1}]#1",
+  "test": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema4-value4-expected_python4-{\"a\":1}]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "typed-dict",
+    "fields": {
+     "a": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "a": 1,
+   "b": 2
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema5-value5-expected_python5-[1,2]]#0",
+  "test": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema5-value5-expected_python5-[1,2]]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "definitions",
+    "schema": {
+     "type": "definition-ref",
+     "schema_ref": "list_of_int"
+    },
+    "definitions": [
+     {
+      "type": "list",
+      "items_schema": {
+       "type": "int"
+      },
+      "ref": "list_of_int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema5-value5-expected_python5-[1,2]]#1",
+  "test": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema5-value5-expected_python5-[1,2]]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "definitions",
+    "schema": {
+     "type": "definition-ref",
+     "schema_ref": "list_of_int"
+    },
+    "definitions": [
+     {
+      "type": "list",
+      "items_schema": {
+       "type": "int"
+      },
+      "ref": "list_of_int"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   1,
+   2
+  ],
+  "options": {},
+  "expected": {
+   "json": "[1,2]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema6-1-1-1]#0",
+  "test": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema6-1-1-1]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-after",
+    "function": {
+     "type": "no-info",
+     "function": {
+      "$function": "<lambda>"
+     }
+    },
+    "schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema6-1-1-1]#1",
+  "test": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema[ser_schema6-1-1-1]",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "function-after",
+    "function": {
+     "type": "no-info",
+     "function": {
+      "$function": "<lambda>"
+     }
+    },
+    "schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema_expected_type#0",
+  "test": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema_expected_type",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a"
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    "a"
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value='a', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema_nested_serialization#0",
+  "test": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema_nested_serialization",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "int",
+    "serialization": {
+     "type": "function-plain",
+     "function": {
+      "$function": "<lambda>"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 3,
+  "options": {},
+  "expected": {
+   "output": 6
+  }
+ },
+ {
+  "id": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema_nested_serialization#1",
+  "test": "tests/serializers/test_core_schema_as_ser_schema.py::test_core_schema_as_ser_schema_nested_serialization",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "int",
+    "serialization": {
+     "type": "function-plain",
+     "function": {
+      "$function": "<lambda>"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 3,
+  "options": {},
+  "expected": {
+   "json": "6"
+  }
+ }
+]

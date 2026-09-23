@@ -1,0 +1,3659 @@
+[
+ {
+  "id": "tests/serializers/test_dict.py::test_dict_any_any#0",
+  "test": "tests/serializers/test_dict.py::test_dict_any_any",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     "a",
+     1
+    ],
+    [
+     {
+      "$bytes": "Yg=="
+     },
+     2
+    ],
+    [
+     33,
+     3
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      "a",
+      1
+     ],
+     [
+      {
+       "$bytes": "Yg=="
+      },
+      2
+     ],
+     [
+      33,
+      3
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_dict_any_any#1",
+  "test": "tests/serializers/test_dict.py::test_dict_any_any",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     "a",
+     1
+    ],
+    [
+     {
+      "$bytes": "Yg=="
+     },
+     2
+    ],
+    [
+     33,
+     3
+    ],
+    [
+     true,
+     4
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": 2,
+    "33": 3,
+    "true": 4
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_dict_any_any#2",
+  "test": "tests/serializers/test_dict.py::test_dict_any_any",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     "a",
+     1
+    ],
+    [
+     {
+      "$bytes": "Yg=="
+     },
+     2
+    ],
+    [
+     33,
+     3
+    ],
+    [
+     true,
+     4
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":1,\"b\":2,\"33\":3,\"true\":4}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_dict_any_any#3",
+  "test": "tests/serializers/test_dict.py::test_dict_any_any",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     3
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$tuple": [
+        1,
+        2
+       ]
+      },
+      3
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_dict_any_any#4",
+  "test": "tests/serializers/test_dict.py::test_dict_any_any",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     3
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1,2": 3
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_dict_any_any#5",
+  "test": "tests/serializers/test_dict.py::test_dict_any_any",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     3
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1,2\":3}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_dict_str_int#0",
+  "test": "tests/serializers/test_dict.py::test_dict_str_int",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1,
+   "b": 2,
+   "c": 3
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": 2,
+    "c": 3
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_dict_str_int#1",
+  "test": "tests/serializers/test_dict.py::test_dict_str_int",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1,
+   "b": 2,
+   "c": 3
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": 2,
+    "c": 3
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_dict_str_int#2",
+  "test": "tests/serializers/test_dict.py::test_dict_str_int",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "a": 1,
+   "b": 2,
+   "c": 3
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":1,\"b\":2,\"c\":3}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_dict_str_int#3",
+  "test": "tests/serializers/test_dict.py::test_dict_str_int",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "a": 1,
+   "b": 2,
+   "c": 3
+  },
+  "options": {
+   "indent": 2
+  },
+  "expected": {
+   "json": "{\n  \"a\": 1,\n  \"b\": 2,\n  \"c\": 3\n}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_exclude#0",
+  "test": "tests/serializers/test_dict.py::test_exclude",
+  "schema": {
+   "type": "dict",
+   "serialization": {
+    "type": "include-exclude-dict",
+    "exclude": {
+     "$set": [
+      "a",
+      "c"
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1,
+   "b": 2,
+   "c": 3,
+   "d": 4
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "b": 2,
+    "d": 4
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_exclude#1",
+  "test": "tests/serializers/test_dict.py::test_exclude",
+  "schema": {
+   "type": "dict",
+   "serialization": {
+    "type": "include-exclude-dict",
+    "exclude": {
+     "$set": [
+      "a",
+      "c"
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "a": 1,
+   "b": 2,
+   "c": 3,
+   "d": 4
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"b\":2,\"d\":4}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_exclude#2",
+  "test": "tests/serializers/test_dict.py::test_exclude",
+  "schema": {
+   "type": "dict",
+   "serialization": {
+    "type": "include-exclude-dict",
+    "exclude": {
+     "$set": [
+      "a",
+      "c"
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1,
+   "b": 2,
+   "c": 3,
+   "d": 4
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     "d"
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "b": 2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_exclude#3",
+  "test": "tests/serializers/test_dict.py::test_exclude",
+  "schema": {
+   "type": "dict",
+   "serialization": {
+    "type": "include-exclude-dict",
+    "exclude": {
+     "$set": [
+      "a",
+      "c"
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1,
+   "b": 2,
+   "c": 3,
+   "d": 4
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     "__all__"
+    ]
+   }
+  },
+  "expected": {
+   "output": {}
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_exclude#4",
+  "test": "tests/serializers/test_dict.py::test_exclude",
+  "schema": {
+   "type": "dict",
+   "serialization": {
+    "type": "include-exclude-dict",
+    "exclude": {
+     "$set": [
+      "a",
+      "c"
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1,
+   "b": 2,
+   "c": 3,
+   "d": 4
+  },
+  "options": {
+   "exclude": {
+    "d": {
+     "$object": "ellipsis"
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "b": 2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_exclude#5",
+  "test": "tests/serializers/test_dict.py::test_exclude",
+  "schema": {
+   "type": "dict",
+   "serialization": {
+    "type": "include-exclude-dict",
+    "exclude": {
+     "$set": [
+      "a",
+      "c"
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1,
+   "b": 2,
+   "c": 3,
+   "d": 4
+  },
+  "options": {
+   "exclude": {
+    "d": {
+     "$set": [
+      1
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "b": 2,
+    "d": 4
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_exclude#6",
+  "test": "tests/serializers/test_dict.py::test_exclude",
+  "schema": {
+   "type": "dict",
+   "serialization": {
+    "type": "include-exclude-dict",
+    "exclude": {
+     "$set": [
+      "a",
+      "c"
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "a": 1,
+   "b": 2,
+   "c": 3,
+   "d": 4
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     "d"
+    ]
+   }
+  },
+  "expected": {
+   "json": "{\"b\":2}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter#0",
+  "test": "tests/serializers/test_dict.py::test_filter",
+  "schema": {
+   "type": "dict",
+   "serialization": {
+    "type": "include-exclude-dict",
+    "include": {
+     "$set": [
+      "1",
+      "3",
+      "5"
+     ]
+    },
+    "exclude": {
+     "$set": [
+      "5",
+      "6"
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3,
+   "4": 4,
+   "5": 5,
+   "6": 6,
+   "7": 7
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "1": 1,
+    "3": 3
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params0]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params0]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": null,
+   "exclude": null
+  },
+  "expected": {
+   "output": {
+    "0": 0,
+    "1": 1,
+    "2": 2,
+    "3": 3
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params0]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params0]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": null
+  },
+  "expected": {
+   "output": {
+    "0": 0,
+    "1": 1,
+    "2": 2,
+    "3": 3
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params0]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params0]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": null,
+   "exclude": null
+  },
+  "expected": {
+   "json": "{\"0\":0,\"1\":1,\"2\":2,\"3\":3}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params10]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params10]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": {
+    "$set": [
+     "0",
+     "1"
+    ]
+   },
+   "exclude": {
+    "1": {
+     "$object": "ellipsis"
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "0": 0
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params10]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params10]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "mode": "json",
+   "include": {
+    "$set": [
+     "0",
+     "1"
+    ]
+   },
+   "exclude": {
+    "1": {
+     "$object": "ellipsis"
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "0": 0
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params10]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params10]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": {
+    "$set": [
+     "0",
+     "1"
+    ]
+   },
+   "exclude": {
+    "1": {
+     "$object": "ellipsis"
+    }
+   }
+  },
+  "expected": {
+   "json": "{\"0\":0}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params11]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params11]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "$set": [
+     "__all__"
+    ]
+   }
+  },
+  "expected": {
+   "output": {}
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params11]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params11]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": {
+    "$set": [
+     "__all__"
+    ]
+   }
+  },
+  "expected": {
+   "output": {}
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params11]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params11]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "$set": [
+     "__all__"
+    ]
+   }
+  },
+  "expected": {
+   "json": "{}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params1]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params1]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": {
+    "$set": [
+     "0",
+     "1"
+    ]
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": {
+    "0": 0,
+    "1": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params1]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params1]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "mode": "json",
+   "include": {
+    "$set": [
+     "0",
+     "1"
+    ]
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": {
+    "0": 0,
+    "1": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params1]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params1]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": {
+    "$set": [
+     "0",
+     "1"
+    ]
+   },
+   "exclude": null
+  },
+  "expected": {
+   "json": "{\"0\":0,\"1\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params2]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params2]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": {
+    "0": {
+     "$object": "ellipsis"
+    },
+    "1": {
+     "$object": "ellipsis"
+    }
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": {
+    "0": 0,
+    "1": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params2]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params2]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "mode": "json",
+   "include": {
+    "0": {
+     "$object": "ellipsis"
+    },
+    "1": {
+     "$object": "ellipsis"
+    }
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": {
+    "0": 0,
+    "1": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params2]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params2]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": {
+    "0": {
+     "$object": "ellipsis"
+    },
+    "1": {
+     "$object": "ellipsis"
+    }
+   },
+   "exclude": null
+  },
+  "expected": {
+   "json": "{\"0\":0,\"1\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params3]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params3]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": {
+    "0": {
+     "$set": [
+      1
+     ]
+    },
+    "1": {
+     "$set": [
+      1
+     ]
+    }
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": {
+    "0": 0,
+    "1": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params3]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params3]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "mode": "json",
+   "include": {
+    "0": {
+     "$set": [
+      1
+     ]
+    },
+    "1": {
+     "$set": [
+      1
+     ]
+    }
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": {
+    "0": 0,
+    "1": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params3]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params3]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": {
+    "0": {
+     "$set": [
+      1
+     ]
+    },
+    "1": {
+     "$set": [
+      1
+     ]
+    }
+   },
+   "exclude": null
+  },
+  "expected": {
+   "json": "{\"0\":0,\"1\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params4]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params4]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "$set": [
+     "0",
+     "1"
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "2": 2,
+    "3": 3
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params4]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params4]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": {
+    "$set": [
+     "0",
+     "1"
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "2": 2,
+    "3": 3
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params4]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params4]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "$set": [
+     "0",
+     "1"
+    ]
+   }
+  },
+  "expected": {
+   "json": "{\"2\":2,\"3\":3}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params5]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params5]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "0": {
+     "$object": "ellipsis"
+    },
+    "1": {
+     "$object": "ellipsis"
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "2": 2,
+    "3": 3
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params5]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params5]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": {
+    "0": {
+     "$object": "ellipsis"
+    },
+    "1": {
+     "$object": "ellipsis"
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "2": 2,
+    "3": 3
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params5]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params5]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "0": {
+     "$object": "ellipsis"
+    },
+    "1": {
+     "$object": "ellipsis"
+    }
+   }
+  },
+  "expected": {
+   "json": "{\"2\":2,\"3\":3}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params6]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params6]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": {
+    "$set": [
+     "0",
+     "1"
+    ]
+   },
+   "exclude": {
+    "$set": [
+     "1",
+     "2"
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "0": 0
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params6]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params6]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "mode": "json",
+   "include": {
+    "$set": [
+     "0",
+     "1"
+    ]
+   },
+   "exclude": {
+    "$set": [
+     "1",
+     "2"
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "0": 0
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params6]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params6]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": {
+    "$set": [
+     "0",
+     "1"
+    ]
+   },
+   "exclude": {
+    "$set": [
+     "1",
+     "2"
+    ]
+   }
+  },
+  "expected": {
+   "json": "{\"0\":0}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params7]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params7]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "3": {
+     "$set": [
+      1
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "0": 0,
+    "1": 1,
+    "2": 2,
+    "3": 3
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params7]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params7]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": {
+    "3": {
+     "$set": [
+      1
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "0": 0,
+    "1": 1,
+    "2": 2,
+    "3": 3
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params7]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params7]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "3": {
+     "$set": [
+      1
+     ]
+    }
+   }
+  },
+  "expected": {
+   "json": "{\"0\":0,\"1\":1,\"2\":2,\"3\":3}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params8]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params8]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": {
+    "$set": [
+     "0",
+     "1"
+    ]
+   },
+   "exclude": {
+    "3": {
+     "$set": [
+      1
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "0": 0,
+    "1": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params8]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params8]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "mode": "json",
+   "include": {
+    "$set": [
+     "0",
+     "1"
+    ]
+   },
+   "exclude": {
+    "3": {
+     "$set": [
+      1
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "0": 0,
+    "1": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params8]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params8]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": {
+    "$set": [
+     "0",
+     "1"
+    ]
+   },
+   "exclude": {
+    "3": {
+     "$set": [
+      1
+     ]
+    }
+   }
+  },
+  "expected": {
+   "json": "{\"0\":0,\"1\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params9]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params9]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": {
+    "$set": [
+     "0",
+     "1"
+    ]
+   },
+   "exclude": {
+    "1": {
+     "$set": [
+      1
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "0": 0,
+    "1": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params9]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params9]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "mode": "json",
+   "include": {
+    "$set": [
+     "0",
+     "1"
+    ]
+   },
+   "exclude": {
+    "1": {
+     "$set": [
+      1
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "0": 0,
+    "1": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args[params9]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args[params9]",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": {
+    "$set": [
+     "0",
+     "1"
+    ]
+   },
+   "exclude": {
+    "1": {
+     "$set": [
+      1
+     ]
+    }
+   }
+  },
+  "expected": {
+   "json": "{\"0\":0,\"1\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params0]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params0]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": null,
+   "exclude": null
+  },
+  "expected": {
+   "output": {
+    "0": [
+     0
+    ],
+    "1": [
+     0,
+     1
+    ],
+    "2": [
+     0,
+     1,
+     2
+    ],
+    "3": [
+     0,
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params0]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params0]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": null
+  },
+  "expected": {
+   "output": {
+    "0": [
+     0
+    ],
+    "1": [
+     0,
+     1
+    ],
+    "2": [
+     0,
+     1,
+     2
+    ],
+    "3": [
+     0,
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params0]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params0]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": null,
+   "exclude": null
+  },
+  "expected": {
+   "json": "{\"0\":[0],\"1\":[0,1],\"2\":[0,1,2],\"3\":[0,1,2,3]}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params1]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params1]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "1": {
+     "$set": [
+      0
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "0": [
+     0
+    ],
+    "1": [
+     1
+    ],
+    "2": [
+     0,
+     1,
+     2
+    ],
+    "3": [
+     0,
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params1]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params1]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": {
+    "1": {
+     "$set": [
+      0
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "0": [
+     0
+    ],
+    "1": [
+     1
+    ],
+    "2": [
+     0,
+     1,
+     2
+    ],
+    "3": [
+     0,
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params1]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params1]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "1": {
+     "$set": [
+      0
+     ]
+    }
+   }
+  },
+  "expected": {
+   "json": "{\"0\":[0],\"1\":[1],\"2\":[0,1,2],\"3\":[0,1,2,3]}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params2]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params2]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": {
+    "1": {
+     "$set": [
+      0
+     ]
+    }
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": {
+    "1": [
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params2]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params2]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "mode": "json",
+   "include": {
+    "1": {
+     "$set": [
+      0
+     ]
+    }
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": {
+    "1": [
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params2]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params2]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": {
+    "1": {
+     "$set": [
+      0
+     ]
+    }
+   },
+   "exclude": null
+  },
+  "expected": {
+   "json": "{\"1\":[0]}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params3]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params3]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": {
+    "__all__": {
+     "$set": [
+      0
+     ]
+    }
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": {
+    "0": [
+     0
+    ],
+    "1": [
+     0
+    ],
+    "2": [
+     0
+    ],
+    "3": [
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params3]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params3]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "mode": "json",
+   "include": {
+    "__all__": {
+     "$set": [
+      0
+     ]
+    }
+   },
+   "exclude": null
+  },
+  "expected": {
+   "output": {
+    "0": [
+     0
+    ],
+    "1": [
+     0
+    ],
+    "2": [
+     0
+    ],
+    "3": [
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params3]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params3]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": {
+    "__all__": {
+     "$set": [
+      0
+     ]
+    }
+   },
+   "exclude": null
+  },
+  "expected": {
+   "json": "{\"0\":[0],\"1\":[0],\"2\":[0],\"3\":[0]}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params4]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params4]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "0": {
+     "$set": [
+      "__all__"
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "0": [],
+    "1": [
+     0,
+     1
+    ],
+    "2": [
+     0,
+     1,
+     2
+    ],
+    "3": [
+     0,
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params4]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params4]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": {
+    "0": {
+     "$set": [
+      "__all__"
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "0": [],
+    "1": [
+     0,
+     1
+    ],
+    "2": [
+     0,
+     1,
+     2
+    ],
+    "3": [
+     0,
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params4]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params4]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "0": {
+     "$set": [
+      "__all__"
+     ]
+    }
+   }
+  },
+  "expected": {
+   "json": "{\"0\":[],\"1\":[0,1],\"2\":[0,1,2],\"3\":[0,1,2,3]}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params5]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params5]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "__all__": {
+     "$set": [
+      "__all__"
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "0": [],
+    "1": [],
+    "2": [],
+    "3": []
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params5]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params5]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": {
+    "__all__": {
+     "$set": [
+      "__all__"
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "0": [],
+    "1": [],
+    "2": [],
+    "3": []
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params5]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params5]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "__all__": {
+     "$set": [
+      "__all__"
+     ]
+    }
+   }
+  },
+  "expected": {
+   "json": "{\"0\":[],\"1\":[],\"2\":[],\"3\":[]}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params6]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params6]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "__all__": {
+     "$set": [
+      0
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "0": [],
+    "1": [
+     1
+    ],
+    "2": [
+     1,
+     2
+    ],
+    "3": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params6]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params6]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": {
+    "__all__": {
+     "$set": [
+      0
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "0": [],
+    "1": [
+     1
+    ],
+    "2": [
+     1,
+     2
+    ],
+    "3": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params6]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params6]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "__all__": {
+     "$set": [
+      0
+     ]
+    }
+   }
+  },
+  "expected": {
+   "json": "{\"0\":[],\"1\":[1],\"2\":[1,2],\"3\":[1,2,3]}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params7]#0",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params7]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "__all__": {
+     "$set": [
+      0
+     ]
+    },
+    "3": {
+     "$set": [
+      1
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "0": [],
+    "1": [
+     1
+    ],
+    "2": [
+     1,
+     2
+    ],
+    "3": [
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params7]#1",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params7]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "mode": "json",
+   "include": null,
+   "exclude": {
+    "__all__": {
+     "$set": [
+      0
+     ]
+    },
+    "3": {
+     "$set": [
+      1
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "0": [],
+    "1": [
+     1
+    ],
+    "2": [
+     1,
+     2
+    ],
+    "3": [
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_args_nested[params7]#2",
+  "test": "tests/serializers/test_dict.py::test_filter_args_nested[params7]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "list"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "0": [
+    0
+   ],
+   "1": [
+    0,
+    1
+   ],
+   "2": [
+    0,
+    1,
+    2
+   ],
+   "3": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": null,
+   "exclude": {
+    "__all__": {
+     "$set": [
+      0
+     ]
+    },
+    "3": {
+     "$set": [
+      1
+     ]
+    }
+   }
+  },
+  "expected": {
+   "json": "{\"0\":[],\"1\":[1],\"2\":[1,2],\"3\":[2,3]}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_int#0",
+  "test": "tests/serializers/test_dict.py::test_filter_int",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-dict",
+    "include": {
+     "$set": [
+      1,
+      3,
+      5
+     ]
+    },
+    "exclude": {
+     "$set": [
+      5,
+      6
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     3
+    ],
+    [
+     4,
+     4
+    ],
+    [
+     5,
+     5
+    ],
+    [
+     6,
+     6
+    ],
+    [
+     7,
+     7
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      1
+     ],
+     [
+      3,
+      3
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_runtime#0",
+  "test": "tests/serializers/test_dict.py::test_filter_runtime",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-dict",
+    "exclude": {
+     "$set": [
+      "0",
+      "1"
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": {
+    "$set": [
+     "1",
+     "2"
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "1": 1,
+    "2": 2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_runtime#1",
+  "test": "tests/serializers/test_dict.py::test_filter_runtime",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-dict",
+    "exclude": {
+     "$set": [
+      "0",
+      "1"
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "0": 0,
+   "1": 1,
+   "2": 2,
+   "3": 3
+  },
+  "options": {
+   "include": {
+    "$set": [
+     "1",
+     "2"
+    ]
+   },
+   "exclude": {
+    "$set": [
+     "2",
+     "3"
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "1": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_filter_runtime_int#0",
+  "test": "tests/serializers/test_dict.py::test_filter_runtime_int",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "any"
+   },
+   "serialization": {
+    "type": "include-exclude-dict",
+    "exclude": {
+     "$set": [
+      0,
+      1
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ],
+    [
+     2,
+     2
+    ],
+    [
+     3,
+     3
+    ]
+   ]
+  },
+  "options": {
+   "include": {
+    "$set": [
+     1,
+     2
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      1
+     ],
+     [
+      2,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_include#0",
+  "test": "tests/serializers/test_dict.py::test_include",
+  "schema": {
+   "type": "dict",
+   "serialization": {
+    "type": "include-exclude-dict",
+    "include": {
+     "$set": [
+      "a",
+      "c"
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1,
+   "b": 2,
+   "c": 3,
+   "d": 4
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1,
+    "c": 3
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_include#1",
+  "test": "tests/serializers/test_dict.py::test_include",
+  "schema": {
+   "type": "dict",
+   "serialization": {
+    "type": "include-exclude-dict",
+    "include": {
+     "$set": [
+      "a",
+      "c"
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "a": 1,
+   "b": 2,
+   "c": 3,
+   "d": 4
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":1,\"c\":3}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_include#2",
+  "test": "tests/serializers/test_dict.py::test_include",
+  "schema": {
+   "type": "dict",
+   "serialization": {
+    "type": "include-exclude-dict",
+    "include": {
+     "$set": [
+      "a",
+      "c"
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1,
+   "b": 2,
+   "d": 4
+  },
+  "options": {
+   "include": {
+    "$set": [
+     "d"
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "d": 4
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_include#3",
+  "test": "tests/serializers/test_dict.py::test_include",
+  "schema": {
+   "type": "dict",
+   "serialization": {
+    "type": "include-exclude-dict",
+    "include": {
+     "$set": [
+      "a",
+      "c"
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1,
+   "b": 2,
+   "d": 4
+  },
+  "options": {
+   "include": {
+    "d": null
+   }
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "d": 4
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_include#4",
+  "test": "tests/serializers/test_dict.py::test_include",
+  "schema": {
+   "type": "dict",
+   "serialization": {
+    "type": "include-exclude-dict",
+    "include": {
+     "$set": [
+      "a",
+      "c"
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1,
+   "b": 2,
+   "d": 4
+  },
+  "options": {
+   "include": {
+    "d": {
+     "$set": [
+      1
+     ]
+    }
+   }
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "d": 4
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_include#5",
+  "test": "tests/serializers/test_dict.py::test_include",
+  "schema": {
+   "type": "dict",
+   "serialization": {
+    "type": "include-exclude-dict",
+    "include": {
+     "$set": [
+      "a",
+      "c"
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     "a",
+     1
+    ],
+    [
+     "b",
+     2
+    ],
+    [
+     "d",
+     4
+    ],
+    [
+     5,
+     6
+    ]
+   ]
+  },
+  "options": {
+   "include": {
+    "$set": [
+     5
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      "a",
+      1
+     ],
+     [
+      5,
+      6
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_include#6",
+  "test": "tests/serializers/test_dict.py::test_include",
+  "schema": {
+   "type": "dict",
+   "serialization": {
+    "type": "include-exclude-dict",
+    "include": {
+     "$set": [
+      "a",
+      "c"
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     "a",
+     1
+    ],
+    [
+     "b",
+     2
+    ],
+    [
+     "d",
+     4
+    ],
+    [
+     5,
+     6
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json",
+   "include": {
+    "$set": [
+     5
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "5": 6
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_dict.py::test_include#7",
+  "test": "tests/serializers/test_dict.py::test_include",
+  "schema": {
+   "type": "dict",
+   "serialization": {
+    "type": "include-exclude-dict",
+    "include": {
+     "$set": [
+      "a",
+      "c"
+     ]
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     "a",
+     1
+    ],
+    [
+     "b",
+     2
+    ],
+    [
+     "d",
+     4
+    ],
+    [
+     5,
+     6
+    ]
+   ]
+  },
+  "options": {
+   "include": {
+    "$set": [
+     5
+    ]
+   }
+  },
+  "expected": {
+   "json": "{\"a\":1,\"5\":6}"
+  }
+ }
+]

@@ -1,0 +1,6571 @@
+[
+ {
+  "id": "tests/serializers/test_any.py::test_any_config_timedelta_float#0",
+  "test": "tests/serializers/test_any.py::test_any_config_timedelta_float",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_timedelta": "float"
+  },
+  "mode": "to_python",
+  "input": {
+   "$timedelta": [
+    0,
+    7200,
+    0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     0,
+     7200,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_config_timedelta_float#1",
+  "test": "tests/serializers/test_any.py::test_any_config_timedelta_float",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_timedelta": "float"
+  },
+  "mode": "to_python",
+  "input": {
+   "$timedelta": [
+    0,
+    7200,
+    0
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 7200.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_config_timedelta_float#2",
+  "test": "tests/serializers/test_any.py::test_any_config_timedelta_float",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_timedelta": "float"
+  },
+  "mode": "to_json",
+  "input": {
+   "$timedelta": [
+    0,
+    7200,
+    0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "7200.0"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_config_timedelta_float#3",
+  "test": "tests/serializers/test_any.py::test_any_config_timedelta_float",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_timedelta": "float"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$timedelta": [
+       0,
+       7200,
+       0
+      ]
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$timedelta": [
+        0,
+        7200,
+        0
+       ]
+      },
+      "foo"
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_config_timedelta_float#4",
+  "test": "tests/serializers/test_any.py::test_any_config_timedelta_float",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_timedelta": "float"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$timedelta": [
+       0,
+       7200,
+       0
+      ]
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "7200": "foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_config_timedelta_float#5",
+  "test": "tests/serializers/test_any.py::test_any_config_timedelta_float",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_timedelta": "float"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$timedelta": [
+       0,
+       7200,
+       0
+      ]
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"7200\":\"foo\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_config_timedelta_float_faction#0",
+  "test": "tests/serializers/test_any.py::test_any_config_timedelta_float_faction",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_timedelta": "float"
+  },
+  "mode": "to_python",
+  "input": {
+   "$timedelta": [
+    0,
+    1,
+    500000
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     0,
+     1,
+     500000
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_config_timedelta_float_faction#1",
+  "test": "tests/serializers/test_any.py::test_any_config_timedelta_float_faction",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_timedelta": "float"
+  },
+  "mode": "to_python",
+  "input": {
+   "$timedelta": [
+    0,
+    1,
+    500000
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1.5
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_config_timedelta_float_faction#2",
+  "test": "tests/serializers/test_any.py::test_any_config_timedelta_float_faction",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_timedelta": "float"
+  },
+  "mode": "to_json",
+  "input": {
+   "$timedelta": [
+    0,
+    1,
+    500000
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "1.5"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_config_timedelta_float_faction#3",
+  "test": "tests/serializers/test_any.py::test_any_config_timedelta_float_faction",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_timedelta": "float"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$timedelta": [
+       0,
+       1,
+       500000
+      ]
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$timedelta": [
+        0,
+        1,
+        500000
+       ]
+      },
+      "foo"
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_config_timedelta_float_faction#4",
+  "test": "tests/serializers/test_any.py::test_any_config_timedelta_float_faction",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_timedelta": "float"
+  },
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$timedelta": [
+       0,
+       1,
+       500000
+      ]
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1.5": "foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_config_timedelta_float_faction#5",
+  "test": "tests/serializers/test_any.py::test_any_config_timedelta_float_faction",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_timedelta": "float"
+  },
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$timedelta": [
+       0,
+       1,
+       500000
+      ]
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1.5\":\"foo\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_dataclass#0",
+  "test": "tests/serializers/test_any.py::test_any_dataclass",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "'RecordingSerializer' object is not an instance of 'SchemaSerializer'"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[1-1]#0",
+  "test": "tests/serializers/test_any.py::test_any_json[1-1]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[1-1]#1",
+  "test": "tests/serializers/test_any.py::test_any_json[1-1]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[None-null]#0",
+  "test": "tests/serializers/test_any.py::test_any_json[None-null]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[None-null]#1",
+  "test": "tests/serializers/test_any.py::test_any_json[None-null]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[foobar-\"foobar\"]#0",
+  "test": "tests/serializers/test_any.py::test_any_json[foobar-\"foobar\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$bytes": "Zm9vYmFy"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"foobar\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[foobar-\"foobar\"]#1",
+  "test": "tests/serializers/test_any.py::test_any_json[foobar-\"foobar\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$bytes": "Zm9vYmFy"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "foobar"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value10-\"2032-01-01T01:01:00\"]#0",
+  "test": "tests/serializers/test_any.py::test_any_json[value10-\"2032-01-01T01:01:00\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2032-01-01T01:01:00"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2032-01-01T01:01:00\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value10-\"2032-01-01T01:01:00\"]#1",
+  "test": "tests/serializers/test_any.py::test_any_json[value10-\"2032-01-01T01:01:00\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2032-01-01T01:01:00"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2032-01-01T01:01:00"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value11-\"2022-12-03\"]#0",
+  "test": "tests/serializers/test_any.py::test_any_json[value11-\"2022-12-03\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$date": "2022-12-03"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2022-12-03\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value11-\"2022-12-03\"]#1",
+  "test": "tests/serializers/test_any.py::test_any_json[value11-\"2022-12-03\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$date": "2022-12-03"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2022-12-03"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value12-\"12:30:45\"]#0",
+  "test": "tests/serializers/test_any.py::test_any_json[value12-\"12:30:45\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$time": "12:30:45"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"12:30:45\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value12-\"12:30:45\"]#1",
+  "test": "tests/serializers/test_any.py::test_any_json[value12-\"12:30:45\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$time": "12:30:45"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "12:30:45"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value13-\"PT2H\"]#0",
+  "test": "tests/serializers/test_any.py::test_any_json[value13-\"PT2H\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$timedelta": [
+    0,
+    7200,
+    0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "\"PT2H\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value13-\"PT2H\"]#1",
+  "test": "tests/serializers/test_any.py::test_any_json[value13-\"PT2H\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$timedelta": [
+    0,
+    7200,
+    0
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "PT2H"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value14-{\"a\":1,\"b\":\"foo\"}]#0",
+  "test": "tests/serializers/test_any.py::test_any_json[value14-{\"a\":1,\"b\":\"foo\"}]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "MyDataclass"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":1,\"b\":\"foo\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value14-{\"a\":1,\"b\":\"foo\"}]#1",
+  "test": "tests/serializers/test_any.py::test_any_json[value14-{\"a\":1,\"b\":\"foo\"}]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MyDataclass"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": "foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value15-{\"a\":1,\"b\":\"foo\"}]#0",
+  "test": "tests/serializers/test_any.py::test_any_json[value15-{\"a\":1,\"b\":\"foo\"}]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":1,\"b\":\"foo\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value15-{\"a\":1,\"b\":\"foo\"}]#1",
+  "test": "tests/serializers/test_any.py::test_any_json[value15-{\"a\":1,\"b\":\"foo\"}]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": "foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value16-[{\"a\":1,\"b\":\"a\"},{\"a\":2,\"b\":\"b\"}]]#0",
+  "test": "tests/serializers/test_any.py::test_any_json[value16-[{\"a\":1,\"b\":\"a\"},{\"a\":2,\"b\":\"b\"}]]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   {
+    "$object": "MyDataclass"
+   },
+   {
+    "$object": "MyModel"
+   }
+  ],
+  "options": {},
+  "expected": {
+   "json": "[{\"a\":1,\"b\":\"a\"},{\"a\":2,\"b\":\"b\"}]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value16-[{\"a\":1,\"b\":\"a\"},{\"a\":2,\"b\":\"b\"}]]#1",
+  "test": "tests/serializers/test_any.py::test_any_json[value16-[{\"a\":1,\"b\":\"a\"},{\"a\":2,\"b\":\"b\"}]]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   {
+    "$object": "MyDataclass"
+   },
+   {
+    "$object": "MyModel"
+   }
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    {
+     "a": 1,
+     "b": "a"
+    },
+    {
+     "a": 2,
+     "b": "b"
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value17-\"/foo/bar/spam.svg\"]#0",
+  "test": "tests/serializers/test_any.py::test_any_json[value17-\"/foo/bar/spam.svg\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "PosixPath"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"/foo/bar/spam.svg\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value17-\"/foo/bar/spam.svg\"]#1",
+  "test": "tests/serializers/test_any.py::test_any_json[value17-\"/foo/bar/spam.svg\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "PosixPath"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "/foo/bar/spam.svg"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value19-[1,2]]#0",
+  "test": "tests/serializers/test_any.py::test_any_json[value19-[1,2]]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$subclass": [
+    "Point",
+    {
+     "$tuple": [
+      1,
+      2
+     ]
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,2]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value19-[1,2]]#1",
+  "test": "tests/serializers/test_any.py::test_any_json[value19-[1,2]]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "Point",
+    {
+     "$tuple": [
+      1,
+      2
+     ]
+    }
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value2-\"1.123\"]#0",
+  "test": "tests/serializers/test_any.py::test_any_json[value2-\"1.123\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$decimal": "1.123"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"1.123\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value2-\"1.123\"]#1",
+  "test": "tests/serializers/test_any.py::test_any_json[value2-\"1.123\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "1.123"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "1.123"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value4-\"foobar\"]#0",
+  "test": "tests/serializers/test_any.py::test_any_json[value4-\"foobar\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$bytearray": "Zm9vYmFy"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"foobar\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value4-\"foobar\"]#1",
+  "test": "tests/serializers/test_any.py::test_any_json[value4-\"foobar\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$bytearray": "Zm9vYmFy"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "foobar"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value5-[1,2,3]]#0",
+  "test": "tests/serializers/test_any.py::test_any_json[value5-[1,2,3]]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,2,3]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value5-[1,2,3]]#1",
+  "test": "tests/serializers/test_any.py::test_any_json[value5-[1,2,3]]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value6-{\"1\":2,\"a\":4}]#0",
+  "test": "tests/serializers/test_any.py::test_any_json[value6-{\"1\":2,\"a\":4}]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ],
+    [
+     "a",
+     4
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1\":2,\"a\":4}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value6-{\"1\":2,\"a\":4}]#1",
+  "test": "tests/serializers/test_any.py::test_any_json[value6-{\"1\":2,\"a\":4}]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ],
+    [
+     "a",
+     4
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1": 2,
+    "a": 4
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value7-{\"1,a,2\":3}]#0",
+  "test": "tests/serializers/test_any.py::test_any_json[value7-{\"1,a,2\":3}]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       "a",
+       2
+      ]
+     },
+     3
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1,a,2\":3}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value7-{\"1,a,2\":3}]#1",
+  "test": "tests/serializers/test_any.py::test_any_json[value7-{\"1,a,2\":3}]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1,
+       "a",
+       2
+      ]
+     },
+     3
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1,a,2": 3
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value8-{\"1\":3}]#0",
+  "test": "tests/serializers/test_any.py::test_any_json[value8-{\"1\":3}]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1
+      ]
+     },
+     3
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1\":3}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value8-{\"1\":3}]#1",
+  "test": "tests/serializers/test_any.py::test_any_json[value8-{\"1\":3}]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$tuple": [
+       1
+      ]
+     },
+     3
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1": 3
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value9-\"2022-12-03T12:30:45\"]#0",
+  "test": "tests/serializers/test_any.py::test_any_json[value9-\"2022-12-03T12:30:45\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$datetime": "2022-12-03T12:30:45"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2022-12-03T12:30:45\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json[value9-\"2022-12-03T12:30:45\"]#1",
+  "test": "tests/serializers/test_any.py::test_any_json[value9-\"2022-12-03T12:30:45\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2022-12-03T12:30:45"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2022-12-03T12:30:45"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_decode_error[value1]#0",
+  "test": "tests/serializers/test_any.py::test_any_json_decode_error[value1]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$bytearray": "gQ=="
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$bytearray": "gQ=="
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_decode_error[value1]#1",
+  "test": "tests/serializers/test_any.py::test_any_json_decode_error[value1]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$bytearray": "gQ=="
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Error serializing to JSON: invalid utf-8 sequence of 1 bytes from index 0"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_decode_error[value1]#2",
+  "test": "tests/serializers/test_any.py::test_any_json_decode_error[value1]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$bytearray": "gQ=="
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "exception": {
+    "type": "UnicodeDecodeError",
+    "message": "'utf-8' codec can't decode byte 0x81 in position 0: invalid utf-8"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[1.0]#0",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[1.0]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1.0,
+  "options": {},
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[1.0]#1",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[1.0]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1.0,
+  "options": {},
+  "expected": {
+   "json": "1.0"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[1.0]#2",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[1.0]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1.0,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1.0
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[1]#0",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[1]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[1]#1",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[1]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[1]#2",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[1]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[None]#0",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[None]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[None]#1",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[None]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[None]#2",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[None]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[True]#0",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[True]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": true,
+  "options": {},
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[True]#1",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[True]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": true,
+  "options": {},
+  "expected": {
+   "json": "true"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[True]#2",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[True]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": true,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[foo]#0",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[foo]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "output": "foo"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[foo]#1",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[foo]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "foo",
+  "options": {},
+  "expected": {
+   "json": "\"foo\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[foo]#2",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[foo]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foo",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "foo"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[value5]#0",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[value5]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[value5]#1",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[value5]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "json": "[1,2,3]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[value5]#2",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[value5]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[value6]#0",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[value6]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1,
+   "b": 2
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": 2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[value6]#1",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[value6]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "a": 1,
+   "b": 2
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":1,\"b\":2}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_json_round_trip[value6]#2",
+  "test": "tests/serializers/test_any.py::test_any_json_round_trip[value6]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1,
+   "b": 2
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": 2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_model#0",
+  "test": "tests/serializers/test_any.py::test_any_model",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "'RecordingSerializer' object is not an instance of 'SchemaSerializer'"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_python[MyDataclass(a=1, b='foo')-{'a': 1, 'b': 'foo'}-{'a': 1, 'b': 'foo'}]#0",
+  "test": "tests/serializers/test_any.py::test_any_python[MyDataclass(a=1, b='foo')-{'a': 1, 'b': 'foo'}-{'a': 1, 'b': 'foo'}]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MyDataclass"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": "foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_python[MyDataclass(a=1, b='foo')-{'a': 1, 'b': 'foo'}-{'a': 1, 'b': 'foo'}]#1",
+  "test": "tests/serializers/test_any.py::test_any_python[MyDataclass(a=1, b='foo')-{'a': 1, 'b': 'foo'}-{'a': 1, 'b': 'foo'}]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MyDataclass"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": "foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_python[MyDataclass(a=1, b='foo')-{'a': 1, 'b': 'foo'}-{'a': 1, 'b': 'foo'}]#2",
+  "test": "tests/serializers/test_any.py::test_any_python[MyDataclass(a=1, b='foo')-{'a': 1, 'b': 'foo'}-{'a': 1, 'b': 'foo'}]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "MyDataclass"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":1,\"b\":\"foo\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_python[{1, '2', b'3'}-{1, '2', b'3'}-IsList(1, '2', '3', check_order=False)]#0",
+  "test": "tests/serializers/test_any.py::test_any_python[{1, '2', b'3'}-{1, '2', b'3'}-IsList(1, '2', '3', check_order=False)]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$set": [
+    {
+     "$bytes": "Mw=="
+    },
+    1,
+    "2"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     {
+      "$bytes": "Mw=="
+     },
+     1,
+     "2"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_python[{1, '2', b'3'}-{1, '2', b'3'}-IsList(1, '2', '3', check_order=False)]#1",
+  "test": "tests/serializers/test_any.py::test_any_python[{1, '2', b'3'}-{1, '2', b'3'}-IsList(1, '2', '3', check_order=False)]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$set": [
+    {
+     "$bytes": "Mw=="
+    },
+    1,
+    "2"
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    "2",
+    "3"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_python[{1, '2', b'3'}-{1, '2', b'3'}-IsList(1, '2', '3', check_order=False)]#2",
+  "test": "tests/serializers/test_any.py::test_any_python[{1, '2', b'3'}-{1, '2', b'3'}-IsList(1, '2', '3', check_order=False)]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$set": [
+    {
+     "$bytes": "Mw=="
+    },
+    1,
+    "2"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,\"2\",\"3\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_python[{1, 2, 3}-{1, 2, 3}-IsList(1, 2, 3, check_order=False)]#0",
+  "test": "tests/serializers/test_any.py::test_any_python[{1, 2, 3}-{1, 2, 3}-IsList(1, 2, 3, check_order=False)]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_python[{1, 2, 3}-{1, 2, 3}-IsList(1, 2, 3, check_order=False)]#1",
+  "test": "tests/serializers/test_any.py::test_any_python[{1, 2, 3}-{1, 2, 3}-IsList(1, 2, 3, check_order=False)]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_python[{1, 2, 3}-{1, 2, 3}-IsList(1, 2, 3, check_order=False)]#2",
+  "test": "tests/serializers/test_any.py::test_any_python[{1, 2, 3}-{1, 2, 3}-IsList(1, 2, 3, check_order=False)]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,2,3]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_with_date_serializer#0",
+  "test": "tests/serializers/test_any.py::test_any_with_date_serializer",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "date"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$date": "2022-12-03"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$date": "2022-12-03"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_with_date_serializer#1",
+  "test": "tests/serializers/test_any.py::test_any_with_date_serializer",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "date"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$date": "2022-12-03"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2022-12-03"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_with_date_serializer#2",
+  "test": "tests/serializers/test_any.py::test_any_with_date_serializer",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "date"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$date": "2022-12-03"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2022-12-03\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_with_date_serializer#3",
+  "test": "tests/serializers/test_any.py::test_any_with_date_serializer",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "date"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$bytes": "YmFuZw=="
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "bang",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `date` - serialized value may not be as expected [input_value=b'bang', input_type=bytes])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_with_timedelta_serializer#0",
+  "test": "tests/serializers/test_any.py::test_any_with_timedelta_serializer",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "timedelta"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$timedelta": [
+    0,
+    7200,
+    0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$timedelta": [
+     0,
+     7200,
+     0
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_with_timedelta_serializer#1",
+  "test": "tests/serializers/test_any.py::test_any_with_timedelta_serializer",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "timedelta"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$timedelta": [
+    0,
+    7200,
+    0
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "PT2H"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_with_timedelta_serializer#2",
+  "test": "tests/serializers/test_any.py::test_any_with_timedelta_serializer",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "timedelta"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$timedelta": [
+    0,
+    7200,
+    0
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "\"PT2H\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_any_with_timedelta_serializer#3",
+  "test": "tests/serializers/test_any.py::test_any_with_timedelta_serializer",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "timedelta"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$bytes": "YmFuZw=="
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "bang",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `timedelta` - serialized value may not be as expected [input_value=b'bang', input_type=bytes])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_base64#0",
+  "test": "tests/serializers/test_any.py::test_base64",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_bytes": "base64"
+  },
+  "mode": "to_python",
+  "input": {
+   "$bytes": "Zm9v"
+  },
+  "options": {},
+  "expected": {
+   "json": "foo"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_base64#1",
+  "test": "tests/serializers/test_any.py::test_base64",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_bytes": "base64"
+  },
+  "mode": "to_python",
+  "input": {
+   "$bytes": "Zm9v"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "Zm9v"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_base64#2",
+  "test": "tests/serializers/test_any.py::test_base64",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_bytes": "base64"
+  },
+  "mode": "to_json",
+  "input": {
+   "$bytes": "Zm9v"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"Zm9v\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_base64#3",
+  "test": "tests/serializers/test_any.py::test_base64",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_bytes": "base64"
+  },
+  "mode": "to_python",
+  "input": {
+   "$bytearray": "Zm9v"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$bytearray": "Zm9v"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_base64#4",
+  "test": "tests/serializers/test_any.py::test_base64",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_bytes": "base64"
+  },
+  "mode": "to_python",
+  "input": {
+   "$bytearray": "Zm9v"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "Zm9v"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_base64#5",
+  "test": "tests/serializers/test_any.py::test_base64",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_bytes": "base64"
+  },
+  "mode": "to_json",
+  "input": {
+   "$bytearray": "Zm9v"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"Zm9v\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_counter#0",
+  "test": "tests/serializers/test_any.py::test_counter",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "Counter",
+    {
+     "a": 3,
+     "b": 0,
+     "c": -2
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 3,
+    "b": 0,
+    "c": -2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_counter_subclass#0",
+  "test": "tests/serializers/test_any.py::test_counter_subclass",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "MyCounter",
+    {
+     "a": 1
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_dataclass_classvar#0",
+  "test": "tests/serializers/test_any.py::test_dataclass_classvar",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": "a"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_dataclass_classvar#1",
+  "test": "tests/serializers/test_any.py::test_dataclass_classvar",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":1,\"b\":\"a\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_dataclass_classvar#2",
+  "test": "tests/serializers/test_any.py::test_dataclass_classvar",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 2,
+    "b": "b"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_dataclass_classvar#3",
+  "test": "tests/serializers/test_any.py::test_dataclass_classvar",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Foo2"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":2,\"b\":\"b\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_dataclass_slots#0",
+  "test": "tests/serializers/test_any.py::test_dataclass_slots",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": "a"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_dataclass_slots#1",
+  "test": "tests/serializers/test_any.py::test_dataclass_slots",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":1,\"b\":\"a\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_dataclass_slots#2",
+  "test": "tests/serializers/test_any.py::test_dataclass_slots",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo2"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 2,
+    "b": "b"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_dataclass_slots#3",
+  "test": "tests/serializers/test_any.py::test_dataclass_slots",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Foo2"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":2,\"b\":\"b\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_dataclass_slots_init_vars#0",
+  "test": "tests/serializers/test_any.py::test_dataclass_slots_init_vars",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": "a"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_dataclass_slots_init_vars#1",
+  "test": "tests/serializers/test_any.py::test_dataclass_slots_init_vars",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Foo"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":1,\"b\":\"a\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_deque#0",
+  "test": "tests/serializers/test_any.py::test_deque",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_deque#1",
+  "test": "tests/serializers/test_any.py::test_deque",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_deque#2",
+  "test": "tests/serializers/test_any.py::test_deque",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,2,3]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_deque#3",
+  "test": "tests/serializers/test_any.py::test_deque",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "include": {
+    "$set": [
+     0,
+     2
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_deque#4",
+  "test": "tests/serializers/test_any.py::test_deque",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     0
+    ]
+   },
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_deque#5",
+  "test": "tests/serializers/test_any.py::test_deque",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     -1
+    ]
+   }
+  },
+  "expected": {
+   "json": "[1,2]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_deque_subclass#0",
+  "test": "tests/serializers/test_any.py::test_deque_subclass",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MyDeque"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "deque"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_deque_subclass#1",
+  "test": "tests/serializers/test_any.py::test_deque_subclass",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "MyDeque"
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,2]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs0-\"2032-01-01T01:01:00\"]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs0-\"2032-01-01T01:01:00\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2032-01-01T01:01:00"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2032-01-01T01:01:00"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs1-\"2032-01-01T01:01:00Z\"]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs1-\"2032-01-01T01:01:00Z\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2032-01-01T01:01:00+00:00"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2032-01-01T01:01:00Z"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs10-[1,2,3]]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs10-[1,2,3]]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$frozenset": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs11-[1,2,3]]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs11-[1,2,3]]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs12-[1,2,3]]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs12-[1,2,3]]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "deque"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs13-{\"a\":1,\"b\":2}]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs13-{\"a\":1,\"b\":2}]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "OrderedDict",
+    {
+     "a": 1,
+     "b": 2
+    }
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": 2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs14-{\"a\":1,\"b\":2}]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs14-{\"a\":1,\"b\":2}]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "Counter",
+    {
+     "a": 1,
+     "b": 2
+    }
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": 2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs15-[0,1,2,3]]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs15-[0,1,2,3]]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs16-[0,1,2,3]]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs16-[0,1,2,3]]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "list_iterator"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs17-[0,1,2,3]]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs17-[0,1,2,3]]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "tuple_iterator"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs18-[0,1,2,3]]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs18-[0,1,2,3]]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "range_iterator"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs19-\"this is bytes\"]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs19-\"this is bytes\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$bytes": "dGhpcyBpcyBieXRlcw=="
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "this is bytes"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs2-\"2032-01-01T01:01:00+02:00\"]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs2-\"2032-01-01T01:01:00+02:00\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2032-01-01T01:01:00+02:00"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2032-01-01T01:01:00+02:00"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs21-\"this is bytes\"]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs21-\"this is bytes\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$bytearray": "dGhpcyBpcyBieXRlcw=="
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "this is bytes"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs23-\"12.34\"]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs23-\"12.34\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "12.34"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "12.34"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs24-1]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs24-1]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs25-\"b\"]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs25-\"b\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    "b"
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "b"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs27-\"^regex$\"]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs27-\"^regex$\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Pattern"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "^regex$"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs3-\"2032-01-01T00:00:00\"]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs3-\"2032-01-01T00:00:00\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$datetime": "2032-01-01T00:00:00"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2032-01-01T00:00:00"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs4-\"12:34:56\"]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs4-\"12:34:56\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$time": "12:34:56"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "12:34:56"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs5-\"P12DT34.000056S\"]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs5-\"P12DT34.000056S\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$timedelta": [
+    12,
+    34,
+    56
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "P12DT34.000056S"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs7-\"-PT1S\"]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs7-\"-PT1S\"]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$timedelta": [
+    -1,
+    86399,
+    0
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "-PT1S"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs9-[1,2,3]]#0",
+  "test": "tests/serializers/test_any.py::test_encoding[<lambda>-kwargs9-[1,2,3]]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_enum#0",
+  "test": "tests/serializers/test_any.py::test_enum",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_enum#1",
+  "test": "tests/serializers/test_any.py::test_enum",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    "b"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     "b"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_enum#10",
+  "test": "tests/serializers/test_any.py::test_enum",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     },
+     42
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1\":42}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_enum#11",
+  "test": "tests/serializers/test_any.py::test_enum",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$enum": [
+       "MyEnum",
+       "b"
+      ]
+     },
+     42
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"b\":42}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_enum#2",
+  "test": "tests/serializers/test_any.py::test_enum",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     },
+     42
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$enum": [
+        "MyEnum",
+        1
+       ]
+      },
+      42
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_enum#3",
+  "test": "tests/serializers/test_any.py::test_enum",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$enum": [
+       "MyEnum",
+       "b"
+      ]
+     },
+     42
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$enum": [
+        "MyEnum",
+        "b"
+       ]
+      },
+      42
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_enum#4",
+  "test": "tests/serializers/test_any.py::test_enum",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_enum#5",
+  "test": "tests/serializers/test_any.py::test_enum",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    "b"
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "b"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_enum#6",
+  "test": "tests/serializers/test_any.py::test_enum",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     },
+     42
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1": 42
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_enum#7",
+  "test": "tests/serializers/test_any.py::test_enum",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$enum": [
+       "MyEnum",
+       "b"
+      ]
+     },
+     42
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "b": 42
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_enum#8",
+  "test": "tests/serializers/test_any.py::test_enum",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_enum#9",
+  "test": "tests/serializers/test_any.py::test_enum",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    "b"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "\"b\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_exclude_dict#0",
+  "test": "tests/serializers/test_any.py::test_exclude_dict",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ],
+    [
+     "3",
+     4
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      2
+     ],
+     [
+      "3",
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_exclude_dict#1",
+  "test": "tests/serializers/test_any.py::test_exclude_dict",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     4
+    ]
+   ]
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     1
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      3,
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_exclude_dict#2",
+  "test": "tests/serializers/test_any.py::test_exclude_dict",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ],
+    [
+     3,
+     4
+    ]
+   ]
+  },
+  "options": {
+   "exclude": {
+    "$set": [
+     -1
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      2
+     ],
+     [
+      3,
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_exclude_unset#0",
+  "test": "tests/serializers/test_any.py::test_exclude_unset",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$model": {
+    "class": "FieldsSetModel",
+    "fields": {
+     "foo": 1,
+     "bar": 2,
+     "spam": 3
+    },
+    "fields_set": [
+     "bar",
+     "spam"
+    ],
+    "extra": null
+   }
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "'RecordingSerializer' object is not an instance of 'SchemaSerializer'"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_fallback_cycle_change#0",
+  "test": "tests/serializers/test_any.py::test_fallback_cycle_change",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "FoobarCount"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "FoobarCount"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_fallback_cycle_change#1",
+  "test": "tests/serializers/test_any.py::test_fallback_cycle_change",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "FoobarCount"
+  },
+  "options": {
+   "mode": "json",
+   "fallback": {
+    "$function": "fallback_func"
+   }
+  },
+  "expected": {
+   "exception": {
+    "type": "ValueError",
+    "message": "Circular reference detected (depth exceeded)"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_fallback_cycle_change#2",
+  "test": "tests/serializers/test_any.py::test_fallback_cycle_change",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "FoobarCount"
+  },
+  "options": {
+   "fallback": {
+    "$function": "fallback_func"
+   }
+  },
+  "expected": {
+   "output": {
+    "$object": "FoobarCount"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_fallback_cycle_change#3",
+  "test": "tests/serializers/test_any.py::test_fallback_cycle_change",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "FoobarCount"
+  },
+  "options": {
+   "fallback": {
+    "$function": "fallback_func"
+   }
+  },
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Error serializing to JSON: ValueError: Circular reference detected (depth exceeded)"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_fallback_cycle_same#0",
+  "test": "tests/serializers/test_any.py::test_fallback_cycle_same",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foobar"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "Foobar"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_fallback_cycle_same#1",
+  "test": "tests/serializers/test_any.py::test_fallback_cycle_same",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foobar"
+  },
+  "options": {
+   "mode": "json",
+   "fallback": {
+    "$function": "fallback_func"
+   }
+  },
+  "expected": {
+   "exception": {
+    "type": "ValueError",
+    "message": "Circular reference detected (id repeated)"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_fallback_cycle_same#2",
+  "test": "tests/serializers/test_any.py::test_fallback_cycle_same",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foobar"
+  },
+  "options": {
+   "fallback": {
+    "$function": "fallback_func"
+   }
+  },
+  "expected": {
+   "output": {
+    "$object": "Foobar"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_fallback_cycle_same#3",
+  "test": "tests/serializers/test_any.py::test_fallback_cycle_same",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Foobar"
+  },
+  "options": {
+   "fallback": {
+    "$function": "fallback_func"
+   }
+  },
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Error serializing to JSON: ValueError: Circular reference detected (id repeated)"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_dict#0",
+  "test": "tests/serializers/test_any.py::test_include_dict",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ],
+    [
+     "3",
+     4
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      2
+     ],
+     [
+      "3",
+      4
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_dict#1",
+  "test": "tests/serializers/test_any.py::test_include_dict",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MyDataclass"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": "foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_dict#2",
+  "test": "tests/serializers/test_any.py::test_include_dict",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ],
+    [
+     "3",
+     4
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1": 2,
+    "3": 4
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_dict#3",
+  "test": "tests/serializers/test_any.py::test_include_dict",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ],
+    [
+     "3",
+     4
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1\":2,\"3\":4}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_dict#4",
+  "test": "tests/serializers/test_any.py::test_include_dict",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "MyDataclass"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":1,\"b\":\"foo\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_dict#5",
+  "test": "tests/serializers/test_any.py::test_include_dict",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ],
+    [
+     "3",
+     4
+    ]
+   ]
+  },
+  "options": {
+   "include": {
+    "$set": [
+     1
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_dict#6",
+  "test": "tests/serializers/test_any.py::test_include_dict",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ],
+    [
+     "3",
+     4
+    ]
+   ]
+  },
+  "options": {
+   "include": {
+    "$set": [
+     "3"
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "3": 4
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_dict#7",
+  "test": "tests/serializers/test_any.py::test_include_dict",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MyDataclass"
+  },
+  "options": {
+   "include": {
+    "$set": [
+     "a"
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_dict#8",
+  "test": "tests/serializers/test_any.py::test_include_dict",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MyDataclass"
+  },
+  "options": {
+   "include": {
+    "$set": [
+     "a"
+    ]
+   },
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_dict#9",
+  "test": "tests/serializers/test_any.py::test_include_dict",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {
+   "include": {
+    "$set": [
+     "a"
+    ]
+   }
+  },
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "'RecordingSerializer' object is not an instance of 'SchemaSerializer'"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_generator#0",
+  "test": "tests/serializers/test_any.py::test_include_generator",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "a",
+    "b",
+    "c"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_generator#1",
+  "test": "tests/serializers/test_any.py::test_include_generator",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {},
+  "expected": {
+   "json": "[\"a\",\"b\",\"c\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_generator#2",
+  "test": "tests/serializers/test_any.py::test_include_generator",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {
+   "include": {
+    "$set": [
+     1,
+     2
+    ]
+   },
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_generator#3",
+  "test": "tests/serializers/test_any.py::test_include_generator",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "generator"
+  },
+  "options": {
+   "include": {
+    "$set": [
+     1,
+     2
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"b\",\"c\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_list]#0",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_list]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    0,
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_list]#1",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_list]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c"
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    "a",
+    "b",
+    "c"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_list]#2",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_list]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c"
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "a",
+    "b",
+    "c"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_list]#3",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_list]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "a",
+   "b",
+   "c"
+  ],
+  "options": {},
+  "expected": {
+   "json": "[\"a\",\"b\",\"c\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_list]#4",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_list]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     1,
+     2
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_list]#5",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_list]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     -1,
+     -2
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_list]#6",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_list]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     1,
+     2
+    ]
+   },
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_list]#7",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_list]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     1,
+     2
+    ]
+   }
+  },
+  "expected": {
+   "output": [
+    "b",
+    "c"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_list]#8",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_list]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     1,
+     2
+    ]
+   },
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "b",
+    "c"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_list]#9",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_list]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   "a",
+   "b",
+   "c",
+   "d"
+  ],
+  "options": {
+   "include": {
+    "$set": [
+     1,
+     2
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"b\",\"c\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]#0",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     0,
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]#1",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     "a",
+     "b",
+     "c"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]#2",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "a",
+    "b",
+    "c"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]#3",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[\"a\",\"b\",\"c\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]#4",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": {
+    "$set": [
+     1,
+     2
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]#5",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": {
+    "$set": [
+     -1,
+     -2
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]#6",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    0,
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "include": {
+    "$set": [
+     1,
+     2
+    ]
+   },
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]#7",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d"
+   ]
+  },
+  "options": {
+   "include": {
+    "$set": [
+     1,
+     2
+    ]
+   }
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     "b",
+     "c"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]#8",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d"
+   ]
+  },
+  "options": {
+   "include": {
+    "$set": [
+     1,
+     2
+    ]
+   },
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "b",
+    "c"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]#9",
+  "test": "tests/serializers/test_any.py::test_include_list_tuple[as_tuple]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    "a",
+    "b",
+    "c",
+    "d"
+   ]
+  },
+  "options": {
+   "include": {
+    "$set": [
+     1,
+     2
+    ]
+   }
+  },
+  "expected": {
+   "json": "[\"b\",\"c\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value0-192.168.1.1]#0",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value0-192.168.1.1]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "IPv4Address"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "IPv4Address"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value0-192.168.1.1]#1",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value0-192.168.1.1]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "IPv4Address"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "192.168.1.1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value0-192.168.1.1]#2",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value0-192.168.1.1]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "IPv4Address"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"192.168.1.1\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value1-2001:db8:85a3::8a2e:370:7334]#0",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value1-2001:db8:85a3::8a2e:370:7334]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "IPv6Address"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "IPv6Address"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value1-2001:db8:85a3::8a2e:370:7334]#1",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value1-2001:db8:85a3::8a2e:370:7334]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "IPv6Address"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2001:db8:85a3::8a2e:370:7334"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value1-2001:db8:85a3::8a2e:370:7334]#2",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value1-2001:db8:85a3::8a2e:370:7334]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "IPv6Address"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2001:db8:85a3::8a2e:370:7334\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value10-192.168.1.1/24_subclassed]#0",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value10-192.168.1.1/24_subclassed]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "SubInterfaceV4"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "SubInterfaceV4"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value10-192.168.1.1/24_subclassed]#1",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value10-192.168.1.1/24_subclassed]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "SubInterfaceV4"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "192.168.1.1/24_subclassed"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value10-192.168.1.1/24_subclassed]#2",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value10-192.168.1.1/24_subclassed]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "SubInterfaceV4"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"192.168.1.1/24_subclassed\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value11-2001:db8:85a3::8a2e:370:7334/128_subclassed]#0",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value11-2001:db8:85a3::8a2e:370:7334/128_subclassed]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "SubInterfaceV6"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "SubInterfaceV6"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value11-2001:db8:85a3::8a2e:370:7334/128_subclassed]#1",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value11-2001:db8:85a3::8a2e:370:7334/128_subclassed]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "SubInterfaceV6"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2001:db8:85a3::8a2e:370:7334/128_subclassed"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value11-2001:db8:85a3::8a2e:370:7334/128_subclassed]#2",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value11-2001:db8:85a3::8a2e:370:7334/128_subclassed]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "SubInterfaceV6"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2001:db8:85a3::8a2e:370:7334/128_subclassed\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value2-192.168.1.1_subclassed]#0",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value2-192.168.1.1_subclassed]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "SubIpV4"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "SubIpV4"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value2-192.168.1.1_subclassed]#1",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value2-192.168.1.1_subclassed]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "SubIpV4"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "192.168.1.1_subclassed"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value2-192.168.1.1_subclassed]#2",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value2-192.168.1.1_subclassed]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "SubIpV4"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"192.168.1.1_subclassed\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value3-2001:db8:85a3::8a2e:370:7334_subclassed]#0",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value3-2001:db8:85a3::8a2e:370:7334_subclassed]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "SubIpV6"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "SubIpV6"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value3-2001:db8:85a3::8a2e:370:7334_subclassed]#1",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value3-2001:db8:85a3::8a2e:370:7334_subclassed]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "SubIpV6"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2001:db8:85a3::8a2e:370:7334_subclassed"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value3-2001:db8:85a3::8a2e:370:7334_subclassed]#2",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value3-2001:db8:85a3::8a2e:370:7334_subclassed]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "SubIpV6"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2001:db8:85a3::8a2e:370:7334_subclassed\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value4-192.168.1.0/24]#0",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value4-192.168.1.0/24]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "IPv4Network"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "IPv4Network"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value4-192.168.1.0/24]#1",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value4-192.168.1.0/24]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "IPv4Network"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "192.168.1.0/24"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value4-192.168.1.0/24]#2",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value4-192.168.1.0/24]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "IPv4Network"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"192.168.1.0/24\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value5-2001:db8:85a3::8a2e:370:7334/128]#0",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value5-2001:db8:85a3::8a2e:370:7334/128]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "IPv6Network"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "IPv6Network"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value5-2001:db8:85a3::8a2e:370:7334/128]#1",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value5-2001:db8:85a3::8a2e:370:7334/128]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "IPv6Network"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2001:db8:85a3::8a2e:370:7334/128"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value5-2001:db8:85a3::8a2e:370:7334/128]#2",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value5-2001:db8:85a3::8a2e:370:7334/128]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "IPv6Network"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2001:db8:85a3::8a2e:370:7334/128\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value6-192.168.1.0/24_subclassed]#0",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value6-192.168.1.0/24_subclassed]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "SubNetV4"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "SubNetV4"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value6-192.168.1.0/24_subclassed]#1",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value6-192.168.1.0/24_subclassed]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "SubNetV4"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "192.168.1.0/24_subclassed"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value6-192.168.1.0/24_subclassed]#2",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value6-192.168.1.0/24_subclassed]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "SubNetV4"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"192.168.1.0/24_subclassed\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value7-2001:db8:85a3::8a2e:370:7334/128_subclassed]#0",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value7-2001:db8:85a3::8a2e:370:7334/128_subclassed]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "SubNetV6"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "SubNetV6"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value7-2001:db8:85a3::8a2e:370:7334/128_subclassed]#1",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value7-2001:db8:85a3::8a2e:370:7334/128_subclassed]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "SubNetV6"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2001:db8:85a3::8a2e:370:7334/128_subclassed"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value7-2001:db8:85a3::8a2e:370:7334/128_subclassed]#2",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value7-2001:db8:85a3::8a2e:370:7334/128_subclassed]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "SubNetV6"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2001:db8:85a3::8a2e:370:7334/128_subclassed\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value8-192.168.1.1/24]#0",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value8-192.168.1.1/24]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "IPv4Interface"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "IPv4Interface"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value8-192.168.1.1/24]#1",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value8-192.168.1.1/24]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "IPv4Interface"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "192.168.1.1/24"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value8-192.168.1.1/24]#2",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value8-192.168.1.1/24]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "IPv4Interface"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"192.168.1.1/24\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value9-2001:db8:85a3::8a2e:370:7334/128]#0",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value9-2001:db8:85a3::8a2e:370:7334/128]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "IPv6Interface"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "IPv6Interface"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value9-2001:db8:85a3::8a2e:370:7334/128]#1",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value9-2001:db8:85a3::8a2e:370:7334/128]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "IPv6Interface"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "2001:db8:85a3::8a2e:370:7334/128"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ipaddress_type_inference[value9-2001:db8:85a3::8a2e:370:7334/128]#2",
+  "test": "tests/serializers/test_any.py::test_ipaddress_type_inference[value9-2001:db8:85a3::8a2e:370:7334/128]",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "IPv6Interface"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"2001:db8:85a3::8a2e:370:7334/128\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ordered_dict#0",
+  "test": "tests/serializers/test_any.py::test_ordered_dict",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "OrderedDict",
+    {
+     "b": 2,
+     "c": 3,
+     "a": 1
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": 2,
+    "c": 3
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ordered_dict_subclass#0",
+  "test": "tests/serializers/test_any.py::test_ordered_dict_subclass",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "MyOrderedDict",
+    {
+     "a": 1
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_other_type#0",
+  "test": "tests/serializers/test_any.py::test_other_type",
+  "schema": {
+   "type": "is-instance",
+   "cls": {
+    "$class": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "foobar",
+  "options": {},
+  "expected": {
+   "json": "\"foobar\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_recursion#0",
+  "test": "tests/serializers/test_any.py::test_recursion",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "cyclic"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "cyclic"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_recursion#1",
+  "test": "tests/serializers/test_any.py::test_recursion",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "cyclic"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "exception": {
+    "type": "ValueError",
+    "message": "Circular reference detected (id repeated)"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_recursion#2",
+  "test": "tests/serializers/test_any.py::test_recursion",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "cyclic"
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Error serializing to JSON: ValueError: Circular reference detected (id repeated)"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any#0",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any#1",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any#10",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any#11",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_json",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any#12",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_inf_nan": "strings"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any#13",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_inf_nan": "strings"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any#14",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_inf_nan": "strings"
+  },
+  "mode": "to_json",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"Infinity\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any#15",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_inf_nan": "strings"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any#16",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_inf_nan": "strings"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any#17",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_inf_nan": "strings"
+  },
+  "mode": "to_json",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"NaN\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any#2",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_json",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "json": "Infinity"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any#3",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any#4",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any#5",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_json",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "json": "NaN"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any#6",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "inf"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any#7",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any#8",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_json",
+  "input": {
+   "$float": "inf"
+  },
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any#9",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_python",
+  "input": {
+   "$float": "nan"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$float": "nan"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any#0",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_python",
+  "input": [
+   {
+    "$float": "inf"
+   }
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    {
+     "$float": "inf"
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any#1",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_python",
+  "input": [
+   {
+    "$float": "inf"
+   }
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    {
+     "$float": "inf"
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any#10",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_python",
+  "input": [
+   {
+    "$float": "nan"
+   }
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    null
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any#11",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_json",
+  "input": [
+   {
+    "$float": "nan"
+   }
+  ],
+  "options": {},
+  "expected": {
+   "json": "[null]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any#2",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_json",
+  "input": [
+   {
+    "$float": "inf"
+   }
+  ],
+  "options": {},
+  "expected": {
+   "json": "[Infinity]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any#3",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_python",
+  "input": [
+   {
+    "$float": "nan"
+   }
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    {
+     "$float": "nan"
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any#4",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_python",
+  "input": [
+   {
+    "$float": "nan"
+   }
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    {
+     "$float": "nan"
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any#5",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": {
+   "ser_json_inf_nan": "constants"
+  },
+  "mode": "to_json",
+  "input": [
+   {
+    "$float": "nan"
+   }
+  ],
+  "options": {},
+  "expected": {
+   "json": "[NaN]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any#6",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_python",
+  "input": [
+   {
+    "$float": "inf"
+   }
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    {
+     "$float": "inf"
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any#7",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_python",
+  "input": [
+   {
+    "$float": "inf"
+   }
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    null
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any#8",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_json",
+  "input": [
+   {
+    "$float": "inf"
+   }
+  ],
+  "options": {},
+  "expected": {
+   "json": "[null]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any#9",
+  "test": "tests/serializers/test_any.py::test_ser_json_inf_nan_with_list_of_any",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": {
+   "ser_json_inf_nan": "null"
+  },
+  "mode": "to_python",
+  "input": [
+   {
+    "$float": "nan"
+   }
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    {
+     "$float": "nan"
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_int_subclass_value_larger_than_i64#0",
+  "test": "tests/serializers/test_any.py::test_ser_json_int_subclass_value_larger_than_i64",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "stuff": {
+      "type": "model-field",
+      "schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "any"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"stuff\":{\"value\":9223372036854775809}}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_ser_json_int_subclass_value_larger_than_i64#1",
+  "test": "tests/serializers/test_any.py::test_ser_json_int_subclass_value_larger_than_i64",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "stuff": {
+      "type": "model-field",
+      "schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "str"
+       },
+       "values_schema": {
+        "type": "any"
+       }
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MyModel"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "stuff": {
+     "value": 9223372036854775809
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_set_member_db#0",
+  "test": "tests/serializers/test_any.py::test_set_member_db",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$set": [
+    {
+     "$object": "MyDataclass"
+    },
+    {
+     "$object": "MyDataclass"
+    }
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    {
+     "a": 1,
+     "b": "a"
+    },
+    {
+     "a": 2,
+     "b": "b"
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_set_member_db#1",
+  "test": "tests/serializers/test_any.py::test_set_member_db",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$set": [
+    {
+     "$object": "MyDataclass"
+    },
+    {
+     "$object": "MyDataclass"
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[{\"a\":1,\"b\":\"a\"},{\"a\":2,\"b\":\"b\"}]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_set_member_db#2",
+  "test": "tests/serializers/test_any.py::test_set_member_db",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$set": [
+    {
+     "$object": "MyDataclass"
+    },
+    {
+     "$object": "MyDataclass"
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "TypeError",
+    "message": "unhashable type: 'dict'"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_simple_any_ser_schema#0",
+  "test": "tests/serializers/test_any.py::test_simple_any_ser_schema",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "attrgetter"
+    }
+   },
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       {
+        "$tuple": [
+         1
+        ]
+       }
+      ]
+     },
+     {
+      "$enum": [
+       "MyEnum",
+       {
+        "$tuple": [
+         2
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "serialization": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$enum": [
+       "MyEnum",
+       {
+        "$tuple": [
+         1
+        ]
+       }
+      ]
+     },
+     "x"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$enum": [
+        "MyEnum",
+        {
+         "$tuple": [
+          1
+         ]
+        }
+       ]
+      },
+      "x"
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_simple_any_ser_schema#1",
+  "test": "tests/serializers/test_any.py::test_simple_any_ser_schema",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "attrgetter"
+    }
+   },
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       {
+        "$tuple": [
+         1
+        ]
+       }
+      ]
+     },
+     {
+      "$enum": [
+       "MyEnum",
+       {
+        "$tuple": [
+         2
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "serialization": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$enum": [
+       "MyEnum",
+       {
+        "$tuple": [
+         1
+        ]
+       }
+      ]
+     },
+     "x"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1": "x"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_simple_any_ser_schema#2",
+  "test": "tests/serializers/test_any.py::test_simple_any_ser_schema",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "attrgetter"
+    }
+   },
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       {
+        "$tuple": [
+         1
+        ]
+       }
+      ]
+     },
+     {
+      "$enum": [
+       "MyEnum",
+       {
+        "$tuple": [
+         2
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "serialization": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$enum": [
+       "MyEnum",
+       {
+        "$tuple": [
+         1
+        ]
+       }
+      ]
+     },
+     "x"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1\":\"x\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_simple_any_ser_schema#3",
+  "test": "tests/serializers/test_any.py::test_simple_any_ser_schema",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "attrgetter"
+    }
+   },
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       {
+        "$tuple": [
+         1
+        ]
+       }
+      ]
+     },
+     {
+      "$enum": [
+       "MyEnum",
+       {
+        "$tuple": [
+         2
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "serialization": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_simple_any_ser_schema#4",
+  "test": "tests/serializers/test_any.py::test_simple_any_ser_schema",
+  "schema": {
+   "type": "function-after",
+   "function": {
+    "type": "no-info",
+    "function": {
+     "$function": "attrgetter"
+    }
+   },
+   "schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       {
+        "$tuple": [
+         1
+        ]
+       }
+      ]
+     },
+     {
+      "$enum": [
+       "MyEnum",
+       {
+        "$tuple": [
+         2
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "serialization": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_slots_mixed#0",
+  "test": "tests/serializers/test_any.py::test_slots_mixed",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "SubModel"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 1,
+    "x2": 2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_slots_mixed#1",
+  "test": "tests/serializers/test_any.py::test_slots_mixed",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "SubModel"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"x\":1,\"x2\":2}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_unknown_type#0",
+  "test": "tests/serializers/test_any.py::test_unknown_type",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foobar"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "Foobar"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_unknown_type#1",
+  "test": "tests/serializers/test_any.py::test_unknown_type",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foobar"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Unable to serialize unknown type: <class 'tests.serializers.test_any.Foobar'>"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_unknown_type#2",
+  "test": "tests/serializers/test_any.py::test_unknown_type",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Foobar"
+  },
+  "options": {},
+  "expected": {
+   "exception": {
+    "type": "PydanticSerializationError",
+    "message": "Unable to serialize unknown type: <class 'tests.serializers.test_any.Foobar'>"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_unknown_type_fallback#0",
+  "test": "tests/serializers/test_any.py::test_unknown_type_fallback",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foobar"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "Foobar"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_unknown_type_fallback#1",
+  "test": "tests/serializers/test_any.py::test_unknown_type_fallback",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foobar"
+  },
+  "options": {
+   "mode": "json",
+   "fallback": {
+    "$function": "fallback_func"
+   }
+  },
+  "expected": {
+   "output": "fallback:<Foobar repr>"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_unknown_type_fallback#2",
+  "test": "tests/serializers/test_any.py::test_unknown_type_fallback",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Foobar"
+  },
+  "options": {
+   "fallback": {
+    "$function": "fallback_func"
+   }
+  },
+  "expected": {
+   "output": "fallback:<Foobar repr>"
+  }
+ },
+ {
+  "id": "tests/serializers/test_any.py::test_unknown_type_fallback#3",
+  "test": "tests/serializers/test_any.py::test_unknown_type_fallback",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Foobar"
+  },
+  "options": {
+   "fallback": {
+    "$function": "fallback_func"
+   }
+  },
+  "expected": {
+   "json": "\"fallback:<Foobar repr>\""
+  }
+ }
+]

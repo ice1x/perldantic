@@ -7,13 +7,15 @@ and must produce the same outcomes.
 ## Where they come from
 
 `upstream/` is generated, never edited by hand. [`tools/conformance/record.sh`](../../tools/conformance/record.sh)
-runs upstream pydantic-core's validator tests (`upstream/pydantic-core/tests/validators`)
-against the matching published release (`pydantic-core==2.49.0`) with a pytest plugin that
-records every `SchemaValidator.validate_python` / `validate_json` call:
+runs upstream pydantic-core's validator and serializer tests (`upstream/pydantic-core/tests/validators`,
+`tests/serializers`) against the matching published release (`pydantic-core==2.49.0`) with a
+pytest plugin that records every `SchemaValidator.validate_python` / `validate_json` and
+`SchemaSerializer.to_python` / `to_json` call:
 
 - the schema and config the validator was built with;
 - the input and the keyword options of the call;
-- the outcome pydantic produced: output value, validation errors, or another exception.
+- the outcome pydantic produced: output value, JSON text, validation errors, or another
+  exception, plus any serializer warnings.
 
 What is recorded is pydantic's real behaviour, independent of what each test asserts. Tests
 driven by Hypothesis (random inputs) are not recorded. The suite is recorded twice with a fixed
@@ -51,7 +53,7 @@ holding a JSON array of cases sorted by `id`.
 | `test` | The upstream pytest node id (memory addresses in ids are replaced by `0x...`) |
 | `schema` | The core schema, encoded as below |
 | `config` | The core config, or `null` |
-| `mode` | `python` for `validate_python` (host data) or `json` for `validate_json` (JSON text) |
+| `mode` | `python` for `validate_python` (host data), `json` for `validate_json` (JSON text), `to_python` / `to_json` for `SchemaSerializer.to_python` / `to_json` |
 | `input` | The input: an encoded value in `python` mode; the JSON document as a string in `json` mode (bytes inputs are encoded as `$bytes`) |
 | `options` | Keyword arguments of the call, e.g. `{"strict": true}`, `{"context": ...}`, `{"allow_partial": true}` |
 | `expected` | Exactly one of the outcomes below |
@@ -62,7 +64,11 @@ Outcomes:
 - `{"errors": [...], "title": "..."}`: a `ValidationError` with this title. Each error has
   `type`, `loc` (list of strings and ints), `msg`, `input` and, when present, `ctx`, as returned
   by pydantic's `errors(include_url=False)`.
+- `{"json": "..."}`: `to_json` succeeded with this JSON text.
 - `{"exception": {"type": "...", "message": "..."}}`: any other exception.
+
+A serializer outcome may also carry `"warnings": ["..."]`, the messages of the warnings the call
+emitted (e.g. `PydanticSerializationUnexpectedValue`).
 
 Identical calls (same schema, config, mode, input and options) within one run are recorded once.
 

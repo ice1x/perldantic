@@ -1,0 +1,292 @@
+[
+ {
+  "id": "tests/serializers/test_definitions.py::test_custom_ser#0",
+  "test": "tests/serializers/test_definitions.py::test_custom_ser",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "definition-ref",
+     "schema_ref": "foobar"
+    }
+   },
+   "definitions": [
+    {
+     "type": "int",
+     "ref": "foobar",
+     "serialization": {
+      "type": "to-string",
+      "when_used": "always"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    "1",
+    "2",
+    "3"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_definitions.py::test_deep#0",
+  "test": "tests/serializers/test_definitions.py::test_deep",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     }
+    },
+    "b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "definitions",
+      "schema": {
+       "type": "typed-dict",
+       "fields": {
+        "c": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "int"
+         }
+        },
+        "d": {
+         "type": "typed-dict-field",
+         "schema": {
+          "type": "definition-ref",
+          "schema_ref": "foobar"
+         }
+        }
+       }
+      },
+      "definitions": [
+       {
+        "type": "int",
+        "ref": "foobar",
+        "serialization": {
+         "type": "to-string",
+         "when_used": "always"
+        }
+       }
+      ]
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "a": 1,
+   "b": {
+    "c": 2,
+    "d": 3
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": 1,
+    "b": {
+     "c": 2,
+     "d": "3"
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_definitions.py::test_defs_with_dict#0",
+  "test": "tests/serializers/test_definitions.py::test_defs_with_dict",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "foo": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "definition-ref",
+        "schema_ref": "key"
+       },
+       "values_schema": {
+        "type": "definition-ref",
+        "schema_ref": "val"
+       }
+      }
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "str",
+     "ref": "key"
+    },
+    {
+     "type": "str",
+     "ref": "val"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "foo": {
+    "key": "val"
+   }
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"foo\":{\"key\":\"val\"}}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_definitions.py::test_defs_with_dict#1",
+  "test": "tests/serializers/test_definitions.py::test_defs_with_dict",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "typed-dict",
+    "fields": {
+     "foo": {
+      "type": "typed-dict-field",
+      "schema": {
+       "type": "dict",
+       "keys_schema": {
+        "type": "definition-ref",
+        "schema_ref": "key"
+       },
+       "values_schema": {
+        "type": "definition-ref",
+        "schema_ref": "val"
+       }
+      }
+     }
+    }
+   },
+   "definitions": [
+    {
+     "type": "str",
+     "ref": "key"
+    },
+    {
+     "type": "str",
+     "ref": "val"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "foo": {
+    "key": "val"
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "foo": {
+     "key": "val"
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_definitions.py::test_ignored_def#0",
+  "test": "tests/serializers/test_definitions.py::test_ignored_def",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   },
+   "definitions": [
+    {
+     "type": "int",
+     "ref": "foobar",
+     "serialization": {
+      "type": "to-string",
+      "when_used": "always"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_definitions.py::test_use_after#0",
+  "test": "tests/serializers/test_definitions.py::test_use_after",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "definitions",
+     "schema": {
+      "type": "definition-ref",
+      "schema_ref": "foobar"
+     },
+     "definitions": [
+      {
+       "type": "int",
+       "ref": "foobar",
+       "serialization": {
+        "type": "to-string",
+        "when_used": "always"
+       }
+      }
+     ]
+    },
+    {
+     "type": "definition-ref",
+     "schema_ref": "foobar"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    2
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     "1",
+     "2"
+    ]
+   }
+  }
+ }
+]

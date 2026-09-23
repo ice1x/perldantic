@@ -1,0 +1,265 @@
+[
+ {
+  "id": "tests/serializers/test_other.py::test_chain#0",
+  "test": "tests/serializers/test_other.py::test_chain",
+  "schema": {
+   "type": "chain",
+   "steps": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_other.py::test_chain#1",
+  "test": "tests/serializers/test_other.py::test_chain",
+  "schema": {
+   "type": "chain",
+   "steps": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_other.py::test_lax_or_strict#0",
+  "test": "tests/serializers/test_other.py::test_lax_or_strict",
+  "schema": {
+   "type": "lax-or-strict",
+   "lax_schema": {
+    "type": "int"
+   },
+   "strict_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "abc",
+  "options": {},
+  "expected": {
+   "json": "\"abc\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_other.py::test_lax_or_strict#1",
+  "test": "tests/serializers/test_other.py::test_lax_or_strict",
+  "schema": {
+   "type": "lax-or-strict",
+   "lax_schema": {
+    "type": "int"
+   },
+   "strict_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "json": "123",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `str` - serialized value may not be as expected [input_value=123, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_other.py::test_lax_or_strict_custom_ser#0",
+  "test": "tests/serializers/test_other.py::test_lax_or_strict_custom_ser",
+  "schema": {
+   "type": "lax-or-strict",
+   "lax_schema": {
+    "type": "int"
+   },
+   "strict_schema": {
+    "type": "str"
+   },
+   "serialization": {
+    "type": "format",
+    "formatting_string": "^5s",
+    "when_used": "always"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "abc",
+  "options": {},
+  "expected": {
+   "output": " abc "
+  }
+ },
+ {
+  "id": "tests/serializers/test_other.py::test_lax_or_strict_custom_ser#1",
+  "test": "tests/serializers/test_other.py::test_lax_or_strict_custom_ser",
+  "schema": {
+   "type": "lax-or-strict",
+   "lax_schema": {
+    "type": "int"
+   },
+   "strict_schema": {
+    "type": "str"
+   },
+   "serialization": {
+    "type": "format",
+    "formatting_string": "^5s",
+    "when_used": "always"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "abc",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": " abc "
+  }
+ },
+ {
+  "id": "tests/serializers/test_other.py::test_lax_or_strict_custom_ser#2",
+  "test": "tests/serializers/test_other.py::test_lax_or_strict_custom_ser",
+  "schema": {
+   "type": "lax-or-strict",
+   "lax_schema": {
+    "type": "int"
+   },
+   "strict_schema": {
+    "type": "str"
+   },
+   "serialization": {
+    "type": "format",
+    "formatting_string": "^5s",
+    "when_used": "always"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "abc",
+  "options": {},
+  "expected": {
+   "json": "\" abc \""
+  }
+ },
+ {
+  "id": "tests/serializers/test_other.py::test_serialize_with_extra_on_superclass#0",
+  "test": "tests/serializers/test_other.py::test_serialize_with_extra_on_superclass",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Other"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     },
+     "y": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     }
+    }
+   },
+   "config": {
+    "extra_fields_behavior": "forbid"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "x": 1,
+   "y": "some string"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$model": {
+     "class": "Other",
+     "fields": {
+      "x": 1,
+      "y": "some string"
+     },
+     "fields_set": [
+      "x",
+      "y"
+     ],
+     "extra": null
+    }
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_other.py::test_serialize_with_extra_on_superclass#1",
+  "test": "tests/serializers/test_other.py::test_serialize_with_extra_on_superclass",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Parent"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     }
+    }
+   },
+   "config": {
+    "extra_fields_behavior": "allow"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$model": {
+    "class": "Other",
+    "fields": {
+     "x": 1,
+     "y": "some string"
+    },
+    "fields_set": [
+     "x",
+     "y"
+    ],
+    "extra": null
+   }
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": 1
+   }
+  }
+ }
+]

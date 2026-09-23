@@ -1,0 +1,128 @@
+[
+ {
+  "id": "tests/serializers/test_nullable.py::test_nullable#0",
+  "test": "tests/serializers/test_nullable.py::test_nullable",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {},
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_nullable.py::test_nullable#1",
+  "test": "tests/serializers/test_nullable.py::test_nullable",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_nullable.py::test_nullable#2",
+  "test": "tests/serializers/test_nullable.py::test_nullable",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": null,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": null
+  }
+ },
+ {
+  "id": "tests/serializers/test_nullable.py::test_nullable#3",
+  "test": "tests/serializers/test_nullable.py::test_nullable",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_nullable.py::test_nullable#4",
+  "test": "tests/serializers/test_nullable.py::test_nullable",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_nullable.py::test_nullable#5",
+  "test": "tests/serializers/test_nullable.py::test_nullable",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": null,
+  "options": {},
+  "expected": {
+   "json": "null"
+  }
+ },
+ {
+  "id": "tests/serializers/test_nullable.py::test_nullable#6",
+  "test": "tests/serializers/test_nullable.py::test_nullable",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "aaa",
+  "options": {},
+  "expected": {
+   "json": "\"aaa\"",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value='aaa', input_type=str])"
+   ]
+  }
+ }
+]

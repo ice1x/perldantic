@@ -1,0 +1,608 @@
+[
+ {
+  "id": "tests/serializers/test_model_root.py::test_function_plain_field_serializer_to_json#0",
+  "test": "tests/serializers/test_model_root.py::test_function_plain_field_serializer_to_json",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "int",
+    "serialization": {
+     "type": "function-plain",
+     "function": {
+      "$function": "ser_root"
+     },
+     "is_field_serializer": true,
+     "info_arg": true
+    }
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Model"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"1_000\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_model_root.py::test_function_plain_field_serializer_to_python#0",
+  "test": "tests/serializers/test_model_root.py::test_function_plain_field_serializer_to_python",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "int",
+    "serialization": {
+     "type": "function-plain",
+     "function": {
+      "$function": "ser_root"
+     },
+     "is_field_serializer": true,
+     "info_arg": true
+    }
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Model"
+  },
+  "options": {},
+  "expected": {
+   "output": "1_000"
+  }
+ },
+ {
+  "id": "tests/serializers/test_model_root.py::test_function_wrap_field_serializer_to_json#0",
+  "test": "tests/serializers/test_model_root.py::test_function_wrap_field_serializer_to_json",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "int",
+    "serialization": {
+     "type": "function-wrap",
+     "function": {
+      "$function": "ser_root"
+     },
+     "is_field_serializer": true,
+     "info_arg": true,
+     "schema": {
+      "type": "any"
+     }
+    }
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Model"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"1_000\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_model_root.py::test_function_wrap_field_serializer_to_python#0",
+  "test": "tests/serializers/test_model_root.py::test_function_wrap_field_serializer_to_python",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "int",
+    "serialization": {
+     "type": "function-wrap",
+     "function": {
+      "$function": "ser_root"
+     },
+     "is_field_serializer": true,
+     "info_arg": true,
+     "schema": {
+      "type": "any"
+     }
+    }
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Model"
+  },
+  "options": {},
+  "expected": {
+   "output": "1_000"
+  }
+ },
+ {
+  "id": "tests/serializers/test_model_root.py::test_model_root#0",
+  "test": "tests/serializers/test_model_root.py::test_model_root",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "int"
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "RootModel"
+  },
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_model_root.py::test_model_root#1",
+  "test": "tests/serializers/test_model_root.py::test_model_root",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "int"
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "RootSubModel"
+  },
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_model_root.py::test_model_root#2",
+  "test": "tests/serializers/test_model_root.py::test_model_root",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "int"
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "RootModel"
+  },
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_model_root.py::test_model_root#3",
+  "test": "tests/serializers/test_model_root.py::test_model_root",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "int"
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "RootSubModel"
+  },
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_model_root.py::test_not_root_model#0",
+  "test": "tests/serializers/test_model_root.py::test_not_root_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "str"
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "RootModel"
+  },
+  "options": {},
+  "expected": {
+   "output": "123"
+  }
+ },
+ {
+  "id": "tests/serializers/test_model_root.py::test_not_root_model#1",
+  "test": "tests/serializers/test_model_root.py::test_not_root_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "str"
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "RootModel"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"123\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_model_root.py::test_not_root_model#2",
+  "test": "tests/serializers/test_model_root.py::test_not_root_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "str"
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "PosixPath"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "PosixPath"
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `RootModel` - serialized value may not be as expected [input_value=PosixPath('/a/b'), input_type=PosixPath])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_model_root.py::test_not_root_model#3",
+  "test": "tests/serializers/test_model_root.py::test_not_root_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "str"
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "PosixPath"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"/a/b\"",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `RootModel` - serialized value may not be as expected [input_value=PosixPath('/a/b'), input_type=PosixPath])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_model_root.py::test_not_root_model#4",
+  "test": "tests/serializers/test_model_root.py::test_not_root_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "str"
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "PosixPath"
+  },
+  "options": {
+   "warnings": false
+  },
+  "expected": {
+   "output": {
+    "$object": "PosixPath"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_model_root.py::test_not_root_model#5",
+  "test": "tests/serializers/test_model_root.py::test_not_root_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "RootModel"
+   },
+   "schema": {
+    "type": "str"
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "PosixPath"
+  },
+  "options": {
+   "warnings": false
+  },
+  "expected": {
+   "json": "\"/a/b\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_model_root.py::test_root_model_dump_with_base_model[BR]#0",
+  "test": "tests/serializers/test_model_root.py::test_root_model_dump_with_base_model[BR]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "union",
+     "choices": [
+      {
+       "type": "model",
+       "cls": {
+        "$class": "BModel"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "value": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      },
+      {
+       "type": "model",
+       "cls": {
+        "$class": "RModel"
+       },
+       "schema": {
+        "type": "int"
+       },
+       "root_model": true
+      }
+     ]
+    }
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Model"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    {
+     "value": "abc"
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_model_root.py::test_root_model_dump_with_base_model[BR]#1",
+  "test": "tests/serializers/test_model_root.py::test_root_model_dump_with_base_model[BR]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "union",
+     "choices": [
+      {
+       "type": "model",
+       "cls": {
+        "$class": "BModel"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "value": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      },
+      {
+       "type": "model",
+       "cls": {
+        "$class": "RModel"
+       },
+       "schema": {
+        "type": "int"
+       },
+       "root_model": true
+      }
+     ]
+    }
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Model"
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,2,{\"value\":\"abc\"}]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_model_root.py::test_root_model_dump_with_base_model[RB]#0",
+  "test": "tests/serializers/test_model_root.py::test_root_model_dump_with_base_model[RB]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "union",
+     "choices": [
+      {
+       "type": "model",
+       "cls": {
+        "$class": "RModel"
+       },
+       "schema": {
+        "type": "int"
+       },
+       "root_model": true
+      },
+      {
+       "type": "model",
+       "cls": {
+        "$class": "BModel"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "value": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      }
+     ]
+    }
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Model"
+  },
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    {
+     "value": "abc"
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_model_root.py::test_root_model_dump_with_base_model[RB]#1",
+  "test": "tests/serializers/test_model_root.py::test_root_model_dump_with_base_model[RB]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "union",
+     "choices": [
+      {
+       "type": "model",
+       "cls": {
+        "$class": "RModel"
+       },
+       "schema": {
+        "type": "int"
+       },
+       "root_model": true
+      },
+      {
+       "type": "model",
+       "cls": {
+        "$class": "BModel"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "value": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      }
+     ]
+    }
+   },
+   "root_model": true
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Model"
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,2,{\"value\":\"abc\"}]"
+  }
+ }
+]

@@ -1,0 +1,1064 @@
+[
+ {
+  "id": "tests/serializers/test_enum.py::test_int_dict_key#0",
+  "test": "tests/serializers/test_enum.py::test_int_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     },
+     {
+      "$enum": [
+       "MyEnum",
+       2
+      ]
+     }
+    ],
+    "sub_type": "int"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     },
+     "x"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$enum": [
+        "MyEnum",
+        1
+       ]
+      },
+      "x"
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_int_dict_key#1",
+  "test": "tests/serializers/test_enum.py::test_int_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     },
+     {
+      "$enum": [
+       "MyEnum",
+       2
+      ]
+     }
+    ],
+    "sub_type": "int"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     },
+     "x"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1": "x"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_int_dict_key#2",
+  "test": "tests/serializers/test_enum.py::test_int_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     },
+     {
+      "$enum": [
+       "MyEnum",
+       2
+      ]
+     }
+    ],
+    "sub_type": "int"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     },
+     "x"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1\":\"x\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_int_dict_key#3",
+  "test": "tests/serializers/test_enum.py::test_int_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     },
+     {
+      "$enum": [
+       "MyEnum",
+       2
+      ]
+     }
+    ],
+    "sub_type": "int"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "x": "x"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "x"
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `enum` - serialized value may not be as expected [input_value='x', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_int_dict_key#4",
+  "test": "tests/serializers/test_enum.py::test_int_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     },
+     {
+      "$enum": [
+       "MyEnum",
+       2
+      ]
+     }
+    ],
+    "sub_type": "int"
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "x": "x"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"x\":\"x\"}",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `enum` - serialized value may not be as expected [input_value='x', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_int_enum#0",
+  "test": "tests/serializers/test_enum.py::test_int_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ],
+   "sub_type": "int"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_int_enum#1",
+  "test": "tests/serializers/test_enum.py::test_int_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ],
+   "sub_type": "int"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_int_enum#2",
+  "test": "tests/serializers/test_enum.py::test_int_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ],
+   "sub_type": "int"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_int_enum#3",
+  "test": "tests/serializers/test_enum.py::test_int_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ],
+   "sub_type": "int"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1,
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `enum` - serialized value may not be as expected [input_value=1, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_int_enum#4",
+  "test": "tests/serializers/test_enum.py::test_int_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ],
+   "sub_type": "int"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `enum` - serialized value may not be as expected [input_value=1, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_plain_dict_key#0",
+  "test": "tests/serializers/test_enum.py::test_plain_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     },
+     {
+      "$enum": [
+       "MyEnum",
+       2
+      ]
+     }
+    ]
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     },
+     "x"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$enum": [
+        "MyEnum",
+        1
+       ]
+      },
+      "x"
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_plain_dict_key#1",
+  "test": "tests/serializers/test_enum.py::test_plain_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     },
+     {
+      "$enum": [
+       "MyEnum",
+       2
+      ]
+     }
+    ]
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     },
+     "x"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1": "x"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_plain_dict_key#2",
+  "test": "tests/serializers/test_enum.py::test_plain_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     },
+     {
+      "$enum": [
+       "MyEnum",
+       2
+      ]
+     }
+    ]
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     },
+     "x"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1\":\"x\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_plain_dict_key#3",
+  "test": "tests/serializers/test_enum.py::test_plain_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     },
+     {
+      "$enum": [
+       "MyEnum",
+       2
+      ]
+     }
+    ]
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "x": "x"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "x": "x"
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `enum` - serialized value may not be as expected [input_value='x', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_plain_dict_key#4",
+  "test": "tests/serializers/test_enum.py::test_plain_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "enum",
+    "cls": {
+     "$class": "MyEnum"
+    },
+    "members": [
+     {
+      "$enum": [
+       "MyEnum",
+       1
+      ]
+     },
+     {
+      "$enum": [
+       "MyEnum",
+       2
+      ]
+     }
+    ]
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "x": "x"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"x\":\"x\"}",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `enum` - serialized value may not be as expected [input_value='x', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_plain_enum#0",
+  "test": "tests/serializers/test_enum.py::test_plain_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_plain_enum#1",
+  "test": "tests/serializers/test_enum.py::test_plain_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_plain_enum#2",
+  "test": "tests/serializers/test_enum.py::test_plain_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_plain_enum#3",
+  "test": "tests/serializers/test_enum.py::test_plain_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1,
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `enum` - serialized value may not be as expected [input_value=1, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_plain_enum#4",
+  "test": "tests/serializers/test_enum.py::test_plain_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      1
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      2
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `enum` - serialized value may not be as expected [input_value=1, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_str_enum#0",
+  "test": "tests/serializers/test_enum.py::test_str_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      "a"
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      "b"
+     ]
+    }
+   ],
+   "sub_type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    "a"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$enum": [
+     "MyEnum",
+     "a"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_str_enum#1",
+  "test": "tests/serializers/test_enum.py::test_str_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      "a"
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      "b"
+     ]
+    }
+   ],
+   "sub_type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    "a"
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "a"
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_str_enum#2",
+  "test": "tests/serializers/test_enum.py::test_str_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      "a"
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      "b"
+     ]
+    }
+   ],
+   "sub_type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$enum": [
+    "MyEnum",
+    "a"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "\"a\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_str_enum#3",
+  "test": "tests/serializers/test_enum.py::test_str_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      "a"
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      "b"
+     ]
+    }
+   ],
+   "sub_type": "str"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "a",
+  "options": {},
+  "expected": {
+   "output": "a",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `enum` - serialized value may not be as expected [input_value='a', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_enum.py::test_str_enum#4",
+  "test": "tests/serializers/test_enum.py::test_str_enum",
+  "schema": {
+   "type": "enum",
+   "cls": {
+    "$class": "MyEnum"
+   },
+   "members": [
+    {
+     "$enum": [
+      "MyEnum",
+      "a"
+     ]
+    },
+    {
+     "$enum": [
+      "MyEnum",
+      "b"
+     ]
+    }
+   ],
+   "sub_type": "str"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "a",
+  "options": {},
+  "expected": {
+   "json": "\"a\"",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `enum` - serialized value may not be as expected [input_value='a', input_type=str])"
+   ]
+  }
+ }
+]

@@ -1,0 +1,723 @@
+[
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_frozenset_any#0",
+  "test": "tests/serializers/test_set_frozenset.py::test_frozenset_any",
+  "schema": {
+   "type": "frozenset",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$frozenset": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$frozenset": [
+     "a",
+     "b",
+     "c"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_frozenset_any#1",
+  "test": "tests/serializers/test_set_frozenset.py::test_frozenset_any",
+  "schema": {
+   "type": "frozenset",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$frozenset": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "c",
+    "a",
+    "b"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_frozenset_any#2",
+  "test": "tests/serializers/test_set_frozenset.py::test_frozenset_any",
+  "schema": {
+   "type": "frozenset",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$frozenset": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[\"c\",\"a\",\"b\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_any#0",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_any",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$set": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     "a",
+     "b",
+     "c"
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_any#1",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_any",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$set": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    "c",
+    "a",
+    "b"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_any#2",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_any",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$set": [
+    "a",
+    "b",
+    "c"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[\"c\",\"a\",\"b\"]"
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[apple-apple-set\\\\[int\\\\]]#0",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[apple-apple-set\\\\[int\\\\]]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[apple-apple-set\\\\[int\\\\]]#1",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[apple-apple-set\\\\[int\\\\]]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "apple",
+  "options": {},
+  "expected": {
+   "output": "apple",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `set[int]` - serialized value may not be as expected [input_value='apple', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[apple-apple-set\\\\[int\\\\]]#2",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[apple-apple-set\\\\[int\\\\]]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "apple",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "apple",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `set[int]` - serialized value may not be as expected [input_value='apple', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[apple-apple-set\\\\[int\\\\]]#3",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[apple-apple-set\\\\[int\\\\]]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "apple",
+  "options": {},
+  "expected": {
+   "json": "\"apple\"",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `set[int]` - serialized value may not be as expected [input_value='apple', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value1-json_output1-set\\\\[int\\\\]]#0",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value1-json_output1-set\\\\[int\\\\]]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value1-json_output1-set\\\\[int\\\\]]#1",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value1-json_output1-set\\\\[int\\\\]]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `set[int]` - serialized value may not be as expected [input_value=[1, 2, 3], input_type=list])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value1-json_output1-set\\\\[int\\\\]]#2",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value1-json_output1-set\\\\[int\\\\]]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `set[int]` - serialized value may not be as expected [input_value=[1, 2, 3], input_type=list])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value1-json_output1-set\\\\[int\\\\]]#3",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value1-json_output1-set\\\\[int\\\\]]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": [
+   1,
+   2,
+   3
+  ],
+  "options": {},
+  "expected": {
+   "json": "[1,2,3]",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `set[int]` - serialized value may not be as expected [input_value=[1, 2, 3], input_type=list])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value2-json_output2-set\\\\[int\\\\]]#0",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value2-json_output2-set\\\\[int\\\\]]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value2-json_output2-set\\\\[int\\\\]]#1",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value2-json_output2-set\\\\[int\\\\]]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     1,
+     2,
+     3
+    ]
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `set[int]` - serialized value may not be as expected [input_value=(1, 2, 3), input_type=tuple])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value2-json_output2-set\\\\[int\\\\]]#2",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value2-json_output2-set\\\\[int\\\\]]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `set[int]` - serialized value may not be as expected [input_value=(1, 2, 3), input_type=tuple])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value2-json_output2-set\\\\[int\\\\]]#3",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value2-json_output2-set\\\\[int\\\\]]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$tuple": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,2,3]",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `set[int]` - serialized value may not be as expected [input_value=(1, 2, 3), input_type=tuple])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value3-json_output3-set\\\\[int\\\\]]#0",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value3-json_output3-set\\\\[int\\\\]]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value3-json_output3-set\\\\[int\\\\]]#1",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value3-json_output3-set\\\\[int\\\\]]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$frozenset": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$frozenset": [
+     1,
+     2,
+     3
+    ]
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `set[int]` - serialized value may not be as expected [input_value=frozenset({1, 2, 3}), input_type=frozenset])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value3-json_output3-set\\\\[int\\\\]]#2",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value3-json_output3-set\\\\[int\\\\]]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$frozenset": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    3
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `set[int]` - serialized value may not be as expected [input_value=frozenset({1, 2, 3}), input_type=frozenset])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value3-json_output3-set\\\\[int\\\\]]#3",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value3-json_output3-set\\\\[int\\\\]]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$frozenset": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,2,3]",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `set[int]` - serialized value may not be as expected [input_value=frozenset({1, 2, 3}), input_type=frozenset])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value4-json_output4-int]#0",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value4-json_output4-int]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    3
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     3
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value4-json_output4-int]#1",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value4-json_output4-int]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    "a"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$set": [
+     1,
+     2,
+     "a"
+    ]
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value='a', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value4-json_output4-int]#2",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value4-json_output4-int]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$set": [
+    1,
+    2,
+    "a"
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": [
+    1,
+    2,
+    "a"
+   ],
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value='a', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value4-json_output4-int]#3",
+  "test": "tests/serializers/test_set_frozenset.py::test_set_fallback[input_value4-json_output4-int]",
+  "schema": {
+   "type": "set",
+   "items_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$set": [
+    1,
+    2,
+    "a"
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "[1,2,\"a\"]",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value='a', input_type=str])"
+   ]
+  }
+ }
+]

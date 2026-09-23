@@ -1,0 +1,622 @@
+[
+ {
+  "id": "tests/serializers/test_url.py::test_any#0",
+  "test": "tests/serializers/test_url.py::test_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Url"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "Url"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_any#1",
+  "test": "tests/serializers/test_url.py::test_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MultiHostUrl"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "MultiHostUrl"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_any#2",
+  "test": "tests/serializers/test_url.py::test_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Url"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "https://ex.com/"
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_any#3",
+  "test": "tests/serializers/test_url.py::test_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MultiHostUrl"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "https://ex.com,ex.org/path"
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_any#4",
+  "test": "tests/serializers/test_url.py::test_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Url"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"https://ex.com/\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_any#5",
+  "test": "tests/serializers/test_url.py::test_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "MultiHostUrl"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"https://ex.com,ex.org/path\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_any#6",
+  "test": "tests/serializers/test_url.py::test_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$object": "Url"
+     },
+     1
+    ],
+    [
+     {
+      "$object": "MultiHostUrl"
+     },
+     2
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$object": "Url"
+      },
+      1
+     ],
+     [
+      {
+       "$object": "MultiHostUrl"
+      },
+      2
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_any#7",
+  "test": "tests/serializers/test_url.py::test_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$object": "Url"
+     },
+     1
+    ],
+    [
+     {
+      "$object": "MultiHostUrl"
+     },
+     2
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "https://ex.com/": 1,
+    "https://ex.com,ex.org/path": 2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_any#8",
+  "test": "tests/serializers/test_url.py::test_any",
+  "schema": {
+   "type": "any"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$object": "Url"
+     },
+     1
+    ],
+    [
+     {
+      "$object": "MultiHostUrl"
+     },
+     2
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"https://ex.com/\":1,\"https://ex.com,ex.org/path\":2}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_custom_serializer#0",
+  "test": "tests/serializers/test_url.py::test_custom_serializer",
+  "schema": {
+   "type": "any",
+   "serialization": {
+    "type": "multi-host-url"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MultiHostUrl"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "MultiHostUrl"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_multi_host_url#0",
+  "test": "tests/serializers/test_url.py::test_multi_host_url",
+  "schema": {
+   "type": "multi-host-url"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "https://example.com,example.org/path",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "MultiHostUrl"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_multi_host_url#1",
+  "test": "tests/serializers/test_url.py::test_multi_host_url",
+  "schema": {
+   "type": "multi-host-url"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MultiHostUrl"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "MultiHostUrl"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_multi_host_url#2",
+  "test": "tests/serializers/test_url.py::test_multi_host_url",
+  "schema": {
+   "type": "multi-host-url"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "MultiHostUrl"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "https://example.com,example.org/path"
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_multi_host_url#3",
+  "test": "tests/serializers/test_url.py::test_multi_host_url",
+  "schema": {
+   "type": "multi-host-url"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "MultiHostUrl"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"https://example.com,example.org/path\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_multi_host_url#4",
+  "test": "tests/serializers/test_url.py::test_multi_host_url",
+  "schema": {
+   "type": "multi-host-url"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "https://ex.com,ex.org/path",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "https://ex.com,ex.org/path",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `multi-host-url` - serialized value may not be as expected [input_value='https://ex.com,ex.org/path', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_multi_host_url_dict_keys#0",
+  "test": "tests/serializers/test_url.py::test_multi_host_url_dict_keys",
+  "schema": {
+   "type": "multi-host-url"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "https://example.com,example.org/path",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "MultiHostUrl"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_multi_host_url_dict_keys#1",
+  "test": "tests/serializers/test_url.py::test_multi_host_url_dict_keys",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "multi-host-url"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$object": "MultiHostUrl"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$object": "MultiHostUrl"
+      },
+      "foo"
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_multi_host_url_dict_keys#2",
+  "test": "tests/serializers/test_url.py::test_multi_host_url_dict_keys",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "multi-host-url"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$object": "MultiHostUrl"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "https://example.com,example.org/path": "foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_multi_host_url_dict_keys#3",
+  "test": "tests/serializers/test_url.py::test_multi_host_url_dict_keys",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "multi-host-url"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$object": "MultiHostUrl"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"https://example.com,example.org/path\":\"foo\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_url#0",
+  "test": "tests/serializers/test_url.py::test_url",
+  "schema": {
+   "type": "url"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "https://example.com",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "Url"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_url#1",
+  "test": "tests/serializers/test_url.py::test_url",
+  "schema": {
+   "type": "url"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Url"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "Url"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_url#2",
+  "test": "tests/serializers/test_url.py::test_url",
+  "schema": {
+   "type": "url"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Url"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "https://example.com/"
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_url#3",
+  "test": "tests/serializers/test_url.py::test_url",
+  "schema": {
+   "type": "url"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Url"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"https://example.com/\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_url#4",
+  "test": "tests/serializers/test_url.py::test_url",
+  "schema": {
+   "type": "url"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "https://example.com",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "https://example.com",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `url` - serialized value may not be as expected [input_value='https://example.com', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_url_dict_keys#0",
+  "test": "tests/serializers/test_url.py::test_url_dict_keys",
+  "schema": {
+   "type": "url"
+  },
+  "config": null,
+  "mode": "python",
+  "input": "https://example.com",
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "Url"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_url_dict_keys#1",
+  "test": "tests/serializers/test_url.py::test_url_dict_keys",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "url"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$object": "Url"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$object": "Url"
+      },
+      "foo"
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_url_dict_keys#2",
+  "test": "tests/serializers/test_url.py::test_url_dict_keys",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "url"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$object": "Url"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "https://example.com/": "foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_url.py::test_url_dict_keys#3",
+  "test": "tests/serializers/test_url.py::test_url_dict_keys",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "url"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$object": "Url"
+     },
+     "foo"
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"https://example.com/\":\"foo\"}"
+  }
+ }
+]

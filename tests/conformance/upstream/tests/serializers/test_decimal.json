@@ -1,0 +1,418 @@
+[
+ {
+  "id": "tests/serializers/test_decimal.py::test_any_decimal_key#0",
+  "test": "tests/serializers/test_decimal.py::test_any_decimal_key",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$decimal": "123.456"
+     },
+     1
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "123.456": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_decimal.py::test_any_decimal_key#1",
+  "test": "tests/serializers/test_decimal.py::test_any_decimal_key",
+  "schema": {
+   "type": "dict"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$decimal": "123.456"
+     },
+     1
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"123.456\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_decimal.py::test_decimal#0",
+  "test": "tests/serializers/test_decimal.py::test_decimal",
+  "schema": {
+   "type": "decimal"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "123.456"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$decimal": "123.456"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_decimal.py::test_decimal#1",
+  "test": "tests/serializers/test_decimal.py::test_decimal",
+  "schema": {
+   "type": "decimal"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "123.456"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "123.456"
+  }
+ },
+ {
+  "id": "tests/serializers/test_decimal.py::test_decimal#2",
+  "test": "tests/serializers/test_decimal.py::test_decimal",
+  "schema": {
+   "type": "decimal"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$decimal": "123.456"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"123.456\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_decimal.py::test_decimal#3",
+  "test": "tests/serializers/test_decimal.py::test_decimal",
+  "schema": {
+   "type": "decimal"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "123456789123456789123456789.123456789123456789123456789"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$decimal": "123456789123456789123456789.123456789123456789123456789"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_decimal.py::test_decimal#4",
+  "test": "tests/serializers/test_decimal.py::test_decimal",
+  "schema": {
+   "type": "decimal"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$decimal": "123456789123456789123456789.123456789123456789123456789"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"123456789123456789123456789.123456789123456789123456789\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_decimal.py::test_decimal#5",
+  "test": "tests/serializers/test_decimal.py::test_decimal",
+  "schema": {
+   "type": "decimal"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 123,
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `decimal` - serialized value may not be as expected [input_value=123, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_decimal.py::test_decimal#6",
+  "test": "tests/serializers/test_decimal.py::test_decimal",
+  "schema": {
+   "type": "decimal"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "json": "123",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `decimal` - serialized value may not be as expected [input_value=123, input_type=int])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_decimal.py::test_decimal_json[value0-123.456]#0",
+  "test": "tests/serializers/test_decimal.py::test_decimal_json[value0-123.456]",
+  "schema": {
+   "type": "decimal"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "123.456"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "123.456"
+  }
+ },
+ {
+  "id": "tests/serializers/test_decimal.py::test_decimal_json[value0-123.456]#1",
+  "test": "tests/serializers/test_decimal.py::test_decimal_json[value0-123.456]",
+  "schema": {
+   "type": "decimal"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$decimal": "123.456"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"123.456\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_decimal.py::test_decimal_json[value1-Infinity]#0",
+  "test": "tests/serializers/test_decimal.py::test_decimal_json[value1-Infinity]",
+  "schema": {
+   "type": "decimal"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "Infinity"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "Infinity"
+  }
+ },
+ {
+  "id": "tests/serializers/test_decimal.py::test_decimal_json[value1-Infinity]#1",
+  "test": "tests/serializers/test_decimal.py::test_decimal_json[value1-Infinity]",
+  "schema": {
+   "type": "decimal"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$decimal": "Infinity"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"Infinity\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_decimal.py::test_decimal_json[value2--Infinity]#0",
+  "test": "tests/serializers/test_decimal.py::test_decimal_json[value2--Infinity]",
+  "schema": {
+   "type": "decimal"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "-Infinity"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "-Infinity"
+  }
+ },
+ {
+  "id": "tests/serializers/test_decimal.py::test_decimal_json[value2--Infinity]#1",
+  "test": "tests/serializers/test_decimal.py::test_decimal_json[value2--Infinity]",
+  "schema": {
+   "type": "decimal"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$decimal": "-Infinity"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"-Infinity\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_decimal.py::test_decimal_json[value3-NaN]#0",
+  "test": "tests/serializers/test_decimal.py::test_decimal_json[value3-NaN]",
+  "schema": {
+   "type": "decimal"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "NaN"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "NaN"
+  }
+ },
+ {
+  "id": "tests/serializers/test_decimal.py::test_decimal_json[value3-NaN]#1",
+  "test": "tests/serializers/test_decimal.py::test_decimal_json[value3-NaN]",
+  "schema": {
+   "type": "decimal"
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$decimal": "NaN"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"NaN\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_decimal.py::test_decimal_key#0",
+  "test": "tests/serializers/test_decimal.py::test_decimal_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "decimal"
+   },
+   "values_schema": {
+    "type": "decimal"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$decimal": "123.456"
+     },
+     {
+      "$decimal": "123.456"
+     }
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$decimal": "123.456"
+      },
+      {
+       "$decimal": "123.456"
+      }
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_decimal.py::test_decimal_key#1",
+  "test": "tests/serializers/test_decimal.py::test_decimal_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "decimal"
+   },
+   "values_schema": {
+    "type": "decimal"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$decimal": "123.456"
+     },
+     {
+      "$decimal": "123.456"
+     }
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "123.456": "123.456"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_decimal.py::test_decimal_key#2",
+  "test": "tests/serializers/test_decimal.py::test_decimal_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "decimal"
+   },
+   "values_schema": {
+    "type": "decimal"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$decimal": "123.456"
+     },
+     {
+      "$decimal": "123.456"
+     }
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"123.456\":\"123.456\"}"
+  }
+ }
+]

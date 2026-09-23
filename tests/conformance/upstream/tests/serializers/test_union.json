@@ -1,0 +1,9369 @@
+[
+ {
+  "id": "tests/serializers/test_union.py::test_custom_serializer#0",
+  "test": "tests/serializers/test_union.py::test_custom_serializer",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "dict",
+     "keys_schema": {
+      "type": "any"
+     },
+     "values_schema": {
+      "type": "any"
+     },
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    },
+    {
+     "type": "list",
+     "items_schema": {
+      "type": "dict",
+      "keys_schema": {
+       "type": "any"
+      },
+      "values_schema": {
+       "type": "any"
+      },
+      "serialization": {
+       "type": "function-plain",
+       "function": {
+        "$function": "<lambda>"
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   {
+    "id": 1
+   },
+   {
+    "id": 2
+   }
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_custom_serializer#1",
+  "test": "tests/serializers/test_union.py::test_custom_serializer",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "dict",
+     "keys_schema": {
+      "type": "any"
+     },
+     "values_schema": {
+      "type": "any"
+     },
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "<lambda>"
+      }
+     }
+    },
+    {
+     "type": "list",
+     "items_schema": {
+      "type": "dict",
+      "keys_schema": {
+       "type": "any"
+      },
+      "values_schema": {
+       "type": "any"
+      },
+      "serialization": {
+       "type": "function-plain",
+       "function": {
+        "$function": "<lambda>"
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "id": 1
+  },
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_dataclass_union#0",
+  "test": "tests/serializers/test_union.py::test_dataclass_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "dataclass",
+     "cls": {
+      "$class": "User"
+     },
+     "fields": [
+      "name",
+      "surname"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "User",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "name",
+        "schema": {
+         "type": "str"
+        }
+       },
+       {
+        "type": "dataclass-field",
+        "name": "surname",
+        "schema": {
+         "type": "str"
+        }
+       }
+      ]
+     }
+    },
+    {
+     "type": "dataclass",
+     "cls": {
+      "$class": "Item"
+     },
+     "fields": [
+      "name",
+      "price"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "Item",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "name",
+        "schema": {
+         "type": "str"
+        }
+       },
+       {
+        "type": "dataclass-field",
+        "name": "price",
+        "schema": {
+         "type": "float"
+        }
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "User"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "name": "foo",
+    "surname": "bar"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_dataclass_union#1",
+  "test": "tests/serializers/test_union.py::test_dataclass_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "dataclass",
+     "cls": {
+      "$class": "User"
+     },
+     "fields": [
+      "name",
+      "surname"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "User",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "name",
+        "schema": {
+         "type": "str"
+        }
+       },
+       {
+        "type": "dataclass-field",
+        "name": "surname",
+        "schema": {
+         "type": "str"
+        }
+       }
+      ]
+     }
+    },
+    {
+     "type": "dataclass",
+     "cls": {
+      "$class": "Item"
+     },
+     "fields": [
+      "name",
+      "price"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "Item",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "name",
+        "schema": {
+         "type": "str"
+        }
+       },
+       {
+        "type": "dataclass-field",
+        "name": "price",
+        "schema": {
+         "type": "float"
+        }
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "DBUser"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "name": "foo",
+    "surname": "bar"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_dataclass_union#2",
+  "test": "tests/serializers/test_union.py::test_dataclass_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "dataclass",
+     "cls": {
+      "$class": "User"
+     },
+     "fields": [
+      "name",
+      "surname"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "User",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "name",
+        "schema": {
+         "type": "str"
+        }
+       },
+       {
+        "type": "dataclass-field",
+        "name": "surname",
+        "schema": {
+         "type": "str"
+        }
+       }
+      ]
+     }
+    },
+    {
+     "type": "dataclass",
+     "cls": {
+      "$class": "Item"
+     },
+     "fields": [
+      "name",
+      "price"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "Item",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "name",
+        "schema": {
+         "type": "str"
+        }
+       },
+       {
+        "type": "dataclass-field",
+        "name": "price",
+        "schema": {
+         "type": "float"
+        }
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "DBUser"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"name\":\"foo\",\"surname\":\"bar\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_discriminated_union_ser_with_typed_dict#0",
+  "test": "tests/serializers/test_union.py::test_discriminated_union_ser_with_typed_dict",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "a": {
+     "type": "typed-dict",
+     "fields": {
+      "type": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "literal",
+        "expected": [
+         "a"
+        ]
+       }
+      },
+      "a": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "b": {
+     "type": "typed-dict",
+     "fields": {
+      "type": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "literal",
+        "expected": [
+         "b"
+        ]
+       }
+      },
+      "b": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      }
+     }
+    }
+   },
+   "discriminator": "type"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "type": "a",
+   "a": 1
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "output": {
+    "type": "a",
+    "a": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_discriminated_union_ser_with_typed_dict#1",
+  "test": "tests/serializers/test_union.py::test_discriminated_union_ser_with_typed_dict",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "a": {
+     "type": "typed-dict",
+     "fields": {
+      "type": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "literal",
+        "expected": [
+         "a"
+        ]
+       }
+      },
+      "a": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    "b": {
+     "type": "typed-dict",
+     "fields": {
+      "type": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "literal",
+        "expected": [
+         "b"
+        ]
+       }
+      },
+      "b": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "str"
+       }
+      }
+     }
+    }
+   },
+   "discriminator": "type"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "type": "b",
+   "b": "foo"
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "output": {
+    "type": "b",
+    "b": "foo"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_keys#0",
+  "test": "tests/serializers/test_union.py::test_keys",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "union",
+    "choices": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "float",
+      "serialization": {
+       "type": "format",
+       "formatting_string": "0.0f"
+      }
+     }
+    ]
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ],
+    [
+     2.111,
+     3
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      1,
+      2
+     ],
+     [
+      2.111,
+      3
+     ]
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_keys#1",
+  "test": "tests/serializers/test_union.py::test_keys",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "union",
+    "choices": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "float",
+      "serialization": {
+       "type": "format",
+       "formatting_string": "0.0f"
+      }
+     }
+    ]
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ],
+    [
+     2.111,
+     3
+    ]
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "1": 2,
+    "2": 3
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_keys#2",
+  "test": "tests/serializers/test_union.py::test_keys",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "union",
+    "choices": [
+     {
+      "type": "int"
+     },
+     {
+      "type": "float",
+      "serialization": {
+       "type": "format",
+       "formatting_string": "0.0f"
+      }
+     }
+    ]
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     1,
+     2
+    ],
+    [
+     2.111,
+     3
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"1\":2,\"2\":3}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_mixed_union_models_and_other_types#0",
+  "test": "tests/serializers/test_union.py::test_mixed_union_models_and_other_types",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "tagged-union",
+     "choices": {
+      "cat": {
+       "type": "model",
+       "cls": {
+        "$class": "ModelCat"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "cat"
+           ]
+          }
+         }
+        }
+       }
+      },
+      "dog": {
+       "type": "model",
+       "cls": {
+        "$class": "ModelDog"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "dog"
+           ]
+          }
+         }
+        }
+       }
+      }
+     },
+     "discriminator": "type_"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelCat"
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "output": {
+    "type_": "cat"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_mixed_union_models_and_other_types#1",
+  "test": "tests/serializers/test_union.py::test_mixed_union_models_and_other_types",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "tagged-union",
+     "choices": {
+      "cat": {
+       "type": "model",
+       "cls": {
+        "$class": "ModelCat"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "cat"
+           ]
+          }
+         }
+        }
+       }
+      },
+      "dog": {
+       "type": "model",
+       "cls": {
+        "$class": "ModelDog"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "dog"
+           ]
+          }
+         }
+        }
+       }
+      }
+     },
+     "discriminator": "type_"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelDog"
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "output": {
+    "type_": "dog"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_mixed_union_models_and_other_types#2",
+  "test": "tests/serializers/test_union.py::test_mixed_union_models_and_other_types",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "tagged-union",
+     "choices": {
+      "cat": {
+       "type": "model",
+       "cls": {
+        "$class": "ModelCat"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "cat"
+           ]
+          }
+         }
+        }
+       }
+      },
+      "dog": {
+       "type": "model",
+       "cls": {
+        "$class": "ModelDog"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "dog"
+           ]
+          }
+         }
+        }
+       }
+      }
+     },
+     "discriminator": "type_"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "a string",
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "output": "a string"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_model_a[input_value0]#0",
+  "test": "tests/serializers/test_union.py::test_model_a[input_value0]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelA"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "a": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "b": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.1f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelB"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "c": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "d": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.2f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelA"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": {
+     "$bytes": "Yml0ZQ=="
+    },
+    "b": "2.3"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_model_a[input_value0]#1",
+  "test": "tests/serializers/test_union.py::test_model_a[input_value0]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelA"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "a": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "b": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.1f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelB"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "c": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "d": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.2f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelA"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "a": "bite",
+    "b": "2.3"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_model_a[input_value0]#2",
+  "test": "tests/serializers/test_union.py::test_model_a[input_value0]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelA"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "a": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "b": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.1f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelB"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "c": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "d": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.2f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "ModelA"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":\"bite\",\"b\":\"2.3\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_model_a[input_value1]#0",
+  "test": "tests/serializers/test_union.py::test_model_a[input_value1]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelA"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "a": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "b": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.1f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelB"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "c": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "d": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.2f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "SubclassA"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": {
+     "$bytes": "Yml0ZQ=="
+    },
+    "b": "2.3"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_model_a[input_value1]#1",
+  "test": "tests/serializers/test_union.py::test_model_a[input_value1]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelA"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "a": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "b": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.1f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelB"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "c": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "d": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.2f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "SubclassA"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "a": "bite",
+    "b": "2.3"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_model_a[input_value1]#2",
+  "test": "tests/serializers/test_union.py::test_model_a[input_value1]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelA"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "a": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "b": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.1f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelB"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "c": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "d": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.2f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "SubclassA"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":\"bite\",\"b\":\"2.3\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_model_b[input_value0]#0",
+  "test": "tests/serializers/test_union.py::test_model_b[input_value0]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelA"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "a": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "b": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.1f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelB"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "c": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "d": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.2f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelB"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "c": {
+     "$bytes": "Yml0ZQ=="
+    },
+    "d": "2.35"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_model_b[input_value0]#1",
+  "test": "tests/serializers/test_union.py::test_model_b[input_value0]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelA"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "a": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "b": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.1f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelB"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "c": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "d": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.2f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelB"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "c": "bite",
+    "d": "2.35"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_model_b[input_value0]#2",
+  "test": "tests/serializers/test_union.py::test_model_b[input_value0]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelA"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "a": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "b": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.1f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelB"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "c": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "d": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.2f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "ModelB"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"c\":\"bite\",\"d\":\"2.35\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_model_b[input_value1]#0",
+  "test": "tests/serializers/test_union.py::test_model_b[input_value1]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelA"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "a": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "b": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.1f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelB"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "c": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "d": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.2f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "SubclassB"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "c": {
+     "$bytes": "Yml0ZQ=="
+    },
+    "d": "2.35"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_model_b[input_value1]#1",
+  "test": "tests/serializers/test_union.py::test_model_b[input_value1]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelA"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "a": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "b": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.1f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelB"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "c": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "d": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.2f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "SubclassB"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "c": "bite",
+    "d": "2.35"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_model_b[input_value1]#2",
+  "test": "tests/serializers/test_union.py::test_model_b[input_value1]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelA"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "a": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "b": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.1f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelB"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "c": {
+        "type": "model-field",
+        "schema": {
+         "type": "bytes"
+        }
+       },
+       "d": {
+        "type": "model-field",
+        "schema": {
+         "type": "float",
+         "serialization": {
+          "type": "format",
+          "formatting_string": "0.2f",
+          "when_used": "unless-none"
+         }
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "SubclassB"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"c\":\"bite\",\"d\":\"2.35\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_model_union#0",
+  "test": "tests/serializers/test_union.py::test_model_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "User"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "name": {
+        "type": "model-field",
+        "schema": {
+         "type": "str"
+        }
+       },
+       "surname": {
+        "type": "model-field",
+        "schema": {
+         "type": "str"
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Item"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "name": {
+        "type": "model-field",
+        "schema": {
+         "type": "str"
+        }
+       },
+       "price": {
+        "type": "model-field",
+        "schema": {
+         "type": "float"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "User"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "name": "foo",
+    "surname": "bar"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_model_union#1",
+  "test": "tests/serializers/test_union.py::test_model_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "User"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "name": {
+        "type": "model-field",
+        "schema": {
+         "type": "str"
+        }
+       },
+       "surname": {
+        "type": "model-field",
+        "schema": {
+         "type": "str"
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Item"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "name": {
+        "type": "model-field",
+        "schema": {
+         "type": "str"
+        }
+       },
+       "price": {
+        "type": "model-field",
+        "schema": {
+         "type": "float"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "DBUser"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "name": "foo",
+    "surname": "bar"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_model_union#2",
+  "test": "tests/serializers/test_union.py::test_model_union",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "User"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "name": {
+        "type": "model-field",
+        "schema": {
+         "type": "str"
+        }
+       },
+       "surname": {
+        "type": "model-field",
+        "schema": {
+         "type": "str"
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Item"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "name": {
+        "type": "model-field",
+        "schema": {
+         "type": "str"
+        }
+       },
+       "price": {
+        "type": "model-field",
+        "schema": {
+         "type": "float"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "DBUser"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"name\":\"foo\",\"surname\":\"bar\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_tagged_union#0",
+  "test": "tests/serializers/test_union.py::test_tagged_union",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "a": {
+     "type": "dataclass",
+     "cls": {
+      "$class": "ModelA"
+     },
+     "fields": [
+      "field",
+      "tag"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "ModelA",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "field",
+        "schema": {
+         "type": "int"
+        }
+       },
+       {
+        "type": "dataclass-field",
+        "name": "tag",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "a"
+         ]
+        }
+       }
+      ]
+     }
+    },
+    "b": {
+     "type": "dataclass",
+     "cls": {
+      "$class": "ModelB"
+     },
+     "fields": [
+      "field",
+      "tag"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "ModelB",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "field",
+        "schema": {
+         "type": "int"
+        }
+       },
+       {
+        "type": "dataclass-field",
+        "name": "tag",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "b"
+         ]
+        }
+       }
+      ]
+     }
+    }
+   },
+   "discriminator": "tag"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelA"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "field": 1,
+    "tag": "a"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_tagged_union#1",
+  "test": "tests/serializers/test_union.py::test_tagged_union",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "a": {
+     "type": "dataclass",
+     "cls": {
+      "$class": "ModelA"
+     },
+     "fields": [
+      "field",
+      "tag"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "ModelA",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "field",
+        "schema": {
+         "type": "int"
+        }
+       },
+       {
+        "type": "dataclass-field",
+        "name": "tag",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "a"
+         ]
+        }
+       }
+      ]
+     }
+    },
+    "b": {
+     "type": "dataclass",
+     "cls": {
+      "$class": "ModelB"
+     },
+     "fields": [
+      "field",
+      "tag"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "ModelB",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "field",
+        "schema": {
+         "type": "int"
+        }
+       },
+       {
+        "type": "dataclass-field",
+        "name": "tag",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "b"
+         ]
+        }
+       }
+      ]
+     }
+    }
+   },
+   "discriminator": "tag"
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelB"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "field": 1,
+    "tag": "b"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_tagged_union_with_aliases#0",
+  "test": "tests/serializers/test_union.py::test_tagged_union_with_aliases",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "a": {
+     "type": "dataclass",
+     "cls": {
+      "$class": "ModelA"
+     },
+     "fields": [
+      "field",
+      "tag"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "ModelA",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "field",
+        "schema": {
+         "type": "int"
+        }
+       },
+       {
+        "type": "dataclass-field",
+        "name": "tag",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "a"
+         ]
+        },
+        "validation_alias": "TAG",
+        "serialization_alias": "TAG"
+       }
+      ]
+     }
+    },
+    "b": {
+     "type": "dataclass",
+     "cls": {
+      "$class": "ModelB"
+     },
+     "fields": [
+      "field",
+      "tag"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "ModelB",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "field",
+        "schema": {
+         "type": "int"
+        }
+       },
+       {
+        "type": "dataclass-field",
+        "name": "tag",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "b"
+         ]
+        },
+        "validation_alias": "TAG",
+        "serialization_alias": "TAG"
+       }
+      ]
+     }
+    }
+   },
+   "discriminator": [
+    [
+     "tag"
+    ],
+    [
+     "TAG"
+    ]
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelA"
+  },
+  "options": {
+   "by_alias": true
+  },
+  "expected": {
+   "output": {
+    "field": 1,
+    "TAG": "a"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_tagged_union_with_aliases#1",
+  "test": "tests/serializers/test_union.py::test_tagged_union_with_aliases",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "a": {
+     "type": "dataclass",
+     "cls": {
+      "$class": "ModelA"
+     },
+     "fields": [
+      "field",
+      "tag"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "ModelA",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "field",
+        "schema": {
+         "type": "int"
+        }
+       },
+       {
+        "type": "dataclass-field",
+        "name": "tag",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "a"
+         ]
+        },
+        "validation_alias": "TAG",
+        "serialization_alias": "TAG"
+       }
+      ]
+     }
+    },
+    "b": {
+     "type": "dataclass",
+     "cls": {
+      "$class": "ModelB"
+     },
+     "fields": [
+      "field",
+      "tag"
+     ],
+     "schema": {
+      "type": "dataclass-args",
+      "dataclass_name": "ModelB",
+      "fields": [
+       {
+        "type": "dataclass-field",
+        "name": "field",
+        "schema": {
+         "type": "int"
+        }
+       },
+       {
+        "type": "dataclass-field",
+        "name": "tag",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "b"
+         ]
+        },
+        "validation_alias": "TAG",
+        "serialization_alias": "TAG"
+       }
+      ]
+     }
+    }
+   },
+   "discriminator": [
+    [
+     "tag"
+    ],
+    [
+     "TAG"
+    ]
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelB"
+  },
+  "options": {
+   "by_alias": true
+  },
+  "expected": {
+   "output": {
+    "field": 1,
+    "TAG": "b"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_different_fields#0",
+  "test": "tests/serializers/test_union.py::test_typed_dict_different_fields",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "ham": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "foo": 1,
+   "bar": 2
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "foo": 1,
+    "bar": 2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_different_fields#1",
+  "test": "tests/serializers/test_union.py::test_typed_dict_different_fields",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "ham": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "foo": 1,
+   "bar": 2
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "foo": 1,
+    "bar": 2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_different_fields#2",
+  "test": "tests/serializers/test_union.py::test_typed_dict_different_fields",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "ham": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "foo": 1,
+   "bar": 2
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"foo\":1,\"bar\":2}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_different_fields#3",
+  "test": "tests/serializers/test_union.py::test_typed_dict_different_fields",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "ham": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "spam": 1,
+   "ham": 2
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "spam": 1,
+    "ham": 2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_different_fields#4",
+  "test": "tests/serializers/test_union.py::test_typed_dict_different_fields",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "ham": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "spam": 1,
+   "ham": 2
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "spam": 1,
+    "ham": "0002"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_different_fields#5",
+  "test": "tests/serializers/test_union.py::test_typed_dict_different_fields",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "spam": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "ham": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "spam": 1,
+   "ham": 2
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"spam\":1,\"ham\":\"0002\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_extra#0",
+  "test": "tests/serializers/test_union.py::test_typed_dict_extra",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "foo": 1,
+   "bar": 2
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "foo": 1,
+    "bar": 2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_extra#1",
+  "test": "tests/serializers/test_union.py::test_typed_dict_extra",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "foo": 1,
+   "bar": 2
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "foo": 1,
+    "bar": 2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_extra#2",
+  "test": "tests/serializers/test_union.py::test_typed_dict_extra",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "foo": 1,
+   "bar": 2
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"foo\":1,\"bar\":2}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_extra#3",
+  "test": "tests/serializers/test_union.py::test_typed_dict_extra",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "foo": 1
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "foo": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_extra#4",
+  "test": "tests/serializers/test_union.py::test_typed_dict_extra",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "foo": 1
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "foo": "0001"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_extra#5",
+  "test": "tests/serializers/test_union.py::test_typed_dict_extra",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "foo": 1
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"foo\":\"0001\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_extra#6",
+  "test": "tests/serializers/test_union.py::test_typed_dict_extra",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "foo": 1,
+   "bar": null
+  },
+  "options": {
+   "mode": "json",
+   "exclude_none": true
+  },
+  "expected": {
+   "output": {
+    "foo": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_extra#7",
+  "test": "tests/serializers/test_union.py::test_typed_dict_extra",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "foo": 1,
+   "bar": null
+  },
+  "options": {
+   "exclude_none": true
+  },
+  "expected": {
+   "json": "{\"foo\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_extra#8",
+  "test": "tests/serializers/test_union.py::test_typed_dict_extra",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "foo": 1
+  },
+  "options": {
+   "mode": "json",
+   "exclude_none": true
+  },
+  "expected": {
+   "output": {
+    "foo": "0001"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_extra#9",
+  "test": "tests/serializers/test_union.py::test_typed_dict_extra",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "foo": 1
+  },
+  "options": {
+   "exclude_none": true
+  },
+  "expected": {
+   "json": "{\"foo\":\"0001\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_literal#0",
+  "test": "tests/serializers/test_union.py::test_typed_dict_literal",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "pet_type": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "literal",
+        "expected": [
+         "cat"
+        ]
+       }
+      },
+      "sound": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d"
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "pet_type": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "literal",
+        "expected": [
+         "dog"
+        ]
+       }
+      },
+      "sound": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "float",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "0.3f"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "pet_type": "cat",
+   "sound": 3
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "pet_type": "cat",
+    "sound": "0003"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_literal#1",
+  "test": "tests/serializers/test_union.py::test_typed_dict_literal",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "pet_type": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "literal",
+        "expected": [
+         "cat"
+        ]
+       }
+      },
+      "sound": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d"
+        }
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "pet_type": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "literal",
+        "expected": [
+         "dog"
+        ]
+       }
+      },
+      "sound": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "float",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "0.3f"
+        }
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "pet_type": "dog",
+   "sound": 3
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "pet_type": "dog",
+    "sound": "3.000"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_missing#0",
+  "test": "tests/serializers/test_union.py::test_typed_dict_missing",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d",
+         "when_used": "always"
+        }
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "foo": 1
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "foo": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_missing#1",
+  "test": "tests/serializers/test_union.py::test_typed_dict_missing",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d",
+         "when_used": "always"
+        }
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "foo": 1
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "foo": 1
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_missing#2",
+  "test": "tests/serializers/test_union.py::test_typed_dict_missing",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d",
+         "when_used": "always"
+        }
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "foo": 1
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"foo\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_missing#3",
+  "test": "tests/serializers/test_union.py::test_typed_dict_missing",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d",
+         "when_used": "always"
+        }
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "foo": 1,
+   "bar": 2
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "foo": "0001",
+    "bar": 2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_missing#4",
+  "test": "tests/serializers/test_union.py::test_typed_dict_missing",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d",
+         "when_used": "always"
+        }
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "foo": 1,
+   "bar": 2
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "foo": "0001",
+    "bar": 2
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_typed_dict_missing#5",
+  "test": "tests/serializers/test_union.py::test_typed_dict_missing",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    },
+    {
+     "type": "typed-dict",
+     "fields": {
+      "foo": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int",
+        "serialization": {
+         "type": "format",
+         "formatting_string": "04d",
+         "when_used": "always"
+        }
+       }
+      },
+      "bar": {
+       "type": "typed-dict-field",
+       "schema": {
+        "type": "int"
+       }
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "foo": 1,
+   "bar": 2
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"foo\":\"0001\",\"bar\":2}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[-42--42-False-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[-42--42-False-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": -42,
+  "options": {},
+  "expected": {
+   "output": -42
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[-42--42-False-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[-42--42-False-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": -42,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": -42
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[-42--42-False-False]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[-42--42-False-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": -42,
+  "options": {},
+  "expected": {
+   "json": "-42"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[-42--42-False-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[-42--42-False-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": -42,
+  "options": {},
+  "expected": {
+   "output": -42
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[-42--42-False-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[-42--42-False-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": -42,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": -42
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[-42--42-False-True]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[-42--42-False-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": -42,
+  "options": {},
+  "expected": {
+   "json": "-42"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[-42--42-True-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[-42--42-True-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": -42,
+  "options": {},
+  "expected": {
+   "output": -42
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[-42--42-True-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[-42--42-True-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": -42,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": -42
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[-42--42-True-False]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[-42--42-True-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": -42,
+  "options": {},
+  "expected": {
+   "json": "-42"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[-42--42-True-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[-42--42-True-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": -42,
+  "options": {},
+  "expected": {
+   "output": -42
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[-42--42-True-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[-42--42-True-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": -42,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": -42
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[-42--42-True-True]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[-42--42-True-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": -42,
+  "options": {},
+  "expected": {
+   "json": "-42"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[1-1-False-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[1-1-False-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[1-1-False-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[1-1-False-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[1-1-False-False]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[1-1-False-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[1-1-False-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[1-1-False-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[1-1-False-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[1-1-False-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[1-1-False-True]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[1-1-False-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[1-1-True-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[1-1-True-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[1-1-True-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[1-1-True-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[1-1-True-False]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[1-1-True-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[1-1-True-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[1-1-True-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[1-1-True-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[1-1-True-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[1-1-True-True]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[1-1-True-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[123-123-False-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[123-123-False-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[123-123-False-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[123-123-False-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[123-123-False-False]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[123-123-False-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "json": "123"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[123-123-False-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[123-123-False-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[123-123-False-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[123-123-False-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[123-123-False-True]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[123-123-False-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "json": "123"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[123-123-True-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[123-123-True-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[123-123-True-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[123-123-True-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[123-123-True-False]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[123-123-True-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "json": "123"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[123-123-True-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[123-123-True-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[123-123-True-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[123-123-True-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 123,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 123
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[123-123-True-True]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[123-123-True-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 123,
+  "options": {},
+  "expected": {
+   "json": "123"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[False-False-False-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[False-False-False-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": false,
+  "options": {},
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[False-False-False-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[False-False-False-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": false,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[False-False-False-False]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[False-False-False-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": false,
+  "options": {},
+  "expected": {
+   "json": "false"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[False-False-False-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[False-False-False-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": false,
+  "options": {},
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[False-False-False-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[False-False-False-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": false,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[False-False-False-True]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[False-False-False-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": false,
+  "options": {},
+  "expected": {
+   "json": "false"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[False-False-True-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[False-False-True-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": false,
+  "options": {},
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[False-False-True-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[False-False-True-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": false,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[False-False-True-False]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[False-False-True-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": false,
+  "options": {},
+  "expected": {
+   "json": "false"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[False-False-True-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[False-False-True-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": false,
+  "options": {},
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[False-False-True-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[False-False-True-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": false,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": false
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[False-False-True-True]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[False-False-True-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": false,
+  "options": {},
+  "expected": {
+   "json": "false"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[True-True-False-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[True-True-False-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": true,
+  "options": {},
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[True-True-False-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[True-True-False-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": true,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[True-True-False-False]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[True-True-False-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": true,
+  "options": {},
+  "expected": {
+   "json": "true"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[True-True-False-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[True-True-False-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": true,
+  "options": {},
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[True-True-False-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[True-True-False-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": true,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[True-True-False-True]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[True-True-False-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": true,
+  "options": {},
+  "expected": {
+   "json": "true"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[True-True-True-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[True-True-True-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": true,
+  "options": {},
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[True-True-True-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[True-True-True-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": true,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[True-True-True-False]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[True-True-True-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": true,
+  "options": {},
+  "expected": {
+   "json": "true"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[True-True-True-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[True-True-True-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": true,
+  "options": {},
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[True-True-True-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[True-True-True-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": true,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_bool_int[True-True-True-True]#2",
+  "test": "tests/serializers/test_union.py::test_union_bool_int[True-True-True-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "$tuple": [
+      {
+       "type": "bool"
+      },
+      "my_bool_label"
+     ]
+    },
+    {
+     "$tuple": [
+      {
+       "type": "int"
+      },
+      "my_int_label"
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": true,
+  "options": {},
+  "expected": {
+   "json": "true"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_error#0",
+  "test": "tests/serializers/test_union.py::test_union_error",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "a string",
+  "options": {},
+  "expected": {
+   "output": "a string",
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `bool` - serialized value may not be as expected [input_value='a string', input_type=str])\n  PydanticSerializationUnexpectedValue(Expected `int` - serialized value may not be as expected [input_value='a string', input_type=str])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_float_int#0",
+  "test": "tests/serializers/test_union.py::test_union_float_int",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "float"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_float_int#1",
+  "test": "tests/serializers/test_union.py::test_union_float_int",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "float"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_float_int#2",
+  "test": "tests/serializers/test_union.py::test_union_float_int",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "float"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_float_int#3",
+  "test": "tests/serializers/test_union.py::test_union_float_int",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "float"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_literal_with_other_type[False-false]#0",
+  "test": "tests/serializers/test_union.py::test_union_literal_with_other_type[False-false]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "value": {
+      "type": "model-field",
+      "schema": {
+       "type": "union",
+       "choices": [
+        {
+         "type": "literal",
+         "expected": [
+          false
+         ]
+        },
+        {
+         "type": "str"
+        }
+       ]
+      }
+     },
+     "value_types_reversed": {
+      "type": "model-field",
+      "schema": {
+       "type": "union",
+       "choices": [
+        {
+         "type": "str"
+        },
+        {
+         "type": "literal",
+         "expected": [
+          false
+         ]
+        }
+       ]
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Model"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "value": false,
+    "value_types_reversed": false
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_literal_with_other_type[False-false]#1",
+  "test": "tests/serializers/test_union.py::test_union_literal_with_other_type[False-false]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "value": {
+      "type": "model-field",
+      "schema": {
+       "type": "union",
+       "choices": [
+        {
+         "type": "literal",
+         "expected": [
+          false
+         ]
+        },
+        {
+         "type": "str"
+        }
+       ]
+      }
+     },
+     "value_types_reversed": {
+      "type": "model-field",
+      "schema": {
+       "type": "union",
+       "choices": [
+        {
+         "type": "str"
+        },
+        {
+         "type": "literal",
+         "expected": [
+          false
+         ]
+        }
+       ]
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Model"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"value\":false,\"value_types_reversed\":false}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_literal_with_other_type[abc-\"abc\"]#0",
+  "test": "tests/serializers/test_union.py::test_union_literal_with_other_type[abc-\"abc\"]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "value": {
+      "type": "model-field",
+      "schema": {
+       "type": "union",
+       "choices": [
+        {
+         "type": "literal",
+         "expected": [
+          false
+         ]
+        },
+        {
+         "type": "str"
+        }
+       ]
+      }
+     },
+     "value_types_reversed": {
+      "type": "model-field",
+      "schema": {
+       "type": "union",
+       "choices": [
+        {
+         "type": "str"
+        },
+        {
+         "type": "literal",
+         "expected": [
+          false
+         ]
+        }
+       ]
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "Model"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "value": "abc",
+    "value_types_reversed": "abc"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_literal_with_other_type[abc-\"abc\"]#1",
+  "test": "tests/serializers/test_union.py::test_union_literal_with_other_type[abc-\"abc\"]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "value": {
+      "type": "model-field",
+      "schema": {
+       "type": "union",
+       "choices": [
+        {
+         "type": "literal",
+         "expected": [
+          false
+         ]
+        },
+        {
+         "type": "str"
+        }
+       ]
+      }
+     },
+     "value_types_reversed": {
+      "type": "model-field",
+      "schema": {
+       "type": "union",
+       "choices": [
+        {
+         "type": "str"
+        },
+        {
+         "type": "literal",
+         "expected": [
+          false
+         ]
+        }
+       ]
+      }
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "Model"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"value\":\"abc\",\"value_types_reversed\":\"abc\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_model_wrap_serializer#0",
+  "test": "tests/serializers/test_union.py::test_union_model_wrap_serializer",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelA"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "a": {
+        "type": "model-field",
+        "schema": {
+         "type": "model",
+         "cls": {
+          "$class": "Data"
+         },
+         "schema": {
+          "type": "model-fields",
+          "fields": {}
+         }
+        }
+       }
+      }
+     },
+     "serialization": {
+      "type": "function-wrap",
+      "function": {
+       "$function": "wrap_serializer"
+      }
+     }
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelB"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "a": {
+        "type": "model-field",
+        "schema": {
+         "type": "model",
+         "cls": {
+          "$class": "Data"
+         },
+         "schema": {
+          "type": "model-fields",
+          "fields": {}
+         }
+        }
+       }
+      }
+     },
+     "serialization": {
+      "type": "function-wrap",
+      "function": {
+       "$function": "wrap_serializer"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelA"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "a": {}
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_model_wrap_serializer#1",
+  "test": "tests/serializers/test_union.py::test_union_model_wrap_serializer",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelA"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "a": {
+        "type": "model-field",
+        "schema": {
+         "type": "model",
+         "cls": {
+          "$class": "Data"
+         },
+         "schema": {
+          "type": "model-fields",
+          "fields": {}
+         }
+        }
+       }
+      }
+     },
+     "serialization": {
+      "type": "function-wrap",
+      "function": {
+       "$function": "wrap_serializer"
+      }
+     }
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelB"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "a": {
+        "type": "model-field",
+        "schema": {
+         "type": "model",
+         "cls": {
+          "$class": "Data"
+         },
+         "schema": {
+          "type": "model-fields",
+          "fields": {}
+         }
+        }
+       }
+      }
+     },
+     "serialization": {
+      "type": "function-wrap",
+      "function": {
+       "$function": "wrap_serializer"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelA"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": {
+    "a": {}
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_model_wrap_serializer#2",
+  "test": "tests/serializers/test_union.py::test_union_model_wrap_serializer",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelA"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "a": {
+        "type": "model-field",
+        "schema": {
+         "type": "model",
+         "cls": {
+          "$class": "Data"
+         },
+         "schema": {
+          "type": "model-fields",
+          "fields": {}
+         }
+        }
+       }
+      }
+     },
+     "serialization": {
+      "type": "function-wrap",
+      "function": {
+       "$function": "wrap_serializer"
+      }
+     }
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "ModelB"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "a": {
+        "type": "model-field",
+        "schema": {
+         "type": "model",
+         "cls": {
+          "$class": "Data"
+         },
+         "schema": {
+          "type": "model-fields",
+          "fields": {}
+         }
+        }
+       }
+      }
+     },
+     "serialization": {
+      "type": "function-wrap",
+      "function": {
+       "$function": "wrap_serializer"
+      }
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$object": "ModelA"
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"a\":{}}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_functions#0",
+  "test": "tests/serializers/test_union.py::test_union_of_functions",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "repr_function"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "float",
+     "serialization": {
+      "type": "format",
+      "formatting_string": "_^14"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foobar",
+  "options": {},
+  "expected": {
+   "output": "func: 'foobar'"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_functions#1",
+  "test": "tests/serializers/test_union.py::test_union_of_functions",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "repr_function"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "float",
+     "serialization": {
+      "type": "format",
+      "formatting_string": "_^14"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "foobar",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "func: 'foobar'"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_functions#2",
+  "test": "tests/serializers/test_union.py::test_union_of_functions",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "repr_function"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "float",
+     "serialization": {
+      "type": "format",
+      "formatting_string": "_^14"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "foobar",
+  "options": {},
+  "expected": {
+   "json": "\"func: 'foobar'\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_functions#3",
+  "test": "tests/serializers/test_union.py::test_union_of_functions",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "repr_function"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "float",
+     "serialization": {
+      "type": "format",
+      "formatting_string": "_^14"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "unexpected",
+  "options": {},
+  "expected": {
+   "output": "unexpected"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_functions#4",
+  "test": "tests/serializers/test_union.py::test_union_of_functions",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "repr_function"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "float",
+     "serialization": {
+      "type": "format",
+      "formatting_string": "_^14"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "unexpected",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "__unexpected__"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_functions#5",
+  "test": "tests/serializers/test_union.py::test_union_of_functions",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "any",
+     "serialization": {
+      "type": "function-plain",
+      "function": {
+       "$function": "repr_function"
+      },
+      "info_arg": true
+     }
+    },
+    {
+     "type": "float",
+     "serialization": {
+      "type": "format",
+      "formatting_string": "_^14"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "unexpected",
+  "options": {},
+  "expected": {
+   "json": "\"__unexpected__\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_unions_of_models[input0-expected0]#0",
+  "test": "tests/serializers/test_union.py::test_union_of_unions_of_models[input0-expected0]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelA"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "a": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "b": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      },
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelB"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "c": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "d": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      }
+     ]
+    },
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelCat"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "cat"
+           ]
+          }
+         }
+        }
+       }
+      },
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelDog"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "dog"
+           ]
+          }
+         }
+        }
+       }
+      }
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelA"
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "output": {
+    "a": "a",
+    "b": "b"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_unions_of_models[input1-expected1]#0",
+  "test": "tests/serializers/test_union.py::test_union_of_unions_of_models[input1-expected1]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelA"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "a": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "b": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      },
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelB"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "c": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "d": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      }
+     ]
+    },
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelCat"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "cat"
+           ]
+          }
+         }
+        }
+       }
+      },
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelDog"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "dog"
+           ]
+          }
+         }
+        }
+       }
+      }
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelB"
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "output": {
+    "c": "c",
+    "d": "d"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_unions_of_models[input2-expected2]#0",
+  "test": "tests/serializers/test_union.py::test_union_of_unions_of_models[input2-expected2]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelA"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "a": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "b": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      },
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelB"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "c": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "d": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      }
+     ]
+    },
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelCat"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "cat"
+           ]
+          }
+         }
+        }
+       }
+      },
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelDog"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "dog"
+           ]
+          }
+         }
+        }
+       }
+      }
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelCat"
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "output": {
+    "type_": "cat"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_unions_of_models[input3-expected3]#0",
+  "test": "tests/serializers/test_union.py::test_union_of_unions_of_models[input3-expected3]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelA"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "a": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "b": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      },
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelB"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "c": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "d": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      }
+     ]
+    },
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelCat"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "cat"
+           ]
+          }
+         }
+        }
+       }
+      },
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelDog"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "dog"
+           ]
+          }
+         }
+        }
+       }
+      }
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelDog"
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "output": {
+    "type_": "dog"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_unions_of_models_invalid_variant#0",
+  "test": "tests/serializers/test_union.py::test_union_of_unions_of_models_invalid_variant",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelA"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "a": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "b": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      },
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelB"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "c": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "d": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      }
+     ]
+    },
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelCat"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "cat"
+           ]
+          }
+         }
+        }
+       }
+      },
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelDog"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "dog"
+           ]
+          }
+         }
+        }
+       }
+      }
+     ]
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelAlien"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "ModelAlien"
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(PydanticSerializationUnexpectedValue: Expected `ModelA` - serialized value may not be as expected [input_value=<tests.serializers.test_u...n object at 0x...>, input_type=ModelAlien]\nPydanticSerializationUnexpectedValue: Expected `ModelB` - serialized value may not be as expected [input_value=<tests.serializers.test_u...n object at 0x...>, input_type=ModelAlien])\n  PydanticSerializationUnexpectedValue(PydanticSerializationUnexpectedValue: Expected `ModelCat` - serialized value may not be as expected [input_value=<tests.serializers.test_u...n object at 0x...>, input_type=ModelAlien]\nPydanticSerializationUnexpectedValue: Expected `ModelDog` - serialized value may not be as expected [input_value=<tests.serializers.test_u...n object at 0x...>, input_type=ModelAlien])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union[input0-expected0]#0",
+  "test": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union[input0-expected0]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelA"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "a": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "b": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      },
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelB"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "c": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "d": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      }
+     ]
+    },
+    {
+     "type": "tagged-union",
+     "choices": {
+      "cat": {
+       "type": "model",
+       "cls": {
+        "$class": "ModelCat"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "cat"
+           ]
+          }
+         }
+        }
+       }
+      },
+      "dog": {
+       "type": "model",
+       "cls": {
+        "$class": "ModelDog"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "dog"
+           ]
+          }
+         }
+        }
+       }
+      }
+     },
+     "discriminator": "type_"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelA"
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "output": {
+    "a": "a",
+    "b": "b"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union[input1-expected1]#0",
+  "test": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union[input1-expected1]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelA"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "a": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "b": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      },
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelB"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "c": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "d": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      }
+     ]
+    },
+    {
+     "type": "tagged-union",
+     "choices": {
+      "cat": {
+       "type": "model",
+       "cls": {
+        "$class": "ModelCat"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "cat"
+           ]
+          }
+         }
+        }
+       }
+      },
+      "dog": {
+       "type": "model",
+       "cls": {
+        "$class": "ModelDog"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "dog"
+           ]
+          }
+         }
+        }
+       }
+      }
+     },
+     "discriminator": "type_"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelB"
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "output": {
+    "c": "c",
+    "d": "d"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union[input2-expected2]#0",
+  "test": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union[input2-expected2]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelA"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "a": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "b": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      },
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelB"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "c": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "d": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      }
+     ]
+    },
+    {
+     "type": "tagged-union",
+     "choices": {
+      "cat": {
+       "type": "model",
+       "cls": {
+        "$class": "ModelCat"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "cat"
+           ]
+          }
+         }
+        }
+       }
+      },
+      "dog": {
+       "type": "model",
+       "cls": {
+        "$class": "ModelDog"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "dog"
+           ]
+          }
+         }
+        }
+       }
+      }
+     },
+     "discriminator": "type_"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelCat"
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "output": {
+    "type_": "cat"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union[input3-expected3]#0",
+  "test": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union[input3-expected3]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelA"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "a": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "b": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      },
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelB"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "c": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "d": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      }
+     ]
+    },
+    {
+     "type": "tagged-union",
+     "choices": {
+      "cat": {
+       "type": "model",
+       "cls": {
+        "$class": "ModelCat"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "cat"
+           ]
+          }
+         }
+        }
+       }
+      },
+      "dog": {
+       "type": "model",
+       "cls": {
+        "$class": "ModelDog"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "dog"
+           ]
+          }
+         }
+        }
+       }
+      }
+     },
+     "discriminator": "type_"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelDog"
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "output": {
+    "type_": "dog"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union_invalid_variant#0",
+  "test": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union_invalid_variant",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelA"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "a": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "b": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      },
+      {
+       "type": "model",
+       "cls": {
+        "$class": "ModelB"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "c": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         },
+         "d": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       }
+      }
+     ]
+    },
+    {
+     "type": "tagged-union",
+     "choices": {
+      "cat": {
+       "type": "model",
+       "cls": {
+        "$class": "ModelCat"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "cat"
+           ]
+          }
+         }
+        }
+       }
+      },
+      "dog": {
+       "type": "model",
+       "cls": {
+        "$class": "ModelDog"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "type_": {
+          "type": "model-field",
+          "schema": {
+           "type": "literal",
+           "expected": [
+            "dog"
+           ]
+          }
+         }
+        }
+       }
+      }
+     },
+     "discriminator": "type_"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "ModelAlien"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$object": "ModelAlien"
+   },
+   "warnings": [
+    "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(PydanticSerializationUnexpectedValue: Expected `ModelA` - serialized value may not be as expected [input_value=<tests.serializers.test_u...n object at 0x...>, input_type=ModelAlien]\nPydanticSerializationUnexpectedValue: Expected `ModelB` - serialized value may not be as expected [input_value=<tests.serializers.test_u...n object at 0x...>, input_type=ModelAlien])\n  PydanticSerializationUnexpectedValue(PydanticSerializationUnexpectedValue: Expected `ModelCat` - serialized value may not be as expected [input_value=<tests.serializers.test_u...n object at 0x...>, input_type=ModelAlien]\nPydanticSerializationUnexpectedValue: Expected `ModelDog` - serialized value may not be as expected [input_value=<tests.serializers.test_u...n object at 0x...>, input_type=ModelAlien])"
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union_json_key_serialization[input0-{\"true\":\"1\"}]#0",
+  "test": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union_json_key_serialization[input0-{\"true\":\"1\"}]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "union",
+    "choices": [
+     {
+      "type": "union",
+      "choices": [
+       {
+        "type": "bool"
+       },
+       {
+        "type": "int"
+       }
+      ]
+     },
+     {
+      "type": "union",
+      "choices": [
+       {
+        "type": "float"
+       },
+       {
+        "type": "str"
+       }
+      ]
+     }
+    ]
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     true,
+     "1"
+    ]
+   ]
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "json": "{\"true\":\"1\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union_json_key_serialization[input1-{\"1\":\"1\"}]#0",
+  "test": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union_json_key_serialization[input1-{\"1\":\"1\"}]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "union",
+    "choices": [
+     {
+      "type": "union",
+      "choices": [
+       {
+        "type": "bool"
+       },
+       {
+        "type": "int"
+       }
+      ]
+     },
+     {
+      "type": "union",
+      "choices": [
+       {
+        "type": "float"
+       },
+       {
+        "type": "str"
+       }
+      ]
+     }
+    ]
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     1,
+     "1"
+    ]
+   ]
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "json": "{\"1\":\"1\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union_json_key_serialization[input2-{\"2.3\":\"1\"}]#0",
+  "test": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union_json_key_serialization[input2-{\"2.3\":\"1\"}]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "union",
+    "choices": [
+     {
+      "type": "union",
+      "choices": [
+       {
+        "type": "bool"
+       },
+       {
+        "type": "int"
+       }
+      ]
+     },
+     {
+      "type": "union",
+      "choices": [
+       {
+        "type": "float"
+       },
+       {
+        "type": "str"
+       }
+      ]
+     }
+    ]
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     2.3,
+     "1"
+    ]
+   ]
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "json": "{\"2.3\":\"1\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union_json_key_serialization[input3-{\"a\":\"b\"}]#0",
+  "test": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union_json_key_serialization[input3-{\"a\":\"b\"}]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "union",
+    "choices": [
+     {
+      "type": "union",
+      "choices": [
+       {
+        "type": "bool"
+       },
+       {
+        "type": "int"
+       }
+      ]
+     },
+     {
+      "type": "union",
+      "choices": [
+       {
+        "type": "float"
+       },
+       {
+        "type": "str"
+       }
+      ]
+     }
+    ]
+   },
+   "values_schema": {
+    "type": "str"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "a": "b"
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "json": "{\"a\":\"b\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union_json_serialization[input0-{\"key\":true}]#0",
+  "test": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union_json_serialization[input0-{\"key\":true}]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "union",
+    "choices": [
+     {
+      "type": "union",
+      "choices": [
+       {
+        "type": "bool"
+       },
+       {
+        "type": "int"
+       }
+      ]
+     },
+     {
+      "type": "union",
+      "choices": [
+       {
+        "type": "float"
+       },
+       {
+        "type": "str"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "key": true
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "json": "{\"key\":true}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union_json_serialization[input1-{\"key\":1}]#0",
+  "test": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union_json_serialization[input1-{\"key\":1}]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "union",
+    "choices": [
+     {
+      "type": "union",
+      "choices": [
+       {
+        "type": "bool"
+       },
+       {
+        "type": "int"
+       }
+      ]
+     },
+     {
+      "type": "union",
+      "choices": [
+       {
+        "type": "float"
+       },
+       {
+        "type": "str"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "key": 1
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "json": "{\"key\":1}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union_json_serialization[input2-{\"key\":2.3}]#0",
+  "test": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union_json_serialization[input2-{\"key\":2.3}]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "union",
+    "choices": [
+     {
+      "type": "union",
+      "choices": [
+       {
+        "type": "bool"
+       },
+       {
+        "type": "int"
+       }
+      ]
+     },
+     {
+      "type": "union",
+      "choices": [
+       {
+        "type": "float"
+       },
+       {
+        "type": "str"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "key": 2.3
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "json": "{\"key\":2.3}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union_json_serialization[input3-{\"key\":\"a\"}]#0",
+  "test": "tests/serializers/test_union.py::test_union_of_unions_of_models_with_tagged_union_json_serialization[input3-{\"key\":\"a\"}]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "union",
+    "choices": [
+     {
+      "type": "union",
+      "choices": [
+       {
+        "type": "bool"
+       },
+       {
+        "type": "int"
+       }
+      ]
+     },
+     {
+      "type": "union",
+      "choices": [
+       {
+        "type": "float"
+       },
+       {
+        "type": "str"
+       }
+      ]
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "key": "a"
+  },
+  "options": {
+   "warnings": "error"
+  },
+  "expected": {
+   "json": "{\"key\":\"a\"}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left0-core_schema_right0-True-True-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left0-core_schema_right0-True-True-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bool"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": true,
+  "options": {},
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left0-core_schema_right0-True-True-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left0-core_schema_right0-True-True-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": true,
+  "options": {},
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left1-core_schema_right1-1-1-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left1-core_schema_right1-1-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bool"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left1-core_schema_right1-1-1-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left1-core_schema_right1-1-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left2-core_schema_right2-1-1-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left2-core_schema_right2-1-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left2-core_schema_right2-1-1-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left2-core_schema_right2-1-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left3-core_schema_right3-1-1-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left3-core_schema_right3-1-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "output": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left3-core_schema_right3-1-1-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left3-core_schema_right3-1-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "output": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left4-core_schema_right4-1-1-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left4-core_schema_right4-1-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bool"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "IntSubclass",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$subclass": [
+     "IntSubclass",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left4-core_schema_right4-1-1-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left4-core_schema_right4-1-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "IntSubclass",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$subclass": [
+     "IntSubclass",
+     1
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left5-core_schema_right5-input_value5-expected_value5-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left5-core_schema_right5-input_value5-expected_value5-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "decimal"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$decimal": "1"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left5-core_schema_right5-input_value5-expected_value5-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left5-core_schema_right5-input_value5-expected_value5-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "decimal"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$decimal": "1"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left6-core_schema_right6-1-1-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left6-core_schema_right6-1-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "decimal"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left6-core_schema_right6-1-1-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left6-core_schema_right6-1-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "decimal"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left7-core_schema_right7-input_value7-expected_value7-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left7-core_schema_right7-input_value7-expected_value7-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "decimal"
+    },
+    {
+     "type": "float"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$decimal": "1"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left7-core_schema_right7-input_value7-expected_value7-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left7-core_schema_right7-input_value7-expected_value7-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "float"
+    },
+    {
+     "type": "decimal"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$decimal": "1"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left8-core_schema_right8-input_value8-expected_value8-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left8-core_schema_right8-input_value8-expected_value8-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "decimal"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$decimal": "1"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left8-core_schema_right8-input_value8-expected_value8-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left8-core_schema_right8-input_value8-expected_value8-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "decimal"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$decimal": "1"
+   }
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left9-core_schema_right9-_1-_1-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left9-core_schema_right9-_1-_1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "decimal"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "_1",
+  "options": {},
+  "expected": {
+   "output": "_1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left9-core_schema_right9-_1-_1-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass[core_schema_left9-core_schema_right9-_1-_1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "decimal"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "_1",
+  "options": {},
+  "expected": {
+   "output": "_1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left0-core_schema_right0-True-True-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left0-core_schema_right0-True-True-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bool"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": true,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left0-core_schema_right0-True-True-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left0-core_schema_right0-True-True-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bool"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": true,
+  "options": {},
+  "expected": {
+   "json": "true"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left0-core_schema_right0-True-True-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left0-core_schema_right0-True-True-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": true,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": true
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left0-core_schema_right0-True-True-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left0-core_schema_right0-True-True-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": true,
+  "options": {},
+  "expected": {
+   "json": "true"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left1-core_schema_right1-1-1-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left1-core_schema_right1-1-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bool"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left1-core_schema_right1-1-1-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left1-core_schema_right1-1-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bool"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left1-core_schema_right1-1-1-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left1-core_schema_right1-1-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left1-core_schema_right1-1-1-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left1-core_schema_right1-1-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left2-core_schema_right2-1-1-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left2-core_schema_right2-1-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left2-core_schema_right2-1-1-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left2-core_schema_right2-1-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left2-core_schema_right2-1-1-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left2-core_schema_right2-1-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left2-core_schema_right2-1-1-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left2-core_schema_right2-1-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left3-core_schema_right3-1-1-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left3-core_schema_right3-1-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "1",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left3-core_schema_right3-1-1-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left3-core_schema_right3-1-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "json": "\"1\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left3-core_schema_right3-1-1-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left3-core_schema_right3-1-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "1",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left3-core_schema_right3-1-1-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left3-core_schema_right3-1-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "1",
+  "options": {},
+  "expected": {
+   "json": "\"1\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left4-core_schema_right4-1-1-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left4-core_schema_right4-1-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bool"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "IntSubclass",
+    1
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left4-core_schema_right4-1-1-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left4-core_schema_right4-1-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "bool"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$subclass": [
+    "IntSubclass",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left4-core_schema_right4-1-1-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left4-core_schema_right4-1-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$subclass": [
+    "IntSubclass",
+    1
+   ]
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left4-core_schema_right4-1-1-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left4-core_schema_right4-1-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$subclass": [
+    "IntSubclass",
+    1
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left5-core_schema_right5-input_value5-1-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left5-core_schema_right5-input_value5-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "decimal"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left5-core_schema_right5-input_value5-1-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left5-core_schema_right5-input_value5-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "decimal"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"1\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left5-core_schema_right5-input_value5-1-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left5-core_schema_right5-input_value5-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "decimal"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left5-core_schema_right5-input_value5-1-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left5-core_schema_right5-input_value5-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "decimal"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"1\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left6-core_schema_right6-1-1-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left6-core_schema_right6-1-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "decimal"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left6-core_schema_right6-1-1-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left6-core_schema_right6-1-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "decimal"
+    },
+    {
+     "type": "int"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left6-core_schema_right6-1-1-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left6-core_schema_right6-1-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "decimal"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 1,
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": 1
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left6-core_schema_right6-1-1-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left6-core_schema_right6-1-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "decimal"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 1,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left7-core_schema_right7-input_value7-1-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left7-core_schema_right7-input_value7-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "decimal"
+    },
+    {
+     "type": "float"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left7-core_schema_right7-input_value7-1-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left7-core_schema_right7-input_value7-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "decimal"
+    },
+    {
+     "type": "float"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"1\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left7-core_schema_right7-input_value7-1-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left7-core_schema_right7-input_value7-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "float"
+    },
+    {
+     "type": "decimal"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left7-core_schema_right7-input_value7-1-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left7-core_schema_right7-input_value7-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "float"
+    },
+    {
+     "type": "decimal"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"1\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left8-core_schema_right8-input_value8-1-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left8-core_schema_right8-input_value8-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "decimal"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left8-core_schema_right8-input_value8-1-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left8-core_schema_right8-input_value8-1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "decimal"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"1\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left8-core_schema_right8-input_value8-1-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left8-core_schema_right8-input_value8-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "decimal"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left8-core_schema_right8-input_value8-1-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left8-core_schema_right8-input_value8-1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "decimal"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$decimal": "1"
+  },
+  "options": {},
+  "expected": {
+   "json": "\"1\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left9-core_schema_right9-_1-_1-False]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left9-core_schema_right9-_1-_1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "decimal"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "_1",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "_1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left9-core_schema_right9-_1-_1-False]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left9-core_schema_right9-_1-_1-False]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "decimal"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "_1",
+  "options": {},
+  "expected": {
+   "json": "\"_1\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left9-core_schema_right9-_1-_1-True]#0",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left9-core_schema_right9-_1-_1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "decimal"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": "_1",
+  "options": {
+   "mode": "json"
+  },
+  "expected": {
+   "output": "_1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left9-core_schema_right9-_1-_1-True]#1",
+  "test": "tests/serializers/test_union.py::test_union_serializer_picks_exact_type_over_subclass_json[core_schema_left9-core_schema_right9-_1-_1-True]",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "str"
+    },
+    {
+     "type": "decimal"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": "_1",
+  "options": {},
+  "expected": {
+   "json": "\"_1\""
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializes_list_of_model_subclass_from_definition#0",
+  "test": "tests/serializers/test_union.py::test_union_serializes_list_of_model_subclass_from_definition",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "union",
+    "choices": [
+     {
+      "type": "list",
+      "items_schema": {
+       "type": "definition-ref",
+       "schema_ref": "User"
+      },
+      "strict": false
+     },
+     {
+      "type": "list",
+      "items_schema": {
+       "type": "definition-ref",
+       "schema_ref": "Item"
+      },
+      "strict": false
+     }
+    ]
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "User"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "name": {
+        "type": "model-field",
+        "schema": {
+         "type": "str"
+        }
+       }
+      }
+     },
+     "ref": "User"
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Item"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "price": {
+        "type": "model-field",
+        "schema": {
+         "type": "float"
+        }
+       }
+      }
+     },
+     "ref": "Item"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": [
+   {
+    "$object": "DBUser"
+   }
+  ],
+  "options": {},
+  "expected": {
+   "output": [
+    {
+     "name": "John"
+    }
+   ]
+  }
+ },
+ {
+  "id": "tests/serializers/test_union.py::test_union_serializes_model_subclass_from_definition#0",
+  "test": "tests/serializers/test_union.py::test_union_serializes_model_subclass_from_definition",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "union",
+    "choices": [
+     {
+      "type": "definition-ref",
+      "schema_ref": "User"
+     },
+     {
+      "type": "definition-ref",
+      "schema_ref": "Item"
+     }
+    ]
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "User"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "name": {
+        "type": "model-field",
+        "schema": {
+         "type": "str"
+        }
+       }
+      }
+     },
+     "ref": "User"
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Item"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "price": {
+        "type": "model-field",
+        "schema": {
+         "type": "float"
+        }
+       }
+      }
+     },
+     "ref": "Item"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$object": "DBUser"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "name": "John"
+   }
+  }
+ }
+]

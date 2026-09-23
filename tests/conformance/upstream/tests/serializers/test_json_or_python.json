@@ -1,0 +1,199 @@
+[
+ {
+  "id": "tests/serializers/test_json_or_python.py::test_json_or_python#0",
+  "test": "tests/serializers/test_json_or_python.py::test_json_or_python",
+  "schema": {
+   "type": "json-or-python",
+   "json_schema": {
+    "type": "int",
+    "serialization": {
+     "type": "function-plain",
+     "function": {
+      "$function": "s1"
+     }
+    }
+   },
+   "python_schema": {
+    "type": "int",
+    "serialization": {
+     "type": "function-plain",
+     "function": {
+      "$function": "s2"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": 0,
+  "options": {},
+  "expected": {
+   "json": "1"
+  }
+ },
+ {
+  "id": "tests/serializers/test_json_or_python.py::test_json_or_python#1",
+  "test": "tests/serializers/test_json_or_python.py::test_json_or_python",
+  "schema": {
+   "type": "json-or-python",
+   "json_schema": {
+    "type": "int",
+    "serialization": {
+     "type": "function-plain",
+     "function": {
+      "$function": "s1"
+     }
+    }
+   },
+   "python_schema": {
+    "type": "int",
+    "serialization": {
+     "type": "function-plain",
+     "function": {
+      "$function": "s2"
+     }
+    }
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": 0,
+  "options": {},
+  "expected": {
+   "output": 2
+  }
+ },
+ {
+  "id": "tests/serializers/test_json_or_python.py::test_json_or_python_enum_dict_key#0",
+  "test": "tests/serializers/test_json_or_python.py::test_json_or_python_enum_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "json-or-python",
+    "json_schema": {
+     "type": "str"
+    },
+    "python_schema": {
+     "type": "function-after",
+     "function": {
+      "type": "no-info",
+      "function": {
+       "$class": "MyEnum"
+      }
+     },
+     "schema": {
+      "type": "str"
+     }
+    }
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_json",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$enum": [
+       "MyEnum",
+       "A"
+      ]
+     },
+     1
+    ],
+    [
+     {
+      "$enum": [
+       "MyEnum",
+       "B"
+      ]
+     },
+     2
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "json": "{\"A\":1,\"B\":2}"
+  }
+ },
+ {
+  "id": "tests/serializers/test_json_or_python.py::test_json_or_python_enum_dict_key#1",
+  "test": "tests/serializers/test_json_or_python.py::test_json_or_python_enum_dict_key",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "json-or-python",
+    "json_schema": {
+     "type": "str"
+    },
+    "python_schema": {
+     "type": "function-after",
+     "function": {
+      "type": "no-info",
+      "function": {
+       "$class": "MyEnum"
+      }
+     },
+     "schema": {
+      "type": "str"
+     }
+    }
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": null,
+  "mode": "to_python",
+  "input": {
+   "$dict": [
+    [
+     {
+      "$enum": [
+       "MyEnum",
+       "A"
+      ]
+     },
+     1
+    ],
+    [
+     {
+      "$enum": [
+       "MyEnum",
+       "B"
+      ]
+     },
+     2
+    ]
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$dict": [
+     [
+      {
+       "$enum": [
+        "MyEnum",
+        "A"
+       ]
+      },
+      1
+     ],
+     [
+      {
+       "$enum": [
+        "MyEnum",
+        "B"
+       ]
+      },
+      2
+     ]
+    ]
+   }
+  }
+ }
+]
