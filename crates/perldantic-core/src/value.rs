@@ -32,6 +32,8 @@ pub enum Value {
     List(Vec<Value>),
     Tuple(Vec<Value>),
     Dict(Dict),
+    /// A Python `set`: items are unique and their order carries no meaning.
+    Set(Vec<Value>),
 }
 
 impl PartialEq for Value {
@@ -49,9 +51,15 @@ impl PartialEq for Value {
             (Self::Bytes(a), Self::Bytes(b)) => a == b,
             (Self::List(a), Self::List(b)) | (Self::Tuple(a), Self::Tuple(b)) => a == b,
             (Self::Dict(a), Self::Dict(b)) => a == b,
+            (Self::Set(a), Self::Set(b)) => same_items(a, b, |x, y| x == y),
             _ => false,
         }
     }
+}
+
+/// Unordered comparison of set items.
+fn same_items(a: &[Value], b: &[Value], eq: impl Fn(&Value, &Value) -> bool) -> bool {
+    a.len() == b.len() && a.iter().all(|x| b.iter().any(|y| eq(x, y)))
 }
 
 impl Value {
@@ -78,6 +86,7 @@ impl Value {
             (Self::List(a), Self::List(b)) | (Self::Tuple(a), Self::Tuple(b)) => {
                 a.len() == b.len() && a.iter().zip(b).all(|(x, y)| x.py_eq(y))
             }
+            (Self::Set(a), Self::Set(b)) => same_items(a, b, Self::py_eq),
             (Self::Dict(a), Self::Dict(b)) => {
                 a.len() == b.len()
                     && a.iter().all(|(k, v)| {
@@ -112,6 +121,7 @@ impl Value {
             Self::List(_) => "list",
             Self::Tuple(_) => "tuple",
             Self::Dict(_) => "dict",
+            Self::Set(_) => "set",
         }
     }
 
@@ -144,6 +154,12 @@ impl Value {
                 out.push('[');
                 write_items(items, out);
                 out.push(']');
+            }
+            Self::Set(items) if items.is_empty() => out.push_str("set()"),
+            Self::Set(items) => {
+                out.push('{');
+                write_items(items, out);
+                out.push('}');
             }
             Self::Tuple(items) => {
                 out.push('(');
@@ -334,7 +350,7 @@ impl Serialize for Value {
             Self::Float(f) => serializer.serialize_f64(*f),
             Self::Str(s) => serializer.serialize_str(s),
             Self::Bytes(b) => serializer.serialize_str(&String::from_utf8_lossy(b)),
-            Self::List(items) | Self::Tuple(items) => {
+            Self::List(items) | Self::Tuple(items) | Self::Set(items) => {
                 let mut seq = serializer.serialize_seq(Some(items.len()))?;
                 for item in items {
                     seq.serialize_element(item)?;

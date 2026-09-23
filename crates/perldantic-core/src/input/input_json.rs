@@ -19,6 +19,10 @@ use super::return_enums::{EitherBytes, EitherFloat, EitherInt, EitherString, Val
 use super::shared::{float_as_int, int_as_bool, str_as_bool, str_as_float, str_as_int};
 
 impl<'data> Input for JsonValue<'data> {
+    fn as_json(&self) -> Option<&JsonValue<'_>> {
+        Some(self)
+    }
+
     fn as_error_value(&self) -> Value {
         Value::from(self)
     }

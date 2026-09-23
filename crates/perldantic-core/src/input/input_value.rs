@@ -196,7 +196,7 @@ impl Input for Value {
     fn validate_list(&self, strict: bool) -> ValMatch<&[Value]> {
         match self {
             Value::List(items) => Ok(ValidationMatch::exact(items)),
-            Value::Tuple(items) if !strict => Ok(ValidationMatch::lax(items)),
+            Value::Tuple(items) | Value::Set(items) if !strict => Ok(ValidationMatch::lax(items)),
             _ => Err(ValError::new(ErrorTypeDefaults::ListType, self)),
         }
     }
@@ -206,7 +206,7 @@ impl Input for Value {
     fn validate_tuple(&self, strict: bool) -> ValMatch<&[Value]> {
         match self {
             Value::Tuple(items) => Ok(ValidationMatch::exact(items)),
-            Value::List(items) if !strict => Ok(ValidationMatch::lax(items)),
+            Value::List(items) | Value::Set(items) if !strict => Ok(ValidationMatch::lax(items)),
             _ => Err(ValError::new(ErrorTypeDefaults::TupleType, self)),
         }
     }

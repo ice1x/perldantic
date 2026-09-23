@@ -24,8 +24,10 @@ mod float;
 mod int;
 mod list;
 pub(crate) mod literal;
+mod model_fields;
 mod none;
 mod nullable;
+mod shared;
 mod string;
 mod tuple;
 mod union;
@@ -282,6 +284,7 @@ validators! {
     int::IntValidator,
     list::ListValidator,
     literal::LiteralValidator,
+    model_fields::ModelFieldsValidator,
     none::NoneValidator,
     nullable::NullableValidator,
     string::StrValidator,
@@ -326,6 +329,7 @@ pub enum CombinedValidator {
     ConstrainedInt(Box<int::ConstrainedIntValidator>),
     List(list::ListValidator),
     Literal(literal::LiteralValidator),
+    ModelFields(model_fields::ModelFieldsValidator),
     None(none::NoneValidator),
     Nullable(nullable::NullableValidator),
     Str(string::StrValidator),

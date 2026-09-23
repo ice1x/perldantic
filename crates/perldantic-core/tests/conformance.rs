@@ -77,6 +77,7 @@ fn decode_tag(tag: &str, payload: &Json) -> Result<Value, Skip> {
     };
     Ok(match tag {
         "tuple" => Value::Tuple(items(payload)?),
+        "set" => Value::Set(items(payload)?),
         "bytes" => Value::Bytes(STANDARD.decode(payload.as_str().unwrap()).unwrap()),
         "float" => Value::Float(match payload.as_str().unwrap() {
             "inf" => f64::INFINITY,
@@ -209,8 +210,24 @@ fn compare_errors(expected: &[Json], actual: &[ErrorDetails]) -> Result<(), Stri
 /// Cases that depend on a documented divergence (docs/DIVERGENCES.md) are skipped.
 fn divergence(case: &Json) -> Option<Skip> {
     let uses_python_re = |j: &Json| j.to_string().contains(r#""regex_engine":"python-re""#);
-    (uses_python_re(&case["schema"]) || uses_python_re(&case["config"]))
-        .then(|| Skip("divergence #7: python-re regex engine".into()))
+    if uses_python_re(&case["schema"]) || uses_python_re(&case["config"]) {
+        return Some(Skip("divergence #7: python-re regex engine".into()));
+    }
+    // A set turned into a sequence comes out in Python's hash order.
+    let output = &case["expected"]["output"];
+    (has_multi_item_set(&case["input"]) && !output.is_null() && output.get("$set").is_none())
+        .then(|| Skip("divergence #12: set iteration order".into()))
+}
+
+fn has_multi_item_set(json: &Json) -> bool {
+    match json {
+        Json::Object(map) => match map.get("$set") {
+            Some(Json::Array(items)) if map.len() == 1 => items.len() > 1,
+            _ => map.values().any(has_multi_item_set),
+        },
+        Json::Array(items) => items.iter().any(has_multi_item_set),
+        _ => false,
+    }
 }
 
 /// Run one case: `Ok(Ok(()))` passed, `Ok(Err(msg))` failed, `Err(skip)` skipped.
@@ -330,7 +347,7 @@ fn replay_upstream_cases() {
 #[test]
 fn decoder_handles_every_representable_tag() {
     let json: Json = serde_json::from_str(
-        r#"[{"$tuple": [1]}, {"$bytes": "YQ=="}, {"$float": "-inf"}, {"$dict": [[1, "x"]]}, 18446744073709551616, 1.0]"#,
+        r#"[{"$tuple": [1]}, {"$bytes": "YQ=="}, {"$float": "-inf"}, {"$dict": [[1, "x"]]}, 18446744073709551616, 1.0, {"$set": ["a"]}]"#,
     )
     .unwrap();
     let Value::List(items) = decode(&json).unwrap() else {
@@ -348,6 +365,7 @@ fn decoder_handles_every_representable_tag() {
         Value::BigInt("18446744073709551616".parse().unwrap())
     );
     assert_eq!(items[5], Value::Float(1.0));
+    assert_eq!(items[6], Value::Set(vec![Value::from("a")]));
     assert_eq!(
         decode(&serde_json::from_str::<Json>(r#"{"$function": "f"}"#).unwrap()),
         Err(Skip("value $function".into()))
@@ -407,5 +425,13 @@ fn documented_divergences_are_skipped() {
     assert_eq!(
         run_case(&case, &["str"]),
         Err(Skip("divergence #7: python-re regex engine".into()))
+    );
+    let case: Json = serde_json::from_str(
+        r#"{"schema": {"type": "list"}, "config": null, "mode": "python", "input": {"$set": [1, 2]}, "options": {}, "expected": {"output": [2, 1]}}"#,
+    )
+    .unwrap();
+    assert_eq!(
+        run_case(&case, &["list"]),
+        Err(Skip("divergence #12: set iteration order".into()))
     );
 }
