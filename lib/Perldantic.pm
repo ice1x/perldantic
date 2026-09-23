@@ -4,7 +4,10 @@ use v5.36;
 
 our $VERSION = '0.01';
 
+use Class::Method::Modifiers ();
+
 use Perldantic::Model;
+use Perldantic::Role ();
 use Perldantic::Types ();
 
 # `use Perldantic;` turns the calling package into a model class, like `use Moo;`.
@@ -19,6 +22,10 @@ sub import ($class, @args) {
     *{"${target}::has"}          = sub ($names, @options) { Perldantic::Model::_declare_has($target, $names, @options) };
     *{"${target}::extends"}      = sub ($parent) { Perldantic::Model::_declare_extends($target, $parent) };
     *{"${target}::model_config"} = sub (%settings) { Perldantic::Model::_declare_config($target, %settings) };
+    *{"${target}::with"}         = sub (@roles) { Perldantic::Model::_declare_with($target, @roles) };
+    for my $type (qw(before after around)) {
+        *{"${target}::$type"} = sub (@args) { Class::Method::Modifiers::install_modifier($target, $type, @args) };
+    }
     *{"${target}::$_"} = \&{"Perldantic::Types::$_"} for @Perldantic::Types::EXPORT_OK;
 }
 
@@ -57,7 +64,8 @@ engine is a Python-free port of C<pydantic-core>.
 
 C<use Perldantic> turns the package into a model class (a L<Perldantic::Model>), enables
 C<strict> and C<warnings>, and imports C<has>, C<extends>, C<model_config> and the types of
-L<Perldantic::Types>.
+L<Perldantic::Types>, as well as C<with> and the method modifiers C<before>, C<after> and
+C<around> (L<Class::Method::Modifiers>).
 
 =head1 DECLARATIONS
 
@@ -112,6 +120,11 @@ C<writer> are not supported yet.
 =head2 extends $parent
 
 Inherits from another Perldantic model: its fields come first and its C<model_config> applies.
+
+=head2 with @roles
+
+Consumes L<Perldantic::Role> roles: their methods and modifiers as in Moo, and their fields as
+if declared in the class.
 
 =head2 model_config %settings
 

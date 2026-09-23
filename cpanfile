@@ -1,7 +1,9 @@
 requires 'perl', '5.036';
+requires 'Class::Method::Modifiers', '2.00';
 requires 'Cpanel::JSON::XS', '4.08';
 requires 'FFI::Platypus', '2.00';
 requires 'FFI::Platypus::Lang::Rust', '0.17';
+requires 'Role::Tiny', '2.002';
 
 on configure => sub {
     requires 'ExtUtils::MakeMaker', '6.64';

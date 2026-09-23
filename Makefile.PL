@@ -19,9 +19,11 @@ WriteMakefile(
             'FFI::Build::File::Cargo'   => '0.17',
         },
         PREREQ_PM => {
+            'Class::Method::Modifiers'  => '2.00',
             'Cpanel::JSON::XS'          => '4.08',
             'FFI::Platypus'             => '2.00',
             'FFI::Platypus::Lang::Rust' => '0.17',
+            'Role::Tiny'                => '2.002',
         },
         TEST_REQUIRES => {
             'Test2::V0'       => '0.000159',
