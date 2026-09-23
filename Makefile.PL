@@ -19,6 +19,7 @@ WriteMakefile(
             'FFI::Build::File::Cargo'   => '0.17',
         },
         PREREQ_PM => {
+            'Cpanel::JSON::XS'          => '4.08',
             'FFI::Platypus'             => '2.00',
             'FFI::Platypus::Lang::Rust' => '0.17',
         },
