@@ -1023,6 +1023,15 @@ impl From<BigInt> for Number {
     }
 }
 
+impl From<crate::input::Int> for Number {
+    fn from(i: crate::input::Int) -> Self {
+        match i {
+            crate::input::Int::I64(i) => Self::Int(i),
+            crate::input::Int::Big(b) => Self::BigInt(b),
+        }
+    }
+}
+
 impl fmt::Display for Number {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         match self {

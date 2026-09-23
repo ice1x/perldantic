@@ -16,7 +16,10 @@ use serde::ser::{SerializeMap, SerializeSeq};
 use serde::{Serialize, Serializer};
 
 /// A dynamically typed value.
-#[derive(Debug, Clone, PartialEq)]
+///
+/// `BigInt` only holds integers outside the `i64` range; constructors normalise, and equality
+/// compares integers by value either way.
+#[derive(Debug, Clone)]
 pub enum Value {
     None,
     Bool(bool),
@@ -28,6 +31,26 @@ pub enum Value {
     List(Vec<Value>),
     Tuple(Vec<Value>),
     Dict(Dict),
+}
+
+impl PartialEq for Value {
+    fn eq(&self, other: &Self) -> bool {
+        match (self, other) {
+            (Self::None, Self::None) => true,
+            (Self::Bool(a), Self::Bool(b)) => a == b,
+            (Self::Int(a), Self::Int(b)) => a == b,
+            (Self::BigInt(a), Self::BigInt(b)) => a == b,
+            (Self::Int(a), Self::BigInt(b)) | (Self::BigInt(b), Self::Int(a)) => {
+                BigInt::from(*a) == *b
+            }
+            (Self::Float(a), Self::Float(b)) => a == b,
+            (Self::Str(a), Self::Str(b)) => a == b,
+            (Self::Bytes(a), Self::Bytes(b)) => a == b,
+            (Self::List(a), Self::List(b)) | (Self::Tuple(a), Self::Tuple(b)) => a == b,
+            (Self::Dict(a), Self::Dict(b)) => a == b,
+            _ => false,
+        }
+    }
 }
 
 impl Value {
@@ -312,8 +335,9 @@ impl From<f64> for Value {
 }
 
 impl From<BigInt> for Value {
+    /// Integers that fit `i64` become `Int`.
     fn from(i: BigInt) -> Self {
-        Self::BigInt(i)
+        i64::try_from(&i).map_or(Self::BigInt(i), Self::Int)
     }
 }
 
@@ -396,7 +420,7 @@ impl From<&JsonValue<'_>> for Value {
             JsonValue::Null => Self::None,
             JsonValue::Bool(b) => Self::Bool(*b),
             JsonValue::Int(i) => Self::Int(*i),
-            JsonValue::BigInt(i) => Self::BigInt(i.clone()),
+            JsonValue::BigInt(i) => Self::from(i.clone()),
             JsonValue::Float(f) => Self::Float(*f),
             JsonValue::Str(s) => Self::Str(s.to_string()),
             JsonValue::Array(items) => Self::List(items.iter().map(Self::from).collect()),

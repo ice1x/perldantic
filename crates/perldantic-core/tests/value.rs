@@ -184,3 +184,28 @@ fn conversions_from_rust_types() {
     assert_eq!(Value::from(None::<i64>), Value::None);
     assert_eq!(Value::from(Some(3_i64)), Value::Int(3));
 }
+
+#[test]
+fn big_ints_that_fit_i64_are_canonicalised() {
+    // Python has one int type; `BigInt` is only used beyond the i64 range.
+    assert_eq!(
+        Value::from_json("9223372036854775807").unwrap(),
+        Value::Int(i64::MAX)
+    );
+    assert!(matches!(
+        Value::from_json("-9223372036854775808").unwrap(),
+        Value::Int(i64::MIN)
+    ));
+    assert!(matches!(Value::from(BigInt::from(7)), Value::Int(7)));
+    assert!(matches!(
+        Value::from(BigInt::from(2).pow(70)),
+        Value::BigInt(_)
+    ));
+}
+
+#[test]
+fn int_and_big_int_compare_by_value() {
+    assert_eq!(Value::Int(5), Value::BigInt(BigInt::from(5)));
+    assert_ne!(Value::Int(5), Value::BigInt(BigInt::from(6)));
+    assert_ne!(Value::Int(1), Value::Float(1.0));
+}

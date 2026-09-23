@@ -154,7 +154,7 @@ impl EitherInt {
     pub fn into_value(self) -> Value {
         match self {
             Self::I64(i) => Value::Int(i),
-            Self::BigInt(b) => Value::BigInt(b),
+            Self::BigInt(b) => Value::from(b),
         }
     }
 }
@@ -233,6 +233,10 @@ mod tests {
         assert_eq!(EitherInt::BigInt(BigInt::from(1)).as_bool(), Some(true));
         assert_eq!(EitherInt::I64(2).as_bool(), None);
         assert_eq!(EitherInt::I64(4).into_value(), Value::Int(4));
+        assert!(matches!(
+            EitherInt::BigInt(BigInt::from(i64::MAX)).into_value(),
+            Value::Int(i64::MAX)
+        ));
     }
 
     #[test]
