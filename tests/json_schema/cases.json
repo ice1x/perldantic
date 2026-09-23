@@ -1,0 +1,3235 @@
+[
+ {
+  "id": "scalars",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "any"
+    },
+    {
+     "type": "none"
+    },
+    {
+     "type": "bool"
+    },
+    {
+     "type": "int",
+     "multiple_of": 2,
+     "ge": 1,
+     "lt": 10
+    },
+    {
+     "type": "float",
+     "le": {
+      "$float": "inf"
+     },
+     "gt": 0.5
+    },
+    {
+     "type": "str",
+     "pattern": "^a",
+     "max_length": 5,
+     "min_length": 1
+    },
+    {
+     "type": "bytes",
+     "max_length": 3
+    }
+   ]
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "maxItems": 7,
+    "minItems": 7,
+    "prefixItems": [
+     {},
+     {
+      "type": "null"
+     },
+     {
+      "type": "boolean"
+     },
+     {
+      "exclusiveMaximum": 10,
+      "minimum": 1,
+      "multipleOf": 2,
+      "type": "integer"
+     },
+     {
+      "exclusiveMinimum": 0.5,
+      "type": "number"
+     },
+     {
+      "maxLength": 5,
+      "minLength": 1,
+      "pattern": "^a",
+      "type": "string"
+     },
+     {
+      "format": "binary",
+      "maxLength": 3,
+      "type": "string"
+     }
+    ],
+    "type": "array"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "literals",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "literal",
+     "expected": [
+      "a"
+     ]
+    },
+    {
+     "type": "literal",
+     "expected": [
+      1,
+      2
+     ]
+    },
+    {
+     "type": "literal",
+     "expected": [
+      "a",
+      1
+     ]
+    },
+    {
+     "type": "literal",
+     "expected": [
+      null
+     ]
+    },
+    {
+     "type": "literal",
+     "expected": [
+      true,
+      false
+     ]
+    },
+    {
+     "type": "literal",
+     "expected": [
+      1.5
+     ]
+    },
+    {
+     "type": "literal",
+     "expected": [
+      {
+       "$bytes": "eA=="
+      }
+     ]
+    },
+    {
+     "type": "literal",
+     "expected": [
+      [
+       1
+      ],
+      [
+       2
+      ]
+     ]
+    }
+   ]
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "maxItems": 8,
+    "minItems": 8,
+    "prefixItems": [
+     {
+      "const": "a",
+      "type": "string"
+     },
+     {
+      "enum": [
+       1,
+       2
+      ],
+      "type": "integer"
+     },
+     {
+      "enum": [
+       "a",
+       1
+      ]
+     },
+     {
+      "const": null,
+      "type": "null"
+     },
+     {
+      "enum": [
+       true,
+       false
+      ],
+      "type": "boolean"
+     },
+     {
+      "const": 1.5,
+      "type": "number"
+     },
+     {
+      "const": "x",
+      "type": "string"
+     },
+     {
+      "enum": [
+       [
+        1
+       ],
+       [
+        2
+       ]
+      ],
+      "type": "array"
+     }
+    ],
+    "type": "array"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "arrays",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "list",
+     "items_schema": {
+      "type": "int"
+     },
+     "max_length": 3
+    },
+    {
+     "type": "list"
+    },
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "int"
+      },
+      {
+       "type": "str"
+      }
+     ]
+    },
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "int"
+      }
+     ],
+     "variadic_item_index": 0
+    },
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "str"
+      },
+      {
+       "type": "int"
+      }
+     ],
+     "variadic_item_index": 1,
+     "min_length": 2
+    },
+    {
+     "type": "tuple",
+     "items_schema": [
+      {
+       "type": "int"
+      },
+      {
+       "type": "str"
+      },
+      {
+       "type": "bool"
+      }
+     ],
+     "variadic_item_index": 1
+    },
+    {
+     "type": "tuple",
+     "items_schema": []
+    },
+    {
+     "type": "set",
+     "items_schema": {
+      "type": "str"
+     },
+     "min_length": 1
+    }
+   ]
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "maxItems": 8,
+    "minItems": 8,
+    "prefixItems": [
+     {
+      "items": {
+       "type": "integer"
+      },
+      "maxItems": 3,
+      "type": "array"
+     },
+     {
+      "items": {},
+      "type": "array"
+     },
+     {
+      "maxItems": 2,
+      "minItems": 2,
+      "prefixItems": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "string"
+       }
+      ],
+      "type": "array"
+     },
+     {
+      "items": {
+       "type": "integer"
+      },
+      "type": "array"
+     },
+     {
+      "items": {
+       "type": "integer"
+      },
+      "minItems": 2,
+      "prefixItems": [
+       {
+        "type": "string"
+       }
+      ],
+      "type": "array"
+     },
+     {
+      "items": true,
+      "minItems": 1,
+      "prefixItems": [
+       {
+        "type": "integer"
+       }
+      ],
+      "type": "array"
+     },
+     {
+      "maxItems": 0,
+      "minItems": 0,
+      "type": "array"
+     },
+     {
+      "items": {
+       "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+     }
+    ],
+    "type": "array"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "dicts",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "dict",
+     "keys_schema": {
+      "type": "str"
+     },
+     "values_schema": {
+      "type": "int"
+     }
+    },
+    {
+     "type": "dict"
+    },
+    {
+     "type": "dict",
+     "keys_schema": {
+      "type": "str",
+      "pattern": "^x"
+     },
+     "values_schema": {
+      "type": "int"
+     },
+     "max_length": 2
+    },
+    {
+     "type": "dict",
+     "keys_schema": {
+      "type": "str",
+      "max_length": 3
+     }
+    },
+    {
+     "type": "dict",
+     "keys_schema": {
+      "type": "int"
+     },
+     "values_schema": {
+      "type": "any"
+     }
+    }
+   ]
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "maxItems": 5,
+    "minItems": 5,
+    "prefixItems": [
+     {
+      "additionalProperties": {
+       "type": "integer"
+      },
+      "type": "object"
+     },
+     {
+      "additionalProperties": true,
+      "type": "object"
+     },
+     {
+      "maxProperties": 2,
+      "patternProperties": {
+       "^x": {
+        "type": "integer"
+       }
+      },
+      "type": "object"
+     },
+     {
+      "additionalProperties": true,
+      "propertyNames": {
+       "maxLength": 3
+      },
+      "type": "object"
+     },
+     {
+      "additionalProperties": true,
+      "type": "object"
+     }
+    ],
+    "type": "array"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "unions",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "nullable",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "type": "nullable",
+     "schema": {
+      "type": "none"
+     }
+    },
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "int"
+      },
+      {
+       "type": "str"
+      }
+     ]
+    },
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "int"
+      },
+      {
+       "type": "nullable",
+       "schema": {
+        "type": "str"
+       }
+      }
+     ]
+    },
+    {
+     "type": "union",
+     "choices": [
+      {
+       "$tuple": [
+        {
+         "type": "int"
+        },
+        "i"
+       ]
+      },
+      {
+       "$tuple": [
+        {
+         "type": "int"
+        },
+        "j"
+       ]
+      }
+     ]
+    },
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "bool"
+      }
+     ]
+    },
+    {
+     "type": "union",
+     "choices": []
+    },
+    {
+     "type": "lax-or-strict",
+     "lax_schema": {
+      "type": "int"
+     },
+     "strict_schema": {
+      "type": "str"
+     }
+    },
+    {
+     "type": "lax-or-strict",
+     "lax_schema": {
+      "type": "int"
+     },
+     "strict_schema": {
+      "type": "str"
+     },
+     "strict": true
+    },
+    {
+     "type": "custom-error",
+     "schema": {
+      "type": "int"
+     },
+     "custom_error_type": "e",
+     "custom_error_message": "m"
+    }
+   ]
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "maxItems": 10,
+    "minItems": 10,
+    "prefixItems": [
+     {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     {
+      "type": "null"
+     },
+     {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "string"
+       }
+      ]
+     },
+     {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ]
+     },
+     {
+      "type": "integer"
+     },
+     {
+      "type": "boolean"
+     },
+     {
+      "anyOf": []
+     },
+     {
+      "type": "integer"
+     },
+     {
+      "type": "string"
+     },
+     {
+      "type": "integer"
+     }
+    ],
+    "type": "array"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "primitive_type_array",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "nullable",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "int"
+      },
+      {
+       "type": "str"
+      },
+      {
+       "type": "int"
+      }
+     ]
+    },
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "int",
+       "ge": 1
+      },
+      {
+       "type": "str"
+      }
+     ]
+    },
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "list"
+      },
+      {
+       "type": "str"
+      }
+     ]
+    }
+   ]
+  },
+  "mode": "validation",
+  "options": {
+   "union_format": "primitive_type_array"
+  },
+  "expected": {
+   "json_schema": {
+    "maxItems": 4,
+    "minItems": 4,
+    "prefixItems": [
+     {
+      "type": [
+       "integer",
+       "null"
+      ]
+     },
+     {
+      "type": [
+       "integer",
+       "string"
+      ]
+     },
+     {
+      "anyOf": [
+       {
+        "minimum": 1,
+        "type": "integer"
+       },
+       {
+        "type": "string"
+       }
+      ]
+     },
+     {
+      "anyOf": [
+       {
+        "items": {},
+        "type": "array"
+       },
+       {
+        "type": "string"
+       }
+      ]
+     }
+    ],
+    "type": "array"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "model_validation",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "User"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "id": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     },
+     "full_name": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "str"
+       },
+       "default": "x"
+      },
+      "validation_alias": "fullName",
+      "serialization_alias": "FULL"
+     },
+     "nick": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "str"
+        }
+       },
+       "default": null
+      },
+      "validation_alias": [
+       [
+        "nk"
+       ],
+       [
+        "n",
+        0
+       ]
+      ]
+     },
+     "tags": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "set",
+        "items_schema": {
+         "type": "int"
+        }
+       },
+       "default": {
+        "$set": [
+         1,
+         2,
+         3
+        ]
+       }
+      }
+     },
+     "raw": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "bytes"
+       },
+       "default": {
+        "$bytes": "YWI="
+       }
+      }
+     },
+     "secret": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "serialization_exclude": true
+     },
+     "described": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "Custom",
+        "description": "D"
+       }
+      }
+     },
+     "inf": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "float"
+       },
+       "default": {
+        "$float": "inf"
+       }
+      }
+     }
+    },
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "area",
+      "return_schema": {
+       "type": "int"
+      },
+      "alias": "AREA"
+     }
+    ]
+   },
+   "config": {
+    "title": "The User",
+    "extra_fields_behavior": "forbid",
+    "json_schema_extra": {
+     "examples": [
+      {
+       "id": 1
+      }
+     ]
+    }
+   },
+   "ref": "app.models.User:1"
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": false,
+    "examples": [
+     {
+      "id": 1
+     }
+    ],
+    "properties": {
+     "id": {
+      "title": "Id",
+      "type": "integer"
+     },
+     "fullName": {
+      "default": "x",
+      "title": "Fullname",
+      "type": "string"
+     },
+     "nk": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Nk"
+     },
+     "tags": {
+      "default": [
+       1,
+       2,
+       3
+      ],
+      "items": {
+       "type": "integer"
+      },
+      "title": "Tags",
+      "type": "array",
+      "uniqueItems": true
+     },
+     "raw": {
+      "default": "ab",
+      "format": "binary",
+      "title": "Raw",
+      "type": "string"
+     },
+     "secret": {
+      "title": "Secret",
+      "type": "string"
+     },
+     "described": {
+      "description": "D",
+      "title": "Custom",
+      "type": "integer"
+     },
+     "inf": {
+      "default": {
+       "$float": "inf"
+      },
+      "title": "Inf",
+      "type": "number"
+     }
+    },
+    "required": [
+     "id",
+     "secret",
+     "described"
+    ],
+    "title": "The User",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "model_serialization",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "User"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "id": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     },
+     "full_name": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "str"
+       },
+       "default": "x"
+      },
+      "validation_alias": "fullName",
+      "serialization_alias": "FULL"
+     },
+     "nick": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "str"
+        }
+       },
+       "default": null
+      },
+      "validation_alias": [
+       [
+        "nk"
+       ],
+       [
+        "n",
+        0
+       ]
+      ]
+     },
+     "tags": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "set",
+        "items_schema": {
+         "type": "int"
+        }
+       },
+       "default": {
+        "$set": [
+         1,
+         2,
+         3
+        ]
+       }
+      }
+     },
+     "raw": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "bytes"
+       },
+       "default": {
+        "$bytes": "YWI="
+       }
+      }
+     },
+     "secret": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "serialization_exclude": true
+     },
+     "described": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "Custom",
+        "description": "D"
+       }
+      }
+     },
+     "inf": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "float"
+       },
+       "default": {
+        "$float": "inf"
+       }
+      }
+     }
+    },
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "area",
+      "return_schema": {
+       "type": "int"
+      },
+      "alias": "AREA"
+     }
+    ]
+   },
+   "config": {
+    "title": "The User",
+    "extra_fields_behavior": "forbid",
+    "json_schema_extra": {
+     "examples": [
+      {
+       "id": 1
+      }
+     ]
+    }
+   },
+   "ref": "app.models.User:1"
+  },
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": false,
+    "examples": [
+     {
+      "id": 1
+     }
+    ],
+    "properties": {
+     "id": {
+      "title": "Id",
+      "type": "integer"
+     },
+     "FULL": {
+      "default": "x",
+      "title": "Full",
+      "type": "string"
+     },
+     "nick": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Nick"
+     },
+     "tags": {
+      "default": [
+       1,
+       2,
+       3
+      ],
+      "items": {
+       "type": "integer"
+      },
+      "title": "Tags",
+      "type": "array",
+      "uniqueItems": true
+     },
+     "raw": {
+      "default": "ab",
+      "format": "binary",
+      "title": "Raw",
+      "type": "string"
+     },
+     "described": {
+      "description": "D",
+      "title": "Custom",
+      "type": "integer"
+     },
+     "inf": {
+      "default": {
+       "$float": "inf"
+      },
+      "title": "Inf",
+      "type": "number"
+     },
+     "AREA": {
+      "title": "Area",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "id",
+     "described",
+     "AREA"
+    ],
+    "title": "The User",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "model_validation_no_alias",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "User"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "id": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     },
+     "full_name": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "str"
+       },
+       "default": "x"
+      },
+      "validation_alias": "fullName",
+      "serialization_alias": "FULL"
+     },
+     "nick": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "str"
+        }
+       },
+       "default": null
+      },
+      "validation_alias": [
+       [
+        "nk"
+       ],
+       [
+        "n",
+        0
+       ]
+      ]
+     },
+     "tags": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "set",
+        "items_schema": {
+         "type": "int"
+        }
+       },
+       "default": {
+        "$set": [
+         1,
+         2,
+         3
+        ]
+       }
+      }
+     },
+     "raw": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "bytes"
+       },
+       "default": {
+        "$bytes": "YWI="
+       }
+      }
+     },
+     "secret": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "serialization_exclude": true
+     },
+     "described": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "Custom",
+        "description": "D"
+       }
+      }
+     },
+     "inf": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "float"
+       },
+       "default": {
+        "$float": "inf"
+       }
+      }
+     }
+    },
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "area",
+      "return_schema": {
+       "type": "int"
+      },
+      "alias": "AREA"
+     }
+    ]
+   },
+   "config": {
+    "title": "The User",
+    "extra_fields_behavior": "forbid",
+    "json_schema_extra": {
+     "examples": [
+      {
+       "id": 1
+      }
+     ]
+    }
+   },
+   "ref": "app.models.User:1"
+  },
+  "mode": "validation",
+  "options": {
+   "by_alias": false
+  },
+  "expected": {
+   "json_schema": {
+    "additionalProperties": false,
+    "examples": [
+     {
+      "id": 1
+     }
+    ],
+    "properties": {
+     "id": {
+      "title": "Id",
+      "type": "integer"
+     },
+     "full_name": {
+      "default": "x",
+      "title": "Full Name",
+      "type": "string"
+     },
+     "nick": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Nick"
+     },
+     "tags": {
+      "default": [
+       1,
+       2,
+       3
+      ],
+      "items": {
+       "type": "integer"
+      },
+      "title": "Tags",
+      "type": "array",
+      "uniqueItems": true
+     },
+     "raw": {
+      "default": "ab",
+      "format": "binary",
+      "title": "Raw",
+      "type": "string"
+     },
+     "secret": {
+      "title": "Secret",
+      "type": "string"
+     },
+     "described": {
+      "description": "D",
+      "title": "Custom",
+      "type": "integer"
+     },
+     "inf": {
+      "default": {
+       "$float": "inf"
+      },
+      "title": "Inf",
+      "type": "number"
+     }
+    },
+    "required": [
+     "id",
+     "secret",
+     "described"
+    ],
+    "title": "The User",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "model_serialization_no_alias",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "User"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "id": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     },
+     "full_name": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "str"
+       },
+       "default": "x"
+      },
+      "validation_alias": "fullName",
+      "serialization_alias": "FULL"
+     },
+     "nick": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "str"
+        }
+       },
+       "default": null
+      },
+      "validation_alias": [
+       [
+        "nk"
+       ],
+       [
+        "n",
+        0
+       ]
+      ]
+     },
+     "tags": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "set",
+        "items_schema": {
+         "type": "int"
+        }
+       },
+       "default": {
+        "$set": [
+         1,
+         2,
+         3
+        ]
+       }
+      }
+     },
+     "raw": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "bytes"
+       },
+       "default": {
+        "$bytes": "YWI="
+       }
+      }
+     },
+     "secret": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "serialization_exclude": true
+     },
+     "described": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "Custom",
+        "description": "D"
+       }
+      }
+     },
+     "inf": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "float"
+       },
+       "default": {
+        "$float": "inf"
+       }
+      }
+     }
+    },
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "area",
+      "return_schema": {
+       "type": "int"
+      },
+      "alias": "AREA"
+     }
+    ]
+   },
+   "config": {
+    "title": "The User",
+    "extra_fields_behavior": "forbid",
+    "json_schema_extra": {
+     "examples": [
+      {
+       "id": 1
+      }
+     ]
+    }
+   },
+   "ref": "app.models.User:1"
+  },
+  "mode": "serialization",
+  "options": {
+   "by_alias": false
+  },
+  "expected": {
+   "json_schema": {
+    "additionalProperties": false,
+    "examples": [
+     {
+      "id": 1
+     }
+    ],
+    "properties": {
+     "id": {
+      "title": "Id",
+      "type": "integer"
+     },
+     "full_name": {
+      "default": "x",
+      "title": "Full Name",
+      "type": "string"
+     },
+     "nick": {
+      "anyOf": [
+       {
+        "type": "string"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "Nick"
+     },
+     "tags": {
+      "default": [
+       1,
+       2,
+       3
+      ],
+      "items": {
+       "type": "integer"
+      },
+      "title": "Tags",
+      "type": "array",
+      "uniqueItems": true
+     },
+     "raw": {
+      "default": "ab",
+      "format": "binary",
+      "title": "Raw",
+      "type": "string"
+     },
+     "described": {
+      "description": "D",
+      "title": "Custom",
+      "type": "integer"
+     },
+     "inf": {
+      "default": {
+       "$float": "inf"
+      },
+      "title": "Inf",
+      "type": "number"
+     },
+     "area": {
+      "title": "Area",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "id",
+     "described",
+     "area"
+    ],
+    "title": "The User",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "recursive_model",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "app.Node:2"
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Node"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "value": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        }
+       },
+       "children": {
+        "type": "model-field",
+        "schema": {
+         "type": "default",
+         "schema": {
+          "type": "list",
+          "items_schema": {
+           "type": "definition-ref",
+           "schema_ref": "app.Node:2"
+          }
+         },
+         "default": []
+        }
+       }
+      }
+     },
+     "ref": "app.Node:2"
+    }
+   ]
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Node": {
+        "properties": {
+         "value": {
+          "title": "Value",
+          "type": "integer"
+         },
+         "children": {
+          "default": [],
+          "items": {
+           "$dict": [
+            [
+             "$ref",
+             "#/$defs/Node"
+            ]
+           ]
+          },
+          "title": "Children",
+          "type": "array"
+         }
+        },
+        "required": [
+         "value"
+        ],
+        "title": "Node",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "$ref",
+      "#/$defs/Node"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "recursive_model_ref_template",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "app.Node:2"
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Node"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "value": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        }
+       },
+       "children": {
+        "type": "model-field",
+        "schema": {
+         "type": "default",
+         "schema": {
+          "type": "list",
+          "items_schema": {
+           "type": "definition-ref",
+           "schema_ref": "app.Node:2"
+          }
+         },
+         "default": []
+        }
+       }
+      }
+     },
+     "ref": "app.Node:2"
+    }
+   ]
+  },
+  "mode": "validation",
+  "options": {
+   "ref_template": "#/components/schemas/{model}"
+  },
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Node": {
+        "properties": {
+         "value": {
+          "title": "Value",
+          "type": "integer"
+         },
+         "children": {
+          "default": [],
+          "items": {
+           "$dict": [
+            [
+             "$ref",
+             "#/components/schemas/Node"
+            ]
+           ]
+          },
+          "title": "Children",
+          "type": "array"
+         }
+        },
+        "required": [
+         "value"
+        ],
+        "title": "Node",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "$ref",
+      "#/components/schemas/Node"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "undefined_reference",
+  "schema": {
+   "type": "definition-ref",
+   "schema_ref": "missing:1"
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "error": [
+    "KeyError",
+    "'missing-Input__1'"
+   ]
+  },
+  "warnings": []
+ },
+ {
+  "id": "shared_submodel",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Owner"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "a": {
+      "type": "model-field",
+      "schema": {
+       "type": "model",
+       "cls": {
+        "$class": "Pet"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "name": {
+          "type": "model-field",
+          "schema": {
+           "type": "str"
+          }
+         }
+        }
+       },
+       "ref": "zoo.Pet:3"
+      }
+     },
+     "b": {
+      "type": "model-field",
+      "schema": {
+       "type": "nullable",
+       "schema": {
+        "type": "definition-ref",
+        "schema_ref": "zoo.Pet:3"
+       }
+      }
+     }
+    }
+   },
+   "ref": "zoo.Owner:4"
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Pet": {
+        "properties": {
+         "name": {
+          "title": "Name",
+          "type": "string"
+         }
+        },
+        "required": [
+         "name"
+        ],
+        "title": "Pet",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "a": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Pet"
+         ]
+        ]
+       },
+       "b": {
+        "anyOf": [
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/Pet"
+           ]
+          ]
+         },
+         {
+          "type": "null"
+         }
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "a",
+       "b"
+      ]
+     ],
+     [
+      "title",
+      "Owner"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "name_collision",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Model"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "x": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     },
+     "ref": "a.Model:5"
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Model"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "y": {
+        "type": "model-field",
+        "schema": {
+         "type": "str"
+        }
+       }
+      }
+     },
+     "ref": "b.Model:6"
+    }
+   ]
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "a__Model": {
+        "properties": {
+         "x": {
+          "title": "X",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "x"
+        ],
+        "title": "Model",
+        "type": "object"
+       },
+       "b__Model": {
+        "properties": {
+         "y": {
+          "title": "Y",
+          "type": "string"
+         }
+        },
+        "required": [
+         "y"
+        ],
+        "title": "Model",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "maxItems",
+      2
+     ],
+     [
+      "minItems",
+      2
+     ],
+     [
+      "prefixItems",
+      [
+       {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/a__Model"
+         ]
+        ]
+       },
+       {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/b__Model"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "type",
+      "array"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "repeated_reference",
+  "schema": {
+   "type": "tuple",
+   "items_schema": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Model"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "x": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     },
+     "ref": "a.Model:5"
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Model"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "x": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     },
+     "ref": "a.Model:5"
+    }
+   ]
+  },
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Model": {
+        "properties": {
+         "x": {
+          "title": "X",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "x"
+        ],
+        "title": "Model",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "maxItems",
+      2
+     ],
+     [
+      "minItems",
+      2
+     ],
+     [
+      "prefixItems",
+      [
+       {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Model"
+         ]
+        ]
+       },
+       {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Model"
+         ]
+        ]
+       }
+      ]
+     ],
+     [
+      "type",
+      "array"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "generic_reference",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int",
+    "ref": "pkg.Box[pkg.Item:7, int]:8"
+   }
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Box_Item__int_": {
+        "type": "integer"
+       }
+      }
+     ],
+     [
+      "items",
+      {
+       "$dict": [
+        [
+         "$ref",
+         "#/$defs/Box_Item__int_"
+        ]
+       ]
+      }
+     ],
+     [
+      "type",
+      "array"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tagged_union",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "cat": {
+     "type": "model",
+     "cls": {
+      "$class": "Cat"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "kind": {
+        "type": "model-field",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "cat"
+         ]
+        }
+       },
+       "meow": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     },
+     "ref": "z.Cat:7"
+    },
+    "dog": {
+     "type": "model",
+     "cls": {
+      "$class": "Dog"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "kind": {
+        "type": "model-field",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "dog"
+         ]
+        },
+        "validation_alias": "Kind"
+       },
+       "bark": {
+        "type": "model-field",
+        "schema": {
+         "type": "float"
+        }
+       }
+      }
+     },
+     "ref": "z.Dog:8"
+    }
+   },
+   "discriminator": "kind"
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Cat": {
+        "properties": {
+         "kind": {
+          "const": "cat",
+          "title": "Kind",
+          "type": "string"
+         },
+         "meow": {
+          "title": "Meow",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "kind",
+         "meow"
+        ],
+        "title": "Cat",
+        "type": "object"
+       },
+       "Dog": {
+        "properties": {
+         "Kind": {
+          "const": "dog",
+          "title": "Kind",
+          "type": "string"
+         },
+         "bark": {
+          "title": "Bark",
+          "type": "number"
+         }
+        },
+        "required": [
+         "Kind",
+         "bark"
+        ],
+        "title": "Dog",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "discriminator",
+      {
+       "mapping": {
+        "cat": "#/$defs/Cat",
+        "dog": "#/$defs/Dog"
+       },
+       "propertyName": "kind"
+      }
+     ],
+     [
+      "oneOf",
+      [
+       {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Cat"
+         ]
+        ]
+       },
+       {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Dog"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tagged_union_alias_paths",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "cat": {
+     "type": "model",
+     "cls": {
+      "$class": "Cat"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "kind": {
+        "type": "model-field",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "cat"
+         ]
+        }
+       },
+       "meow": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     },
+     "ref": "z.Cat:7"
+    },
+    "dog": {
+     "type": "model",
+     "cls": {
+      "$class": "Dog"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "kind": {
+        "type": "model-field",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "dog"
+         ]
+        },
+        "validation_alias": "Kind"
+       },
+       "bark": {
+        "type": "model-field",
+        "schema": {
+         "type": "float"
+        }
+       }
+      }
+     },
+     "ref": "z.Dog:8"
+    }
+   },
+   "discriminator": [
+    [
+     "Kind"
+    ],
+    [
+     "kind"
+    ]
+   ]
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Cat": {
+        "properties": {
+         "kind": {
+          "const": "cat",
+          "title": "Kind",
+          "type": "string"
+         },
+         "meow": {
+          "title": "Meow",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "kind",
+         "meow"
+        ],
+        "title": "Cat",
+        "type": "object"
+       },
+       "Dog": {
+        "properties": {
+         "Kind": {
+          "const": "dog",
+          "title": "Kind",
+          "type": "string"
+         },
+         "bark": {
+          "title": "Bark",
+          "type": "number"
+         }
+        },
+        "required": [
+         "Kind",
+         "bark"
+        ],
+        "title": "Dog",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "oneOf",
+      [
+       {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Cat"
+         ]
+        ]
+       },
+       {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Dog"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tagged_union_single_alias_path",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "cat": {
+     "type": "model",
+     "cls": {
+      "$class": "Cat"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "kind": {
+        "type": "model-field",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "cat"
+         ]
+        }
+       },
+       "meow": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        }
+       }
+      }
+     },
+     "ref": "z.Cat:7"
+    },
+    "dog": {
+     "type": "model",
+     "cls": {
+      "$class": "Dog"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "kind": {
+        "type": "model-field",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "dog"
+         ]
+        },
+        "validation_alias": "Kind"
+       },
+       "bark": {
+        "type": "model-field",
+        "schema": {
+         "type": "float"
+        }
+       }
+      }
+     },
+     "ref": "z.Dog:8"
+    }
+   },
+   "discriminator": [
+    [
+     "kind"
+    ]
+   ]
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Cat": {
+        "properties": {
+         "kind": {
+          "const": "cat",
+          "title": "Kind",
+          "type": "string"
+         },
+         "meow": {
+          "title": "Meow",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "kind",
+         "meow"
+        ],
+        "title": "Cat",
+        "type": "object"
+       },
+       "Dog": {
+        "properties": {
+         "Kind": {
+          "const": "dog",
+          "title": "Kind",
+          "type": "string"
+         },
+         "bark": {
+          "title": "Bark",
+          "type": "number"
+         }
+        },
+        "required": [
+         "Kind",
+         "bark"
+        ],
+        "title": "Dog",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "oneOf",
+      [
+       {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Cat"
+         ]
+        ]
+       },
+       {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Dog"
+         ]
+        ]
+       }
+      ]
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tagged_union_keys",
+  "schema": {
+   "type": "tagged-union",
+   "choices": {
+    "$dict": [
+     [
+      true,
+      {
+       "type": "int"
+      }
+     ],
+     [
+      null,
+      {
+       "type": "str"
+      }
+     ],
+     [
+      2,
+      {
+       "type": "float"
+      }
+     ]
+    ]
+   },
+   "discriminator": [
+    "k",
+    0
+   ]
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "oneOf": [
+     {
+      "type": "integer"
+     },
+     {
+      "type": "string"
+     },
+     {
+      "type": "number"
+     }
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "extras_schema",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Extra"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      }
+     }
+    },
+    "extras_schema": {
+     "type": "int"
+    }
+   },
+   "config": {
+    "extra_fields_behavior": "allow",
+    "str_min_length": 2,
+    "str_max_length": 9
+   }
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": {
+     "type": "integer"
+    },
+    "properties": {
+     "a": {
+      "maxLength": 9,
+      "minLength": 2,
+      "title": "A",
+      "type": "string"
+     }
+    },
+    "required": [
+     "a"
+    ],
+    "title": "Extra",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "extra_allow_base64_default",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Ext2"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "b": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "bytes"
+       },
+       "default": {
+        "$bytes": "+w=="
+       }
+      }
+     }
+    }
+   },
+   "config": {
+    "extra_fields_behavior": "allow",
+    "ser_json_bytes": "base64"
+   }
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": true,
+    "properties": {
+     "b": {
+      "default": "-w==",
+      "format": "base64url",
+      "title": "B",
+      "type": "string"
+     }
+    },
+    "title": "Ext2",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "non_serializable_default",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Bad"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "b": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "bytes"
+       },
+       "default": {
+        "$bytes": "+w=="
+       }
+      }
+     }
+    }
+   }
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "b": {
+      "format": "binary",
+      "title": "B",
+      "type": "string"
+     }
+    },
+    "title": "Bad",
+    "type": "object"
+   }
+  },
+  "warnings": [
+   "Default value b'\\xfb' is not JSON serializable; excluding default from JSON schema [non-serializable-default]"
+  ]
+ },
+ {
+  "id": "root_model",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Root"
+   },
+   "schema": {
+    "type": "list",
+    "items_schema": {
+     "type": "int"
+    }
+   },
+   "root_model": true
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "items": {
+     "type": "integer"
+    },
+    "title": "Root",
+    "type": "array"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "mode_override",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Ovr"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "a": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "int"
+       },
+       "default": 1
+      }
+     },
+     "b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "serialization_exclude": true
+     }
+    }
+   },
+   "config": {
+    "json_schema_mode_override": "serialization",
+    "json_schema_serialization_defaults_required": true
+   }
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "a": {
+      "default": 1,
+      "title": "A",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "a"
+    ],
+    "title": "Ovr",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "validate_by_alias_false",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "NoAlias"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "user_id": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "validation_alias": "uid"
+     }
+    }
+   },
+   "config": {
+    "validate_by_alias": false
+   }
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "user_id": {
+      "title": "User Id",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "user_id"
+    ],
+    "title": "NoAlias",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "field_titles",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "T"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "user_id": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     },
+     "fooBar": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     },
+     "a1b_c": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      }
+     },
+     "sub": {
+      "type": "model-field",
+      "schema": {
+       "type": "nullable",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "int"
+        },
+        "default": 1
+       }
+      }
+     },
+     "model": {
+      "type": "model-field",
+      "schema": {
+       "type": "model",
+       "cls": {
+        "$class": "Sub"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {}
+       },
+       "ref": "m.Sub:9"
+      }
+     }
+    }
+   }
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Sub": {
+        "properties": {},
+        "title": "Sub",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "user_id": {
+        "title": "User Id",
+        "type": "integer"
+       },
+       "fooBar": {
+        "title": "Foobar",
+        "type": "integer"
+       },
+       "a1b_c": {
+        "title": "A1B C",
+        "type": "integer"
+       },
+       "sub": {
+        "anyOf": [
+         {
+          "default": 1,
+          "type": "integer"
+         },
+         {
+          "type": "null"
+         }
+        ],
+        "title": "Sub"
+       },
+       "model": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Sub"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "user_id",
+       "fooBar",
+       "a1b_c",
+       "sub",
+       "model"
+      ]
+     ],
+     [
+      "title",
+      "T"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "metadata",
+  "schema": {
+   "type": "int",
+   "metadata": {
+    "pydantic_js_updates": {
+     "description": "u"
+    },
+    "pydantic_js_extra": {
+     "examples": [
+      1,
+      {
+       "$bytes": "eA=="
+      }
+     ]
+    }
+   }
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "description": "u",
+    "examples": [
+     1,
+     "x"
+    ],
+    "type": "integer"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "serialization_schema",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "int"
+   },
+   "serialization": {
+    "type": "to-string",
+    "when_used": "unless-none"
+   }
+  },
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "anyOf": [
+     {
+      "type": "null"
+     },
+     {
+      "type": "string"
+     }
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "serialization_schema_in_validation_mode",
+  "schema": {
+   "type": "nullable",
+   "schema": {
+    "type": "int"
+   },
+   "serialization": {
+    "type": "to-string",
+    "when_used": "unless-none"
+   }
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "anyOf": [
+     {
+      "type": "integer"
+     },
+     {
+      "type": "null"
+     }
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "plain_reference",
+  "schema": {
+   "type": "list",
+   "items_schema": {
+    "type": "int",
+    "ref": "my.Int:9"
+   }
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Int": {
+        "type": "integer"
+       }
+      }
+     ],
+     [
+      "items",
+      {
+       "$dict": [
+        [
+         "$ref",
+         "#/$defs/Int"
+        ]
+       ]
+      }
+     ],
+     [
+      "type",
+      "array"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "dict_reference_keys",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "dict",
+    "keys_schema": {
+     "type": "definition-ref",
+     "schema_ref": "k:1"
+    },
+    "values_schema": {
+     "type": "int"
+    }
+   },
+   "definitions": [
+    {
+     "type": "str",
+     "min_length": 2,
+     "ref": "k:1"
+    }
+   ]
+  },
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "k": {
+        "minLength": 2,
+        "type": "string"
+       }
+      }
+     ],
+     [
+      "additionalProperties",
+      {
+       "type": "integer"
+      }
+     ],
+     [
+      "propertyNames",
+      {
+       "$dict": [
+        [
+         "$ref",
+         "#/$defs/k"
+        ]
+       ]
+      }
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ }
+]

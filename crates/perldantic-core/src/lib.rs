@@ -8,6 +8,7 @@ mod core_error;
 pub(crate) mod definitions;
 pub mod errors;
 pub mod input;
+pub mod json_schema;
 mod lookup_key;
 pub(crate) mod recursion_guard;
 pub mod serializers;
@@ -23,6 +24,10 @@ pub use errors::{
 };
 pub use input::InputType;
 pub use jiter::PartialMode;
+pub use json_schema::{
+    GeneratedJsonSchema, JsonSchemaError, JsonSchemaMode, JsonSchemaOptions, UnionFormat,
+    generate_json_schema,
+};
 pub use serializers::{
     JsonOptions, SchemaSerializer, SerMode, SerializeError, SerializeOptions, Serialized,
     UnexpectedValue, WarningsMode,

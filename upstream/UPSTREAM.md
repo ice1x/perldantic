@@ -183,3 +183,14 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/uuid.rs` | `crates/perldantic-core/src/validators/uuid.rs` | P1 | pending |  |
 | `validators/validation_state.rs` | `crates/perldantic-core/src/validators/validation_state.rs` | P0 | ported | `self_instance` and the Python string cache dropped |
 | `validators/with_default.rs` | `crates/perldantic-core/src/validators/with_default.rs` | P0 | partial | `default_factory` waits for host callbacks; defaults are always copied; invalid defaults with `on_error='default'` report their error (DIVERGENCES #10) |
+
+## pydantic layer
+
+JSON Schema generation lives in pydantic's Python package, not in pydantic-core. It is ported
+from the same base commit of `pydantic/pydantic` (not vendored here). Its cases in
+`tests/json_schema/cases.json` are recorded from that commit's `pydantic` with
+`tools/json_schema/record.sh`.
+
+| Upstream file | Perldantic file | Priority | Status | Notes |
+|---|---|---|---|---|
+| `pydantic/json_schema.py` | `crates/perldantic-core/src/json_schema/` | P0 | partial | `GenerateJsonSchema.generate` for the P0 schema types; `generate_definitions` (`models_json_schema`), P1 types and callables later; model config from the schema (DIVERGENCES #15) |

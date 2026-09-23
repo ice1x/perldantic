@@ -37,7 +37,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
 - [ ] 00031 — Serialization & JSON Schema
   - [x] 00032 — Serializer `Value` → JSON (serde)
   - [x] 00033 — Serializer `Value` → `Value`: include/exclude, by_alias, exclude_none/unset/defaults
-  - [ ] 00034 — JSON Schema generator (Draft 2020-12, `$defs`) for P0 types
+  - [x] 00034 — JSON Schema generator (Draft 2020-12, `$defs`) for P0 types
   - [ ] 00035 — Snapshot tests against pydantic output
 - [ ] 00036 — FFI (C ABI)
   - [ ] 00037 — Handles: validator new/free, validate, serialize, json_schema, string_free

@@ -468,6 +468,12 @@ impl From<f64> for Value {
     }
 }
 
+impl From<Dict> for Value {
+    fn from(dict: Dict) -> Self {
+        Self::Dict(dict)
+    }
+}
+
 impl From<BigInt> for Value {
     /// Integers that fit `i64` become `Int`.
     fn from(i: BigInt) -> Self {
@@ -529,6 +535,24 @@ impl Dict {
 
     pub fn iter(&self) -> impl Iterator<Item = (&Value, &Value)> {
         self.0.iter().map(|(k, v)| (k, v))
+    }
+
+    pub fn iter_mut(&mut self) -> impl Iterator<Item = (&Value, &mut Value)> {
+        self.0.iter_mut().map(|(k, v)| (&*k, v))
+    }
+
+    /// Python's `==` on dicts (`1 == 1.0 == True`, order ignored).
+    pub fn py_eq(&self, other: &Self) -> bool {
+        dicts_py_eq(self, other)
+    }
+}
+
+impl IntoIterator for Dict {
+    type Item = (Value, Value);
+    type IntoIter = std::vec::IntoIter<(Value, Value)>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.0.into_iter()
     }
 }
 

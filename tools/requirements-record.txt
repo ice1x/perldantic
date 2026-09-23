@@ -9,3 +9,6 @@ pytest-timeout
 python-dateutil
 tzdata
 typing-inspection>=0.4.1
+# pydantic's own runtime dependencies, for recording JSON Schema cases (tools/json_schema/record.sh)
+annotated-types>=0.6.0
+typing-extensions>=4.16.0
