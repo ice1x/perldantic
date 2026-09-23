@@ -137,7 +137,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/complex.rs` | - | drop | dropped | Python-only type |
 | `validators/config.rs` | `crates/perldantic-core/src/validators/config.rs` | P0 | partial | `ValBytesMode` / `BytesMode`; temporal modes pending |
 | `validators/counter.rs` | - | drop | dropped | Python-only type |
-| `validators/custom_error.rs` | `crates/perldantic-core/src/validators/custom_error.rs` | P0 | pending |  |
+| `validators/custom_error.rs` | `crates/perldantic-core/src/validators/custom_error.rs` | P0 | ported | known and custom errors are both an `ErrorType`; a missing `custom_error_type` is a schema error (DIVERGENCES #11) |
 | `validators/dataclass.rs` | - | drop | dropped | Python-only type |
 | `validators/date.rs` | `crates/perldantic-core/src/validators/date.rs` | P1 | pending |  |
 | `validators/datetime.rs` | `crates/perldantic-core/src/validators/datetime.rs` | P1 | pending |  |
@@ -178,7 +178,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/timedelta.rs` | `crates/perldantic-core/src/validators/timedelta.rs` | P1 | pending |  |
 | `validators/tuple.rs` | `crates/perldantic-core/src/validators/tuple.rs` | P0 | ported | out-of-range `variadic_item_index` is a schema error (DIVERGENCES #11) |
 | `validators/typed_dict.rs` | `crates/perldantic-core/src/validators/typed_dict.rs` | P1 | pending |  |
-| `validators/union.rs` | `crates/perldantic-core/src/validators/union.rs` | P0 | pending |  |
+| `validators/union.rs` | `crates/perldantic-core/src/validators/union.rs` | P0 | partial | smart and left-to-right `union`; `tagged-union` pending |
 | `validators/url.rs` | `crates/perldantic-core/src/validators/url.rs` | P1 | pending |  |
 | `validators/uuid.rs` | `crates/perldantic-core/src/validators/uuid.rs` | P1 | pending |  |
 | `validators/validation_state.rs` | `crates/perldantic-core/src/validators/validation_state.rs` | P0 | ported | `self_instance` and the Python string cache dropped |

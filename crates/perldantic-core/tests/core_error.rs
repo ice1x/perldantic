@@ -13,6 +13,17 @@ fn display_is_the_bare_message() {
 }
 
 #[test]
+fn key_errors_display_the_key_repr_like_python() {
+    // str(KeyError('schema')) == "'schema'"
+    assert_eq!(CoreError::Key("schema".into()).to_string(), "'schema'");
+    assert_eq!(
+        CoreError::Key("Invalid error type: 'x'".into()).to_string(),
+        "\"Invalid error type: 'x'\""
+    );
+    assert_eq!(CoreError::Key("schema".into()).message(), "schema");
+}
+
+#[test]
 fn kind_names_the_equivalent_python_exception() {
     let cases = [
         (

@@ -15,8 +15,9 @@ pub enum CoreError {
     /// Upstream `ValueError`: a value of the right type but invalid content.
     #[error("{0}")]
     Value(String),
-    /// Upstream `KeyError`: an unknown name was looked up.
-    #[error("{0}")]
+    /// Upstream `KeyError`: an unknown name was looked up. Holds the key; like Python,
+    /// `Display` shows its repr.
+    #[error("{}", crate::value::Value::Str(.0.clone()).repr())]
     Key(String),
     /// Upstream `SchemaError`: the core schema is invalid or misused.
     #[error("{0}")]
