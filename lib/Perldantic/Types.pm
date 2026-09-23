@@ -46,6 +46,8 @@ sub _count ($name, $params, $count) {
 
 # Check a type parameter; Optional[] is only meaningful where a slot may be left out.
 sub _type ($name, $param, $optional_ok = 0) {
+    # A class name stands for InstanceOf[class], as in `isa => 'Class'`.
+    $param = InstanceOf([$param]) if defined $param && !ref $param && $param =~ /\A[A-Za-z_]\w*(?:::\w+)+\z|\A[A-Z]\w*\z/;
     _usage("$name\[] takes a type, got " . ($param // 'undef'))
         if !blessed $param || !$param->isa('Perldantic::Type');
     _usage('Optional[] is only supported inside Dict[]') if $param->is_optional && !$optional_ok;

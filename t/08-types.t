@@ -1,5 +1,6 @@
 use v5.36;
 use Test2::V0;
+no warnings 'experimental::builtin';
 
 use Perldantic::FFI;
 use Perldantic::Types qw(:all);
@@ -61,6 +62,13 @@ subtest 'parameterized types' => sub {
         'Dict[] keeps the declared field order';
 };
 
+subtest 'class names stand for InstanceOf[]' => sub {
+    my $list = ArrayRef['My::Class'];
+    is $list->core_schema, {type => 'list', items_schema => {type => 'is-instance', cls => 'My::Class'}};
+    my $map = Map[Str, 'Thing'];
+    is $map->name, 'Map[Str,InstanceOf["Thing"]]';
+};
+
 subtest 'core_schema returns a fresh copy' => sub {
     my $type = ArrayRef[Int];
     $type->core_schema->{items_schema}{type} = 'str';
@@ -78,6 +86,9 @@ subtest 'constraints' => sub {
     is $list->with(min_length => 1)->core_schema,
         {type => 'list', items_schema => {type => 'int'}, min_length => 1};
     is Int->core_schema, {type => 'int'}, 'with() does not change the original';
+    my $upper = Str->with(to_upper => 1, strict => 0)->core_schema;
+    ok builtin::is_bool($upper->{to_upper}) && $upper->{to_upper}, 'flag constraints become booleans';
+    ok builtin::is_bool($upper->{strict}) && !$upper->{strict};
     my $e = dies { Int->with(max_length => 3) };
     isa_ok $e, 'Perldantic::UsageError';
     is $e->message, "Constraint 'max_length' does not apply to Int";
@@ -89,6 +100,7 @@ subtest 'constraints' => sub {
 subtest 'bad parameters are usage errors' => sub {
     my @cases = (
         [sub { ArrayRef[1] },            'ArrayRef[] takes a type, got 1'],
+        [sub { ArrayRef['not a class'] }, 'ArrayRef[] takes a type, got not a class'],
         [sub { ArrayRef[Int, Str] },     'ArrayRef[] takes 1 parameter, got 2'],
         [sub { Maybe[] },                'Maybe[] takes 1 parameter, got 0'],
         [sub { Map[Int] },               'Map[] takes 2 parameters, got 1'],

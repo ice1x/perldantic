@@ -4,8 +4,6 @@ use v5.36;
 
 our $VERSION = '0.01';
 
-use Storable ();
-
 use Perldantic::Error;
 
 use overload
@@ -25,6 +23,10 @@ my %CONSTRAINTS = (
     dict  => [qw(strict min_length max_length)],
     'typed-dict' => [qw(strict)],
 );
+# Constraints the core takes as booleans; any Perl truth value is accepted.
+my %FLAG = map { $_ => 1 } qw(strict allow_inf_nan strip_whitespace to_lower to_upper);
+# Every constraint name, whatever the type.
+our %ANY_CONSTRAINT = map { $_ => 1 } map {@$_} values %CONSTRAINTS;
 my %ALLOWED = map { my $t = $_; ($t => {map { $_ => 1 } @{$CONSTRAINTS{$t}}}) } keys %CONSTRAINTS;
 
 sub new ($class, %args) {
@@ -38,7 +40,14 @@ sub is_slurpy ($self)   { !!$self->{slurpy} }
 
 sub core_schema ($self) {
     return $self->{wrap}->($self->{inner}->core_schema) if $self->{inner};
-    return Storable::dclone($self->{schema});
+    return _clone($self->{schema});
+}
+
+# A deep copy of plain data. Unlike Storable::dclone on Perl 5.36, it keeps booleans booleans.
+sub _clone ($data) {
+    return {map { $_ => _clone($data->{$_}) } keys %$data} if ref $data eq 'HASH';
+    return [map { _clone($_) } @$data] if ref $data eq 'ARRAY';
+    return $data;
 }
 
 sub with ($self, %constraints) {
@@ -49,6 +58,7 @@ sub with ($self, %constraints) {
     for my $key (sort keys %constraints) {
         Perldantic::UsageError->throw(message => "Constraint '$key' does not apply to $self->{name}")
             if !$allowed->{$key};
+        $constraints{$key} = $constraints{$key} ? !!1 : !!0 if $FLAG{$key};
     }
     return (ref $self)->new(%$self, schema => {%{$self->core_schema}, %constraints});
 }

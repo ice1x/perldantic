@@ -13,13 +13,18 @@ use Scalar::Util qw(blessed reftype);
 
 use Perldantic::Error;
 
-our @EXPORT_OK = qw(tuple set bytes);
+our @EXPORT_OK = qw(tuple set bytes ordered);
 
 my $JSON = Cpanel::JSON::XS->new->utf8->canonical->allow_nonref->allow_bignum->unblessed_bool;
 
 sub tuple (@items) { bless [@items], 'Perldantic::Wire::Tuple' }
 sub set (@items)   { bless [@items], 'Perldantic::Wire::Set' }
 sub bytes ($octets) { bless \(my $copy = $octets), 'Perldantic::Wire::Bytes' }
+
+sub ordered (@pairs) {
+    Perldantic::UsageError->throw(message => 'ordered() takes key => value pairs') if @pairs % 2;
+    return bless [@pairs], 'Perldantic::Wire::Ordered';
+}
 
 sub encode ($value) {
     my $tagged = _tag($value);
@@ -61,6 +66,11 @@ sub _tag ($value) {
         return {'$set' => [map { _tag($_) } @$value]}   if $class eq 'Perldantic::Wire::Set';
         return {'$bytes' => encode_base64($$value, '')} if $class eq 'Perldantic::Wire::Bytes';
         return {'$model' => $value->_wire}              if $class eq 'Perldantic::Wire::Model';
+        if ($class eq 'Perldantic::Wire::Ordered') {
+            my @pairs = @$value;
+            return {'$dict' => [map { [$pairs[2 * $_], _tag($pairs[2 * $_ + 1])] } 0 .. @pairs / 2 - 1]};
+        }
+        return _tag($value->_perldantic_wire) if $value->can('_perldantic_wire');
         return $value if $value->isa('JSON::PP::Boolean') || $value->isa('Types::Serialiser::Boolean');
         return $value if $value->isa('Math::BigInt') || $value->isa('Math::BigFloat');
         _cannot("a $class object", "$class has no wire form");
@@ -162,10 +172,13 @@ What JSON cannot express is tagged:
 
 =item * infinite and NaN floats are C<{"$float": ...}>;
 
-=item * a hash with a key starting with C<$> is sent as a list of pairs;
+=item * a hash with a key starting with C<$> is sent as a list of pairs, and so is
+C<ordered(key =E<gt> value, ...)>, which keeps the given key order;
 
 =item * C<Perldantic::Wire::Model> is a model instance: C<class>, C<fields>, C<fields_set>
 (defaults to the field names) and C<extra>.
+
+=item * an object with a C<_perldantic_wire> method is sent as what that method returns.
 
 =back
 
