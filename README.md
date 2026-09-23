@@ -27,7 +27,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
 - [ ] 00021 — P0 validators
   - [x] 00022 — `none`, `any`, `bool`
   - [x] 00023 — `int` (incl. bigint), `float`
-  - [ ] 00024 — `str` (constraints, pattern), `bytes`
+  - [x] 00024 — `str` (constraints, pattern), `bytes`
   - [ ] 00025 — `literal`, `nullable`, `default`
   - [ ] 00026 — `list`, `tuple`, `dict`
   - [ ] 00027 — `union`: smart, left_to_right, tagged

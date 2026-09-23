@@ -206,8 +206,18 @@ fn compare_errors(expected: &[Json], actual: &[ErrorDetails]) -> Result<(), Stri
     Ok(())
 }
 
+/// Cases that depend on a documented divergence (docs/DIVERGENCES.md) are skipped.
+fn divergence(case: &Json) -> Option<Skip> {
+    let uses_python_re = |j: &Json| j.to_string().contains(r#""regex_engine":"python-re""#);
+    (uses_python_re(&case["schema"]) || uses_python_re(&case["config"]))
+        .then(|| Skip("divergence #7: python-re regex engine".into()))
+}
+
 /// Run one case: `Ok(Ok(()))` passed, `Ok(Err(msg))` failed, `Err(skip)` skipped.
 fn run_case(case: &Json, supported: &[&str]) -> Result<Result<(), String>, Skip> {
+    if let Some(skip) = divergence(case) {
+        return Err(skip);
+    }
     let mut types = Vec::new();
     schema_types(&case["schema"], &mut types);
     if let Some(t) = types.iter().find(|t| !supported.contains(&t.as_str())) {
@@ -386,4 +396,16 @@ fn mismatches_are_reported_as_failures() {
     )
     .unwrap();
     assert!(run_case(&case, &["any"]).unwrap().is_err());
+}
+
+#[test]
+fn documented_divergences_are_skipped() {
+    let case: Json = serde_json::from_str(
+        r#"{"schema": {"type": "str", "pattern": "a"}, "config": {"regex_engine": "python-re"}, "mode": "python", "input": "a", "options": {}, "expected": {"output": "a"}}"#,
+    )
+    .unwrap();
+    assert_eq!(
+        run_case(&case, &["str"]),
+        Err(Skip("divergence #7: python-re regex engine".into()))
+    );
 }

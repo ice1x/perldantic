@@ -130,7 +130,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/arguments.rs` | `crates/perldantic-core/src/validators/arguments.rs` | P2 | pending |  |
 | `validators/arguments_v3.rs` | `crates/perldantic-core/src/validators/arguments_v3.rs` | P2 | pending |  |
 | `validators/bool.rs` | `crates/perldantic-core/src/validators/bool.rs` | P0 | ported |  |
-| `validators/bytes.rs` | `crates/perldantic-core/src/validators/bytes.rs` | P0 | pending |  |
+| `validators/bytes.rs` | `crates/perldantic-core/src/validators/bytes.rs` | P0 | ported |  |
 | `validators/call.rs` | `crates/perldantic-core/src/validators/call.rs` | P2 | pending |  |
 | `validators/callable.rs` | `crates/perldantic-core/src/validators/callable.rs` | P2 | pending |  |
 | `validators/chain.rs` | `crates/perldantic-core/src/validators/chain.rs` | P1 | pending |  |
@@ -173,7 +173,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/set.rs` | `crates/perldantic-core/src/validators/set.rs` | P1 | pending |  |
 | `validators/shared/lookup_tree.rs` | `crates/perldantic-core/src/validators/shared/lookup_tree.rs` | P0 | pending |  |
 | `validators/shared/mod.rs` | `crates/perldantic-core/src/validators/shared/mod.rs` | P0 | pending |  |
-| `validators/string.rs` | `crates/perldantic-core/src/validators/string.rs` | P0 | pending |  |
+| `validators/string.rs` | `crates/perldantic-core/src/validators/string.rs` | P0 | ported | `python-re` engine unavailable (divergence 7); no regex LRU cache yet |
 | `validators/time.rs` | `crates/perldantic-core/src/validators/time.rs` | P1 | pending |  |
 | `validators/timedelta.rs` | `crates/perldantic-core/src/validators/timedelta.rs` | P1 | pending |  |
 | `validators/tuple.rs` | `crates/perldantic-core/src/validators/tuple.rs` | P0 | pending |  |
