@@ -1,6 +1,7 @@
 //! Line errors collected during validation. Port of upstream `errors/line_error.rs`.
 
 use crate::core_error::CoreError;
+use crate::input::{BorrowInput, Input};
 use crate::value::Value;
 
 use super::location::{LocItem, Location};
@@ -13,15 +14,9 @@ pub trait ToErrorValue {
     fn to_error_value(&self) -> Value;
 }
 
-impl ToErrorValue for Value {
+impl<T: BorrowInput> ToErrorValue for T {
     fn to_error_value(&self) -> Value {
-        self.clone()
-    }
-}
-
-impl<T: ToErrorValue + ?Sized> ToErrorValue for &T {
-    fn to_error_value(&self) -> Value {
-        (**self).to_error_value()
+        Input::as_error_value(self.borrow_input())
     }
 }
 

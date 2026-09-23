@@ -1,5 +1,17 @@
 //! Validation inputs. Port of upstream `input/`.
 
+mod input_abstract;
+mod input_json;
+mod input_value;
+mod return_enums;
+mod shared;
+
+pub use input_abstract::{
+    BorrowInput, ConsumeIterator, Input, Never, ValMatch, ValidatedDict, ValidatedList,
+    ValidatedTuple,
+};
+pub use return_enums::{EitherBytes, EitherFloat, EitherInt, EitherString, Int, ValidationMatch};
+
 /// The kind of input being validated; selects message wording (e.g. "None" vs "null").
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub enum InputType {
@@ -35,7 +47,10 @@ impl TryFrom<&str> for InputType {
 }
 
 #[cfg(test)]
-mod tests {
+mod tests;
+
+#[cfg(test)]
+mod input_type_tests {
     use super::InputType;
     use crate::CoreError;
 

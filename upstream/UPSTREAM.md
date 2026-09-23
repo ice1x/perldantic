@@ -52,13 +52,13 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `errors/validation_exception.rs` | `crates/perldantic-core/src/errors/validation_error.rs` | P0 | ported | renamed; `PyLineError` folded into `ErrorDetails` |
 | `errors/value_exception.rs` | `crates/perldantic-core/src/errors/value_exception.rs` | P0 | partial | custom-message formatting ported into `types.rs`; exception classes belong to the host |
 | `input/datetime.rs` | `crates/perldantic-core/src/input/datetime.rs` | P1 | pending |  |
-| `input/input_abstract.rs` | `crates/perldantic-core/src/input/input_abstract.rs` | P0 | pending |  |
-| `input/input_json.rs` | `crates/perldantic-core/src/input/input_json.rs` | P0 | pending |  |
-| `input/input_python.rs` | `crates/perldantic-core/src/input/input_value.rs` | P0 | pending | rewrite as Input for Value |
+| `input/input_abstract.rs` | `crates/perldantic-core/src/input/input_abstract.rs` | P0 | partial | P0 methods; more are added with their validators |
+| `input/input_json.rs` | `crates/perldantic-core/src/input/input_json.rs` | P0 | partial | P0 methods for JSON and `str` |
+| `input/input_python.rs` | `crates/perldantic-core/src/input/input_value.rs` | P0 | partial | rewritten as `Input for Value`; P0 methods |
 | `input/input_string.rs` | `crates/perldantic-core/src/input/input_string.rs` | P1 | pending | string-mode input (env/config values) |
-| `input/mod.rs` | `crates/perldantic-core/src/input/mod.rs` | P0 | pending |  |
-| `input/return_enums.rs` | `crates/perldantic-core/src/input/return_enums.rs` | P0 | pending |  |
-| `input/shared.rs` | `crates/perldantic-core/src/input/shared.rs` | P0 | pending |  |
+| `input/mod.rs` | `crates/perldantic-core/src/input/mod.rs` | P0 | ported |  |
+| `input/return_enums.rs` | `crates/perldantic-core/src/input/return_enums.rs` | P0 | partial | `ValidationMatch`, `Either*`, `Int`; iteration helpers pending |
+| `input/shared.rs` | `crates/perldantic-core/src/input/shared.rs` | P0 | ported | decimal/fraction helpers belong to P1/dropped types |
 | `lib.rs` | `crates/perldantic-core/src/lib.rs` | P0 | pending | rewrite: public Rust API, no #[pymodule] |
 | `lookup_key.rs` | `crates/perldantic-core/src/lookup_key.rs` | P0 | pending |  |
 | `py_gc.rs` | - | drop | dropped | Python GC integration |
@@ -128,7 +128,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/callable.rs` | `crates/perldantic-core/src/validators/callable.rs` | P2 | pending |  |
 | `validators/chain.rs` | `crates/perldantic-core/src/validators/chain.rs` | P1 | pending |  |
 | `validators/complex.rs` | - | drop | dropped | Python-only type |
-| `validators/config.rs` | `crates/perldantic-core/src/validators/config.rs` | P0 | pending |  |
+| `validators/config.rs` | `crates/perldantic-core/src/validators/config.rs` | P0 | partial | `ValBytesMode` / `BytesMode`; temporal modes pending |
 | `validators/counter.rs` | - | drop | dropped | Python-only type |
 | `validators/custom_error.rs` | `crates/perldantic-core/src/validators/custom_error.rs` | P0 | pending |  |
 | `validators/dataclass.rs` | - | drop | dropped | Python-only type |
