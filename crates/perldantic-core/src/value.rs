@@ -34,6 +34,31 @@ pub enum Value {
     Dict(Dict),
     /// A Python `set`: items are unique and their order carries no meaning.
     Set(Vec<Value>),
+    /// A model instance, built by `model` schemas.
+    Model(Box<Model>),
+}
+
+/// A model instance: what pydantic stores on a `BaseModel`. The class is identified by name;
+/// for Perl it is the package the host blesses the instance into.
+#[derive(Debug, Clone)]
+pub struct Model {
+    pub class: String,
+    /// Field values (`__dict__`); a root model has a single `root` field.
+    pub fields: Dict,
+    /// Names of the fields and extra values that came from the input
+    /// (`__pydantic_fields_set__`), as `Value::Str`s.
+    pub fields_set: Vec<Value>,
+    /// Extra values when extra fields are allowed (`__pydantic_extra__`).
+    pub extra: Option<Dict>,
+}
+
+impl PartialEq for Model {
+    fn eq(&self, other: &Self) -> bool {
+        self.class == other.class
+            && self.fields == other.fields
+            && same_items(&self.fields_set, &other.fields_set, |x, y| x == y)
+            && self.extra == other.extra
+    }
 }
 
 impl PartialEq for Value {
@@ -52,9 +77,20 @@ impl PartialEq for Value {
             (Self::List(a), Self::List(b)) | (Self::Tuple(a), Self::Tuple(b)) => a == b,
             (Self::Dict(a), Self::Dict(b)) => a == b,
             (Self::Set(a), Self::Set(b)) => same_items(a, b, |x, y| x == y),
+            (Self::Model(a), Self::Model(b)) => a == b,
             _ => false,
         }
     }
+}
+
+/// Python's `==` on dicts.
+fn dicts_py_eq(a: &Dict, b: &Dict) -> bool {
+    a.len() == b.len()
+        && a.iter().all(|(k, v)| {
+            b.iter()
+                .find(|(other_k, _)| k.py_eq(other_k))
+                .is_some_and(|(_, other_v)| v.py_eq(other_v))
+        })
 }
 
 /// Unordered comparison of set items.
@@ -87,14 +123,17 @@ impl Value {
                 a.len() == b.len() && a.iter().zip(b).all(|(x, y)| x.py_eq(y))
             }
             (Self::Set(a), Self::Set(b)) => same_items(a, b, Self::py_eq),
-            (Self::Dict(a), Self::Dict(b)) => {
-                a.len() == b.len()
-                    && a.iter().all(|(k, v)| {
-                        b.iter()
-                            .find(|(other_k, _)| k.py_eq(other_k))
-                            .is_some_and(|(_, other_v)| v.py_eq(other_v))
-                    })
+            // Like `BaseModel.__eq__`: same class, fields and extra; `fields_set` is ignored.
+            (Self::Model(a), Self::Model(b)) => {
+                a.class == b.class
+                    && dicts_py_eq(&a.fields, &b.fields)
+                    && match (&a.extra, &b.extra) {
+                        (Some(x), Some(y)) => dicts_py_eq(x, y),
+                        (None, None) => true,
+                        _ => false,
+                    }
             }
+            (Self::Dict(a), Self::Dict(b)) => dicts_py_eq(a, b),
             _ => false,
         }
     }
@@ -109,8 +148,8 @@ impl Value {
         }
     }
 
-    /// Python's `type(value).__name__`.
-    pub fn type_name(&self) -> &'static str {
+    /// Python's `type(value).__name__`; a model's class name for model instances.
+    pub fn type_name(&self) -> &str {
         match self {
             Self::None => "NoneType",
             Self::Bool(_) => "bool",
@@ -122,6 +161,7 @@ impl Value {
             Self::Tuple(_) => "tuple",
             Self::Dict(_) => "dict",
             Self::Set(_) => "set",
+            Self::Model(model) => &model.class,
         }
     }
 
@@ -154,6 +194,21 @@ impl Value {
                 out.push('[');
                 write_items(items, out);
                 out.push(']');
+            }
+            // `BaseModel.__repr__`: `Name(field=value, ...)`, extra values included.
+            Self::Model(model) => {
+                out.push_str(&model.class);
+                out.push('(');
+                let extra = model.extra.iter().flat_map(Dict::iter);
+                for (i, (k, v)) in model.fields.iter().chain(extra).enumerate() {
+                    if i > 0 {
+                        out.push_str(", ");
+                    }
+                    out.push_str(&k.py_str());
+                    out.push('=');
+                    v.write_repr(out);
+                }
+                out.push(')');
             }
             Self::Set(items) if items.is_empty() => out.push_str("set()"),
             Self::Set(items) => {
@@ -360,6 +415,15 @@ impl Serialize for Value {
             Self::Dict(dict) => {
                 let mut map = serializer.serialize_map(Some(dict.len()))?;
                 for (k, v) in dict.iter() {
+                    map.serialize_entry(&k.json_key(), v)?;
+                }
+                map.end()
+            }
+            // Like `model_dump`: the fields, then the extra values.
+            Self::Model(model) => {
+                let extra = model.extra.iter().flat_map(Dict::iter);
+                let mut map = serializer.serialize_map(None)?;
+                for (k, v) in model.fields.iter().chain(extra) {
                     map.serialize_entry(&k.json_key(), v)?;
                 }
                 map.end()

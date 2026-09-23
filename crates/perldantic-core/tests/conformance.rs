@@ -15,7 +15,7 @@ use std::path::{Path, PathBuf};
 use base64::Engine;
 use base64::engine::general_purpose::STANDARD;
 use perldantic_core::{
-    ErrorDetails, ErrorsOptions, ExtraBehavior, LocItem, PartialMode, SchemaValidator,
+    Dict, ErrorDetails, ErrorsOptions, ExtraBehavior, LocItem, Model, PartialMode, SchemaValidator,
     ValidateError, ValidateOptions, Value,
 };
 use serde_json::Value as Json;
@@ -41,6 +41,17 @@ fn case_files(dir: &Path, out: &mut Vec<PathBuf>) {
 
 /// Decode a tagged conformance value (see the README's "Value encoding").
 fn decode(json: &Json) -> Result<Value, Skip> {
+    decode_in(json, false)
+}
+
+/// Decode a schema or config: there a class (`$class`, e.g. a model's `cls`) is its name, as
+/// the core identifies model classes by name.
+fn decode_schema(json: &Json) -> Result<Value, Skip> {
+    decode_in(json, true)
+}
+
+fn decode_in(json: &Json, in_schema: bool) -> Result<Value, Skip> {
+    let decode = |j: &Json| decode_in(j, in_schema);
     Ok(match json {
         Json::Null => Value::None,
         Json::Bool(b) => Value::Bool(*b),
@@ -59,7 +70,7 @@ fn decode(json: &Json) -> Result<Value, Skip> {
             if map.len() == 1 {
                 let (tag, payload) = map.iter().next().unwrap();
                 if let Some(tag) = tag.strip_prefix('$') {
-                    return decode_tag(tag, payload);
+                    return decode_tag(tag, payload, in_schema);
                 }
             }
             Value::Dict(
@@ -71,9 +82,16 @@ fn decode(json: &Json) -> Result<Value, Skip> {
     })
 }
 
-fn decode_tag(tag: &str, payload: &Json) -> Result<Value, Skip> {
+fn decode_tag(tag: &str, payload: &Json, in_schema: bool) -> Result<Value, Skip> {
+    let decode = |j: &Json| decode_in(j, in_schema);
     let items = |p: &Json| -> Result<Vec<Value>, Skip> {
         p.as_array().unwrap().iter().map(decode).collect()
+    };
+    let dict = |p: &Json| -> Result<Dict, Skip> {
+        match decode(p)? {
+            Value::Dict(d) => Ok(d),
+            other => panic!("expected a dict, got {other:?}"),
+        }
     };
     Ok(match tag {
         "tuple" => Value::Tuple(items(payload)?),
@@ -92,6 +110,16 @@ fn decode_tag(tag: &str, payload: &Json) -> Result<Value, Skip> {
                 .map(|pair| Ok((decode(&pair[0])?, decode(&pair[1])?)))
                 .collect::<Result<_, Skip>>()?,
         ),
+        "class" if in_schema => Value::Str(payload.as_str().unwrap().to_owned()),
+        "model" => Value::Model(Box::new(Model {
+            class: payload["class"].as_str().unwrap().to_owned(),
+            fields: dict(&payload["fields"])?,
+            fields_set: items(&payload["fields_set"])?,
+            extra: match &payload["extra"] {
+                Json::Null => None,
+                extra => Some(dict(extra)?),
+            },
+        })),
         other => return Err(Skip(format!("value ${other}"))),
     })
 }
@@ -167,13 +195,25 @@ fn same_value(a: &Value, b: &Value) -> bool {
         (Value::List(x), Value::List(y)) | (Value::Tuple(x), Value::Tuple(y)) => {
             x.len() == y.len() && x.iter().zip(y).all(|(a, b)| same_value(a, b))
         }
-        (Value::Dict(x), Value::Dict(y)) => {
-            x.len() == y.len()
-                && x.iter()
-                    .all(|(k, v)| y.get(k).is_some_and(|w| same_value(v, w)))
+        (Value::Dict(x), Value::Dict(y)) => same_dict(x, y),
+        (Value::Model(x), Value::Model(y)) => {
+            x.class == y.class
+                && same_dict(&x.fields, &y.fields)
+                && Value::Set(x.fields_set.clone()) == Value::Set(y.fields_set.clone())
+                && match (&x.extra, &y.extra) {
+                    (Some(a), Some(b)) => same_dict(a, b),
+                    (None, None) => true,
+                    _ => false,
+                }
         }
         _ => a == b,
     }
+}
+
+fn same_dict(x: &Dict, y: &Dict) -> bool {
+    x.len() == y.len()
+        && x.iter()
+            .all(|(k, v)| y.get(k).is_some_and(|w| same_value(v, w)))
 }
 
 fn compare_errors(expected: &[Json], actual: &[ErrorDetails]) -> Result<(), String> {
@@ -213,10 +253,68 @@ fn divergence(case: &Json) -> Option<Skip> {
     if uses_python_re(&case["schema"]) || uses_python_re(&case["config"]) {
         return Some(Skip("divergence #7: python-re regex engine".into()));
     }
+    // Model classes are identified by name: no subclasses, proxies or builtin classes.
+    let mut classes = Vec::new();
+    json_classes(&case["schema"], &mut classes);
+    let builtin = [
+        "int", "str", "float", "bool", "bytes", "list", "tuple", "dict", "set",
+    ];
+    if classes.iter().any(|c| builtin.contains(&c.as_str()))
+        || has_foreign_model(&case["input"], &classes)
+    {
+        return Some(Skip("divergence #13: model classes by name".into()));
+    }
     // A set turned into a sequence comes out in Python's hash order.
     let output = &case["expected"]["output"];
     (has_multi_item_set(&case["input"]) && !output.is_null() && output.get("$set").is_none())
         .then(|| Skip("divergence #12: set iteration order".into()))
+}
+
+/// Every class (`$class`) named in a schema.
+fn json_classes(json: &Json, out: &mut Vec<String>) {
+    match json {
+        Json::Object(map) => match map.get("$class") {
+            Some(Json::String(name)) if map.len() == 1 => out.push(name.clone()),
+            _ => map.values().for_each(|v| json_classes(v, out)),
+        },
+        Json::Array(items) => items.iter().for_each(|v| json_classes(v, out)),
+        _ => {}
+    }
+}
+
+/// Whether the value holds a model instance of a class the schema does not name, e.g. a
+/// subclass instance.
+fn has_foreign_model(json: &Json, classes: &[String]) -> bool {
+    match json {
+        Json::Object(map) => match map.get("$model") {
+            Some(model) if map.len() == 1 => {
+                let class = model["class"].as_str().unwrap_or_default();
+                !classes.iter().any(|c| c == class)
+                    || has_foreign_model(&model["fields"], classes)
+                    || has_foreign_model(&model["extra"], classes)
+            }
+            _ => map.values().any(|v| has_foreign_model(v, classes)),
+        },
+        Json::Array(items) => items.iter().any(|v| has_foreign_model(v, classes)),
+        _ => false,
+    }
+}
+
+/// Schema features that call back into the host, which the core cannot do yet.
+fn needs_host_callbacks(schema: &Json) -> Option<&'static str> {
+    match schema {
+        Json::Object(map) => {
+            if map.get("post_init").is_some_and(|v| !v.is_null()) {
+                return Some("post_init");
+            }
+            if map.get("custom_init") == Some(&Json::Bool(true)) {
+                return Some("custom_init");
+            }
+            map.values().find_map(needs_host_callbacks)
+        }
+        Json::Array(items) => items.iter().find_map(needs_host_callbacks),
+        _ => None,
+    }
 }
 
 fn has_multi_item_set(json: &Json) -> bool {
@@ -230,6 +328,20 @@ fn has_multi_item_set(json: &Json) -> bool {
     }
 }
 
+/// Field entries of container schemas carry a `type` too, but are not validators: they are
+/// supported when their container is.
+const FIELD_TYPES: &[(&str, &str)] = &[("model-fields", "model-field")];
+
+fn supported_types() -> Vec<&'static str> {
+    let mut types = SchemaValidator::supported_schema_types().to_vec();
+    for (container, field) in FIELD_TYPES {
+        if types.contains(container) {
+            types.push(field);
+        }
+    }
+    types
+}
+
 /// Run one case: `Ok(Ok(()))` passed, `Ok(Err(msg))` failed, `Err(skip)` skipped.
 fn run_case(case: &Json, supported: &[&str]) -> Result<Result<(), String>, Skip> {
     if let Some(skip) = divergence(case) {
@@ -240,10 +352,13 @@ fn run_case(case: &Json, supported: &[&str]) -> Result<Result<(), String>, Skip>
     if let Some(t) = types.iter().find(|t| !supported.contains(&t.as_str())) {
         return Err(Skip(format!("schema type {t}")));
     }
-    let schema = decode(&case["schema"])?;
+    if let Some(feature) = needs_host_callbacks(&case["schema"]) {
+        return Err(Skip(format!("host callbacks: {feature}")));
+    }
+    let schema = decode_schema(&case["schema"])?;
     let config = match &case["config"] {
         Json::Null => None,
-        c => Some(decode(c)?),
+        c => Some(decode_schema(c)?),
     };
     let opts = options(&case["options"])?;
     let expected = &case["expected"];
@@ -306,7 +421,7 @@ fn replay_upstream_cases() {
     let mut files = Vec::new();
     case_files(&cases_root(), &mut files);
     files.sort();
-    let supported = SchemaValidator::supported_schema_types();
+    let supported = supported_types();
 
     let (mut total, mut passed) = (0, 0);
     let mut skipped: BTreeMap<String, usize> = BTreeMap::new();
@@ -315,7 +430,7 @@ fn replay_upstream_cases() {
         let cases: Vec<Json> = serde_json::from_str(&fs::read_to_string(file).unwrap()).unwrap();
         for case in &cases {
             total += 1;
-            match run_case(case, supported) {
+            match run_case(case, &supported) {
                 Ok(Ok(())) => passed += 1,
                 Ok(Err(msg)) => failures.push(format!("{}: {msg}", case["id"])),
                 Err(Skip(reason)) => *skipped.entry(reason).or_default() += 1,
@@ -370,6 +485,48 @@ fn decoder_handles_every_representable_tag() {
         decode(&serde_json::from_str::<Json>(r#"{"$function": "f"}"#).unwrap()),
         Err(Skip("value $function".into()))
     );
+    let class: Json = serde_json::from_str(r#"{"$class": "M"}"#).unwrap();
+    assert_eq!(decode_schema(&class), Ok(Value::from("M")));
+    assert_eq!(decode(&class), Err(Skip("value $class".into())));
+    let model: Json = serde_json::from_str(
+        r#"{"$model": {"class": "M", "fields": {"a": 1}, "fields_set": ["a"], "extra": null}}"#,
+    )
+    .unwrap();
+    let Value::Model(model) = decode(&model).unwrap() else {
+        panic!("expected a model")
+    };
+    assert_eq!(model.class, "M");
+    assert_eq!(model.fields_set, vec![Value::from("a")]);
+    assert_eq!(model.extra, None);
+}
+
+#[test]
+fn model_class_divergences_are_skipped() {
+    let case = |schema: &str, input: &str| -> Json {
+        serde_json::from_str(&format!(
+            r#"{{"schema": {schema}, "config": null, "mode": "python", "input": {input}, "options": {{}}, "expected": {{"output": 1}}}}"#
+        ))
+        .unwrap()
+    };
+    let model = r#"{"type": "model", "cls": {"$class": "M"}, "schema": {"type": "any"}}"#;
+    let sub = r#"{"$model": {"class": "Sub", "fields": {}, "fields_set": [], "extra": null}}"#;
+    let skip = Err(Skip("divergence #13: model classes by name".into()));
+    assert_eq!(run_case(&case(model, sub), &["model", "any"]), skip);
+    let builtin = r#"{"type": "model", "cls": {"$class": "int"}, "schema": {"type": "any"}}"#;
+    assert_eq!(run_case(&case(builtin, "1"), &["model", "any"]), skip);
+    let hook =
+        r#"{"type": "model", "cls": {"$class": "M"}, "post_init": "f", "schema": {"type": "any"}}"#;
+    assert_eq!(
+        run_case(&case(hook, "1"), &["model", "any"]),
+        Err(Skip("host callbacks: post_init".into()))
+    );
+}
+
+#[test]
+fn field_entries_are_supported_with_their_container() {
+    let types = supported_types();
+    assert!(types.contains(&"model-fields"));
+    assert!(types.contains(&"model-field"));
 }
 
 #[test]
