@@ -10,6 +10,7 @@ pub mod errors;
 pub mod input;
 mod lookup_key;
 pub(crate) mod recursion_guard;
+pub mod serializers;
 mod tools;
 pub(crate) mod validators;
 mod value;
@@ -22,6 +23,10 @@ pub use errors::{
 };
 pub use input::InputType;
 pub use jiter::PartialMode;
+pub use serializers::{
+    JsonOptions, SchemaSerializer, SerMode, SerializeError, SerializeOptions, Serialized,
+    UnexpectedValue, WarningsMode,
+};
 pub use validators::{SchemaValidator, ValidateError, ValidateOptions};
 pub use value::{Dict, Model, Value};
 

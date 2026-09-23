@@ -42,6 +42,11 @@ fn kind_names_the_equivalent_python_exception() {
             "KeyError",
         ),
         (
+            CoreError::UnicodeDecode(String::new()),
+            CoreErrorKind::UnicodeDecode,
+            "UnicodeDecodeError",
+        ),
+        (
             CoreError::Schema(String::new()),
             CoreErrorKind::Schema,
             "SchemaError",

@@ -35,7 +35,7 @@ mod string;
 mod tuple;
 mod union;
 pub(crate) mod validation_state;
-mod with_default;
+pub(crate) mod with_default;
 
 use validation_state::ValidationState;
 

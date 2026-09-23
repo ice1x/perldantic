@@ -35,7 +35,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00029 — Recursive types (core: `definitions`, `definition-ref`)
   - [x] 00030 — Lax-or-strict switch, custom errors (core: `lax-or-strict`, `custom-error`)
 - [ ] 00031 — Serialization & JSON Schema
-  - [ ] 00032 — Serializer `Value` → JSON (serde)
+  - [x] 00032 — Serializer `Value` → JSON (serde)
   - [ ] 00033 — Serializer `Value` → `Value`: include/exclude, by_alias, exclude_none/unset/defaults
   - [ ] 00034 — JSON Schema generator (Draft 2020-12, `$defs`) for P0 types
   - [ ] 00035 — Snapshot tests against pydantic output

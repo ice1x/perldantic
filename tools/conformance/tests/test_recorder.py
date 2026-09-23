@@ -141,6 +141,10 @@ def test_to_python_and_json():
     assert s.to_json(1) == b'1'
 
 
+def test_bytes_from_to_python_are_values():
+    assert SchemaSerializer({'type': 'bytes'}).to_python(b'ab') == b'ab'
+
+
 def test_warnings_are_recorded_and_still_raised():
     s = SchemaSerializer({'type': 'int'})
     with pytest.warns(UserWarning, match='Expected `int`'):
@@ -157,7 +161,7 @@ def test_records_serializer_calls(pytester):
     pytester.makepyfile(test_ser=SERIALIZER_TESTS)
     out = pytester.path / 'cases'
     result = pytester.runpytest('-p', 'conformance.recorder', f'--conformance-out={out}', '-q')
-    result.assert_outcomes(passed=3)
+    result.assert_outcomes(passed=4)
     cases = json.loads((out / 'test_ser.json').read_text())
     by_test = {}
     for case in cases:
@@ -173,6 +177,9 @@ def test_records_serializer_calls(pytester):
     assert json_case['mode'] == 'to_json'
     # JSON output is recorded as text.
     assert json_case['expected'] == {'json': '1'}
+
+    (bytes_case,) = by_test['test_bytes_from_to_python_are_values']
+    assert bytes_case['expected'] == {'output': {'$bytes': 'YWI='}}
 
     (warn_case,) = by_test['test_warnings_are_recorded_and_still_raised']
     assert warn_case['expected']['output'] == 'x'

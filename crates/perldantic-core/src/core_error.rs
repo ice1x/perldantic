@@ -19,6 +19,9 @@ pub enum CoreError {
     /// `Display` shows its repr.
     #[error("{}", crate::value::Value::Str(.0.clone()).repr())]
     Key(String),
+    /// Upstream `UnicodeDecodeError` (a `ValueError`): bytes that are not valid UTF-8.
+    #[error("{0}")]
+    UnicodeDecode(String),
     /// Upstream `SchemaError`: the core schema is invalid or misused.
     #[error("{0}")]
     Schema(String),
@@ -33,6 +36,7 @@ pub enum CoreErrorKind {
     Type,
     Value,
     Key,
+    UnicodeDecode,
     Schema,
     Internal,
 }
@@ -44,6 +48,7 @@ impl CoreErrorKind {
             Self::Type => "TypeError",
             Self::Value => "ValueError",
             Self::Key => "KeyError",
+            Self::UnicodeDecode => "UnicodeDecodeError",
             Self::Schema => "SchemaError",
             Self::Internal => "InternalError",
         }
@@ -56,6 +61,7 @@ impl CoreError {
             Self::Type(_) => CoreErrorKind::Type,
             Self::Value(_) => CoreErrorKind::Value,
             Self::Key(_) => CoreErrorKind::Key,
+            Self::UnicodeDecode(_) => CoreErrorKind::UnicodeDecode,
             Self::Schema(_) => CoreErrorKind::Schema,
             Self::Internal(_) => CoreErrorKind::Internal,
         }
@@ -63,9 +69,12 @@ impl CoreError {
 
     pub fn message(&self) -> &str {
         match self {
-            Self::Type(m) | Self::Value(m) | Self::Key(m) | Self::Schema(m) | Self::Internal(m) => {
-                m
-            }
+            Self::Type(m)
+            | Self::Value(m)
+            | Self::Key(m)
+            | Self::UnicodeDecode(m)
+            | Self::Schema(m)
+            | Self::Internal(m) => m,
         }
     }
 }
