@@ -1,0 +1,418 @@
+[
+ {
+  "id": "tests/test_config.py::test_config_model_defer_build[True]#0",
+  "test": "tests/test_config.py::test_config_model_defer_build[True]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "MyModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.test_config.test_config_model_defer_build.<locals>.MyModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "title": "X",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "x"
+    ],
+    "title": "MyModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_config.py::test_config_model_defer_build_nested[True]#0",
+  "test": "tests/test_config.py::test_config_model_defer_build_nested[True]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "y": {
+      "type": "model-field",
+      "schema": {
+       "type": "model",
+       "cls": {
+        "$class": "MyNestedModel"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {
+         "x": {
+          "type": "model-field",
+          "schema": {
+           "type": "int"
+          },
+          "metadata": {}
+         }
+        },
+        "model_name": "MyNestedModel",
+        "computed_fields": []
+       },
+       "custom_init": false,
+       "root_model": false,
+       "config": {
+        "title": "MyNestedModel"
+       },
+       "ref": "tests.test_config.test_config_model_defer_build_nested.<locals>.MyNestedModel:1"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "MyModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.test_config.test_config_model_defer_build_nested.<locals>.MyModel:2"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "MyNestedModel": {
+        "properties": {
+         "x": {
+          "title": "X",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "x"
+        ],
+        "title": "MyNestedModel",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "y": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/MyNestedModel"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "y"
+      ]
+     ],
+     [
+      "title",
+      "MyModel"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_config.py::test_config_model_type_adapter_defer_build[True]#0",
+  "test": "tests/test_config.py::test_config_model_type_adapter_defer_build[True]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "MyModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.test_config.test_config_model_type_adapter_defer_build.<locals>.MyModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "title": "X",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "x"
+    ],
+    "title": "MyModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_config.py::test_config_plain_type_adapter_defer_build[True]#0",
+  "test": "tests/test_config.py::test_config_plain_type_adapter_defer_build[True]",
+  "schema": {
+   "type": "dict",
+   "keys_schema": {
+    "type": "str"
+   },
+   "values_schema": {
+    "type": "int"
+   }
+  },
+  "config": {},
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "additionalProperties": {
+     "type": "integer"
+    },
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_config.py::test_defer_build_json_schema#0",
+  "test": "tests/test_config.py::test_defer_build_json_schema",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "M"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "a": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "M",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "M"
+   },
+   "ref": "tests.test_config.test_defer_build_json_schema.<locals>.M:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "a": {
+      "title": "A",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "a"
+    ],
+    "title": "M",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_config.py::test_partial_creation_with_defer_build#0",
+  "test": "tests/test_config.py::test_partial_creation_with_defer_build",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "M"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "a": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     },
+     "b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "M",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "M"
+   },
+   "ref": "tests.test_config.test_partial_creation_with_defer_build.<locals>.M:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "a": {
+      "title": "A",
+      "type": "integer"
+     },
+     "b": {
+      "title": "B",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "a",
+     "b"
+    ],
+    "title": "M",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_config.py::test_partial_creation_with_defer_build#1",
+  "test": "tests/test_config.py::test_partial_creation_with_defer_build",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "PartialM"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "a": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "nullable",
+        "schema": {
+         "type": "int"
+        }
+       },
+       "default": null
+      },
+      "metadata": {}
+     },
+     "b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "PartialM",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "PartialM"
+   },
+   "ref": "tests.test_config.PartialM:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "a": {
+      "anyOf": [
+       {
+        "type": "integer"
+       },
+       {
+        "type": "null"
+       }
+      ],
+      "default": null,
+      "title": "A"
+     },
+     "b": {
+      "title": "B",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "b"
+    ],
+    "title": "PartialM",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ }
+]

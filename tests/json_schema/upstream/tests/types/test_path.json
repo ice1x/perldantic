@@ -1,0 +1,689 @@
+[
+ {
+  "id": "tests/types/test_path.py::test_path_default#0",
+  "test": "tests/types/test_path.py::test_path_default",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Config"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "path": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "lax-or-strict",
+        "lax_schema": {
+         "type": "union",
+         "choices": [
+          {
+           "type": "json-or-python",
+           "json_schema": {
+            "type": "function-after",
+            "function": {
+             "type": "no-info",
+             "function": {
+              "$function": "path_validator"
+             }
+            },
+            "schema": {
+             "type": "str"
+            }
+           },
+           "python_schema": {
+            "type": "is-instance",
+            "cls": {
+             "$class": "Path"
+            }
+           }
+          },
+          {
+           "type": "function-after",
+           "function": {
+            "type": "no-info",
+            "function": {
+             "$function": "path_validator"
+            }
+           },
+           "schema": {
+            "type": "str",
+            "strict": true
+           }
+          }
+         ],
+         "custom_error_type": "path_type",
+         "custom_error_message": "Input is not a valid path for <class 'pathlib.Path'>"
+        },
+        "strict_schema": {
+         "type": "json-or-python",
+         "json_schema": {
+          "type": "function-after",
+          "function": {
+           "type": "no-info",
+           "function": {
+            "$function": "path_validator"
+           }
+          },
+          "schema": {
+           "type": "str"
+          }
+         },
+         "python_schema": {
+          "type": "is-instance",
+          "cls": {
+           "$class": "Path"
+          }
+         }
+        },
+        "metadata": {
+         "pydantic_js_functions": [
+          {
+           "$function": "<lambda>"
+          }
+         ]
+        },
+        "serialization": {
+         "type": "function-plain",
+         "function": {
+          "$function": "ser_path"
+         },
+         "info_arg": true
+        }
+       },
+       "default": {
+        "$object": "PosixPath"
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Config",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Config"
+   },
+   "ref": "tests.types.test_path.test_path_default.<locals>.Config:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "path": {
+      "default": "config.toml",
+      "format": "path",
+      "title": "Path",
+      "type": "string"
+     }
+    },
+    "title": "Config",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/types/test_path.py::test_path_like#0",
+  "test": "tests/types/test_path.py::test_path_like",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "foo": {
+      "type": "model-field",
+      "schema": {
+       "type": "lax-or-strict",
+       "lax_schema": {
+        "type": "union",
+        "choices": [
+         {
+          "type": "json-or-python",
+          "json_schema": {
+           "type": "function-after",
+           "function": {
+            "type": "no-info",
+            "function": {
+             "$function": "path_validator"
+            }
+           },
+           "schema": {
+            "type": "str"
+           }
+          },
+          "python_schema": {
+           "type": "is-instance",
+           "cls": {
+            "$class": "PathLike"
+           }
+          }
+         },
+         {
+          "type": "function-after",
+          "function": {
+           "type": "no-info",
+           "function": {
+            "$function": "path_validator"
+           }
+          },
+          "schema": {
+           "type": "str",
+           "strict": true
+          }
+         }
+        ],
+        "custom_error_type": "path_type",
+        "custom_error_message": "Input is not a valid path for <class 'os.PathLike'>"
+       },
+       "strict_schema": {
+        "type": "json-or-python",
+        "json_schema": {
+         "type": "function-after",
+         "function": {
+          "type": "no-info",
+          "function": {
+           "$function": "path_validator"
+          }
+         },
+         "schema": {
+          "type": "str"
+         }
+        },
+        "python_schema": {
+         "type": "is-instance",
+         "cls": {
+          "$class": "PathLike"
+         }
+        }
+       },
+       "metadata": {
+        "pydantic_js_functions": [
+         {
+          "$function": "<lambda>"
+         }
+        ]
+       },
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "ser_path"
+        },
+        "info_arg": true
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.types.test_path.test_path_like.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "foo": {
+      "format": "path",
+      "title": "Foo",
+      "type": "string"
+     }
+    },
+    "required": [
+     "foo"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/types/test_path.py::test_path_like_extra_subtype#0",
+  "test": "tests/types/test_path.py::test_path_like_extra_subtype",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "str_type": {
+      "type": "model-field",
+      "schema": {
+       "type": "lax-or-strict",
+       "lax_schema": {
+        "type": "union",
+        "choices": [
+         {
+          "type": "json-or-python",
+          "json_schema": {
+           "type": "function-after",
+           "function": {
+            "type": "no-info",
+            "function": {
+             "$function": "path_validator"
+            }
+           },
+           "schema": {
+            "type": "str"
+           }
+          },
+          "python_schema": {
+           "type": "is-instance",
+           "cls": {
+            "$class": "PathLike"
+           }
+          }
+         },
+         {
+          "type": "function-after",
+          "function": {
+           "type": "no-info",
+           "function": {
+            "$function": "path_validator"
+           }
+          },
+          "schema": {
+           "type": "str",
+           "strict": true
+          }
+         }
+        ],
+        "custom_error_type": "path_type",
+        "custom_error_message": "Input is not a valid path for <class 'os.PathLike'>"
+       },
+       "strict_schema": {
+        "type": "json-or-python",
+        "json_schema": {
+         "type": "function-after",
+         "function": {
+          "type": "no-info",
+          "function": {
+           "$function": "path_validator"
+          }
+         },
+         "schema": {
+          "type": "str"
+         }
+        },
+        "python_schema": {
+         "type": "is-instance",
+         "cls": {
+          "$class": "PathLike"
+         }
+        }
+       },
+       "metadata": {
+        "pydantic_js_functions": [
+         {
+          "$function": "<lambda>"
+         }
+        ]
+       },
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "ser_path"
+        },
+        "info_arg": true
+       }
+      },
+      "metadata": {}
+     },
+     "byte_type": {
+      "type": "model-field",
+      "schema": {
+       "type": "lax-or-strict",
+       "lax_schema": {
+        "type": "union",
+        "choices": [
+         {
+          "type": "json-or-python",
+          "json_schema": {
+           "type": "function-after",
+           "function": {
+            "type": "no-info",
+            "function": {
+             "$function": "path_validator"
+            }
+           },
+           "schema": {
+            "type": "bytes"
+           }
+          },
+          "python_schema": {
+           "type": "is-instance",
+           "cls": {
+            "$class": "PathLike"
+           }
+          }
+         },
+         {
+          "type": "function-after",
+          "function": {
+           "type": "no-info",
+           "function": {
+            "$function": "path_validator"
+           }
+          },
+          "schema": {
+           "type": "bytes",
+           "strict": true
+          }
+         }
+        ],
+        "custom_error_type": "path_type",
+        "custom_error_message": "Input is not a valid path for <class 'os.PathLike'>"
+       },
+       "strict_schema": {
+        "type": "json-or-python",
+        "json_schema": {
+         "type": "function-after",
+         "function": {
+          "type": "no-info",
+          "function": {
+           "$function": "path_validator"
+          }
+         },
+         "schema": {
+          "type": "bytes"
+         }
+        },
+        "python_schema": {
+         "type": "is-instance",
+         "cls": {
+          "$class": "PathLike"
+         }
+        }
+       },
+       "metadata": {
+        "pydantic_js_functions": [
+         {
+          "$function": "<lambda>"
+         }
+        ]
+       },
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "ser_path"
+        },
+        "info_arg": true
+       }
+      },
+      "metadata": {}
+     },
+     "any_type": {
+      "type": "model-field",
+      "schema": {
+       "type": "lax-or-strict",
+       "lax_schema": {
+        "type": "union",
+        "choices": [
+         {
+          "type": "json-or-python",
+          "json_schema": {
+           "type": "function-after",
+           "function": {
+            "type": "no-info",
+            "function": {
+             "$function": "path_validator"
+            }
+           },
+           "schema": {
+            "type": "str"
+           }
+          },
+          "python_schema": {
+           "type": "is-instance",
+           "cls": {
+            "$class": "PathLike"
+           }
+          }
+         },
+         {
+          "type": "function-after",
+          "function": {
+           "type": "no-info",
+           "function": {
+            "$function": "path_validator"
+           }
+          },
+          "schema": {
+           "type": "str",
+           "strict": true
+          }
+         }
+        ],
+        "custom_error_type": "path_type",
+        "custom_error_message": "Input is not a valid path for <class 'os.PathLike'>"
+       },
+       "strict_schema": {
+        "type": "json-or-python",
+        "json_schema": {
+         "type": "function-after",
+         "function": {
+          "type": "no-info",
+          "function": {
+           "$function": "path_validator"
+          }
+         },
+         "schema": {
+          "type": "str"
+         }
+        },
+        "python_schema": {
+         "type": "is-instance",
+         "cls": {
+          "$class": "PathLike"
+         }
+        }
+       },
+       "metadata": {
+        "pydantic_js_functions": [
+         {
+          "$function": "<lambda>"
+         }
+        ]
+       },
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "ser_path"
+        },
+        "info_arg": true
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.types.test_path.test_path_like_extra_subtype.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "str_type": {
+      "format": "path",
+      "title": "Str Type",
+      "type": "string"
+     },
+     "byte_type": {
+      "format": "path",
+      "title": "Byte Type",
+      "type": "string"
+     },
+     "any_type": {
+      "format": "path",
+      "title": "Any Type",
+      "type": "string"
+     }
+    },
+    "required": [
+     "str_type",
+     "byte_type",
+     "any_type"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/types/test_path.py::test_path_like_strict#0",
+  "test": "tests/types/test_path.py::test_path_like_strict",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "foo": {
+      "type": "model-field",
+      "schema": {
+       "type": "lax-or-strict",
+       "lax_schema": {
+        "type": "union",
+        "choices": [
+         {
+          "type": "json-or-python",
+          "json_schema": {
+           "type": "function-after",
+           "function": {
+            "type": "no-info",
+            "function": {
+             "$function": "path_validator"
+            }
+           },
+           "schema": {
+            "type": "str"
+           }
+          },
+          "python_schema": {
+           "type": "is-instance",
+           "cls": {
+            "$class": "PathLike"
+           }
+          }
+         },
+         {
+          "type": "function-after",
+          "function": {
+           "type": "no-info",
+           "function": {
+            "$function": "path_validator"
+           }
+          },
+          "schema": {
+           "type": "str",
+           "strict": true
+          }
+         }
+        ],
+        "custom_error_type": "path_type",
+        "custom_error_message": "Input is not a valid path for <class 'os.PathLike'>"
+       },
+       "strict_schema": {
+        "type": "json-or-python",
+        "json_schema": {
+         "type": "function-after",
+         "function": {
+          "type": "no-info",
+          "function": {
+           "$function": "path_validator"
+          }
+         },
+         "schema": {
+          "type": "str"
+         }
+        },
+        "python_schema": {
+         "type": "is-instance",
+         "cls": {
+          "$class": "PathLike"
+         }
+        }
+       },
+       "metadata": {
+        "pydantic_js_functions": [
+         {
+          "$function": "<lambda>"
+         }
+        ]
+       },
+       "serialization": {
+        "type": "function-plain",
+        "function": {
+         "$function": "ser_path"
+        },
+        "info_arg": true
+       }
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "strict": true,
+    "title": "Model"
+   },
+   "ref": "tests.types.test_path.test_path_like_strict.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "foo": {
+      "format": "path",
+      "title": "Foo",
+      "type": "string"
+     }
+    },
+    "required": [
+     "foo"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ }
+]

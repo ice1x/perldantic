@@ -1,0 +1,1916 @@
+[
+ {
+  "id": "tests/types/unions/test_discriminated_union.py::test_discriminated_union_nested_type_alias#0",
+  "test": "tests/types/unions/test_discriminated_union.py::test_discriminated_union_nested_type_alias",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "model",
+    "cls": {
+     "$class": "Main"
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "f": {
+       "type": "model-field",
+       "schema": {
+        "type": "tagged-union",
+        "choices": {
+         "foo1": {
+          "type": "definition-ref",
+          "schema_ref": "tests.types.unions.test_discriminated_union.Foos:1"
+         },
+         "foo2": {
+          "type": "definition-ref",
+          "schema_ref": "tests.types.unions.test_discriminated_union.Foos:1"
+         },
+         "bar": {
+          "type": "model",
+          "cls": {
+           "$class": "Bar"
+          },
+          "schema": {
+           "type": "model-fields",
+           "fields": {
+            "type": {
+             "type": "model-field",
+             "schema": {
+              "type": "literal",
+              "expected": [
+               "bar"
+              ]
+             },
+             "metadata": {}
+            }
+           },
+           "model_name": "Bar",
+           "computed_fields": []
+          },
+          "custom_init": false,
+          "root_model": false,
+          "config": {
+           "title": "Bar"
+          },
+          "ref": "tests.types.unions.test_discriminated_union.test_discriminated_union_nested_type_alias.<locals>.Bar:2"
+         }
+        },
+        "discriminator": "type",
+        "strict": false,
+        "from_attributes": true
+       },
+       "metadata": {}
+      }
+     },
+     "model_name": "Main",
+     "computed_fields": []
+    },
+    "custom_init": false,
+    "root_model": false,
+    "config": {
+     "title": "Main"
+    },
+    "ref": "tests.types.unions.test_discriminated_union.test_discriminated_union_nested_type_alias.<locals>.Main:3"
+   },
+   "definitions": [
+    {
+     "type": "union",
+     "choices": [
+      {
+       "type": "definition-ref",
+       "schema_ref": "tests.types.unions.test_discriminated_union.test_discriminated_union_nested_type_alias.<locals>.Foo1:4"
+      },
+      {
+       "type": "definition-ref",
+       "schema_ref": "tests.types.unions.test_discriminated_union.test_discriminated_union_nested_type_alias.<locals>.Foo2:5"
+      }
+     ],
+     "ref": "tests.types.unions.test_discriminated_union.Foos:1"
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Foo1"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "type": {
+        "type": "model-field",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "foo1"
+         ]
+        },
+        "metadata": {}
+       }
+      },
+      "model_name": "Foo1",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "Foo1"
+     },
+     "ref": "tests.types.unions.test_discriminated_union.test_discriminated_union_nested_type_alias.<locals>.Foo1:4"
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Foo2"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "type": {
+        "type": "model-field",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "foo2"
+         ]
+        },
+        "metadata": {}
+       }
+      },
+      "model_name": "Foo2",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "Foo2"
+     },
+     "ref": "tests.types.unions.test_discriminated_union.test_discriminated_union_nested_type_alias.<locals>.Foo2:5"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Bar": {
+        "properties": {
+         "type": {
+          "const": "bar",
+          "title": "Type",
+          "type": "string"
+         }
+        },
+        "required": [
+         "type"
+        ],
+        "title": "Bar",
+        "type": "object"
+       },
+       "Foo1": {
+        "properties": {
+         "type": {
+          "const": "foo1",
+          "title": "Type",
+          "type": "string"
+         }
+        },
+        "required": [
+         "type"
+        ],
+        "title": "Foo1",
+        "type": "object"
+       },
+       "Foo2": {
+        "properties": {
+         "type": {
+          "const": "foo2",
+          "title": "Type",
+          "type": "string"
+         }
+        },
+        "required": [
+         "type"
+        ],
+        "title": "Foo2",
+        "type": "object"
+       },
+       "Foos": {
+        "anyOf": [
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/Foo1"
+           ]
+          ]
+         },
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/Foo2"
+           ]
+          ]
+         }
+        ]
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "f": {
+        "discriminator": {
+         "mapping": {
+          "bar": "#/$defs/Bar",
+          "foo1": "#/$defs/Foos",
+          "foo2": "#/$defs/Foos"
+         },
+         "propertyName": "type"
+        },
+        "oneOf": [
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/Foos"
+           ]
+          ]
+         },
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/Bar"
+           ]
+          ]
+         }
+        ],
+        "title": "F"
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "f"
+      ]
+     ],
+     [
+      "title",
+      "Main"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/types/unions/test_discriminated_union.py::test_discriminated_union_type_alias_type_not_union#0",
+  "test": "tests/types/unions/test_discriminated_union.py::test_discriminated_union_type_alias_type_not_union",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Main"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "f": {
+      "type": "model-field",
+      "schema": {
+       "type": "tagged-union",
+       "choices": {
+        "foo": {
+         "type": "model",
+         "cls": {
+          "$class": "Foo"
+         },
+         "schema": {
+          "type": "model-fields",
+          "fields": {
+           "type": {
+            "type": "model-field",
+            "schema": {
+             "type": "default",
+             "schema": {
+              "type": "literal",
+              "expected": [
+               "foo"
+              ]
+             },
+             "default": "foo"
+            },
+            "metadata": {}
+           }
+          },
+          "model_name": "Foo",
+          "computed_fields": []
+         },
+         "custom_init": false,
+         "root_model": false,
+         "config": {
+          "title": "Foo"
+         },
+         "ref": "tests.types.unions.test_discriminated_union.test_discriminated_union_type_alias_type_not_union.<locals>.Foo:1"
+        }
+       },
+       "discriminator": "type",
+       "strict": false,
+       "from_attributes": true,
+       "metadata": {},
+       "ref": "tests.types.unions.test_discriminated_union.Disc:2"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Main",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Main"
+   },
+   "ref": "tests.types.unions.test_discriminated_union.test_discriminated_union_type_alias_type_not_union.<locals>.Main:3"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Disc": {
+        "discriminator": {
+         "mapping": {
+          "foo": "#/$defs/Foo"
+         },
+         "propertyName": "type"
+        },
+        "oneOf": [
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/Foo"
+           ]
+          ]
+         }
+        ]
+       },
+       "Foo": {
+        "properties": {
+         "type": {
+          "const": "foo",
+          "default": "foo",
+          "title": "Type",
+          "type": "string"
+         }
+        },
+        "title": "Foo",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "f": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Disc"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "f"
+      ]
+     ],
+     [
+      "title",
+      "Main"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/types/unions/test_discriminated_union.py::test_discriminated_union_type_alias_type_separate#0",
+  "test": "tests/types/unions/test_discriminated_union.py::test_discriminated_union_type_alias_type_separate",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Main"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "f": {
+      "type": "model-field",
+      "schema": {
+       "type": "tagged-union",
+       "choices": {
+        "foo": {
+         "type": "model",
+         "cls": {
+          "$class": "Foo"
+         },
+         "schema": {
+          "type": "model-fields",
+          "fields": {
+           "type": {
+            "type": "model-field",
+            "schema": {
+             "type": "literal",
+             "expected": [
+              "foo"
+             ]
+            },
+            "metadata": {}
+           }
+          },
+          "model_name": "Foo",
+          "computed_fields": []
+         },
+         "custom_init": false,
+         "root_model": false,
+         "config": {
+          "title": "Foo"
+         },
+         "ref": "tests.types.unions.test_discriminated_union.test_discriminated_union_type_alias_type_separate.<locals>.Foo:1"
+        },
+        "bar": {
+         "type": "model",
+         "cls": {
+          "$class": "Bar"
+         },
+         "schema": {
+          "type": "model-fields",
+          "fields": {
+           "type": {
+            "type": "model-field",
+            "schema": {
+             "type": "literal",
+             "expected": [
+              "bar"
+             ]
+            },
+            "metadata": {}
+           }
+          },
+          "model_name": "Bar",
+          "computed_fields": []
+         },
+         "custom_init": false,
+         "root_model": false,
+         "config": {
+          "title": "Bar"
+         },
+         "ref": "tests.types.unions.test_discriminated_union.test_discriminated_union_type_alias_type_separate.<locals>.Bar:2"
+        }
+       },
+       "discriminator": "type",
+       "strict": false,
+       "from_attributes": true
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Main",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Main"
+   },
+   "ref": "tests.types.unions.test_discriminated_union.test_discriminated_union_type_alias_type_separate.<locals>.Main:3"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Bar": {
+        "properties": {
+         "type": {
+          "const": "bar",
+          "title": "Type",
+          "type": "string"
+         }
+        },
+        "required": [
+         "type"
+        ],
+        "title": "Bar",
+        "type": "object"
+       },
+       "Foo": {
+        "properties": {
+         "type": {
+          "const": "foo",
+          "title": "Type",
+          "type": "string"
+         }
+        },
+        "required": [
+         "type"
+        ],
+        "title": "Foo",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "f": {
+        "discriminator": {
+         "mapping": {
+          "bar": "#/$defs/Bar",
+          "foo": "#/$defs/Foo"
+         },
+         "propertyName": "type"
+        },
+        "oneOf": [
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/Foo"
+           ]
+          ]
+         },
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/Bar"
+           ]
+          ]
+         }
+        ],
+        "title": "F"
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "f"
+      ]
+     ],
+     [
+      "title",
+      "Main"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/types/unions/test_discriminated_union.py::test_nested_discriminator#0",
+  "test": "tests/types/unions/test_discriminated_union.py::test_nested_discriminator",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "model",
+    "cls": {
+     "$class": "MyModel"
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "type": {
+       "type": "model-field",
+       "schema": {
+        "type": "literal",
+        "expected": [
+         "mixed"
+        ]
+       },
+       "metadata": {}
+      },
+      "sub_models": {
+       "type": "model-field",
+       "schema": {
+        "type": "list",
+        "items_schema": {
+         "type": "definition-ref",
+         "schema_ref": "tests.types.unions.test_discriminated_union.test_nested_discriminator.<locals>.SubModel:1"
+        }
+       },
+       "metadata": {}
+      },
+      "steps": {
+       "type": "model-field",
+       "schema": {
+        "type": "default",
+        "schema": {
+         "type": "tagged-union",
+         "choices": {
+          "stepA": {
+           "type": "model",
+           "cls": {
+            "$class": "Step_A"
+           },
+           "schema": {
+            "type": "model-fields",
+            "fields": {
+             "type": {
+              "type": "model-field",
+              "schema": {
+               "type": "literal",
+               "expected": [
+                "stepA"
+               ]
+              },
+              "metadata": {}
+             },
+             "count": {
+              "type": "model-field",
+              "schema": {
+               "type": "int"
+              },
+              "metadata": {}
+             }
+            },
+            "model_name": "Step_A",
+            "computed_fields": []
+           },
+           "custom_init": false,
+           "root_model": false,
+           "config": {
+            "title": "Step_A"
+           },
+           "ref": "tests.types.unions.test_discriminated_union.test_nested_discriminator.<locals>.Step_A:2"
+          },
+          "stepB": {
+           "type": "model",
+           "cls": {
+            "$class": "Step_B"
+           },
+           "schema": {
+            "type": "model-fields",
+            "fields": {
+             "type": {
+              "type": "model-field",
+              "schema": {
+               "type": "literal",
+               "expected": [
+                "stepB"
+               ]
+              },
+              "metadata": {}
+             },
+             "value": {
+              "type": "model-field",
+              "schema": {
+               "type": "float"
+              },
+              "metadata": {}
+             }
+            },
+            "model_name": "Step_B",
+            "computed_fields": []
+           },
+           "custom_init": false,
+           "root_model": false,
+           "config": {
+            "title": "Step_B"
+           },
+           "ref": "tests.types.unions.test_discriminated_union.test_nested_discriminator.<locals>.Step_B:3"
+          }
+         },
+         "discriminator": "type",
+         "strict": false,
+         "from_attributes": true
+        },
+        "default": null
+       },
+       "metadata": {}
+      }
+     },
+     "model_name": "MyModel",
+     "computed_fields": []
+    },
+    "custom_init": false,
+    "root_model": false,
+    "config": {
+     "title": "MyModel"
+    },
+    "ref": "tests.types.unions.test_discriminated_union.test_nested_discriminator.<locals>.MyModel:4"
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "SubModel"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "type": {
+        "type": "model-field",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "mixed"
+         ]
+        },
+        "metadata": {}
+       },
+       "sub_models": {
+        "type": "model-field",
+        "schema": {
+         "type": "list",
+         "items_schema": {
+          "type": "definition-ref",
+          "schema_ref": "tests.types.unions.test_discriminated_union.test_nested_discriminator.<locals>.SubModel:1"
+         }
+        },
+        "metadata": {}
+       },
+       "steps": {
+        "type": "model-field",
+        "schema": {
+         "type": "default",
+         "schema": {
+          "type": "tagged-union",
+          "choices": {
+           "stepA": {
+            "type": "model",
+            "cls": {
+             "$class": "Step_A"
+            },
+            "schema": {
+             "type": "model-fields",
+             "fields": {
+              "type": {
+               "type": "model-field",
+               "schema": {
+                "type": "literal",
+                "expected": [
+                 "stepA"
+                ]
+               },
+               "metadata": {}
+              },
+              "count": {
+               "type": "model-field",
+               "schema": {
+                "type": "int"
+               },
+               "metadata": {}
+              }
+             },
+             "model_name": "Step_A",
+             "computed_fields": []
+            },
+            "custom_init": false,
+            "root_model": false,
+            "config": {
+             "title": "Step_A"
+            },
+            "ref": "tests.types.unions.test_discriminated_union.test_nested_discriminator.<locals>.Step_A:2"
+           },
+           "stepB": {
+            "type": "model",
+            "cls": {
+             "$class": "Step_B"
+            },
+            "schema": {
+             "type": "model-fields",
+             "fields": {
+              "type": {
+               "type": "model-field",
+               "schema": {
+                "type": "literal",
+                "expected": [
+                 "stepB"
+                ]
+               },
+               "metadata": {}
+              },
+              "value": {
+               "type": "model-field",
+               "schema": {
+                "type": "float"
+               },
+               "metadata": {}
+              }
+             },
+             "model_name": "Step_B",
+             "computed_fields": []
+            },
+            "custom_init": false,
+            "root_model": false,
+            "config": {
+             "title": "Step_B"
+            },
+            "ref": "tests.types.unions.test_discriminated_union.test_nested_discriminator.<locals>.Step_B:3"
+           }
+          },
+          "discriminator": "type",
+          "strict": false,
+          "from_attributes": true
+         },
+         "default": null
+        },
+        "metadata": {}
+       },
+       "blending": {
+        "type": "model-field",
+        "schema": {
+         "type": "float"
+        },
+        "metadata": {}
+       }
+      },
+      "model_name": "SubModel",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "SubModel"
+     },
+     "ref": "tests.types.unions.test_discriminated_union.test_nested_discriminator.<locals>.SubModel:1"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Step_A": {
+        "properties": {
+         "type": {
+          "const": "stepA",
+          "title": "Type",
+          "type": "string"
+         },
+         "count": {
+          "title": "Count",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "type",
+         "count"
+        ],
+        "title": "Step_A",
+        "type": "object"
+       },
+       "Step_B": {
+        "properties": {
+         "type": {
+          "const": "stepB",
+          "title": "Type",
+          "type": "string"
+         },
+         "value": {
+          "title": "Value",
+          "type": "number"
+         }
+        },
+        "required": [
+         "type",
+         "value"
+        ],
+        "title": "Step_B",
+        "type": "object"
+       },
+       "SubModel": {
+        "properties": {
+         "type": {
+          "const": "mixed",
+          "title": "Type",
+          "type": "string"
+         },
+         "sub_models": {
+          "items": {
+           "$dict": [
+            [
+             "$ref",
+             "#/$defs/SubModel"
+            ]
+           ]
+          },
+          "title": "Sub Models",
+          "type": "array"
+         },
+         "steps": {
+          "default": null,
+          "discriminator": {
+           "mapping": {
+            "stepA": "#/$defs/Step_A",
+            "stepB": "#/$defs/Step_B"
+           },
+           "propertyName": "type"
+          },
+          "oneOf": [
+           {
+            "$dict": [
+             [
+              "$ref",
+              "#/$defs/Step_A"
+             ]
+            ]
+           },
+           {
+            "$dict": [
+             [
+              "$ref",
+              "#/$defs/Step_B"
+             ]
+            ]
+           }
+          ],
+          "title": "Steps"
+         },
+         "blending": {
+          "title": "Blending",
+          "type": "number"
+         }
+        },
+        "required": [
+         "type",
+         "sub_models",
+         "blending"
+        ],
+        "title": "SubModel",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "type": {
+        "const": "mixed",
+        "title": "Type",
+        "type": "string"
+       },
+       "sub_models": {
+        "items": {
+         "$dict": [
+          [
+           "$ref",
+           "#/$defs/SubModel"
+          ]
+         ]
+        },
+        "title": "Sub Models",
+        "type": "array"
+       },
+       "steps": {
+        "default": null,
+        "discriminator": {
+         "mapping": {
+          "stepA": "#/$defs/Step_A",
+          "stepB": "#/$defs/Step_B"
+         },
+         "propertyName": "type"
+        },
+        "oneOf": [
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/Step_A"
+           ]
+          ]
+         },
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/Step_B"
+           ]
+          ]
+         }
+        ],
+        "title": "Steps"
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "type",
+       "sub_models"
+      ]
+     ],
+     [
+      "title",
+      "MyModel"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/types/unions/test_discriminated_union.py::test_sequence_discriminated_union#0",
+  "test": "tests/types/unions/test_discriminated_union.py::test_sequence_discriminated_union",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "model",
+    "cls": {
+     "$class": "Model"
+    },
+    "schema": {
+     "type": "model-fields",
+     "fields": {
+      "pet": {
+       "type": "model-field",
+       "schema": {
+        "type": "json-or-python",
+        "json_schema": {
+         "type": "list",
+         "items_schema": {
+          "type": "tagged-union",
+          "choices": {
+           "cat": {
+            "type": "definition-ref",
+            "schema_ref": "tests.types.unions.test_discriminated_union.test_sequence_discriminated_union.<locals>.Cat:1"
+           },
+           "dog": {
+            "type": "definition-ref",
+            "schema_ref": "tests.types.unions.test_discriminated_union.test_sequence_discriminated_union.<locals>.Dog:2"
+           },
+           "reptile": {
+            "type": "definition-ref",
+            "schema_ref": "tests.types.unions.test_discriminated_union.test_sequence_discriminated_union.<locals>.Lizard:3"
+           },
+           "lizard": {
+            "type": "definition-ref",
+            "schema_ref": "tests.types.unions.test_discriminated_union.test_sequence_discriminated_union.<locals>.Lizard:3"
+           }
+          },
+          "discriminator": "pet_type",
+          "strict": false,
+          "from_attributes": true,
+          "metadata": {}
+         }
+        },
+        "python_schema": {
+         "type": "chain",
+         "steps": [
+          {
+           "type": "is-instance",
+           "cls": {
+            "$function": "Sequence"
+           },
+           "cls_repr": "Sequence"
+          },
+          {
+           "type": "function-wrap",
+           "function": {
+            "type": "no-info",
+            "function": {
+             "$function": "sequence_validator"
+            }
+           },
+           "schema": {
+            "type": "list",
+            "items_schema": {
+             "type": "tagged-union",
+             "choices": {
+              "cat": {
+               "type": "definition-ref",
+               "schema_ref": "tests.types.unions.test_discriminated_union.test_sequence_discriminated_union.<locals>.Cat:1"
+              },
+              "dog": {
+               "type": "definition-ref",
+               "schema_ref": "tests.types.unions.test_discriminated_union.test_sequence_discriminated_union.<locals>.Dog:2"
+              },
+              "reptile": {
+               "type": "definition-ref",
+               "schema_ref": "tests.types.unions.test_discriminated_union.test_sequence_discriminated_union.<locals>.Lizard:3"
+              },
+              "lizard": {
+               "type": "definition-ref",
+               "schema_ref": "tests.types.unions.test_discriminated_union.test_sequence_discriminated_union.<locals>.Lizard:3"
+              }
+             },
+             "discriminator": "pet_type",
+             "strict": false,
+             "from_attributes": true,
+             "metadata": {}
+            }
+           }
+          }
+         ]
+        },
+        "serialization": {
+         "type": "function-wrap",
+         "function": {
+          "$function": "serialize_sequence_via_list"
+         },
+         "info_arg": true,
+         "schema": {
+          "type": "tagged-union",
+          "choices": {
+           "cat": {
+            "type": "definition-ref",
+            "schema_ref": "tests.types.unions.test_discriminated_union.test_sequence_discriminated_union.<locals>.Cat:1"
+           },
+           "dog": {
+            "type": "definition-ref",
+            "schema_ref": "tests.types.unions.test_discriminated_union.test_sequence_discriminated_union.<locals>.Dog:2"
+           },
+           "reptile": {
+            "type": "definition-ref",
+            "schema_ref": "tests.types.unions.test_discriminated_union.test_sequence_discriminated_union.<locals>.Lizard:3"
+           },
+           "lizard": {
+            "type": "definition-ref",
+            "schema_ref": "tests.types.unions.test_discriminated_union.test_sequence_discriminated_union.<locals>.Lizard:3"
+           }
+          },
+          "discriminator": "pet_type",
+          "strict": false,
+          "from_attributes": true,
+          "metadata": {}
+         }
+        }
+       },
+       "metadata": {}
+      },
+      "n": {
+       "type": "model-field",
+       "schema": {
+        "type": "int"
+       },
+       "metadata": {}
+      }
+     },
+     "model_name": "Model",
+     "computed_fields": []
+    },
+    "custom_init": false,
+    "root_model": false,
+    "config": {
+     "title": "Model"
+    },
+    "ref": "tests.types.unions.test_discriminated_union.test_sequence_discriminated_union.<locals>.Model:4"
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Cat"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "pet_type": {
+        "type": "model-field",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "cat"
+         ]
+        },
+        "metadata": {}
+       },
+       "meows": {
+        "type": "model-field",
+        "schema": {
+         "type": "int"
+        },
+        "metadata": {}
+       }
+      },
+      "model_name": "Cat",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "Cat"
+     },
+     "ref": "tests.types.unions.test_discriminated_union.test_sequence_discriminated_union.<locals>.Cat:1"
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Dog"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "pet_type": {
+        "type": "model-field",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "dog"
+         ]
+        },
+        "metadata": {}
+       },
+       "barks": {
+        "type": "model-field",
+        "schema": {
+         "type": "float"
+        },
+        "metadata": {}
+       }
+      },
+      "model_name": "Dog",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "Dog"
+     },
+     "ref": "tests.types.unions.test_discriminated_union.test_sequence_discriminated_union.<locals>.Dog:2"
+    },
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Lizard"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "pet_type": {
+        "type": "model-field",
+        "schema": {
+         "type": "literal",
+         "expected": [
+          "reptile",
+          "lizard"
+         ]
+        },
+        "metadata": {}
+       },
+       "scales": {
+        "type": "model-field",
+        "schema": {
+         "type": "bool"
+        },
+        "metadata": {}
+       }
+      },
+      "model_name": "Lizard",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "Lizard"
+     },
+     "ref": "tests.types.unions.test_discriminated_union.test_sequence_discriminated_union.<locals>.Lizard:3"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Cat": {
+        "properties": {
+         "pet_type": {
+          "const": "cat",
+          "title": "Pet Type",
+          "type": "string"
+         },
+         "meows": {
+          "title": "Meows",
+          "type": "integer"
+         }
+        },
+        "required": [
+         "pet_type",
+         "meows"
+        ],
+        "title": "Cat",
+        "type": "object"
+       },
+       "Dog": {
+        "properties": {
+         "pet_type": {
+          "const": "dog",
+          "title": "Pet Type",
+          "type": "string"
+         },
+         "barks": {
+          "title": "Barks",
+          "type": "number"
+         }
+        },
+        "required": [
+         "pet_type",
+         "barks"
+        ],
+        "title": "Dog",
+        "type": "object"
+       },
+       "Lizard": {
+        "properties": {
+         "pet_type": {
+          "enum": [
+           "reptile",
+           "lizard"
+          ],
+          "title": "Pet Type",
+          "type": "string"
+         },
+         "scales": {
+          "title": "Scales",
+          "type": "boolean"
+         }
+        },
+        "required": [
+         "pet_type",
+         "scales"
+        ],
+        "title": "Lizard",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "pet": {
+        "items": {
+         "discriminator": {
+          "mapping": {
+           "cat": "#/$defs/Cat",
+           "dog": "#/$defs/Dog",
+           "lizard": "#/$defs/Lizard",
+           "reptile": "#/$defs/Lizard"
+          },
+          "propertyName": "pet_type"
+         },
+         "oneOf": [
+          {
+           "$dict": [
+            [
+             "$ref",
+             "#/$defs/Cat"
+            ]
+           ]
+          },
+          {
+           "$dict": [
+            [
+             "$ref",
+             "#/$defs/Dog"
+            ]
+           ]
+          },
+          {
+           "$dict": [
+            [
+             "$ref",
+             "#/$defs/Lizard"
+            ]
+           ]
+          }
+         ]
+        },
+        "title": "Pet",
+        "type": "array"
+       },
+       "n": {
+        "title": "N",
+        "type": "integer"
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "pet",
+       "n"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/types/unions/test_discriminated_union.py::test_union_in_submodel#0",
+  "test": "tests/types/unions/test_discriminated_union.py::test_union_in_submodel",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "TestModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "submodel": {
+      "type": "model-field",
+      "schema": {
+       "type": "union",
+       "choices": [
+        {
+         "type": "model",
+         "cls": {
+          "$class": "SubModel1"
+         },
+         "schema": {
+          "type": "model-fields",
+          "fields": {
+           "union_model": {
+            "type": "model-field",
+            "schema": {
+             "type": "tagged-union",
+             "choices": {
+              "$dict": [
+               [
+                1,
+                {
+                 "type": "model",
+                 "cls": {
+                  "$class": "UnionModel1"
+                 },
+                 "schema": {
+                  "type": "model-fields",
+                  "fields": {
+                   "type": {
+                    "type": "model-field",
+                    "schema": {
+                     "type": "default",
+                     "schema": {
+                      "type": "literal",
+                      "expected": [
+                       1
+                      ]
+                     },
+                     "default": 1
+                    },
+                    "metadata": {}
+                   },
+                   "other": {
+                    "type": "model-field",
+                    "schema": {
+                     "type": "default",
+                     "schema": {
+                      "type": "literal",
+                      "expected": [
+                       "UnionModel1"
+                      ]
+                     },
+                     "default": "UnionModel1"
+                    },
+                    "metadata": {}
+                   }
+                  },
+                  "model_name": "UnionModel1",
+                  "computed_fields": []
+                 },
+                 "custom_init": false,
+                 "root_model": false,
+                 "config": {
+                  "title": "UnionModel1"
+                 },
+                 "ref": "tests.types.unions.test_discriminated_union.test_union_in_submodel.<locals>.UnionModel1:1"
+                }
+               ],
+               [
+                2,
+                {
+                 "type": "model",
+                 "cls": {
+                  "$class": "UnionModel2"
+                 },
+                 "schema": {
+                  "type": "model-fields",
+                  "fields": {
+                   "type": {
+                    "type": "model-field",
+                    "schema": {
+                     "type": "default",
+                     "schema": {
+                      "type": "literal",
+                      "expected": [
+                       2
+                      ]
+                     },
+                     "default": 2
+                    },
+                    "metadata": {}
+                   },
+                   "other": {
+                    "type": "model-field",
+                    "schema": {
+                     "type": "default",
+                     "schema": {
+                      "type": "literal",
+                      "expected": [
+                       "UnionModel2"
+                      ]
+                     },
+                     "default": "UnionModel2"
+                    },
+                    "metadata": {}
+                   }
+                  },
+                  "model_name": "UnionModel2",
+                  "computed_fields": []
+                 },
+                 "custom_init": false,
+                 "root_model": false,
+                 "config": {
+                  "title": "UnionModel2"
+                 },
+                 "ref": "tests.types.unions.test_discriminated_union.test_union_in_submodel.<locals>.UnionModel2:2"
+                }
+               ]
+              ]
+             },
+             "discriminator": "type",
+             "strict": false,
+             "from_attributes": true
+            },
+            "metadata": {}
+           }
+          },
+          "model_name": "SubModel1",
+          "computed_fields": []
+         },
+         "custom_init": false,
+         "root_model": false,
+         "config": {
+          "title": "SubModel1"
+         },
+         "ref": "tests.types.unions.test_discriminated_union.test_union_in_submodel.<locals>.SubModel1:3"
+        },
+        {
+         "type": "model",
+         "cls": {
+          "$class": "SubModel2"
+         },
+         "schema": {
+          "type": "model-fields",
+          "fields": {
+           "union_model": {
+            "type": "model-field",
+            "schema": {
+             "type": "tagged-union",
+             "choices": {
+              "$dict": [
+               [
+                1,
+                {
+                 "type": "model",
+                 "cls": {
+                  "$class": "UnionModel1"
+                 },
+                 "schema": {
+                  "type": "model-fields",
+                  "fields": {
+                   "type": {
+                    "type": "model-field",
+                    "schema": {
+                     "type": "default",
+                     "schema": {
+                      "type": "literal",
+                      "expected": [
+                       1
+                      ]
+                     },
+                     "default": 1
+                    },
+                    "metadata": {}
+                   },
+                   "other": {
+                    "type": "model-field",
+                    "schema": {
+                     "type": "default",
+                     "schema": {
+                      "type": "literal",
+                      "expected": [
+                       "UnionModel1"
+                      ]
+                     },
+                     "default": "UnionModel1"
+                    },
+                    "metadata": {}
+                   }
+                  },
+                  "model_name": "UnionModel1",
+                  "computed_fields": []
+                 },
+                 "custom_init": false,
+                 "root_model": false,
+                 "config": {
+                  "title": "UnionModel1"
+                 },
+                 "ref": "tests.types.unions.test_discriminated_union.test_union_in_submodel.<locals>.UnionModel1:1"
+                }
+               ],
+               [
+                2,
+                {
+                 "type": "model",
+                 "cls": {
+                  "$class": "UnionModel2"
+                 },
+                 "schema": {
+                  "type": "model-fields",
+                  "fields": {
+                   "type": {
+                    "type": "model-field",
+                    "schema": {
+                     "type": "default",
+                     "schema": {
+                      "type": "literal",
+                      "expected": [
+                       2
+                      ]
+                     },
+                     "default": 2
+                    },
+                    "metadata": {}
+                   },
+                   "other": {
+                    "type": "model-field",
+                    "schema": {
+                     "type": "default",
+                     "schema": {
+                      "type": "literal",
+                      "expected": [
+                       "UnionModel2"
+                      ]
+                     },
+                     "default": "UnionModel2"
+                    },
+                    "metadata": {}
+                   }
+                  },
+                  "model_name": "UnionModel2",
+                  "computed_fields": []
+                 },
+                 "custom_init": false,
+                 "root_model": false,
+                 "config": {
+                  "title": "UnionModel2"
+                 },
+                 "ref": "tests.types.unions.test_discriminated_union.test_union_in_submodel.<locals>.UnionModel2:2"
+                }
+               ]
+              ]
+             },
+             "discriminator": "type",
+             "strict": false,
+             "from_attributes": true
+            },
+            "metadata": {}
+           }
+          },
+          "model_name": "SubModel2",
+          "computed_fields": []
+         },
+         "custom_init": false,
+         "root_model": false,
+         "config": {
+          "title": "SubModel2"
+         },
+         "ref": "tests.types.unions.test_discriminated_union.test_union_in_submodel.<locals>.SubModel2:4"
+        }
+       ]
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "TestModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "TestModel"
+   },
+   "ref": "tests.types.unions.test_discriminated_union.test_union_in_submodel.<locals>.TestModel:5"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "SubModel1": {
+        "properties": {
+         "union_model": {
+          "discriminator": {
+           "mapping": {
+            "1": "#/$defs/UnionModel1",
+            "2": "#/$defs/UnionModel2"
+           },
+           "propertyName": "type"
+          },
+          "oneOf": [
+           {
+            "$dict": [
+             [
+              "$ref",
+              "#/$defs/UnionModel1"
+             ]
+            ]
+           },
+           {
+            "$dict": [
+             [
+              "$ref",
+              "#/$defs/UnionModel2"
+             ]
+            ]
+           }
+          ],
+          "title": "Union Model"
+         }
+        },
+        "required": [
+         "union_model"
+        ],
+        "title": "SubModel1",
+        "type": "object"
+       },
+       "SubModel2": {
+        "properties": {
+         "union_model": {
+          "discriminator": {
+           "mapping": {
+            "1": "#/$defs/UnionModel1",
+            "2": "#/$defs/UnionModel2"
+           },
+           "propertyName": "type"
+          },
+          "oneOf": [
+           {
+            "$dict": [
+             [
+              "$ref",
+              "#/$defs/UnionModel1"
+             ]
+            ]
+           },
+           {
+            "$dict": [
+             [
+              "$ref",
+              "#/$defs/UnionModel2"
+             ]
+            ]
+           }
+          ],
+          "title": "Union Model"
+         }
+        },
+        "required": [
+         "union_model"
+        ],
+        "title": "SubModel2",
+        "type": "object"
+       },
+       "UnionModel1": {
+        "properties": {
+         "type": {
+          "const": 1,
+          "default": 1,
+          "title": "Type",
+          "type": "integer"
+         },
+         "other": {
+          "const": "UnionModel1",
+          "default": "UnionModel1",
+          "title": "Other",
+          "type": "string"
+         }
+        },
+        "title": "UnionModel1",
+        "type": "object"
+       },
+       "UnionModel2": {
+        "properties": {
+         "type": {
+          "const": 2,
+          "default": 2,
+          "title": "Type",
+          "type": "integer"
+         },
+         "other": {
+          "const": "UnionModel2",
+          "default": "UnionModel2",
+          "title": "Other",
+          "type": "string"
+         }
+        },
+        "title": "UnionModel2",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "submodel": {
+        "anyOf": [
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/SubModel1"
+           ]
+          ]
+         },
+         {
+          "$dict": [
+           [
+            "$ref",
+            "#/$defs/SubModel2"
+           ]
+          ]
+         }
+        ],
+        "title": "Submodel"
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "submodel"
+      ]
+     ],
+     [
+      "title",
+      "TestModel"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ }
+]

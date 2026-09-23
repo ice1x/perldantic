@@ -24,8 +24,11 @@ and fail against it (47 tests); both types are dropped from the port.
 3. Replace the snapshot with the new commit, then update the base commit here and in
    `perldantic_core::UPSTREAM_COMMIT` / `UPSTREAM_VERSION`. `crates/perldantic-core/tests/upstream.rs`
    checks that these stay consistent.
-4. Update `pydantic-core==` in `tools/requirements-record.txt` and re-record the conformance
-   cases with `tools/conformance/record.sh`; review the diff of `tests/conformance/upstream/`.
+4. Update `pydantic-core==` and the `pydantic @ git+...@<commit>` pin in
+   `tools/requirements-record.txt`, then re-record the conformance cases with
+   `tools/conformance/record.sh` and the JSON Schema cases with `tools/json_schema/record.sh`
+   (which needs a pydantic checkout at the new commit); review the diffs of
+   `tests/conformance/upstream/` and `tests/json_schema/`.
 5. Add an entry to the sync log.
 
 ## Sync log
@@ -187,9 +190,9 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 ## pydantic layer
 
 JSON Schema generation lives in pydantic's Python package, not in pydantic-core. It is ported
-from the same base commit of `pydantic/pydantic` (not vendored here). Its cases in
-`tests/json_schema/cases.json` are recorded from that commit's `pydantic` with
-`tools/json_schema/record.sh`.
+from the same base commit of `pydantic/pydantic` (not vendored here). `tools/json_schema/record.sh`
+records its cases in `tests/json_schema/` from that commit's `pydantic`: hand-picked core schemas,
+plus every JSON Schema pydantic's own test suite generates.
 
 | Upstream file | Perldantic file | Priority | Status | Notes |
 |---|---|---|---|---|

@@ -1,0 +1,29 @@
+[
+ {
+  "id": "tests/types/test_deque.py::test_deque_constraints_json_schema#0",
+  "test": "tests/types/test_deque.py::test_deque_constraints_json_schema",
+  "schema": {
+   "type": "deque",
+   "items_schema": {
+    "type": "int"
+   },
+   "min_length": 1,
+   "max_length": 3,
+   "metadata": {}
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "items": {
+     "type": "integer"
+    },
+    "maxItems": 3,
+    "minItems": 1,
+    "type": "array"
+   }
+  },
+  "warnings": []
+ }
+]

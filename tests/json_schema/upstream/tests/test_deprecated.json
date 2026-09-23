@@ -1,0 +1,244 @@
+[
+ {
+  "id": "tests/test_deprecated.py::test_deprecated_module#0",
+  "test": "tests/test_deprecated.py::test_deprecated_module",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_deprecated.test_deprecated_module.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "title": "X",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "x"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_deprecated.py::test_field_extra_arguments#0",
+  "test": "tests/test_deprecated.py::test_field_extra_arguments",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "str"
+       },
+       "default": "test"
+      },
+      "metadata": {
+       "pydantic_js_extra": {
+        "test": "test",
+        "foo": "bar"
+       }
+      }
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_deprecated.test_field_extra_arguments.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "default": "test",
+      "foo": "bar",
+      "test": "test",
+      "title": "X",
+      "type": "string"
+     }
+    },
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_deprecated.py::test_field_extra_does_not_rewrite_json_schema_extra#0",
+  "test": "tests/test_deprecated.py::test_field_extra_does_not_rewrite_json_schema_extra",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "default",
+       "schema": {
+        "type": "str"
+       },
+       "default": "test"
+      },
+      "metadata": {
+       "pydantic_js_extra": {
+        "test": "json_schema_extra value"
+       }
+      }
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_deprecated.test_field_extra_does_not_rewrite_json_schema_extra.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "default": "test",
+      "test": "json_schema_extra value",
+      "title": "X",
+      "type": "string"
+     }
+    },
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_deprecated.py::test_json_schema#0",
+  "test": "tests/test_deprecated.py::test_json_schema",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "SimpleModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "SimpleModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "SimpleModel"
+   },
+   "ref": "tests.test_deprecated.SimpleModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x": {
+      "title": "X",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "x"
+    ],
+    "title": "SimpleModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_deprecated.py::test_v1_v2_custom_type_compatibility#0",
+  "test": "tests/test_deprecated.py::test_v1_v2_custom_type_compatibility",
+  "schema": {
+   "type": "int",
+   "metadata": {
+    "pydantic_js_functions": [
+     {
+      "$function": "__get_pydantic_json_schema__"
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "anyOf": [
+     {
+      "type": "string"
+     },
+     {
+      "type": "number"
+     }
+    ]
+   }
+  },
+  "warnings": []
+ }
+]

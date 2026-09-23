@@ -1,0 +1,33 @@
+[
+ {
+  "id": "tests/test_tools.py::test_schema#0",
+  "test": "tests/test_tools.py::test_schema",
+  "schema": {
+   "type": "union",
+   "choices": [
+    {
+     "type": "int"
+    },
+    {
+     "type": "str"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "anyOf": [
+     {
+      "type": "integer"
+     },
+     {
+      "type": "string"
+     }
+    ]
+   }
+  },
+  "warnings": []
+ }
+]

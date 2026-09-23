@@ -1,0 +1,192 @@
+[
+ {
+  "id": "tests/types/test_namedtuple.py::test_namedtuple_schema#0",
+  "test": "tests/types/test_namedtuple.py::test_namedtuple_schema",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "pos1": {
+      "type": "model-field",
+      "schema": {
+       "type": "named-tuple",
+       "cls": {
+        "$class": "Position1"
+       },
+       "fields": [
+        {
+         "type": "named-tuple-field",
+         "name": "x",
+         "schema": {
+          "type": "int",
+          "metadata": {}
+         }
+        },
+        {
+         "type": "named-tuple-field",
+         "name": "y",
+         "schema": {
+          "type": "int",
+          "metadata": {}
+         }
+        }
+       ],
+       "ref": "tests.types.test_namedtuple.test_namedtuple_schema.<locals>.Position1:1"
+      },
+      "metadata": {}
+     },
+     "pos2": {
+      "type": "model-field",
+      "schema": {
+       "type": "named-tuple",
+       "cls": {
+        "$class": "Position2"
+       },
+       "fields": [
+        {
+         "type": "named-tuple-field",
+         "name": "x",
+         "schema": {
+          "type": "any",
+          "metadata": {}
+         }
+        },
+        {
+         "type": "named-tuple-field",
+         "name": "y",
+         "schema": {
+          "type": "any",
+          "metadata": {}
+         }
+        }
+       ],
+       "ref": "tests.types.test_namedtuple.Position2:2"
+      },
+      "metadata": {}
+     },
+     "pos3": {
+      "type": "model-field",
+      "schema": {
+       "type": "tuple",
+       "items_schema": [
+        {
+         "type": "int"
+        },
+        {
+         "type": "int"
+        }
+       ]
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.types.test_namedtuple.test_namedtuple_schema.<locals>.Model:3"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Position1": {
+        "maxItems": 2,
+        "minItems": 2,
+        "prefixItems": [
+         {
+          "title": "X",
+          "type": "integer"
+         },
+         {
+          "title": "Y",
+          "type": "integer"
+         }
+        ],
+        "type": "array"
+       },
+       "Position2": {
+        "maxItems": 2,
+        "minItems": 2,
+        "prefixItems": [
+         {
+          "title": "X"
+         },
+         {
+          "title": "Y"
+         }
+        ],
+        "type": "array"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "pos1": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Position1"
+         ]
+        ]
+       },
+       "pos2": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/Position2"
+         ]
+        ]
+       },
+       "pos3": {
+        "maxItems": 2,
+        "minItems": 2,
+        "prefixItems": [
+         {
+          "type": "integer"
+         },
+         {
+          "type": "integer"
+         }
+        ],
+        "title": "Pos3",
+        "type": "array"
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "pos1",
+       "pos2",
+       "pos3"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ }
+]

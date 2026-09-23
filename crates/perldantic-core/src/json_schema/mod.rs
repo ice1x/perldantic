@@ -142,11 +142,19 @@ impl From<SerializeError> for JsonSchemaError {
 pub(crate) type JsResult<T> = Result<T, JsonSchemaError>;
 
 /// Generate the JSON Schema of a core schema (upstream `GenerateJsonSchema().generate()`).
+///
+/// `config` applies to the whole schema, as the config of a pydantic `TypeAdapter` does; like a
+/// `model` schema's config, it uses core config names (docs/DIVERGENCES.md #15).
 pub fn generate_json_schema(
     schema: &Value,
+    config: Option<&Value>,
     options: &JsonSchemaOptions,
 ) -> JsResult<GeneratedJsonSchema> {
-    GenerateJsonSchema::new(options).generate(as_dict(schema)?)
+    let config = match config {
+        None | Some(Value::None) => Dict::new(),
+        Some(config) => as_dict(config)?.clone(),
+    };
+    GenerateJsonSchema::new(options, config).generate(as_dict(schema)?)
 }
 
 type CoreModeRef = (String, JsonSchemaMode);
@@ -159,7 +167,8 @@ struct GenerateJsonSchema<'o> {
     json_to_defs_refs: HashMap<String, String>,
     definitions: Dict,
     defs_refs: DefsRefs,
-    /// Model configs being generated; the bottom one is empty.
+    /// The configs in effect: the one for the whole schema, then those of the models being
+    /// generated.
     config_stack: Vec<Dict>,
     /// Definitions that failed to build, with the error to raise if they end up being used.
     core_defs_invalid_for_json_schema: HashMap<String, String>,
@@ -376,7 +385,7 @@ fn to_jsonable_python(value: &Value) -> JsResult<Value> {
 }
 
 impl<'o> GenerateJsonSchema<'o> {
-    fn new(options: &'o JsonSchemaOptions) -> Self {
+    fn new(options: &'o JsonSchemaOptions, config: Dict) -> Self {
         Self {
             options,
             mode: options.mode,
@@ -385,7 +394,7 @@ impl<'o> GenerateJsonSchema<'o> {
             json_to_defs_refs: HashMap::new(),
             definitions: Dict::new(),
             defs_refs: DefsRefs::default(),
-            config_stack: vec![Dict::new()],
+            config_stack: vec![config],
             core_defs_invalid_for_json_schema: HashMap::new(),
             warnings: Vec::new(),
         }

@@ -1,0 +1,3546 @@
+[
+ {
+  "id": "tests/test_titles.py::test_class_title_precedence_over_generator#0",
+  "test": "tests/test_titles.py::test_class_title_precedence_over_generator",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {},
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MyTitle",
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
+   },
+   "ref": "tests.test_titles.test_class_title_precedence_over_generator.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {},
+    "title": "MyTitle",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_class_title_precedence_over_generator#1",
+  "test": "tests/test_titles.py::test_class_title_precedence_over_generator",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyDataclass"
+   },
+   "fields": [],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyDataclass",
+    "fields": [],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyTitle"
+   },
+   "ref": "tests.test_titles.test_class_title_precedence_over_generator.<locals>.MyDataclass:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {},
+    "title": "MyTitle",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_dataclass_config_field_title_generator[My Title]#0",
+  "test": "tests/test_titles.py::test_dataclass_config_field_title_generator[My Title]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyDataclass"
+   },
+   "fields": [
+    "field_a",
+    "field_b",
+    "field___c"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyDataclass",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "field_a",
+      "schema": {
+       "type": "str"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "My Title"
+       }
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "field_b",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "My Title"
+       }
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "field___c",
+      "schema": {
+       "type": "bool"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "My Title"
+       }
+      }
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyDataclass"
+   },
+   "ref": "tests.test_titles.test_dataclass_config_field_title_generator.<locals>.MyDataclass:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "My Title",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "My Title",
+      "type": "integer"
+     },
+     "field___c": {
+      "title": "My Title",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b",
+     "field___c"
+    ],
+    "title": "MyDataclass",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_dataclass_config_field_title_generator[lower]#0",
+  "test": "tests/test_titles.py::test_dataclass_config_field_title_generator[lower]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyDataclass"
+   },
+   "fields": [
+    "field_a",
+    "field_b",
+    "field___c"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyDataclass",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "field_a",
+      "schema": {
+       "type": "str"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field_a"
+       }
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "field_b",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field_b"
+       }
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "field___c",
+      "schema": {
+       "type": "bool"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field___c"
+       }
+      }
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyDataclass"
+   },
+   "ref": "tests.test_titles.test_dataclass_config_field_title_generator.<locals>.MyDataclass:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "field_a",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "field_b",
+      "type": "integer"
+     },
+     "field___c": {
+      "title": "field___c",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b",
+     "field___c"
+    ],
+    "title": "MyDataclass",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_dataclass_config_field_title_generator[make_title]#0",
+  "test": "tests/test_titles.py::test_dataclass_config_field_title_generator[make_title]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyDataclass"
+   },
+   "fields": [
+    "field_a",
+    "field_b",
+    "field___c"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyDataclass",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "field_a",
+      "schema": {
+       "type": "str"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "Field_a"
+       }
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "field_b",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "Field_b"
+       }
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "field___c",
+      "schema": {
+       "type": "bool"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "Field___c"
+       }
+      }
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyDataclass"
+   },
+   "ref": "tests.test_titles.test_dataclass_config_field_title_generator.<locals>.MyDataclass:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "Field_a",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "Field_b",
+      "type": "integer"
+     },
+     "field___c": {
+      "title": "Field___c",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b",
+     "field___c"
+    ],
+    "title": "MyDataclass",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_dataclass_config_field_title_generator[t * 2]#0",
+  "test": "tests/test_titles.py::test_dataclass_config_field_title_generator[t * 2]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyDataclass"
+   },
+   "fields": [
+    "field_a",
+    "field_b",
+    "field___c"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyDataclass",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "field_a",
+      "schema": {
+       "type": "str"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field_afield_a"
+       }
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "field_b",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field_bfield_b"
+       }
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "field___c",
+      "schema": {
+       "type": "bool"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field___cfield___c"
+       }
+      }
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyDataclass"
+   },
+   "ref": "tests.test_titles.test_dataclass_config_field_title_generator.<locals>.MyDataclass:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "field_afield_a",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "field_bfield_b",
+      "type": "integer"
+     },
+     "field___c": {
+      "title": "field___cfield___c",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b",
+     "field___c"
+    ],
+    "title": "MyDataclass",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_dataclass_model_title_generator[My Model]#0",
+  "test": "tests/test_titles.py::test_dataclass_model_title_generator[My Model]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyDataclass"
+   },
+   "fields": [
+    "field_a"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyDataclass",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "field_a",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyDataclass"
+   },
+   "ref": "tests.test_titles.test_dataclass_model_title_generator.<locals>.MyDataclass:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "Field A",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "field_a"
+    ],
+    "title": "My Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_dataclass_model_title_generator[name * 2]#0",
+  "test": "tests/test_titles.py::test_dataclass_model_title_generator[name * 2]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyDataclass"
+   },
+   "fields": [
+    "field_a"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyDataclass",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "field_a",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyDataclass"
+   },
+   "ref": "tests.test_titles.test_dataclass_model_title_generator.<locals>.MyDataclass:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "Field A",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "field_a"
+    ],
+    "title": "MyDataclassMyDataclass",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_dataclass_model_title_generator[upper]#0",
+  "test": "tests/test_titles.py::test_dataclass_model_title_generator[upper]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyDataclass"
+   },
+   "fields": [
+    "field_a"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyDataclass",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "field_a",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "init": true,
+      "metadata": {}
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyDataclass"
+   },
+   "ref": "tests.test_titles.test_dataclass_model_title_generator.<locals>.MyDataclass:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "Field A",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "field_a"
+    ],
+    "title": "MYDATACLASS",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_field_level_field_title_generator_precedence_over_config_level[typing.TypedDict-typing.Annotated-<lambda>-<lambda>]#0",
+  "test": "tests/test_titles.py::test_field_level_field_title_generator_precedence_over_config_level[typing.TypedDict-typing.Annotated-<lambda>-<lambda>]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "MyModel"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field_a"
+       }
+      }
+     }
+    },
+    "model_name": "MyModel",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "MyModel"
+   },
+   "ref": "tests.test_titles.test_field_level_field_title_generator_precedence_over_config_level.<locals>.MyModel:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "field_a",
+      "type": "string"
+     }
+    },
+    "required": [
+     "field_a"
+    ],
+    "title": "MyModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_field_level_field_title_generator_precedence_over_config_level[typing.TypedDict-typing.Annotated-<lambda>-<lambda>]#1",
+  "test": "tests/test_titles.py::test_field_level_field_title_generator_precedence_over_config_level[typing.TypedDict-typing.Annotated-<lambda>-<lambda>]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyDataclass"
+   },
+   "fields": [
+    "field_a"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyDataclass",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "field_a",
+      "schema": {
+       "type": "str"
+      },
+      "kw_only": false,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field_a"
+       }
+      }
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyDataclass"
+   },
+   "ref": "tests.test_titles.test_field_level_field_title_generator_precedence_over_config_level.<locals>.MyDataclass:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "field_a",
+      "type": "string"
+     }
+    },
+    "required": [
+     "field_a"
+    ],
+    "title": "MyDataclass",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_field_level_field_title_generator_precedence_over_config_level[typing.TypedDict-typing.Annotated-<lambda>-<lambda>]#2",
+  "test": "tests/test_titles.py::test_field_level_field_title_generator_precedence_over_config_level[typing.TypedDict-typing.Annotated-<lambda>-<lambda>]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "field_a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "field_a"
+      }
+     }
+    }
+   },
+   "cls": {
+    "$class": "MyTypedDict"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "MyTypedDict"
+   },
+   "ref": "tests.test_titles.test_field_level_field_title_generator_precedence_over_config_level.<locals>.MyTypedDict:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "field_a",
+      "type": "string"
+     }
+    },
+    "required": [
+     "field_a"
+    ],
+    "title": "MyTypedDict",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_field_title_generator_in_dataclass_fields[My Title]#0",
+  "test": "tests/test_titles.py::test_field_title_generator_in_dataclass_fields[My Title]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyDataclass"
+   },
+   "fields": [
+    "field_a",
+    "field_b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyDataclass",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "field_a",
+      "schema": {
+       "type": "str"
+      },
+      "kw_only": false,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "My Title"
+       }
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "field_b",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "My Title"
+       }
+      }
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyDataclass"
+   },
+   "ref": "tests.test_titles.test_field_title_generator_in_dataclass_fields.<locals>.MyDataclass:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "My Title",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "My Title",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b"
+    ],
+    "title": "MyDataclass",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_field_title_generator_in_dataclass_fields[lower]#0",
+  "test": "tests/test_titles.py::test_field_title_generator_in_dataclass_fields[lower]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyDataclass"
+   },
+   "fields": [
+    "field_a",
+    "field_b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyDataclass",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "field_a",
+      "schema": {
+       "type": "str"
+      },
+      "kw_only": false,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field_a"
+       }
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "field_b",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field_b"
+       }
+      }
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyDataclass"
+   },
+   "ref": "tests.test_titles.test_field_title_generator_in_dataclass_fields.<locals>.MyDataclass:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "field_a",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "field_b",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b"
+    ],
+    "title": "MyDataclass",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_field_title_generator_in_dataclass_fields[make_title]#0",
+  "test": "tests/test_titles.py::test_field_title_generator_in_dataclass_fields[make_title]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyDataclass"
+   },
+   "fields": [
+    "field_a",
+    "field_b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyDataclass",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "field_a",
+      "schema": {
+       "type": "str"
+      },
+      "kw_only": false,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "Field_a"
+       }
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "field_b",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "Field_b"
+       }
+      }
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyDataclass"
+   },
+   "ref": "tests.test_titles.test_field_title_generator_in_dataclass_fields.<locals>.MyDataclass:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "Field_a",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "Field_b",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b"
+    ],
+    "title": "MyDataclass",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_field_title_generator_in_dataclass_fields[t * 2]#0",
+  "test": "tests/test_titles.py::test_field_title_generator_in_dataclass_fields[t * 2]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyDataclass"
+   },
+   "fields": [
+    "field_a",
+    "field_b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyDataclass",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "field_a",
+      "schema": {
+       "type": "str"
+      },
+      "kw_only": false,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field_afield_a"
+       }
+      }
+     },
+     {
+      "type": "dataclass-field",
+      "name": "field_b",
+      "schema": {
+       "type": "int"
+      },
+      "kw_only": false,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field_bfield_b"
+       }
+      }
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyDataclass"
+   },
+   "ref": "tests.test_titles.test_field_title_generator_in_dataclass_fields.<locals>.MyDataclass:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "field_afield_a",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "field_bfield_b",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b"
+    ],
+    "title": "MyDataclass",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_field_title_generator_in_model_fields[My Title]#0",
+  "test": "tests/test_titles.py::test_field_title_generator_in_model_fields[My Title]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "My Title"
+       }
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "My Title"
+       }
+      }
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "field_c",
+      "return_schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true,
+        "title": "My Title"
+       }
+      }
+     }
+    ]
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_titles.test_field_title_generator_in_model_fields.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "My Title",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "My Title",
+      "type": "integer"
+     },
+     "field_c": {
+      "readOnly": true,
+      "title": "My Title",
+      "type": "string"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b",
+     "field_c"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_field_title_generator_in_model_fields[lower]#0",
+  "test": "tests/test_titles.py::test_field_title_generator_in_model_fields[lower]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field_a"
+       }
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field_b"
+       }
+      }
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "field_c",
+      "return_schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true,
+        "title": "field_c"
+       }
+      }
+     }
+    ]
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_titles.test_field_title_generator_in_model_fields.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "field_a",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "field_b",
+      "type": "integer"
+     },
+     "field_c": {
+      "readOnly": true,
+      "title": "field_c",
+      "type": "string"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b",
+     "field_c"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_field_title_generator_in_model_fields[make_title]#0",
+  "test": "tests/test_titles.py::test_field_title_generator_in_model_fields[make_title]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "Field_a"
+       }
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "Field_b"
+       }
+      }
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "field_c",
+      "return_schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true,
+        "title": "Field_c"
+       }
+      }
+     }
+    ]
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_titles.test_field_title_generator_in_model_fields.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "Field_a",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "Field_b",
+      "type": "integer"
+     },
+     "field_c": {
+      "readOnly": true,
+      "title": "Field_c",
+      "type": "string"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b",
+     "field_c"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_field_title_generator_in_model_fields[t * 2]#0",
+  "test": "tests/test_titles.py::test_field_title_generator_in_model_fields[t * 2]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field_afield_a"
+       }
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field_bfield_b"
+       }
+      }
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "field_c",
+      "return_schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true,
+        "title": "field_cfield_c"
+       }
+      }
+     }
+    ]
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_titles.test_field_title_generator_in_model_fields.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "field_afield_a",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "field_bfield_b",
+      "type": "integer"
+     },
+     "field_c": {
+      "readOnly": true,
+      "title": "field_cfield_c",
+      "type": "string"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b",
+     "field_c"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_field_title_generator_in_typeddict_fields[typing.TypedDict-typing.Annotated-My Title]#0",
+  "test": "tests/test_titles.py::test_field_title_generator_in_typeddict_fields[typing.TypedDict-typing.Annotated-My Title]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "field_a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "My Title"
+      }
+     }
+    },
+    "field_b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "My Title"
+      }
+     }
+    }
+   },
+   "cls": {
+    "$class": "MyTypedDict"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "MyTypedDict"
+   },
+   "ref": "tests.test_titles.test_field_title_generator_in_typeddict_fields.<locals>.MyTypedDict:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "My Title",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "My Title",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b"
+    ],
+    "title": "MyTypedDict",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_field_title_generator_in_typeddict_fields[typing.TypedDict-typing.Annotated-lower]#0",
+  "test": "tests/test_titles.py::test_field_title_generator_in_typeddict_fields[typing.TypedDict-typing.Annotated-lower]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "field_a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "field_a"
+      }
+     }
+    },
+    "field_b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "field_b"
+      }
+     }
+    }
+   },
+   "cls": {
+    "$class": "MyTypedDict"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "MyTypedDict"
+   },
+   "ref": "tests.test_titles.test_field_title_generator_in_typeddict_fields.<locals>.MyTypedDict:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "field_a",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "field_b",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b"
+    ],
+    "title": "MyTypedDict",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_field_title_generator_in_typeddict_fields[typing.TypedDict-typing.Annotated-make_title]#0",
+  "test": "tests/test_titles.py::test_field_title_generator_in_typeddict_fields[typing.TypedDict-typing.Annotated-make_title]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "field_a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "Field_a"
+      }
+     }
+    },
+    "field_b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "Field_b"
+      }
+     }
+    }
+   },
+   "cls": {
+    "$class": "MyTypedDict"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "MyTypedDict"
+   },
+   "ref": "tests.test_titles.test_field_title_generator_in_typeddict_fields.<locals>.MyTypedDict:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "Field_a",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "Field_b",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b"
+    ],
+    "title": "MyTypedDict",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_field_title_generator_in_typeddict_fields[typing.TypedDict-typing.Annotated-t * 2]#0",
+  "test": "tests/test_titles.py::test_field_title_generator_in_typeddict_fields[typing.TypedDict-typing.Annotated-t * 2]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "field_a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "field_afield_a"
+      }
+     }
+    },
+    "field_b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "field_bfield_b"
+      }
+     }
+    }
+   },
+   "cls": {
+    "$class": "MyTypedDict"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "MyTypedDict"
+   },
+   "ref": "tests.test_titles.test_field_title_generator_in_typeddict_fields.<locals>.MyTypedDict:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "field_afield_a",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "field_bfield_b",
+      "type": "integer"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b"
+    ],
+    "title": "MyTypedDict",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_field_title_precedence_over_generators[typing.TypedDict-typing.Annotated]#0",
+  "test": "tests/test_titles.py::test_field_title_precedence_over_generators[typing.TypedDict-typing.Annotated]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "MyFieldA"
+       }
+      }
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "field_b",
+      "return_schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true,
+        "title": "MyFieldB"
+       }
+      }
+     }
+    ]
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_titles.test_field_title_precedence_over_generators.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "MyFieldA",
+      "type": "string"
+     },
+     "field_b": {
+      "readOnly": true,
+      "title": "MyFieldB",
+      "type": "string"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_field_title_precedence_over_generators[typing.TypedDict-typing.Annotated]#1",
+  "test": "tests/test_titles.py::test_field_title_precedence_over_generators[typing.TypedDict-typing.Annotated]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyDataclass"
+   },
+   "fields": [
+    "field_a"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyDataclass",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "field_a",
+      "schema": {
+       "type": "str"
+      },
+      "kw_only": false,
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "MyTitle"
+       }
+      }
+     }
+    ],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyDataclass"
+   },
+   "ref": "tests.test_titles.test_field_title_precedence_over_generators.<locals>.MyDataclass:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "MyTitle",
+      "type": "string"
+     }
+    },
+    "required": [
+     "field_a"
+    ],
+    "title": "MyDataclass",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_field_title_precedence_over_generators[typing.TypedDict-typing.Annotated]#2",
+  "test": "tests/test_titles.py::test_field_title_precedence_over_generators[typing.TypedDict-typing.Annotated]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "field_a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "MyTitle"
+      }
+     }
+    }
+   },
+   "cls": {
+    "$class": "MyTypedDict"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "MyTypedDict"
+   },
+   "ref": "tests.test_titles.test_field_title_precedence_over_generators.<locals>.MyTypedDict:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "MyTitle",
+      "type": "string"
+     }
+    },
+    "required": [
+     "field_a"
+    ],
+    "title": "MyTypedDict",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_config_field_title_generator[My Title]#0",
+  "test": "tests/test_titles.py::test_model_config_field_title_generator[My Title]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "My Title"
+       }
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "My Title"
+       }
+      }
+     },
+     "field___c": {
+      "type": "model-field",
+      "schema": {
+       "type": "bool"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "My Title"
+       }
+      }
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "field_d",
+      "return_schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true,
+        "title": "My Title"
+       }
+      }
+     }
+    ]
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_titles.test_model_config_field_title_generator.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "My Title",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "My Title",
+      "type": "integer"
+     },
+     "field___c": {
+      "title": "My Title",
+      "type": "boolean"
+     },
+     "field_d": {
+      "readOnly": true,
+      "title": "My Title",
+      "type": "string"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b",
+     "field___c",
+     "field_d"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_config_field_title_generator[lower]#0",
+  "test": "tests/test_titles.py::test_model_config_field_title_generator[lower]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field_a"
+       }
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field_b"
+       }
+      }
+     },
+     "field___c": {
+      "type": "model-field",
+      "schema": {
+       "type": "bool"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field___c"
+       }
+      }
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "field_d",
+      "return_schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true,
+        "title": "field_d"
+       }
+      }
+     }
+    ]
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_titles.test_model_config_field_title_generator.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "field_a",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "field_b",
+      "type": "integer"
+     },
+     "field___c": {
+      "title": "field___c",
+      "type": "boolean"
+     },
+     "field_d": {
+      "readOnly": true,
+      "title": "field_d",
+      "type": "string"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b",
+     "field___c",
+     "field_d"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_config_field_title_generator[make_title]#0",
+  "test": "tests/test_titles.py::test_model_config_field_title_generator[make_title]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "Field_a"
+       }
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "Field_b"
+       }
+      }
+     },
+     "field___c": {
+      "type": "model-field",
+      "schema": {
+       "type": "bool"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "Field___c"
+       }
+      }
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "field_d",
+      "return_schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true,
+        "title": "Field_d"
+       }
+      }
+     }
+    ]
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_titles.test_model_config_field_title_generator.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "Field_a",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "Field_b",
+      "type": "integer"
+     },
+     "field___c": {
+      "title": "Field___c",
+      "type": "boolean"
+     },
+     "field_d": {
+      "readOnly": true,
+      "title": "Field_d",
+      "type": "string"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b",
+     "field___c",
+     "field_d"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_config_field_title_generator[t * 2]#0",
+  "test": "tests/test_titles.py::test_model_config_field_title_generator[t * 2]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "field_a": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field_afield_a"
+       }
+      }
+     },
+     "field_b": {
+      "type": "model-field",
+      "schema": {
+       "type": "int"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field_bfield_b"
+       }
+      }
+     },
+     "field___c": {
+      "type": "model-field",
+      "schema": {
+       "type": "bool"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "title": "field___cfield___c"
+       }
+      }
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": [
+     {
+      "type": "computed-field",
+      "property_name": "field_d",
+      "return_schema": {
+       "type": "str"
+      },
+      "metadata": {
+       "pydantic_js_updates": {
+        "readOnly": true,
+        "title": "field_dfield_d"
+       }
+      }
+     }
+    ]
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_titles.test_model_config_field_title_generator.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "field_afield_a",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "field_bfield_b",
+      "type": "integer"
+     },
+     "field___c": {
+      "title": "field___cfield___c",
+      "type": "boolean"
+     },
+     "field_d": {
+      "readOnly": true,
+      "title": "field_dfield_d",
+      "type": "string"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b",
+     "field___c",
+     "field_d"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_model_title_generator[My Model]#0",
+  "test": "tests/test_titles.py::test_model_model_title_generator[My Model]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {},
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model",
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
+   },
+   "ref": "tests.test_titles.test_model_model_title_generator.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {},
+    "title": "My Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_model_title_generator[name * 2]#0",
+  "test": "tests/test_titles.py::test_model_model_title_generator[name * 2]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {},
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model",
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
+   },
+   "ref": "tests.test_titles.test_model_model_title_generator.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {},
+    "title": "ModelModel",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_model_title_generator[upper]#0",
+  "test": "tests/test_titles.py::test_model_model_title_generator[upper]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {},
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model",
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
+   },
+   "ref": "tests.test_titles.test_model_model_title_generator.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {},
+    "title": "MODEL",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_title_generator_in_submodel[My Model]#0",
+  "test": "tests/test_titles.py::test_model_title_generator_in_submodel[My Model]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "sub": {
+      "type": "model-field",
+      "schema": {
+       "type": "model",
+       "cls": {
+        "$class": "SubModel"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {},
+        "model_name": "SubModel",
+        "computed_fields": []
+       },
+       "custom_init": false,
+       "root_model": false,
+       "config": {
+        "title": "SubModel",
+        "model_title_generator": {
+         "$function": "<lambda>"
+        }
+       },
+       "ref": "tests.test_titles.test_model_title_generator_in_submodel.<locals>.SubModel:1"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_titles.test_model_title_generator_in_submodel.<locals>.Model:2"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "SubModel": {
+        "properties": {},
+        "title": "My Model",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "sub": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/SubModel"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "sub"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_title_generator_in_submodel[name * 2]#0",
+  "test": "tests/test_titles.py::test_model_title_generator_in_submodel[name * 2]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "sub": {
+      "type": "model-field",
+      "schema": {
+       "type": "model",
+       "cls": {
+        "$class": "SubModel"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {},
+        "model_name": "SubModel",
+        "computed_fields": []
+       },
+       "custom_init": false,
+       "root_model": false,
+       "config": {
+        "title": "SubModel",
+        "model_title_generator": {
+         "$function": "<lambda>"
+        }
+       },
+       "ref": "tests.test_titles.test_model_title_generator_in_submodel.<locals>.SubModel:1"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_titles.test_model_title_generator_in_submodel.<locals>.Model:2"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "SubModel": {
+        "properties": {},
+        "title": "SubModelSubModel",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "sub": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/SubModel"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "sub"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_title_generator_in_submodel[upper]#0",
+  "test": "tests/test_titles.py::test_model_title_generator_in_submodel[upper]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "sub": {
+      "type": "model-field",
+      "schema": {
+       "type": "model",
+       "cls": {
+        "$class": "SubModel"
+       },
+       "schema": {
+        "type": "model-fields",
+        "fields": {},
+        "model_name": "SubModel",
+        "computed_fields": []
+       },
+       "custom_init": false,
+       "root_model": false,
+       "config": {
+        "title": "SubModel",
+        "model_title_generator": {
+         "$function": "<lambda>"
+        }
+       },
+       "ref": "tests.test_titles.test_model_title_generator_in_submodel.<locals>.SubModel:1"
+      },
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_titles.test_model_title_generator_in_submodel.<locals>.Model:2"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "SubModel": {
+        "properties": {},
+        "title": "SUBMODEL",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "properties",
+      {
+       "sub": {
+        "$dict": [
+         [
+          "$ref",
+          "#/$defs/SubModel"
+         ]
+        ]
+       }
+      }
+     ],
+     [
+      "required",
+      [
+       "sub"
+      ]
+     ],
+     [
+      "title",
+      "Model"
+     ],
+     [
+      "type",
+      "object"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-1]#0",
+  "test": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-1]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {},
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model",
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
+   },
+   "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "error": [
+    "TypeError",
+    "model_title_generator <function test_model_title_generator_returns_invalid_type.<locals>.Model.<lambda> at 0x...> must return str, not <class 'int'>"
+   ]
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-1]#1",
+  "test": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-1]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyDataclass"
+   },
+   "fields": [],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyDataclass",
+    "fields": [],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyDataclass"
+   },
+   "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.MyDataclass:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "error": [
+    "TypeError",
+    "model_title_generator <function test_model_title_generator_returns_invalid_type.<locals>.<lambda> at 0x...> must return str, not <class 'int'>"
+   ]
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-1]#2",
+  "test": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-1]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {},
+   "cls": {
+    "$class": "MyTypedDict"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "MyTypedDict"
+   },
+   "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.MyTypedDict:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "error": [
+    "TypeError",
+    "model_title_generator <function test_model_title_generator_returns_invalid_type.<locals>.MyTypedDict.<lambda> at 0x...> must return str, not <class 'int'>"
+   ]
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-invalid_return_value3]#0",
+  "test": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-invalid_return_value3]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {},
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model",
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
+   },
+   "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "error": [
+    "TypeError",
+    "model_title_generator <function test_model_title_generator_returns_invalid_type.<locals>.Model.<lambda> at 0x...> must return str, not <class 'tuple'>"
+   ]
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-invalid_return_value3]#1",
+  "test": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-invalid_return_value3]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyDataclass"
+   },
+   "fields": [],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyDataclass",
+    "fields": [],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyDataclass"
+   },
+   "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.MyDataclass:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "error": [
+    "TypeError",
+    "model_title_generator <function test_model_title_generator_returns_invalid_type.<locals>.<lambda> at 0x...> must return str, not <class 'tuple'>"
+   ]
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-invalid_return_value3]#2",
+  "test": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-invalid_return_value3]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {},
+   "cls": {
+    "$class": "MyTypedDict"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "MyTypedDict"
+   },
+   "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.MyTypedDict:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "error": [
+    "TypeError",
+    "model_title_generator <function test_model_title_generator_returns_invalid_type.<locals>.MyTypedDict.<lambda> at 0x...> must return str, not <class 'tuple'>"
+   ]
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-invalid_return_value4]#0",
+  "test": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-invalid_return_value4]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {},
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model",
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
+   },
+   "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "error": [
+    "TypeError",
+    "model_title_generator <function test_model_title_generator_returns_invalid_type.<locals>.Model.<lambda> at 0x...> must return str, not <class 'list'>"
+   ]
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-invalid_return_value4]#1",
+  "test": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-invalid_return_value4]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyDataclass"
+   },
+   "fields": [],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyDataclass",
+    "fields": [],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyDataclass"
+   },
+   "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.MyDataclass:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "error": [
+    "TypeError",
+    "model_title_generator <function test_model_title_generator_returns_invalid_type.<locals>.<lambda> at 0x...> must return str, not <class 'list'>"
+   ]
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-invalid_return_value4]#2",
+  "test": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-invalid_return_value4]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {},
+   "cls": {
+    "$class": "MyTypedDict"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "MyTypedDict"
+   },
+   "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.MyTypedDict:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "error": [
+    "TypeError",
+    "model_title_generator <function test_model_title_generator_returns_invalid_type.<locals>.MyTypedDict.<lambda> at 0x...> must return str, not <class 'list'>"
+   ]
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-invalid_return_value5]#0",
+  "test": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-invalid_return_value5]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {},
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model",
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
+   },
+   "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "error": [
+    "TypeError",
+    "model_title_generator <function test_model_title_generator_returns_invalid_type.<locals>.Model.<lambda> at 0x...> must return str, not <class 'object'>"
+   ]
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-invalid_return_value5]#1",
+  "test": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-invalid_return_value5]",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "MyDataclass"
+   },
+   "fields": [],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "MyDataclass",
+    "fields": [],
+    "computed_fields": [],
+    "collect_init_only": false
+   },
+   "post_init": false,
+   "frozen": false,
+   "slots": false,
+   "config": {
+    "title": "MyDataclass"
+   },
+   "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.MyDataclass:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "error": [
+    "TypeError",
+    "model_title_generator <function test_model_title_generator_returns_invalid_type.<locals>.<lambda> at 0x...> must return str, not <class 'object'>"
+   ]
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-invalid_return_value5]#2",
+  "test": "tests/test_titles.py::test_model_title_generator_returns_invalid_type[typing.TypedDict-invalid_return_value5]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {},
+   "cls": {
+    "$class": "MyTypedDict"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "MyTypedDict"
+   },
+   "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.MyTypedDict:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "error": [
+    "TypeError",
+    "model_title_generator <function test_model_title_generator_returns_invalid_type.<locals>.MyTypedDict.<lambda> at 0x...> must return str, not <class 'object'>"
+   ]
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_typeddict_config_field_title_generator[typing.TypedDict-My Title]#0",
+  "test": "tests/test_titles.py::test_typeddict_config_field_title_generator[typing.TypedDict-My Title]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "field_a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "My Title"
+      }
+     }
+    },
+    "field_b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "My Title"
+      }
+     }
+    },
+    "field___c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "bool"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "My Title"
+      }
+     }
+    }
+   },
+   "cls": {
+    "$class": "MyTypedDict"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "MyTypedDict"
+   },
+   "ref": "tests.test_titles.test_typeddict_config_field_title_generator.<locals>.MyTypedDict:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "My Title",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "My Title",
+      "type": "integer"
+     },
+     "field___c": {
+      "title": "My Title",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b",
+     "field___c"
+    ],
+    "title": "MyTypedDict",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_typeddict_config_field_title_generator[typing.TypedDict-lower]#0",
+  "test": "tests/test_titles.py::test_typeddict_config_field_title_generator[typing.TypedDict-lower]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "field_a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "field_a"
+      }
+     }
+    },
+    "field_b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "field_b"
+      }
+     }
+    },
+    "field___c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "bool"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "field___c"
+      }
+     }
+    }
+   },
+   "cls": {
+    "$class": "MyTypedDict"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "MyTypedDict"
+   },
+   "ref": "tests.test_titles.test_typeddict_config_field_title_generator.<locals>.MyTypedDict:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "field_a",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "field_b",
+      "type": "integer"
+     },
+     "field___c": {
+      "title": "field___c",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b",
+     "field___c"
+    ],
+    "title": "MyTypedDict",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_typeddict_config_field_title_generator[typing.TypedDict-make_title]#0",
+  "test": "tests/test_titles.py::test_typeddict_config_field_title_generator[typing.TypedDict-make_title]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "field_a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "Field_a"
+      }
+     }
+    },
+    "field_b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "Field_b"
+      }
+     }
+    },
+    "field___c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "bool"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "Field___c"
+      }
+     }
+    }
+   },
+   "cls": {
+    "$class": "MyTypedDict"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "MyTypedDict"
+   },
+   "ref": "tests.test_titles.test_typeddict_config_field_title_generator.<locals>.MyTypedDict:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "Field_a",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "Field_b",
+      "type": "integer"
+     },
+     "field___c": {
+      "title": "Field___c",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b",
+     "field___c"
+    ],
+    "title": "MyTypedDict",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_typeddict_config_field_title_generator[typing.TypedDict-t * 2]#0",
+  "test": "tests/test_titles.py::test_typeddict_config_field_title_generator[typing.TypedDict-t * 2]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {
+    "field_a": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "str"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "field_afield_a"
+      }
+     }
+    },
+    "field_b": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "int"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "field_bfield_b"
+      }
+     }
+    },
+    "field___c": {
+     "type": "typed-dict-field",
+     "schema": {
+      "type": "bool"
+     },
+     "required": true,
+     "metadata": {
+      "pydantic_js_updates": {
+       "title": "field___cfield___c"
+      }
+     }
+    }
+   },
+   "cls": {
+    "$class": "MyTypedDict"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "MyTypedDict"
+   },
+   "ref": "tests.test_titles.test_typeddict_config_field_title_generator.<locals>.MyTypedDict:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "field_a": {
+      "title": "field_afield_a",
+      "type": "string"
+     },
+     "field_b": {
+      "title": "field_bfield_b",
+      "type": "integer"
+     },
+     "field___c": {
+      "title": "field___cfield___c",
+      "type": "boolean"
+     }
+    },
+    "required": [
+     "field_a",
+     "field_b",
+     "field___c"
+    ],
+    "title": "MyTypedDict",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_typeddict_model_title_generator[typing.TypedDict-My Model]#0",
+  "test": "tests/test_titles.py::test_typeddict_model_title_generator[typing.TypedDict-My Model]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {},
+   "cls": {
+    "$class": "MyTypedDict"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "MyTypedDict"
+   },
+   "ref": "tests.test_titles.test_typeddict_model_title_generator.<locals>.MyTypedDict:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {},
+    "title": "My Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_typeddict_model_title_generator[typing.TypedDict-name * 2]#0",
+  "test": "tests/test_titles.py::test_typeddict_model_title_generator[typing.TypedDict-name * 2]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {},
+   "cls": {
+    "$class": "MyTypedDict"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "MyTypedDict"
+   },
+   "ref": "tests.test_titles.test_typeddict_model_title_generator.<locals>.MyTypedDict:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {},
+    "title": "MyTypedDictMyTypedDict",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_titles.py::test_typeddict_model_title_generator[typing.TypedDict-upper]#0",
+  "test": "tests/test_titles.py::test_typeddict_model_title_generator[typing.TypedDict-upper]",
+  "schema": {
+   "type": "typed-dict",
+   "fields": {},
+   "cls": {
+    "$class": "MyTypedDict"
+   },
+   "computed_fields": [],
+   "extra_behavior": "ignore",
+   "config": {
+    "title": "MyTypedDict"
+   },
+   "ref": "tests.test_titles.test_typeddict_model_title_generator.<locals>.MyTypedDict:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {},
+    "title": "MYTYPEDDICT",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ }
+]

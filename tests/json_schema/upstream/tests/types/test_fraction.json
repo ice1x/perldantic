@@ -1,0 +1,48 @@
+[
+ {
+  "id": "tests/types/test_fraction.py::test_fraction_json_schema#0",
+  "test": "tests/types/test_fraction.py::test_fraction_json_schema",
+  "schema": {
+   "type": "fraction"
+  },
+  "config": null,
+  "mode": "serialization",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "format": "fraction",
+    "type": "string"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/types/test_fraction.py::test_fraction_json_schema#1",
+  "test": "tests/types/test_fraction.py::test_fraction_json_schema",
+  "schema": {
+   "type": "fraction",
+   "ge": {
+    "$object": "Fraction"
+   },
+   "metadata": {}
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "anyOf": [
+     {
+      "minimum": 1.0,
+      "type": "number"
+     },
+     {
+      "format": "fraction",
+      "type": "string"
+     }
+    ]
+   }
+  },
+  "warnings": []
+ }
+]

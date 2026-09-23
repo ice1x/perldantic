@@ -1,0 +1,168 @@
+[
+ {
+  "id": "tests/test_aliases.py::test_aliases_json_schema[multiple_aliases]#0",
+  "test": "tests/test_aliases.py::test_aliases_json_schema[multiple_aliases]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "validation_alias": [
+       [
+        "y_alias"
+       ],
+       [
+        "another_alias"
+       ]
+      ],
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_aliases.test_aliases_json_schema.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "y_alias": {
+      "title": "Y Alias",
+      "type": "string"
+     }
+    },
+    "required": [
+     "y_alias"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_aliases.py::test_aliases_json_schema[multiple_aliases_with_path]#0",
+  "test": "tests/test_aliases.py::test_aliases_json_schema[multiple_aliases_with_path]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "validation_alias": [
+       [
+        "z_alias",
+        "even_another_alias"
+       ],
+       [
+        "and_another"
+       ]
+      ],
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_aliases.test_aliases_json_schema.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "and_another": {
+      "title": "And Another",
+      "type": "string"
+     }
+    },
+    "required": [
+     "and_another"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ },
+ {
+  "id": "tests/test_aliases.py::test_aliases_json_schema[single_alias]#0",
+  "test": "tests/test_aliases.py::test_aliases_json_schema[single_alias]",
+  "schema": {
+   "type": "model",
+   "cls": {
+    "$class": "Model"
+   },
+   "schema": {
+    "type": "model-fields",
+    "fields": {
+     "x": {
+      "type": "model-field",
+      "schema": {
+       "type": "str"
+      },
+      "validation_alias": "x_val_alias",
+      "serialization_alias": "x_ser_alias",
+      "metadata": {}
+     }
+    },
+    "model_name": "Model",
+    "computed_fields": []
+   },
+   "custom_init": false,
+   "root_model": false,
+   "config": {
+    "title": "Model"
+   },
+   "ref": "tests.test_aliases.test_aliases_json_schema.<locals>.Model:1"
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "properties": {
+     "x_val_alias": {
+      "title": "X Val Alias",
+      "type": "string"
+     }
+    },
+    "required": [
+     "x_val_alias"
+    ],
+    "title": "Model",
+    "type": "object"
+   }
+  },
+  "warnings": []
+ }
+]

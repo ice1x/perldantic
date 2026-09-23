@@ -1,0 +1,102 @@
+[
+ {
+  "id": "tests/test_json.py::test_resolve_ref_schema_recursive_model#0",
+  "test": "tests/test_json.py::test_resolve_ref_schema_recursive_model",
+  "schema": {
+   "type": "definitions",
+   "schema": {
+    "type": "definition-ref",
+    "schema_ref": "tests.test_json.test_resolve_ref_schema_recursive_model.<locals>.Model:1"
+   },
+   "definitions": [
+    {
+     "type": "model",
+     "cls": {
+      "$class": "Model"
+     },
+     "schema": {
+      "type": "model-fields",
+      "fields": {
+       "mini_me": {
+        "type": "model-field",
+        "schema": {
+         "type": "nullable",
+         "schema": {
+          "type": "definition-ref",
+          "schema_ref": "tests.test_json.test_resolve_ref_schema_recursive_model.<locals>.Model:1"
+         }
+        },
+        "metadata": {}
+       }
+      },
+      "model_name": "Model",
+      "computed_fields": []
+     },
+     "custom_init": false,
+     "root_model": false,
+     "config": {
+      "title": "Model"
+     },
+     "ref": "tests.test_json.test_resolve_ref_schema_recursive_model.<locals>.Model:1",
+     "metadata": {
+      "pydantic_js_functions": [
+       {
+        "$function": "__get_pydantic_json_schema__"
+       }
+      ]
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "validation",
+  "options": {},
+  "expected": {
+   "json_schema": {
+    "$dict": [
+     [
+      "$defs",
+      {
+       "Model": {
+        "examples": [
+         {
+          "foo": {
+           "mini_me": null
+          }
+         }
+        ],
+        "properties": {
+         "mini_me": {
+          "anyOf": [
+           {
+            "$dict": [
+             [
+              "$ref",
+              "#/$defs/Model"
+             ]
+            ]
+           },
+           {
+            "type": "null"
+           }
+          ]
+         }
+        },
+        "required": [
+         "mini_me"
+        ],
+        "title": "Model",
+        "type": "object"
+       }
+      }
+     ],
+     [
+      "$ref",
+      "#/$defs/Model"
+     ]
+    ]
+   }
+  },
+  "warnings": []
+ }
+]

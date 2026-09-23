@@ -1,32 +1,68 @@
-//! Replays the JSON Schema cases recorded from pydantic (tests/json_schema/cases.json, written by
-//! tools/json_schema/record.sh): every case must produce pydantic's JSON Schema, including key
-//! order, or its error, and the same warnings.
+//! Replays the JSON Schema cases recorded from pydantic (tests/json_schema/README.md):
+//!
+//! - `cases.json`, hand-picked core schemas: every case runs and must match;
+//! - `upstream/`, every JSON Schema pydantic's own test suite generates: a case runs when all its
+//!   values can be represented and every schema type in it is supported, and must then match.
+//!   Everything else is skipped and counted, so cases activate as the port grows. Run with
+//!   `--nocapture` to see the summary.
+//!
+//! Matching means pydantic's JSON Schema, including key order, or its error, and the same
+//! warnings.
 
+// The summary on stdout is the point of the upstream runner.
+#![allow(clippy::print_stdout)]
+
+use std::collections::BTreeMap;
 use std::fs;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 use base64::Engine;
 use base64::engine::general_purpose::STANDARD;
 use perldantic_core::{
-    Dict, JsonSchemaMode, JsonSchemaOptions, UnionFormat, Value, generate_json_schema,
+    Dict, JsonSchemaError, JsonSchemaMode, JsonSchemaOptions, UnionFormat, Value,
+    generate_json_schema,
 };
 use serde_json::Value as Json;
 
-fn cases() -> Vec<Json> {
-    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../tests/json_schema/cases.json");
+/// Why a case cannot run yet.
+#[derive(Debug)]
+struct Skip(String);
+
+fn cases_dir() -> PathBuf {
+    PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("../../tests/json_schema")
+}
+
+fn read_cases(path: &Path) -> Vec<Json> {
     serde_json::from_str(&fs::read_to_string(path).unwrap()).unwrap()
 }
 
+fn case_files(dir: &Path, out: &mut Vec<PathBuf>) {
+    for entry in fs::read_dir(dir).unwrap() {
+        let path = entry.unwrap().path();
+        if path.is_dir() {
+            case_files(&path, out);
+        } else if path.extension().is_some_and(|e| e == "json") {
+            out.push(path);
+        }
+    }
+}
+
 /// Decode the conformance value encoding (tests/conformance/README.md); a class is its name.
-fn decode(json: &Json) -> Value {
-    match json {
+fn decode(json: &Json) -> Result<Value, Skip> {
+    Ok(match json {
         Json::Null => Value::None,
         Json::Bool(b) => Value::Bool(*b),
-        Json::Number(n) => n
-            .as_i64()
-            .map_or_else(|| Value::Float(n.as_f64().unwrap()), Value::Int),
+        Json::Number(n) => {
+            if let Some(i) = n.as_i64() {
+                Value::Int(i)
+            } else if n.is_f64() {
+                Value::Float(n.as_f64().unwrap())
+            } else {
+                Value::BigInt(n.to_string().parse().unwrap())
+            }
+        }
         Json::String(s) => Value::Str(s.clone()),
-        Json::Array(items) => Value::List(items.iter().map(decode).collect()),
+        Json::Array(items) => Value::List(items.iter().map(decode).collect::<Result<_, _>>()?),
         Json::Object(map) => {
             if map.len() == 1 {
                 let (tag, payload) = map.iter().next().unwrap();
@@ -36,18 +72,19 @@ fn decode(json: &Json) -> Value {
             }
             Value::Dict(
                 map.iter()
-                    .map(|(k, v)| (Value::Str(k.clone()), decode(v)))
-                    .collect(),
+                    .map(|(k, v)| Ok((Value::Str(k.clone()), decode(v)?)))
+                    .collect::<Result<_, Skip>>()?,
             )
         }
-    }
+    })
 }
 
-fn decode_tag(tag: &str, payload: &Json) -> Value {
-    let items = || payload.as_array().unwrap().iter().map(decode).collect();
-    match tag {
-        "tuple" => Value::Tuple(items()),
-        "set" => Value::Set(items()),
+fn decode_tag(tag: &str, payload: &Json) -> Result<Value, Skip> {
+    let items =
+        || -> Result<Vec<Value>, Skip> { payload.as_array().unwrap().iter().map(decode).collect() };
+    Ok(match tag {
+        "tuple" => Value::Tuple(items()?),
+        "set" => Value::Set(items()?),
         "bytes" => Value::Bytes(STANDARD.decode(payload.as_str().unwrap()).unwrap()),
         "float" => Value::Float(match payload.as_str().unwrap() {
             "inf" => f64::INFINITY,
@@ -59,12 +96,12 @@ fn decode_tag(tag: &str, payload: &Json) -> Value {
                 .as_array()
                 .unwrap()
                 .iter()
-                .map(|pair| (decode(&pair[0]), decode(&pair[1])))
-                .collect::<Dict>(),
+                .map(|pair| Ok((decode(&pair[0])?, decode(&pair[1])?)))
+                .collect::<Result<Dict, Skip>>()?,
         ),
         "class" => Value::Str(payload.as_str().unwrap().to_owned()),
-        other => panic!("unexpected tag ${other}"),
-    }
+        other => return Err(Skip(format!("${other} value"))),
+    })
 }
 
 fn options(case: &Json) -> JsonSchemaOptions {
@@ -97,48 +134,137 @@ fn options(case: &Json) -> JsonSchemaOptions {
     options
 }
 
+fn warnings(case: &Json) -> Vec<String> {
+    case["warnings"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .map(|w| w.as_str().unwrap().to_owned())
+        .collect()
+}
+
+/// Whether the port cannot describe the schema yet (rather than got it wrong).
+fn unsupported(error: &JsonSchemaError) -> Option<String> {
+    let message = error.to_string();
+    (message.contains("is not supported yet") || message.contains("are not supported yet"))
+        .then_some(message)
+}
+
+/// Run one case: `Ok(Err(skip))` when it cannot run, `Ok(Ok(()))` when it matches pydantic.
+fn run_case(case: &Json) -> Result<Result<(), Skip>, String> {
+    let schema = match decode(&case["schema"]) {
+        Ok(schema) => schema,
+        Err(skip) => return Ok(Err(skip)),
+    };
+    let config = match decode(&case["config"]) {
+        Ok(config) => config,
+        Err(skip) => return Ok(Err(skip)),
+    };
+    let result = generate_json_schema(&schema, Some(&config), &options(case));
+    if let Err(error) = &result
+        && let Some(message) = unsupported(error)
+    {
+        return Ok(Err(Skip(message)));
+    }
+    let expected = &case["expected"];
+    if let Some(expected_schema) = expected.get("json_schema") {
+        let expected_schema = match decode(expected_schema) {
+            Ok(schema) => schema,
+            Err(skip) => return Ok(Err(skip)),
+        };
+        let generated = result.map_err(|e| format!("unexpected error {}: {e}", e.python_name()))?;
+        // Value equality ignores dict order; pydantic's key order is part of the output.
+        if format!("{:?}", generated.schema) != format!("{expected_schema:?}") {
+            return Err(format!(
+                "schema differs\n  got:      {:?}\n  expected: {expected_schema:?}",
+                generated.schema
+            ));
+        }
+        if generated.warnings != warnings(case) {
+            return Err(format!(
+                "warnings differ: got {:?}, expected {:?}",
+                generated.warnings,
+                warnings(case)
+            ));
+        }
+    } else {
+        let expected = [
+            expected["error"][0].as_str().unwrap(),
+            expected["error"][1].as_str().unwrap(),
+        ];
+        match result {
+            Ok(generated) => {
+                return Err(format!("expected {expected:?}, got {:?}", generated.schema));
+            }
+            Err(error) => {
+                let got = [error.python_name(), &error.to_string()];
+                if got != expected {
+                    return Err(format!("expected {expected:?}, got {got:?}"));
+                }
+            }
+        }
+    }
+    Ok(Ok(()))
+}
+
 #[test]
-fn json_schemas_match_pydantic() {
-    let cases = cases();
+fn hand_picked_cases_match_pydantic() {
+    let cases = read_cases(&cases_dir().join("cases.json"));
     assert!(cases.len() > 30);
     for case in &cases {
         let id = case["id"].as_str().unwrap();
-        let result = generate_json_schema(&decode(&case["schema"]), &options(case));
-        let expected = &case["expected"];
-        if let Some(schema) = expected.get("json_schema") {
-            let generated = result.unwrap_or_else(|e| panic!("{id}: unexpected error {e}"));
-            let schema = decode(schema);
-            assert_eq!(generated.schema, schema, "{id}");
-            // Value equality ignores dict order; pydantic's key order is part of the output.
-            assert_eq!(
-                format!("{:?}", generated.schema),
-                format!("{schema:?}"),
-                "{id}: key order"
-            );
-            let warnings: Vec<String> = case["warnings"]
-                .as_array()
-                .unwrap()
-                .iter()
-                .map(|w| w.as_str().unwrap().to_owned())
-                .collect();
-            assert_eq!(generated.warnings, warnings, "{id}: warnings");
-        } else {
-            let error = result.expect_err(id);
-            assert_eq!(
-                [error.python_name(), &error.to_string()],
-                [
-                    expected["error"][0].as_str().unwrap(),
-                    expected["error"][1].as_str().unwrap()
-                ],
-                "{id}"
-            );
+        match run_case(case) {
+            Ok(Ok(())) => {}
+            Ok(Err(Skip(reason))) => panic!("{id}: skipped: {reason}"),
+            Err(failure) => panic!("{id}: {failure}"),
         }
     }
+}
+
+#[test]
+fn upstream_cases_match_pydantic() {
+    let mut files = Vec::new();
+    case_files(&cases_dir().join("upstream"), &mut files);
+    files.sort();
+    let (mut total, mut active) = (0, 0);
+    let mut skipped: BTreeMap<String, usize> = BTreeMap::new();
+    let mut failures = Vec::new();
+    for file in &files {
+        for case in read_cases(file) {
+            total += 1;
+            match run_case(&case) {
+                Ok(Ok(())) => active += 1,
+                Ok(Err(Skip(reason))) => {
+                    // group by reason, without case-specific details
+                    let reason = reason.split(':').next().unwrap_or(&reason).to_owned();
+                    *skipped.entry(reason).or_default() += 1;
+                }
+                Err(failure) => {
+                    failures.push(format!("{}: {failure}", case["id"].as_str().unwrap()));
+                }
+            }
+        }
+    }
+    println!(
+        "JSON Schema upstream cases: {total} total, {active} active, {} failing",
+        failures.len()
+    );
+    for (reason, count) in &skipped {
+        println!("  skipped {count:>4}: {reason}");
+    }
+    assert!(active > 0, "no upstream case ran");
+    assert!(
+        failures.is_empty(),
+        "{} upstream cases differ from pydantic:\n{}",
+        failures.len(),
+        failures.join("\n")
+    );
 }
 
 fn generate(schema: &str) -> Result<Value, (String, String)> {
     generate_json_schema(
         &Value::from_json(schema).unwrap(),
+        None,
         &JsonSchemaOptions::default(),
     )
     .map(|g| g.schema)

@@ -6,3 +6,8 @@ This product includes software derived from pydantic-core
 Copyright (c) 2022 Samuel Colvin, licensed under the MIT License.
 The upstream sources are vendored unmodified in upstream/pydantic-core/,
 with their original license in upstream/pydantic-core/LICENSE.
+
+It also includes software derived from pydantic's JSON Schema generation
+(https://github.com/pydantic/pydantic, pydantic/json_schema.py), in
+crates/perldantic-core/src/json_schema/, Copyright (c) 2017 to present Pydantic
+Services Inc. and individual contributors, licensed under the MIT License.
