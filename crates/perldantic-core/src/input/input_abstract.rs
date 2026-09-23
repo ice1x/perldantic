@@ -9,6 +9,9 @@ use jiter::JsonValue;
 use crate::core_error::CoreResult;
 use crate::errors::{ErrorTypeDefaults, LocItem, ValError, ValResult};
 use crate::lookup_key::LookupPath;
+use speedate::MicrosecondsPrecisionOverflowBehavior;
+
+use crate::validators::TemporalUnitMode;
 use crate::validators::config::ValBytesMode;
 use crate::value::Value;
 
@@ -72,6 +75,27 @@ pub trait Input: fmt::Debug {
     }
 
     fn validate_float(&self, strict: bool) -> ValMatch<EitherFloat>;
+
+    fn validate_date(&self, strict: bool, mode: TemporalUnitMode) -> ValMatch<speedate::Date>;
+
+    fn validate_time(
+        &self,
+        strict: bool,
+        microseconds_overflow_behavior: MicrosecondsPrecisionOverflowBehavior,
+    ) -> ValMatch<speedate::Time>;
+
+    fn validate_datetime(
+        &self,
+        strict: bool,
+        microseconds_overflow_behavior: MicrosecondsPrecisionOverflowBehavior,
+        mode: TemporalUnitMode,
+    ) -> ValMatch<speedate::DateTime>;
+
+    fn validate_timedelta(
+        &self,
+        strict: bool,
+        microseconds_overflow_behavior: MicrosecondsPrecisionOverflowBehavior,
+    ) -> ValMatch<speedate::Duration>;
 
     type Dict<'a>: ValidatedDict
     where

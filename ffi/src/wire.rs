@@ -7,13 +7,16 @@
 //! - `{"$tuple": [...]}`, `{"$set": [...]}`, `{"$bytes": "<base64>"}`,
 //!   `{"$float": "inf" | "-inf" | "nan"}`;
 //! - `{"$dict": [[key, value], ...]}` for dicts with non-string keys or keys starting with `$`;
+//! - `{"$date": "2022-06-08"}`, `{"$time": "12:13:14.000001+01:00"}`,
+//!   `{"$datetime": "2022-06-08T12:13:14+01:00"}` (Python's `isoformat`) and
+//!   `{"$timedelta": [days, seconds, microseconds]}` (Python's normalised fields);
 //! - `{"$model": {"class", "fields", "fields_set", "extra"}}` for model instances.
 
 use std::fmt::Write as _;
 
 use base64::Engine;
 use base64::engine::general_purpose::STANDARD;
-use perldantic_core::{CoreError, CoreResult, Dict, Model, Value};
+use perldantic_core::{CoreError, CoreResult, Dict, Model, Value, speedate, temporal};
 
 /// Parse wire JSON into a value.
 pub fn decode(json: &str) -> CoreResult<Value> {
@@ -99,12 +102,56 @@ fn decode_tag(tag: &str, payload: Value) -> CoreResult<Value> {
             )
         }
         "model" => decode_model(payload)?,
+        "date" => Value::Date(parse_temporal(
+            &payload,
+            "$date",
+            speedate::Date::parse_str,
+        )?),
+        "time" => Value::Time(parse_temporal(
+            &payload,
+            "$time",
+            speedate::Time::parse_str,
+        )?),
+        "datetime" => Value::DateTime(parse_temporal(
+            &payload,
+            "$datetime",
+            speedate::DateTime::parse_str,
+        )?),
+        "timedelta" => decode_timedelta(&payload)?,
         other => {
             return Err(CoreError::Value(format!(
                 "Invalid wire value: unknown tag `${other}`"
             )));
         }
     })
+}
+
+fn parse_temporal<T>(
+    payload: &Value,
+    tag: &str,
+    parse: impl Fn(&str) -> Result<T, speedate::ParseError>,
+) -> CoreResult<T> {
+    match payload {
+        Value::Str(text) => {
+            parse(text).map_err(|_| invalid(&format!("{tag} takes ISO 8601 text"), payload))
+        }
+        _ => Err(invalid(&format!("{tag} takes ISO 8601 text"), payload)),
+    }
+}
+
+fn decode_timedelta(payload: &Value) -> CoreResult<Value> {
+    const WHAT: &str = "$timedelta takes [days, seconds, microseconds]";
+    let Value::List(parts) = payload else {
+        return Err(invalid(WHAT, payload));
+    };
+    match parts.as_slice() {
+        [Value::Int(days), Value::Int(seconds), Value::Int(micros)] => {
+            temporal::duration_from_parts(*days, *seconds, *micros)
+                .map(Value::TimeDelta)
+                .map_err(|_| invalid(WHAT, payload))
+        }
+        _ => Err(invalid(WHAT, payload)),
+    }
 }
 
 fn decode_model(payload: Value) -> CoreResult<Value> {
@@ -228,6 +275,20 @@ fn write_value(value: &Value, out: &mut String) {
         Value::Tuple(items) => write_tagged("tuple", out, |out| write_items(items, out)),
         Value::Set(items) => write_tagged("set", out, |out| write_items(items, out)),
         Value::Dict(dict) => write_dict(dict, out),
+        Value::Date(d) => write_tagged("date", out, |out| write_str(&temporal::date_str(d), out)),
+        Value::Time(t) => write_tagged("time", out, |out| write_str(&temporal::time_str(t), out)),
+        Value::DateTime(dt) => write_tagged("datetime", out, |out| {
+            let iso = format!(
+                "{}T{}",
+                temporal::date_str(&dt.date),
+                temporal::time_str(&dt.time)
+            );
+            write_str(&iso, out);
+        }),
+        Value::TimeDelta(d) => write_tagged("timedelta", out, |out| {
+            let (days, seconds, micros) = temporal::timedelta_parts(d);
+            write!(out, "[{days},{seconds},{micros}]").expect("writing to a String");
+        }),
         Value::Model(model) => write_tagged("model", out, |out| {
             out.push_str("{\"class\":");
             write_str(&model.class, out);
@@ -295,6 +356,39 @@ mod tests {
             r#"{"$float":"-inf"}"#
         );
         assert!(matches!(decode(r#"{"$float": "nan"}"#).unwrap(), Value::Float(f) if f.is_nan()));
+    }
+
+    #[test]
+    fn temporal_values_use_python_forms() {
+        for (json, value) in [
+            (
+                r#"{"$date":"2022-06-08"}"#,
+                Value::Date(speedate::Date::parse_str("2022-06-08").unwrap()),
+            ),
+            (
+                r#"{"$time":"12:13:14.000001+01:00"}"#,
+                Value::Time(speedate::Time::parse_str("12:13:14.000001+01:00").unwrap()),
+            ),
+            (
+                r#"{"$datetime":"2022-06-08T00:00:00"}"#,
+                Value::DateTime(speedate::DateTime::parse_str("2022-06-08T00:00").unwrap()),
+            ),
+            (
+                r#"{"$timedelta":[-1,86399,877000]}"#,
+                Value::TimeDelta(temporal::duration_from_parts(0, 0, -123_000).unwrap()),
+            ),
+        ] {
+            assert_eq!(encode(&value), json);
+            assert_eq!(decode(json).unwrap(), value, "{json}");
+        }
+        assert_eq!(
+            decode(r#"{"$date": "nope"}"#).unwrap_err().to_string(),
+            "Invalid wire value: $date takes ISO 8601 text, got 'nope'"
+        );
+        assert_eq!(
+            decode(r#"{"$timedelta": [1]}"#).unwrap_err().to_string(),
+            "Invalid wire value: $timedelta takes [days, seconds, microseconds], got [1]"
+        );
     }
 
     #[test]

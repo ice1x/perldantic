@@ -75,6 +75,24 @@ subtest 'wire JSON is decoded into Perl data' => sub {
     is "$data->{big}", '123456789012345678901234567890';
 };
 
+subtest 'dates, times and durations round-trip as wire objects' => sub {
+    my $data = Perldantic::Wire::decode(
+        '[{"$date":"2022-06-08"},{"$time":"12:13:14.000001+01:00"},'
+            . '{"$datetime":"2022-06-08T12:13:14+01:00"},{"$timedelta":[-1,86399,5]}]');
+    isa_ok $data->[0], 'Perldantic::Wire::Date';
+    is $data->[0]->iso, '2022-06-08';
+    isa_ok $data->[1], 'Perldantic::Wire::Time';
+    is $data->[1]->iso, '12:13:14.000001+01:00';
+    isa_ok $data->[2], 'Perldantic::Wire::DateTime';
+    is "$data->[2]", '2022-06-08T12:13:14+01:00', 'they stringify to their ISO text';
+    isa_ok $data->[3], 'Perldantic::Wire::Duration';
+    is [$data->[3]->parts], [-1, 86399, 5], "Python's normalised timedelta fields";
+    is Perldantic::Wire::encode($data),
+        '[{"$date":"2022-06-08"},{"$time":"12:13:14.000001+01:00"},'
+        . '{"$datetime":"2022-06-08T12:13:14+01:00"},{"$timedelta":[-1,86399,5]}]';
+    is Perldantic::Wire::encode(Perldantic::Wire::Duration->new(1, 2, 3)), '{"$timedelta":[1,2,3]}';
+};
+
 subtest 'models round-trip' => sub {
     my $model = Perldantic::Wire::decode(
         '{"$model":{"class":"M","fields":{"a":{"$tuple":[1]}},"fields_set":["a"],"extra":{"z":1}}}');

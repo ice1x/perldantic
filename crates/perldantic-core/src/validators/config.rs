@@ -24,6 +24,49 @@ const STANDARD_OPTIONAL_PADDING: GeneralPurpose = GeneralPurpose::new(
 
 pub(crate) use crate::serializers::config::BytesMode;
 
+/// How numbers are read as timestamps (`val_temporal_unit` config).
+#[derive(Default, Debug, Clone, Copy, PartialEq, Eq)]
+pub enum TemporalUnitMode {
+    Seconds,
+    Milliseconds,
+    #[default]
+    Infer,
+}
+
+impl FromStr for TemporalUnitMode {
+    type Err = crate::core_error::CoreError;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "seconds" => Ok(Self::Seconds),
+            "milliseconds" => Ok(Self::Milliseconds),
+            "infer" => Ok(Self::Infer),
+            s => Err(crate::core_error::CoreError::Schema(format!(
+                "Invalid temporal_unit_mode serialization mode: `{s}`, expected seconds, milliseconds or infer"
+            ))),
+        }
+    }
+}
+
+impl TemporalUnitMode {
+    pub fn from_config(config: Option<&Dict>) -> CoreResult<Self> {
+        match config.get_as::<String>("val_temporal_unit")? {
+            Some(raw) => Self::from_str(&raw),
+            None => Ok(Self::default()),
+        }
+    }
+}
+
+impl From<TemporalUnitMode> for speedate::TimestampUnit {
+    fn from(value: TemporalUnitMode) -> Self {
+        match value {
+            TemporalUnitMode::Seconds => Self::Second,
+            TemporalUnitMode::Milliseconds => Self::Millisecond,
+            TemporalUnitMode::Infer => Self::Infer,
+        }
+    }
+}
+
 /// How strings are decoded into bytes during validation (`val_json_bytes` config).
 #[derive(Default, Debug, Clone, Copy, PartialEq, Eq)]
 pub struct ValBytesMode {

@@ -18,7 +18,10 @@ mod any;
 mod bool;
 mod bytes;
 pub(crate) mod config;
+pub(crate) use config::TemporalUnitMode;
 mod custom_error;
+mod date;
+mod datetime;
 mod definitions;
 mod dict;
 mod float;
@@ -32,6 +35,8 @@ mod none;
 mod nullable;
 mod shared;
 mod string;
+mod time;
+mod timedelta;
 mod tuple;
 mod union;
 pub(crate) mod validation_state;
@@ -293,6 +298,8 @@ validators! {
     bool::BoolValidator,
     bytes::BytesValidator,
     custom_error::CustomErrorValidator,
+    date::DateValidator,
+    datetime::DateTimeValidator,
     definitions::DefinitionRefValidator,
     definitions::DefinitionsValidatorBuilder,
     dict::DictValidator,
@@ -306,6 +313,8 @@ validators! {
     none::NoneValidator,
     nullable::NullableValidator,
     string::StrValidator,
+    time::TimeValidator,
+    timedelta::TimeDeltaValidator,
     tuple::TupleValidator,
     union::TaggedUnionValidator,
     union::UnionValidator,
@@ -339,6 +348,8 @@ pub enum CombinedValidator {
     Bytes(bytes::BytesValidator),
     ConstrainedBytes(bytes::BytesConstrainedValidator),
     CustomError(custom_error::CustomErrorValidator),
+    Date(date::DateValidator),
+    Datetime(datetime::DateTimeValidator),
     DefinitionRef(definitions::DefinitionRefValidator),
     Dict(dict::DictValidator),
     Float(float::FloatValidator),
@@ -355,6 +366,8 @@ pub enum CombinedValidator {
     Nullable(nullable::NullableValidator),
     Str(string::StrValidator),
     StrConstrained(string::StrConstrainedValidator),
+    Time(time::TimeValidator),
+    Timedelta(timedelta::TimeDeltaValidator),
     Tuple(tuple::TupleValidator),
     Union(union::UnionValidator),
     // Boxed: much larger than most validators.

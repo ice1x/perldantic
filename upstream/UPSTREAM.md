@@ -61,7 +61,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `errors/types.rs` | `crates/perldantic-core/src/errors/types.rs` | P0 | ported |  |
 | `errors/validation_exception.rs` | `crates/perldantic-core/src/errors/validation_error.rs` | P0 | ported | renamed; `PyLineError` folded into `ErrorDetails` |
 | `errors/value_exception.rs` | `crates/perldantic-core/src/errors/value_exception.rs` | P0 | partial | custom-message formatting ported into `types.rs`; exception classes belong to the host |
-| `input/datetime.rs` | `crates/perldantic-core/src/input/datetime.rs` | P1 | pending |  |
+| `input/datetime.rs` | `crates/perldantic-core/src/input/datetime.rs` | P1 | done | values are speedate types throughout (no `Either*` wrappers); Python's forms live in `src/temporal.rs` |
 | `input/input_abstract.rs` | `crates/perldantic-core/src/input/input_abstract.rs` | P0 | partial | P0 methods; more are added with their validators |
 | `input/input_json.rs` | `crates/perldantic-core/src/input/input_json.rs` | P0 | partial | P0 methods for JSON and `str` |
 | `input/input_python.rs` | `crates/perldantic-core/src/input/input_value.rs` | P0 | partial | rewritten as `Input for Value`; P0 methods |
@@ -76,7 +76,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `schema_gather.rs` | `crates/perldantic-core/src/schema_gather.rs` | P1 | pending | schema traversal for cleaning |
 | `self_schema.py` | - | drop | dropped | Python-generated self schema; replaced by serde CoreSchema |
 | `serializers/computed_fields.rs` | `crates/perldantic-core/src/serializers/computed_fields.rs` | P0 | pending |  |
-| `serializers/config.rs` | `crates/perldantic-core/src/serializers/config.rs` | P0 | partial | bytes and inf/nan modes; temporal modes come with the date types |
+| `serializers/config.rs` | `crates/perldantic-core/src/serializers/config.rs` | P0 | done | bytes, inf/nan and temporal (`ser_json_temporal`, `ser_json_timedelta`) modes |
 | `serializers/errors.rs` | `crates/perldantic-core/src/serializers/errors.rs` | P0 | ported | exceptions are `SerializeError` variants |
 | `serializers/extra.rs` | `crates/perldantic-core/src/serializers/extra.rs` | P0 | ported | warnings are returned with the output instead of emitted |
 | `serializers/fields.rs` | `crates/perldantic-core/src/serializers/fields.rs` | P0 | partial | model fields; computed fields and `serialization_exclude_if` wait for host callbacks; `exclude_unset` uses the model's unset field names instead of the `MISSING` sentinel |
@@ -142,8 +142,8 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/counter.rs` | - | drop | dropped | Python-only type |
 | `validators/custom_error.rs` | `crates/perldantic-core/src/validators/custom_error.rs` | P0 | ported | known and custom errors are both an `ErrorType`; a missing `custom_error_type` is a schema error (DIVERGENCES #11) |
 | `validators/dataclass.rs` | - | drop | dropped | Python-only type |
-| `validators/date.rs` | `crates/perldantic-core/src/validators/date.rs` | P1 | pending |  |
-| `validators/datetime.rs` | `crates/perldantic-core/src/validators/datetime.rs` | P1 | pending |  |
+| `validators/date.rs` | `crates/perldantic-core/src/validators/date.rs` | P1 | done |  |
+| `validators/datetime.rs` | `crates/perldantic-core/src/validators/datetime.rs` | P1 | done | `now_op` without `now_utc_offset` uses UTC (DIVERGENCES #16) |
 | `validators/decimal.rs` | `crates/perldantic-core/src/validators/decimal.rs` | P1 | pending |  |
 | `validators/definitions.rs` | `crates/perldantic-core/src/validators/definitions.rs` | P0 | partial | host data is guarded by value identity like Python objects; `validate_assignment` comes with the Perl model API |
 | `validators/deque.rs` | - | drop | dropped | Python-only type |
@@ -177,8 +177,8 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/shared/lookup_tree.rs` | `crates/perldantic-core/src/validators/shared/lookup_tree.rs` | P0 | ported | index lookups in a `BTreeMap` for a deterministic order |
 | `validators/shared/mod.rs` | `crates/perldantic-core/src/validators/shared/mod.rs` | P0 | pending |  |
 | `validators/string.rs` | `crates/perldantic-core/src/validators/string.rs` | P0 | ported | `python-re` engine unavailable (divergence 7); no regex LRU cache yet |
-| `validators/time.rs` | `crates/perldantic-core/src/validators/time.rs` | P1 | pending |  |
-| `validators/timedelta.rs` | `crates/perldantic-core/src/validators/timedelta.rs` | P1 | pending |  |
+| `validators/time.rs` | `crates/perldantic-core/src/validators/time.rs` | P1 | done |  |
+| `validators/timedelta.rs` | `crates/perldantic-core/src/validators/timedelta.rs` | P1 | done |  |
 | `validators/tuple.rs` | `crates/perldantic-core/src/validators/tuple.rs` | P0 | ported | out-of-range `variadic_item_index` is a schema error (DIVERGENCES #11) |
 | `validators/typed_dict.rs` | `crates/perldantic-core/src/validators/typed_dict.rs` | P1 | pending |  |
 | `validators/union.rs` | `crates/perldantic-core/src/validators/union.rs` | P0 | partial | `union` and `tagged-union`; function discriminators wait for host callbacks |

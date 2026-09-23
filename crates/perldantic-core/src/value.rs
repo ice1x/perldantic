@@ -6,6 +6,7 @@
 //! `repr()` and `type_name()` reproduce Python's `repr()` and `type(x).__name__`, because
 //! pydantic embeds them in error output (`input_value=..., input_type=...`).
 
+use crate::temporal;
 use std::fmt::Write as _;
 
 use crate::core_error::{CoreError, CoreResult};
@@ -36,6 +37,14 @@ pub enum Value {
     Set(Vec<Value>),
     /// A model instance, built by `model` schemas.
     Model(Box<Model>),
+    /// Python's `datetime.date`.
+    Date(speedate::Date),
+    /// Python's `datetime.time`; `tz_offset` is the UTC offset in seconds of an aware time.
+    Time(speedate::Time),
+    /// Python's `datetime.datetime`.
+    DateTime(speedate::DateTime),
+    /// Python's `datetime.timedelta`.
+    TimeDelta(speedate::Duration),
 }
 
 /// A model instance: what pydantic stores on a `BaseModel`. The class is identified by name;
@@ -78,6 +87,12 @@ impl PartialEq for Value {
             (Self::Dict(a), Self::Dict(b)) => a == b,
             (Self::Set(a), Self::Set(b)) => same_items(a, b, |x, y| x == y),
             (Self::Model(a), Self::Model(b)) => a == b,
+            (Self::Date(a), Self::Date(b)) => a == b,
+            (Self::Time(a), Self::Time(b)) => a == b,
+            (Self::DateTime(a), Self::DateTime(b)) => a == b,
+            (Self::TimeDelta(a), Self::TimeDelta(b)) => {
+                temporal::total_micros(a) == temporal::total_micros(b)
+            }
             _ => false,
         }
     }
@@ -134,6 +149,12 @@ impl Value {
                     }
             }
             (Self::Dict(a), Self::Dict(b)) => dicts_py_eq(a, b),
+            (Self::Date(a), Self::Date(b)) => a == b,
+            (Self::Time(a), Self::Time(b)) => temporal::time_py_eq(a, b),
+            (Self::DateTime(a), Self::DateTime(b)) => temporal::datetime_py_eq(a, b),
+            (Self::TimeDelta(a), Self::TimeDelta(b)) => {
+                temporal::total_micros(a) == temporal::total_micros(b)
+            }
             _ => false,
         }
     }
@@ -162,6 +183,10 @@ impl Value {
             Self::Dict(_) => "dict",
             Self::Set(_) => "set",
             Self::Model(model) => &model.class,
+            Self::Date(_) => "date",
+            Self::Time(_) => "time",
+            Self::DateTime(_) => "datetime",
+            Self::TimeDelta(_) => "timedelta",
         }
     }
 
@@ -172,10 +197,15 @@ impl Value {
         out
     }
 
-    /// Python's `str(value)`: identical to `repr` except for strings, which are unquoted.
+    /// Python's `str(value)`: identical to `repr` except for strings, which are unquoted, and
+    /// temporal values, which are in ISO format.
     pub fn py_str(&self) -> String {
         match self {
             Self::Str(s) => s.clone(),
+            Self::Date(d) => temporal::date_str(d),
+            Self::Time(t) => temporal::time_str(t),
+            Self::DateTime(dt) => temporal::datetime_str(dt),
+            Self::TimeDelta(d) => temporal::timedelta_str(d),
             other => other.repr(),
         }
     }
@@ -236,6 +266,10 @@ impl Value {
                 }
                 out.push('}');
             }
+            Self::Date(d) => out.push_str(&temporal::date_repr(d)),
+            Self::Time(t) => out.push_str(&temporal::time_repr(t)),
+            Self::DateTime(dt) => out.push_str(&temporal::datetime_repr(dt)),
+            Self::TimeDelta(d) => out.push_str(&temporal::timedelta_repr(d)),
         }
     }
 
@@ -419,6 +453,11 @@ impl Serialize for Value {
                 }
                 map.end()
             }
+            // pydantic's JSON forms: ISO 8601 text.
+            Self::Date(d) => serializer.serialize_str(&d.to_string()),
+            Self::Time(t) => serializer.serialize_str(&t.to_string()),
+            Self::DateTime(dt) => serializer.serialize_str(&dt.to_string()),
+            Self::TimeDelta(d) => serializer.serialize_str(&d.to_string()),
             // Like `model_dump`: the fields, then the extra values.
             Self::Model(model) => {
                 let extra = model.extra.iter().flat_map(Dict::iter);

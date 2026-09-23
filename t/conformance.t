@@ -92,6 +92,7 @@ sub needs_host_callbacks ($schema) {
 # What a value looks like after a trip through Perldantic::Wire::decode.
 sub plain ($value) {
     my $class = blessed $value // '';
+    return $value if !ref $value;
     return {map { $_ } map { $_ % 2 ? plain($value->[$_]) : wire_key($value->[$_]) } 0 .. $#$value}
         if $class eq 'Perldantic::Wire::Ordered';
     return [map { plain($_) } @$value] if $class eq 'Perldantic::Wire::Tuple';
@@ -99,6 +100,8 @@ sub plain ($value) {
     return bless [map { plain($_) } @$value], 'SetCmp' if $class eq 'Perldantic::Wire::Set';
     return $$value if $class eq 'Perldantic::Wire::Bytes';
     return "$value" if $class eq 'Math::BigInt';
+    return ref($value) . ':' . $value->iso if $class && $value->isa('Perldantic::Wire::Temporal');
+    return 'Duration:' . join(',', $value->parts) if $class eq 'Perldantic::Wire::Duration';
     if ($class eq 'Perldantic::Wire::Model') {
         return Perldantic::Wire::Model->new(
             class      => $value->class,

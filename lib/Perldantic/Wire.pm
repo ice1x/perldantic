@@ -93,6 +93,14 @@ sub _special_float ($value) {
     return undef;
 }
 
+# Temporal wire objects and their tags.
+my %TEMPORAL_TAG = (
+    'Perldantic::Wire::Date'     => '$date',
+    'Perldantic::Wire::Time'     => '$time',
+    'Perldantic::Wire::DateTime' => '$datetime',
+    'Perldantic::Wire::Duration' => '$timedelta',
+);
+
 sub _tag ($value) {
     if (!ref $value) {
         return $value if !defined $value;
@@ -104,6 +112,7 @@ sub _tag ($value) {
         return {'$set' => [map { _tag($_) } @$value]}   if $class eq 'Perldantic::Wire::Set';
         return {'$bytes' => encode_base64($$value, '')} if $class eq 'Perldantic::Wire::Bytes';
         return {'$model' => $value->_wire}              if $class eq 'Perldantic::Wire::Model';
+        return {$TEMPORAL_TAG{$class} => $value->_wire} if $TEMPORAL_TAG{$class};
         if ($class eq 'Perldantic::Wire::Ordered') {
             my @pairs = @$value;
             return {'$dict' => [map { [_tag($pairs[2 * $_]), _tag($pairs[2 * $_ + 1])] } 0 .. @pairs / 2 - 1]};
@@ -130,6 +139,10 @@ my %UNTAG = (
     float => sub ($name)  { $name eq 'nan' ? 9**9**9 / 9**9**9 : $name eq 'inf' ? 9**9**9 : -9**9**9 },
     dict  => sub ($pairs) { +{map { ((ref $_->[0] ? $JSON->encode($_->[0]) : $_->[0] // '') => _untag($_->[1])) } @$pairs} },
     model => sub ($model) { Perldantic::Wire::Model->new(%{_untag($model)}) },
+    date      => sub ($iso)   { Perldantic::Wire::Date->new($iso) },
+    time      => sub ($iso)   { Perldantic::Wire::Time->new($iso) },
+    datetime  => sub ($iso)   { Perldantic::Wire::DateTime->new($iso) },
+    timedelta => sub ($parts) { Perldantic::Wire::Duration->new(@$parts) },
 );
 
 sub _untag ($value) {
@@ -148,6 +161,28 @@ sub _untag ($value) {
         }
     }
     return {map { $_ => _untag($value->{$_}) } keys %$value};
+}
+
+# A date, time or datetime from the core: its ISO 8601 text, as Python's isoformat writes it.
+package Perldantic::Wire::Temporal {
+    use overload '""' => sub ($self, @) { $$self }, fallback => 1;
+
+    sub new ($class, $iso) { bless \(my $copy = "$iso"), $class }
+    sub iso ($self)        { $$self }
+    sub _wire ($self)      { $$self }
+}
+
+package Perldantic::Wire::Date     { our @ISA = ('Perldantic::Wire::Temporal') }
+package Perldantic::Wire::Time     { our @ISA = ('Perldantic::Wire::Temporal') }
+package Perldantic::Wire::DateTime { our @ISA = ('Perldantic::Wire::Temporal') }
+
+# A duration from the core: Python's timedelta fields (days, seconds, microseconds).
+package Perldantic::Wire::Duration {
+    sub new ($class, $days, $seconds, $microseconds) {
+        return bless [0 + $days, 0 + $seconds, 0 + $microseconds], $class;
+    }
+    sub parts ($self) { @$self }
+    sub _wire ($self) { [@$self] }
 }
 
 package Perldantic::Wire::Model {
@@ -218,6 +253,10 @@ C<ordered(key =E<gt> value, ...)>, which keeps the given key order;
 
 =item * C<Perldantic::Wire::Model> is a model instance: C<class>, C<fields>, C<fields_set>
 (defaults to the field names) and C<extra>.
+
+=item * C<Perldantic::Wire::Date>, C<Perldantic::Wire::Time> and C<Perldantic::Wire::DateTime>
+hold ISO 8601 text (C<< ->iso >>, also their string form); C<Perldantic::Wire::Duration> holds
+Python's C<timedelta> fields (C<< ->parts >>: days, seconds, microseconds);
 
 =item * an object with a C<_perldantic_wire> method is sent as what that method returns.
 
