@@ -34,15 +34,15 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00028 — Models: fields, fields set, extra keys (core: `model-fields`, `model`)
   - [x] 00029 — Recursive types (core: `definitions`, `definition-ref`)
   - [x] 00030 — Lax-or-strict switch, custom errors (core: `lax-or-strict`, `custom-error`)
-- [ ] 00031 — Serialization & JSON Schema
+- [x] 00031 — Serialization & JSON Schema
   - [x] 00032 — Serializer `Value` → JSON (serde)
   - [x] 00033 — Serializer `Value` → `Value`: include/exclude, by_alias, exclude_none/unset/defaults
   - [x] 00034 — JSON Schema generator (Draft 2020-12, `$defs`) for P0 types
   - [x] 00035 — Snapshot tests against pydantic output
-- [ ] 00036 — FFI (C ABI)
-  - [ ] 00037 — Handles: validator new/free, validate, serialize, json_schema, string_free
-  - [ ] 00038 — Panic safety: `catch_unwind` on every export
-  - [ ] 00039 — C header generation (cbindgen)
+- [x] 00036 — FFI (C ABI)
+  - [x] 00037 — Handles: validator new/free, validate, serialize, json_schema, string_free
+  - [x] 00038 — Panic safety: `catch_unwind` on every export
+  - [x] 00039 — C header generation (cbindgen)
 - [ ] 00040 — Perl MVP
   - [ ] 00041 — `Perldantic::FFI` binding (FFI::Platypus, FFI::Build::File::Cargo)
   - [ ] 00042 — `Perldantic::Types` in Types::Standard vocabulary: Any Undef Bool Int Num Str Bytes Maybe[] Optional[] ArrayRef[] Tuple[] HashRef[] Map[] Dict[] Enum[] Literal[] InstanceOf[]
