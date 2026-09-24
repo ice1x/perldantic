@@ -1,0 +1,27 @@
+# What the CPAN distribution leaves out: the upstream snapshot, the recording tools, the Rust-only
+# test data and build products. The Rust sources the build compiles (crates/perldantic-core and
+# ffi) and the Perl conformance data (tests/conformance/upstream) are kept.
+
+#!include_default
+
+^\.git
+^\.github/
+^\.gitignore$
+^\.hypothesis/
+\.DS_Store$
+^upstream/
+^tools/
+^tests/json_schema/
+^tests/conformance/README\.md$
+^crates/perldantic-core/tests/
+^crates/perldantic-core/benches/
+^target/
+^ffi/target/
+^ffi/_build/
+^fbx\.json$
+^Perldantic\.c$
+^Perldantic\.o$
+^Perldantic\.bs$
+^cover_db/
+^nytprof
+^Perldantic-[\d.]+

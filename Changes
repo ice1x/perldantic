@@ -1,0 +1,26 @@
+Revision history for Perldantic
+
+0.01  2026-09-24
+    - First release: pydantic's data validation for Perl, on a Python-free Rust port of
+      pydantic-core (base commit 0384c970e, see NOTICE and upstream/UPSTREAM.md in the
+      repository).
+    - Models declared the Moo way (`use Perldantic`, has, extends, with, roles, BUILD,
+      method modifiers) with pydantic's model_validate, model_validate_json, model_dump,
+      model_dump_json, model_json_schema, model_copy, model_fields_set and model_extra.
+    - Types with Types::Standard names: Any, Undef, Bool, Int, Num, Str, Bytes, Decimal,
+      Date, Time, DateTime, Duration, Uuid, Url, MultiHostUrl, Maybe, Optional, ArrayRef,
+      Set, Json, Chain, Tuple, HashRef, Map, Dict, Enum, Literal, InstanceOf, unions with `|`
+      and AnyOf, discriminated unions; pydantic's constraints through `has` options or
+      `->with`; Type::Tiny constraints wherever a type is expected.
+    - field_validator, model_validator, field_serializer, model_serializer and
+      computed_field, with pydantic's modes and info objects.
+    - Perldantic::TypeAdapter for any type: validate, validate_json, dump, dump_json,
+      json_schema.
+    - Structured exceptions (Perldantic::ValidationError and friends); errors for Perl data
+      use Perl's vocabulary (hash_type, array_type, undef_required, ...).
+    - Value classes Perldantic::Date, ::Time, ::DateTime, ::Duration, ::Uuid, ::Url and
+      ::MultiHostUrl; Math::BigFloat for decimals; DateTime and Time::Moment interop.
+    - Perldantic::FFI: the core schema API itself (validators and serializers for
+      pydantic core_schema dicts, JSON Schema).
+    - Documentation: POD for every module, docs/MIGRATING_FROM_PYDANTIC.md,
+      docs/DIVERGENCES.md.
