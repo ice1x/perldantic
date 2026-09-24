@@ -15,9 +15,9 @@ use std::path::{Path, PathBuf};
 use base64::Engine;
 use base64::engine::general_purpose::STANDARD;
 use perldantic_core::{
-    Dict, ErrorDetails, ErrorsOptions, ExtraBehavior, JsonOptions, LocItem, Model, PartialMode,
-    SchemaSerializer, SchemaValidator, SerMode, SerializeOptions, ValidateError, ValidateOptions,
-    Value, WarningsMode, speedate, temporal, uuid,
+    Dict, ErrorDetails, ErrorsOptions, ExtraBehavior, JsonOptions, LocItem, Model, MultiHostUrl,
+    PartialMode, SchemaSerializer, SchemaValidator, SerMode, SerializeOptions, Url, ValidateError,
+    ValidateOptions, Value, WarningsMode, speedate, temporal, uuid,
 };
 use serde_json::Value as Json;
 
@@ -131,6 +131,13 @@ fn decode_tag(tag: &str, payload: &Json, in_schema: bool) -> Result<Value, Skip>
             Value::TimeDelta(temporal::duration_from_parts(part(0), part(1), part(2)).unwrap())
         }
         "uuid" => Value::Uuid(uuid::Uuid::parse_str(payload.as_str().unwrap()).unwrap()),
+        // `str(url)`: an empty path is kept empty so the text round-trips
+        "url" => Value::Url(Box::new(
+            Url::parse(payload.as_str().unwrap(), true).unwrap(),
+        )),
+        "multi_host_url" => Value::MultiHostUrl(Box::new(
+            MultiHostUrl::parse(payload.as_str().unwrap(), true).unwrap(),
+        )),
         other => return Err(Skip(format!("value ${other}"))),
     })
 }

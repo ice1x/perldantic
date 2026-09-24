@@ -22,7 +22,7 @@ use perldantic_core::{
     Dict, JsonSchemaError, JsonSchemaMode, JsonSchemaOptions, UnionFormat, Value,
     generate_json_schema,
 };
-use perldantic_core::{speedate, temporal, uuid};
+use perldantic_core::{MultiHostUrl, Url, speedate, temporal, uuid};
 use serde_json::Value as Json;
 
 /// Why a case cannot run yet.
@@ -111,6 +111,13 @@ fn decode_tag(tag: &str, payload: &Json) -> Result<Value, Skip> {
             Value::TimeDelta(temporal::duration_from_parts(part(0), part(1), part(2)).unwrap())
         }
         "uuid" => Value::Uuid(uuid::Uuid::parse_str(payload.as_str().unwrap()).unwrap()),
+        // `str(url)`: an empty path is kept empty so the text round-trips
+        "url" => Value::Url(Box::new(
+            Url::parse(payload.as_str().unwrap(), true).unwrap(),
+        )),
+        "multi_host_url" => Value::MultiHostUrl(Box::new(
+            MultiHostUrl::parse(payload.as_str().unwrap(), true).unwrap(),
+        )),
         other => return Err(Skip(format!("${other} value"))),
     })
 }

@@ -16,4 +16,5 @@ on test => sub {
     requires 'Test::LeakTrace', '0.17';
     requires 'DateTime', '1.50';
     requires 'Time::Moment', '0.44';
+    requires 'URI', '1.60';
 };

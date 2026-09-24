@@ -565,6 +565,8 @@ impl<'o> GenerateJsonSchema<'o> {
             "time" => Ok(self.common_temporal_schema("time", self.ser_json_temporal())),
             "datetime" => Ok(self.common_temporal_schema("date-time", self.ser_json_temporal())),
             "timedelta" => Ok(self.timedelta_schema()),
+            "url" => Ok(Self::url_schema(schema, "uri")),
+            "multi-host-url" => Ok(Self::url_schema(schema, "multi-host-uri")),
             "uuid" => {
                 let mut json_schema = typed("string");
                 set(&mut json_schema, "format", "uuid");
@@ -645,6 +647,15 @@ impl<'o> GenerateJsonSchema<'o> {
 
     fn ser_json_temporal(&self) -> &str {
         self.config_str("ser_json_temporal").unwrap_or("iso8601")
+    }
+
+    /// `url_schema` and `multi_host_url_schema`; `multi-host-uri` is a pydantic-specific format.
+    fn url_schema(schema: &Dict, format: &str) -> Dict {
+        let mut json_schema = typed("string");
+        set(&mut json_schema, "format", format);
+        set(&mut json_schema, "minLength", 1_i64);
+        update_with_validations(&mut json_schema, schema, validations::STRING);
+        json_schema
     }
 
     fn timedelta_schema(&self) -> Dict {

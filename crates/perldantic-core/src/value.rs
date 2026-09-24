@@ -47,6 +47,10 @@ pub enum Value {
     TimeDelta(speedate::Duration),
     /// Python's `uuid.UUID`.
     Uuid(uuid::Uuid),
+    /// `pydantic_core.Url`.
+    Url(Box<crate::url::Url>),
+    /// `pydantic_core.MultiHostUrl`.
+    MultiHostUrl(Box<crate::url::MultiHostUrl>),
 }
 
 /// A model instance: what pydantic stores on a `BaseModel`. The class is identified by name;
@@ -96,6 +100,8 @@ impl PartialEq for Value {
                 temporal::total_micros(a) == temporal::total_micros(b)
             }
             (Self::Uuid(a), Self::Uuid(b)) => a == b,
+            (Self::Url(a), Self::Url(b)) => a == b,
+            (Self::MultiHostUrl(a), Self::MultiHostUrl(b)) => a == b,
             _ => false,
         }
     }
@@ -159,6 +165,8 @@ impl Value {
                 temporal::total_micros(a) == temporal::total_micros(b)
             }
             (Self::Uuid(a), Self::Uuid(b)) => a == b,
+            (Self::Url(a), Self::Url(b)) => a == b,
+            (Self::MultiHostUrl(a), Self::MultiHostUrl(b)) => a == b,
             _ => false,
         }
     }
@@ -192,6 +200,8 @@ impl Value {
             Self::DateTime(_) => "datetime",
             Self::TimeDelta(_) => "timedelta",
             Self::Uuid(_) => "UUID",
+            Self::Url(_) => "Url",
+            Self::MultiHostUrl(_) => "MultiHostUrl",
         }
     }
 
@@ -212,6 +222,8 @@ impl Value {
             Self::DateTime(dt) => temporal::datetime_str(dt),
             Self::TimeDelta(d) => temporal::timedelta_str(d),
             Self::Uuid(u) => u.to_string(),
+            Self::Url(u) => u.as_str().into_owned(),
+            Self::MultiHostUrl(u) => u.as_str().into_owned(),
             other => other.repr(),
         }
     }
@@ -277,6 +289,8 @@ impl Value {
             Self::DateTime(dt) => out.push_str(&temporal::datetime_repr(dt)),
             Self::TimeDelta(d) => out.push_str(&temporal::timedelta_repr(d)),
             Self::Uuid(u) => write!(out, "UUID('{u}')").unwrap(),
+            Self::Url(u) => out.push_str(&u.repr()),
+            Self::MultiHostUrl(u) => out.push_str(&u.repr()),
         }
     }
 
@@ -466,6 +480,8 @@ impl Serialize for Value {
             Self::DateTime(dt) => serializer.serialize_str(&dt.to_string()),
             Self::TimeDelta(d) => serializer.serialize_str(&d.to_string()),
             Self::Uuid(u) => serializer.serialize_str(&u.to_string()),
+            Self::Url(u) => serializer.serialize_str(&u.as_str()),
+            Self::MultiHostUrl(u) => serializer.serialize_str(&u.as_str()),
             // Like `model_dump`: the fields, then the extra values.
             Self::Model(model) => {
                 let extra = model.extra.iter().flat_map(Dict::iter);

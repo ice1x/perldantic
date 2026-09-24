@@ -94,6 +94,15 @@ char *pd_serializer_to_json(const PdSerializer *serializer, const char *value, c
 // String arguments are null or NUL-terminated.
 char *pd_json_schema(const char *schema, const char *config, const char *options);
 
+// The accessors of a URL (`{"$url": ...}` or `{"$multi_host_url": ...}` wire JSON), as
+// pydantic's `Url` and `MultiHostUrl` give them: `scheme`, `username`, `password`, `host`,
+// `unicode_host`, `port` (or `hosts` for a multi-host URL), `path`, `query`, `query_params`
+// (a list of `[key, value]` pairs), `fragment` and `unicode_string`.
+//
+// # Safety
+// `url` is null or NUL-terminated.
+char *pd_url_parts(const char *url);
+
 // Release a string returned by this library; null is ignored.
 //
 // # Safety

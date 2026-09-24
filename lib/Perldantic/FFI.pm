@@ -27,6 +27,7 @@ $ffi->attach([pd_serializer_free => '_serializer_free'] => ['opaque'] => 'void')
 $ffi->attach([pd_serializer_to_python => '_serializer_to_python'] => ['opaque', 'string', 'string'] => 'opaque');
 $ffi->attach([pd_serializer_to_json => '_serializer_to_json'] => ['opaque', 'string', 'string'] => 'opaque');
 $ffi->attach([pd_json_schema => '_json_schema'] => ['string', 'string', 'string'] => 'opaque');
+$ffi->attach([pd_url_parts => '_url_parts'] => ['string'] => 'opaque');
 $ffi->attach([pd_string_free => '_string_free'] => ['opaque'] => 'void');
 
 # Options the core takes as booleans; Perl callers pass any truth value.
@@ -102,6 +103,11 @@ sub json_schema ($schema, $config = undef, $options = undef) {
     my $result = _unwrap(_envelope(_json_schema(Perldantic::Wire::encode($schema), _optional($config), _options($options))));
     Carp::carp($_) for @{$result->{warnings} // []};
     return $result->{ok};
+}
+
+# The accessors of a Perldantic::Url or Perldantic::MultiHostUrl, as pydantic computes them.
+sub url_parts ($url) {
+    return _unwrap(_envelope(_url_parts(Perldantic::Wire::encode($url))))->{ok};
 }
 
 package Perldantic::FFI::Validator {
@@ -204,6 +210,11 @@ The version of the bundled Rust core.
 The JSON Schema of a core schema, as Perl data. C<$config> applies to the whole schema (like a
 C<TypeAdapter>'s config); options are C<mode>, C<by_alias>, C<ref_template> and
 C<union_format>.
+
+=head2 url_parts($url)
+
+The accessors of a L<Perldantic::Url> or L<Perldantic::MultiHostUrl> as a hash reference,
+computed by the core as pydantic's C<Url> and C<MultiHostUrl> compute them.
 
 =head1 CLASSES
 

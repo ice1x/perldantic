@@ -5,8 +5,9 @@ use std::ptr;
 
 use perldantic_ffi::{
     PdSerializer, PdValidator, pd_json_schema, pd_serializer_free, pd_serializer_new,
-    pd_serializer_to_json, pd_serializer_to_python, pd_string_free, pd_validator_free,
-    pd_validator_new, pd_validator_validate, pd_validator_validate_json, pd_version,
+    pd_serializer_to_json, pd_serializer_to_python, pd_string_free, pd_url_parts,
+    pd_validator_free, pd_validator_new, pd_validator_validate, pd_validator_validate_json,
+    pd_version,
 };
 
 fn c(text: &str) -> CString {
@@ -267,5 +268,31 @@ fn json_schemas_come_with_warnings() {
     assert_eq!(
         envelope,
         r#"{"error":{"type":"SchemaError","message":"JSON Schema generation for `decimal` schemas is not supported yet"}}"#
+    );
+}
+
+#[test]
+fn url_parts_are_pydantics_accessors() {
+    let parts = |wire: &str| take(unsafe { pd_url_parts(c(wire).as_ptr()) });
+    assert_eq!(
+        parts(r#"{"$url": "https://u:p@xn--mnchen-3ya.de/a?x=1&y=2#f"}"#),
+        concat!(
+            r#"{"ok":{"scheme":"https","username":"u","password":"p","host":"xn--mnchen-3ya.de","#,
+            r#""unicode_host":"münchen.de","port":443,"path":"/a","query":"x=1&y=2","#,
+            r#""query_params":[["x","1"],["y","2"]],"fragment":"f","#,
+            r#""unicode_string":"https://münchen.dea.de/a?x=1&y=2#f"}}"#
+        )
+    );
+    assert_eq!(
+        parts(r#"{"$multi_host_url": "redis://h1:1,h2"}"#),
+        concat!(
+            r#"{"ok":{"scheme":"redis","hosts":[{"username":null,"password":null,"host":"h1","port":1},"#,
+            r#"{"username":null,"password":null,"host":"h2","port":null}],"path":null,"query":null,"#,
+            r#""query_params":[],"fragment":null,"unicode_string":"redis://h1:1,h2"}}"#
+        )
+    );
+    assert_eq!(
+        parts("1"),
+        r#"{"error":{"type":"TypeError","message":"expected a $url or $multi_host_url value, got 1"}}"#
     );
 }

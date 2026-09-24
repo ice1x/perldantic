@@ -16,5 +16,6 @@ pub(crate) mod string;
 pub(crate) mod timedelta;
 pub(crate) mod tuple;
 pub(crate) mod union;
+pub(crate) mod url;
 pub(crate) mod uuid;
 pub(crate) mod with_default;

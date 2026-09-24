@@ -10,6 +10,7 @@ use Exporter 'import';
 use MIME::Base64 qw(decode_base64);
 use Math::BigInt;
 
+use Perldantic::Url;
 use Perldantic::Uuid;
 use Perldantic::Wire qw(tuple set bytes ordered);
 
@@ -115,6 +116,8 @@ sub _tagged ($tag, $payload, $in_schema) {
     return Perldantic::Time->from_iso($payload)     if $tag eq '$time';
     return Perldantic::DateTime->from_iso($payload) if $tag eq '$datetime';
     return Perldantic::Uuid->new($payload)          if $tag eq '$uuid';
+    return Perldantic::Url->_from_wire($payload)    if $tag eq '$url';
+    return Perldantic::MultiHostUrl->_from_wire($payload) if $tag eq '$multi_host_url';
     if ($tag eq '$timedelta') {
         my ($days, $seconds, $microseconds) = @$payload;
         return Perldantic::Duration->new(days => $days, seconds => $seconds, microseconds => $microseconds);

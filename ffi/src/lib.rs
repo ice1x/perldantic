@@ -23,7 +23,7 @@ use std::ptr;
 
 use perldantic_core::{
     CoreError, Dict, ErrorsOptions, LocItem, SchemaSerializer, SchemaValidator, SerializeError,
-    ValidateError, ValidationError, Value, generate_json_schema,
+    UrlHost, ValidateError, ValidationError, Value, generate_json_schema,
 };
 
 /// NUL-terminated copy of [`perldantic_core::VERSION`], built at compile time.
@@ -486,6 +486,74 @@ pub unsafe extern "C" fn pd_json_schema(
             wire::encode(&generated.schema),
             wire::encode(&warnings)
         ))
+    }))
+}
+
+/// The accessors of a URL (`{"$url": ...}` or `{"$multi_host_url": ...}` wire JSON), as
+/// pydantic's `Url` and `MultiHostUrl` give them: `scheme`, `username`, `password`, `host`,
+/// `unicode_host`, `port` (or `hosts` for a multi-host URL), `path`, `query`, `query_params`
+/// (a list of `[key, value]` pairs), `fragment` and `unicode_string`.
+///
+/// # Safety
+/// `url` is null or NUL-terminated.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn pd_url_parts(url: *const c_char) -> *mut c_char {
+    into_c(guard(|| {
+        // SAFETY: guaranteed by the caller.
+        let url = unsafe { value_arg(url, "url") }?;
+        let opt = |s: Option<&str>| s.map_or(Value::None, Value::from);
+        let query_params = |params: Vec<(String, String)>| {
+            Value::List(
+                params
+                    .into_iter()
+                    .map(|(k, v)| Value::List(vec![Value::Str(k), Value::Str(v)]))
+                    .collect(),
+            )
+        };
+        let port = |port: Option<u16>| port.map_or(Value::None, |p| Value::Int(i64::from(p)));
+        let mut parts = Dict::new();
+        let mut set = |key: &str, value: Value| {
+            parts.insert(Value::from(key), value);
+        };
+        match &url {
+            Value::Url(u) => {
+                set("scheme", u.scheme().into());
+                set("username", opt(u.username()));
+                set("password", opt(u.password()));
+                set("host", opt(u.host()));
+                set("unicode_host", opt(u.unicode_host().as_deref()));
+                set("port", port(u.port()));
+                set("path", opt(u.path()));
+                set("query", opt(u.query()));
+                set("query_params", query_params(u.query_params()));
+                set("fragment", opt(u.fragment()));
+                set("unicode_string", u.unicode_string().into());
+            }
+            Value::MultiHostUrl(u) => {
+                let host = |h: &UrlHost| {
+                    let mut dict = Dict::new();
+                    dict.insert("username".into(), opt(h.username.as_deref()));
+                    dict.insert("password".into(), opt(h.password.as_deref()));
+                    dict.insert("host".into(), opt(h.host.as_deref()));
+                    dict.insert("port".into(), port(h.port));
+                    Value::Dict(dict)
+                };
+                set("scheme", u.scheme().into());
+                set("hosts", Value::List(u.hosts().iter().map(host).collect()));
+                set("path", opt(u.path()));
+                set("query", opt(u.query()));
+                set("query_params", query_params(u.query_params()));
+                set("fragment", opt(u.fragment()));
+                set("unicode_string", u.unicode_string().into());
+            }
+            other => {
+                return Err(core_error(&CoreError::Type(format!(
+                    "expected a $url or $multi_host_url value, got {}",
+                    wire::encode(other)
+                ))));
+            }
+        }
+        Ok(ok_envelope(&wire::encode(&Value::Dict(parts))))
     }))
 }
 

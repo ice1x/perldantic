@@ -30,6 +30,7 @@ WriteMakefile(
             'Test::LeakTrace' => '0.17',
             'DateTime'        => '1.50',
             'Time::Moment'    => '0.44',
+            'URI'             => '1.60',
         },
         META_MERGE => {
             'meta-spec' => { version => 2 },

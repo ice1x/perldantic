@@ -39,6 +39,7 @@ mod time;
 mod timedelta;
 mod tuple;
 mod union;
+pub(crate) mod url;
 mod uuid;
 pub(crate) mod validation_state;
 pub(crate) mod with_default;
@@ -319,6 +320,8 @@ validators! {
     tuple::TupleValidator,
     union::TaggedUnionValidator,
     union::UnionValidator,
+    url::MultiHostUrlValidator,
+    url::UrlValidator,
     uuid::UuidValidator,
     with_default::WithDefaultValidator,
 }
@@ -374,6 +377,9 @@ pub enum CombinedValidator {
     Union(union::UnionValidator),
     // Boxed: much larger than most validators.
     TaggedUnion(Box<union::TaggedUnionValidator>),
+    // Boxed: much larger than most validators.
+    Url(Box<url::UrlValidator>),
+    MultiHostUrl(Box<url::MultiHostUrlValidator>),
     Uuid(uuid::UuidValidator),
     WithDefault(with_default::WithDefaultValidator),
 }
