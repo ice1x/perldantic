@@ -585,6 +585,9 @@ impl<'o> GenerateJsonSchema<'o> {
             "union" => self.union_schema(schema),
             "tagged-union" => self.tagged_union_schema(schema),
             "lax-or-strict" => self.lax_or_strict_schema(schema),
+            "function-before" | "function-wrap" => self.function_input_schema(schema, "schema"),
+            "function-after" => self.generate_inner(sub_schema(schema, "schema")?),
+            "function-plain" => self.function_plain_schema(schema),
             "custom-error" | "model-field" | "typed-dict-field" => {
                 self.generate_inner(sub_schema(schema, "schema")?)
             }
@@ -801,6 +804,31 @@ impl<'o> GenerateJsonSchema<'o> {
             set(&mut result, "type", type_);
         }
         Ok(result)
+    }
+
+    /// Validators that take other input than their schema say so with
+    /// `json_schema_input_schema`, which describes validation input.
+    fn function_input_schema(&mut self, schema: &Dict, fallback: &str) -> JsResult<Dict> {
+        if self.mode() == JsonSchemaMode::Validation
+            && let Some(Value::Dict(input_schema)) = schema.get_str("json_schema_input_schema")
+        {
+            return self.generate_inner(input_schema);
+        }
+        self.generate_inner(sub_schema(schema, fallback)?)
+    }
+
+    fn function_plain_schema(&mut self, schema: &Dict) -> JsResult<Dict> {
+        if self.mode() == JsonSchemaMode::Validation
+            && let Some(Value::Dict(input_schema)) = schema.get_str("json_schema_input_schema")
+        {
+            return self.generate_inner(input_schema);
+        }
+        let function = schema
+            .get_str("function")
+            .map_or_else(String::new, Value::repr);
+        Err(JsonSchemaError::InvalidForJsonSchema(format!(
+            "Cannot generate a JsonSchema for core_schema.PlainValidatorFunctionSchema ({function})"
+        )))
     }
 
     fn items_schema(&mut self, schema: &Dict) -> JsResult<Dict> {

@@ -31,6 +31,8 @@ pub(crate) enum ObType {
     MultiHostUrl,
     Decimal,
     Enum,
+    /// Anything inference cannot serialize, such as a function.
+    Unknown,
     /// A model instance, serialized through its fields.
     PydanticSerializable,
 }
@@ -66,6 +68,7 @@ pub(crate) fn get_type(value: &Value) -> ObType {
         Value::MultiHostUrl(_) => ObType::MultiHostUrl,
         Value::Decimal(_) => ObType::Decimal,
         Value::Enum(_) => ObType::Enum,
+        Value::Function(_) => ObType::Unknown,
     }
 }
 

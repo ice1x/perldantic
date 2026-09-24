@@ -113,6 +113,12 @@ impl ValidationError {
         &self.line_errors
     }
 
+    /// The failures, to report them again as part of an enclosing validation (upstream
+    /// `ValidationError::into_val_error`, for errors re-raised by validator functions).
+    pub fn into_line_errors(self) -> Vec<ValLineError> {
+        self.line_errors
+    }
+
     pub fn input_type(&self) -> InputType {
         self.input_type
     }

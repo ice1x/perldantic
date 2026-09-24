@@ -15,7 +15,7 @@ use crate::core_error::CoreError;
 use crate::value::{Dict, Value};
 
 use super::config::InfNanMode;
-use super::errors::{SerResult, SerializeError, py_err_se_err};
+use super::errors::{SERIALIZATION_ERR_MARKER, SerResult, SerializeError, py_err_se_err};
 use super::extra::{IncludeExclude, SerMode, SerializationState};
 use super::filter::AnyFilter;
 use super::ob_type::{ObType, get_type};
@@ -98,6 +98,7 @@ pub(crate) fn infer_to_python_known(
                 Value::Str(value.py_str())
             }
             (ObType::Enum, Value::Enum(member)) => infer_to_python(&member.value, state)?,
+            (ObType::Unknown, _) => serialize_unknown(value, state)?,
             _ => value.clone(),
         },
         _ => match (ob_type, value) {
@@ -212,8 +213,28 @@ pub(crate) fn infer_serialize_known<S: Serializer>(
             }
         }
         (ObType::Enum, Value::Enum(member)) => infer_serialize(&member.value, serializer, state),
+        (ObType::Unknown, _) => match serialize_unknown(value, state) {
+            Ok(text) => text.serialize(serializer),
+            Err(SerializeError::Serialization(message)) => Err(serde::ser::Error::custom(format!(
+                "{SERIALIZATION_ERR_MARKER}{message}"
+            ))),
+            Err(e) => Err(py_err_se_err(&e)),
+        },
         // None, bool, int and str serialize as JSON does
         _ => value.serialize(serializer),
+    }
+}
+
+/// A value of a type inference does not know: its text when `serialize_unknown` is set,
+/// otherwise an error.
+fn serialize_unknown(value: &Value, state: &SerializationState) -> SerResult<Value> {
+    if state.extra.serialize_unknown {
+        Ok(Value::Str(value.py_str()))
+    } else {
+        Err(SerializeError::Serialization(format!(
+            "Unable to serialize unknown type: <class '{}'>",
+            value.type_name()
+        )))
     }
 }
 
@@ -234,6 +255,10 @@ pub(crate) fn infer_json_key_known<'a>(
         (ObType::Enum, Value::Enum(member)) => Ok(Cow::Owned(
             infer_json_key(&member.value, state)?.into_owned(),
         )),
+        (ObType::Unknown, _) => match serialize_unknown(key, state)? {
+            Value::Str(text) => Ok(Cow::Owned(text)),
+            _ => unreachable!("unknown values serialize as text"),
+        },
         (ObType::Int | ObType::Uuid | ObType::Url | ObType::MultiHostUrl | ObType::Decimal, _) => {
             Ok(Cow::Owned(key.py_str()))
         }

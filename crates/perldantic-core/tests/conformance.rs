@@ -350,6 +350,13 @@ fn needs_host_callbacks(schema: &Json) -> Option<&'static str> {
             if map.get("custom_init") == Some(&Json::Bool(true)) {
                 return Some("custom_init");
             }
+            // a class used as a validator function is called like one
+            if map
+                .get("function")
+                .is_some_and(|f| f.get("$class").is_some())
+            {
+                return Some("class as function");
+            }
             map.values().find_map(needs_host_callbacks)
         }
         Json::Array(items) => items.iter().find_map(needs_host_callbacks),

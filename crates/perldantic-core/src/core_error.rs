@@ -28,6 +28,10 @@ pub enum CoreError {
     /// A fault inside the core or at the host boundary.
     #[error("{0}")]
     Internal(String),
+    /// An exception raised by a host function (e.g. a validator) that is not a validation
+    /// failure; the host raises it again unchanged, as Python propagates it.
+    #[error("{0}")]
+    Host(crate::host::HostException),
 }
 
 /// The kind of a [`CoreError`], without its message.
@@ -39,6 +43,7 @@ pub enum CoreErrorKind {
     UnicodeDecode,
     Schema,
     Internal,
+    Host,
 }
 
 impl CoreErrorKind {
@@ -51,6 +56,8 @@ impl CoreErrorKind {
             Self::UnicodeDecode => "UnicodeDecodeError",
             Self::Schema => "SchemaError",
             Self::Internal => "InternalError",
+            // the host's own exception; it has no pydantic-core class
+            Self::Host => "HostException",
         }
     }
 }
@@ -64,6 +71,7 @@ impl CoreError {
             Self::UnicodeDecode(_) => CoreErrorKind::UnicodeDecode,
             Self::Schema(_) => CoreErrorKind::Schema,
             Self::Internal(_) => CoreErrorKind::Internal,
+            Self::Host(_) => CoreErrorKind::Host,
         }
     }
 
@@ -75,6 +83,7 @@ impl CoreError {
             | Self::UnicodeDecode(m)
             | Self::Schema(m)
             | Self::Internal(m) => m,
+            Self::Host(exception) => exception.message(),
         }
     }
 }
