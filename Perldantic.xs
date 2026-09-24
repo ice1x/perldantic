@@ -377,23 +377,70 @@ static int bemit_model(pTHX_ SV *out, SV *target, encoder *enc, int depth)
     return 1;
 }
 
+/* Hash entries in the order of their key bytes (sv_cmp's order for keys that are not UTF-8). */
+static int compare_entries(const void *a, const void *b)
+{
+    const HE *x = *(HE *const *)a, *y = *(HE *const *)b;
+    I32 lx = HeKLEN(x), ly = HeKLEN(y);
+    int c = memcmp(HeKEY(x), HeKEY(y), lx < ly ? lx : ly);
+    return c ? c : (lx < ly ? -1 : lx > ly);
+}
+
+/* A hash key as UTF-8 bytes: keys that are not UTF-8 are Latin-1 characters. */
+static void bput_key(pTHX_ SV *out, const char *key, I32 len)
+{
+    I32 i;
+    for (i = 0; i < len; i++) {
+        if ((unsigned char)key[i] & 0x80) {
+            STRLEN utf8_len;
+            SV *copy = sv_2mortal(newSVpvn(key, len));
+            const char *utf8 = SvPVutf8(copy, utf8_len);
+            bput_bytes(aTHX_ out, utf8, utf8_len);
+            return;
+        }
+    }
+    bput_bytes(aTHX_ out, key, len);
+}
+
 static void bemit_hash(pTHX_ SV *out, HV *hash, encoder *enc, int depth)
 {
     I32 count = hv_iterinit(hash);
-    SV **keys;
+    HE **entries;
     HE *entry;
     I32 i = 0;
-    Newx(keys, count > 0 ? count : 1, SV *);
-    SAVEFREEPV(keys);
-    while ((entry = hv_iternext(hash)) && i < count) keys[i++] = hv_iterkeysv(entry);
+    int plain = !SvRMAGICAL((SV *)hash);
+    Newx(entries, count > 0 ? count : 1, HE *);
+    SAVEFREEPV(entries);
+    while (plain && (entry = hv_iternext(hash)) && i < count) {
+        /* UTF-8 keys sort among the others as characters: sv_cmp below knows how */
+        if (HeKLEN(entry) == HEf_SVKEY || HeKUTF8(entry)) plain = 0;
+        entries[i++] = entry;
+    }
+    if (!plain) {
+        SV **keys;
+        Newx(keys, count > 0 ? count : 1, SV *);
+        SAVEFREEPV(keys);
+        hv_iterinit(hash);
+        i = 0;
+        while ((entry = hv_iternext(hash)) && i < count) keys[i++] = hv_iterkeysv(entry);
+        count = i;
+        qsort(keys, count, sizeof(SV *), compare_keys);
+        bput_tag(aTHX_ out, B_DICT);
+        bput_len(aTHX_ out, count);
+        for (i = 0; i < count; i++) {
+            HE *found = hv_fetch_ent(hash, keys[i], 0, 0);
+            bput_sv_string(aTHX_ out, keys[i]);
+            bemit(aTHX_ out, found ? HeVAL(found) : &PL_sv_undef, enc, depth + 1);
+        }
+        return;
+    }
     count = i;
-    qsort(keys, count, sizeof(SV *), compare_keys);
+    qsort(entries, count, sizeof(HE *), compare_entries);
     bput_tag(aTHX_ out, B_DICT);
     bput_len(aTHX_ out, count);
     for (i = 0; i < count; i++) {
-        HE *found = hv_fetch_ent(hash, keys[i], 0, 0);
-        bput_sv_string(aTHX_ out, keys[i]);
-        bemit(aTHX_ out, found ? HeVAL(found) : &PL_sv_undef, enc, depth + 1);
+        bput_key(aTHX_ out, HeKEY(entries[i]), HeKLEN(entries[i]));
+        bemit(aTHX_ out, HeVAL(entries[i]), enc, depth + 1);
     }
 }
 
@@ -462,7 +509,35 @@ typedef struct {
     const unsigned char *at;
     const unsigned char *end;
     SV *json_decoder;
+    HV *bless; /* %Perldantic::Wire::BLESS: class => number of fields */
 } breader;
+
+/* Whether a validated model can be blessed as it is: its class is registered, it set every
+   field (without extra values, the names set are field names) and carries no input-object
+   token (names starting with NUL). */
+static int bblessable(pTHX_ breader *r, SV *class, SV *fields, SV *fields_set, SV *extra)
+{
+    HE *count;
+    AV *names;
+    SSize_t last, i;
+    if (!r->bless || SvOK(extra)) return 0;
+    if (!SvROK(fields) || SvOBJECT(SvRV(fields)) || SvTYPE(SvRV(fields)) != SVt_PVHV) return 0;
+    if (!SvROK(fields_set) || SvTYPE(SvRV(fields_set)) != SVt_PVAV) return 0;
+    count = hv_fetch_ent(r->bless, class, 0, 0);
+    if (!count) return 0;
+    names = (AV *)SvRV(fields_set);
+    last = av_len(names);
+    if (last + 1 < SvIV(HeVAL(count))) return 0;
+    for (i = 0; i <= last; i++) {
+        SV **name = av_fetch(names, i, 0);
+        STRLEN len;
+        const char *text;
+        if (!name) return 0;
+        text = SvPV_const(*name, len);
+        if (len > 0 && text[0] == '\0') return 0;
+    }
+    return 1;
+}
 
 static void bneed(pTHX_ breader *r, STRLEN count)
 {
@@ -510,9 +585,17 @@ static HV *bread_entries(pTHX_ breader *r, int depth)
     U32 count = bget_len(aTHX_ r), i;
     HV *hash = newHV();
     for (i = 0; i < count; i++) {
-        SV *key = sv_2mortal(bget_string(aTHX_ r));
-        SV *value = bread(aTHX_ r, depth + 1);
-        if (!hv_store_ent(hash, key, value, 0)) SvREFCNT_dec(value);
+        U32 len = bget_len(aTHX_ r), j;
+        const char *key;
+        int ascii = 1;
+        SV *value;
+        bneed(aTHX_ r, len);
+        key = (const char *)r->at;
+        for (j = 0; j < len; j++) if (r->at[j] & 0x80) { ascii = 0; break; }
+        r->at += len;
+        value = bread(aTHX_ r, depth + 1);
+        /* a negative length marks a UTF-8 key; Perl stores it downgraded when it can */
+        if (!hv_store(hash, key, ascii ? (I32)len : -(I32)len, value, 0)) SvREFCNT_dec(value);
     }
     return hash;
 }
@@ -574,13 +657,52 @@ static SV *bread(pTHX_ breader *r, int depth)
         LEAVE;
         return value;
     }
+    case B_MODEL: {
+        /* a model that set exactly the fields it holds, with no extra values */
+        SV *class = bget_string(aTHX_ r);
+        HV *fields = bread_entries(aTHX_ r, depth);
+        SV *fields_ref = newRV_noinc((SV *)fields);
+        HE *count = r->bless ? hv_fetch_ent(r->bless, class, 0, 0) : NULL;
+        HV *stash;
+        if (count && HvUSEDKEYS(fields) >= SvIV(HeVAL(count)) && (stash = gv_stashsv(class, 0)) != NULL) {
+            SvREFCNT_dec(class);
+            return sv_bless(fields_ref, stash);
+        } else {
+            HV *model = newHV();
+            SV *ref = newRV_noinc((SV *)model);
+            AV *names = newAV();
+            HE *entry;
+            hv_iterinit(fields);
+            while ((entry = hv_iternext(fields))) av_push(names, newSVsv(hv_iterkeysv(entry)));
+            sortsv(AvARRAY(names), av_len(names) + 1, Perl_sv_cmp);
+            (void)hv_stores(model, "class", class);
+            (void)hv_stores(model, "fields", fields_ref);
+            (void)hv_stores(model, "fields_set", newRV_noinc((SV *)names));
+            (void)hv_stores(model, "extra", newSV(0));
+            return sv_bless(ref, gv_stashpvs("Perldantic::Wire::Model", GV_ADD));
+        }
+    }
     case B_MODEL_FULL: {
-        HV *model = newHV();
-        SV *ref = newRV_noinc((SV *)model);
-        (void)hv_stores(model, "class", bget_string(aTHX_ r));
-        (void)hv_stores(model, "fields", bread(aTHX_ r, depth + 1));
-        (void)hv_stores(model, "fields_set", bread(aTHX_ r, depth + 1));
-        (void)hv_stores(model, "extra", bread(aTHX_ r, depth + 1));
+        SV *class = bget_string(aTHX_ r);
+        SV *fields = bread(aTHX_ r, depth + 1);
+        SV *fields_set = bread(aTHX_ r, depth + 1);
+        SV *extra = bread(aTHX_ r, depth + 1);
+        HV *model, *stash;
+        SV *ref;
+        if (bblessable(aTHX_ r, class, fields, fields_set, extra)
+            && (stash = gv_stashsv(class, 0)) != NULL) {
+            /* the fields hash is the object, as Perldantic::Model::_inflate makes it */
+            SvREFCNT_dec(class);
+            SvREFCNT_dec(fields_set);
+            SvREFCNT_dec(extra);
+            return sv_bless(fields, stash);
+        }
+        model = newHV();
+        ref = newRV_noinc((SV *)model);
+        (void)hv_stores(model, "class", class);
+        (void)hv_stores(model, "fields", fields);
+        (void)hv_stores(model, "fields_set", fields_set);
+        (void)hv_stores(model, "extra", extra);
         return sv_bless(ref, gv_stashpvs("Perldantic::Wire::Model", GV_ADD));
     }
     default:
@@ -659,6 +781,7 @@ decode_result(address, len, json_decoder)
         r.at = bytes + 1;
         r.end = bytes + len;
         r.json_decoder = json_decoder;
+        r.bless = get_hv("Perldantic::Wire::BLESS", 0);
         if (bytes[0] == 'J') {
             EXTEND(SP, 2);
             mPUSHs(newSVpvs("envelope"));

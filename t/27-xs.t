@@ -119,11 +119,60 @@ subtest 'binary and JSON transports agree' => sub {
     );
     for my $value (@values) {
         my $label = defined $value ? "$value" : 'undef';
-        my @binary = ($any->validate($value), $serializer->to_perl($value), $serializer->to_json($value));
+        # the native decoder builds plain model objects itself; _inflate builds the rest
+        my $validate = sub { Perldantic::Model::_inflate($any->validate($value)) };
+        my @binary = ($validate->(), $serializer->to_perl($value), $serializer->to_json($value));
         local $Perldantic::Wire::XS = 0;
-        my @json = ($any->validate($value), $serializer->to_perl($value), $serializer->to_json($value));
+        my @json = ($validate->(), $serializer->to_perl($value), $serializer->to_json($value));
         is \@binary, \@json, "same results for $label";
     }
+};
+
+package Test::Built {
+    use Perldantic;
+    has n => (is => 'ro', isa => Int);
+    sub BUILD ($self, $args) { $self->{built} = 1 }
+}
+package Test::Triggered {
+    use Perldantic;
+    has n => (is => 'ro', isa => Int, trigger => sub ($self, $value) { $self->{seen} = $value });
+}
+package Test::Loose {
+    use Perldantic;
+    has n => (is => 'ro', isa => Int);
+    model_config extra => 'allow';
+}
+
+subtest 'plain model objects are built natively' => sub {
+    my $calls = 0;
+    no warnings 'redefine';
+    my $original = \&Perldantic::Model::_inflate;
+    local *Perldantic::Model::_inflate = sub { $calls++ if ref $_[0] eq 'Perldantic::Wire::Model'; $original->(@_) };
+    my $adapter = Perldantic::TypeAdapter->new(Perldantic::Types::ArrayRef(['Test::Point']));
+    $adapter->validate([{x => 0, y => 'warm'}]);    # the first use works the class out in Perl
+    $calls = 0;
+    my $points = $adapter->validate([{x => 1, y => 'a'}, {x => '2', y => 'b'}]);
+    is $calls, 0, 'no model went through Perl';
+    isa_ok $points->[1], 'Test::Point';
+    is $points->[1]->x, 2;
+    is [$points->[1]->model_fields_set], [qw(x y)];
+    is $points->[1]->model_extra, undef;
+    is $adapter->dump($points), [{x => 1, y => 'a'}, {x => 2, y => 'b'}];
+
+    my $some = Test::Point->new(y => 'only');
+    is $calls, 1, 'a model with fields left out goes through Perl';
+    is [$some->model_fields_set], ['y'];
+    ok !exists $some->{x};
+    $calls = 0;
+    is Test::Built->new(n => 1)->{built}, 1, 'BUILD runs';
+    is Test::Triggered->new(n => 5)->{seen}, 5, 'triggers run';
+    my $loose = Test::Loose->new(n => 1, other => 2);
+    is $loose->model_extra, {other => 2}, 'extra values are kept';
+    is $calls, 3, 'those went through Perl';
+
+    my $kept = Test::Point->new(x => 1, y => 'k');
+    my $holder = Perldantic::TypeAdapter->new(Perldantic::Types::ArrayRef(['Test::Point']))->validate([$kept]);
+    ok $holder->[0] == $kept, 'model objects given as input are kept, as in pydantic';
 };
 
 subtest 'dumps without serializer functions write objects natively' => sub {

@@ -77,6 +77,7 @@ our $GENERATION = 0;
 sub _changed ($class) {
     # the field names the native encoder writes models with
     %Perldantic::Wire::DIRECT = ();
+    %Perldantic::Wire::BLESS = ();
     for my $user (keys %DEPENDS_ON) {
         next if !$DEPENDS_ON{$user}{$class};
         delete $VALIDATOR{$user};
@@ -756,6 +757,13 @@ sub _plan ($class) {
     my @fields = _fields($class);
     my $config = _config($class);
     $Perldantic::Wire::DIRECT{$class} = [map { $_->{name} } @fields];
+    # objects the native decoder may bless itself: nothing to run when every field is given
+    if (!@builds && !grep({ $_->{trigger} } @fields) && ($config->{temporal_class} // 'Perldantic') eq 'Perldantic') {
+        $Perldantic::Wire::BLESS{$class} = scalar @fields;
+    }
+    else {
+        delete $Perldantic::Wire::BLESS{$class};
+    }
     return $PLAN{$class} = {
         generation => $GENERATION,
         fields     => \@fields,

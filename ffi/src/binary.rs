@@ -16,8 +16,8 @@
 //! | 6 | a list (tuples, sets and frozensets are written as lists: hosts read them as arrays) | count, values |
 //! | 7 | a dict with string keys | count, then per entry: key length, key bytes, value |
 //! | 8 | anything else, as wire JSON | length, JSON bytes |
-//! | 9 | a model instance that set exactly the fields it holds, with no extra values (read only) | class length, class bytes, count, then entries as in a dict |
-//! | 10 | a model instance (written only) | class length, class bytes, fields as a dict (tag 7 or 8), fields set as a list, extra (tag 0 or a dict) |
+//! | 9 | a model instance that set exactly the fields it holds (string keys), with no extra values | class length, class bytes, count, then entries as in a dict |
+//! | 10 | any other model instance (written only) | class length, class bytes, fields as a dict (tag 7 or 8), fields set as a list, extra (tag 0 or a dict) |
 //! | 11 | bytes | length, bytes |
 
 use perldantic_core::{CoreError, CoreResult, Dict, Model, Value};
@@ -195,6 +195,18 @@ fn write_dict(dict: &Dict, out: &mut Vec<u8>) {
     }
 }
 
+/// Whether a model set exactly the fields it holds, all with string names, and has no extra
+/// values: then the short model node says all there is.
+fn sets_exactly_its_fields(model: &Model) -> bool {
+    model.extra.is_none()
+        && model.fields_set.len() == model.fields.len()
+        && model.fields.iter().all(|(k, _)| matches!(k, Value::Str(_)))
+        && model
+            .fields_set
+            .iter()
+            .all(|name| model.fields.get(name).is_some())
+}
+
 fn write_value(value: &Value, out: &mut Vec<u8>) {
     match value {
         Value::None => out.push(NONE),
@@ -220,6 +232,18 @@ fn write_value(value: &Value, out: &mut Vec<u8>) {
             write_items(items, out);
         }
         Value::Dict(dict) => write_dict(dict, out),
+        Value::Model(model) if sets_exactly_its_fields(model) => {
+            out.push(MODEL);
+            write_bytes(model.class.as_bytes(), out);
+            write_len(model.fields.len(), out);
+            for (key, value) in model.fields.iter() {
+                let Value::Str(key) = key else {
+                    unreachable!("checked")
+                };
+                write_bytes(key.as_bytes(), out);
+                write_value(value, out);
+            }
+        }
         Value::Model(model) => {
             out.push(MODEL_FULL);
             write_bytes(model.class.as_bytes(), out);
@@ -331,7 +355,7 @@ mod tests {
     }
 
     #[test]
-    fn models_read_with_their_fields_as_set_and_write_in_full() {
+    fn models_read_and_write_short_when_they_set_exactly_their_fields() {
         let mut bytes = vec![MODEL];
         bytes.extend(text("My::Point"));
         bytes.extend([1, 0, 0, 0]);
@@ -345,16 +369,22 @@ mod tests {
         assert_eq!(model.fields_set, vec![Value::from("x")]);
         assert_eq!(model.extra, None);
 
+        assert_eq!(
+            encode(&Value::Model(model.clone())),
+            bytes,
+            "written back as it came"
+        );
+
+        let mut model = model;
+        model.fields_set.clear();
         let written = encode(&Value::Model(model));
         let mut expected = vec![MODEL_FULL];
         expected.extend(text("My::Point"));
         expected.extend([DICT, 1, 0, 0, 0]);
         expected.extend(text("x"));
         expected.extend(node(INT, &1i64.to_le_bytes()));
-        expected.extend([LIST, 1, 0, 0, 0, STR]);
-        expected.extend(text("x"));
-        expected.push(NONE);
-        assert_eq!(written, expected);
+        expected.extend([LIST, 0, 0, 0, 0, NONE]);
+        assert_eq!(written, expected, "in full when a field was not set");
     }
 
     #[test]
