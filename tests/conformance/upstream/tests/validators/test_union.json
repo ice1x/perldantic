@@ -4119,7 +4119,8 @@
       "type": "is-instance",
       "cls": {
        "$class": "BinaryEnum"
-      }
+      },
+      "cls_repr": "test_int_not_coerced_to_enum.<locals>.BinaryEnum"
      }
     },
     {
@@ -4159,7 +4160,8 @@
       "type": "is-instance",
       "cls": {
        "$class": "BinaryEnum"
-      }
+      },
+      "cls_repr": "test_int_not_coerced_to_enum.<locals>.BinaryEnum"
      }
     },
     {
@@ -4199,7 +4201,8 @@
       "type": "is-instance",
       "cls": {
        "$class": "BinaryEnum"
-      }
+      },
+      "cls_repr": "test_int_not_coerced_to_enum.<locals>.BinaryEnum"
      }
     },
     {
@@ -4255,7 +4258,8 @@
       "type": "is-instance",
       "cls": {
        "$class": "BinaryEnum"
-      }
+      },
+      "cls_repr": "test_int_not_coerced_to_enum.<locals>.BinaryEnum"
      }
     },
     {
@@ -5627,7 +5631,8 @@
      "type": "is-instance",
      "cls": {
       "$class": "int"
-     }
+     },
+     "cls_repr": "int"
     },
     {
      "type": "json"
@@ -5652,7 +5657,8 @@
      "type": "is-instance",
      "cls": {
       "$class": "int"
-     }
+     },
+     "cls_repr": "int"
     },
     {
      "type": "json"

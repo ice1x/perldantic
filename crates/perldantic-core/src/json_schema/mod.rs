@@ -588,6 +588,12 @@ impl<'o> GenerateJsonSchema<'o> {
             "function-before" | "function-wrap" => self.function_input_schema(schema, "schema"),
             "function-after" => self.generate_inner(sub_schema(schema, "schema")?),
             "function-plain" => self.function_plain_schema(schema),
+            "is-instance" => {
+                let class: String = schema.get_as_req("cls")?;
+                Err(JsonSchemaError::InvalidForJsonSchema(format!(
+                    "Cannot generate a JsonSchema for core_schema.IsInstanceSchema (<class '{class}'>)"
+                )))
+            }
             "custom-error" | "model-field" | "typed-dict-field" => {
                 self.generate_inner(sub_schema(schema, "schema")?)
             }

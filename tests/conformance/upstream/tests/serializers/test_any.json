@@ -5290,7 +5290,8 @@
    "type": "is-instance",
    "cls": {
     "$class": "int"
-   }
+   },
+   "cls_repr": "int"
   },
   "config": null,
   "mode": "to_json",

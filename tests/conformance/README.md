@@ -109,9 +109,11 @@ Values that only describe Python objects:
 | `{"$bytearray": "<base64>"}` | `bytearray` |
 | `{"$object": "type name"}` | anything else; `str-with-surrogates` marks strings that are not valid Unicode |
 
-The recorder also moves into `enum` schemas what pydantic-core reads off the enum class:
-`cls_repr` (the class's `__qualname__`, which error messages name) and, when the class defines
-its own `_missing_` hook, `missing` (so the case is skipped until host callbacks exist).
+The recorder also moves into `enum` and `is-instance` schemas what pydantic-core reads off the
+class: `cls_repr` (the class's `__qualname__`, which error messages name) and, when Python code
+of the class would run, a function marking it (so the case is skipped until host callbacks
+exist): an enum class's own `_missing_` hook as `missing`, a metaclass's own
+`__instancecheck__` as `instancecheck`.
 
 ## Replaying
 

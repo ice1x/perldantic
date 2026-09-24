@@ -20,7 +20,8 @@
     "type": "is-instance",
     "cls": {
      "$class": "Foo"
-    }
+    },
+    "cls_repr": "test_json_or_python.<locals>.Foo"
    }
   },
   "config": null,
@@ -62,7 +63,8 @@
     "type": "is-instance",
     "cls": {
      "$class": "Foo"
-    }
+    },
+    "cls_repr": "test_json_or_python.<locals>.Foo"
    }
   },
   "config": null,
@@ -105,7 +107,8 @@
     "type": "is-instance",
     "cls": {
      "$class": "Foo"
-    }
+    },
+    "cls_repr": "test_json_or_python.<locals>.Foo"
    }
   },
   "config": null,

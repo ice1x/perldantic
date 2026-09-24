@@ -633,7 +633,8 @@
      "type": "is-instance",
      "cls": {
       "$class": "MyEnum"
-     }
+     },
+     "cls_repr": "test_enum.<locals>.MyEnum"
     }
    }
   },
@@ -676,7 +677,8 @@
      "type": "is-instance",
      "cls": {
       "$class": "MyEnum"
-     }
+     },
+     "cls_repr": "test_enum.<locals>.MyEnum"
     }
    }
   },
@@ -719,7 +721,8 @@
      "type": "is-instance",
      "cls": {
       "$class": "MyEnum"
-     }
+     },
+     "cls_repr": "test_enum.<locals>.MyEnum"
     }
    }
   },

@@ -30,6 +30,7 @@ mod enum_;
 mod float;
 mod function;
 mod int;
+mod is_instance;
 mod json;
 mod lax_or_strict;
 mod list;
@@ -321,6 +322,7 @@ validators! {
     function::FunctionPlainValidator,
     function::FunctionWrapValidator,
     int::IntValidator,
+    is_instance::IsInstanceValidator,
     json::JsonValidator,
     lax_or_strict::LaxOrStrictValidator,
     list::ListValidator,
@@ -386,6 +388,7 @@ pub enum CombinedValidator {
     FunctionPlain(function::FunctionPlainValidator),
     FunctionWrap(function::FunctionWrapValidator),
     Int(int::IntValidator),
+    IsInstance(is_instance::IsInstanceValidator),
     // Boxed: much larger than most validators.
     ConstrainedInt(Box<int::ConstrainedIntValidator>),
     Json(json::JsonValidator),

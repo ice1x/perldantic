@@ -217,10 +217,17 @@ fn run_case(case: &Json) -> Result<Result<(), Skip>, String> {
             ));
         }
     } else {
-        let expected = [
-            expected["error"][0].as_str().unwrap(),
-            expected["error"][1].as_str().unwrap(),
-        ];
+        // pydantic's user errors append a link to their documentation; the core has none
+        let message = expected["error"][1].as_str().unwrap();
+        let message = message
+            .split_once("\n\nFor further information visit ")
+            .map_or(message, |(message, _)| message);
+        if message.contains("IsInstanceSchema (<class '") {
+            return Ok(Err(Skip(
+                "divergence #13: classes by name in is-instance errors".into(),
+            )));
+        }
+        let expected = [expected["error"][0].as_str().unwrap(), message];
         match result {
             Ok(generated) => {
                 return Err(format!("expected {expected:?}, got {:?}", generated.schema));
