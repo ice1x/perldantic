@@ -116,6 +116,18 @@ sub encode ($value) {
     return $json;
 }
 
+# The binary wire format of a value (ffi/src/binary.rs), written natively; what it has no node
+# for is written as wire JSON by _emit. Needs the native encoder.
+sub encode_binary ($value) {
+    my $bytes = eval { Perldantic::XS::encode_binary($value, \&_emit) };
+    if (!defined $bytes) {
+        my $e = $@;
+        die $e if blessed $e && $e->isa('Perldantic::Error');
+        Perldantic::InternalError->throw(message => "Cannot encode a value for the core: $e", cause => $e);
+    }
+    return $bytes;
+}
+
 # Strings only: JSON escaping and UTF-8 encoding.
 my $STRING = Cpanel::JSON::XS->new->utf8->allow_nonref;
 
@@ -481,6 +493,13 @@ The wire JSON of C<$value>, as UTF-8 bytes.
 =head2 decode($json)
 
 The Perl data of wire JSON (UTF-8 bytes).
+
+=head2 encode_binary($value)
+
+The binary form of the wire format (F<ffi/src/binary.rs>), as bytes: plain data and model
+objects without state are written natively, anything else as a node of wire JSON. Validators and
+serializers send values so, and read their results back with the native decoder, when the
+native encoder is built.
 
 =head2 tuple(@items), set(@items), frozenset(@items)
 

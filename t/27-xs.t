@@ -1,6 +1,8 @@
 use v5.36;
 use Test2::V0;
 
+use FFI::Platypus::Buffer ();
+use Perldantic::FFI;
 use Perldantic::TypeAdapter;
 use Perldantic::Wire qw(tuple set bytes ordered);
 
@@ -73,6 +75,55 @@ subtest 'a changed class is written with its new fields' => sub {
     package Test::Grows { has b => (is => 'ro', isa => Int) }
     my $new = Test::Grows->new(a => 1, b => 2);
     like Perldantic::Wire::encode($new), qr/"fields":\{"a":1,"b":2\}/;
+};
+
+subtest 'the binary wire format' => sub {
+    my $u32 = sub ($n) { pack 'V', $n };
+    is Perldantic::Wire::encode_binary([undef, !!1, !!0, 7, 1.5, "caf\x{e9}", {b => 1, '$a' => 2}]),
+        join('', "\x06", $u32->(7), "\x00", "\x01", "\x02", "\x03", pack('q<', 7), "\x04", pack('d<', 1.5),
+            "\x05", $u32->(5), "caf\xc3\xa9",
+            "\x07", $u32->(2), $u32->(2), '$a', "\x03", pack('q<', 2), $u32->(1), 'b', "\x03", pack('q<', 1)),
+        'plain data natively; hash keys sorted, $ keys need nothing special';
+    is Perldantic::Wire::encode_binary(tuple(1)), "\x08" . $u32->(14) . '{"$tuple":[1]}',
+        'anything else as a node of wire JSON';
+    is Perldantic::Wire::encode_binary(18446744073709551615), "\x08" . $u32->(20) . '18446744073709551615',
+        'integers beyond 64 bits as JSON digits';
+
+    my $decode = sub ($bytes) {
+        my ($address, $len) = FFI::Platypus::Buffer::scalar_to_buffer($bytes);
+        return [Perldantic::XS::decode_result($address, $len, \&Perldantic::Wire::decode)];
+    };
+    is $decode->('B' . "\x06" . $u32->(2) . "\x05" . $u32->(2) . "\xc3\xa9" . "\x08" . $u32->(13) . '{"$bytes":""}'),
+        ['ok', ["\x{e9}", ''], undef], 'values, with JSON nodes decoded by Perldantic::Wire';
+    is $decode->('W' . $u32->(4) . 'warn' . "\x00"), ['ok', undef, 'warn'], 'with a warning';
+    is $decode->('J{"error":1}'), ['envelope', '{"error":1}'], 'error envelopes stay JSON';
+    my $model = $decode->('B' . "\x0a" . $u32->(1) . 'M' . "\x07" . $u32->(0) . "\x06" . $u32->(0) . "\x00")->[1];
+    isa_ok $model, 'Perldantic::Wire::Model';
+    is {%$model}, {class => 'M', fields => {}, fields_set => [], extra => undef};
+    like dies { $decode->('B' . "\x05" . $u32->(9) . 'a') }, qr/truncated/;
+    like dies { $decode->('B' . "\x00\x00") }, qr/trailing/;
+};
+
+subtest 'binary and JSON transports agree' => sub {
+    require Math::BigFloat;
+    require Perldantic::Temporal;
+    require Perldantic::Uuid;
+    my $any = Perldantic::FFI::Validator->new({type => 'any'});
+    my $serializer = Perldantic::FFI::Serializer->new({type => 'any'});
+    my @values = (
+        undef, !!1, 0, -9223372036854775808, 18446744073709551615, 0.1 + 0.2, 9**9**9, 'text', "\x{1F600}",
+        [1, [2, {x => [undef]}]], {'$key' => 'dollar', nested => {deeper => 1}}, tuple(1, 'a'), set(3, 4),
+        bytes("\0ab"), Math::BigFloat->new('1.50'), Perldantic::Date->new(year => 2024, month => 2, day => 29),
+        Perldantic::Uuid->new('12345678-1234-5678-1234-567812345678'), Test::Point->new(x => 1, y => 'p'),
+        [map { Test::Point->new(x => $_, y => 'q') } 1 .. 3],
+    );
+    for my $value (@values) {
+        my $label = defined $value ? "$value" : 'undef';
+        my @binary = ($any->validate($value), $serializer->to_perl($value), $serializer->to_json($value));
+        local $Perldantic::Wire::XS = 0;
+        my @json = ($any->validate($value), $serializer->to_perl($value), $serializer->to_json($value));
+        is \@binary, \@json, "same results for $label";
+    }
 };
 
 subtest 'dumps without serializer functions write objects natively' => sub {

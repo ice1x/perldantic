@@ -123,11 +123,13 @@ ffi/Cargo.toml
 ffi/README.md
 ffi/cbindgen.toml
 ffi/include/perldantic.h
+ffi/src/binary.rs
 ffi/src/host.rs
 ffi/src/lib.rs
 ffi/src/options.rs
 ffi/src/wire.rs
 ffi/tests/abi.rs
+ffi/tests/binary_abi.rs
 ffi/tests/callbacks.rs
 ffi/tests/header.rs
 lib/Perldantic.pm

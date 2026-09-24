@@ -271,6 +271,324 @@ static void emit_pairs(pTHX_ SV *out, AV *pairs, encoder *enc)
     sv_catpvn(out, "}", 1);
 }
 
+/*
+ * The binary wire format (ffi/src/binary.rs): what the bulk of the data crosses the boundary
+ * in, written straight from Perl values and read straight into them.
+ */
+enum {
+    B_NONE = 0, B_TRUE = 1, B_FALSE = 2, B_INT = 3, B_FLOAT = 4, B_STR = 5, B_LIST = 6,
+    B_DICT = 7, B_JSON = 8, B_MODEL = 9, B_MODEL_FULL = 10, B_BYTES = 11
+};
+
+static void bput_len(pTHX_ SV *out, STRLEN len)
+{
+    unsigned char raw[4];
+    U32 n = (U32)len;
+    if ((STRLEN)n != len) croak("Perldantic::XS::encode_binary: a value is larger than 4 GiB");
+    raw[0] = n & 0xff; raw[1] = (n >> 8) & 0xff; raw[2] = (n >> 16) & 0xff; raw[3] = (n >> 24) & 0xff;
+    sv_catpvn(out, (const char *)raw, 4);
+}
+
+static void bput_tag(pTHX_ SV *out, unsigned char tag)
+{
+    sv_catpvn(out, (const char *)&tag, 1);
+}
+
+static void bput_bytes(pTHX_ SV *out, const char *bytes, STRLEN len)
+{
+    bput_len(aTHX_ out, len);
+    sv_catpvn(out, bytes, len);
+}
+
+static void bput_u64(pTHX_ SV *out, U64 bits)
+{
+    unsigned char raw[8];
+    int i;
+    for (i = 0; i < 8; i++) raw[i] = (bits >> (8 * i)) & 0xff;
+    sv_catpvn(out, (const char *)raw, 8);
+}
+
+/* A Perl string as UTF-8 bytes: byte strings are Latin-1 characters, as Perl upgrades them. */
+static void bput_sv_string(pTHX_ SV *out, SV *value)
+{
+    STRLEN len;
+    const char *text;
+    if (SvUTF8(value)) {
+        text = SvPV_const(value, len);
+    } else {
+        SV *copy = sv_2mortal(newSVsv(value));
+        text = SvPVutf8(copy, len);
+    }
+    bput_bytes(aTHX_ out, text, len);
+}
+
+/* What the fallback writes for a value, as a JSON node. */
+static void bput_fallback(pTHX_ SV *out, SV *value, SV *fallback)
+{
+    SV *json = sv_2mortal(newSVpvn("", 0));
+    emit_fallback(aTHX_ json, value, fallback);
+    bput_tag(aTHX_ out, B_JSON);
+    bput_bytes(aTHX_ out, SvPVX(json), SvCUR(json));
+}
+
+static void bemit(pTHX_ SV *out, SV *value, encoder *enc, int depth);
+
+/* A model object as a model node, under the conditions of emit_model. */
+static int bemit_model(pTHX_ SV *out, SV *target, encoder *enc, int depth)
+{
+    HV *stash = SvSTASH(target);
+    const char *class = HvNAME(stash);
+    SV **names;
+    AV *list;
+    SSize_t last, i;
+    U32 count = 0;
+    STRLEN count_at;
+    char address[32];
+    int length;
+    if (enc->tracking || !enc->direct || !class) return 0;
+    names = hv_fetch(enc->direct, class,
+        HvNAMEUTF8(stash) ? -(I32)HvNAMELEN(stash) : (I32)HvNAMELEN(stash), 0);
+    if (!names || !SvROK(*names) || SvTYPE(SvRV(*names)) != SVt_PVAV) return 0;
+    if (enc->state) {
+        length = snprintf(address, sizeof address, "%" UVuf, PTR2UV(target));
+        if (hv_exists(enc->state, address, length)) return 0;
+    }
+    list = (AV *)SvRV(*names);
+    last = av_len(list);
+    bput_tag(aTHX_ out, B_MODEL);
+    bput_bytes(aTHX_ out, class, HvNAMELEN(stash));
+    count_at = SvCUR(out);
+    bput_len(aTHX_ out, 0);
+    for (i = 0; i <= last; i++) {
+        SV **name = av_fetch(list, i, 0);
+        HE *field;
+        if (!name) continue;
+        field = hv_fetch_ent((HV *)target, *name, 0, 0);
+        if (!field) continue;
+        bput_sv_string(aTHX_ out, *name);
+        bemit(aTHX_ out, HeVAL(field), enc, depth + 1);
+        count++;
+    }
+    {
+        unsigned char *raw = (unsigned char *)SvPVX(out) + count_at;
+        raw[0] = count & 0xff; raw[1] = (count >> 8) & 0xff;
+        raw[2] = (count >> 16) & 0xff; raw[3] = (count >> 24) & 0xff;
+    }
+    return 1;
+}
+
+static void bemit_hash(pTHX_ SV *out, HV *hash, encoder *enc, int depth)
+{
+    I32 count = hv_iterinit(hash);
+    SV **keys;
+    HE *entry;
+    I32 i = 0;
+    Newx(keys, count > 0 ? count : 1, SV *);
+    SAVEFREEPV(keys);
+    while ((entry = hv_iternext(hash)) && i < count) keys[i++] = hv_iterkeysv(entry);
+    count = i;
+    qsort(keys, count, sizeof(SV *), compare_keys);
+    bput_tag(aTHX_ out, B_DICT);
+    bput_len(aTHX_ out, count);
+    for (i = 0; i < count; i++) {
+        HE *found = hv_fetch_ent(hash, keys[i], 0, 0);
+        bput_sv_string(aTHX_ out, keys[i]);
+        bemit(aTHX_ out, found ? HeVAL(found) : &PL_sv_undef, enc, depth + 1);
+    }
+}
+
+static void bemit(pTHX_ SV *out, SV *value, encoder *enc, int depth)
+{
+    SvGETMAGIC(value);
+    if (depth > MAX_DEPTH) { bput_fallback(aTHX_ out, value, enc->fallback); return; }
+    if (SvROK(value)) {
+        SV *target = SvRV(value);
+        if (SvOBJECT(target)) {
+            if (SvTYPE(target) == SVt_PVHV && bemit_model(aTHX_ out, target, enc, depth)) return;
+            bput_fallback(aTHX_ out, value, enc->fallback);
+            return;
+        }
+        if (SvTYPE(target) == SVt_PVAV) {
+            AV *array = (AV *)target;
+            SSize_t last = av_len(array), i;
+            bput_tag(aTHX_ out, B_LIST);
+            bput_len(aTHX_ out, (STRLEN)(last + 1));
+            for (i = 0; i <= last; i++) {
+                SV **item = av_fetch(array, i, 0);
+                bemit(aTHX_ out, item ? *item : &PL_sv_undef, enc, depth + 1);
+            }
+            return;
+        }
+        if (SvTYPE(target) == SVt_PVHV) {
+            ENTER;
+            bemit_hash(aTHX_ out, (HV *)target, enc, depth);
+            LEAVE;
+            return;
+        }
+        bput_fallback(aTHX_ out, value, enc->fallback);
+        return;
+    }
+    if (!SvOK(value)) { bput_tag(aTHX_ out, B_NONE); return; }
+#ifdef SvIsBOOL
+    if (SvIsBOOL(value)) { bput_tag(aTHX_ out, SvTRUE_nomg(value) ? B_TRUE : B_FALSE); return; }
+#endif
+    if ((SvIOK(value) || SvNOK(value)) && !SvPOK(value)) {
+        if (SvIOK(value)) {
+            if (SvIsUV(value) && SvUV_nomg(value) > (UV)IV_MAX) {
+                /* beyond i64: the digits as a JSON number, which the core reads as a big int */
+                SV *digits = sv_2mortal(newSVpvf("%" UVuf, SvUV_nomg(value)));
+                bput_tag(aTHX_ out, B_JSON);
+                bput_bytes(aTHX_ out, SvPVX(digits), SvCUR(digits));
+            } else {
+                bput_tag(aTHX_ out, B_INT);
+                bput_u64(aTHX_ out, (U64)SvIV_nomg(value));
+            }
+        } else {
+            NV nv = SvNV_nomg(value);
+            double d = (double)nv;
+            U64 bits;
+            memcpy(&bits, &d, 8);
+            bput_tag(aTHX_ out, B_FLOAT);
+            bput_u64(aTHX_ out, bits);
+        }
+        return;
+    }
+    bput_tag(aTHX_ out, B_STR);
+    bput_sv_string(aTHX_ out, value);
+}
+
+/* Reading a result buffer back into Perl values. */
+typedef struct {
+    const unsigned char *at;
+    const unsigned char *end;
+    SV *json_decoder;
+} breader;
+
+static void bneed(pTHX_ breader *r, STRLEN count)
+{
+    if ((STRLEN)(r->end - r->at) < count) croak("Perldantic::XS::decode_result: truncated buffer");
+}
+
+static U32 bget_len(pTHX_ breader *r)
+{
+    U32 n;
+    bneed(aTHX_ r, 4);
+    n = (U32)r->at[0] | ((U32)r->at[1] << 8) | ((U32)r->at[2] << 16) | ((U32)r->at[3] << 24);
+    r->at += 4;
+    return n;
+}
+
+static U64 bget_u64(pTHX_ breader *r)
+{
+    U64 bits = 0;
+    int i;
+    bneed(aTHX_ r, 8);
+    for (i = 0; i < 8; i++) bits |= (U64)r->at[i] << (8 * i);
+    r->at += 8;
+    return bits;
+}
+
+/* A UTF-8 string, flagged as characters when it has any beyond ASCII (as JSON decoders do). */
+static SV *bget_string(pTHX_ breader *r)
+{
+    U32 len = bget_len(aTHX_ r);
+    SV *sv;
+    U32 i;
+    int ascii = 1;
+    bneed(aTHX_ r, len);
+    for (i = 0; i < len; i++) if (r->at[i] & 0x80) { ascii = 0; break; }
+    sv = newSVpvn((const char *)r->at, len);
+    if (!ascii) SvUTF8_on(sv);
+    r->at += len;
+    return sv;
+}
+
+static SV *bread(pTHX_ breader *r, int depth);
+
+static HV *bread_entries(pTHX_ breader *r, int depth)
+{
+    U32 count = bget_len(aTHX_ r), i;
+    HV *hash = newHV();
+    for (i = 0; i < count; i++) {
+        SV *key = sv_2mortal(bget_string(aTHX_ r));
+        SV *value = bread(aTHX_ r, depth + 1);
+        if (!hv_store_ent(hash, key, value, 0)) SvREFCNT_dec(value);
+    }
+    return hash;
+}
+
+static SV *bread(pTHX_ breader *r, int depth)
+{
+    unsigned char tag;
+    if (depth > MAX_DEPTH + 1) croak("Perldantic::XS::decode_result: nested too deeply");
+    bneed(aTHX_ r, 1);
+    tag = *r->at++;
+    switch (tag) {
+    case B_NONE: return newSV(0);
+    case B_TRUE: return newSVsv(&PL_sv_yes);
+    case B_FALSE: return newSVsv(&PL_sv_no);
+    case B_INT: return newSViv((IV)bget_u64(aTHX_ r));
+    case B_FLOAT: {
+        U64 bits = bget_u64(aTHX_ r);
+        double d;
+        memcpy(&d, &bits, 8);
+        return newSVnv((NV)d);
+    }
+    case B_STR: return bget_string(aTHX_ r);
+    case B_BYTES: {
+        U32 len = bget_len(aTHX_ r);
+        SV *sv;
+        bneed(aTHX_ r, len);
+        sv = newSVpvn((const char *)r->at, len);
+        r->at += len;
+        return sv;
+    }
+    case B_LIST: {
+        U32 count = bget_len(aTHX_ r), i;
+        AV *array = newAV();
+        SV *ref = newRV_noinc((SV *)array);
+        if (count) av_extend(array, count > 4096 ? 4096 : count - 1);
+        for (i = 0; i < count; i++) av_push(array, bread(aTHX_ r, depth + 1));
+        return ref;
+    }
+    case B_DICT: return newRV_noinc((SV *)bread_entries(aTHX_ r, depth));
+    case B_JSON: {
+        U32 len = bget_len(aTHX_ r);
+        SV *json, *value;
+        dSP;
+        int count;
+        bneed(aTHX_ r, len);
+        json = sv_2mortal(newSVpvn((const char *)r->at, len));
+        r->at += len;
+        ENTER;
+        SAVETMPS;
+        PUSHMARK(SP);
+        XPUSHs(json);
+        PUTBACK;
+        count = call_sv(r->json_decoder, G_SCALAR);
+        SPAGAIN;
+        if (count != 1) croak("Perldantic::XS::decode_result: the JSON decoder returned no value");
+        value = newSVsv(POPs);
+        PUTBACK;
+        FREETMPS;
+        LEAVE;
+        return value;
+    }
+    case B_MODEL_FULL: {
+        HV *model = newHV();
+        SV *ref = newRV_noinc((SV *)model);
+        (void)hv_stores(model, "class", bget_string(aTHX_ r));
+        (void)hv_stores(model, "fields", bread(aTHX_ r, depth + 1));
+        (void)hv_stores(model, "fields_set", bread(aTHX_ r, depth + 1));
+        (void)hv_stores(model, "extra", bread(aTHX_ r, depth + 1));
+        return sv_bless(ref, gv_stashpvs("Perldantic::Wire::Model", GV_ADD));
+    }
+    default:
+        croak("Perldantic::XS::decode_result: unknown tag %d", (int)tag);
+    }
+    return NULL;
+}
+
 /* The encoder state for one call, read from the Perl side's globals. */
 static void encoder_init(pTHX_ encoder *enc, SV *fallback)
 {
@@ -312,3 +630,52 @@ encode_pairs(pairs, fallback)
         emit_pairs(aTHX_ RETVAL, (AV *)SvRV(pairs), &enc);
     OUTPUT:
         RETVAL
+
+SV *
+encode_binary(value, fallback)
+        SV *value
+        SV *fallback
+    PREINIT:
+        encoder enc;
+    CODE:
+        encoder_init(aTHX_ &enc, fallback);
+        RETVAL = newSVpvn("", 0);
+        bemit(aTHX_ RETVAL, value, &enc, 0);
+    OUTPUT:
+        RETVAL
+
+void
+decode_result(address, len, json_decoder)
+        UV address
+        UV len
+        SV *json_decoder
+    PREINIT:
+        breader r;
+        const unsigned char *bytes;
+    PPCODE:
+        /* A result buffer of a binary export: ('ok', $value, $warning) or ('envelope', $json). */
+        if (!address || !len) croak("Perldantic::XS::decode_result: empty buffer");
+        bytes = INT2PTR(const unsigned char *, address);
+        r.at = bytes + 1;
+        r.end = bytes + len;
+        r.json_decoder = json_decoder;
+        if (bytes[0] == 'J') {
+            EXTEND(SP, 2);
+            mPUSHs(newSVpvs("envelope"));
+            mPUSHs(newSVpvn((const char *)r.at, (STRLEN)(r.end - r.at)));
+        } else if (bytes[0] == 'B' || bytes[0] == 'W') {
+            SV *warning = NULL, *value;
+            if (bytes[0] == 'W') warning = bget_string(aTHX_ &r);
+            value = bread(aTHX_ &r, 0);
+            if (r.at != r.end) {
+                SvREFCNT_dec(value);
+                if (warning) SvREFCNT_dec(warning);
+                croak("Perldantic::XS::decode_result: trailing bytes");
+            }
+            EXTEND(SP, 3);
+            mPUSHs(newSVpvs("ok"));
+            mPUSHs(value);
+            mPUSHs(warning ? warning : newSV(0));
+        } else {
+            croak("Perldantic::XS::decode_result: unknown result kind %d", (int)bytes[0]);
+        }

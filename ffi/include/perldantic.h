@@ -91,6 +91,48 @@ char *pd_serializer_to_data(const PdSerializer *serializer, const char *value, c
 // `serializer` is null or a live handle; string arguments are null or NUL-terminated.
 char *pd_serializer_to_json(const PdSerializer *serializer, const char *value, const char *options);
 
+// [`pd_validator_validate`] with the input and the result in the binary wire format: `input`
+// points to `input_len` bytes. The returned buffer is `*len` bytes long and must be released
+// with [`pd_buffer_free`]: `B` and the result value; `W`, the warning's length (`u32`, little
+// endian) and UTF-8 bytes, then the value; or `J` and a JSON error envelope.
+//
+// # Safety
+// `validator` is null or a live handle; `input` is null or points to `input_len` bytes;
+// `options` is null or NUL-terminated; `len` is null or writable.
+uint8_t *pd_validator_validate_binary(const PdValidator *validator,
+                                      const uint8_t *input,
+                                      size_t input_len,
+                                      const char *options,
+                                      size_t *len);
+
+// [`pd_serializer_to_data`] with the value and the result in the binary wire format, returned
+// as [`pd_validator_validate_binary`] returns its result.
+//
+// # Safety
+// As for [`pd_validator_validate_binary`], with a live serializer handle.
+uint8_t *pd_serializer_to_data_binary(const PdSerializer *serializer,
+                                      const uint8_t *value,
+                                      size_t value_len,
+                                      const char *options,
+                                      size_t *len);
+
+// [`pd_serializer_to_json`] with the value in the binary wire format; the JSON text comes back
+// as a string value in the buffer, as [`pd_validator_validate_binary`] returns its result.
+//
+// # Safety
+// As for [`pd_serializer_to_data_binary`].
+uint8_t *pd_serializer_to_json_binary(const PdSerializer *serializer,
+                                      const uint8_t *value,
+                                      size_t value_len,
+                                      const char *options,
+                                      size_t *len);
+
+// Release a buffer returned by a binary export; null is ignored.
+//
+// # Safety
+// `buffer` is null or was returned by a binary export with length `len`, and not freed yet.
+void pd_buffer_free(uint8_t *buffer, size_t len);
+
 // Generate the JSON Schema of a core schema. `config` (wire JSON or null) applies to the whole
 // schema like a `TypeAdapter`'s config; `options` holds `mode`, `by_alias`, `ref_template` and
 // `union_format`. The envelope's `ok` is the JSON Schema and `warnings` a list of messages.
