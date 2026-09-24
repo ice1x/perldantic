@@ -9,6 +9,7 @@ import uuid
 
 import pytest
 from faker import Faker
+from pydantic_core import MultiHostUrl, Url
 from hypothesis import given
 from hypothesis import strategies as st
 
@@ -72,6 +73,8 @@ def test_plain_json_types_are_untagged():
         (datetime.datetime(2026, 9, 23, 12, 0), {'$datetime': '2026-09-23T12:00:00'}),
         (datetime.timedelta(days=1, seconds=2), {'$timedelta': [1, 2, 0]}),
         (uuid.UUID(int=1), {'$uuid': '00000000-0000-0000-0000-000000000001'}),
+        (Url('https://example.com'), {'$url': 'https://example.com/'}),
+        (MultiHostUrl('postgres://u:p@h1:5432,h2/db'), {'$multi_host_url': 'postgres://u:p@h1:5432,h2/db'}),
     ],
 )
 def test_tagged_values(value, wire):
@@ -139,3 +142,11 @@ def test_values_that_fail_to_serialize_are_opaque():
 
     value = datetime.datetime(2026, 1, 1, tzinfo=BrokenTz())
     assert encode(value) == {'$object': 'datetime'}
+
+
+def test_urls_are_encoded_by_their_text():
+    host = fake.domain_name()
+    url = Url(f'https://{host}/path?q=1')
+    assert encode(url) == {'$url': f'https://{host}/path?q=1'}
+    assert type(decode(encode(url))) is Url
+    assert type(decode(encode(MultiHostUrl(f'redis://{host}')))) is MultiHostUrl

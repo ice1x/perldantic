@@ -14,6 +14,8 @@ written as-is. Everything else is a single-key object whose key starts with `$`:
     {"$date": "..."} / {"$time": "..."} / {"$datetime": "..."}   ISO 8601
     {"$timedelta": [days, seconds, microseconds]}
     {"$uuid": "..."}             uuid.UUID
+    {"$url": "..."}              pydantic_core.Url (its text, as str() gives it)
+    {"$multi_host_url": "..."}   pydantic_core.MultiHostUrl
 
 Values that only describe Python objects (they cannot be rebuilt outside Python):
 
@@ -39,6 +41,8 @@ import enum
 import math
 import uuid
 from typing import Any
+
+from pydantic_core import MultiHostUrl, Url
 
 
 class UnsupportedValue(ValueError):
@@ -119,6 +123,10 @@ def _encode(value: Any) -> Any:
         return {'$timedelta': [value.days, value.seconds, value.microseconds]}
     if kind is uuid.UUID:
         return {'$uuid': str(value)}
+    if kind is Url:
+        return {'$url': str(value)}
+    if kind is MultiHostUrl:
+        return {'$multi_host_url': str(value)}
 
     if isinstance(value, type):
         return {'$class': value.__name__}
@@ -156,6 +164,8 @@ _DECODERS = {
     '$datetime': datetime.datetime.fromisoformat,
     '$timedelta': lambda v: datetime.timedelta(days=v[0], seconds=v[1], microseconds=v[2]),
     '$uuid': uuid.UUID,
+    '$url': Url,
+    '$multi_host_url': MultiHostUrl,
 }
 
 

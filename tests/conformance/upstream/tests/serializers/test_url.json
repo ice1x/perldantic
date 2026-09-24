@@ -8,12 +8,12 @@
   "config": null,
   "mode": "to_python",
   "input": {
-   "$object": "Url"
+   "$url": "https://ex.com/"
   },
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://ex.com/"
    }
   }
  },
@@ -26,12 +26,12 @@
   "config": null,
   "mode": "to_python",
   "input": {
-   "$object": "MultiHostUrl"
+   "$multi_host_url": "https://ex.com,ex.org/path"
   },
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "https://ex.com,ex.org/path"
    }
   }
  },
@@ -44,7 +44,7 @@
   "config": null,
   "mode": "to_python",
   "input": {
-   "$object": "Url"
+   "$url": "https://ex.com/"
   },
   "options": {
    "mode": "json"
@@ -62,7 +62,7 @@
   "config": null,
   "mode": "to_python",
   "input": {
-   "$object": "MultiHostUrl"
+   "$multi_host_url": "https://ex.com,ex.org/path"
   },
   "options": {
    "mode": "json"
@@ -80,7 +80,7 @@
   "config": null,
   "mode": "to_json",
   "input": {
-   "$object": "Url"
+   "$url": "https://ex.com/"
   },
   "options": {},
   "expected": {
@@ -96,7 +96,7 @@
   "config": null,
   "mode": "to_json",
   "input": {
-   "$object": "MultiHostUrl"
+   "$multi_host_url": "https://ex.com,ex.org/path"
   },
   "options": {},
   "expected": {
@@ -115,13 +115,13 @@
    "$dict": [
     [
      {
-      "$object": "Url"
+      "$url": "https://ex.com/"
      },
      1
     ],
     [
      {
-      "$object": "MultiHostUrl"
+      "$multi_host_url": "https://ex.com,ex.org/path"
      },
      2
     ]
@@ -133,13 +133,13 @@
     "$dict": [
      [
       {
-       "$object": "Url"
+       "$url": "https://ex.com/"
       },
       1
      ],
      [
       {
-       "$object": "MultiHostUrl"
+       "$multi_host_url": "https://ex.com,ex.org/path"
       },
       2
      ]
@@ -159,13 +159,13 @@
    "$dict": [
     [
      {
-      "$object": "Url"
+      "$url": "https://ex.com/"
      },
      1
     ],
     [
      {
-      "$object": "MultiHostUrl"
+      "$multi_host_url": "https://ex.com,ex.org/path"
      },
      2
     ]
@@ -193,13 +193,13 @@
    "$dict": [
     [
      {
-      "$object": "Url"
+      "$url": "https://ex.com/"
      },
      1
     ],
     [
      {
-      "$object": "MultiHostUrl"
+      "$multi_host_url": "https://ex.com,ex.org/path"
      },
      2
     ]
@@ -222,12 +222,12 @@
   "config": null,
   "mode": "to_python",
   "input": {
-   "$object": "MultiHostUrl"
+   "$multi_host_url": "https://ex.com,ex.org/path"
   },
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "https://ex.com,ex.org/path"
    }
   }
  },
@@ -243,7 +243,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "https://example.com,example.org/path"
    }
   }
  },
@@ -256,12 +256,12 @@
   "config": null,
   "mode": "to_python",
   "input": {
-   "$object": "MultiHostUrl"
+   "$multi_host_url": "https://example.com,example.org/path"
   },
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "https://example.com,example.org/path"
    }
   }
  },
@@ -274,7 +274,7 @@
   "config": null,
   "mode": "to_python",
   "input": {
-   "$object": "MultiHostUrl"
+   "$multi_host_url": "https://example.com,example.org/path"
   },
   "options": {
    "mode": "json"
@@ -292,7 +292,7 @@
   "config": null,
   "mode": "to_json",
   "input": {
-   "$object": "MultiHostUrl"
+   "$multi_host_url": "https://example.com,example.org/path"
   },
   "options": {},
   "expected": {
@@ -330,7 +330,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "https://example.com,example.org/path"
    }
   }
  },
@@ -349,7 +349,7 @@
    "$dict": [
     [
      {
-      "$object": "MultiHostUrl"
+      "$multi_host_url": "https://example.com,example.org/path"
      },
      "foo"
     ]
@@ -361,7 +361,7 @@
     "$dict": [
      [
       {
-       "$object": "MultiHostUrl"
+       "$multi_host_url": "https://example.com,example.org/path"
       },
       "foo"
      ]
@@ -384,7 +384,7 @@
    "$dict": [
     [
      {
-      "$object": "MultiHostUrl"
+      "$multi_host_url": "https://example.com,example.org/path"
      },
      "foo"
     ]
@@ -414,7 +414,7 @@
    "$dict": [
     [
      {
-      "$object": "MultiHostUrl"
+      "$multi_host_url": "https://example.com,example.org/path"
      },
      "foo"
     ]
@@ -437,7 +437,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://example.com/"
    }
   }
  },
@@ -450,12 +450,12 @@
   "config": null,
   "mode": "to_python",
   "input": {
-   "$object": "Url"
+   "$url": "https://example.com/"
   },
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://example.com/"
    }
   }
  },
@@ -468,7 +468,7 @@
   "config": null,
   "mode": "to_python",
   "input": {
-   "$object": "Url"
+   "$url": "https://example.com/"
   },
   "options": {
    "mode": "json"
@@ -486,7 +486,7 @@
   "config": null,
   "mode": "to_json",
   "input": {
-   "$object": "Url"
+   "$url": "https://example.com/"
   },
   "options": {},
   "expected": {
@@ -524,7 +524,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://example.com/"
    }
   }
  },
@@ -543,7 +543,7 @@
    "$dict": [
     [
      {
-      "$object": "Url"
+      "$url": "https://example.com/"
      },
      "foo"
     ]
@@ -555,7 +555,7 @@
     "$dict": [
      [
       {
-       "$object": "Url"
+       "$url": "https://example.com/"
       },
       "foo"
      ]
@@ -578,7 +578,7 @@
    "$dict": [
     [
      {
-      "$object": "Url"
+      "$url": "https://example.com/"
      },
      "foo"
     ]
@@ -608,7 +608,7 @@
    "$dict": [
     [
      {
-      "$object": "Url"
+      "$url": "https://example.com/"
      },
      "foo"
     ]

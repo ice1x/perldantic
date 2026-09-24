@@ -74,7 +74,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://example.com/"
    }
   }
  },
@@ -94,7 +94,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://other.com/"
    }
   }
  },
@@ -111,7 +111,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://example.com/"
    }
   }
  },
@@ -157,7 +157,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.com/"
    }
   }
  },
@@ -177,7 +177,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "foo://example.com"
    }
   }
  },
@@ -226,7 +226,7 @@
   },
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "https://foo.com,bar.com/path"
    }
   }
  },
@@ -246,7 +246,7 @@
   },
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "https://foo.com,bar.com/path"
    }
   }
  },
@@ -266,7 +266,7 @@
   },
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "https://example.com/foo/bar?a=b"
    }
   }
  },
@@ -286,7 +286,7 @@
   },
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "postgres://foo:bar@example.com:1234"
    }
   }
  },
@@ -306,7 +306,7 @@
   },
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "https://example.com/foo/bar?a=b"
    }
   }
  },
@@ -326,7 +326,7 @@
   },
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "postgres://foo:bar@example.com:1234"
    }
   }
  },
@@ -343,7 +343,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.com/"
    }
   }
  },
@@ -383,12 +383,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "MultiHostUrl"
+   "$multi_host_url": "http://example.com/"
   },
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.com/"
    }
   }
  },
@@ -404,7 +404,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/"
    }
   }
  },
@@ -418,12 +418,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "Url"
+   "$url": "http://example.com/"
   },
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.com/"
    }
   }
  },
@@ -439,8 +439,38 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/this-is-too-long"
    }
+  }
+ },
+ {
+  "id": "tests/validators/test_url.py::test_multi_max_length#6",
+  "test": "tests/validators/test_url.py::test_multi_max_length",
+  "schema": {
+   "type": "multi-host-url",
+   "max_length": 25
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$url": "http://example.com/this-is-too-long"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "url_too_long",
+     "loc": [],
+     "msg": "URL should have at most 25 characters",
+     "input": {
+      "$url": "http://example.com/this-is-too-long"
+     },
+     "ctx": {
+      "max_length": 25
+     }
+    }
+   ],
+   "title": "multi-host-url"
   }
  },
  {
@@ -456,7 +486,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.com,example.org"
    }
   }
  },
@@ -474,7 +504,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.com,example.org"
    }
   }
  },
@@ -491,7 +521,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.com,example.org/"
    }
   }
  },
@@ -509,7 +539,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.com,example.org/"
    }
   }
  },
@@ -526,7 +556,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.com"
    }
   }
  },
@@ -544,7 +574,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.com"
    }
   }
  },
@@ -561,7 +591,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.com/"
    }
   }
  },
@@ -579,7 +609,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.com/"
    }
   }
  },
@@ -596,7 +626,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.com/path"
    }
   }
  },
@@ -614,7 +644,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.com/path"
    }
   }
  },
@@ -631,7 +661,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.com/path/"
    }
   }
  },
@@ -649,7 +679,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.com/path/"
    }
   }
  },
@@ -666,7 +696,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://localhost,127.0.0.1"
    }
   }
  },
@@ -684,7 +714,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://localhost,127.0.0.1"
    }
   }
  },
@@ -701,7 +731,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://localhost,127.0.0.1/"
    }
   }
  },
@@ -719,7 +749,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://localhost,127.0.0.1/"
    }
   }
  },
@@ -736,7 +766,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://localhost,127.0.0.1/path"
    }
   }
  },
@@ -754,7 +784,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://localhost,127.0.0.1/path"
    }
   }
  },
@@ -771,7 +801,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://localhost,127.0.0.1/path/"
    }
   }
  },
@@ -789,7 +819,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://localhost,127.0.0.1/path/"
    }
   }
  },
@@ -806,7 +836,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://localhost,127.0.0.1"
    }
   }
  },
@@ -824,7 +854,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://localhost,127.0.0.1"
    }
   }
  },
@@ -840,7 +870,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "mongodb://foo,bar,spam/xxx"
    }
   }
  },
@@ -856,7 +886,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "mongodb://foo,bar,spam/xxx"
    }
   }
  },
@@ -897,7 +927,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "file://foo,bar/more"
    }
   }
  },
@@ -913,7 +943,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "foo://foo,bar?x=y"
    }
   }
  },
@@ -929,7 +959,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "foobar://foo%2Cbar:x%40y@whatever,snap"
    }
   }
  },
@@ -945,7 +975,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "foobar://foo%5B%5Dbar:x%40y@whatever,foo%5B%5Dbar:x%40y@whichever"
    }
   }
  },
@@ -1111,7 +1141,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://xn--9aaa.co.uk,xn--mnchen-3ya.com/foo?bar=baz#qux"
    }
   }
  },
@@ -1127,7 +1157,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://xn--9aaa.com/"
    }
   }
  },
@@ -1143,7 +1173,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.com/"
    }
   }
  },
@@ -1159,7 +1189,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://foo/#bar"
    }
   }
  },
@@ -1250,7 +1280,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://foo,bar/#spam"
    }
   }
  },
@@ -1266,7 +1296,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://foo,bar/?x=y"
    }
   }
  },
@@ -1282,7 +1312,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://foo.co.uk,bar.spam.things.com/"
    }
   }
  },
@@ -1298,7 +1328,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://foo,bar/more"
    }
   }
  },
@@ -1339,7 +1369,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "https://foo:bar@example.com,foo%20o:bar@example.com/"
    }
   }
  },
@@ -1380,7 +1410,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "mongodb+srv://foo,bar,spam/xxx"
    }
   }
  },
@@ -1396,7 +1426,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "mongodb://foo#bar"
    }
   }
  },
@@ -1412,7 +1442,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "mongodb://foo,bar#spam"
    }
   }
  },
@@ -1428,7 +1458,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "mongodb://foo,bar,spam/xxx"
    }
   }
  },
@@ -1444,7 +1474,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "mongodb://foo,bar?x=y"
    }
   }
  },
@@ -1460,7 +1490,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "mongodb://foo,bar,spam/xxx"
    }
   }
  },
@@ -1476,7 +1506,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "mongodb://mongodb1.example.com:27317,mongodb2.example.com:27017/mydatabase?replicaSet=mySet&authSource=authDB"
    }
   }
  },
@@ -1492,7 +1522,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "mongodb://x:y@[::1],1.1.1.1:888/xxx"
    }
   }
  },
@@ -1583,7 +1613,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "postgres://"
    }
   }
  },
@@ -1624,7 +1654,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "postgres://%C2%A3%C2%A3%C2%A3.co.uk,m%C3%BCnchen.com/foo?bar=baz#qux"
    }
   }
  },
@@ -1640,7 +1670,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "postgres://example.com"
    }
   }
  },
@@ -1731,7 +1761,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "postgres://foo:bar@example.com,foo%20o:bar@example.com"
    }
   }
  },
@@ -1747,7 +1777,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "postgres://user:pass@host1.db.net:4321,host2.db.net:6432/app"
    }
   }
  },
@@ -1763,7 +1793,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "postgresql+py-postgresql://user:pass@localhost:5432/app"
    }
   }
  },
@@ -1858,7 +1888,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "foobar://foo%2Cbar:x%40y@whatever,snap"
    }
   }
  },
@@ -1927,7 +1957,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.com/"
    }
   }
  },
@@ -1995,7 +2025,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.com/"
    }
   }
  },
@@ -2033,7 +2063,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "data:text/plain,Stuff"
    }
   }
  },
@@ -2049,7 +2079,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/foobar/bar"
    }
   }
  },
@@ -2064,12 +2094,12 @@
   },
   "mode": "python",
   "input": {
-   "$object": "Url"
+   "$url": "http://example.com/foobar/bar"
   },
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/foobar/bar"
    }
   }
  },
@@ -2085,7 +2115,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "https://example.com/"
    }
   }
  },
@@ -2100,12 +2130,12 @@
   },
   "mode": "python",
   "input": {
-   "$object": "MultiHostUrl"
+   "$multi_host_url": "https://example.com/"
   },
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://example.com/"
    }
   }
  },
@@ -2121,8 +2151,39 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "foobar://x:y@foo,x:y@bar.com"
    }
+  }
+ },
+ {
+  "id": "tests/validators/test_url.py::test_strict_not_strict#5",
+  "test": "tests/validators/test_url.py::test_strict_not_strict",
+  "schema": {
+   "type": "url"
+  },
+  "config": {
+   "strict": true
+  },
+  "mode": "python",
+  "input": {
+   "$multi_host_url": "foobar://x:y@foo,x:y@bar.com"
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "url_syntax_violation",
+     "loc": [],
+     "msg": "Input violated strict URL syntax rules, unencoded @ sign in username or password",
+     "input": {
+      "$multi_host_url": "foobar://x:y@foo,x:y@bar.com"
+     },
+     "ctx": {
+      "error": "unencoded @ sign in username or password"
+     }
+    }
+   ],
+   "title": "url"
   }
  },
  {
@@ -2138,7 +2199,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com#foo"
    }
   }
  },
@@ -2156,7 +2217,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com#foo"
    }
   }
  },
@@ -2173,7 +2234,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com"
    }
   }
  },
@@ -2191,7 +2252,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com"
    }
   }
  },
@@ -2208,7 +2269,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/#foo"
    }
   }
  },
@@ -2226,7 +2287,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/#foo"
    }
   }
  },
@@ -2243,7 +2304,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/"
    }
   }
  },
@@ -2261,7 +2322,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/"
    }
   }
  },
@@ -2278,7 +2339,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/?x=1"
    }
   }
  },
@@ -2296,7 +2357,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/?x=1"
    }
   }
  },
@@ -2313,7 +2374,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/path"
    }
   }
  },
@@ -2331,7 +2392,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/path"
    }
   }
  },
@@ -2348,7 +2409,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/path/"
    }
   }
  },
@@ -2366,7 +2427,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/path/"
    }
   }
  },
@@ -2383,7 +2444,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/path/?x=1"
    }
   }
  },
@@ -2401,7 +2462,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/path/?x=1"
    }
   }
  },
@@ -2418,7 +2479,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/path?x=1"
    }
   }
  },
@@ -2436,7 +2497,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/path?x=1"
    }
   }
  },
@@ -2453,7 +2514,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com?x=1"
    }
   }
  },
@@ -2471,7 +2532,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com?x=1"
    }
   }
  },
@@ -2488,7 +2549,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com"
    }
   }
  },
@@ -2506,7 +2567,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com"
    }
   }
  },
@@ -2523,7 +2584,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/"
    }
   }
  },
@@ -2541,7 +2602,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/"
    }
   }
  },
@@ -2558,7 +2619,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com"
    }
   }
  },
@@ -2576,7 +2637,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com"
    }
   }
  },
@@ -2593,7 +2654,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/"
    }
   }
  },
@@ -2611,7 +2672,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/"
    }
   }
  },
@@ -2627,7 +2688,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://www.example.com/"
    }
   }
  },
@@ -2718,7 +2779,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.org/"
    }
   }
  },
@@ -2734,7 +2795,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.org/"
    }
   }
  },
@@ -2750,7 +2811,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "postgres://EXAMPLE.ORG"
    }
   }
  },
@@ -2766,7 +2827,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "file:///:80"
    }
   }
  },
@@ -2782,7 +2843,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "file:///foobar"
    }
   }
  },
@@ -2798,7 +2859,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "file:///foobar"
    }
   }
  },
@@ -2839,7 +2900,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "file://foobar/more"
    }
   }
  },
@@ -2855,7 +2916,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "foo://%2F@example.org"
    }
   }
  },
@@ -2871,7 +2932,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "foo://us%40er:p%5Bass@example.org"
    }
   }
  },
@@ -2887,7 +2948,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "foo://us%40er:p%5Bass@example.org"
    }
   }
  },
@@ -2903,7 +2964,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "foo://us%5B%5Der:p,ass@example.org"
    }
   }
  },
@@ -2919,7 +2980,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "foo://user@example.org"
    }
   }
  },
@@ -2935,7 +2996,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "foobar://127.0.0.1"
    }
   }
  },
@@ -2976,7 +3037,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "ftp://127.0.0.1/"
    }
   }
  },
@@ -2992,7 +3053,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "ftp://[2001:db8:85a3::8a2e:370:7334]/"
    }
   }
  },
@@ -3008,7 +3069,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "ftp://xn--0ca.xn--ssa73l.com/"
    }
   }
  },
@@ -3074,7 +3135,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://%2F@example.org/"
    }
   }
  },
@@ -3090,7 +3151,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://-/"
    }
   }
  },
@@ -3131,7 +3192,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/"
    }
   }
  },
@@ -3147,7 +3208,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://foo/"
    }
   }
  },
@@ -3163,7 +3224,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://foo/"
    }
   }
  },
@@ -3179,7 +3240,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://foo/"
    }
   }
  },
@@ -3220,7 +3281,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://xn--0ca.xn--ssa73l.com/"
    }
   }
  },
@@ -3236,7 +3297,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://xn--0ca.xn--ssa73l.com/"
    }
   }
  },
@@ -3252,7 +3313,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/"
    }
   }
  },
@@ -3293,7 +3354,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://exam-ple.com/"
    }
   }
  },
@@ -3309,7 +3370,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://exam_ple.com/"
    }
   }
  },
@@ -3325,7 +3386,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example-.com/"
    }
   }
  },
@@ -3341,7 +3402,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/"
    }
   }
  },
@@ -3359,7 +3420,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/"
    }
   }
  },
@@ -3375,7 +3436,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com./"
    }
   }
  },
@@ -3391,7 +3452,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com./foobar"
    }
   }
  },
@@ -3407,7 +3468,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com:65535/"
    }
   }
  },
@@ -3448,7 +3509,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://foo/"
    }
   }
  },
@@ -3464,7 +3525,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://us%40er:p%5Bass@example.org/"
    }
   }
  },
@@ -3480,7 +3541,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://us%40er:p%5Bass@example.org/"
    }
   }
  },
@@ -3496,7 +3557,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://us%5B%5Der:p,ass@example.org/"
    }
   }
  },
@@ -3512,7 +3573,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://us%C3%9Fer:pas%E2%84%9Ds@xn--ab-qt72a.com:123/c?d=e&d=f#g"
    }
   }
  },
@@ -3528,7 +3589,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://user@example.org/"
    }
   }
  },
@@ -3544,7 +3605,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/"
    }
   }
  },
@@ -3560,7 +3621,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://foo/"
    }
   }
  },
@@ -3576,7 +3637,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://foo/"
    }
   }
  },
@@ -3592,7 +3653,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/"
    }
   }
  },
@@ -3608,7 +3669,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://foobar/more"
    }
   }
  },
@@ -3624,7 +3685,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/#nopath"
    }
   }
  },
@@ -3640,7 +3701,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/"
    }
   }
  },
@@ -3656,7 +3717,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/#haspath"
    }
   }
  },
@@ -3672,7 +3733,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/?query=haspath"
    }
   }
  },
@@ -3688,7 +3749,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/path"
    }
   }
  },
@@ -3704,7 +3765,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/path/"
    }
   }
  },
@@ -3720,7 +3781,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/?query=nopath"
    }
   }
  },
@@ -3786,7 +3847,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://xn--9aaa.com/"
    }
   }
  },
@@ -3802,7 +3863,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://xn--9aaa.com/"
    }
   }
  },
@@ -3818,7 +3879,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://xn--9aaa.com/"
    }
   }
  },
@@ -3834,7 +3895,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://xn--9aaa.com./"
    }
   }
  },
@@ -3850,7 +3911,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://xn--example-gia.xn--pbt977c/"
    }
   }
  },
@@ -3866,7 +3927,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://xn--example-gia.org/"
    }
   }
  },
@@ -3907,7 +3968,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://example.xn--p1ai/"
    }
   }
  },
@@ -3923,7 +3984,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://example.xn--pbt977c/"
    }
   }
  },
@@ -3939,7 +4000,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://example.xn--vermgensberatung-pwb/"
    }
   }
  },
@@ -3955,7 +4016,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://foo.xn--$-9ba.money.com/"
    }
   }
  },
@@ -3971,7 +4032,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://foobar.xn--9aaa.com/"
    }
   }
  },
@@ -3987,7 +4048,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://foobar.xn--9aaa.com/"
    }
   }
  },
@@ -4003,7 +4064,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://https/"
    }
   }
  },
@@ -4019,7 +4080,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://xn--mnchen-3ya/"
    }
   }
  },
@@ -4035,7 +4096,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://xn--mnchen-3ya/"
    }
   }
  },
@@ -4051,7 +4112,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://twitter.com/@handle"
    }
   }
  },
@@ -4067,7 +4128,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://www.xn--80ak6aa92e.com/"
    }
   }
  },
@@ -4108,7 +4169,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://xn--9aaa.com/"
    }
   }
  },
@@ -4124,7 +4185,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://xn--9aaa.com/"
    }
   }
  },
@@ -4140,7 +4201,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://xn--9aaa.com/"
    }
   }
  },
@@ -4156,7 +4217,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://more/"
    }
   }
  },
@@ -4172,7 +4233,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://more/"
    }
   }
  },
@@ -4188,7 +4249,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "mongo:\\\\foobar\\more"
    }
   }
  },
@@ -4204,7 +4265,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "mongodb+srv://server.example.com/"
    }
   }
  },
@@ -4220,7 +4281,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "mysql://[2001:db8:85a3::8a2e:370:7334]"
    }
   }
  },
@@ -4236,7 +4297,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "mysql://[2001:db8:85a3::8a2e:370:7334]/thing"
    }
   }
  },
@@ -4252,7 +4313,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "postgresql+py-postgresql://user:pass@localhost:5432/app"
    }
   }
  },
@@ -4268,7 +4329,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "snap://[::1]"
    }
   }
  },
@@ -4284,7 +4345,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "ssh://%C2%A3%C2%A3%C2%A3/"
    }
   }
  },
@@ -4300,7 +4361,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "ssh://%C2%A3%C2%A3%C2%A3/"
    }
   }
  },
@@ -4316,7 +4377,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "ssh://example/"
    }
   }
  },
@@ -4332,7 +4393,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "ssh://m%C3%BCnchen.com/"
    }
   }
  },
@@ -4348,7 +4409,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "ssh://xn--9aaa.com/"
    }
   }
  },
@@ -4364,7 +4425,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "wss://1.1.1.1/"
    }
   }
  },
@@ -4380,7 +4441,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "wss://1.1.1.1/"
    }
   }
  },
@@ -4423,7 +4484,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "http://example.org:1234/baz"
    }
   }
  },
@@ -4440,7 +4501,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "redis://localhost"
    }
   }
  },
@@ -4456,7 +4517,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "redis://localhost,127.0.0.1"
    }
   }
  },
@@ -4472,7 +4533,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "redis://"
    }
   }
  },
@@ -4490,7 +4551,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.org:1234/baz"
    }
   }
  },
@@ -4507,7 +4568,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "redis://localhost"
    }
   }
  },
@@ -4525,7 +4586,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "file:///foobar"
    }
   }
  },
@@ -4705,7 +4766,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://exam_ple.com/"
    }
   }
  },
@@ -4723,7 +4784,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/"
    }
   }
  },
@@ -4741,7 +4802,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://us%5Ber:bar@example.org/"
    }
   }
  },
@@ -4786,7 +4847,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://user@example.org/"
    }
   }
  },
@@ -4885,7 +4946,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "mongodb+srv://server.example.com/"
    }
   }
  },
@@ -4903,7 +4964,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "mongodb://us%5Ber:bar@example.org"
    }
   }
  },
@@ -5029,7 +5090,7 @@
   },
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://example.com/foo/bar?baz=qux#quux"
    }
   }
  },
@@ -5049,7 +5110,7 @@
   },
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://example.com/foo/bar?baz=qux#quux"
    }
   }
  },
@@ -5065,7 +5126,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://example.com/foo/bar?a=1&a=2"
    }
   }
  },
@@ -5081,7 +5142,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/foobar/bar"
    }
   }
  },
@@ -5095,7 +5156,7 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "Url"
+   "$url": "http://example.com/foobar/bar"
   },
   "options": {},
   "expected": {
@@ -5105,7 +5166,7 @@
      "loc": [],
      "msg": "URL should have at most 25 characters",
      "input": {
-      "$object": "Url"
+      "$url": "http://example.com/foobar/bar"
      },
      "ctx": {
       "max_length": 25
@@ -5127,7 +5188,7 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "Url"
+   "$url": "http://example.com/foobar/bar"
   },
   "options": {},
   "expected": {
@@ -5137,7 +5198,7 @@
      "loc": [],
      "msg": "URL scheme should be 'https'",
      "input": {
-      "$object": "Url"
+      "$url": "http://example.com/foobar/bar"
      },
      "ctx": {
       "expected_schemes": "'https'"
@@ -5159,7 +5220,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://example.com/"
    }
   }
  },
@@ -5172,12 +5233,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "Url"
+   "$url": "https://example.com/"
   },
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "https://example.com/"
    }
   }
  },
@@ -5190,12 +5251,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "MultiHostUrl"
+   "$multi_host_url": "https://example.com/"
   },
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "https://example.com/"
    }
   }
  },
@@ -5211,7 +5272,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://example.com/"
    }
   }
  },
@@ -5224,12 +5285,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "Url"
+   "$url": "https://example.com/"
   },
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://example.com/"
    }
   }
  },
@@ -5245,7 +5306,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "https://example.com/"
    }
   }
  },
@@ -5258,12 +5319,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "MultiHostUrl"
+   "$multi_host_url": "https://example.com/"
   },
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://example.com/"
    }
   }
  },
@@ -5279,7 +5340,25 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "MultiHostUrl"
+    "$multi_host_url": "foobar://x:y@foo,x:y@bar.com"
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_url.py::test_url_to_url#5",
+  "test": "tests/validators/test_url.py::test_url_to_url",
+  "schema": {
+   "type": "url"
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$multi_host_url": "foobar://x:y@foo,x:y@bar.com"
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$url": "foobar://x:y%40foo,x%3Ay@bar.com"
    }
   }
  },
@@ -5345,7 +5424,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://10.251.0.83:7777/?a=1%20HTTP/1.1X-injected:%20header"
    }
   }
  },
@@ -5386,7 +5465,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://127.0.0.1:6379/?SET%20test%20failure12:8080/test/?test=a"
    }
   }
  },
@@ -5402,7 +5481,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://%E3%83%92:%E3%82%AD@xn--pdk.abc.xn--idk/%E3%83%92?%E3%82%AD#%E3%83%AF"
    }
   }
  },
@@ -5418,7 +5497,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://google.com/#@evil.com/"
    }
   }
  },
@@ -5434,7 +5513,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://google.com/%EF%BC%AE%EF%BC%AE/abc"
    }
   }
  },
@@ -5475,7 +5554,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://user:%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40%40@example.com/"
    }
   }
  },
@@ -5491,7 +5570,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://user:pass@xdavidhu.me/test.corp.google.com:8080/path/to/something?param=value#hash"
    }
   }
  },
@@ -5507,7 +5586,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "javascript:a='@google.com:12345/';alert(0)"
    }
   }
  },
@@ -5523,7 +5602,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://app%20le:pie@example.com/foo"
    }
   }
  },
@@ -5539,7 +5618,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://app$le:pie@example.com/foo"
    }
   }
  },
@@ -5555,7 +5634,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://apple@example.com/foo"
    }
   }
  },
@@ -5571,7 +5650,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "https://apple:pie@example.com/foo"
    }
   }
  },
@@ -5587,7 +5666,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/foobar/bar"
    }
   }
  },
@@ -5605,7 +5684,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/foobar/bar"
    }
   }
  },
@@ -5673,7 +5752,7 @@
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/foobar/bar"
    }
   }
  },
@@ -5688,12 +5767,12 @@
   },
   "mode": "python",
   "input": {
-   "$object": "Url"
+   "$url": "http://example.com/foobar/bar"
   },
   "options": {},
   "expected": {
    "output": {
-    "$object": "Url"
+    "$url": "http://example.com/foobar/bar"
    }
   }
  },
