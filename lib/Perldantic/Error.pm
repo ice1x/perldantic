@@ -22,6 +22,8 @@ my %CLASS_OF = (
     PydanticSerializationError           => 'Perldantic::SerializationError',
     PydanticSerializationUnexpectedValue => 'Perldantic::SerializationError',
     InternalError                        => 'Perldantic::InternalError',
+    PydanticOmit                         => 'Perldantic::Omit',
+    PydanticUseDefault                   => 'Perldantic::UseDefault',
 );
 
 sub new ($class, %args) {
@@ -132,6 +134,38 @@ package Perldantic::InternalError {
 }
 package Perldantic::SerializationError { our @ISA = ('Perldantic::Error') }
 
+# Raised by validator functions (pydantic's PydanticCustomError): an error of their own type.
+package Perldantic::CustomError {
+    our @ISA = ('Perldantic::Error');
+
+    sub new ($class, %args) {
+        for my $key (qw(type message)) {
+            Perldantic::UsageError->throw(message => "$class needs a $key") if !defined $args{$key};
+        }
+        return Perldantic::Error::new($class, %args);
+    }
+
+    sub context ($self) { $self->{context} }
+}
+
+# Raised by validator functions (pydantic's PydanticKnownError): one of pydantic's error types.
+package Perldantic::KnownError {
+    our @ISA = ('Perldantic::Error');
+
+    sub new ($class, %args) {
+        Perldantic::UsageError->throw(message => "$class needs a type") if !defined $args{type};
+        return Perldantic::Error::new($class, message => $args{type}, %args);
+    }
+
+    sub context ($self) { $self->{context} }
+}
+
+# Raised by validator functions: leave the item out (pydantic's PydanticOmit).
+package Perldantic::Omit { our @ISA = ('Perldantic::Error') }
+
+# Raised by validator functions: use the field's default (pydantic's PydanticUseDefault).
+package Perldantic::UseDefault { our @ISA = ('Perldantic::Error') }
+
 1;
 
 __END__
@@ -191,6 +225,36 @@ The Rust core panicked or the FFI boundary failed.
 
 =back
 
+Validator functions (see L<Perldantic::FFI/Functions>) raise these to report failures the way
+pydantic's validators do:
+
+=over
+
+=item C<Perldantic::CustomError>
+
+C<< Perldantic::CustomError->throw(type => 'not_even', message => '{value} is odd', context => {value => 3}) >>:
+an error of its own type; the message is a template filled from the context (pydantic's
+C<PydanticCustomError>).
+
+=item C<Perldantic::KnownError>
+
+C<< Perldantic::KnownError->throw(type => 'greater_than', context => {gt => 5}) >>: one of
+pydantic's error types (C<PydanticKnownError>).
+
+=item C<Perldantic::Omit>
+
+Leave the item out, e.g. of a list (C<PydanticOmit>).
+
+=item C<Perldantic::UseDefault>
+
+Use the field's default (C<PydanticUseDefault>).
+
+=back
+
+A validator function that dies with a string reports a C<value_error> with that message (the
+C<at FILE line N.> Perl appends is dropped); dying with any other object makes validation fail
+with that same object.
+
 =head1 METHODS
 
 =head2 new(%args)
@@ -234,5 +298,9 @@ Perldantic's own packages. A usage error stringifies like C<die>: C<"$message at
 =head2 cause
 
 C<Perldantic::InternalError> only: the underlying error, when there is one.
+
+=head2 context
+
+C<Perldantic::CustomError> and C<Perldantic::KnownError> only: the error context.
 
 =cut

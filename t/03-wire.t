@@ -121,8 +121,21 @@ subtest 'enum members round-trip' => sub {
         'mixin and str_is_value may be left out';
 };
 
+subtest 'code references are host functions' => sub {
+    sub check_value ($value) { $value }
+    my $json = Perldantic::Wire::encode([\&check_value]);
+    like $json, qr/\A\[\{"\$function":\{"id":\d+,"name":"check_value"\}\}\]\z/;
+    my ($id) = $json =~ /"id":(\d+)/;
+    ref_is Perldantic::Wire::function($id), \&check_value, 'known by id';
+    ref_is Perldantic::Wire::decode(qq({"\$function":{"id":$id,"name":"check_value"}})), \&check_value,
+        'decoded back into the code reference';
+    like Perldantic::Wire::encode(sub {1}), qr/"name":"__ANON__"/;
+    my $e = dies { Perldantic::Wire::decode('{"$function":{"id":1,"name":"gone"}}') };
+    isa_ok $e, 'Perldantic::InternalError';
+};
+
 subtest 'unsupported values are usage errors' => sub {
-    for my $bad (sub {1}, \1, bless({}, 'Some::Class')) {
+    for my $bad (\1, bless({}, 'Some::Class')) {
         my $e = dies { Perldantic::Wire::encode([$bad]) };
         isa_ok $e, 'Perldantic::UsageError';
         like $e->message, qr/^Cannot pass .+ to the core: .+ has no wire form$/;

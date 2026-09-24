@@ -11,7 +11,8 @@ use Exporter 'import';
 use Hash::Util::FieldHash ();
 use Math::BigFloat ();
 use MIME::Base64 qw(encode_base64 decode_base64);
-use Scalar::Util qw(blessed reftype);
+use Scalar::Util qw(blessed reftype weaken);
+use Sub::Util ();
 
 use Perldantic::Error;
 use Perldantic::Temporal;
@@ -21,6 +22,28 @@ use Perldantic::Uuid;
 our @EXPORT_OK = qw(tuple set frozenset bytes ordered);
 
 my $JSON = Cpanel::JSON::XS->new->utf8->canonical->allow_nonref->allow_bignum->unblessed_bool;
+
+# Code references travel as host functions the core calls back (Perldantic::FFI), by their id.
+# The registry is a field hash: it holds functions weakly and forgets them when they are freed.
+# Whoever compiles a schema keeps its functions alive; @FUNCTIONS collects the ones an encode
+# call met for that purpose.
+Hash::Util::FieldHash::fieldhash(my %FUNCTION);
+our @FUNCTIONS;
+
+sub _function_id ($code) {
+    push @FUNCTIONS, $code;
+    weaken($FUNCTION{$code} = $code) if !exists $FUNCTION{$code};
+    return Hash::Util::FieldHash::id($code);
+}
+
+# The function registered under an id, if it is still alive.
+sub function ($id) { $FUNCTION{$id} }
+
+# A function's name without its package, as pydantic shows `__name__`.
+sub _function_name ($code) {
+    my $name = Sub::Util::subname($code) // '__ANON__';
+    return $name =~ s/\A.*:://sr;
+}
 
 sub tuple (@items) { bless [@items], 'Perldantic::Wire::Tuple' }
 sub set (@items)   { bless [@items], 'Perldantic::Wire::Set' }
@@ -178,6 +201,7 @@ sub _tag ($value) {
     }
     my $type = reftype $value;
     return [map { _tag($_) } @$value] if $type eq 'ARRAY';
+    return {'$function' => {id => _function_id($value), name => _function_name($value)}} if $type eq 'CODE';
     if ($type eq 'HASH') {
         my @keys = sort keys %$value;
         return {map { $_ => _tag($value->{$_}) } @keys} if !grep {/^\$/} @keys;
@@ -195,6 +219,10 @@ my %UNTAG = (
     dict  => sub ($pairs) { +{map { ((ref $_->[0] ? $JSON->encode($_->[0]) : $_->[0] // '') => _untag($_->[1])) } @$pairs} },
     model => sub ($model) { Perldantic::Wire::Model->new(%{_untag($model)}) },
     enum  => sub ($member) { Perldantic::Wire::Enum->new(%{_untag($member)}) },
+    function => sub ($function) {
+        $FUNCTION{$function->{id} // ''}
+            // Perldantic::InternalError->throw(message => "The core returned an unknown function `$function->{name}`");
+    },
     date      => sub ($iso)   { Perldantic::Date->from_iso($iso) },
     time      => sub ($iso)   { Perldantic::Time->from_iso($iso) },
     datetime  => sub ($iso)   { Perldantic::DateTime->from_iso($iso) },
@@ -341,6 +369,10 @@ remembers the core's text (C<2.0>) and sends it back while its value is unchange
 
 =item * URLs are L<Perldantic::Url> and L<Perldantic::MultiHostUrl> values, C<{"$url": "..."}>
 and C<{"$multi_host_url": "..."}> (decoded as such too); L<URI> objects are sent as their text;
+
+=item * a code reference is a function the core calls back (see L<Perldantic::FFI>),
+C<{"$function": {"id": ..., "name": ...}}>; the id is the code reference's while it lives, and
+C<Perldantic::Wire::function($id)> gives it back;
 
 =item * an object with a C<_perldantic_wire> method is sent as what that method returns.
 
