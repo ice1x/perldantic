@@ -28,7 +28,8 @@ our %META;
 my (%VALIDATOR, %SERIALIZER, %DEPENDS_ON);
 # Per-object state that is not a field: {fields_set => {name => 1} or [names], extra => {...}}.
 # Objects built from the core keep the core's list of set names until one is changed.
-Hash::Util::FieldHash::fieldhash(my %STATE);
+our %STATE;
+Hash::Util::FieldHash::fieldhash(%STATE);
 
 my %HAS_OPTIONS = map { $_ => 1 } qw(
     is isa required default builder lazy predicate clearer init_arg trigger documentation alias
@@ -74,6 +75,8 @@ sub _meta ($class) {
 our $GENERATION = 0;
 
 sub _changed ($class) {
+    # the field names the native encoder writes models with
+    %Perldantic::Wire::DIRECT = ();
     for my $user (keys %DEPENDS_ON) {
         next if !$DEPENDS_ON{$user}{$class};
         delete $VALIDATOR{$user};
@@ -694,12 +697,13 @@ sub _input_object ($model) {
     return undef;
 }
 
-# Serialize with objects tracked: serializer functions and computed fields get the very objects
-# being dumped.
+# Serialize with objects tracked when the serializer calls Perl functions: serializer functions
+# and computed fields get the very objects being dumped. Without functions nothing needs the
+# objects back, and the native encoder writes them directly.
 our $DUMPING;
 
-sub _dump_tracked ($code) {
-    local $TRACK_OBJECTS = 1;
+sub _dump_tracked ($serializer, $code) {
+    local $TRACK_OBJECTS = @{$serializer->{functions}} ? 1 : 0;
     local $DUMPING = 1;
     local %INPUT_OBJECTS;
     return $code->();
@@ -751,6 +755,7 @@ sub _plan ($class) {
     } reverse @{mro::get_linear_isa($class)};
     my @fields = _fields($class);
     my $config = _config($class);
+    $Perldantic::Wire::DIRECT{$class} = [map { $_->{name} } @fields];
     return $PLAN{$class} = {
         generation => $GENERATION,
         fields     => \@fields,
@@ -873,13 +878,15 @@ sub model_validate_json ($class, $json, @options) {
 sub model_dump ($self, @options) {
     _object_method('model_dump', $self);
     my $options = _dump_options('model_dump', @options);
-    return _dump_tracked(sub { ref($self)->_serializer->to_perl($self, $options) });
+    my $serializer = ref($self)->_serializer;
+    return _dump_tracked($serializer, sub { $serializer->to_perl($self, $options) });
 }
 
 sub model_dump_json ($self, @options) {
     _object_method('model_dump_json', $self);
     my $options = _dump_options('model_dump_json', @options);
-    return _dump_tracked(sub { ref($self)->_serializer->to_json($self, $options) });
+    my $serializer = ref($self)->_serializer;
+    return _dump_tracked($serializer, sub { $serializer->to_json($self, $options) });
 }
 
 sub model_json_schema ($class, @options) {

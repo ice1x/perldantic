@@ -86,12 +86,14 @@ sub _temporal ($self, $value) {
 
 sub dump ($self, $value, @options) {
     my $options = Perldantic::Model::_dump_options('dump', @options);
-    return Perldantic::Model::_dump_tracked(sub { $self->_compiled('serializer')->to_perl($value, $options) });
+    my $serializer = $self->_compiled('serializer');
+    return Perldantic::Model::_dump_tracked($serializer, sub { $serializer->to_perl($value, $options) });
 }
 
 sub dump_json ($self, $value, @options) {
     my $options = Perldantic::Model::_dump_options('dump_json', @options);
-    return Perldantic::Model::_dump_tracked(sub { $self->_compiled('serializer')->to_json($value, $options) });
+    my $serializer = $self->_compiled('serializer');
+    return Perldantic::Model::_dump_tracked($serializer, sub { $serializer->to_json($value, $options) });
 }
 
 sub json_schema ($self, @options) {

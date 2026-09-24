@@ -36,6 +36,11 @@ our @FUNCTIONS;
 # Set while a schema is compiled: only then are the functions and objects met collected.
 our $COLLECT;
 
+# Model classes the native encoder writes directly, with their field names in declared order
+# (Perldantic::Model::_plan fills it; a declaration empties it). Only objects without state are
+# written so, and only while no call tracks objects (see Perldantic.xs, emit_model).
+our %DIRECT;
+
 sub _function_id ($code) {
     push @FUNCTIONS, $code if $COLLECT;
     weaken($FUNCTION{$code} = $code) if !exists $FUNCTION{$code};

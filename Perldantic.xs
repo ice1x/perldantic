@@ -21,7 +21,16 @@
 /* How deep plain data may nest before the fallback (which has no such limit) takes over. */
 #define MAX_DEPTH 512
 
-static void emit(pTHX_ SV *out, SV *value, SV *fallback, int depth);
+/* What one encode call needs: the fallback for values it does not write itself, and what it
+   takes to write model objects natively (see emit_model). */
+typedef struct {
+    SV *fallback;
+    HV *direct;   /* %Perldantic::Wire::DIRECT: class => [field names] */
+    HV *state;    /* %Perldantic::Model::STATE, a field hash keyed by object address */
+    int tracking; /* $Perldantic::Model::TRACK_OBJECTS: objects then carry tokens */
+} encoder;
+
+static void emit(pTHX_ SV *out, SV *value, encoder *enc, int depth);
 
 /* JSON text of a UTF-8 byte string: quotes, backslashes and control characters escaped. */
 static void emit_string(pTHX_ SV *out, const char *text, STRLEN len)
@@ -117,7 +126,7 @@ static int compare_keys(const void *a, const void *b)
     return sv_cmp(*(SV *const *)a, *(SV *const *)b);
 }
 
-static void emit_hash(pTHX_ SV *out, SV *ref, HV *hash, SV *fallback, int depth)
+static void emit_hash(pTHX_ SV *out, SV *ref, HV *hash, encoder *enc, int depth)
 {
     I32 count = hv_iterinit(hash);
     SV **keys;
@@ -132,7 +141,7 @@ static void emit_hash(pTHX_ SV *out, SV *ref, HV *hash, SV *fallback, int depth)
         const char *text = SvPV_const(key, len);
         if (len > 0 && text[0] == '$') {
             /* such keys go as $dict pairs */
-            emit_fallback(aTHX_ out, ref, fallback);
+            emit_fallback(aTHX_ out, ref, enc->fallback);
             return;
         }
         keys[i++] = key;
@@ -145,18 +154,65 @@ static void emit_hash(pTHX_ SV *out, SV *ref, HV *hash, SV *fallback, int depth)
         if (i > 0) sv_catpvn(out, ",", 1);
         emit_sv_string(aTHX_ out, keys[i]);
         sv_catpvn(out, ":", 1);
-        emit(aTHX_ out, found ? HeVAL(found) : &PL_sv_undef, fallback, depth + 1);
+        emit(aTHX_ out, found ? HeVAL(found) : &PL_sv_undef, enc, depth + 1);
     }
     sv_catpvn(out, "}", 1);
 }
 
-static void emit(pTHX_ SV *out, SV *value, SV *fallback, int depth)
+/* A Perldantic model object as {"$model": {"class", "fields"}}, when it can be written without
+   Perl: its class is registered with its field names, it has no state (so it has set exactly
+   the fields it holds, which the core assumes when fields_set is left out) and no call tracks
+   objects. Returns 0 when the object must go through Perl. */
+static int emit_model(pTHX_ SV *out, SV *target, encoder *enc, int depth)
+{
+    HV *stash = SvSTASH(target);
+    const char *class = HvNAME(stash);
+    SV **names;
+    AV *list;
+    SSize_t last, i;
+    int first = 1;
+    char address[32];
+    int length;
+    if (enc->tracking || !enc->direct || !class) return 0;
+    names = hv_fetch(enc->direct, class,
+        HvNAMEUTF8(stash) ? -(I32)HvNAMELEN(stash) : (I32)HvNAMELEN(stash), 0);
+    if (!names || !SvROK(*names) || SvTYPE(SvRV(*names)) != SVt_PVAV) return 0;
+    if (enc->state) {
+        length = snprintf(address, sizeof address, "%" UVuf, PTR2UV(target));
+        if (hv_exists(enc->state, address, length)) return 0;
+    }
+    list = (AV *)SvRV(*names);
+    last = av_len(list);
+    sv_catpv(out, "{\"$model\":{\"class\":");
+    emit_string(aTHX_ out, class, HvNAMELEN(stash));
+    sv_catpv(out, ",\"fields\":{");
+    for (i = 0; i <= last; i++) {
+        SV **name = av_fetch(list, i, 0);
+        HE *field;
+        if (!name) continue;
+        field = hv_fetch_ent((HV *)target, *name, 0, 0);
+        if (!field) continue;
+        if (!first) sv_catpvn(out, ",", 1);
+        first = 0;
+        emit_sv_string(aTHX_ out, *name);
+        sv_catpvn(out, ":", 1);
+        emit(aTHX_ out, HeVAL(field), enc, depth + 1);
+    }
+    sv_catpvn(out, "}}}", 3);
+    return 1;
+}
+
+static void emit(pTHX_ SV *out, SV *value, encoder *enc, int depth)
 {
     SvGETMAGIC(value);
-    if (depth > MAX_DEPTH) { emit_fallback(aTHX_ out, value, fallback); return; }
+    if (depth > MAX_DEPTH) { emit_fallback(aTHX_ out, value, enc->fallback); return; }
     if (SvROK(value)) {
         SV *target = SvRV(value);
-        if (SvOBJECT(target)) { emit_fallback(aTHX_ out, value, fallback); return; }
+        if (SvOBJECT(target)) {
+            if (SvTYPE(target) == SVt_PVHV && emit_model(aTHX_ out, target, enc, depth)) return;
+            emit_fallback(aTHX_ out, value, enc->fallback);
+            return;
+        }
         if (SvTYPE(target) == SVt_PVAV) {
             AV *array = (AV *)target;
             SSize_t last = av_len(array), i;
@@ -164,19 +220,19 @@ static void emit(pTHX_ SV *out, SV *value, SV *fallback, int depth)
             for (i = 0; i <= last; i++) {
                 SV **item = av_fetch(array, i, 0);
                 if (i > 0) sv_catpvn(out, ",", 1);
-                emit(aTHX_ out, item ? *item : &PL_sv_undef, fallback, depth + 1);
+                emit(aTHX_ out, item ? *item : &PL_sv_undef, enc, depth + 1);
             }
             sv_catpvn(out, "]", 1);
             return;
         }
         if (SvTYPE(target) == SVt_PVHV) {
             ENTER;
-            emit_hash(aTHX_ out, value, (HV *)target, fallback, depth);
+            emit_hash(aTHX_ out, value, (HV *)target, enc, depth);
             LEAVE;
             return;
         }
         /* code references and anything else: the fallback knows (or refuses) */
-        emit_fallback(aTHX_ out, value, fallback);
+        emit_fallback(aTHX_ out, value, enc->fallback);
         return;
     }
     if (!SvOK(value)) { sv_catpvn(out, "null", 4); return; }
@@ -200,7 +256,7 @@ static void emit(pTHX_ SV *out, SV *value, SV *fallback, int depth)
 }
 
 /* A JSON object with the given keys in the given order: [key, value, key, value, ...]. */
-static void emit_pairs(pTHX_ SV *out, AV *pairs, SV *fallback)
+static void emit_pairs(pTHX_ SV *out, AV *pairs, encoder *enc)
 {
     SSize_t last = av_len(pairs), i;
     sv_catpvn(out, "{", 1);
@@ -210,9 +266,19 @@ static void emit_pairs(pTHX_ SV *out, AV *pairs, SV *fallback)
         if (i > 0) sv_catpvn(out, ",", 1);
         emit_sv_string(aTHX_ out, key ? *key : &PL_sv_no);
         sv_catpvn(out, ":", 1);
-        emit(aTHX_ out, value ? *value : &PL_sv_undef, fallback, 1);
+        emit(aTHX_ out, value ? *value : &PL_sv_undef, enc, 1);
     }
     sv_catpvn(out, "}", 1);
+}
+
+/* The encoder state for one call, read from the Perl side's globals. */
+static void encoder_init(pTHX_ encoder *enc, SV *fallback)
+{
+    SV *tracking = get_sv("Perldantic::Model::TRACK_OBJECTS", 0);
+    enc->fallback = fallback;
+    enc->direct = get_hv("Perldantic::Wire::DIRECT", 0);
+    enc->state = get_hv("Perldantic::Model::STATE", 0);
+    enc->tracking = tracking && SvTRUE(tracking);
 }
 
 MODULE = Perldantic    PACKAGE = Perldantic::XS
@@ -223,9 +289,12 @@ SV *
 encode(value, fallback)
         SV *value
         SV *fallback
+    PREINIT:
+        encoder enc;
     CODE:
+        encoder_init(aTHX_ &enc, fallback);
         RETVAL = newSVpvn("", 0);
-        emit(aTHX_ RETVAL, value, fallback, 0);
+        emit(aTHX_ RETVAL, value, &enc, 0);
     OUTPUT:
         RETVAL
 
@@ -233,10 +302,13 @@ SV *
 encode_pairs(pairs, fallback)
         SV *pairs
         SV *fallback
+    PREINIT:
+        encoder enc;
     CODE:
         if (!SvROK(pairs) || SvTYPE(SvRV(pairs)) != SVt_PVAV)
             croak("Perldantic::XS::encode_pairs takes an array reference");
+        encoder_init(aTHX_ &enc, fallback);
         RETVAL = newSVpvn("", 0);
-        emit_pairs(aTHX_ RETVAL, (AV *)SvRV(pairs), fallback);
+        emit_pairs(aTHX_ RETVAL, (AV *)SvRV(pairs), &enc);
     OUTPUT:
         RETVAL
