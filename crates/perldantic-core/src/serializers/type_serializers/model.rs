@@ -89,11 +89,15 @@ impl BuildSerializer for ModelFieldsBuilder {
                             e.kind().python_name()
                         ))
                     })?;
+                // Divergence #21: a field with a default may be absent from models built
+                // outside the validator (host objects), so it does not count as required.
+                let required =
+                    !matches!(schema.get_str("type"), Some(Value::Str(t)) if t == "default");
                 fields.push(SerField::new(
                     key.clone(),
                     alias,
                     Some(serializer),
-                    true,
+                    required,
                     serialize_by_alias,
                 ));
             }
