@@ -16,7 +16,7 @@ subtest 'hash references with known keys' => sub {
     is [map { [$_->{type}, $_->{loc}] } @{$e->errors}],
         [['missing', ['name']], ['int_parsing', ['age']]], 'errors follow the declared key order';
     $e = dies { $ta->validate_python([name => 'Ada']) };
-    is $e->errors->[0]{type}, 'dict_type';
+    is $e->errors->[0]{type}, 'hash_type';
     is $e->errors->[0]{msg}, 'Input should be a hash reference', 'Perl wording (docs/DIVERGENCES.md #8)';
 };
 

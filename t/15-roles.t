@@ -108,7 +108,7 @@ subtest 'errors show the objects that were given' => sub {
     isa_ok $e, 'Perldantic::ValidationError';
     is refaddr($e->errors->[0]{input}), refaddr($doc), 'the input is the object itself';
     unlike "$e", qr/__perldantic/, 'the message has no bookkeeping';
-    like "$e", qr/input_value=Test::Doc\(name='d', stamp=0, body=''\)/;
+    like "$e", qr/input_value=bless\(\{name => 'd', stamp\.\.\.ody => ''\}, 'Test::Doc'\), input_type=Test::Doc\]/;
     $e = dies { Test::Folder->new(docs => [Test::Always->new(n => 1)]) };
     unlike "$e", qr/__perldantic/;
 };

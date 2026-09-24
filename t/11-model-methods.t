@@ -37,7 +37,7 @@ subtest 'model_validate and model_validate_json' => sub {
         "\x{263a}", 'JSON text works too';
     my $e = dies { Shop::Item->model_validate({sku => 'a', price => '1'}, strict => 1) };
     isa_ok $e, 'Perldantic::ValidationError';
-    is $e->errors->[0]{type}, 'float_type', 'options such as strict are passed on';
+    is $e->errors->[0]{type}, 'number_type', 'options such as strict are passed on';
     $e = dies { Shop::Item->model_validate_json('{"sku": 1') };
     is $e->errors->[0]{type}, 'json_invalid';
     $e = dies { Shop::Item->model_validate([]) };

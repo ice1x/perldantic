@@ -68,12 +68,15 @@ fn strings_bytes_and_uuids_validate_to_uuids() {
 fn strict_host_input_must_be_a_uuid() {
     let v = validator(r#"{"type": "uuid", "strict": true}"#);
     let opts = ValidateOptions::default();
-    for input_type in [InputType::Python, InputType::Perl] {
+    for (input_type, class) in [
+        (InputType::Python, "UUID"),
+        (InputType::Perl, "Perldantic::Uuid"),
+    ] {
         assert_eq!(
             error_types(v.validate_value_as(&Value::Str(U.into()), input_type, &opts)),
             [(
                 "is_instance_of".to_owned(),
-                "Input should be an instance of UUID".to_owned()
+                format!("Input should be an instance of {class}")
             )]
         );
         assert_eq!(

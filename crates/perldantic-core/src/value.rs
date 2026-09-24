@@ -322,6 +322,81 @@ impl Value {
         }
     }
 
+    /// Perl's name for the kind of the value: Types::Standard names for plain data, the class
+    /// for objects (docs/DIVERGENCES.md #8).
+    pub fn perl_type_name(&self) -> &str {
+        match self {
+            Self::Enum(member) => member.value.perl_type_name(),
+            Self::Model(_) | Self::Host(_) => self.type_name(),
+            _ => perl_class_name(self.type_name()),
+        }
+    }
+
+    /// The value written as Perl data, the way Data::Dumper would: `undef`, `!!1`, `'text'`,
+    /// `[1, 2]`, `{key => 'value'}`, `bless({...}, 'Class')` for model instances.
+    pub fn perl_repr(&self) -> String {
+        let mut out = String::new();
+        self.write_perl_repr(&mut out);
+        out
+    }
+
+    fn write_perl_repr(&self, out: &mut String) {
+        let items = |items: &[Value], out: &mut String| {
+            out.push('[');
+            for (i, item) in items.iter().enumerate() {
+                if i > 0 {
+                    out.push_str(", ");
+                }
+                item.write_perl_repr(out);
+            }
+            out.push(']');
+        };
+        let pairs = |pairs: &mut dyn Iterator<Item = (&Value, &Value)>, out: &mut String| {
+            out.push('{');
+            for (i, (k, v)) in pairs.enumerate() {
+                if i > 0 {
+                    out.push_str(", ");
+                }
+                match k {
+                    Self::Str(key) if is_perl_bareword(key) => out.push_str(key),
+                    _ => k.write_perl_repr(out),
+                }
+                out.push_str(" => ");
+                v.write_perl_repr(out);
+            }
+            out.push('}');
+        };
+        match self {
+            Self::None => out.push_str("undef"),
+            Self::Bool(true) => out.push_str("!!1"),
+            Self::Bool(false) => out.push_str("!!0"),
+            Self::Float(f) if f.is_nan() => out.push_str("NaN"),
+            Self::Float(f) if f.is_infinite() => {
+                out.push_str(if *f > 0.0 { "Inf" } else { "-Inf" });
+            }
+            Self::Int(_) | Self::BigInt(_) | Self::Float(_) => self.write_repr(out),
+            Self::Decimal(d) => out.push_str(&d.to_string()),
+            Self::Str(s) => perl_str_repr(s, out),
+            Self::Bytes(b) => {
+                perl_str_repr(&b.iter().map(|&c| char::from(c)).collect::<String>(), out);
+            }
+            Self::List(v) | Self::Tuple(v) | Self::Set(v) | Self::FrozenSet(v) => items(v, out),
+            Self::Dict(dict) => pairs(&mut dict.iter(), out),
+            Self::Model(model) => {
+                out.push_str("bless(");
+                let extra = model.extra.iter().flat_map(Dict::iter);
+                pairs(&mut model.fields.iter().chain(extra), out);
+                out.push_str(", ");
+                perl_str_repr(&model.class, out);
+                out.push(')');
+            }
+            Self::Enum(member) => member.value.write_perl_repr(out),
+            Self::Function(function) => write!(out, "\\&{}", function.name()).unwrap(),
+            Self::Host(object) => out.push_str(&object.repr),
+            other => perl_str_repr(&other.py_str(), out),
+        }
+    }
+
     /// Whether the value is an instance of the class named `class`, as Python's `isinstance`
     /// sees it: builtin types by their name (`bool` is an `int`, everything an `object`),
     /// models and enum members by their class, host objects by their ancestry.
@@ -859,4 +934,71 @@ impl From<&JsonValue<'_>> for Value {
             ),
         }
     }
+}
+
+/// Perl's name for a Python type name: Types::Standard names for plain data, Perldantic's (or
+/// Math::BigFloat) for the classes values are decoded into; other names are kept.
+pub fn perl_class_name(python: &str) -> &str {
+    match python {
+        "NoneType" => "Undef",
+        "bool" => "Bool",
+        "int" => "Int",
+        "float" => "Num",
+        "str" => "Str",
+        "bytes" => "Bytes",
+        "list" | "tuple" | "set" | "frozenset" => "ArrayRef",
+        "dict" => "HashRef",
+        "function" => "CodeRef",
+        "date" => "Perldantic::Date",
+        "time" => "Perldantic::Time",
+        "datetime" => "Perldantic::DateTime",
+        "timedelta" => "Perldantic::Duration",
+        "UUID" => "Perldantic::Uuid",
+        "Url" => "Perldantic::Url",
+        "MultiHostUrl" => "Perldantic::MultiHostUrl",
+        "Decimal" => "Math::BigFloat",
+        other => other,
+    }
+}
+
+/// A hash key Perl writes without quotes before `=>`.
+fn is_perl_bareword(key: &str) -> bool {
+    let mut chars = key.chars();
+    let first = match chars.next() {
+        Some('-') => chars.next(),
+        first => first,
+    };
+    first.is_some_and(|c| c.is_ascii_alphabetic() || c == '_')
+        && chars.all(|c| c.is_ascii_alphanumeric() || c == '_')
+}
+
+/// A Perl string literal: single quotes, or double quotes with escapes when the text holds
+/// control characters.
+fn perl_str_repr(s: &str, out: &mut String) {
+    if !s.chars().any(char::is_control) {
+        out.push('\'');
+        for c in s.chars() {
+            if c == '\'' || c == '\\' {
+                out.push('\\');
+            }
+            out.push(c);
+        }
+        out.push('\'');
+        return;
+    }
+    out.push('"');
+    for c in s.chars() {
+        match c {
+            '\n' => out.push_str("\\n"),
+            '\t' => out.push_str("\\t"),
+            '\r' => out.push_str("\\r"),
+            '"' | '\\' | '$' | '@' => {
+                out.push('\\');
+                out.push(c);
+            }
+            c if c.is_control() => write!(out, "\\x{{{:x}}}", u32::from(c)).unwrap(),
+            c => out.push(c),
+        }
+    }
+    out.push('"');
 }

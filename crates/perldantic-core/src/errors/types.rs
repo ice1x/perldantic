@@ -573,12 +573,38 @@ fn plural_s<T: From<u8> + PartialEq>(value: T) -> &'static str {
 fn error_type_lookup() -> &'static HashMap<&'static str, ErrorType> {
     static LOOKUP: OnceLock<HashMap<&'static str, ErrorType>> = OnceLock::new();
     LOOKUP.get_or_init(|| {
-        ErrorType::iter()
+        let mut lookup: HashMap<&'static str, ErrorType> = ErrorType::iter()
             .filter(|e| !matches!(e, ErrorType::CustomError { .. }))
             .map(|e| (<&'static str>::from(&e), e))
-            .collect()
+            .collect();
+        // Perl's codes name the first pydantic error type they stand for.
+        for (pydantic, perl) in PERL_CODES.iter().rev() {
+            let error_type = lookup[pydantic].clone();
+            lookup.insert(perl, error_type);
+        }
+        lookup
     })
 }
+
+/// Perl's codes for the error types whose pydantic code names a Python type
+/// (docs/DIVERGENCES.md #8): Perl has arrays, hashes, undef, numbers and durations.
+const PERL_CODES: &[(&str, &str)] = &[
+    ("none_required", "undef_required"),
+    ("list_type", "array_type"),
+    ("tuple_type", "array_type"),
+    ("set_type", "array_type"),
+    ("frozen_set_type", "array_type"),
+    ("deque_type", "array_type"),
+    ("iterable_type", "array_type"),
+    ("dict_type", "hash_type"),
+    ("mapping_type", "hash_type"),
+    ("float_type", "number_type"),
+    ("float_parsing", "number_parsing"),
+    ("int_from_float", "int_from_fraction"),
+    ("time_delta_type", "duration_type"),
+    ("time_delta_parsing", "duration_parsing"),
+    ("callable_type", "code_type"),
+];
 
 impl ErrorType {
     /// A user-defined error with its own code and message template.
@@ -595,8 +621,12 @@ impl ErrorType {
     }
 
     /// Codes of every built-in error type (custom errors excluded).
+    /// pydantic's codes (Perl's codes are accepted by [`ErrorType::new`] too).
     pub fn all_type_names() -> Vec<&'static str> {
-        let mut names: Vec<&'static str> = error_type_lookup().keys().copied().collect();
+        let mut names: Vec<&'static str> = ErrorType::iter()
+            .filter(|e| !matches!(e, ErrorType::CustomError { .. }))
+            .map(|e| <&'static str>::from(&e))
+            .collect();
         names.sort_unstable();
         names
     }
@@ -826,7 +856,8 @@ impl ErrorType {
             | Self::DequeType { .. }
             | Self::TupleType { .. }
             | Self::SetType { .. }
-            | Self::FrozenSetType { .. } => "Input should be an array reference",
+            | Self::FrozenSetType { .. }
+            | Self::IterableType { .. } => "Input should be an array reference",
             Self::DictType { .. }
             | Self::FrozenDictType { .. }
             | Self::OrderedDictType { .. }
@@ -836,6 +867,19 @@ impl ErrorType {
             }
             Self::ModelAttributesType { .. } => {
                 "Input should be a hash reference or an object to extract fields from"
+            }
+            Self::MappingType { .. } => "Input should be a hash reference, error: {error}",
+            Self::BytesType { .. } => "Input should be a valid byte string",
+            Self::TimeDeltaType { .. } => "Input should be a valid duration",
+            Self::TimeDeltaParsing { .. } => "Input should be a valid duration, {error}",
+            Self::CallableType { .. } => "Input should be a code reference",
+            Self::JsonType { .. } => "JSON input should be a string",
+            Self::UrlType { .. } => "URL input should be a string or a Perldantic::Url object",
+            Self::UuidType { .. } => {
+                "UUID input should be a string, a byte string or a Perldantic::Uuid object"
+            }
+            Self::DecimalType { .. } => {
+                "Decimal input should be a number, a string or a Math::BigFloat object"
             }
             _ => self.message_template_python(),
         }
@@ -848,19 +892,42 @@ impl ErrorType {
         }
     }
 
+    /// The code reported for input of `input_type`: Perl's code where pydantic's names a
+    /// Python type.
+    pub fn type_string_for(&self, input_type: InputType) -> String {
+        let code = self.type_string();
+        if input_type == InputType::Perl
+            && !matches!(self, Self::CustomError { .. })
+            && let Some((_, perl)) = PERL_CODES.iter().find(|(pydantic, _)| *pydantic == code)
+        {
+            return (*perl).to_owned();
+        }
+        code
+    }
+
+    /// The `ctx` reported for input of `input_type`: Perl's names of containers and classes.
+    pub fn context_for(&self, input_type: InputType) -> Option<Dict> {
+        let mut dict = self.context()?;
+        if input_type == InputType::Perl {
+            for key in ["field_type", "class"] {
+                if let Some(Value::Str(name)) = dict.get_str(key) {
+                    let perl = perl_name(key, name);
+                    dict.insert(Value::from(key), Value::from(perl));
+                }
+            }
+        }
+        Some(dict)
+    }
+
     pub fn render_message(&self, input_type: InputType) -> CoreResult<String> {
         let tmpl = match input_type {
             InputType::Python => self.message_template_python(),
             InputType::Perl => self.message_template_perl(),
             InputType::Json | InputType::String => self.message_template_json(),
         };
-        // Perl calls the containers arrays and hashes; the context keeps pydantic's names.
         let perl_field_type = |field_type: &str| -> String {
-            match (input_type, field_type) {
-                (InputType::Perl, "List" | "Tuple" | "Set" | "Frozenset" | "Deque") => {
-                    "Array".into()
-                }
-                (InputType::Perl, "Dictionary") => "Hash".into(),
+            match input_type {
+                InputType::Perl => perl_name("field_type", field_type),
                 _ => field_type.to_owned(),
             }
         };
@@ -945,6 +1012,11 @@ impl ErrorType {
                 ..
             } => to_string_render!(tmpl, tz_expected, tz_actual),
             Self::IsInstanceOf { class, .. } | Self::IsSubclassOf { class, .. } => {
+                let class = match input_type {
+                    InputType::Perl => perl_name("class", class),
+                    _ => class.clone(),
+                };
+                let class = class.as_str();
                 render!(tmpl, class)
             }
             Self::UnionTagInvalid {
@@ -1077,5 +1149,15 @@ impl fmt::Display for Number {
             Self::BigInt(i) => write!(f, "{i}"),
             Self::String(s) => write!(f, "{s}"),
         }
+    }
+}
+
+/// Perl's name for a container kind (`field_type`) or class (`class`) named in an error.
+fn perl_name(key: &str, name: &str) -> String {
+    match (key, name) {
+        ("field_type", "List" | "Tuple" | "Set" | "Frozenset" | "Deque") => "Array".into(),
+        ("field_type", "Dictionary") => "Hash".into(),
+        ("class", _) => crate::value::perl_class_name(name).to_owned(),
+        _ => name.to_owned(),
     }
 }

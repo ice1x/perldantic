@@ -162,6 +162,97 @@ impl UnexpectedValue {
     pub fn repr(&self) -> String {
         format!("PydanticSerializationUnexpectedValue({self})")
     }
+
+    /// The message for Perl data (docs/DIVERGENCES.md #8): Perl's names of the expected type
+    /// and of the value, the value written as Perl data.
+    pub fn perl_text(&self) -> String {
+        let mut message = self.message.clone().unwrap_or_default();
+        if let Some(field_type) = &self.field_type {
+            if !message.is_empty() {
+                message.push_str(": ");
+            }
+            write!(message, "Expected `{}`", perl_type_expr(field_type)).unwrap();
+            if self.input_value.is_some() {
+                message.push_str(" - serialized value may not be as expected");
+            }
+        }
+        if let Some(input_value) = &self.input_value {
+            let mut value_str = String::new();
+            write_truncated_to_limited_bytes(&mut value_str, &input_value.perl_repr(), 50).unwrap();
+            let input_type = input_value.perl_type_name();
+            if let Some(field_name) = &self.field_name {
+                write!(
+                    message,
+                    " [field_name='{field_name}', input_value={value_str}, input_type={input_type}]"
+                )
+                .unwrap();
+            } else {
+                write!(
+                    message,
+                    " [input_value={value_str}, input_type={input_type}]"
+                )
+                .unwrap();
+            }
+        }
+        if message.is_empty() {
+            message = "Unexpected Value".to_string();
+        }
+        message
+    }
+}
+
+/// A serializer's name (`list[int]`, `Union[str, none]`, ...) in Perl's type names
+/// (`ArrayRef[Int]`, `AnyOf[Str, Undef]`, ...), as Perldantic::Types spells them.
+fn perl_type_expr(name: &str) -> String {
+    let mut out = String::with_capacity(name.len());
+    let mut word = String::new();
+    let flush = |word: &mut String, out: &mut String| {
+        if !word.is_empty() {
+            out.push_str(perl_type_word(word));
+            word.clear();
+        }
+    };
+    for c in name.chars() {
+        if c.is_ascii_alphanumeric() || matches!(c, '_' | '-' | ':' | '.') {
+            word.push(c);
+        } else {
+            flush(&mut word, &mut out);
+            out.push(c);
+        }
+    }
+    flush(&mut word, &mut out);
+    out
+}
+
+fn perl_type_word(word: &str) -> &str {
+    match word {
+        "int" => "Int",
+        "str" => "Str",
+        "float" => "Num",
+        "bool" => "Bool",
+        "bytes" => "Bytes",
+        "none" => "Undef",
+        "any" => "Any",
+        "list" | "set" | "frozenset" => "ArrayRef",
+        "tuple" => "Tuple",
+        "dict" => "Map",
+        "typed-dict" => "Dict",
+        "Union" | "TaggedUnion" => "AnyOf",
+        "nullable" => "Maybe",
+        "literal" => "Literal",
+        "enum" => "Enum",
+        "decimal" => "Decimal",
+        "uuid" => "Uuid",
+        "url" => "Url",
+        "multi-host-url" => "MultiHostUrl",
+        "date" => "Date",
+        "time" => "Time",
+        "datetime" => "DateTime",
+        "timedelta" => "Duration",
+        "json" => "Json",
+        "chain" => "Chain",
+        other => other,
+    }
 }
 
 impl fmt::Display for UnexpectedValue {
