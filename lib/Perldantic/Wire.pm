@@ -2,6 +2,8 @@ package Perldantic::Wire;
 
 use v5.36;
 no warnings 'experimental::builtin';
+# deeply nested data is written recursively
+no warnings 'recursion';
 
 our $VERSION = '0.01';
 
@@ -80,8 +82,17 @@ sub ordered (@pairs) {
     return bless [@pairs], 'Perldantic::Wire::Ordered';
 }
 
+# The native encoder (Perldantic.xs) writes plain data; objects and other values it hands
+# back to _emit. Without it, _emit writes everything.
+our $XS = eval { require XSLoader; XSLoader::load('Perldantic', $VERSION); 1 };
+
+# Wire JSON of any value: natively when the encoder is built.
+sub _emit_any ($value) {
+    return $XS ? Perldantic::XS::encode($value, \&_emit) : _emit($value);
+}
+
 sub encode ($value) {
-    my $json = eval { _emit($value) };
+    my $json = eval { _emit_any($value) };
     if (!defined $json) {
         my $e = $@;
         die $e if blessed $e && $e->isa('Perldantic::Error');
@@ -114,13 +125,13 @@ sub _string ($text) {
 }
 
 sub _list ($items) {
-    return '[' . join(',', map { _emit($_) } @$items) . ']';
+    return '[' . join(',', map { _emit_any($_) } @$items) . ']';
 }
 
 sub _pairs (@pairs) {
     my @entries;
     while (my ($key, $value) = splice @pairs, 0, 2) {
-        push @entries, '[' . _emit($key) . ',' . _emit($value) . ']';
+        push @entries, '[' . _emit_any($key) . ',' . _emit_any($value) . ']';
     }
     return '{"$dict":[' . join(',', @entries) . ']}';
 }
@@ -136,7 +147,7 @@ sub _ordered ($pairs) {
         return _pairs(@$pairs)
             if ref $key || !defined $key || builtin::is_bool($key) || builtin::created_as_number($key)
             || $key =~ /\A\$/;
-        push @entries, _string($key) . ':' . _emit($pairs->[$i + 1]);
+        push @entries, _string($key) . ':' . _emit_any($pairs->[$i + 1]);
     }
     return '{' . join(',', @entries) . '}';
 }
@@ -159,7 +170,7 @@ sub _emit ($value) {
     if ($ref eq 'HASH') {
         my @keys = sort keys %$value;
         return _pairs(map { ($_ => $value->{$_}) } @keys) if grep {/^\$/} @keys;
-        return '{' . join(',', map { _string($_) . ':' . _emit($value->{$_}) } @keys) . '}';
+        return '{' . join(',', map { _string($_) . ':' . _emit_any($value->{$_}) } @keys) . '}';
     }
     if (blessed $value) {
         return _tagged(tuple => _list($value))                if $ref eq 'Perldantic::Wire::Tuple';
@@ -169,23 +180,23 @@ sub _emit ($value) {
         return _tagged(bytes => _string(encode_base64($$value, ''))) if $ref eq 'Perldantic::Wire::Bytes';
         return _tagged(model => $value->_json)                if $ref eq 'Perldantic::Wire::Model';
         return _tagged(enum => $value->_json)                 if $ref eq 'Perldantic::Wire::Enum';
-        return qq({"@{[$value->_wire_tag]}":) . _emit($value->_wire_payload) . '}' if $value->isa('Perldantic::Temporal');
+        return qq({"@{[$value->_wire_tag]}":) . _emit_any($value->_wire_payload) . '}' if $value->isa('Perldantic::Temporal');
         return _tagged(uuid => _string($value->as_string))    if $value->isa('Perldantic::Uuid');
         return _tagged(multi_host_url => _string($value->as_string)) if $value->isa('Perldantic::MultiHostUrl');
         return _tagged(url => _string($value->as_string))     if $value->isa('Perldantic::Url');
         return _string($value->as_string)                     if $value->isa('URI');
         return _tagged(datetime => _string(_datetime_iso($value)))     if $value->isa('DateTime');
         return _tagged(datetime => _string(_time_moment_iso($value)))  if $value->isa('Time::Moment');
-        return _emit(_duration_parts($value))                 if $value->isa('DateTime::Duration');
+        return _emit_any(_duration_parts($value))                 if $value->isa('DateTime::Duration');
         return Perldantic::Model::_wire_json($value)          if $value->isa('Perldantic::Model');
-        return _emit($value->_perldantic_wire)                if $value->can('_perldantic_wire');
+        return _emit_any($value->_perldantic_wire)                if $value->can('_perldantic_wire');
         return $value ? 'true' : 'false'
             if $value->isa('JSON::PP::Boolean') || $value->isa('Types::Serialiser::Boolean');
         return _tagged(decimal => _string(_decimal_text($value))) if $value->isa('Math::BigFloat');
         return $value->bstr                                   if $value->isa('Math::BigInt');
-        return _tagged(host => _emit(_host_object($value, $ref)));
+        return _tagged(host => _emit_any(_host_object($value, $ref)));
     }
-    return _tagged(function => _emit({id => _function_id($value), name => _function_name($value)}))
+    return _tagged(function => _emit_any({id => _function_id($value), name => _function_name($value)}))
         if $ref eq 'CODE';
     _cannot("a $ref reference", "$ref has no wire form");
 }
@@ -313,9 +324,9 @@ package Perldantic::Wire::Model {
 
     sub _json ($self) {
         return '{"class":' . Perldantic::Wire::_string($self->{class})
-            . ',"extra":' . Perldantic::Wire::_emit($self->{extra})
-            . ',"fields":' . Perldantic::Wire::_emit($self->{fields})
-            . ',"fields_set":' . Perldantic::Wire::_emit($self->{fields_set}) . '}';
+            . ',"extra":' . Perldantic::Wire::_emit_any($self->{extra})
+            . ',"fields":' . Perldantic::Wire::_emit_any($self->{fields})
+            . ',"fields_set":' . Perldantic::Wire::_emit_any($self->{fields_set}) . '}';
     }
 }
 
@@ -342,7 +353,7 @@ package Perldantic::Wire::Enum {
             . (defined $self->{mixin} ? ',"mixin":' . Perldantic::Wire::_string($self->{mixin}) : '')
             . ',"name":' . Perldantic::Wire::_string($self->{name})
             . ($self->{str_is_value} ? ',"str_is_value":true' : '')
-            . ',"value":' . Perldantic::Wire::_emit($self->{value}) . '}';
+            . ',"value":' . Perldantic::Wire::_emit_any($self->{value}) . '}';
     }
 }
 
@@ -371,6 +382,10 @@ Values cross the FFI boundary as UTF-8 JSON (see F<ffi/src/wire.rs>). Plain Perl
 JSON: C<undef> is C<null>, native booleans (and C<JSON::PP::Boolean>) are booleans, numbers stay
 numbers (C<Math::BigInt> included), strings are text, array references are lists and hash
 references are dicts with sorted keys.
+
+Encoding runs in C (F<Perldantic.xs>) for plain data, which is most of it, and in Perl for
+objects; both write the same JSON (a number is a value that was never used as a string, as
+C<builtin::created_as_number> says). Decoding is done by L<Cpanel::JSON::XS> in one pass.
 
 What JSON cannot express is tagged:
 
