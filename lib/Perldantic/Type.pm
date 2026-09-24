@@ -90,10 +90,14 @@ sub with ($self, %constraints) {
             for sort keys %constraints;
         return Perldantic::Types::_tagged_union($self, $field);
     }
+    # Nothing to add: keep the type, so a union's alternatives are still looked at only when first
+    # used (their models may be declared later).
+    return $self if !%constraints;
     if ($self->{inner}) {
         return (ref $self)->new(%$self, inner => $self->{inner}->with(%constraints));
     }
-    my $allowed = $ALLOWED{$self->{schema}{type}} // {};
+    # Types built on first use (unions) take no constraints.
+    my $allowed = $self->{schema} ? $ALLOWED{$self->{schema}{type}} // {} : {};
     for my $key (sort keys %constraints) {
         Perldantic::UsageError->throw(message => "Constraint '$key' does not apply to $self->{name}")
             if !$allowed->{$key};

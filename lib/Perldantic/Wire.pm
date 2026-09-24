@@ -260,9 +260,9 @@ sub _decimal_text ($value) {
     return $known->[0] if $known && $known->[1] eq $value->bsstr;
     return 'NaN' if $value->is_nan;
     return $value->is_negative ? '-Infinity' : 'Infinity' if $value->is_inf;
-    # a rounded value (bfround / bround) shows its scale in bstr, as a quantized Decimal
-    return $value->bstr if defined $value->precision || defined $value->accuracy;
-    return $value->bsstr;
+    # Plain decimal notation, as Python's Decimal(1050) has it; a rounded value (bfround /
+    # bround) shows its scale in it, as a quantized Decimal.
+    return $value->bstr;
 }
 
 sub _decimal ($text) {
@@ -433,7 +433,8 @@ such too); L<DateTime> and L<Time::Moment> objects are sent as datetimes (a floa
 a naive one) and L<DateTime::Duration> objects without months as durations;
 
 =item * L<Math::BigFloat> objects are decimals, C<{"$decimal": "..."}> (decoded as such too;
-C<Math::BigInt> objects are integers). Math::BigFloat drops trailing zeros, so a decoded object
+C<Math::BigInt> objects are integers), in plain decimal notation (C<1050>, not C<105e+1>).
+Math::BigFloat drops trailing zeros, so a decoded object
 remembers the core's text (C<2.0>) and sends it back while its value is unchanged; a value
 rounded with C<bfround> or C<bround> keeps the digits it was rounded to (C<279.00>);
 
