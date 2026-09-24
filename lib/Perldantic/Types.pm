@@ -10,7 +10,7 @@ use Scalar::Util qw(blessed);
 use Perldantic::Error;
 use Perldantic::Type;
 
-my @SIMPLE = qw(Any Undef Bool Int Num Str Bytes Date Time DateTime Duration Uuid Url MultiHostUrl);
+my @SIMPLE = qw(Any Undef Bool Int Num Str Bytes Decimal Date Time DateTime Duration Uuid Url MultiHostUrl);
 my @PARAMETERIZED = qw(Maybe Optional ArrayRef Tuple HashRef Map Dict Enum Literal InstanceOf);
 
 our @EXPORT_OK   = (@SIMPLE, @PARAMETERIZED, 'slurpy');
@@ -30,6 +30,7 @@ sub Int ()   { Perldantic::Type->new(name => 'Int',   schema => {type => 'int'})
 sub Num ()   { Perldantic::Type->new(name => 'Num',   schema => {type => 'float'}) }
 sub Str ()   { Perldantic::Type->new(name => 'Str',   schema => {type => 'str'}) }
 sub Bytes () { Perldantic::Type->new(name => 'Bytes', schema => {type => 'bytes'}) }
+sub Decimal () { Perldantic::Type->new(name => 'Decimal', schema => {type => 'decimal'}) }
 sub Date ()  { Perldantic::Type->new(name => 'Date',  schema => {type => 'date'}) }
 sub Time ()  { Perldantic::Type->new(name => 'Time',  schema => {type => 'time'}) }
 # Inside a package that imports this type, call the DateTime class as `DateTime::->new`.
@@ -261,6 +262,13 @@ a parameterized type, put it in a variable or in parentheses first: C<< (ArrayRe
 =item C<Any>, C<Undef>, C<Bool>, C<Int>, C<Num>, C<Str>, C<Bytes>
 
 Core C<any>, C<none>, C<bool>, C<int> (any size), C<float>, C<str> and C<bytes>.
+
+=item C<Decimal>
+
+Core C<decimal> (Python's C<Decimal>). It takes numbers, numeric strings and L<Math::BigFloat>
+objects and validates into L<Math::BigFloat> objects, keeping every digit; in strict mode only
+Math::BigFloat objects are accepted. Math::BigFloat values given to C<Num> or C<Int> are
+converted as pydantic converts a C<Decimal>.
 
 =item C<Date>, C<Time>, C<DateTime>, C<Duration>
 

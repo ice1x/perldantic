@@ -8,6 +8,8 @@ our $VERSION = '0.01';
 use B ();
 use Cpanel::JSON::XS ();
 use Exporter 'import';
+use Hash::Util::FieldHash ();
+use Math::BigFloat ();
 use MIME::Base64 qw(encode_base64 decode_base64);
 use Scalar::Util qw(blessed reftype);
 
@@ -59,10 +61,6 @@ sub _write ($data) {
         return $data ? 'true' : 'false'
             if $data->isa('JSON::PP::Boolean') || $data->isa('Types::Serialiser::Boolean');
         return $data->bstr if $data->isa('Math::BigInt');
-        if ($data->isa('Math::BigFloat')) {
-            my $text = $data->bstr;
-            return $text =~ /[.eE]/ ? $text : "$text.0";
-        }
         die "unexpected $class object\n";
     }
     my $type = ref $data;
@@ -122,6 +120,30 @@ sub _duration_parts ($d) {
     );
 }
 
+# The core's text of each decimal decoded from it, with the value it had: Math::BigFloat drops
+# trailing zeros (Decimal('2.0') becomes 2), so while an object keeps its value, the text it
+# came with goes back to the core and the decimal keeps its exponent, as in pydantic.
+Hash::Util::FieldHash::fieldhash(my %DECIMAL_TEXT);
+
+# A Math::BigFloat as Python's Decimal reads it.
+sub _decimal_text ($value) {
+    my $known = $DECIMAL_TEXT{$value};
+    return $known->[0] if $known && $known->[1] eq $value->bsstr;
+    return 'NaN' if $value->is_nan;
+    return $value->is_negative ? '-Infinity' : 'Infinity' if $value->is_inf;
+    return $value->bsstr;
+}
+
+sub _decimal ($text) {
+    # copy the sign: `$1` is passed by alias and binf matches regexes itself
+    my ($infinity) = $text =~ /\A([-+]?)Infinity\z/;
+    my $value = $text =~ /nan/i ? Math::BigFloat->bnan
+        : defined $infinity ? Math::BigFloat->binf($infinity eq '-' ? '-' : '+')
+        : Math::BigFloat->new($text);
+    $DECIMAL_TEXT{$value} = [$text, $value->bsstr];
+    return $value;
+}
+
 sub _tag ($value) {
     if (!ref $value) {
         return $value if !defined $value;
@@ -147,7 +169,8 @@ sub _tag ($value) {
         }
         return _tag($value->_perldantic_wire) if $value->can('_perldantic_wire');
         return $value if $value->isa('JSON::PP::Boolean') || $value->isa('Types::Serialiser::Boolean');
-        return $value if $value->isa('Math::BigInt') || $value->isa('Math::BigFloat');
+        return {'$decimal' => _decimal_text($value)} if $value->isa('Math::BigFloat');
+        return $value if $value->isa('Math::BigInt');
         _cannot("a $class object", "$class has no wire form");
     }
     my $type = reftype $value;
@@ -171,6 +194,7 @@ my %UNTAG = (
     time      => sub ($iso)   { Perldantic::Time->from_iso($iso) },
     datetime  => sub ($iso)   { Perldantic::DateTime->from_iso($iso) },
     uuid      => sub ($text)  { Perldantic::Uuid->new($text) },
+    decimal   => \&_decimal,
     url            => sub ($text) { Perldantic::Url->_from_wire($text) },
     multi_host_url => sub ($text) { Perldantic::MultiHostUrl->_from_wire($text) },
     timedelta => sub ($parts) {
@@ -269,6 +293,10 @@ C<ordered(key =E<gt> value, ...)>, which keeps the given key order;
 =item * dates, times, datetimes and durations are L<Perldantic::Temporal> values (decoded as
 such too); L<DateTime> and L<Time::Moment> objects are sent as datetimes (a floating DateTime as
 a naive one) and L<DateTime::Duration> objects without months as durations;
+
+=item * L<Math::BigFloat> objects are decimals, C<{"$decimal": "..."}> (decoded as such too;
+C<Math::BigInt> objects are integers). Math::BigFloat drops trailing zeros, so a decoded object
+remembers the core's text (C<2.0>) and sends it back while its value is unchanged;
 
 =item * UUIDs are L<Perldantic::Uuid> values, C<{"$uuid": "..."}> (decoded as such too);
 

@@ -450,6 +450,7 @@ dependencies = [
  "idna",
  "jiter",
  "num-bigint",
+ "num-integer",
  "num-traits",
  "regex",
  "serde",

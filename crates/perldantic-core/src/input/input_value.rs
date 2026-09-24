@@ -27,7 +27,11 @@ use super::input_abstract::{
     BorrowInput, ConsumeIterator, Input, ValMatch, ValidatedDict, ValidatedList, ValidatedTuple,
 };
 use super::return_enums::{EitherBytes, EitherFloat, EitherInt, EitherString, ValidationMatch};
-use super::shared::{float_as_int, int_as_bool, str_as_bool, str_as_float, str_as_int};
+use super::shared::{
+    decimal_as_int, float_as_int, int_as_bool, str_as_bool, str_as_decimal, str_as_float,
+    str_as_int, tuple_as_decimal,
+};
+use crate::decimal::Decimal;
 use crate::validators::TemporalUnitMode;
 
 /// Dict keys become location items like Python keys do: strings and ints as themselves
@@ -81,7 +85,7 @@ impl Input for Value {
                 Err(_) => Err(ValError::new(ErrorTypeDefaults::StringUnicode, self)),
             },
             // Numbers only; bool is deliberately excluded.
-            Value::Int(_) | Value::BigInt(_) | Value::Float(_)
+            Value::Int(_) | Value::BigInt(_) | Value::Float(_) | Value::Decimal(_)
                 if !strict && coerce_numbers_to_str =>
             {
                 Ok(ValidationMatch::lax(self.py_str().into()))
@@ -120,6 +124,8 @@ impl Input for Value {
             let as_f64 = match self {
                 Value::Float(f) => Some(*f),
                 Value::BigInt(b) => b.to_f64(),
+                // `float(decimal)`; Python refuses signaling NaNs
+                Value::Decimal(d) => (!d.is_signaling_nan()).then(|| d.to_f64()),
                 _ => None,
             };
             if let Some(float) = as_f64
@@ -151,6 +157,9 @@ impl Input for Value {
             if let Value::Float(f) = self {
                 return float_as_int(self, *f).map(ValidationMatch::lax);
             }
+            if let Value::Decimal(d) = self {
+                return decimal_as_int(self, d).map(ValidationMatch::lax);
+            }
         }
         Err(ValError::new(ErrorTypeDefaults::IntType, self))
     }
@@ -174,8 +183,46 @@ impl Input for Value {
             } else {
                 0.0
             }))),
+            // `float(decimal)` works even in strict mode, as upstream extracts an f64
+            Value::Decimal(d) if !d.is_signaling_nan() => {
+                Ok(ValidationMatch::strict(EitherFloat::F64(d.to_f64())))
+            }
             _ => Err(ValError::new(ErrorTypeDefaults::FloatType, self)),
         }
+    }
+
+    fn validate_decimal(&self, strict: bool) -> ValMatch<Decimal> {
+        match self {
+            Value::Decimal(d) => return Ok(ValidationMatch::exact((**d).clone())),
+            Value::Str(s) if !strict => return str_as_decimal(self, s).map(ValidationMatch::lax),
+            Value::Int(i) if !strict => {
+                return Ok(ValidationMatch::lax(Decimal::from_bigint(&(*i).into())));
+            }
+            Value::BigInt(i) if !strict => {
+                return Ok(ValidationMatch::lax(Decimal::from_bigint(i)));
+            }
+            // through `str(float)`
+            Value::Float(_) if !strict => {
+                return str_as_decimal(self, &self.py_str()).map(ValidationMatch::lax);
+            }
+            Value::Tuple(items) if !strict && items.len() == 3 => {
+                if let Ok(decimal) = tuple_as_decimal(items) {
+                    return Ok(ValidationMatch::lax(decimal));
+                }
+            }
+            _ => {}
+        }
+        Err(ValError::new(
+            if strict {
+                ErrorType::IsInstanceOf {
+                    class: "Decimal".to_owned(),
+                    context: None,
+                }
+            } else {
+                ErrorTypeDefaults::DecimalType
+            },
+            self,
+        ))
     }
 
     type Dict<'a> = &'a Dict;
@@ -229,6 +276,10 @@ impl Input for Value {
             Value::Int(i) => int_as_time(self, *i, 0).map(ValidationMatch::lax),
             Value::BigInt(i) => float_as_time(self, big_as_f64(i)).map(ValidationMatch::lax),
             Value::Float(f) => float_as_time(self, *f).map(ValidationMatch::lax),
+            // `float(decimal)`, as upstream extracts an f64
+            Value::Decimal(d) if !d.is_signaling_nan() => {
+                float_as_time(self, d.to_f64()).map(ValidationMatch::lax)
+            }
             _ => Err(ValError::new(ErrorTypeDefaults::TimeType, self)),
         }
     }
@@ -253,6 +304,9 @@ impl Input for Value {
                 float_as_datetime(self, big_as_f64(i), mode).map(ValidationMatch::lax)
             }
             Value::Float(f) => float_as_datetime(self, *f, mode).map(ValidationMatch::lax),
+            Value::Decimal(d) if !d.is_signaling_nan() => {
+                float_as_datetime(self, d.to_f64(), mode).map(ValidationMatch::lax)
+            }
             Value::Date(date) => Ok(ValidationMatch::lax(date_as_datetime(*date))),
             _ => Err(ValError::new(ErrorTypeDefaults::DatetimeType, self)),
         }
@@ -275,6 +329,9 @@ impl Input for Value {
             Value::Int(i) => int_as_duration(self, *i).map(ValidationMatch::lax),
             Value::BigInt(i) => float_as_duration(self, big_as_f64(i)).map(ValidationMatch::lax),
             Value::Float(f) => float_as_duration(self, *f).map(ValidationMatch::lax),
+            Value::Decimal(d) if !d.is_signaling_nan() => {
+                float_as_duration(self, d.to_f64()).map(ValidationMatch::lax)
+            }
             _ => Err(ValError::new(ErrorTypeDefaults::TimeDeltaType, self)),
         }
     }

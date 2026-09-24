@@ -22,6 +22,7 @@ pub(crate) use config::TemporalUnitMode;
 mod custom_error;
 mod date;
 mod datetime;
+mod decimal;
 mod definitions;
 mod dict;
 mod float;
@@ -302,6 +303,7 @@ validators! {
     custom_error::CustomErrorValidator,
     date::DateValidator,
     datetime::DateTimeValidator,
+    decimal::DecimalValidator,
     definitions::DefinitionRefValidator,
     definitions::DefinitionsValidatorBuilder,
     dict::DictValidator,
@@ -355,6 +357,7 @@ pub enum CombinedValidator {
     CustomError(custom_error::CustomErrorValidator),
     Date(date::DateValidator),
     Datetime(datetime::DateTimeValidator),
+    Decimal(decimal::DecimalValidator),
     DefinitionRef(definitions::DefinitionRefValidator),
     Dict(dict::DictValidator),
     Float(float::FloatValidator),

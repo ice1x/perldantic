@@ -11,6 +11,7 @@
 //!   `{"$datetime": "2022-06-08T12:13:14+01:00"}` (Python's `isoformat`) and
 //!   `{"$timedelta": [days, seconds, microseconds]}` (Python's normalised fields);
 //! - `{"$uuid": "12345678-1234-5678-1234-567812345678"}` (read in any form `uuid` parses);
+//! - `{"$decimal": "1.50"}`, Python's `str` of the decimal;
 //! - `{"$url": "https://example.com/"}` and `{"$multi_host_url": "redis://h1,h2/0"}`, by their
 //!   text (read back keeping an empty path empty, so the text round-trips);
 //! - `{"$model": {"class", "fields", "fields_set", "extra"}}` for model instances.
@@ -20,7 +21,7 @@ use std::fmt::Write as _;
 use base64::Engine;
 use base64::engine::general_purpose::STANDARD;
 use perldantic_core::{
-    CoreError, CoreResult, Dict, Model, MultiHostUrl, Url, Value, speedate, temporal, uuid,
+    CoreError, CoreResult, Decimal, Dict, Model, MultiHostUrl, Url, Value, speedate, temporal, uuid,
 };
 
 /// Parse wire JSON into a value.
@@ -129,6 +130,13 @@ fn decode_tag(tag: &str, payload: Value) -> CoreResult<Value> {
                     .map_err(|_| invalid("$uuid takes UUID text", &payload))?,
             ),
             _ => return Err(invalid("$uuid takes UUID text", &payload)),
+        },
+        "decimal" => match &payload {
+            Value::Str(text) => Value::Decimal(Box::new(
+                Decimal::parse(text)
+                    .ok_or_else(|| invalid("$decimal takes decimal text", &payload))?,
+            )),
+            _ => return Err(invalid("$decimal takes decimal text", &payload)),
         },
         "url" => Value::Url(Box::new(parse_url(&payload, "$url", Url::parse)?)),
         "multi_host_url" => Value::MultiHostUrl(Box::new(parse_url(
@@ -322,6 +330,7 @@ fn write_value(value: &Value, out: &mut String) {
             write!(out, "[{days},{seconds},{micros}]").expect("writing to a String");
         }),
         Value::Uuid(u) => write_tagged("uuid", out, |out| write_str(&u.to_string(), out)),
+        Value::Decimal(d) => write_tagged("decimal", out, |out| write_str(&d.to_string(), out)),
         Value::Url(u) => write_tagged("url", out, |out| write_str(&u.as_str(), out)),
         Value::MultiHostUrl(u) => {
             write_tagged("multi_host_url", out, |out| write_str(&u.as_str(), out));
@@ -440,6 +449,22 @@ mod tests {
         assert_eq!(
             decode(r#"{"$uuid": "nope"}"#).unwrap_err().to_string(),
             "Invalid wire value: $uuid takes UUID text, got 'nope'"
+        );
+    }
+
+    #[test]
+    fn decimals_keep_their_exponent() {
+        for json in [
+            r#"{"$decimal":"1.50"}"#,
+            r#"{"$decimal":"-1E+2"}"#,
+            r#"{"$decimal":"-Infinity"}"#,
+            r#"{"$decimal":"sNaN12"}"#,
+        ] {
+            assert_eq!(encode(&decode(json).unwrap()), json, "{json}");
+        }
+        assert_eq!(
+            decode(r#"{"$decimal": "one"}"#).unwrap_err().to_string(),
+            "Invalid wire value: $decimal takes decimal text, got 'one'"
         );
     }
 

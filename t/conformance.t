@@ -100,6 +100,7 @@ sub plain ($value) {
     return bless [map { plain($_) } @$value], 'SetCmp' if $class eq 'Perldantic::Wire::Set';
     return $$value if $class eq 'Perldantic::Wire::Bytes';
     return "$value" if $class eq 'Math::BigInt';
+    return "Math::BigFloat:" . $value->bstr if $class eq 'Math::BigFloat';
     return ref($value) . ':' . $value->iso if $class && $value->isa('Perldantic::Temporal');
     return "$class:$value" if $class eq 'Perldantic::Uuid' || $class eq 'Perldantic::Url' || $class eq 'Perldantic::MultiHostUrl';
     if ($class eq 'Perldantic::Wire::Model') {

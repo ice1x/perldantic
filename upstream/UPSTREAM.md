@@ -68,7 +68,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `input/input_string.rs` | `crates/perldantic-core/src/input/input_string.rs` | P1 | pending | string-mode input (env/config values) |
 | `input/mod.rs` | `crates/perldantic-core/src/input/mod.rs` | P0 | ported |  |
 | `input/return_enums.rs` | `crates/perldantic-core/src/input/return_enums.rs` | P0 | partial | `ValidationMatch`, `Either*`, `Int`, `MaxLengthCheck`, vec iteration helpers; set helpers and Python iterators pending/dropped |
-| `input/shared.rs` | `crates/perldantic-core/src/input/shared.rs` | P0 | ported | decimal/fraction helpers belong to P1/dropped types |
+| `input/shared.rs` | `crates/perldantic-core/src/input/shared.rs` | P0 | ported | decimal helpers included; fraction helpers belong to a dropped type |
 | `lib.rs` | `crates/perldantic-core/src/lib.rs` | P0 | pending | rewrite: public Rust API, no #[pymodule] |
 | `lookup_key.rs` | `crates/perldantic-core/src/lookup_key.rs` | P0 | ported | host data has no attributes, so attribute lookups are dropped |
 | `py_gc.rs` | - | drop | dropped | Python GC integration |
@@ -94,7 +94,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `serializers/type_serializers/counter.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/dataclass.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/datetime_etc.rs` | `crates/perldantic-core/src/serializers/type_serializers/datetime_etc.rs` | P1 | done | the `*_to_seconds` helpers and temporal modes live in `serializers/config.rs` |
-| `serializers/type_serializers/decimal.rs` | `crates/perldantic-core/src/serializers/type_serializers/decimal.rs` | P1 | pending |  |
+| `serializers/type_serializers/decimal.rs` | `crates/perldantic-core/src/serializers/type_serializers/decimal.rs` | P1 | done |  |
 | `serializers/type_serializers/definitions.rs` | `crates/perldantic-core/src/serializers/type_serializers/definitions.rs` | P0 | ported |  |
 | `serializers/type_serializers/deque.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/dict.rs` | `crates/perldantic-core/src/serializers/type_serializers/dict.rs` | P0 | ported |  |
@@ -144,7 +144,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/dataclass.rs` | - | drop | dropped | Python-only type |
 | `validators/date.rs` | `crates/perldantic-core/src/validators/date.rs` | P1 | done |  |
 | `validators/datetime.rs` | `crates/perldantic-core/src/validators/datetime.rs` | P1 | done | `now_op` without `now_utc_offset` uses UTC (DIVERGENCES #16) |
-| `validators/decimal.rs` | `crates/perldantic-core/src/validators/decimal.rs` | P1 | pending |  |
+| `validators/decimal.rs` | `crates/perldantic-core/src/validators/decimal.rs` | P1 | done | Python's `Decimal` is `src/decimal.rs` (exact values, 28-digit division for `multiple_of`); DIVERGENCES #17 |
 | `validators/definitions.rs` | `crates/perldantic-core/src/validators/definitions.rs` | P0 | partial | host data is guarded by value identity like Python objects; `validate_assignment` comes with the Perl model API |
 | `validators/deque.rs` | - | drop | dropped | Python-only type |
 | `validators/dict.rs` | `crates/perldantic-core/src/validators/dict.rs` | P0 | ported |  |
@@ -196,4 +196,4 @@ plus every JSON Schema pydantic's own test suite generates.
 
 | Upstream file | Perldantic file | Priority | Status | Notes |
 |---|---|---|---|---|
-| `pydantic/json_schema.py` | `crates/perldantic-core/src/json_schema/` | P0 | partial | `GenerateJsonSchema.generate` for the P0 schema types, dates/times/datetimes/timedeltas, UUIDs and URLs; `generate_definitions` (`models_json_schema`), other P1 types and callables later; model config from the schema (DIVERGENCES #15) |
+| `pydantic/json_schema.py` | `crates/perldantic-core/src/json_schema/` | P0 | partial | `GenerateJsonSchema.generate` for the P0 schema types, dates/times/datetimes/timedeltas, decimals, UUIDs and URLs; `generate_definitions` (`models_json_schema`), other P1 types and callables later; model config from the schema (DIVERGENCES #15) |

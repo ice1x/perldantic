@@ -22,6 +22,7 @@ my %CONSTRAINTS = (
     tuple => [qw(strict min_length max_length)],
     dict  => [qw(strict min_length max_length)],
     'typed-dict' => [qw(strict)],
+    decimal   => [qw(strict allow_inf_nan multiple_of le lt ge gt max_digits decimal_places)],
     date      => [qw(strict le lt ge gt now_op now_utc_offset)],
     time      => [qw(strict le lt ge gt tz_constraint microseconds_precision)],
     datetime  => [qw(strict le lt ge gt now_op now_utc_offset tz_constraint microseconds_precision)],
@@ -139,6 +140,8 @@ A copy of the type with pydantic constraints added to its schema:
 =item C<Bytes>, C<ArrayRef>, C<Tuple>, C<HashRef>, C<Map>: C<strict min_length max_length>
 
 =item C<Bool>, C<Dict>: C<strict>
+
+=item C<Decimal>: C<strict allow_inf_nan multiple_of le lt ge gt max_digits decimal_places>
 
 =item C<Date>: C<strict le lt ge gt now_op now_utc_offset>
 
