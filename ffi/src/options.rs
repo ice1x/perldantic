@@ -129,6 +129,7 @@ pub fn serialize_options(options: &Dict) -> CoreResult<(SerializeOptions, JsonOp
             "exclude_defaults" => opts.exclude_defaults = flag(key, value)?,
             "exclude_none" => opts.exclude_none = flag(key, value)?,
             "serialize_as_any" => opts.serialize_as_any = flag(key, value)?,
+            "context" => opts.context = optional(value),
             "input_type" => {
                 opts.input_type = match value {
                     Value::Str(s) if s == "perl" || s == "python" => {
@@ -247,7 +248,8 @@ mod tests {
         let (opts, json) = serialize_options(&dict(
             r#"{"mode": "json", "include": {"$set": ["a"]}, "exclude": null, "by_alias": true,
                 "exclude_unset": true, "exclude_defaults": true, "exclude_none": true,
-                "serialize_as_any": true, "warnings": "error", "indent": 2, "ensure_ascii": true}"#,
+                "serialize_as_any": true, "warnings": "error", "indent": 2, "ensure_ascii": true,
+                "context": {"a": 1}}"#,
         ))
         .unwrap();
         assert_eq!(opts.mode, SerMode::Json);
@@ -256,6 +258,7 @@ mod tests {
         assert_eq!(opts.by_alias, Some(true));
         assert!(opts.exclude_unset && opts.exclude_defaults && opts.exclude_none);
         assert!(opts.serialize_as_any);
+        assert_eq!(opts.context, Some(Value::from_json(r#"{"a": 1}"#).unwrap()));
         assert_eq!(opts.warnings, WarningsMode::Error);
         assert_eq!(json.indent, Some(2));
         assert!(json.ensure_ascii);

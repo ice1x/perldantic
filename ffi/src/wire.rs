@@ -15,7 +15,8 @@
 //! - `{"$url": "https://example.com/"}` and `{"$multi_host_url": "redis://h1,h2/0"}`, by their
 //!   text (read back keeping an empty path empty, so the text round-trips);
 //! - `{"$model": {"class", "fields", "fields_set", "extra"}}` for model instances;
-//! - `{"$function": "name"}` describes a host function (it cannot be sent back);
+//! - `{"$function": {"id", "name"}}` for a function of the host, called through its callback
+//!   ([`crate::host`]); a function the host did not give is written without `id`;
 //! - `{"$enum": {"class", "name", "value", "mixin", "str_is_value"}}` for enum members
 //!   (`mixin`, the builtin type an `IntEnum` or `StrEnum` member also is, and `str_is_value`
 //!   may be left out).
@@ -25,8 +26,8 @@ use std::fmt::Write as _;
 use base64::Engine;
 use base64::engine::general_purpose::STANDARD;
 use perldantic_core::{
-    CoreError, CoreResult, Decimal, Dict, EnumMember, EnumMixin, Model, MultiHostUrl, Url, Value,
-    speedate, temporal, uuid,
+    CoreError, CoreResult, Decimal, Dict, EnumMember, EnumMixin, Function, Model, MultiHostUrl,
+    Url, Value, speedate, temporal, uuid,
 };
 
 /// Parse wire JSON into a value.
@@ -115,6 +116,7 @@ fn decode_tag(tag: &str, payload: Value) -> CoreResult<Value> {
         }
         "model" => decode_model(payload)?,
         "enum" => decode_enum(payload)?,
+        "function" => decode_function(payload)?,
         "date" => Value::Date(parse_temporal(
             &payload,
             "$date",
@@ -198,6 +200,25 @@ fn decode_timedelta(payload: &Value) -> CoreResult<Value> {
                 .map_err(|_| invalid(WHAT, payload))
         }
         _ => Err(invalid(WHAT, payload)),
+    }
+}
+
+/// A host function: `{"id", "name"}`, called through the host's callback ([`crate::host`]).
+fn decode_function(payload: Value) -> CoreResult<Value> {
+    let Value::Dict(function) = &payload else {
+        return Err(invalid("$function takes an object", &payload));
+    };
+    match (function.get_str("id"), function.get_str("name")) {
+        (Some(Value::Int(id)), Some(Value::Str(name))) if *id >= 0 => {
+            Ok(Value::Function(Function::new(crate::host::FfiFunction {
+                id: id.unsigned_abs(),
+                name: name.clone(),
+            })))
+        }
+        _ => Err(invalid(
+            "$function needs an `id` (a non-negative integer) and a `name`",
+            &payload,
+        )),
     }
 }
 
@@ -400,9 +421,13 @@ fn write_value(value: &Value, out: &mut String) {
             }
             out.push('}');
         }),
-        // Host functions cannot cross the wire yet (task 00054): they are described by name.
         Value::Function(function) => write_tagged("function", out, |out| {
+            out.push_str("{\"name\":");
             write_str(function.name(), out);
+            if let Some(id) = function.host_id() {
+                write!(out, ",\"id\":{id}").expect("writing to a String");
+            }
+            out.push('}');
         }),
         Value::Enum(member) => write_tagged("enum", out, |out| {
             out.push_str("{\"class\":");
@@ -540,12 +565,20 @@ mod tests {
     }
 
     #[test]
-    fn host_functions_are_described_by_name() {
+    fn host_functions_carry_their_id() {
         let value = Value::Function(perldantic_core::Function::new(Named));
-        assert_eq!(encode(&value), r#"{"$function":"check"}"#);
+        assert_eq!(encode(&value), r#"{"$function":{"name":"check"}}"#);
+        let host = decode(r#"{"$function": {"id": 7, "name": "check"}}"#).unwrap();
+        assert_eq!(encode(&host), r#"{"$function":{"name":"check","id":7}}"#);
         assert_eq!(
             decode(r#"{"$function": "check"}"#).unwrap_err().to_string(),
-            "Invalid wire value: unknown tag `$function`"
+            "Invalid wire value: $function takes an object, got 'check'"
+        );
+        assert_eq!(
+            decode(r#"{"$function": {"id": -1, "name": "check"}}"#)
+                .unwrap_err()
+                .to_string(),
+            "Invalid wire value: $function needs an `id` (a non-negative integer) and a `name`, got {'id': -1, 'name': 'check'}"
         );
     }
 

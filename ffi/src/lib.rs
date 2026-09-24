@@ -9,10 +9,12 @@
 //!   error has pydantic's `type`, `loc`, `msg`, `input`, `ctx` (when present) and `url`;
 //! - `{"error": {"type", "message"}}`: anything else, `type` being the name of the exception
 //!   pydantic would raise (`SchemaError`, `TypeError`, ...), or `InternalError` when the call
-//!   panicked or its arguments were unusable.
+//!   panicked or its arguments were unusable. `HostException` errors, raised by a host function
+//!   (see [`host`]), also carry the host's `id` for the exception.
 //!
 //! No panic crosses the boundary: every export runs under `catch_unwind`.
 
+pub mod host;
 pub mod options;
 pub mod wire;
 
@@ -38,7 +40,7 @@ pub struct PdSerializer(SchemaSerializer);
 /// A result envelope or the error one, as JSON text.
 type Envelope = Result<String, String>;
 
-fn error_envelope(type_: &str, message: &str) -> String {
+pub(crate) fn error_envelope(type_: &str, message: &str) -> String {
     let mut out = String::from("{\"error\":{\"type\":");
     wire::write_str(type_, &mut out);
     out.push_str(",\"message\":");
@@ -47,15 +49,27 @@ fn error_envelope(type_: &str, message: &str) -> String {
     out
 }
 
-fn core_error(error: &CoreError) -> String {
+pub(crate) fn core_error(error: &CoreError) -> String {
+    if let CoreError::Host(exception) = error
+        && let Some(id) = exception.payload().downcast_ref::<u64>()
+    {
+        let mut out = String::from("{\"error\":{\"type\":");
+        wire::write_str(error.kind().python_name(), &mut out);
+        out.push_str(",\"message\":");
+        wire::write_str(&error.to_string(), &mut out);
+        out.push_str(",\"id\":");
+        out.push_str(&id.to_string());
+        out.push_str("}}");
+        return out;
+    }
     error_envelope(error.kind().python_name(), &error.to_string())
 }
 
-fn internal_error(message: &str) -> String {
+pub(crate) fn internal_error(message: &str) -> String {
     error_envelope("InternalError", message)
 }
 
-fn ok_envelope(value_json: &str) -> String {
+pub(crate) fn ok_envelope(value_json: &str) -> String {
     format!("{{\"ok\":{value_json}}}")
 }
 
@@ -69,7 +83,7 @@ fn ok_with_warning(value_json: &str, warning: Option<&str>) -> String {
     out
 }
 
-fn validation_error(error: &ValidationError) -> String {
+pub(crate) fn validation_error(error: &ValidationError) -> String {
     let mut out = String::from("{\"validation_error\":{\"title\":");
     wire::write_str(error.title(), &mut out);
     out.push_str(",\"message\":");
@@ -118,8 +132,11 @@ fn validate_error(error: &ValidateError) -> String {
     }
 }
 
-fn serialize_error(error: &SerializeError) -> String {
-    error_envelope(error.python_name(), &error.to_string())
+pub(crate) fn serialize_error(error: &SerializeError) -> String {
+    match error {
+        SerializeError::Core(error) => core_error(error),
+        _ => error_envelope(error.python_name(), &error.to_string()),
+    }
 }
 
 fn panic_message(payload: &(dyn Any + Send)) -> String {
@@ -132,14 +149,14 @@ fn panic_message(payload: &(dyn Any + Send)) -> String {
 }
 
 /// Run `body` so that no panic unwinds into C: a panic becomes an `InternalError` envelope.
-fn guard(body: impl FnOnce() -> Envelope) -> String {
+pub(crate) fn guard(body: impl FnOnce() -> Envelope) -> String {
     match catch_unwind(AssertUnwindSafe(body)) {
         Ok(Ok(envelope) | Err(envelope)) => envelope,
         Err(payload) => internal_error(&panic_message(payload.as_ref())),
     }
 }
 
-fn into_c(envelope: String) -> *mut c_char {
+pub(crate) fn into_c(envelope: String) -> *mut c_char {
     // Envelopes are JSON, which escapes NUL characters.
     CString::new(envelope)
         .expect("JSON text has no NUL bytes")
@@ -165,7 +182,7 @@ unsafe fn text_arg<'a>(ptr: *const c_char, name: &str) -> Result<Option<&'a str>
 ///
 /// # Safety
 /// As for [`text_arg`].
-unsafe fn value_arg(ptr: *const c_char, name: &str) -> Result<Value, String> {
+pub(crate) unsafe fn value_arg(ptr: *const c_char, name: &str) -> Result<Value, String> {
     // SAFETY: guaranteed by the caller.
     match unsafe { text_arg(ptr, name) }? {
         Some(json) => wire::decode(json).map_err(|e| core_error(&e)),
@@ -177,7 +194,10 @@ unsafe fn value_arg(ptr: *const c_char, name: &str) -> Result<Value, String> {
 ///
 /// # Safety
 /// As for [`text_arg`].
-unsafe fn optional_value_arg(ptr: *const c_char, name: &str) -> Result<Option<Value>, String> {
+pub(crate) unsafe fn optional_value_arg(
+    ptr: *const c_char,
+    name: &str,
+) -> Result<Option<Value>, String> {
     // SAFETY: guaranteed by the caller.
     match unsafe { text_arg(ptr, name) }? {
         None => Ok(None),
