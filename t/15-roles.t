@@ -99,7 +99,7 @@ subtest 'model objects given as input are kept, not copied' => sub {
 
     require Perldantic::TypeAdapter;
     my $adapter = Perldantic::TypeAdapter->new(ArrayRef['Test::Doc']);
-    is refaddr($adapter->validate_python([$doc])->[0]), refaddr($doc), 'and type adapters';
+    is refaddr($adapter->validate([$doc])->[0]), refaddr($doc), 'and type adapters';
 };
 
 subtest 'errors show the objects that were given' => sub {

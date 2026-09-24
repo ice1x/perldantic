@@ -153,7 +153,7 @@ subtest 'rules across fields' => sub {
 subtest 'reassigning and exporting' => sub {
     my $board = Tasks::Board->model_validate_json($export);
     $board->tasks->[1]->assignee('@lin');
-    my $json = $board->model_dump_json(exclude_none => 1);
+    my $json = $board->model_dump_json(exclude_undef => 1);
     like $json, qr/"assignee":"\@lin"/;
     like $json, qr/"estimate":"PT6H"/, 'durations as ISO 8601';
     my $again = Tasks::Board->model_validate_json($json);

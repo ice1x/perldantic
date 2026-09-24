@@ -30,7 +30,7 @@ my @orders = map {
     {id => $id, customer => "customer $id", items => [map { {sku => "sku-$_", qty => $_, price => $_ * 1.5} } 1 .. 10]};
 } 1 .. $count;
 my $adapter = Perldantic::TypeAdapter->new(Perldantic::Types::ArrayRef(['Bench::Order']));
-my $objects = $adapter->validate_python(\@orders);
+my $objects = $adapter->validate(\@orders);
 
 sub timed ($label, $code) {
     $code->() for 1 .. 3;
@@ -40,6 +40,6 @@ sub timed ($label, $code) {
 }
 
 printf "%d orders x 10 items\n", $count;
-timed(validate_python => sub { $adapter->validate_python(\@orders) });
-timed(dump_python     => sub { $adapter->dump_python($objects) });
+timed(validate => sub { $adapter->validate(\@orders) });
+timed(dump     => sub { $adapter->dump($objects) });
 timed(dump_json       => sub { $adapter->dump_json($objects) });

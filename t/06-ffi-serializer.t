@@ -27,14 +27,14 @@ my $user = Perldantic::Wire::Model->new(
 my $ser = Perldantic::FFI::Serializer->new($model_schema);
 
 subtest 'to_python returns Perl data' => sub {
-    is $ser->to_python($user), {name => "Z\x{f6}e", nick => undef};
-    is $ser->to_python($user, {by_alias => 1, exclude_none => 1}), {name => "Z\x{f6}e"};
-    is $ser->to_python($user, {exclude_unset => 1}), {name => "Z\x{f6}e"};
-    is $ser->to_python($user, {by_alias => 1}), {name => "Z\x{f6}e", nickname => undef};
+    is $ser->to_perl($user), {name => "Z\x{f6}e", nick => undef};
+    is $ser->to_perl($user, {by_alias => 1, exclude_none => 1}), {name => "Z\x{f6}e"};
+    is $ser->to_perl($user, {exclude_unset => 1}), {name => "Z\x{f6}e"};
+    is $ser->to_perl($user, {by_alias => 1}), {name => "Z\x{f6}e", nickname => undef};
     my $b = Perldantic::FFI::Serializer->new({type => 'bytes'});
-    is $b->to_python(bytes("\xff")), "\xff";
-    is $b->to_python(bytes("hi"), {mode => 'json'}), 'hi', 'json mode decodes bytes as UTF-8';
-    my $e = dies { $b->to_python(bytes("\xff"), {mode => 'json'}) };
+    is $b->to_perl(bytes("\xff")), "\xff";
+    is $b->to_perl(bytes("hi"), {mode => 'json'}), 'hi', 'json mode decodes bytes as UTF-8';
+    my $e = dies { $b->to_perl(bytes("\xff"), {mode => 'json'}) };
     isa_ok $e, 'Perldantic::SerializationError';
     is $e->type, 'UnicodeDecodeError';
 };
@@ -49,12 +49,12 @@ subtest 'to_json returns UTF-8 encoded JSON text' => sub {
 subtest 'unexpected values warn' => sub {
     my $int = Perldantic::FFI::Serializer->new({type => 'int'});
     my $got;
-    my $warnings = warnings { $got = $int->to_python('x') };
+    my $warnings = warnings { $got = $int->to_perl('x') };
     is $got, 'x', 'the value is serialized as-is';
     is scalar @$warnings, 1;
     like $warnings->[0], qr/^Perldantic serializer warnings:\n  Expected `Int` - serialized value may not be as expected \[input_value='x', input_type=Str\]/;
-    is warns { $int->to_python('x', {warnings => 0}) }, 0, 'warnings => 0 silences them';
-    my $e = dies { $int->to_python('x', {warnings => 'error'}) };
+    is warns { $int->to_perl('x', {warnings => 0}) }, 0, 'warnings => 0 silences them';
+    my $e = dies { $int->to_perl('x', {warnings => 'error'}) };
     isa_ok $e, 'Perldantic::SerializationError';
     is $e->type, 'PydanticSerializationError';
     like $e->message, qr/Expected `Int`/;
@@ -62,7 +62,7 @@ subtest 'unexpected values warn' => sub {
 
 subtest 'serialization errors are objects' => sub {
     my $f = Perldantic::FFI::Serializer->new({type => 'float'});
-    my $u = dies { $f->to_python(1.5, {nope => 1}) };
+    my $u = dies { $f->to_perl(1.5, {nope => 1}) };
     isa_ok $u, 'Perldantic::UsageError';
     my $s = dies { Perldantic::FFI::Serializer->new({type => 'nope'}) };
     isa_ok $s, 'Perldantic::SchemaError';

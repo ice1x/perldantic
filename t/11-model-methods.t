@@ -52,10 +52,19 @@ subtest 'model_dump' => sub {
     }, 'nested models, extras; absent fields are left out';
     is $order->model_dump(exclude_unset => 1, exclude => {coupon => 1}),
         {id => 7, items => [{sku => "caf\x{e9}", price => 2.5, note => undef}, {sku => 'b', price => 1, qty => 3}]};
-    is $order->items->[0]->model_dump(by_alias => 1, exclude_none => 1), {sku => "caf\x{e9}", price => 2.5, qty => 1};
+    is $order->items->[0]->model_dump(by_alias => 1, exclude_undef => 1), {sku => "caf\x{e9}", price => 2.5, qty => 1};
     is $order->model_dump(include => {items => {0 => {sku => 1}}}), {items => [{sku => "caf\x{e9}"}]};
     is [sort keys %{$order->model_dump(exclude => [qw(items coupon)])}], ['id'], 'arrays of names work too';
     is $order->model_dump(exclude_defaults => 1)->{items}[0], {sku => "caf\x{e9}", price => 2.5};
+    is $order->model_dump(mode => 'perl'), $order->model_dump, 'mode perl is the default';
+    for ([exclude_none => 1, "model_dump: unknown option 'exclude_none'; undefined values are left out with exclude_undef"],
+        [mode => 'python', "model_dump: mode must be perl, json or a name of your own, got 'python'"])
+    {
+        my ($option, $value, $message) = @$_;
+        my $e = dies { $order->model_dump($option => $value) };
+        isa_ok $e, 'Perldantic::UsageError';
+        is $e->message, $message, "no Python words: $option";
+    }
     my $e = dies { $order->model_dump(bogus => 1) };
     isa_ok $e, 'Perldantic::UsageError';
     is $e->message, "got an unexpected keyword argument 'bogus'";

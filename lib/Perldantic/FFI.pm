@@ -26,7 +26,7 @@ $ffi->attach(
         'opaque');
 $ffi->attach([pd_serializer_new => '_serializer_new'] => ['string', 'string', 'opaque*'] => 'opaque');
 $ffi->attach([pd_serializer_free => '_serializer_free'] => ['opaque'] => 'void');
-$ffi->attach([pd_serializer_to_python => '_serializer_to_python'] => ['opaque', 'string', 'string'] => 'opaque');
+$ffi->attach([pd_serializer_to_data => '_serializer_to_data'] => ['opaque', 'string', 'string'] => 'opaque');
 $ffi->attach([pd_serializer_to_json => '_serializer_to_json'] => ['opaque', 'string', 'string'] => 'opaque');
 $ffi->attach([pd_json_schema => '_json_schema'] => ['string', 'string', 'string'] => 'opaque');
 $ffi->attach([pd_url_parts => '_url_parts'] => ['string'] => 'opaque');
@@ -297,8 +297,8 @@ package Perldantic::FFI::Serializer {
         return $result->{ok};
     }
 
-    sub to_python ($self, $value, $options = undef) {
-        return $self->_call(\&Perldantic::FFI::_serializer_to_python, $value, $options);
+    sub to_perl ($self, $value, $options = undef) {
+        return $self->_call(\&Perldantic::FFI::_serializer_to_data, $value, $options);
     }
 
     sub to_json ($self, $value, $options = undef) {
@@ -431,7 +431,7 @@ pydantic's C<validate_json>: validates JSON text (bytes or a character string).
 
 Compiles a serializer.
 
-=item to_python($value, \%options = undef)
+=item to_perl($value, \%options = undef)
 
 Serializes to Perl data. Options: C<mode>, C<include>, C<exclude>, C<by_alias>,
 C<exclude_unset>, C<exclude_defaults>, C<exclude_none>, C<serialize_as_any>, C<warnings>.

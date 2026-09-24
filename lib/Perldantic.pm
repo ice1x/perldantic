@@ -216,8 +216,8 @@ as the field's type would.
 
 =item C<when_used>
 
-C<always> (the default), C<unless-none>, C<json> (only C<model_dump_json> and
-C<< mode => 'json' >>) or C<json-unless-none>.
+C<always> (the default), C<unless-undef> (not for undef), C<json> (only C<model_dump_json> and
+C<< mode => 'json' >>) or C<json-unless-undef>.
 
 =item C<return_type>
 

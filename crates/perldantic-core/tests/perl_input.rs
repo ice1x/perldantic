@@ -449,3 +449,16 @@ fn serializer_warnings_use_perl_words() {
         "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int`"
     ));
 }
+
+#[test]
+fn literal_values_are_written_as_perl_data() {
+    let schema = r#"{"type": "literal", "expected": [null, true, 1, "a"]}"#;
+    assert_eq!(
+        errors(&validator(schema), &j(r#""zz""#), InputType::Perl),
+        one("literal_error", "Input should be undef, !!1, 1 or 'a'")
+    );
+    assert_eq!(
+        errors(&validator(schema), &j(r#""zz""#), InputType::Python),
+        one("literal_error", "Input should be None, True, 1 or 'a'")
+    );
+}

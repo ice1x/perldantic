@@ -271,7 +271,9 @@ sub _declare_model_validator ($class, @args) {
 }
 
 my %SERIALIZER_MODE = map { $_ => 1 } qw(plain wrap);
-my %WHEN_USED = map { $_ => 1 } qw(always unless-none json json-unless-none);
+# when_used in Perl's words, and the core's.
+my %WHEN_USED = (always => 'always', 'unless-undef' => 'unless-none', json => 'json',
+    'json-unless-undef' => 'json-unless-none');
 
 # A Perldantic type from an `isa`-like option (a class name stands for InstanceOf[]).
 sub _type_option ($what, $isa) {
@@ -285,8 +287,9 @@ sub _serializer_options ($what, %options) {
     my $mode = delete $options{mode} // 'plain';
     _usage("$what: mode must be plain or wrap, got '$mode'") if !$SERIALIZER_MODE{$mode};
     my $when_used = delete $options{when_used} // 'always';
-    _usage("$what: when_used must be always, unless-none, json or json-unless-none, got '$when_used'")
+    _usage("$what: when_used must be always, unless-undef, json or json-unless-undef, got '$when_used'")
         if !$WHEN_USED{$when_used};
+    $when_used = $WHEN_USED{$when_used};
     my $return_type = delete $options{return_type};
     $return_type = _type_option("$what return_type", $return_type) if defined $return_type;
     _usage("$what: unknown option '$_'") for sort keys %options;
@@ -797,6 +800,19 @@ sub _options ($name, @options) {
     return {@options};
 }
 
+# Dump options in Perl's words (exclude_undef, mode => 'perl'), as the core takes them.
+sub _dump_options ($name, @options) {
+    my $options = _options($name, @options);
+    _usage("$name: unknown option 'exclude_none'; undefined values are left out with exclude_undef")
+        if exists $options->{exclude_none};
+    $options->{exclude_none} = delete $options->{exclude_undef} if exists $options->{exclude_undef};
+    if (defined $options->{mode} && !ref $options->{mode}) {
+        _usage("$name: mode must be perl, json or a name of your own, got 'python'") if $options->{mode} eq 'python';
+        $options->{mode} = 'python' if $options->{mode} eq 'perl';
+    }
+    return $options;
+}
+
 sub model_validate ($class, $data, @options) {
     _class_method('model_validate', $class);
     my $options = _options('model_validate', @options);
@@ -811,13 +827,13 @@ sub model_validate_json ($class, $json, @options) {
 
 sub model_dump ($self, @options) {
     _object_method('model_dump', $self);
-    my $options = _options('model_dump', @options);
-    return _dump_tracked(sub { ref($self)->_serializer->to_python($self, $options) });
+    my $options = _dump_options('model_dump', @options);
+    return _dump_tracked(sub { ref($self)->_serializer->to_perl($self, $options) });
 }
 
 sub model_dump_json ($self, @options) {
     _object_method('model_dump_json', $self);
-    my $options = _options('model_dump_json', @options);
+    my $options = _dump_options('model_dump_json', @options);
     return _dump_tracked(sub { ref($self)->_serializer->to_json($self, $options) });
 }
 
@@ -963,10 +979,11 @@ are pydantic's: C<strict>, C<extra>, C<from_attributes>, C<context>, C<by_alias>
 
 =head2 model_dump(%options), model_dump_json(%options)
 
-The object as Perl data, or as UTF-8 encoded JSON. Options are pydantic's: C<mode>,
+The object as Perl data, or as UTF-8 encoded JSON. Options are pydantic's, in Perl's words:
+C<mode> (C<perl>, the default, C<json>, or a name of your own for serializer functions to see),
 C<include>, C<exclude> (hashes of names with true values, nested as in pydantic, or arrays of
-names), C<by_alias>, C<exclude_unset>, C<exclude_defaults>, C<exclude_none>, C<warnings>, and for
-JSON C<indent> and C<ensure_ascii>. Fields absent from the object are left out.
+names), C<by_alias>, C<exclude_unset>, C<exclude_defaults>, C<exclude_undef> (pydantic's
+C<exclude_none>), C<warnings>, and for JSON C<indent> and C<ensure_ascii>. Fields absent from the object are left out.
 
 =head2 model_json_schema(%options)
 

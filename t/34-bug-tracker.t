@@ -120,8 +120,8 @@ subtest 'exporting back' => sub {
     like $json, qr/"html_url":"https:\/\/tracker.example.com\/issues\/3f0b9a52"/, 'under the other tracker\'s names';
     unlike $json, qr/"status":"open"/, 'defaults are left out';
     my $again = $issues->validate_json($json);
-    is $issues->dump_python($again), $issues->dump_python($list), 'and read back the same';
-    is $issues->dump_python($list, mode => 'json')->[0]{id}, '3f0b9a52-8c1e-4c7d-9b6a-2e4f5d1c0a97';
+    is $issues->dump($again), $issues->dump($list), 'and read back the same';
+    is $issues->dump($list, mode => 'json')->[0]{id}, '3f0b9a52-8c1e-4c7d-9b6a-2e4f5d1c0a97';
 
     my $schema = $issues->json_schema(mode => 'serialization', by_alias => 1);
     my $issue = $schema->{'$defs'}{Issue};

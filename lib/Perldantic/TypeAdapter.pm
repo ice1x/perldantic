@@ -67,8 +67,8 @@ sub _options ($name, @options) {
     return {@options};
 }
 
-sub validate_python ($self, $data, @options) {
-    my $options = _options('validate_python', @options);
+sub validate ($self, $data, @options) {
+    my $options = _options('validate', @options);
     return $self->_temporal(
         Perldantic::Model::_validate_tracked(sub { $self->_compiled('validator')->validate($data, $options) }));
 }
@@ -84,13 +84,13 @@ sub _temporal ($self, $value) {
     return Perldantic::Temporal::_convert_deep($value, $self->{config}{temporal_class} // 'Perldantic');
 }
 
-sub dump_python ($self, $value, @options) {
-    my $options = _options('dump_python', @options);
-    return Perldantic::Model::_dump_tracked(sub { $self->_compiled('serializer')->to_python($value, $options) });
+sub dump ($self, $value, @options) {
+    my $options = Perldantic::Model::_dump_options('dump', @options);
+    return Perldantic::Model::_dump_tracked(sub { $self->_compiled('serializer')->to_perl($value, $options) });
 }
 
 sub dump_json ($self, $value, @options) {
-    my $options = _options('dump_json', @options);
+    my $options = Perldantic::Model::_dump_options('dump_json', @options);
     return Perldantic::Model::_dump_tracked(sub { $self->_compiled('serializer')->to_json($value, $options) });
 }
 
@@ -118,7 +118,7 @@ Perldantic::TypeAdapter - validate and serialize any Perldantic type
     use Perldantic::Types qw(ArrayRef Int);
 
     my $ints = Perldantic::TypeAdapter->new(ArrayRef[Int]);
-    my $list = $ints->validate_python([1, '2']);      # [1, 2]
+    my $list = $ints->validate([1, '2']);      # [1, 2]
     my $json = $ints->dump_json($list);               # '[1,2]'
     my $js   = $ints->json_schema;                    # {type => 'array', items => {type => 'integer'}}
 
@@ -138,11 +138,11 @@ C<$type> is a L<Perldantic::Types> type or a model class name. C<config> takes t
 C<model_config> (see L<Perldantic>), and cannot be combined with a model class. Validation
 errors are titled with the type name (C<ArrayRef[Int]>) unless the config sets C<title>.
 
-=head2 validate_python($data, %options), validate_json($json, %options)
+=head2 validate($data, %options), validate_json($json, %options)
 
 Validate Perl data or JSON text; options as for C<model_validate>.
 
-=head2 dump_python($value, %options), dump_json($value, %options)
+=head2 dump($value, %options), dump_json($value, %options)
 
 Serialize to Perl data or UTF-8 encoded JSON; options as for C<model_dump>.
 

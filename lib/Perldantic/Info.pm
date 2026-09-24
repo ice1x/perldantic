@@ -17,7 +17,12 @@ package Perldantic::ValidationInfo {
 
 # What serializer functions that take `info` get (pydantic's SerializationInfo).
 package Perldantic::SerializationInfo {
-    sub new ($class, %args) { bless {%args}, $class }
+    # The core's words (mode `python`, exclude_none) in Perl's.
+    sub new ($class, %args) {
+        $args{mode} = 'perl' if ($args{mode} // '') eq 'python';
+        $args{exclude_undef} = delete $args{exclude_none} if exists $args{exclude_none};
+        return bless {%args}, $class;
+    }
 
     sub include ($self)                 { $self->{include} }
     sub exclude ($self)                 { $self->{exclude} }
@@ -27,7 +32,7 @@ package Perldantic::SerializationInfo {
     sub by_alias ($self)                { $self->{by_alias} }
     sub exclude_unset ($self)           { $self->{exclude_unset} }
     sub exclude_defaults ($self)        { $self->{exclude_defaults} }
-    sub exclude_none ($self)            { $self->{exclude_none} }
+    sub exclude_undef ($self)           { $self->{exclude_undef} }
     sub exclude_computed_fields ($self) { $self->{exclude_computed_fields} }
     sub round_trip ($self)              { $self->{round_trip} }
     sub serialize_as_any ($self)        { $self->{serialize_as_any} }
@@ -59,9 +64,9 @@ C<json>: how the input was given).
 
 =head2 Perldantic::SerializationInfo
 
-C<include>, C<exclude>, C<context>, C<mode> (C<python>, C<json> or another name given to
-C<to_python>) and C<mode_is_json>, C<by_alias>, C<exclude_unset>, C<exclude_defaults>,
-C<exclude_none>, C<exclude_computed_fields>, C<round_trip>, C<serialize_as_any> and, for field
+C<include>, C<exclude>, C<context>, C<mode> (C<perl>, C<json> or another name given to
+C<model_dump> or C<dump>) and C<mode_is_json>, C<by_alias>, C<exclude_unset>, C<exclude_defaults>,
+C<exclude_undef>, C<exclude_computed_fields>, C<round_trip>, C<serialize_as_any> and, for field
 serializers, C<field_name>.
 
 =cut

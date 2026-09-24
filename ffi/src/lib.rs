@@ -419,7 +419,7 @@ pub unsafe extern "C" fn pd_serializer_free(serializer: *mut PdSerializer) {
 /// # Safety
 /// `serializer` is null or a live handle; string arguments are null or NUL-terminated.
 #[unsafe(no_mangle)]
-pub unsafe extern "C" fn pd_serializer_to_python(
+pub unsafe extern "C" fn pd_serializer_to_data(
     serializer: *const PdSerializer,
     value: *const c_char,
     options: *const c_char,

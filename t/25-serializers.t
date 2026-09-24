@@ -110,6 +110,24 @@ subtest 'inheritance' => sub {
     is [@$dump{qw(name area level)}], ['TOP', 4, 'L9'];
 };
 
+package Test::Nick {
+    use Perldantic;
+    has nick => (is => 'ro', isa => Maybe[Str]);
+    our @MODES;
+    field_serializer nick => (when_used => 'unless-undef') => sub ($self, $value, $info) {
+        push @MODES, [$info->mode, $info->exclude_undef ? 1 : 0];
+        return uc $value;
+    };
+}
+
+package main;
+
+subtest 'Perl words in serializer options and info' => sub {
+    is Test::Nick->new(nick => 'ada')->model_dump(exclude_undef => 1), {nick => 'ADA'};
+    is Test::Nick->new(nick => undef)->model_dump, {nick => undef}, 'unless-undef skips undef';
+    is \@Test::Nick::MODES, [['perl', 1]], 'info->mode is perl, info->exclude_undef';
+};
+
 subtest 'declaration errors' => sub {
     package Test::BadSer {
         use Perldantic;
@@ -131,7 +149,7 @@ subtest 'declaration errors' => sub {
         [sub { Test::BadSer::field_serializer(x => (mode => 'before') => sub {1}) },
             "field_serializer: mode must be plain or wrap, got 'before'"],
         [sub { Test::BadSer::field_serializer(x => (when_used => 'sometimes') => sub {1}) },
-            "field_serializer: when_used must be always, unless-none, json or json-unless-none, got 'sometimes'"],
+            "field_serializer: when_used must be always, unless-undef, json or json-unless-undef, got 'sometimes'"],
         [sub { Test::BadSer::model_serializer(mode => 'after', sub {1}) },
             "model_serializer: mode must be plain or wrap, got 'after'"],
         [sub { Test::BadSer::computed_field(x => (isa => [])) },

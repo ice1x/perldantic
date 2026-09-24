@@ -31,16 +31,16 @@ Machine: Apple M1 Max, Perl 5.42.0, Rust 1.98.1, release build of the core.
 
 | Operation | Phase 1 (before 00057) | Now | Speed-up | Moo + Type::Tiny |
 |---|---:|---:|---:|---:|
-| Build: `validate_python` | 96.5 ms | 15.8 ms | 6.1× | 8.0 ms |
-| Dump to Perl data: `dump_python` | 102.3 ms | 18.0 ms | 5.7× | 1.7 ms |
+| Build: `validate` | 96.5 ms | 15.8 ms | 6.1× | 8.0 ms |
+| Dump to Perl data: `dump` | 102.3 ms | 18.0 ms | 5.7× | 1.7 ms |
 | Dump to JSON: `dump_json` | 72.6 ms | 17.1 ms | 4.2× | 2.4 ms (with JSON::XS) |
 
 20 orders × 10 items:
 
 | Operation | Phase 1 | Now | Moo + Type::Tiny |
 |---|---:|---:|---:|
-| `validate_python` | 9.5 ms | 1.5 ms | 0.8 ms |
-| `dump_python` | 9.9 ms | 1.8 ms | 0.2 ms |
+| `validate` | 9.5 ms | 1.5 ms | 0.8 ms |
+| `dump` | 9.9 ms | 1.8 ms | 0.2 ms |
 | `dump_json` | 7.1 ms | 1.7 ms | 0.3 ms |
 
 Perldantic does more than the Moo models: pydantic's validation and coercion rules, structured

@@ -263,7 +263,7 @@ sub run_serializer_case ($case) {
     my $expected   = node_get($case, 'expected');
     my $serializer = compile('Perldantic::FFI::Serializer', $schema, $config);
     my $to_json    = node_get($case, 'mode') eq 'to_json';
-    my $result = run_call(sub { $to_json ? $serializer->to_json($input, $options) : $serializer->to_python($input, $options) });
+    my $result = run_call(sub { $to_json ? $serializer->to_json($input, $options) : $serializer->to_perl($input, $options) });
 
     my $want_warnings = interpret(node_get($expected, 'warnings') // []);
     my $check_warnings = sub {

@@ -49,7 +49,7 @@ my $list = Perldantic::TypeAdapter->new(ArrayRef[Maybe[Num]]);
 # localize $@, which otherwise keeps the last error alive after the block.
 Leak::Node->new($tree)->model_dump;
 Leak::Node->model_json_schema;
-$list->validate_python([1]);
+$list->validate([1]);
 $list->dump_json([1]);
 
 no_leaks_ok { $ints->validate([1, '2', 3]) } 'validate';
@@ -59,7 +59,7 @@ no_leaks_ok { my $v = Perldantic::FFI::Validator->new({type => 'str'}) } 'valida
 no_leaks_ok { local $@; eval { Perldantic::FFI::Validator->new({type => 'nope'}) } } 'schema errors';
 no_leaks_ok {
     local $SIG{__WARN__} = sub { };
-    $ser->to_python('x');
+    $ser->to_perl('x');
     $ser->to_json(5, {indent => 2});
 } 'serialization and warnings';
 no_leaks_ok { Perldantic::FFI::json_schema({type => 'tuple', items_schema => [{type => 'bytes'}]}) } 'json_schema';
@@ -79,22 +79,22 @@ no_leaks_ok { my $node = Leak::Node->new(name => 'n', children => [$leaf, {name 
 no_leaks_ok { local $@; eval { Leak::Node->new(name => 'n', children => [$leaf, 5]) } } 'errors with model objects';
 no_leaks_ok { local $@; my $e = eval { Leak::Node->new(1) } || $@; "$e" } 'usage errors';
 my $when = Perldantic::TypeAdapter->new(ArrayRef[DateTime]);
-$when->validate_python(['2022-06-08T12:00Z']);
+$when->validate(['2022-06-08T12:00Z']);
 no_leaks_ok {
-    my $values = $when->validate_python(['2022-06-08T12:00Z', 1654646400]);
+    my $values = $when->validate(['2022-06-08T12:00Z', 1654646400]);
     $when->dump_json($values);
     my $sorted = $values->[0] <=> $values->[1];
 } 'dates and times';
 my $others = Perldantic::TypeAdapter->new(ArrayRef[Decimal]);
 my $ids = Perldantic::TypeAdapter->new(Uuid);
 my $urls = Perldantic::TypeAdapter->new(Url);
-$others->validate_python(['1.50']);
-$urls->validate_python('https://example.com')->host;
+$others->validate(['1.50']);
+$urls->validate('https://example.com')->host;
 no_leaks_ok {
-    my $values = $others->validate_python(['1.50', 2]);
+    my $values = $others->validate(['1.50', 2]);
     $others->dump_json($values);
-    my $id = $ids->validate_python('12345678123456781234567812345678');
-    my $url = $urls->validate_python('https://example.com/a?b=1');
+    my $id = $ids->validate('12345678123456781234567812345678');
+    my $url = $urls->validate('https://example.com/a?b=1');
     my @parts = ($url->host, $url->query_params, "$id");
 } 'decimals, UUIDs and URLs';
 my $red = Perldantic::Wire::Enum->new(class => 'Color', name => 'RED', value => 1);
@@ -148,21 +148,21 @@ no_leaks_ok {
 } 'serializers and computed fields';
 my $things = Perldantic::TypeAdapter->new(ArrayRef['Leak::Thing']);
 my $thing = bless {}, 'Leak::Thing';
-$things->validate_python([$thing]);
+$things->validate([$thing]);
 no_leaks_ok {
-    my $got = $things->validate_python([$thing]);
-    $things->dump_python($got);
+    my $got = $things->validate([$thing]);
+    $things->dump($got);
     local $@;
-    eval { $things->validate_python([{}]) };
+    eval { $things->validate([{}]) };
 } 'host objects';
 no_leaks_ok {
-    my $values = $list->validate_python([1, undef, '2.5']);
+    my $values = $list->validate([1, undef, '2.5']);
     $list->dump_json($values);
     $list->json_schema;
 } 'type adapters';
 no_leaks_ok {
     my $adapter = Perldantic::TypeAdapter->new(Map[Str, 'Leak::Node']);
-    $adapter->validate_python({x => {name => 'n'}});
+    $adapter->validate({x => {name => 'n'}});
 } 'new type adapters';
 
 # Memory owned by the core: a leaked result string or handle per call would add megabytes here.
