@@ -5,6 +5,8 @@
  * pure-Perl Perldantic::Wire::_emit does, for plain data: undef, booleans, numbers, strings,
  * arrays and hashes. Everything else (objects, code references, hashes with keys starting
  * with `$`) is written by calling $fallback with the value, which returns its wire JSON.
+ * Perldantic::XS::encode_pairs([$key, $value, ...], $fallback) writes a JSON object with the
+ * keys in the given order (the core keeps key order).
  */
 #define PERL_NO_GET_CONTEXT
 #include "EXTERN.h"
@@ -197,6 +199,22 @@ static void emit(pTHX_ SV *out, SV *value, SV *fallback, int depth)
     emit_sv_string(aTHX_ out, value);
 }
 
+/* A JSON object with the given keys in the given order: [key, value, key, value, ...]. */
+static void emit_pairs(pTHX_ SV *out, AV *pairs, SV *fallback)
+{
+    SSize_t last = av_len(pairs), i;
+    sv_catpvn(out, "{", 1);
+    for (i = 0; i + 1 <= last; i += 2) {
+        SV **key = av_fetch(pairs, i, 0);
+        SV **value = av_fetch(pairs, i + 1, 0);
+        if (i > 0) sv_catpvn(out, ",", 1);
+        emit_sv_string(aTHX_ out, key ? *key : &PL_sv_no);
+        sv_catpvn(out, ":", 1);
+        emit(aTHX_ out, value ? *value : &PL_sv_undef, fallback, 1);
+    }
+    sv_catpvn(out, "}", 1);
+}
+
 MODULE = Perldantic    PACKAGE = Perldantic::XS
 
 PROTOTYPES: DISABLE
@@ -208,5 +226,17 @@ encode(value, fallback)
     CODE:
         RETVAL = newSVpvn("", 0);
         emit(aTHX_ RETVAL, value, fallback, 0);
+    OUTPUT:
+        RETVAL
+
+SV *
+encode_pairs(pairs, fallback)
+        SV *pairs
+        SV *fallback
+    CODE:
+        if (!SvROK(pairs) || SvTYPE(SvRV(pairs)) != SVt_PVAV)
+            croak("Perldantic::XS::encode_pairs takes an array reference");
+        RETVAL = newSVpvn("", 0);
+        emit_pairs(aTHX_ RETVAL, (AV *)SvRV(pairs), fallback);
     OUTPUT:
         RETVAL

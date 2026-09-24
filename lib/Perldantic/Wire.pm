@@ -91,6 +91,16 @@ sub _emit_any ($value) {
     return $XS ? Perldantic::XS::encode($value, \&_emit) : _emit($value);
 }
 
+# A JSON object with string keys in the given order: [key, value, ...].
+sub _object_any ($pairs) {
+    return Perldantic::XS::encode_pairs($pairs, \&_emit) if $XS;
+    my @entries;
+    for (my $i = 0; $i < @$pairs; $i += 2) {
+        push @entries, _string($pairs->[$i]) . ':' . _emit($pairs->[$i + 1]);
+    }
+    return '{' . join(',', @entries) . '}';
+}
+
 sub encode ($value) {
     my $json = eval { _emit_any($value) };
     if (!defined $json) {
@@ -173,6 +183,8 @@ sub _emit ($value) {
         return '{' . join(',', map { _string($_) . ':' . _emit_any($value->{$_}) } @keys) . '}';
     }
     if (blessed $value) {
+        # models first: the objects met most often
+        return Perldantic::Model::_wire_json($value)          if $value->isa('Perldantic::Model');
         return _tagged(tuple => _list($value))                if $ref eq 'Perldantic::Wire::Tuple';
         return _tagged(set => _list($value))                  if $ref eq 'Perldantic::Wire::Set';
         return _tagged(frozenset => _list($value))            if $ref eq 'Perldantic::Wire::FrozenSet';
@@ -188,7 +200,6 @@ sub _emit ($value) {
         return _tagged(datetime => _string(_datetime_iso($value)))     if $value->isa('DateTime');
         return _tagged(datetime => _string(_time_moment_iso($value)))  if $value->isa('Time::Moment');
         return _emit_any(_duration_parts($value))                 if $value->isa('DateTime::Duration');
-        return Perldantic::Model::_wire_json($value)          if $value->isa('Perldantic::Model');
         return _emit_any($value->_perldantic_wire)                if $value->can('_perldantic_wire');
         return $value ? 'true' : 'false'
             if $value->isa('JSON::PP::Boolean') || $value->isa('Types::Serialiser::Boolean');
@@ -273,7 +284,11 @@ my %UNTAG = (
     float     => sub ($name)  { $name eq 'nan' ? 9**9**9 / 9**9**9 : $name eq 'inf' ? 9**9**9 : -9**9**9 },
     bigint    => sub ($text)  { Math::BigInt->new($text) },
     dict      => sub ($pairs) { +{map { ((ref $_->[0] ? _key_text($_->[0]) : $_->[0] // '') => $_->[1]) } @$pairs} },
-    model     => sub ($model) { Perldantic::Wire::Model->new(%$model) },
+    # the decoded object already has the fields of a Wire::Model
+    model     => sub ($model) {
+        $model->{fields_set} //= [sort keys %{$model->{fields} //= {}}];
+        bless $model, 'Perldantic::Wire::Model';
+    },
     enum      => sub ($member) { Perldantic::Wire::Enum->new(%$member) },
     host => sub ($host) {
         $OBJECT{$host->{id} // ''}
