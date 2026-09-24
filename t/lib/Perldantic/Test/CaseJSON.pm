@@ -110,10 +110,13 @@ sub _tagged ($tag, $payload, $in_schema) {
         return 9**9**9 / 9**9**9;
     }
     return ordered(map { @{$walk->($_)} } @$payload) if $tag eq '$dict';
-    return Perldantic::Wire::Date->new($payload)     if $tag eq '$date';
-    return Perldantic::Wire::Time->new($payload)     if $tag eq '$time';
-    return Perldantic::Wire::DateTime->new($payload) if $tag eq '$datetime';
-    return Perldantic::Wire::Duration->new(@$payload) if $tag eq '$timedelta';
+    return Perldantic::Date->from_iso($payload)     if $tag eq '$date';
+    return Perldantic::Time->from_iso($payload)     if $tag eq '$time';
+    return Perldantic::DateTime->from_iso($payload) if $tag eq '$datetime';
+    if ($tag eq '$timedelta') {
+        my ($days, $seconds, $microseconds) = @$payload;
+        return Perldantic::Duration->new(days => $days, seconds => $seconds, microseconds => $microseconds);
+    }
     return $payload if $tag eq '$class' && $in_schema;
     if ($tag eq '$model') {
         my $extra = node_get($payload, 'extra');

@@ -10,7 +10,7 @@ use Scalar::Util qw(blessed);
 use Perldantic::Error;
 use Perldantic::Type;
 
-my @SIMPLE = qw(Any Undef Bool Int Num Str Bytes);
+my @SIMPLE = qw(Any Undef Bool Int Num Str Bytes Date Time DateTime Duration);
 my @PARAMETERIZED = qw(Maybe Optional ArrayRef Tuple HashRef Map Dict Enum Literal InstanceOf);
 
 our @EXPORT_OK   = (@SIMPLE, @PARAMETERIZED, 'slurpy');
@@ -30,6 +30,11 @@ sub Int ()   { Perldantic::Type->new(name => 'Int',   schema => {type => 'int'})
 sub Num ()   { Perldantic::Type->new(name => 'Num',   schema => {type => 'float'}) }
 sub Str ()   { Perldantic::Type->new(name => 'Str',   schema => {type => 'str'}) }
 sub Bytes () { Perldantic::Type->new(name => 'Bytes', schema => {type => 'bytes'}) }
+sub Date ()  { Perldantic::Type->new(name => 'Date',  schema => {type => 'date'}) }
+sub Time ()  { Perldantic::Type->new(name => 'Time',  schema => {type => 'time'}) }
+# Inside a package that imports this type, call the DateTime class as `DateTime::->new`.
+sub DateTime () { Perldantic::Type->new(name => 'DateTime', schema => {type => 'datetime'}) }
+sub Duration () { Perldantic::Type->new(name => 'Duration', schema => {type => 'timedelta'}) }
 
 # The parameters of `Name[...]`, or undef for a bare `Name`.
 sub _params ($name, @args) {
@@ -253,6 +258,13 @@ a parameterized type, put it in a variable or in parentheses first: C<< (ArrayRe
 =item C<Any>, C<Undef>, C<Bool>, C<Int>, C<Num>, C<Str>, C<Bytes>
 
 Core C<any>, C<none>, C<bool>, C<int> (any size), C<float>, C<str> and C<bytes>.
+
+=item C<Date>, C<Time>, C<DateTime>, C<Duration>
+
+Core C<date>, C<time>, C<datetime> and C<timedelta>. They take ISO 8601 text, numbers
+(timestamps, or seconds for durations), L<DateTime>, L<Time::Moment> and L<DateTime::Duration>
+objects, and validate into L<Perldantic::Temporal> values. A package that imports C<DateTime>
+must call the L<DateTime> class as C<< DateTime::->new(...) >>, as with Types::DateTime.
 
 =item C<Maybe[T]>
 

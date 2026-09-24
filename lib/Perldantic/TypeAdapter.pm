@@ -35,6 +35,9 @@ sub new ($class, @args) {
     else {
         _usage('TypeAdapter->new takes a Perldantic type or a model class, got ' . (ref $type || $type // 'undef'));
     }
+    my $temporal = $self->{config}{temporal_class};
+    _usage("TypeAdapter: config: temporal_class must be Perldantic, DateTime or Time::Moment, got '$temporal'")
+        if defined $temporal && !$Perldantic::Temporal::CLASSES{$temporal};
     # Checked now, so that a bad setting fails where the adapter is made.
     $self->{core_config} = Perldantic::Model::_core_config_from($self->{config}, 'TypeAdapter: config');
     return $self;
@@ -66,12 +69,18 @@ sub _options ($name, @options) {
 
 sub validate_python ($self, $data, @options) {
     my $options = _options('validate_python', @options);
-    return Perldantic::Model::_validate_tracked(sub { $self->_compiled('validator')->validate($data, $options) });
+    return $self->_temporal(
+        Perldantic::Model::_validate_tracked(sub { $self->_compiled('validator')->validate($data, $options) }));
 }
 
 sub validate_json ($self, $json, @options) {
     my $result = $self->_compiled('validator')->validate_json($json, _options('validate_json', @options));
-    return Perldantic::Model::_inflate($result);
+    return $self->_temporal(Perldantic::Model::_inflate($result));
+}
+
+# `temporal_class` from the config (models convert their own fields).
+sub _temporal ($self, $value) {
+    return Perldantic::Temporal::_convert_deep($value, $self->{config}{temporal_class} // 'Perldantic');
 }
 
 sub dump_python ($self, $value, @options) {

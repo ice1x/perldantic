@@ -22,6 +22,10 @@ my %CONSTRAINTS = (
     tuple => [qw(strict min_length max_length)],
     dict  => [qw(strict min_length max_length)],
     'typed-dict' => [qw(strict)],
+    date      => [qw(strict le lt ge gt now_op now_utc_offset)],
+    time      => [qw(strict le lt ge gt tz_constraint microseconds_precision)],
+    datetime  => [qw(strict le lt ge gt now_op now_utc_offset tz_constraint microseconds_precision)],
+    timedelta => [qw(strict le lt ge gt microseconds_precision)],
 );
 # Constraints the core takes as booleans; any Perl truth value is accepted.
 my %FLAG = map { $_ => 1 } qw(strict allow_inf_nan strip_whitespace to_lower to_upper);
@@ -30,8 +34,27 @@ our %ANY_CONSTRAINT = map { $_ => 1 } map {@$_} values %CONSTRAINTS;
 my %ALLOWED = map { my $t = $_; ($t => {map { $_ => 1 } @{$CONSTRAINTS{$t}}}) } keys %CONSTRAINTS;
 
 sub new ($class, %args) {
+    if (ref $class) {
+        # `DateTime->new(...)` in a package that imports the DateTime type
+        my $name = $class->name;
+        Perldantic::UsageError->throw(message =>
+                "$name->new(...) called the Perldantic type $name; to call the class, write ${name}::->new(...)");
+    }
     return bless {parameters => [], %args}, $class;
 }
+
+# `DateTime->now` in a package that imports the DateTime type calls the type, not the class.
+our $AUTOLOAD;
+
+sub AUTOLOAD ($self, @) {
+    my ($method) = $AUTOLOAD =~ /::(\w+)\z/;
+    my $name = ref $self ? $self->name : $self;
+    Perldantic::UsageError->throw(message => ref $self
+        ? "$name->$method(...) called the Perldantic type $name; to call the class, write ${name}::->$method(...)"
+        : "Can't locate method $method in $name");
+}
+
+sub DESTROY { }
 
 sub name ($self)        { $self->{name} }
 sub parameters ($self)  { @{$self->{parameters}} }
@@ -113,6 +136,14 @@ A copy of the type with pydantic constraints added to its schema:
 =item C<Bytes>, C<ArrayRef>, C<Tuple>, C<HashRef>, C<Map>: C<strict min_length max_length>
 
 =item C<Bool>, C<Dict>: C<strict>
+
+=item C<Date>: C<strict le lt ge gt now_op now_utc_offset>
+
+=item C<Time>: C<strict le lt ge gt tz_constraint microseconds_precision>
+
+=item C<DateTime>: the C<Date> and C<Time> constraints
+
+=item C<Duration>: C<strict le lt ge gt microseconds_precision>
 
 =back
 

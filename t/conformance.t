@@ -100,8 +100,7 @@ sub plain ($value) {
     return bless [map { plain($_) } @$value], 'SetCmp' if $class eq 'Perldantic::Wire::Set';
     return $$value if $class eq 'Perldantic::Wire::Bytes';
     return "$value" if $class eq 'Math::BigInt';
-    return ref($value) . ':' . $value->iso if $class && $value->isa('Perldantic::Wire::Temporal');
-    return 'Duration:' . join(',', $value->parts) if $class eq 'Perldantic::Wire::Duration';
+    return ref($value) . ':' . $value->iso if $class && $value->isa('Perldantic::Temporal');
     if ($class eq 'Perldantic::Wire::Model') {
         return Perldantic::Wire::Model->new(
             class      => $value->class,

@@ -11,6 +11,7 @@ use Sub::Util ();
 use Perldantic::Error;
 use Perldantic::FFI;
 use Perldantic::Role ();
+use Perldantic::Temporal ();
 use Perldantic::Types ();
 use Role::Tiny ();
 use Perldantic::Wire;
@@ -45,6 +46,9 @@ my %CONFIG_KEY = (
     revalidate_instances => 'revalidate_instances',
     json_schema_extra    => 'json_schema_extra',
 );
+# Settings of the Perl layer only; the core never sees them.
+my %PERL_SETTING = map { $_ => 1 } qw(temporal_class);
+
 my %CONFIG_FLAG = map { $_ => 1 }
     qw(strict str_strip_whitespace str_to_lower str_to_upper validate_by_name validate_by_alias serialize_by_alias);
 
@@ -222,7 +226,9 @@ sub _declare_with ($class, @roles) {
 
 sub _declare_config ($class, %settings) {
     for my $key (sort keys %settings) {
-        _usage("model_config: unknown setting '$key'") if !$CONFIG_KEY{$key};
+        _usage("model_config: unknown setting '$key'") if !$CONFIG_KEY{$key} && !$PERL_SETTING{$key};
+        _usage("model_config: temporal_class must be Perldantic, DateTime or Time::Moment, got '$settings{$key}'")
+            if $key eq 'temporal_class' && !$Perldantic::Temporal::CLASSES{$settings{$key} // ''};
         _usage("model_config: extra must be allow, ignore or forbid, got '$settings{$key}'")
             if $key eq 'extra' && ($settings{$key} // '') !~ /\A(?:allow|ignore|forbid)\z/;
         _meta($class)->{config}{$key} = $settings{$key};
@@ -256,6 +262,7 @@ sub _core_config ($class) {
 sub _core_config_from ($config, $what) {
     my %core;
     for my $key (sort keys %$config) {
+        next if $PERL_SETTING{$key};
         _usage("$what: unknown setting '$key'") if !$CONFIG_KEY{$key};
         my $value = $config->{$key};
         $core{$CONFIG_KEY{$key}} = $CONFIG_FLAG{$key} ? ($value ? !!1 : !!0) : $value;
@@ -411,7 +418,10 @@ sub _inflate ($value, $args = undef) {
         if (my $object = _input_object($value)) {
             return $object;
         }
-        my $self   = bless {map { $_ => _inflate($fields->{$_}) } keys %$fields}, $class;
+        my $temporal = _config($class)->{temporal_class} // 'Perldantic';
+        my $self = bless {
+            map { $_ => Perldantic::Temporal::_convert_deep(_inflate($fields->{$_}), $temporal) } keys %$fields
+        }, $class;
         my %set    = map { $_ => 1 } grep { !/\A\Q$TOKEN_PREFIX\E/ } @{$value->fields_set};
         $STATE{$self} = {fields_set => \%set, extra => $value->extra};
         for my $spec (_fields($class)) {

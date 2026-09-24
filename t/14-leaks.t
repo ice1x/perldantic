@@ -11,7 +11,7 @@ BEGIN {
 
 use Perldantic::FFI;
 use Perldantic::TypeAdapter;
-use Perldantic::Types qw(:all);
+use Perldantic::Types qw(ArrayRef Maybe Num Str Map DateTime);
 use Perldantic::Wire qw(tuple bytes);
 
 package Leak::Node {
@@ -62,6 +62,13 @@ my $leaf = Leak::Node->new(name => 'leaf');
 no_leaks_ok { my $node = Leak::Node->new(name => 'n', children => [$leaf, {name => 'x'}]) } 'model objects as input';
 no_leaks_ok { local $@; eval { Leak::Node->new(name => 'n', children => [$leaf, 5]) } } 'errors with model objects';
 no_leaks_ok { local $@; my $e = eval { Leak::Node->new(1) } || $@; "$e" } 'usage errors';
+my $when = Perldantic::TypeAdapter->new(ArrayRef[DateTime]);
+$when->validate_python(['2022-06-08T12:00Z']);
+no_leaks_ok {
+    my $values = $when->validate_python(['2022-06-08T12:00Z', 1654646400]);
+    $when->dump_json($values);
+    my $sorted = $values->[0] <=> $values->[1];
+} 'dates and times';
 no_leaks_ok {
     my $values = $list->validate_python([1, undef, '2.5']);
     $list->dump_json($values);
