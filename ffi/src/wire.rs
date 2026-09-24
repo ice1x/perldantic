@@ -339,7 +339,7 @@ fn decode_model(payload: Value) -> CoreResult<Value> {
         Some(Value::Dict(extra)) => Some(extra),
         Some(other) => return Err(invalid("$model `extra` takes an object or null", &other)),
     };
-    Ok(Value::Model(Box::new(Model {
+    Ok(Value::Model(std::sync::Arc::new(Model {
         class,
         fields,
         fields_set,
@@ -550,7 +550,7 @@ mod tests {
             Value::Set(vec![Value::Int(1)]),
             Value::Bytes(vec![0, 255, 10]),
             Value::Dict(odd_keys),
-            Value::Model(Box::new(Model {
+            Value::Model(std::sync::Arc::new(Model {
                 class: "My::Model".to_owned(),
                 fields: [(Value::from("a"), Value::Bytes(b"x".to_vec()))]
                     .into_iter()

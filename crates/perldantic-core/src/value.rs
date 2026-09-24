@@ -39,7 +39,7 @@ pub enum Value {
     /// A Python `frozenset`, like `Set`.
     FrozenSet(Vec<Value>),
     /// A model instance, built by `model` schemas.
-    Model(Box<Model>),
+    Model(std::sync::Arc<Model>),
     /// Python's `datetime.date`.
     Date(speedate::Date),
     /// Python's `datetime.time`; `tz_offset` is the UTC offset in seconds of an aware time.
@@ -856,6 +856,16 @@ impl Dict {
             Some(entry) => entry.1 = value,
             None => self.0.push((key, value)),
         }
+    }
+
+    /// Append an entry whose key the caller knows is not in the dict yet (no lookup; a repeated
+    /// key would be a second entry).
+    pub fn push_new(&mut self, key: Value, value: Value) {
+        debug_assert!(
+            self.get(&key).is_none(),
+            "push_new with a key already present"
+        );
+        self.0.push((key, value));
     }
 
     pub fn get(&self, key: &Value) -> Option<&Value> {

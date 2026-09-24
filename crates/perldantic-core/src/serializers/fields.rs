@@ -109,6 +109,11 @@ impl GeneralFieldsSerializer {
         }
     }
 
+    /// Whether the value it takes carries extra values (a model that allows them).
+    pub(crate) fn takes_extra(&self) -> bool {
+        matches!(self.mode, FieldsMode::ModelExtra)
+    }
+
     fn field(&self, key: &str) -> Option<&SerField> {
         self.fields.iter().find(|f| f.key == key)
     }
@@ -268,19 +273,7 @@ impl TypeSerializer for GeneralFieldsSerializer {
             state.warn_fallback_py(self.get_name(), value)?;
             return infer_to_python(value, state);
         };
-        get_model(state)?;
-        let mut out = Dict::new();
-        self.for_each_entry(
-            main_dict,
-            extra_dict,
-            state,
-            |key, value, serializer, state| {
-                let value = serializer.to_python_no_infer(value, state)?;
-                out.insert(Value::from(key), value);
-                Ok::<(), SerializeError>(())
-            },
-        )?;
-        Ok(Value::Dict(out))
+        self.dicts_to_python(main_dict, extra_dict, state)
     }
 
     fn json_key<'a>(
@@ -301,6 +294,47 @@ impl TypeSerializer for GeneralFieldsSerializer {
             state.warn_fallback_ser::<S>(self.get_name(), value)?;
             return infer_serialize(value, serializer, state);
         };
+        self.dicts_serde_serialize(main_dict, extra_dict, serializer, state)
+    }
+
+    fn get_name(&self) -> &'static str {
+        "general-fields"
+    }
+}
+
+impl GeneralFieldsSerializer {
+    /// Serialize the fields and extra values of a model (or the keys of a typed dict), given as
+    /// dicts: the model serializer hands its model's own dicts over without copying them.
+    pub(crate) fn dicts_to_python(
+        &self,
+        main_dict: &Dict,
+        extra_dict: Option<&Dict>,
+        state: &mut SerializationState,
+    ) -> SerResult<Value> {
+        get_model(state)?;
+        let mut out = Dict::new();
+        self.for_each_entry(
+            main_dict,
+            extra_dict,
+            state,
+            |key, value, serializer, state| {
+                let value = serializer.to_python_no_infer(value, state)?;
+                // fields and extra values have distinct names
+                out.push_new(Value::from(key), value);
+                Ok::<(), SerializeError>(())
+            },
+        )?;
+        Ok(Value::Dict(out))
+    }
+
+    /// As [`Self::dicts_to_python`], to a serde serializer.
+    pub(crate) fn dicts_serde_serialize<S: serde::ser::Serializer>(
+        &self,
+        main_dict: &Dict,
+        extra_dict: Option<&Dict>,
+        serializer: S,
+        state: &mut SerializationState,
+    ) -> Result<S::Ok, S::Error> {
         get_model(state).map_err(|e| py_err_se_err(&e))?;
         let mut map = serializer.serialize_map(None)?;
         let result = self.for_each_entry(
@@ -318,10 +352,6 @@ impl TypeSerializer for GeneralFieldsSerializer {
             Err(SerErrorOrSe::Se(e)) => Err(e),
             Err(SerErrorOrSe::Ser(e)) => Err(py_err_se_err(&e)),
         }
-    }
-
-    fn get_name(&self) -> &'static str {
-        "general-fields"
     }
 }
 

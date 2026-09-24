@@ -72,7 +72,7 @@ fn builtin_values_by_type_name() {
     assert!(ok("str", &j(r#""x""#)));
     assert!(ok("list", &j("[1]")));
     assert!(!ok("dict", &j("[1]")));
-    let model = Value::Model(Box::new(Model {
+    let model = Value::Model(std::sync::Arc::new(Model {
         class: "Point".into(),
         fields: Dict::new(),
         fields_set: vec![],

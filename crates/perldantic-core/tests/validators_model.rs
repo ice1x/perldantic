@@ -33,7 +33,7 @@ fn dict(json: &str) -> Dict {
 }
 
 fn instance(class: &str, fields: &str, fields_set: &[&str], extra: Option<&str>) -> Value {
-    Value::Model(Box::new(Model {
+    Value::Model(std::sync::Arc::new(Model {
         class: class.into(),
         fields: dict(fields),
         fields_set: fields_set.iter().map(|f| s(f)).collect(),

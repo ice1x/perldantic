@@ -181,7 +181,7 @@ impl ModelValidator {
                 extra,
             }
         };
-        Ok(Value::Model(Box::new(model)))
+        Ok(Value::Model(std::sync::Arc::new(model)))
     }
 }
 

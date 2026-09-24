@@ -180,6 +180,15 @@ impl ModelSerializer {
         }
     }
 
+    /// The extra values the fields serializer sees: the model's, when the model allows them.
+    fn extra_dict<'a>(&self, model: &'a Model) -> Option<&'a Dict> {
+        if self.has_extra {
+            model.extra.as_ref()
+        } else {
+            None
+        }
+    }
+
     /// Fields not set from input, dropped by `exclude_unset`.
     fn unset_fields(model: &Model) -> Vec<String> {
         model
@@ -229,10 +238,17 @@ impl TypeSerializer for ModelSerializer {
         let Value::Model(model) = value else {
             unreachable!("allowed values are models")
         };
-        let inner_value = self.get_inner_value(model);
         let unset = state.extra.exclude_unset.then(|| Self::unset_fields(model));
         let state = &mut state.scoped_set(|s| &mut s.model, Some(value.clone()));
         let state = &mut state.scoped_set(|s| &mut s.unset_fields, unset);
+        // the fields serializer reads the model's own dicts, when it expects what the model has;
+        // other inner serializers (a model serializer function, for one) get them as a value
+        if let CombinedSerializer::Fields(fields) = &*self.serializer
+            && fields.takes_extra() == self.has_extra
+        {
+            return fields.dicts_to_python(&model.fields, self.extra_dict(model), state);
+        }
+        let inner_value = self.get_inner_value(model);
         self.serializer.to_python_no_infer(&inner_value, state)
     }
 
@@ -271,10 +287,20 @@ impl TypeSerializer for ModelSerializer {
         let Value::Model(model) = value else {
             unreachable!("allowed values are models")
         };
-        let inner_value = self.get_inner_value(model);
         let unset = state.extra.exclude_unset.then(|| Self::unset_fields(model));
         let state = &mut state.scoped_set(|s| &mut s.model, Some(value.clone()));
         let state = &mut state.scoped_set(|s| &mut s.unset_fields, unset);
+        if let CombinedSerializer::Fields(fields) = &*self.serializer
+            && fields.takes_extra() == self.has_extra
+        {
+            return fields.dicts_serde_serialize(
+                &model.fields,
+                self.extra_dict(model),
+                serializer,
+                state,
+            );
+        }
+        let inner_value = self.get_inner_value(model);
         self.serializer
             .serde_serialize_no_infer(&inner_value, serializer, state)
     }
