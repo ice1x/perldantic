@@ -35,7 +35,9 @@ WriteMakefile(
         },
         META_MERGE => {
             'meta-spec' => { version => 2 },
+            no_index    => {directory => [qw(tests crates ffi docs)]},
             resources   => {
+                bugtracker => {web => 'https://github.com/ice1x/perldantic/issues'},
                 repository => {
                     type => 'git',
                     url  => 'https://github.com/ice1x/perldantic.git',

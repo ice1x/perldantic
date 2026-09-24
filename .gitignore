@@ -55,3 +55,6 @@ __pycache__/
 
 # generated from Perldantic.xs by xsubpp
 /Perldantic.c
+
+# make dist / disttest
+/Perldantic-*/

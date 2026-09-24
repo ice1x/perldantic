@@ -2,6 +2,19 @@
 
 Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `pydantic-core` Rust engine. See [docs/PLAN.md](docs/PLAN.md).
 
+## Installation
+
+Perldantic needs Perl 5.36 or newer and a Rust toolchain (`cargo`, 1.88 or newer), which builds
+the core during installation:
+
+```sh
+cpanm Perldantic
+```
+
+From a checkout: `perl Makefile.PL && make && make test && make install`. Start with
+[Perldantic](lib/Perldantic.pm)'s documentation (`perldoc Perldantic`), or with
+[docs/MIGRATING_FROM_PYDANTIC.md](docs/MIGRATING_FROM_PYDANTIC.md) if you know pydantic.
+
 ## Tasks
 
 - [x] 00001 — Scaffold & upstream import
