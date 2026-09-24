@@ -565,6 +565,11 @@ impl<'o> GenerateJsonSchema<'o> {
             "time" => Ok(self.common_temporal_schema("time", self.ser_json_temporal())),
             "datetime" => Ok(self.common_temporal_schema("date-time", self.ser_json_temporal())),
             "timedelta" => Ok(self.timedelta_schema()),
+            "uuid" => {
+                let mut json_schema = typed("string");
+                set(&mut json_schema, "format", "uuid");
+                Ok(json_schema)
+            }
             "literal" => self.literal_schema(schema),
             "list" => self.list_schema(schema),
             "tuple" => self.tuple_schema(schema),

@@ -13,6 +13,7 @@ use Scalar::Util qw(blessed reftype);
 
 use Perldantic::Error;
 use Perldantic::Temporal;
+use Perldantic::Uuid;
 
 our @EXPORT_OK = qw(tuple set bytes ordered);
 
@@ -132,6 +133,7 @@ sub _tag ($value) {
         return {'$bytes' => encode_base64($$value, '')} if $class eq 'Perldantic::Wire::Bytes';
         return {'$model' => $value->_wire}              if $class eq 'Perldantic::Wire::Model';
         return {$value->_wire_tag => $value->_wire_payload} if $value->isa('Perldantic::Temporal');
+        return {'$uuid' => $value->as_string}           if $value->isa('Perldantic::Uuid');
         return {'$datetime' => _datetime_iso($value)} if $value->isa('DateTime');
         return {'$datetime' => _time_moment_iso($value)} if $value->isa('Time::Moment');
         return _tag(_duration_parts($value)) if $value->isa('DateTime::Duration');
@@ -164,6 +166,7 @@ my %UNTAG = (
     date      => sub ($iso)   { Perldantic::Date->from_iso($iso) },
     time      => sub ($iso)   { Perldantic::Time->from_iso($iso) },
     datetime  => sub ($iso)   { Perldantic::DateTime->from_iso($iso) },
+    uuid      => sub ($text)  { Perldantic::Uuid->new($text) },
     timedelta => sub ($parts) {
         my ($days, $seconds, $microseconds) = @$parts;
         Perldantic::Duration->new(days => $days, seconds => $seconds, microseconds => $microseconds);
@@ -260,6 +263,8 @@ C<ordered(key =E<gt> value, ...)>, which keeps the given key order;
 =item * dates, times, datetimes and durations are L<Perldantic::Temporal> values (decoded as
 such too); L<DateTime> and L<Time::Moment> objects are sent as datetimes (a floating DateTime as
 a naive one) and L<DateTime::Duration> objects without months as durations;
+
+=item * UUIDs are L<Perldantic::Uuid> values, C<{"$uuid": "..."}> (decoded as such too);
 
 =item * an object with a C<_perldantic_wire> method is sent as what that method returns.
 

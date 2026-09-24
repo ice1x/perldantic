@@ -10,6 +10,7 @@ use Exporter 'import';
 use MIME::Base64 qw(decode_base64);
 use Math::BigInt;
 
+use Perldantic::Uuid;
 use Perldantic::Wire qw(tuple set bytes ordered);
 
 our @EXPORT_OK = qw(parse_json interpret node_get node_has);
@@ -113,6 +114,7 @@ sub _tagged ($tag, $payload, $in_schema) {
     return Perldantic::Date->from_iso($payload)     if $tag eq '$date';
     return Perldantic::Time->from_iso($payload)     if $tag eq '$time';
     return Perldantic::DateTime->from_iso($payload) if $tag eq '$datetime';
+    return Perldantic::Uuid->new($payload)          if $tag eq '$uuid';
     if ($tag eq '$timedelta') {
         my ($days, $seconds, $microseconds) = @$payload;
         return Perldantic::Duration->new(days => $days, seconds => $seconds, microseconds => $microseconds);

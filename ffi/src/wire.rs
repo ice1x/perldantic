@@ -10,13 +10,14 @@
 //! - `{"$date": "2022-06-08"}`, `{"$time": "12:13:14.000001+01:00"}`,
 //!   `{"$datetime": "2022-06-08T12:13:14+01:00"}` (Python's `isoformat`) and
 //!   `{"$timedelta": [days, seconds, microseconds]}` (Python's normalised fields);
+//! - `{"$uuid": "12345678-1234-5678-1234-567812345678"}` (read in any form `uuid` parses);
 //! - `{"$model": {"class", "fields", "fields_set", "extra"}}` for model instances.
 
 use std::fmt::Write as _;
 
 use base64::Engine;
 use base64::engine::general_purpose::STANDARD;
-use perldantic_core::{CoreError, CoreResult, Dict, Model, Value, speedate, temporal};
+use perldantic_core::{CoreError, CoreResult, Dict, Model, Value, speedate, temporal, uuid};
 
 /// Parse wire JSON into a value.
 pub fn decode(json: &str) -> CoreResult<Value> {
@@ -118,6 +119,13 @@ fn decode_tag(tag: &str, payload: Value) -> CoreResult<Value> {
             speedate::DateTime::parse_str,
         )?),
         "timedelta" => decode_timedelta(&payload)?,
+        "uuid" => match &payload {
+            Value::Str(text) => Value::Uuid(
+                uuid::Uuid::parse_str(text)
+                    .map_err(|_| invalid("$uuid takes UUID text", &payload))?,
+            ),
+            _ => return Err(invalid("$uuid takes UUID text", &payload)),
+        },
         other => {
             return Err(CoreError::Value(format!(
                 "Invalid wire value: unknown tag `${other}`"
@@ -289,6 +297,7 @@ fn write_value(value: &Value, out: &mut String) {
             let (days, seconds, micros) = temporal::timedelta_parts(d);
             write!(out, "[{days},{seconds},{micros}]").expect("writing to a String");
         }),
+        Value::Uuid(u) => write_tagged("uuid", out, |out| write_str(&u.to_string(), out)),
         Value::Model(model) => write_tagged("model", out, |out| {
             out.push_str("{\"class\":");
             write_str(&model.class, out);
@@ -388,6 +397,21 @@ mod tests {
         assert_eq!(
             decode(r#"{"$timedelta": [1]}"#).unwrap_err().to_string(),
             "Invalid wire value: $timedelta takes [days, seconds, microseconds], got [1]"
+        );
+    }
+
+    #[test]
+    fn uuids_are_hyphenated_text() {
+        let text = "12345678-1234-5678-1234-567812345678";
+        let value = Value::Uuid(uuid::Uuid::parse_str(text).unwrap());
+        assert_eq!(encode(&value), format!(r#"{{"$uuid":"{text}"}}"#));
+        assert_eq!(
+            decode(r#"{"$uuid": "12345678123456781234567812345678"}"#).unwrap(),
+            value
+        );
+        assert_eq!(
+            decode(r#"{"$uuid": "nope"}"#).unwrap_err().to_string(),
+            "Invalid wire value: $uuid takes UUID text, got 'nope'"
         );
     }
 

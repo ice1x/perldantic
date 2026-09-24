@@ -17,7 +17,7 @@ use base64::engine::general_purpose::STANDARD;
 use perldantic_core::{
     Dict, ErrorDetails, ErrorsOptions, ExtraBehavior, JsonOptions, LocItem, Model, PartialMode,
     SchemaSerializer, SchemaValidator, SerMode, SerializeOptions, ValidateError, ValidateOptions,
-    Value, WarningsMode, speedate, temporal,
+    Value, WarningsMode, speedate, temporal, uuid,
 };
 use serde_json::Value as Json;
 
@@ -130,6 +130,7 @@ fn decode_tag(tag: &str, payload: &Json, in_schema: bool) -> Result<Value, Skip>
             let part = |i: usize| payload[i].as_i64().unwrap();
             Value::TimeDelta(temporal::duration_from_parts(part(0), part(1), part(2)).unwrap())
         }
+        "uuid" => Value::Uuid(uuid::Uuid::parse_str(payload.as_str().unwrap()).unwrap()),
         other => return Err(Skip(format!("value ${other}"))),
     })
 }

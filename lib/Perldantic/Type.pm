@@ -26,6 +26,7 @@ my %CONSTRAINTS = (
     time      => [qw(strict le lt ge gt tz_constraint microseconds_precision)],
     datetime  => [qw(strict le lt ge gt now_op now_utc_offset tz_constraint microseconds_precision)],
     timedelta => [qw(strict le lt ge gt microseconds_precision)],
+    uuid      => [qw(strict version)],
 );
 # Constraints the core takes as booleans; any Perl truth value is accepted.
 my %FLAG = map { $_ => 1 } qw(strict allow_inf_nan strip_whitespace to_lower to_upper);
@@ -144,6 +145,8 @@ A copy of the type with pydantic constraints added to its schema:
 =item C<DateTime>: the C<Date> and C<Time> constraints
 
 =item C<Duration>: C<strict le lt ge gt microseconds_precision>
+
+=item C<Uuid>: C<strict version>
 
 =back
 

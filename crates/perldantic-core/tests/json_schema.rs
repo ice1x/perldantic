@@ -22,7 +22,7 @@ use perldantic_core::{
     Dict, JsonSchemaError, JsonSchemaMode, JsonSchemaOptions, UnionFormat, Value,
     generate_json_schema,
 };
-use perldantic_core::{speedate, temporal};
+use perldantic_core::{speedate, temporal, uuid};
 use serde_json::Value as Json;
 
 /// Why a case cannot run yet.
@@ -110,6 +110,7 @@ fn decode_tag(tag: &str, payload: &Json) -> Result<Value, Skip> {
             let part = |i: usize| payload[i].as_i64().unwrap();
             Value::TimeDelta(temporal::duration_from_parts(part(0), part(1), part(2)).unwrap())
         }
+        "uuid" => Value::Uuid(uuid::Uuid::parse_str(payload.as_str().unwrap()).unwrap()),
         other => return Err(Skip(format!("${other} value"))),
     })
 }
