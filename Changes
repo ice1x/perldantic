@@ -22,5 +22,9 @@ Revision history for Perldantic
       ::MultiHostUrl; Math::BigFloat for decimals; DateTime and Time::Moment interop.
     - Perldantic::FFI: the core schema API itself (validators and serializers for
       pydantic core_schema dicts, JSON Schema).
+    - check / model_check: validation without building a result.
+    - Performance: validation reads Perl data in place and builds objects in C (5x faster
+      than Moo + Type::Tiny::XS on docs/BENCHMARKS.md's models; check 2.5x faster than
+      Type::Tiny::XS's check).
     - Documentation: POD for every module, docs/MIGRATING_FROM_PYDANTIC.md,
       docs/DIVERGENCES.md.
