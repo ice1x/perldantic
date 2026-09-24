@@ -113,10 +113,7 @@ sub _field_spec ($class, $name, %options) {
     }
     $spec{is} = $is;
 
-    my $isa = delete $options{isa} // Perldantic::Types::Any();
-    if (!ref $isa) {
-        $isa = Perldantic::Types::InstanceOf([$isa]);
-    }
+    my $isa = Perldantic::Types::_as_type(delete $options{isa} // Perldantic::Types::Any());
     _usage("has $name: isa must be a Perldantic type or a Perldantic model class")
         if !blessed $isa || !$isa->isa('Perldantic::Type');
 
@@ -271,7 +268,7 @@ my %WHEN_USED = map { $_ => 1 } qw(always unless-none json json-unless-none);
 
 # A Perldantic type from an `isa`-like option (a class name stands for InstanceOf[]).
 sub _type_option ($what, $isa) {
-    $isa = Perldantic::Types::InstanceOf([$isa]) if defined $isa && !ref $isa;
+    $isa = Perldantic::Types::_as_type($isa);
     _usage("$what: isa must be a Perldantic type or a Perldantic model class")
         if !blessed $isa || !$isa->isa('Perldantic::Type');
     return $isa;

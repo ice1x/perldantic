@@ -6,6 +6,7 @@ our $VERSION = '0.01';
 
 use Exporter 'import';
 use Scalar::Util qw(blessed);
+use Sub::Util ();
 
 use Perldantic::Error;
 use Perldantic::Type;
@@ -54,10 +55,38 @@ sub _count ($name, $params, $count) {
         if $got != $count;
 }
 
+# A Type::Tiny constraint as a Perldantic type: a plain validator function that applies its
+# coercion, checks the value and reports its message as a value error. It takes any input, as
+# its JSON Schema says.
+sub _from_type_tiny ($constraint) {
+    my $name = $constraint->display_name;
+    my $check = Sub::Util::set_subname($name =~ s/\W/_/gr, sub ($value) {
+        $value = $constraint->coerce($value) if $constraint->has_coercion;
+        return $value if $constraint->check($value);
+        die $constraint->get_message($value) . "\n";
+    });
+    return Perldantic::Type->new(
+        name   => $name,
+        schema => {
+            type                     => 'function-plain',
+            function                 => {type => 'no-info', function => $check},
+            json_schema_input_schema => {type => 'any'},
+        },
+    );
+}
+
+# What `isa` and type parameters take, as a Perldantic type: Perldantic types, Type::Tiny
+# constraints, and class names (InstanceOf[class], as in `isa => 'Class'`). Anything else is
+# returned as it is, for the caller to reject.
+sub _as_type ($value) {
+    return InstanceOf([$value]) if defined $value && !ref $value && $value =~ /\A[A-Za-z_]\w*(?:::\w+)+\z|\A[A-Z]\w*\z/;
+    return _from_type_tiny($value) if blessed $value && $value->isa('Type::Tiny');
+    return $value;
+}
+
 # Check a type parameter; Optional[] is only meaningful where a slot may be left out.
 sub _type ($name, $param, $optional_ok = 0) {
-    # A class name stands for InstanceOf[class], as in `isa => 'Class'`.
-    $param = InstanceOf([$param]) if defined $param && !ref $param && $param =~ /\A[A-Za-z_]\w*(?:::\w+)+\z|\A[A-Z]\w*\z/;
+    $param = _as_type($param);
     _usage("$name\[] takes a type, got " . ($param // 'undef'))
         if !blessed $param || !$param->isa('Perldantic::Type');
     _usage('Optional[] is only supported inside Dict[]') if $param->is_optional && !$optional_ok;
@@ -270,11 +299,23 @@ sub Literal :prototype(;$) (@args) {
     });
 }
 
+# Classes whose objects Perldantic sends to the core as data (dates, URLs, numbers...): the core
+# sees no object to check the class of.
+my %CONVERTED = map { $_ => 1 } qw(
+    DateTime Time::Moment DateTime::Duration URI Math::BigInt Math::BigFloat
+    JSON::PP::Boolean Types::Serialiser::Boolean
+    Perldantic::Date Perldantic::Time Perldantic::DateTime Perldantic::Duration
+    Perldantic::Uuid Perldantic::Url Perldantic::MultiHostUrl
+);
+
 sub InstanceOf :prototype(;$) (@args) {
     my $params = _params('InstanceOf', @args) // _usage('InstanceOf[] takes a class name');
     _usage('InstanceOf[] takes a class name')
         if @$params != 1 || !defined $params->[0] || ref $params->[0];
     my $class = $params->[0];
+    _usage("InstanceOf[$class]: $class objects are sent as data; use the matching type "
+            . '(Date, Time, DateTime, Duration, Uuid, Url, Decimal, Int or Bool) instead')
+        if $CONVERTED{$class} || $class =~ /\AURI::/;
     return Perldantic::Type->new(
         name   => 'InstanceOf[' . _quote($class) . ']',
         schema => {type => 'is-instance', cls => $class},
@@ -411,10 +452,22 @@ One of the given plain values, C<undef> included (core C<literal>).
 
 =item C<InstanceOf['Class']>
 
-An object of the class (core C<is-instance>). The core validates it once host classes are
-supported (task 00056).
+An object of the class or a subclass (core C<is-instance>), validated and returned as the very
+object; a class name stands for C<InstanceOf[]> wherever a type is expected. For a Perldantic
+model class, the model's own schema applies instead. Objects of other classes cannot be written
+as JSON (C<dump_json> fails, as pydantic does for arbitrary types) and have no JSON Schema.
+Classes whose objects Perldantic turns into data (DateTime, Time::Moment, DateTime::Duration,
+URI, Math::BigInt, Math::BigFloat, the Perldantic value classes) are not accepted: use the
+matching type.
 
 =back
+
+=head2 Type::Tiny constraints
+
+A L<Type::Tiny> constraint (e.g. from L<Types::Standard>) can stand wherever a type is
+expected: C<< isa => Types::Standard::Int >>, C<ArrayRef[$constraint]>. It validates in Perl:
+its coercion applies, and a value it rejects is a C<value_error> with the constraint's message.
+Its JSON Schema accepts any value.
 
 =head2 slurpy
 

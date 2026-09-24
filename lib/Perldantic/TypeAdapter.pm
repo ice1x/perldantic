@@ -29,8 +29,8 @@ sub new ($class, @args) {
     elsif (!ref $type && defined $type && $type =~ /\A\w+(?:::\w+)*\z/) {
         $self->{type} = Perldantic::Types::InstanceOf([$type]);
     }
-    elsif (blessed $type && $type->isa('Perldantic::Type')) {
-        $self->{type} = $type;
+    elsif (blessed $type && ($type->isa('Perldantic::Type') || $type->isa('Type::Tiny'))) {
+        $self->{type} = Perldantic::Types::_as_type($type);
     }
     else {
         _usage('TypeAdapter->new takes a Perldantic type or a model class, got ' . (ref $type || $type // 'undef'));

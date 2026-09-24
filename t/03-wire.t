@@ -135,7 +135,7 @@ subtest 'code references are host functions' => sub {
 };
 
 subtest 'unsupported values are usage errors' => sub {
-    for my $bad (\1, bless({}, 'Some::Class')) {
+    for my $bad (\1, \*STDOUT) {
         my $e = dies { Perldantic::Wire::encode([$bad]) };
         isa_ok $e, 'Perldantic::UsageError';
         like $e->message, qr/^Cannot pass .+ to the core: .+ has no wire form$/;

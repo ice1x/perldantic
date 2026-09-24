@@ -120,6 +120,25 @@ fn host_objects_serialize_as_unknown_types() {
 }
 
 #[test]
+fn is_instance_schemas_serialize_by_inference() {
+    let s =
+        SchemaSerializer::new(&j(r#"{"type": "is-instance", "cls": "My::Point"}"#), None).unwrap();
+    let object = host("My::Point", &["My::Point"]);
+    assert_eq!(
+        s.to_python(&object, &SerializeOptions::default())
+            .unwrap()
+            .output,
+        object
+    );
+    assert_eq!(
+        s.to_python(&Value::Int(1), &SerializeOptions::default())
+            .unwrap()
+            .output,
+        Value::Int(1)
+    );
+}
+
+#[test]
 fn no_json_schema_for_instances() {
     let Err(JsonSchemaError::InvalidForJsonSchema(message)) = generate_json_schema(
         &j(r#"{"type": "is-instance", "cls": "My::Point"}"#),

@@ -55,13 +55,13 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00049 — Leak tests (Test::LeakTrace)
   - [x] 00077 — Roles (`with`) and method modifiers for models; model objects passed as input kept, not copied
   - [x] 00076 — Perl input type in the core: Perl-worded error messages (hash/array reference, undef), sorted hash keys, arrays as strict tuples
-- [ ] 00050 — P1 types & callbacks
+- [x] 00050 — P1 types & callbacks
   - [x] 00051 — `Date`, `Time`, `DateTime`, `Duration` (core: `date`, `time`, `datetime`, `timedelta`; speedate; Time::Moment / DateTime)
   - [x] 00052 — `Decimal` (Math::BigFloat), `Uuid`, `Url` (core: `decimal`, `uuid`, `url` / `multi-host-url`)
   - [x] 00053 — `Enum[]`, unique arrays, chains, `Json`, `Dict[]` (core: `enum`, `set`, `frozenset`, `chain`, `json`, `typed-dict`)
   - [x] 00054 — `function-before/after/wrap/plain` via `HostCallback`
   - [x] 00055 — Perl `field_validator`, `model_validator`, `field_serializer`, `model_serializer`, `computed_field`
-  - [ ] 00056 — `InstanceOf[]` and Type::Tiny interop
+  - [x] 00056 — `InstanceOf[]` and Type::Tiny interop
 - [ ] 00057 — Native SV bridge
   - [ ] 00058 — XS `Input` over SV (strict mode via SV flags)
   - [ ] 00059 — `Value` → SV without JSON

@@ -89,7 +89,9 @@ with a C<_build_$name> builder unless there is a default) or C<bare> (no accesso
 
 =item C<isa>
 
-A L<Perldantic::Types> type, or the name of a Perldantic model class. Defaults to C<Any>.
+A L<Perldantic::Types> type, a L<Type::Tiny> constraint, or a class name: a Perldantic model
+class, or any other class, whose objects the field then takes (C<InstanceOf[]>). Defaults to
+C<Any>.
 
 =item C<required>
 

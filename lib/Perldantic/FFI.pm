@@ -242,9 +242,14 @@ package Perldantic::FFI::Validator {
 
     sub new ($class, $schema, $config = undef) {
         # the validator keeps the functions its schema holds alive
-        local @Perldantic::Wire::FUNCTIONS;
+        local $Perldantic::Wire::COLLECT = 1;
+        local (@Perldantic::Wire::FUNCTIONS, @Perldantic::Wire::OBJECTS);
         my $handle = Perldantic::FFI::_compile(\&Perldantic::FFI::_validator_new, $schema, $config);
-        return bless {handle => $handle, functions => [@Perldantic::Wire::FUNCTIONS]}, $class;
+        return bless {
+            handle    => $handle,
+            functions => [@Perldantic::Wire::FUNCTIONS],
+            objects   => [@Perldantic::Wire::OBJECTS],
+        }, $class;
     }
 
     sub validate ($self, $input, $options = undef) {
@@ -273,9 +278,14 @@ package Perldantic::FFI::Validator {
 package Perldantic::FFI::Serializer {
 
     sub new ($class, $schema, $config = undef) {
-        local @Perldantic::Wire::FUNCTIONS;
+        local $Perldantic::Wire::COLLECT = 1;
+        local (@Perldantic::Wire::FUNCTIONS, @Perldantic::Wire::OBJECTS);
         my $handle = Perldantic::FFI::_compile(\&Perldantic::FFI::_serializer_new, $schema, $config);
-        return bless {handle => $handle, functions => [@Perldantic::Wire::FUNCTIONS]}, $class;
+        return bless {
+            handle    => $handle,
+            functions => [@Perldantic::Wire::FUNCTIONS],
+            objects   => [@Perldantic::Wire::OBJECTS],
+        }, $class;
     }
 
     sub _call ($self, $function, $value, $options) {

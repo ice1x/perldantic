@@ -146,6 +146,15 @@ no_leaks_ok {
     $shape->model_dump;
     $shape->model_dump_json;
 } 'serializers and computed fields';
+my $things = Perldantic::TypeAdapter->new(ArrayRef['Leak::Thing']);
+my $thing = bless {}, 'Leak::Thing';
+$things->validate_python([$thing]);
+no_leaks_ok {
+    my $got = $things->validate_python([$thing]);
+    $things->dump_python($got);
+    local $@;
+    eval { $things->validate_python([{}]) };
+} 'host objects';
 no_leaks_ok {
     my $values = $list->validate_python([1, undef, '2.5']);
     $list->dump_json($values);
