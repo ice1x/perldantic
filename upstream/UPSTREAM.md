@@ -125,7 +125,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `serializers/type_serializers/typed_dict.rs` | `crates/perldantic-core/src/serializers/type_serializers/typed_dict.rs` | P1 | pending |  |
 | `serializers/type_serializers/union.rs` | `crates/perldantic-core/src/serializers/type_serializers/union.rs` | P0 | partial | function discriminators wait for host callbacks |
 | `serializers/type_serializers/url.rs` | `crates/perldantic-core/src/serializers/type_serializers/url.rs` | P1 | pending |  |
-| `serializers/type_serializers/uuid.rs` | `crates/perldantic-core/src/serializers/type_serializers/uuid.rs` | P1 | pending |  |
+| `serializers/type_serializers/uuid.rs` | `crates/perldantic-core/src/serializers/type_serializers/uuid.rs` | P1 | done |  |
 | `serializers/type_serializers/with_default.rs` | `crates/perldantic-core/src/serializers/type_serializers/with_default.rs` | P0 | ported |  |
 | `tools.rs` | `crates/perldantic-core/src/tools.rs` | P0 | partial | truncation helpers ported; `SchemaDict` lives in `build_tools.rs` |
 | `url.rs` | `crates/perldantic-core/src/url.rs` | P1 | pending |  |
@@ -183,7 +183,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/typed_dict.rs` | `crates/perldantic-core/src/validators/typed_dict.rs` | P1 | pending |  |
 | `validators/union.rs` | `crates/perldantic-core/src/validators/union.rs` | P0 | partial | `union` and `tagged-union`; function discriminators wait for host callbacks |
 | `validators/url.rs` | `crates/perldantic-core/src/validators/url.rs` | P1 | pending |  |
-| `validators/uuid.rs` | `crates/perldantic-core/src/validators/uuid.rs` | P1 | pending |  |
+| `validators/uuid.rs` | `crates/perldantic-core/src/validators/uuid.rs` | P1 | done | `Value::Uuid`; strict mode wants a UUID object for Perl input too |
 | `validators/validation_state.rs` | `crates/perldantic-core/src/validators/validation_state.rs` | P0 | ported | `self_instance` and the Python string cache dropped |
 | `validators/with_default.rs` | `crates/perldantic-core/src/validators/with_default.rs` | P0 | partial | `default_factory` waits for host callbacks; defaults are always copied; invalid defaults with `on_error='default'` report their error (DIVERGENCES #10) |
 
@@ -196,4 +196,4 @@ plus every JSON Schema pydantic's own test suite generates.
 
 | Upstream file | Perldantic file | Priority | Status | Notes |
 |---|---|---|---|---|
-| `pydantic/json_schema.py` | `crates/perldantic-core/src/json_schema/` | P0 | partial | `GenerateJsonSchema.generate` for the P0 schema types and dates/times/datetimes/timedeltas; `generate_definitions` (`models_json_schema`), other P1 types and callables later; model config from the schema (DIVERGENCES #15) |
+| `pydantic/json_schema.py` | `crates/perldantic-core/src/json_schema/` | P0 | partial | `GenerateJsonSchema.generate` for the P0 schema types, dates/times/datetimes/timedeltas and UUIDs; `generate_definitions` (`models_json_schema`), other P1 types and callables later; model config from the schema (DIVERGENCES #15) |

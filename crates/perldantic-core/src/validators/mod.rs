@@ -39,6 +39,7 @@ mod time;
 mod timedelta;
 mod tuple;
 mod union;
+mod uuid;
 pub(crate) mod validation_state;
 pub(crate) mod with_default;
 
@@ -318,6 +319,7 @@ validators! {
     tuple::TupleValidator,
     union::TaggedUnionValidator,
     union::UnionValidator,
+    uuid::UuidValidator,
     with_default::WithDefaultValidator,
 }
 
@@ -372,6 +374,7 @@ pub enum CombinedValidator {
     Union(union::UnionValidator),
     // Boxed: much larger than most validators.
     TaggedUnion(Box<union::TaggedUnionValidator>),
+    Uuid(uuid::UuidValidator),
     WithDefault(with_default::WithDefaultValidator),
 }
 

@@ -45,6 +45,8 @@ pub enum Value {
     DateTime(speedate::DateTime),
     /// Python's `datetime.timedelta`.
     TimeDelta(speedate::Duration),
+    /// Python's `uuid.UUID`.
+    Uuid(uuid::Uuid),
 }
 
 /// A model instance: what pydantic stores on a `BaseModel`. The class is identified by name;
@@ -93,6 +95,7 @@ impl PartialEq for Value {
             (Self::TimeDelta(a), Self::TimeDelta(b)) => {
                 temporal::total_micros(a) == temporal::total_micros(b)
             }
+            (Self::Uuid(a), Self::Uuid(b)) => a == b,
             _ => false,
         }
     }
@@ -155,6 +158,7 @@ impl Value {
             (Self::TimeDelta(a), Self::TimeDelta(b)) => {
                 temporal::total_micros(a) == temporal::total_micros(b)
             }
+            (Self::Uuid(a), Self::Uuid(b)) => a == b,
             _ => false,
         }
     }
@@ -187,6 +191,7 @@ impl Value {
             Self::Time(_) => "time",
             Self::DateTime(_) => "datetime",
             Self::TimeDelta(_) => "timedelta",
+            Self::Uuid(_) => "UUID",
         }
     }
 
@@ -206,6 +211,7 @@ impl Value {
             Self::Time(t) => temporal::time_str(t),
             Self::DateTime(dt) => temporal::datetime_str(dt),
             Self::TimeDelta(d) => temporal::timedelta_str(d),
+            Self::Uuid(u) => u.to_string(),
             other => other.repr(),
         }
     }
@@ -270,6 +276,7 @@ impl Value {
             Self::Time(t) => out.push_str(&temporal::time_repr(t)),
             Self::DateTime(dt) => out.push_str(&temporal::datetime_repr(dt)),
             Self::TimeDelta(d) => out.push_str(&temporal::timedelta_repr(d)),
+            Self::Uuid(u) => write!(out, "UUID('{u}')").unwrap(),
         }
     }
 
@@ -458,6 +465,7 @@ impl Serialize for Value {
             Self::Time(t) => serializer.serialize_str(&t.to_string()),
             Self::DateTime(dt) => serializer.serialize_str(&dt.to_string()),
             Self::TimeDelta(d) => serializer.serialize_str(&d.to_string()),
+            Self::Uuid(u) => serializer.serialize_str(&u.to_string()),
             // Like `model_dump`: the fields, then the extra values.
             Self::Model(model) => {
                 let extra = model.extra.iter().flat_map(Dict::iter);

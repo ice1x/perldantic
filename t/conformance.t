@@ -101,6 +101,7 @@ sub plain ($value) {
     return $$value if $class eq 'Perldantic::Wire::Bytes';
     return "$value" if $class eq 'Math::BigInt';
     return ref($value) . ':' . $value->iso if $class && $value->isa('Perldantic::Temporal');
+    return "$class:$value" if $class eq 'Perldantic::Uuid';
     if ($class eq 'Perldantic::Wire::Model') {
         return Perldantic::Wire::Model->new(
             class      => $value->class,

@@ -34,6 +34,7 @@ pub use serializers::{
     UnexpectedValue, WarningsMode,
 };
 pub use speedate;
+pub use uuid;
 pub use validators::{SchemaValidator, ValidateError, ValidateOptions};
 pub use value::{Dict, Model, Value};
 

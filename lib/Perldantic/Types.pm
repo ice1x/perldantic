@@ -10,7 +10,7 @@ use Scalar::Util qw(blessed);
 use Perldantic::Error;
 use Perldantic::Type;
 
-my @SIMPLE = qw(Any Undef Bool Int Num Str Bytes Date Time DateTime Duration);
+my @SIMPLE = qw(Any Undef Bool Int Num Str Bytes Date Time DateTime Duration Uuid);
 my @PARAMETERIZED = qw(Maybe Optional ArrayRef Tuple HashRef Map Dict Enum Literal InstanceOf);
 
 our @EXPORT_OK   = (@SIMPLE, @PARAMETERIZED, 'slurpy');
@@ -35,6 +35,7 @@ sub Time ()  { Perldantic::Type->new(name => 'Time',  schema => {type => 'time'}
 # Inside a package that imports this type, call the DateTime class as `DateTime::->new`.
 sub DateTime () { Perldantic::Type->new(name => 'DateTime', schema => {type => 'datetime'}) }
 sub Duration () { Perldantic::Type->new(name => 'Duration', schema => {type => 'timedelta'}) }
+sub Uuid ()     { Perldantic::Type->new(name => 'Uuid',     schema => {type => 'uuid'}) }
 
 # The parameters of `Name[...]`, or undef for a bare `Name`.
 sub _params ($name, @args) {
@@ -265,6 +266,12 @@ Core C<date>, C<time>, C<datetime> and C<timedelta>. They take ISO 8601 text, nu
 (timestamps, or seconds for durations), L<DateTime>, L<Time::Moment> and L<DateTime::Duration>
 objects, and validate into L<Perldantic::Temporal> values. A package that imports C<DateTime>
 must call the L<DateTime> class as C<< DateTime::->new(...) >>, as with Types::DateTime.
+
+=item C<Uuid>
+
+Core C<uuid>. It takes UUID text (hyphenated or not), 16 bytes (C<Perldantic::Wire::bytes>) and
+L<Perldantic::Uuid> objects, and validates into L<Perldantic::Uuid> values; in strict mode only
+UUID objects are accepted.
 
 =item C<Maybe[T]>
 

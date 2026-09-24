@@ -25,6 +25,7 @@ pub(crate) enum ObType {
     Date,
     Time,
     Timedelta,
+    Uuid,
     /// A model instance, serialized through its fields.
     PydanticSerializable,
 }
@@ -54,6 +55,7 @@ pub(crate) fn get_type(value: &Value) -> ObType {
         Value::Date(_) => ObType::Date,
         Value::Time(_) => ObType::Time,
         Value::TimeDelta(_) => ObType::Timedelta,
+        Value::Uuid(_) => ObType::Uuid,
     }
 }
 
