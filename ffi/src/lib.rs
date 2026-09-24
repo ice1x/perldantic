@@ -20,6 +20,7 @@
 
 pub mod binary;
 pub mod host;
+pub mod host_input;
 pub mod options;
 pub mod wire;
 
@@ -604,6 +605,83 @@ pub unsafe extern "C" fn pd_validator_check_binary(
                 Ok(_) => Ok((Value::Bool(true), None)),
                 Err(ValidateError::Validation(_)) => Ok((Value::Bool(false), None)),
                 Err(e) => Err(validate_error(&e)),
+            }
+        },
+        len,
+    )
+}
+
+/// Validate host data read in place: `root` is a node of `host` (see [`host_input::PdHost`]).
+/// Returns the result as [`pd_validator_validate_binary`] does; when the host fails to convert a
+/// value, the result is an error envelope and the host raises its own error.
+///
+/// # Safety
+/// `validator` is null or a live handle; `host` points to a table whose functions accept
+/// `root` and every node they return, for the whole call; `options` is null or NUL-terminated;
+/// `len` is null or writable.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn pd_validator_validate_host(
+    validator: *const PdValidator,
+    host: *const host_input::PdHost,
+    root: *mut std::ffi::c_void,
+    options: *const c_char,
+    len: *mut usize,
+) -> *mut u8 {
+    // SAFETY: guaranteed by the caller.
+    unsafe { validate_host(validator, host, root, options, len, false) }
+}
+
+/// [`pd_validator_validate_host`] answering only whether the input is valid, as
+/// [`pd_validator_check_binary`] does.
+///
+/// # Safety
+/// As for [`pd_validator_validate_host`].
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn pd_validator_check_host(
+    validator: *const PdValidator,
+    host: *const host_input::PdHost,
+    root: *mut std::ffi::c_void,
+    options: *const c_char,
+    len: *mut usize,
+) -> *mut u8 {
+    // SAFETY: guaranteed by the caller.
+    unsafe { validate_host(validator, host, root, options, len, true) }
+}
+
+/// # Safety
+/// As for [`pd_validator_validate_host`].
+unsafe fn validate_host(
+    validator: *const PdValidator,
+    host: *const host_input::PdHost,
+    root: *mut std::ffi::c_void,
+    options: *const c_char,
+    len: *mut usize,
+    check: bool,
+) -> *mut u8 {
+    into_buffer(
+        || {
+            // SAFETY: guaranteed by the caller.
+            let (validator, host, options) = unsafe {
+                (
+                    handle_arg(validator, "validator")?,
+                    handle_arg(host, "host")?,
+                    options_arg(options)?,
+                )
+            };
+            let (options, input_type) =
+                options::host_validate_options(&options).map_err(|e| core_error(&e))?;
+            // SAFETY: guaranteed by the caller.
+            let host = unsafe { host_input::PerlHost::new(host) };
+            let input = perldantic_core::HostInput::new(&host, host_input::HostNode(root));
+            let result = validator.0.validate_host_as(&input, input_type, &options);
+            if host.failed() {
+                return Err(internal_error("The host could not convert a value"));
+            }
+            match (result, check) {
+                (Ok(output), false) => Ok((output, None)),
+                (Ok(_), true) => Ok((Value::Bool(true), None)),
+                (Err(ValidateError::Validation(_)), true) => Ok((Value::Bool(false), None)),
+                (Err(e), _) => Err(validate_error(&e)),
             }
         },
         len,

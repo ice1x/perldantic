@@ -31,7 +31,7 @@ pub struct ValidationState<'a> {
     /// must not run in that case.
     pub has_field_error: bool,
     /// The name of the field being validated, if applicable.
-    field_name: Option<String>,
+    field_name: Option<std::sync::Arc<str>>,
     /// The `data` argument passed to validator functions and default factories.
     pub data: Option<Dict>,
     // Read-only outside `rebind_extra`.
@@ -89,7 +89,7 @@ impl<'a> ValidationState<'a> {
 
     pub fn scoped_set_field_name(
         &mut self,
-        new_value: Option<String>,
+        new_value: Option<std::sync::Arc<str>>,
     ) -> ScopedFieldNameState<'_, 'a> {
         self.scoped_set(Self::field_name_mut, new_value)
     }
@@ -149,7 +149,7 @@ impl<'a> ValidationState<'a> {
         *self.fields_set_count.get_or_insert(0) += fields_set_count;
     }
 
-    fn field_name_mut(&mut self) -> &mut Option<String> {
+    fn field_name_mut(&mut self) -> &mut Option<std::sync::Arc<str>> {
         &mut self.field_name
     }
 
@@ -274,7 +274,8 @@ where
 type ScopedSetStateT<'scope, 'a, T> =
     ScopedSetState<'scope, 'a, for<'s> fn(&'s mut ValidationState<'a>) -> &'s mut T, T>;
 
-pub type ScopedFieldNameState<'scope, 'a> = ScopedSetStateT<'scope, 'a, Option<String>>;
+pub type ScopedFieldNameState<'scope, 'a> =
+    ScopedSetStateT<'scope, 'a, Option<std::sync::Arc<str>>>;
 pub type ScopedDataState<'scope, 'a> = ScopedSetStateT<'scope, 'a, Option<Dict>>;
 pub type ScopedHasFieldErrorState<'scope, 'a> = ScopedSetStateT<'scope, 'a, bool>;
 

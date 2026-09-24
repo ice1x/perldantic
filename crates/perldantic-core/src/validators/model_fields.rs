@@ -24,6 +24,8 @@ use super::{BuildValidator, CombinedValidator, Validator, as_dict, build_validat
 #[derive(Debug)]
 struct Field {
     name: String,
+    /// The name as the validation state holds it (`info.field_name`), shared, not copied.
+    shared_name: Arc<str>,
     lookup_path_collection: LookupPathCollection,
     validator: Arc<CombinedValidator>,
 }
@@ -107,6 +109,7 @@ impl BuildValidator for ModelFieldsValidator {
 
             fields.push(Field {
                 name: name.clone(),
+                shared_name: Arc::from(name.as_str()),
                 lookup_path_collection,
                 validator,
             });
@@ -204,7 +207,8 @@ type ValidatedModelFields = (Dict, Option<Dict>, Vec<Value>);
 /// Record a validated field in the model dict, which is also the `data` validators see.
 fn set_field(state: &mut ValidationState<'_>, name: &str, value: Value) {
     if let Some(data) = state.data.as_mut() {
-        data.insert(Value::from(name), value);
+        // each field is set once
+        data.push_new(Value::from(name), value);
     }
 }
 
@@ -237,7 +241,7 @@ impl ModelFieldsValidator {
             let state = &mut state.scoped_clear_field_error();
 
             for field in &self.fields {
-                let state = &mut state.scoped_set_field_name(Some(field.name.clone()));
+                let state = &mut state.scoped_set_field_name(Some(field.shared_name.clone()));
 
                 if let Some((lookup_path, lookup_result)) = field
                     .lookup_path_collection
@@ -434,7 +438,7 @@ impl ModelFieldsValidator {
         // dict, and try to set defaults for any missing fields
 
         for (field, field_result) in std::iter::zip(&self.fields, field_results) {
-            let state = &mut state.scoped_set_field_name(Some(field.name.clone()));
+            let state = &mut state.scoped_set_field_name(Some(field.shared_name.clone()));
 
             let field_value =
                 if let Some((field_info, field_json_value)) = field_result {

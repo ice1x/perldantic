@@ -10,7 +10,7 @@ use crate::build_tools::{ExtraBehavior, SchemaDict, schema_err};
 use crate::core_error::{CoreError, CoreResult};
 use crate::definitions::{Definitions, DefinitionsBuilder};
 use crate::errors::{ErrorType, LocItem, ValError, ValResult, ValidationError};
-use crate::input::{Input, InputType};
+use crate::input::{HostData, HostInput, Input, InputType};
 use crate::recursion_guard::RecursionState;
 use crate::value::{Dict, Value};
 
@@ -158,6 +158,18 @@ impl SchemaValidator {
     pub fn validate_value_as(
         &self,
         input: &Value,
+        input_type: InputType,
+        options: &ValidateOptions,
+    ) -> Result<Value, ValidateError> {
+        self.validate(input, input_type, options)
+            .map_err(|e| self.prepare_error(e, input_type))
+    }
+
+    /// Validate host data read in place (see [`HostInput`]), as [`Self::validate_value_as`]
+    /// validates the same data converted to a `Value`.
+    pub fn validate_host_as<H: HostData>(
+        &self,
+        input: &HostInput<'_, H>,
         input_type: InputType,
         options: &ValidateOptions,
     ) -> Result<Value, ValidateError> {

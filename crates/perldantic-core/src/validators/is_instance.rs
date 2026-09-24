@@ -44,15 +44,23 @@ impl Validator for IsInstanceValidator {
         input: &(impl Input + ?Sized),
         _state: &mut ValidationState<'_>,
     ) -> ValResult<Value> {
-        // JSON holds no objects of any class
-        let Some(value) = input.as_value() else {
-            return Err(ValError::new(
-                ErrorType::NeedsPythonObject {
-                    context: None,
-                    method_name: "isinstance".to_owned(),
-                },
-                input,
-            ));
+        // JSON holds no objects of any class; host data the host keeps is converted to look
+        let converted;
+        let value = match input.as_value() {
+            Some(value) => value,
+            None if input.is_host_data() => {
+                converted = input.to_value();
+                &converted
+            }
+            None => {
+                return Err(ValError::new(
+                    ErrorType::NeedsPythonObject {
+                        context: None,
+                        method_name: "isinstance".to_owned(),
+                    },
+                    input,
+                ));
+            }
         };
         if value.is_instance(&self.class) {
             Ok(value.clone())

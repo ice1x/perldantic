@@ -22,6 +22,7 @@ crates/perldantic-core/src/errors/validation_error.rs
 crates/perldantic-core/src/host.rs
 crates/perldantic-core/src/input/datetime.rs
 crates/perldantic-core/src/input/input_abstract.rs
+crates/perldantic-core/src/input/input_host.rs
 crates/perldantic-core/src/input/input_json.rs
 crates/perldantic-core/src/input/input_value.rs
 crates/perldantic-core/src/input/mod.rs
@@ -125,6 +126,7 @@ ffi/cbindgen.toml
 ffi/include/perldantic.h
 ffi/src/binary.rs
 ffi/src/host.rs
+ffi/src/host_input.rs
 ffi/src/lib.rs
 ffi/src/options.rs
 ffi/src/wire.rs
