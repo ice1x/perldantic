@@ -2,7 +2,8 @@
 //! express. It is the conformance value encoding (tests/conformance/README.md), restricted to
 //! what `Value` holds:
 //!
-//! - `null`, booleans, integers of any size, finite floats (written with a fraction or an
+//! - `null`, booleans, integers of any size (written as `{"$bigint": "<digits>"}` beyond 64
+//!   bits, so hosts need not parse big numbers), finite floats (written with a fraction or an
 //!   exponent, so they stay floats), strings, arrays (lists) and objects with string keys (dicts);
 //! - `{"$tuple": [...]}`, `{"$set": [...]}`, `{"$frozenset": [...]}`, `{"$bytes": "<base64>"}`,
 //!   `{"$float": "inf" | "-inf" | "nan"}`;
@@ -120,6 +121,13 @@ fn decode_tag(tag: &str, payload: Value) -> CoreResult<Value> {
         "enum" => decode_enum(payload)?,
         "function" => decode_function(payload)?,
         "host" => decode_host(payload)?,
+        "bigint" => match &payload {
+            Value::Str(text) => Value::from(
+                text.parse::<num_bigint::BigInt>()
+                    .map_err(|_| invalid("$bigint takes integer digits", &payload))?,
+            ),
+            _ => return Err(invalid("$bigint takes integer digits", &payload)),
+        },
         "date" => Value::Date(parse_temporal(
             &payload,
             "$date",
@@ -407,7 +415,8 @@ fn write_value(value: &Value, out: &mut String) {
         Value::None => out.push_str("null"),
         Value::Bool(b) => out.push_str(if *b { "true" } else { "false" }),
         Value::Int(i) => write!(out, "{i}").expect("writing to a String"),
-        Value::BigInt(i) => write!(out, "{i}").expect("writing to a String"),
+        // beyond 64 bits, tagged: hosts need not parse big numbers
+        Value::BigInt(i) => write_tagged("bigint", out, |out| write_str(&i.to_string(), out)),
         Value::Float(f) if f.is_nan() => write_tagged("float", out, |out| out.push_str("\"nan\"")),
         Value::Float(f) if f.is_infinite() => write_tagged("float", out, |out| {
             out.push_str(if *f > 0.0 { "\"inf\"" } else { "\"-inf\"" });
@@ -513,8 +522,22 @@ mod tests {
         assert_eq!(encode(&Value::Float(1.0)), "1.0");
         assert_eq!(decode("1.0").unwrap(), Value::Float(1.0));
         let big = Value::from_json("123456789012345678901234567890").unwrap();
-        assert_eq!(encode(&big), "123456789012345678901234567890");
+        // beyond 64 bits, integers are tagged; plain digits are still read
+        assert_eq!(
+            encode(&big),
+            r#"{"$bigint":"123456789012345678901234567890"}"#
+        );
         assert_eq!(round_trip(&big), big);
+        assert_eq!(decode("123456789012345678901234567890").unwrap(), big);
+        assert_eq!(
+            decode(r#"{"$bigint": "12"}"#).unwrap(),
+            Value::Int(12),
+            "normalised"
+        );
+        assert_eq!(
+            decode(r#"{"$bigint": "x"}"#).unwrap_err().to_string(),
+            "Invalid wire value: $bigint takes integer digits, got 'x'"
+        );
     }
 
     #[test]
