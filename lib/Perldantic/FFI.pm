@@ -31,6 +31,12 @@ $ffi->attach([pd_serializer_to_json => '_serializer_to_json'] => ['opaque', 'str
 $ffi->attach([pd_json_schema => '_json_schema'] => ['string', 'string', 'string'] => 'opaque');
 $ffi->attach([pd_url_parts => '_url_parts'] => ['string'] => 'opaque');
 $ffi->attach([pd_string_free => '_string_free'] => ['opaque'] => 'void');
+# The binary transport (ffi/src/binary.rs), used when the native encoder is built.
+for my $name (qw(validator_validate serializer_to_data serializer_to_json)) {
+    $ffi->attach(["pd_${name}_binary" => "_${name}_binary"] => ['opaque', 'opaque', 'usize', 'string', 'usize*'] =>
+            'opaque');
+}
+$ffi->attach([pd_buffer_free => '_buffer_free'] => ['opaque', 'usize'] => 'void');
 $ffi->type('(uint64,string,opaque)->void' => 'pd_host_callback');
 $ffi->attach([pd_set_host_callback => '_set_host_callback'] => ['pd_host_callback'] => 'void');
 $ffi->attach([pd_host_reply => '_host_reply'] => ['opaque', 'string'] => 'void');
@@ -219,6 +225,23 @@ sub _unwrap ($envelope) {
     die Perldantic::Error->from_core($error);
 }
 
+# Call a binary export: the value goes in and the result comes back in the binary wire format.
+# Returns the result and the serializer's warning; errors die as with the JSON exports.
+sub _binary_call ($function, $handle, $value, $options) {
+    my $input = Perldantic::Wire::encode_binary($value);
+    my ($address, $size) = scalar_to_buffer($input);
+    my $len;
+    my $buffer = $function->($handle, $address, $size, _options($options), \$len);
+    Perldantic::InternalError->throw(message => 'The core returned no result') if !$buffer;
+    my @result = eval { Perldantic::XS::decode_result($buffer, $len, \&Perldantic::Wire::decode) };
+    my $error = $@;
+    _buffer_free($buffer, $len);
+    Perldantic::InternalError->throw(message => "Malformed result from the core: $error", cause => $error)
+        if !@result;
+    return _unwrap(Perldantic::Wire::decode($result[1])) if $result[0] eq 'envelope';
+    return {ok => $result[1], warning => $result[2]};
+}
+
 sub _compile ($new, $schema, $config) {
     my $error;
     my $handle = $new->(Perldantic::Wire::encode($schema), _optional($config), \$error);
@@ -254,6 +277,9 @@ package Perldantic::FFI::Validator {
 
     sub validate ($self, $input, $options = undef) {
         return Perldantic::FFI::_enter(sub {
+            return Perldantic::FFI::_binary_call(\&Perldantic::FFI::_validator_validate_binary, $self->{handle}, $input,
+                $options)->{ok}
+                if $Perldantic::Wire::XS;
             my $envelope = Perldantic::FFI::_envelope(Perldantic::FFI::_validator_validate(
                 $self->{handle}, Perldantic::Wire::encode($input), Perldantic::FFI::_options($options)));
             return Perldantic::FFI::_unwrap($envelope)->{ok};
@@ -277,6 +303,12 @@ package Perldantic::FFI::Validator {
 
 package Perldantic::FFI::Serializer {
 
+    # The binary export of each JSON one.
+    my %BINARY = (
+        \&Perldantic::FFI::_serializer_to_data => \&Perldantic::FFI::_serializer_to_data_binary,
+        \&Perldantic::FFI::_serializer_to_json => \&Perldantic::FFI::_serializer_to_json_binary,
+    );
+
     sub new ($class, $schema, $config = undef) {
         local $Perldantic::Wire::COLLECT = 1;
         local (@Perldantic::Wire::FUNCTIONS, @Perldantic::Wire::OBJECTS);
@@ -290,6 +322,8 @@ package Perldantic::FFI::Serializer {
 
     sub _call ($self, $function, $value, $options) {
         my $result = Perldantic::FFI::_enter(sub {
+            return Perldantic::FFI::_binary_call($BINARY{$function}, $self->{handle}, $value, $options)
+                if $Perldantic::Wire::XS;
             Perldantic::FFI::_unwrap(Perldantic::FFI::_envelope($function->(
                 $self->{handle}, Perldantic::Wire::encode($value), Perldantic::FFI::_options($options))));
         });

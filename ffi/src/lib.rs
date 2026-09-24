@@ -12,8 +12,13 @@
 //!   panicked or its arguments were unusable. `HostException` errors, raised by a host function
 //!   (see [`host`]), also carry the host's `id` for the exception.
 //!
+//! The `*_binary` exports carry values in the binary form of the wire format ([`binary`]) instead:
+//! the host writes and reads it without JSON text, and gets its result in a buffer it releases
+//! with [`pd_buffer_free`].
+//!
 //! No panic crosses the boundary: every export runs under `catch_unwind`.
 
+pub mod binary;
 pub mod host;
 pub mod options;
 pub mod wire;
@@ -477,6 +482,176 @@ pub unsafe extern "C" fn pd_serializer_to_json(
         wire::write_str(&result.output, &mut text);
         Ok(ok_with_warning(&text, result.warning.as_deref()))
     }))
+}
+
+// ---- binary transport -----------------------------------------------------------------------
+
+/// A binary call's outcome: the result value, with a serializer's warning, or an error envelope.
+type BinaryResult = Result<(Value, Option<String>), String>;
+
+/// The buffer a binary call returns: `B` and the value in the binary wire format ([`binary`]);
+/// `W`, the warning's length (`u32`, little endian) and UTF-8 bytes, then the value; or `J` and a
+/// JSON error envelope, as the other exports return. No panic unwinds into C.
+fn into_buffer(body: impl FnOnce() -> BinaryResult, len: *mut usize) -> *mut u8 {
+    let buffer = match catch_unwind(AssertUnwindSafe(body)) {
+        Ok(Ok((value, None))) => {
+            let mut out = vec![b'B'];
+            out.extend(binary::encode(&value));
+            out
+        }
+        Ok(Ok((value, Some(warning)))) => {
+            let mut out = vec![b'W'];
+            let warning_len = u32::try_from(warning.len()).expect("warnings are short");
+            out.extend_from_slice(&warning_len.to_le_bytes());
+            out.extend_from_slice(warning.as_bytes());
+            out.extend(binary::encode(&value));
+            out
+        }
+        Ok(Err(envelope)) => [b"J".as_slice(), envelope.as_bytes()].concat(),
+        Err(payload) => [
+            b"J".as_slice(),
+            internal_error(&panic_message(payload.as_ref())).as_bytes(),
+        ]
+        .concat(),
+    };
+    let buffer = buffer.into_boxed_slice();
+    if !len.is_null() {
+        // SAFETY: guaranteed by the caller of the export.
+        unsafe { *len = buffer.len() };
+    }
+    Box::into_raw(buffer).cast::<u8>()
+}
+
+/// Read a binary wire value argument.
+///
+/// # Safety
+/// `ptr` is null or points to `len` readable bytes that outlive the call.
+unsafe fn binary_arg(ptr: *const u8, len: usize, name: &str) -> Result<Value, String> {
+    if ptr.is_null() {
+        return Err(internal_error(&format!("`{name}` is a null pointer")));
+    }
+    // SAFETY: guaranteed by the caller.
+    let bytes = unsafe { std::slice::from_raw_parts(ptr, len) };
+    binary::decode(bytes).map_err(|e| core_error(&e))
+}
+
+/// [`pd_validator_validate`] with the input and the result in the binary wire format: `input`
+/// points to `input_len` bytes. The returned buffer is `*len` bytes long and must be released
+/// with [`pd_buffer_free`]: `B` and the result value; `W`, the warning's length (`u32`, little
+/// endian) and UTF-8 bytes, then the value; or `J` and a JSON error envelope.
+///
+/// # Safety
+/// `validator` is null or a live handle; `input` is null or points to `input_len` bytes;
+/// `options` is null or NUL-terminated; `len` is null or writable.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn pd_validator_validate_binary(
+    validator: *const PdValidator,
+    input: *const u8,
+    input_len: usize,
+    options: *const c_char,
+    len: *mut usize,
+) -> *mut u8 {
+    into_buffer(
+        || {
+            // SAFETY: guaranteed by the caller.
+            let (validator, input, options) = unsafe {
+                (
+                    handle_arg(validator, "validator")?,
+                    binary_arg(input, input_len, "input")?,
+                    options_arg(options)?,
+                )
+            };
+            let (options, input_type) =
+                options::host_validate_options(&options).map_err(|e| core_error(&e))?;
+            let output = validator
+                .0
+                .validate_value_as(&input, input_type, &options)
+                .map_err(|e| validate_error(&e))?;
+            Ok((output, None))
+        },
+        len,
+    )
+}
+
+/// [`pd_serializer_to_data`] with the value and the result in the binary wire format, returned
+/// as [`pd_validator_validate_binary`] returns its result.
+///
+/// # Safety
+/// As for [`pd_validator_validate_binary`], with a live serializer handle.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn pd_serializer_to_data_binary(
+    serializer: *const PdSerializer,
+    value: *const u8,
+    value_len: usize,
+    options: *const c_char,
+    len: *mut usize,
+) -> *mut u8 {
+    into_buffer(
+        || {
+            // SAFETY: guaranteed by the caller.
+            let (serializer, value, options) = unsafe {
+                (
+                    handle_arg(serializer, "serializer")?,
+                    binary_arg(value, value_len, "value")?,
+                    options_arg(options)?,
+                )
+            };
+            let (options, _) = options::serialize_options(&options).map_err(|e| core_error(&e))?;
+            let result = serializer
+                .0
+                .to_python(&value, &options)
+                .map_err(|e| serialize_error(&e))?;
+            Ok((result.output, result.warning))
+        },
+        len,
+    )
+}
+
+/// [`pd_serializer_to_json`] with the value in the binary wire format; the JSON text comes back
+/// as a string value in the buffer, as [`pd_validator_validate_binary`] returns its result.
+///
+/// # Safety
+/// As for [`pd_serializer_to_data_binary`].
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn pd_serializer_to_json_binary(
+    serializer: *const PdSerializer,
+    value: *const u8,
+    value_len: usize,
+    options: *const c_char,
+    len: *mut usize,
+) -> *mut u8 {
+    into_buffer(
+        || {
+            // SAFETY: guaranteed by the caller.
+            let (serializer, value, options) = unsafe {
+                (
+                    handle_arg(serializer, "serializer")?,
+                    binary_arg(value, value_len, "value")?,
+                    options_arg(options)?,
+                )
+            };
+            let (options, json) =
+                options::serialize_options(&options).map_err(|e| core_error(&e))?;
+            let result = serializer
+                .0
+                .to_json(&value, &options, &json)
+                .map_err(|e| serialize_error(&e))?;
+            Ok((Value::Str(result.output), result.warning))
+        },
+        len,
+    )
+}
+
+/// Release a buffer returned by a binary export; null is ignored.
+///
+/// # Safety
+/// `buffer` is null or was returned by a binary export with length `len`, and not freed yet.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn pd_buffer_free(buffer: *mut u8, len: usize) {
+    if !buffer.is_null() {
+        // SAFETY: guaranteed by the caller; the buffer came from a boxed slice of `len` bytes.
+        drop(unsafe { Box::from_raw(ptr::slice_from_raw_parts_mut(buffer, len)) });
+    }
 }
 
 /// Generate the JSON Schema of a core schema. `config` (wire JSON or null) applies to the whole
