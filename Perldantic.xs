@@ -67,14 +67,15 @@ static void emit_string(pTHX_ SV *out, const char *text, STRLEN len)
 /* A Perl string as JSON: character strings as UTF-8, byte strings upgraded as Perl does. */
 static void emit_sv_string(pTHX_ SV *out, SV *value)
 {
-    STRLEN len;
-    const char *text;
-    if (SvUTF8(value)) {
-        text = SvPV_const(value, len);
-    } else {
-        /* bytes above 0x7f are Latin-1 characters: write them as UTF-8 */
-        SV *copy = sv_2mortal(newSVsv(value));
-        text = SvPVutf8(copy, len);
+    STRLEN len, i;
+    const char *text = SvPV_const(value, len);
+    if (!SvUTF8(value)) {
+        /* bytes above 0x7f are Latin-1 characters: write them as UTF-8 (ASCII already is) */
+        for (i = 0; i < len; i++) if ((unsigned char)text[i] & 0x80) break;
+        if (i < len) {
+            SV *copy = sv_2mortal(newSVsv(value));
+            text = SvPVutf8(copy, len);
+        }
     }
     emit_string(aTHX_ out, text, len);
 }
@@ -311,11 +312,18 @@ static void bput_u64(pTHX_ SV *out, U64 bits)
 /* A Perl string as UTF-8 bytes: byte strings are Latin-1 characters, as Perl upgrades them. */
 static void bput_sv_string(pTHX_ SV *out, SV *value)
 {
-    STRLEN len;
+    STRLEN len, i;
     const char *text;
     if (SvUTF8(value)) {
         text = SvPV_const(value, len);
     } else {
+        /* ASCII is UTF-8 already: only Latin-1 bytes need the upgraded copy */
+        text = SvPV_const(value, len);
+        for (i = 0; i < len; i++) if ((unsigned char)text[i] & 0x80) break;
+        if (i == len) {
+            bput_bytes(aTHX_ out, text, len);
+            return;
+        }
         SV *copy = sv_2mortal(newSVsv(value));
         text = SvPVutf8(copy, len);
     }
@@ -349,7 +357,7 @@ static int bemit_model(pTHX_ SV *out, SV *target, encoder *enc, int depth)
     names = hv_fetch(enc->direct, class,
         HvNAMEUTF8(stash) ? -(I32)HvNAMELEN(stash) : (I32)HvNAMELEN(stash), 0);
     if (!names || !SvROK(*names) || SvTYPE(SvRV(*names)) != SVt_PVAV) return 0;
-    if (enc->state) {
+    if (enc->state && HvUSEDKEYS(enc->state)) {
         length = snprintf(address, sizeof address, "%" UVuf, PTR2UV(target));
         if (hv_exists(enc->state, address, length)) return 0;
     }
@@ -363,6 +371,14 @@ static int bemit_model(pTHX_ SV *out, SV *target, encoder *enc, int depth)
         SV **name = av_fetch(list, i, 0);
         HE *field;
         if (!name) continue;
+        if (!SvIsCOW_shared_hash(*name)) {
+            /* a shared hash key carries its hash: every later lookup skips hashing the name */
+            STRLEN len;
+            const char *text = SvPV_const(*name, len);
+            SV *shared = newSVpvn_share(text, SvUTF8(*name) ? -(I32)len : (I32)len, 0);
+            av_store(list, i, shared);
+            name = &AvARRAY(list)[i];
+        }
         field = hv_fetch_ent((HV *)target, *name, 0, 0);
         if (!field) continue;
         bput_sv_string(aTHX_ out, *name);

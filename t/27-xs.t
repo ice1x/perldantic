@@ -84,6 +84,12 @@ subtest 'the binary wire format' => sub {
             "\x05", $u32->(5), "caf\xc3\xa9",
             "\x07", $u32->(2), $u32->(2), '$a', "\x03", pack('q<', 2), $u32->(1), 'b', "\x03", pack('q<', 1)),
         'plain data natively; hash keys sorted, $ keys need nothing special';
+    my $latin1 = "caf\xe9";
+    utf8::downgrade($latin1);
+    is Perldantic::Wire::encode_binary([$latin1, {$latin1 => 1}]),
+        join('', "\x06", $u32->(2), "\x05", $u32->(5), "caf\xc3\xa9", "\x07", $u32->(1), $u32->(5), "caf\xc3\xa9",
+            "\x03", pack('q<', 1)),
+        'byte strings and keys are Latin-1 characters, sent as UTF-8';
     is Perldantic::Wire::encode_binary(tuple(1)), "\x08" . $u32->(14) . '{"$tuple":[1]}',
         'anything else as a node of wire JSON';
     is Perldantic::Wire::encode_binary(18446744073709551615), "\x08" . $u32->(20) . '18446744073709551615',
