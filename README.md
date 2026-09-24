@@ -74,7 +74,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00066 — Bug tracker: URL/UUID, `extra => 'forbid'`, JSON import/export
 - [ ] 00067 — Docs & release 0.1.0
   - [x] 00078 — Perl vocabulary instead of Python's everywhere a Perl user looks: error codes, messages, contexts and input reprs; serializer warnings; type names, options and methods named after Python types (no aliases: nothing is released yet)
-  - [ ] 00068 — POD for all modules
+  - [x] 00068 — POD for all modules
   - [ ] 00069 — `docs/MIGRATING_FROM_PYDANTIC.md`
   - [ ] 00070 — CPAN release `Perldantic-0.01`, tag `v0.1.0`
 - [ ] 00071 — Backlog (post-0.1)

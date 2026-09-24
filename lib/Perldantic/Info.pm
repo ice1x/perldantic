@@ -49,24 +49,98 @@ __END__
 
 =head1 NAME
 
-Perldantic::Info - the C<info> argument of validator and serializer functions
+Perldantic::Info - the info argument of validator and serializer functions
+
+=head1 SYNOPSIS
+
+    package Signup;
+    use Perldantic;
+
+    has password => (is => 'ro', isa => Str, required => 1);
+    has confirm  => (is => 'ro', isa => Str, required => 1);
+
+    # A validator that takes three arguments gets a Perldantic::ValidationInfo.
+    field_validator confirm => sub ($class, $value, $info) {
+        die "passwords differ\n" if $value ne $info->data->{password};
+        return $value;
+    };
+
+    # So does a serializer that takes three: a Perldantic::SerializationInfo.
+    field_serializer password => sub ($self, $value, $info) {
+        return $info->mode_is_json ? '***' : $value;
+    };
+
+    package main;
+    my $signup = Signup->new(password => 'secret', confirm => 'secret');
+    say $signup->model_dump_json;      # {"password":"***","confirm":"secret"}
 
 =head1 DESCRIPTION
 
-Functions in schemas (see L<Perldantic::FFI/Functions>) that ask for it get an C<info> object
-describing the call, as pydantic's functions get C<ValidationInfo> or C<SerializationInfo>.
+Validator and serializer functions that ask for it get an C<info> object describing the call, as
+pydantic's functions get C<ValidationInfo> or C<SerializationInfo>. A function asks for it by
+taking one more argument (see L<Perldantic/field_validator>, L<Perldantic/field_serializer> and
+L<Perldantic::FFI/Functions>).
 
-=head2 Perldantic::ValidationInfo
+Perldantic makes these objects; they are read-only.
 
-C<config> (the schema's config), C<context> (given to the validation call), C<data> (the fields
-validated so far, for field validators), C<field_name> and C<mode> (C<perl>, C<python> or
-C<json>: how the input was given).
+=head1 Perldantic::ValidationInfo
 
-=head2 Perldantic::SerializationInfo
+=head2 new(%fields)
 
-C<include>, C<exclude>, C<context>, C<mode> (C<perl>, C<json> or another name given to
-C<model_dump> or C<dump>) and C<mode_is_json>, C<by_alias>, C<exclude_unset>, C<exclude_defaults>,
-C<exclude_undef>, C<exclude_computed_fields>, C<round_trip>, C<serialize_as_any> and, for field
-serializers, C<field_name>.
+Makes the object; Perldantic calls it.
+
+=head2 config
+
+The config of the schema being validated, a hash reference or C<undef>.
+
+=head2 context
+
+The C<context> given to the validation call, or C<undef>.
+
+=head2 data
+
+For field validators: the fields validated so far, a hash reference.
+
+=head2 field_name
+
+For field validators: the name of the field.
+
+=head2 mode
+
+How the input was given: C<perl> (Perl data) or C<json> (JSON text).
+
+=head1 Perldantic::SerializationInfo
+
+=head2 new(%fields)
+
+Makes the object; Perldantic calls it.
+
+=head2 mode
+
+The output mode: C<perl>, C<json> or another name given as C<mode> to C<model_dump> or C<dump>.
+
+=head2 mode_is_json
+
+True when the output is JSON: C<model_dump_json>, C<dump_json> or C<< mode => 'json' >>.
+
+=head2 include, exclude
+
+The C<include> and C<exclude> options of the call.
+
+=head2 context
+
+The C<context> given to the call, or C<undef>.
+
+=head2 by_alias, exclude_unset, exclude_defaults, exclude_undef, exclude_computed_fields, round_trip, serialize_as_any
+
+The flags of the call, as given to C<model_dump> or C<dump>.
+
+=head2 field_name
+
+For field serializers: the name of the field.
+
+=head1 SEE ALSO
+
+L<Perldantic>, L<Perldantic::Model>, L<Perldantic::TypeAdapter>
 
 =cut

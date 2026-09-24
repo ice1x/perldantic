@@ -111,23 +111,67 @@ Perldantic::Uuid - a UUID, the value the Uuid type validates into
 
 =head1 SYNOPSIS
 
+    use Perldantic::Uuid;
+
     my $id = Perldantic::Uuid->new('0e7ac198-9acd-4c0c-b4b4-761974bf71d7');
     say "$id";              # 0e7ac198-9acd-4c0c-b4b4-761974bf71d7
     say $id->version;       # 4
     say $id->hex;           # 0e7ac1989acd4c0cb4b4761974bf71d7
-    say $id->urn;           # urn:uuid:0e7ac198-...
+    say $id->urn;           # urn:uuid:0e7ac198-9acd-4c0c-b4b4-761974bf71d7
     my $raw = $id->bytes;   # 16 bytes
+
+    say 'same' if $id eq uc "$id";                     # compared by value
+    my $copy = Perldantic::Uuid->new(bytes => $raw);
 
 =head1 DESCRIPTION
 
-Modelled on Python's C<uuid.UUID>, so it keeps what pydantic keeps. C<new> takes UUID text (with
-or without hyphens, braces or a C<urn:uuid:> prefix, in any case), C<< hex => $hex >> or
-C<< bytes => $bytes >> (16 bytes); invalid arguments raise C<Perldantic::UsageError>.
+A UUID modelled on Python's C<uuid.UUID>, so it keeps what pydantic keeps. The
+L<Uuid|Perldantic::Types/Uuid> type validates UUID text into these objects and serializes them
+back to their hyphenated form.
 
-Accessors: C<as_string> (the hyphenated form, also what the value stringifies to), C<hex>,
-C<bytes>, C<urn>, C<int> (a L<Math::BigInt>), C<variant> (Python's strings, e.g.
-C<specified in RFC 4122>) and C<version> (C<undef> unless the variant is RFC 4122).
+The value stringifies to its hyphenated, lower-case form, and compares with C<eq>, C<ne> and
+C<cmp> by value, against other UUIDs or against UUID text (which is parsed first). Sorting orders
+UUIDs by their 128-bit number, as Python does.
 
-UUIDs compare with C<eq>, C<ne> and C<cmp> by value, against other UUIDs or UUID text.
+=head1 METHODS
+
+=head2 new($text), new(hex => $hex), new(bytes => $bytes)
+
+Makes a UUID from its text, as Python's C<UUID(hex)> reads it: hyphens, surrounding braces and a
+C<urn:uuid:> prefix are optional, and the case does not matter. C<< bytes => $bytes >> takes the
+16 bytes in network order. Anything else raises L<Perldantic::UsageError>.
+
+=head2 as_string
+
+The hyphenated form, C<12345678-1234-5678-1234-567812345678>.
+
+=head2 hex
+
+The 32 hex digits, without hyphens.
+
+=head2 bytes
+
+The 16 bytes, in network order.
+
+=head2 urn
+
+The URN, C<urn:uuid:> followed by the hyphenated form.
+
+=head2 int
+
+The 128-bit number, as a L<Math::BigInt> (loaded on demand).
+
+=head2 variant
+
+Python's name for the variant: C<specified in RFC 4122>, C<reserved for NCS compatibility>,
+C<reserved for Microsoft compatibility> or C<reserved for future definition>.
+
+=head2 version
+
+The version number (1 to 8), or C<undef> unless the variant is RFC 4122.
+
+=head1 SEE ALSO
+
+L<Perldantic::Types/Uuid>, L<Perldantic>
 
 =cut

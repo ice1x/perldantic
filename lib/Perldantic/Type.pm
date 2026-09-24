@@ -140,6 +140,13 @@ Types are built by the functions of L<Perldantic::Types>; they stringify to thei
 
 =head1 METHODS
 
+=head2 new(%fields)
+
+Used by L<Perldantic::Types>; build types with its functions instead. Calling C<new> (or any
+other method a class has) on a type, as C<< DateTime->new(...) >> does in a package that imports
+the C<DateTime> type, raises C<Perldantic::UsageError> with a hint to write
+C<< DateTime::->new(...) >>.
+
 =head2 name
 
 The Types::Standard-style name, e.g. C<Map[Int,Str]>.
@@ -197,5 +204,10 @@ True for C<Optional[T]>.
 =head2 is_slurpy
 
 True for C<slurpy ArrayRef[T]> and C<slurpy HashRef[T]>.
+
+
+=head1 SEE ALSO
+
+L<Perldantic::Types>, L<Perldantic::TypeAdapter>, L<Perldantic>
 
 =cut

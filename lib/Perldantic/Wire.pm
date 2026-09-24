@@ -391,9 +391,12 @@ Perldantic::Wire - the JSON wire format between Perl and the Rust core
     use Perldantic::Wire qw(tuple set bytes);
 
     my $json = Perldantic::Wire::encode({point => tuple(1, 2), raw => bytes("\xff")});
-    my $data = Perldantic::Wire::decode($json);
+    my $data = Perldantic::Wire::decode($json);    # {point => [1, 2], raw => "\xff"}
 
 =head1 DESCRIPTION
+
+This module is internal: models and type adapters use it to talk to the core, and you need it
+only to work with L<Perldantic::FFI> directly. It is documented for that and for maintainers.
 
 Values cross the FFI boundary as UTF-8 JSON (see F<ffi/src/wire.rs>). Plain Perl data maps onto
 JSON: C<undef> is C<null>, native booleans (and C<JSON::PP::Boolean>) are booleans, numbers stay
@@ -460,5 +463,75 @@ the JSON parser itself (tagged objects are single-key object filters), in one pa
 
 A value with no wire form (a reference to a scalar or a glob) raises
 C<Perldantic::UsageError>; malformed JSON from the core raises C<Perldantic::InternalError>.
+
+=head1 FUNCTIONS
+
+C<tuple>, C<set>, C<frozenset>, C<bytes> and C<ordered> are exported on request.
+
+=head2 encode($value)
+
+The wire JSON of C<$value>, as UTF-8 bytes.
+
+=head2 decode($json)
+
+The Perl data of wire JSON (UTF-8 bytes).
+
+=head2 tuple(@items), set(@items), frozenset(@items)
+
+C<@items> marked as a tuple, a set or a frozenset.
+
+=head2 bytes($octets)
+
+C<$octets> marked as a byte string.
+
+=head2 ordered(key => value, ...)
+
+A dict that keeps the given key order.
+
+=head2 function($id)
+
+The code reference sent under C<$id>, or C<undef> once it has been freed.
+
+=head2 object($id)
+
+The host object sent under C<$id>, or C<undef> once it has been freed.
+
+=head1 CLASSES
+
+=head2 Perldantic::Wire::Model
+
+A model instance as the core sees it.
+
+=over
+
+=item new(class => $class, fields => \%fields, fields_set => \@names, extra => \%extra)
+
+Makes one; C<fields_set> defaults to the names in C<fields>.
+
+=item class, fields, fields_set, extra
+
+Read it back.
+
+=back
+
+=head2 Perldantic::Wire::Enum
+
+An enum member as the core sees it.
+
+=over
+
+=item new(class => $class, name => $name, value => $value, mixin => $mixin, str_is_value => $bool)
+
+Makes one.
+
+=item class, name, value, mixin, str_is_value
+
+Read it back.
+
+=back
+
+=head1 SEE ALSO
+
+L<Perldantic::FFI>, L<Perldantic>
 
 =cut

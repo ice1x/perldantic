@@ -946,7 +946,15 @@ Perldantic::Model - base class of Perldantic models
     has y => (is => 'ro', isa => Int, default => 0);
 
     package main;
-    my $p = Point->new(x => '3');  # validated: $p->x == 3
+    my $p = Point->new(x => '3');                 # validated: $p->x == 3
+    my $q = Point->model_validate({x => 1, y => 2});
+    my $r = Point->model_validate_json('{"x": 5}');
+
+    my $data = $p->model_dump;                     # {x => 3, y => 0}
+    my $json = $p->model_dump_json;                # {"x":3,"y":0}
+    my $set  = $p->model_fields_set;               # ['x']
+    my $moved = $p->model_copy(update => {y => 9});
+    my $schema = Point->model_json_schema;
 
 =head1 DESCRIPTION
 
@@ -966,6 +974,11 @@ Validates the arguments and returns the object. Invalid input raises
 C<Perldantic::ValidationError>. Arguments that are not a hash raise C<Perldantic::UsageError>.
 C<BUILDARGS> and C<BUILD> work as in Moo: C<BUILD> methods run parent first, with the arguments
 hash.
+
+=head2 BUILDARGS(@args)
+
+Turns the arguments of C<new> into a hash reference, as in Moo; override it to take other
+arguments. A list must be key-value pairs, or a single hash reference.
 
 =head2 core_schema(%options)
 
@@ -1012,5 +1025,10 @@ Whether the class consumes the role (see L<Perldantic::Role>).
 A model object given as input (to C<new>, C<model_validate> or a
 L<Perldantic::TypeAdapter>) is kept as it is, as in pydantic, unless its class sets
 C<< revalidate_instances => 'always' >>; then a validated copy is made.
+
+
+=head1 SEE ALSO
+
+L<Perldantic> (declaring models), L<Perldantic::TypeAdapter>, L<Perldantic::Error>
 
 =cut

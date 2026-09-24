@@ -385,6 +385,8 @@ Perldantic::Temporal - dates, times, datetimes and durations
 
 =head1 SYNOPSIS
 
+    use Perldantic::Temporal;
+
     my $d  = Perldantic::Date->new(year => 2024, month => 2, day => 29);
     my $t  = Perldantic::Time->from_iso('12:13:14.5+01:00');
     my $dt = Perldantic::DateTime->from_iso('2022-06-08T12:13:14Z');
@@ -392,51 +394,170 @@ Perldantic::Temporal - dates, times, datetimes and durations
 
     say "$dt";                  # 2022-06-08T12:13:14+00:00
     say $dt->epoch;             # 1654690394
+    say $dt->date;              # 2022-06-08
     say $p->total_seconds;      # 5400
-    my $datetime = $dt->to_datetime;        # a DateTime object
-    my $moment   = $dt->to_time_moment;     # a Time::Moment object
+    say "$p";                   # PT1H30M
+    say 'later' if $dt > '2022-06-08T12:00:00Z';
 
 =head1 DESCRIPTION
 
 The values the C<Date>, C<Time>, C<DateTime> and C<Duration> types of L<Perldantic::Types>
-validate into, modelled on Python's C<datetime> types, so they keep what pydantic keeps:
+validate into. They are modelled on Python's C<datetime> types, so they keep what pydantic
+keeps: microseconds and a fixed UTC offset, but no time zone names.
 
 =over
 
 =item C<Perldantic::Date>
 
-A calendar date: C<year>, C<month>, C<day>.
+A calendar date.
 
 =item C<Perldantic::Time>
 
-A time of day: C<hour>, C<minute>, C<second>, C<microsecond> and C<tz_offset> (seconds east of
-UTC, or C<undef> for a naive time).
+A time of day, naive (without an offset) or aware (with a UTC offset).
 
 =item C<Perldantic::DateTime>
 
-A date and a time of day, naive or aware; C<date> returns its date and C<epoch> the Unix time of
-an aware datetime.
+A date and a time of day, naive or aware. It is a C<Perldantic::Time>.
 
 =item C<Perldantic::Duration>
 
-Python's C<timedelta>: C<days>, C<seconds> (0 to 86399) and C<microseconds> (0 to 999999);
-C<new> takes C<weeks>, C<days>, C<hours>, C<minutes>, C<seconds>, C<milliseconds> and
-C<microseconds>, and C<total_seconds> gives the length in seconds.
+A length of time, Python's C<timedelta>: whole C<days>, C<seconds> (0 to 86399) and
+C<microseconds> (0 to 999999). Negative durations have negative days.
 
 =back
 
-Every value stringifies to ISO 8601 (as Python's C<isoformat>; durations as the core writes them,
-e.g. C<P1DT2H>) and compares with C<< <=> >>, C<==>, C<cmp> and C<eq>. As in Python, aware times
-compare in UTC, naive and aware ones are never equal and cannot be ordered.
+Every value stringifies to ISO 8601 (as Python's C<isoformat> does; durations as the core writes
+them, such as C<P1DT2H>) and compares with C<< <=> >>, C<==>, C<!=>, C<cmp>, C<eq> and C<ne>,
+against a value of the same class or its ISO text. As in Python, aware times compare in UTC, and
+a naive value cannot be ordered against an aware one.
 
 A model's C<< model_config temporal_class => 'DateTime' >> (or C<'Time::Moment'>, or the default
-C<'Perldantic'>) converts the values of its fields: to L<DateTime> for dates and datetimes and
-L<DateTime::Duration> for durations, or to L<Time::Moment> for aware datetimes; other values
-stay as they are. C<Perldantic::TypeAdapter> takes the same setting in its C<config>.
+C<'Perldantic'>) converts the validated values of its fields: to L<DateTime> for dates and
+datetimes and L<DateTime::Duration> for durations, or to L<Time::Moment> for aware datetimes;
+other values stay as they are. L<Perldantic::TypeAdapter> takes the same setting in its
+C<config>. Values of those classes are accepted as input too.
 
-C<to_datetime> (and C<to_datetime_duration>) converts to L<DateTime> (floating for naive
-values); C<to_time_moment> converts to L<Time::Moment>. Both modules are loaded on demand.
+Invalid arguments raise C<Perldantic::UsageError> (see L<Perldantic::Error>).
 
-Invalid arguments raise C<Perldantic::UsageError>.
+=head1 Perldantic::Date
+
+=head2 new(year => $year, month => $month, day => $day)
+
+A date between 0001-01-01 and 9999-12-31.
+
+=head2 from_iso($text)
+
+A date from C<YYYY-MM-DD>.
+
+=head2 year, month, day
+
+The parts, as numbers.
+
+=head2 iso
+
+C<YYYY-MM-DD>, also what the date stringifies to.
+
+=head2 to_datetime
+
+The date as a floating L<DateTime> at midnight (DateTime is loaded on demand).
+
+=head2 to_time_moment
+
+The date as a L<Time::Moment> at midnight UTC (loaded on demand).
+
+=head1 Perldantic::Time
+
+=head2 new(hour => $h, minute => $m, second => $s, microsecond => $us, tz_offset => $offset)
+
+A time of day; the parts default to 0. C<tz_offset> is the UTC offset in seconds east of UTC
+(C<undef>, the default, for a naive time).
+
+=head2 from_iso($text)
+
+A time from C<HH:MM[:SS[.ffffff]]>, followed by C<Z> or an offset such as C<+01:00> for an aware
+time.
+
+=head2 hour, minute, second, microsecond, tz_offset
+
+The parts; C<tz_offset> is C<undef> for a naive time.
+
+=head2 iso
+
+C<HH:MM:SS>, with C<.ffffff> when there are microseconds and the offset when the time is aware;
+also what the time stringifies to.
+
+=head1 Perldantic::DateTime
+
+A C<Perldantic::DateTime> has the methods of C<Perldantic::Time> too.
+
+=head2 new(year => ..., month => ..., day => ..., hour => ..., minute => ..., second => ..., microsecond => ..., tz_offset => ...)
+
+A datetime; the time parts default to 0, and C<tz_offset> to C<undef> (naive).
+
+=head2 from_iso($text)
+
+A datetime from C<YYYY-MM-DD>, optionally followed by C<T> (or a space) and a time as
+C<< Perldantic::Time->from_iso >> reads it.
+
+=head2 year, month, day
+
+The date parts.
+
+=head2 date
+
+The date, a C<Perldantic::Date>.
+
+=head2 iso
+
+C<YYYY-MM-DDTHH:MM:SS>, with microseconds and the offset as for times; also what the datetime
+stringifies to.
+
+=head2 epoch
+
+Whole seconds since the Unix epoch, or C<undef> for a naive datetime.
+
+=head2 to_datetime
+
+The datetime as a L<DateTime> (loaded on demand), with its offset as the time zone, or floating
+when it is naive.
+
+=head2 to_time_moment
+
+The datetime as a L<Time::Moment> (loaded on demand). A naive datetime has no offset to give it
+and raises C<Perldantic::UsageError>.
+
+=head1 Perldantic::Duration
+
+=head2 new(%units)
+
+A duration of any of C<weeks>, C<days>, C<hours>, C<minutes>, C<seconds>, C<milliseconds> and
+C<microseconds>, which may be fractional or negative, as Python's C<timedelta()> takes them.
+The sum is rounded to whole microseconds.
+
+=head2 from_iso
+
+Not supported: it raises C<Perldantic::UsageError>. Build durations with C<new>.
+
+=head2 days, seconds, microseconds
+
+The normalised parts: C<seconds> is 0 to 86399 and C<microseconds> 0 to 999999, so a negative
+duration has negative C<days>.
+
+=head2 total_seconds
+
+The length in seconds, with microseconds as a fraction.
+
+=head2 iso
+
+ISO 8601 as the core writes durations, such as C<-P1Y2DT3H4M5.5S> or C<PT0S>; also what the
+duration stringifies to.
+
+=head2 to_datetime_duration
+
+The duration as a L<DateTime::Duration> of seconds and nanoseconds (loaded on demand).
+
+=head1 SEE ALSO
+
+L<Perldantic::Types>, L<Perldantic>, L<DateTime>, L<Time::Moment>
 
 =cut

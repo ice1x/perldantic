@@ -161,31 +161,77 @@ Perldantic::Url - URLs, the values the Url and MultiHostUrl types validate into
 
 =head1 SYNOPSIS
 
+    use Perldantic::Url;
+
     my $url = Perldantic::Url->new('https://user@example.com:8443/a?x=1#top');
     say "$url";              # https://user@example.com:8443/a?x=1#top
     say $url->host;          # example.com
     say $url->port;          # 8443
-    my $uri = $url->to_uri;  # a URI object
+    say $url->path;          # /a
 
     my $db = Perldantic::MultiHostUrl->new('postgres://u:p@h1:5432,h2/db');
-    say $_->{host} for @{$db->hosts};
+    say $_->{host} for @{$db->hosts};                  # h1, h2
 
     my $built = Perldantic::Url->build(scheme => 'https', host => 'example.com', path => 'x');
+    say 'same' if $built eq 'https://example.com/x';
 
 =head1 DESCRIPTION
 
-Modelled on pydantic's C<Url> and C<MultiHostUrl>, whose behaviour the core reproduces: C<new>
-parses and normalises the text (C<< preserve_empty_path => 1 >> keeps an empty path empty) and
-raises L<Perldantic::ValidationError> for invalid text; C<build> puts a URL together from its
-parts. The value stringifies to its text (C<as_string>).
+URLs modelled on pydantic's C<Url> and C<MultiHostUrl>; the core parses and normalises them
+exactly as pydantic does. The L<Url|Perldantic::Types/Url> and
+L<MultiHostUrl|Perldantic::Types/MultiHostUrl> types validate text into these objects.
 
-Accessors: C<scheme>, C<username>, C<password>, C<host>, C<unicode_host> (punycode decoded),
-C<port> (or the scheme's default port), C<path>, C<query>, C<query_params> (a list of
-C<[key, value]> pairs), C<fragment> and C<unicode_string>. A C<Perldantic::MultiHostUrl> has
-C<hosts> (hash references with C<username>, C<password>, C<host> and C<port>) instead of the
-single-host accessors.
+A URL stringifies to its normalised text and compares with C<eq>, C<ne> and C<cmp> as pydantic
+compares URLs, against URLs of the same class or against text (which is parsed first). The parts
+are computed by the core on first use and cached.
 
-URLs compare with C<eq>, C<ne> and C<cmp> as pydantic compares them, against URLs of the same
-class or text. C<to_uri> converts to a L<URI> object (loaded on demand).
+C<Perldantic::MultiHostUrl> is a C<Perldantic::Url> with several hosts, such as a database URL
+naming a cluster. It has L</hosts> instead of the single-host accessors, which raise
+L<Perldantic::UsageError> on it.
+
+=head1 METHODS
+
+=head2 new($text, preserve_empty_path => $bool)
+
+Parses and normalises C<$text>. An empty path becomes C</> unless C<preserve_empty_path> is
+true. Invalid text raises L<Perldantic::ValidationError>, with pydantic's error codes.
+
+=head2 build(%parts)
+
+Puts a URL together from C<scheme>, C<username>, C<password>, C<host>, C<port>, C<path>,
+C<query> and C<fragment>, as pydantic's C<Url.build> does; C<scheme> and C<host> are required.
+For a C<Perldantic::MultiHostUrl>, C<< hosts => [\%host, ...] >> (each with C<username>,
+C<password>, C<host> and C<port>) replaces the single-host parts.
+
+=head2 as_string
+
+The normalised text, also what the URL stringifies to.
+
+=head2 unicode_string
+
+The text with the host decoded from punycode.
+
+=head2 scheme, username, password, host, unicode_host, port
+
+The scheme, the credentials (or C<undef>), the host (C<unicode_host>: decoded from punycode)
+and the port, or the scheme's default port.
+
+=head2 path, query, query_params, fragment
+
+The path, the query string, the query as a list of C<[$key, $value]> pairs, and the fragment;
+each is C<undef> when absent.
+
+=head2 hosts
+
+For a C<Perldantic::MultiHostUrl>: the hosts, as hash references with C<username>, C<password>,
+C<host> and C<port>.
+
+=head2 to_uri
+
+The URL as a L<URI> object (loaded on demand).
+
+=head1 SEE ALSO
+
+L<Perldantic::Types/Url>, L<Perldantic>
 
 =cut

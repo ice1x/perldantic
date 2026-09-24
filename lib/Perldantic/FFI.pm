@@ -446,4 +446,10 @@ Serializes to UTF-8 encoded JSON; also takes C<indent> and C<ensure_ascii>.
 
 Both classes release their Rust handle when the object is destroyed.
 
+
+=head1 SEE ALSO
+
+L<Perldantic::Wire> (how values cross to the core), L<Perldantic::TypeAdapter> and L<Perldantic::Model>
+(which build core schemas for you), L<Perldantic::Error>
+
 =cut

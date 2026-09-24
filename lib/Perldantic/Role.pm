@@ -89,4 +89,9 @@ model that consumes it, validated like the model's own. Roles can consume roles 
 Consuming something that is not a role, or a role whose required methods are missing, raises
 C<Perldantic::UsageError>.
 
+
+=head1 SEE ALSO
+
+L<Perldantic>, L<Role::Tiny>
+
 =cut
