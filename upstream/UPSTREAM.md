@@ -106,7 +106,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `serializers/type_serializers/frozendict.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/function.rs` | `crates/perldantic-core/src/serializers/type_serializers/function.rs` | P1 | pending |  |
 | `serializers/type_serializers/generator.rs` | `crates/perldantic-core/src/serializers/type_serializers/generator.rs` | P2 | pending |  |
-| `serializers/type_serializers/json.rs` | `crates/perldantic-core/src/serializers/type_serializers/json.rs` | P1 | pending |  |
+| `serializers/type_serializers/json.rs` | `crates/perldantic-core/src/serializers/type_serializers/json.rs` | P1 | done | `round_trip` not supported yet (not a serialize option) |
 | `serializers/type_serializers/json_or_python.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/list.rs` | `crates/perldantic-core/src/serializers/type_serializers/list.rs` | P0 | ported |  |
 | `serializers/type_serializers/literal.rs` | `crates/perldantic-core/src/serializers/type_serializers/literal.rs` | P0 | ported |  |
@@ -116,7 +116,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `serializers/type_serializers/named_tuple.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/nullable.rs` | `crates/perldantic-core/src/serializers/type_serializers/nullable.rs` | P0 | ported |  |
 | `serializers/type_serializers/ordered_dict.rs` | - | drop | dropped | Python-only type |
-| `serializers/type_serializers/other.rs` | - | drop | dropped | Python-specific fallbacks |
+| `serializers/type_serializers/other.rs` | `crates/perldantic-core/src/serializers/type_serializers/other.rs` | P1 | partial | `chain`, `custom-error`, `lax-or-strict`; `call`, `arguments`, `is-instance`, `is-subclass`, `callable` come with their validators |
 | `serializers/type_serializers/set_frozenset.rs` | `crates/perldantic-core/src/serializers/type_serializers/set.rs` | P1 | done | Perl arrays accepted for Perl data (DIVERGENCES #19) |
 | `serializers/type_serializers/simple.rs` | `crates/perldantic-core/src/serializers/type_serializers/simple.rs` | P0 | ported |  |
 | `serializers/type_serializers/string.rs` | `crates/perldantic-core/src/serializers/type_serializers/string.rs` | P0 | ported |  |
@@ -136,7 +136,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/bytes.rs` | `crates/perldantic-core/src/validators/bytes.rs` | P0 | ported |  |
 | `validators/call.rs` | `crates/perldantic-core/src/validators/call.rs` | P2 | pending |  |
 | `validators/callable.rs` | `crates/perldantic-core/src/validators/callable.rs` | P2 | pending |  |
-| `validators/chain.rs` | `crates/perldantic-core/src/validators/chain.rs` | P1 | pending |  |
+| `validators/chain.rs` | `crates/perldantic-core/src/validators/chain.rs` | P1 | done |  |
 | `validators/complex.rs` | - | drop | dropped | Python-only type |
 | `validators/config.rs` | `crates/perldantic-core/src/validators/config.rs` | P0 | partial | `ValBytesMode` / `BytesMode`; temporal modes pending |
 | `validators/counter.rs` | - | drop | dropped | Python-only type |
@@ -159,7 +159,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/int.rs` | `crates/perldantic-core/src/validators/int.rs` | P0 | ported |  |
 | `validators/is_instance.rs` | `crates/perldantic-core/src/validators/is_instance.rs` | P2 | pending |  |
 | `validators/is_subclass.rs` | - | drop | dropped | Python-only type |
-| `validators/json.rs` | `crates/perldantic-core/src/validators/json.rs` | P1 | pending |  |
+| `validators/json.rs` | `crates/perldantic-core/src/validators/json.rs` | P1 | done |  |
 | `validators/json_or_python.rs` | - | drop | dropped | Python-only type |
 | `validators/lax_or_strict.rs` | `crates/perldantic-core/src/validators/lax_or_strict.rs` | P0 | ported |  |
 | `validators/list.rs` | `crates/perldantic-core/src/validators/list.rs` | P0 | ported |  |
@@ -196,4 +196,4 @@ plus every JSON Schema pydantic's own test suite generates.
 
 | Upstream file | Perldantic file | Priority | Status | Notes |
 |---|---|---|---|---|
-| `pydantic/json_schema.py` | `crates/perldantic-core/src/json_schema/` | P0 | partial | `GenerateJsonSchema.generate` for the P0 schema types, dates/times/datetimes/timedeltas, decimals, UUIDs and URLs; `generate_definitions` (`models_json_schema`), other P1 types and callables later; model config from the schema (DIVERGENCES #15) |
+| `pydantic/json_schema.py` | `crates/perldantic-core/src/json_schema/` | P0 | partial | `GenerateJsonSchema.generate` for the P0 schema types, dates/times/datetimes/timedeltas, decimals, UUIDs, URLs, sets, chains and JSON; `generate_definitions` (`models_json_schema`), other P1 types and callables later; model config from the schema (DIVERGENCES #15) |

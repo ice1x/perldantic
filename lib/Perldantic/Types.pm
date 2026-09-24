@@ -11,7 +11,7 @@ use Perldantic::Error;
 use Perldantic::Type;
 
 my @SIMPLE = qw(Any Undef Bool Int Num Str Bytes Decimal Date Time DateTime Duration Uuid Url MultiHostUrl);
-my @PARAMETERIZED = qw(Maybe Optional ArrayRef Set FrozenSet Tuple HashRef Map Dict Enum Literal InstanceOf);
+my @PARAMETERIZED = qw(Maybe Optional ArrayRef Set FrozenSet Json Chain Tuple HashRef Map Dict Enum Literal InstanceOf);
 
 our @EXPORT_OK   = (@SIMPLE, @PARAMETERIZED, 'slurpy');
 our %EXPORT_TAGS = (all => \@EXPORT_OK);
@@ -121,6 +121,30 @@ sub _set ($name, $core, @args) {
 
 sub Set :prototype(;$) (@args)       { _set('Set', 'set', @args) }
 sub FrozenSet :prototype(;$) (@args) { _set('FrozenSet', 'frozenset', @args) }
+
+# `Json[T]`: JSON text, parsed and validated as T (core `json`).
+sub Json :prototype(;$) (@args) {
+    my $params = _params('Json', @args) // return Perldantic::Type->new(name => 'Json', schema => {type => 'json'});
+    _count('Json', $params, 1);
+    my $inner = _type('Json', $params->[0]);
+    return Perldantic::Type->new(
+        name       => "Json[$inner]",
+        schema     => {type => 'json', schema => $inner->core_schema},
+        parameters => [$inner],
+    );
+}
+
+# `Chain[A, B, ...]`: each type validates the output of the previous one (core `chain`).
+sub Chain :prototype(;$) (@args) {
+    my $params = _params('Chain', @args) // _usage('Chain[] takes at least 1 type');
+    _usage('Chain[] takes at least 1 type') if !@$params;
+    my @steps = map { _type('Chain', $_) } @$params;
+    return Perldantic::Type->new(
+        name       => 'Chain[' . _list(\@steps) . ']',
+        schema     => {type => 'chain', steps => [map { $_->core_schema } @steps]},
+        parameters => \@steps,
+    );
+}
 
 sub HashRef :prototype(;$) (@args) {
     my $params = _params('HashRef', @args)
@@ -324,6 +348,17 @@ An array reference of distinct items (core C<set> / C<frozenset>): repeated item
 equality, so C<1> and C<1.0> are the same) are kept once, in the order given; items that could
 not be in a Python set (array or hash references) are errors. Input may be any array
 reference; output is an array reference.
+
+=item C<Json>, C<Json[T]>
+
+JSON text (a string or bytes) parsed into Perl data, which C<T> then validates as JSON input
+(core C<json>). Serialization writes the data, not the text.
+
+=item C<Chain[A, B, ...]>
+
+Each type validates the output of the previous one (core C<chain>), e.g.
+C<Chain[Str-E<gt>with(strip_whitespace =E<gt> 1), Json[ArrayRef[Int]]]>. Serialization and JSON
+Schema follow pydantic: the last type for output, the first for validation schemas.
 
 =item C<Tuple>, C<Tuple[A, B, ...]>, C<Tuple[A, slurpy ArrayRef[T]]>
 

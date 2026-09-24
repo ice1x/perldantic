@@ -585,6 +585,8 @@ impl<'o> GenerateJsonSchema<'o> {
             "tagged-union" => self.tagged_union_schema(schema),
             "lax-or-strict" => self.lax_or_strict_schema(schema),
             "custom-error" | "model-field" => self.generate_inner(sub_schema(schema, "schema")?),
+            "chain" => self.chain_schema(schema),
+            "json" => self.json_schema(schema),
             "computed-field" => self.generate_inner(sub_schema(schema, "return_schema")?),
             "model" => self.model_schema(schema),
             "model-fields" => self.model_fields_schema(schema),
@@ -649,6 +651,34 @@ impl<'o> GenerateJsonSchema<'o> {
 
     fn ser_json_temporal(&self) -> &str {
         self.config_str("ser_json_temporal").unwrap_or("iso8601")
+    }
+
+    /// The first step's schema for validation, the last one's for serialization.
+    fn chain_schema(&mut self, schema: &Dict) -> JsResult<Dict> {
+        let steps: Vec<Value> = schema.get_as_req("steps")?;
+        let step = match self.mode() {
+            JsonSchemaMode::Validation => steps.first(),
+            JsonSchemaMode::Serialization => steps.last(),
+        };
+        match step {
+            Some(step) => self.generate_inner(as_dict(step)?),
+            None => Err(CoreError::Schema("`chain` schemas need steps".to_owned()).into()),
+        }
+    }
+
+    /// JSON text holding the inner schema's data (validation), or that data (serialization).
+    fn json_schema(&mut self, schema: &Dict) -> JsResult<Dict> {
+        let content = match schema.get_str("schema") {
+            Some(inner) => self.generate_inner(as_dict(inner)?)?,
+            None => Dict::new(),
+        };
+        if self.mode() == JsonSchemaMode::Serialization {
+            return Ok(content);
+        }
+        let mut json_schema = typed("string");
+        set(&mut json_schema, "contentMediaType", "application/json");
+        set(&mut json_schema, "contentSchema", content);
+        Ok(json_schema)
     }
 
     /// A string, or in validation mode also a number with the bounds as floats.
