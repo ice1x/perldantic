@@ -44,6 +44,18 @@ pub trait Input: fmt::Debug {
         None
     }
 
+    /// Whether the input is host data (a Perl value), even where `as_value` gives nothing because
+    /// the host keeps the data (see [`super::HostInput`]).
+    fn is_host_data(&self) -> bool {
+        self.as_value().is_some()
+    }
+
+    /// What identifies host data for recursion guards: equal for the same host value.
+    fn identity(&self) -> Option<usize> {
+        self.as_value()
+            .map(|value| std::ptr::from_ref(value) as usize)
+    }
+
     fn is_none(&self) -> bool {
         false
     }

@@ -37,6 +37,9 @@ for my $name (qw(validator_validate validator_check serializer_to_data serialize
             'opaque');
 }
 $ffi->attach([pd_buffer_free => '_buffer_free'] => ['opaque', 'usize'] => 'void');
+# Validation reads Perl data in place (Perldantic.xs calls these exports itself).
+Perldantic::XS::bind_core(map { $ffi->find_symbol($_) } qw(pd_validator_validate_host pd_validator_check_host pd_buffer_free))
+    if $Perldantic::Wire::XS;
 $ffi->type('(uint64,string,opaque)->void' => 'pd_host_callback');
 $ffi->attach([pd_set_host_callback => '_set_host_callback'] => ['pd_host_callback'] => 'void');
 $ffi->attach([pd_host_reply => '_host_reply'] => ['opaque', 'string'] => 'void');
@@ -225,6 +228,22 @@ sub _unwrap ($envelope) {
     die Perldantic::Error->from_core($error);
 }
 
+# Validate Perl data read in place by the core (Perldantic.xs, ffi/src/host_input.rs); returns
+# the result as _binary_call does. `$check` asks only whether the input is valid.
+sub _validate_in_place ($handle, $input, $options, $check) {
+    my @result = eval {
+        Perldantic::XS::validate_host($handle, $input, _options($options), \&Perldantic::Wire::_emit,
+            \&Perldantic::Wire::decode, $check ? 1 : 0);
+    };
+    if (!@result) {
+        my $e = $@;
+        die $e if blessed $e && $e->isa('Perldantic::Error');
+        Perldantic::InternalError->throw(message => "Cannot encode a value for the core: $e", cause => $e);
+    }
+    return _unwrap(Perldantic::Wire::decode($result[1])) if $result[0] eq 'envelope';
+    return {ok => $result[1], warning => $result[2]};
+}
+
 # Call a binary export: the value goes in and the result comes back in the binary wire format.
 # Returns the result and the serializer's warning; errors die as with the JSON exports.
 sub _binary_call ($function, $handle, $value, $options) {
@@ -277,9 +296,7 @@ package Perldantic::FFI::Validator {
 
     sub validate ($self, $input, $options = undef) {
         return Perldantic::FFI::_enter(sub {
-            return Perldantic::FFI::_binary_call(\&Perldantic::FFI::_validator_validate_binary, $self->{handle}, $input,
-                $options)->{ok}
-                if $Perldantic::Wire::XS;
+            return Perldantic::FFI::_validate_in_place($self->{handle}, $input, $options, 0)->{ok} if $Perldantic::Wire::XS;
             my $envelope = Perldantic::FFI::_envelope(Perldantic::FFI::_validator_validate(
                 $self->{handle}, Perldantic::Wire::encode($input), Perldantic::FFI::_options($options)));
             return Perldantic::FFI::_unwrap($envelope)->{ok};
@@ -289,8 +306,7 @@ package Perldantic::FFI::Validator {
     # Whether the input is valid, without building the validated value.
     sub check ($self, $input, $options = undef) {
         return Perldantic::FFI::_enter(sub {
-            return Perldantic::FFI::_binary_call(\&Perldantic::FFI::_validator_check_binary, $self->{handle}, $input,
-                $options)->{ok} ? !!1 : !!0
+            return Perldantic::FFI::_validate_in_place($self->{handle}, $input, $options, 1)->{ok} ? !!1 : !!0
                 if $Perldantic::Wire::XS;
             return !!1 if eval { $self->validate($input, $options); 1 };
             my $e = $@;

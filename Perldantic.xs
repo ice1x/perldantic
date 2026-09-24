@@ -28,6 +28,8 @@ typedef struct {
     HV *direct;   /* %Perldantic::Wire::DIRECT: class => [field names] */
     HV *state;    /* %Perldantic::Model::STATE, a field hash keyed by object address */
     int tracking; /* $Perldantic::Model::TRACK_OBJECTS: objects then carry tokens */
+    int guarded;  /* Rust frames are on the stack: a dying fallback must not unwind through them */
+    SV *error;    /* the first exception a guarded fallback raised (owned) */
 } encoder;
 
 static void emit(pTHX_ SV *out, SV *value, encoder *enc, int depth);
@@ -214,6 +216,8 @@ static void emit(pTHX_ SV *out, SV *value, encoder *enc, int depth)
             emit_fallback(aTHX_ out, value, enc->fallback);
             return;
         }
+        /* tied arrays and hashes: Perl sees their elements, a C walk would not */
+        if (SvRMAGICAL(target)) { emit_fallback(aTHX_ out, value, enc->fallback); return; }
         if (SvTYPE(target) == SVt_PVAV) {
             AV *array = (AV *)target;
             SSize_t last = av_len(array), i;
@@ -331,10 +335,40 @@ static void bput_sv_string(pTHX_ SV *out, SV *value)
 }
 
 /* What the fallback writes for a value, as a JSON node. */
-static void bput_fallback(pTHX_ SV *out, SV *value, SV *fallback)
+static void bput_fallback(pTHX_ SV *out, SV *value, encoder *enc)
 {
     SV *json = sv_2mortal(newSVpvn("", 0));
-    emit_fallback(aTHX_ json, value, fallback);
+    if (enc->guarded) {
+        /* call the fallback under G_EVAL: an exception is kept for the caller to raise once
+           the core has returned, and the value written as undef meanwhile */
+        dSP;
+        int count;
+        if (enc->error) { bput_tag(aTHX_ out, B_NONE); return; }
+        ENTER;
+        SAVETMPS;
+        PUSHMARK(SP);
+        XPUSHs(value);
+        PUTBACK;
+        count = call_sv(enc->fallback, G_SCALAR | G_EVAL);
+        SPAGAIN;
+        if (SvTRUE(ERRSV) || count != 1) {
+            if (count == 1) (void)POPs;
+            enc->error = newSVsv(SvTRUE(ERRSV) ? ERRSV : sv_2mortal(newSVpvs("the fallback returned no value")));
+            PUTBACK;
+            FREETMPS;
+            LEAVE;
+            bput_tag(aTHX_ out, B_NONE);
+            return;
+        }
+        sv_catsv(json, POPs);
+        PUTBACK;
+        FREETMPS;
+        LEAVE;
+        bput_tag(aTHX_ out, B_JSON);
+        bput_bytes(aTHX_ out, SvPVX(json), SvCUR(json));
+        return;
+    }
+    emit_fallback(aTHX_ json, value, enc->fallback);
     bput_tag(aTHX_ out, B_JSON);
     bput_bytes(aTHX_ out, SvPVX(json), SvCUR(json));
 }
@@ -463,14 +497,15 @@ static void bemit_hash(pTHX_ SV *out, HV *hash, encoder *enc, int depth)
 static void bemit(pTHX_ SV *out, SV *value, encoder *enc, int depth)
 {
     SvGETMAGIC(value);
-    if (depth > MAX_DEPTH) { bput_fallback(aTHX_ out, value, enc->fallback); return; }
+    if (depth > MAX_DEPTH) { bput_fallback(aTHX_ out, value, enc); return; }
     if (SvROK(value)) {
         SV *target = SvRV(value);
         if (SvOBJECT(target)) {
             if (SvTYPE(target) == SVt_PVHV && bemit_model(aTHX_ out, target, enc, depth)) return;
-            bput_fallback(aTHX_ out, value, enc->fallback);
+            bput_fallback(aTHX_ out, value, enc);
             return;
         }
+        if (SvRMAGICAL(target)) { bput_fallback(aTHX_ out, value, enc); return; }
         if (SvTYPE(target) == SVt_PVAV) {
             AV *array = (AV *)target;
             SSize_t last = av_len(array), i;
@@ -488,7 +523,7 @@ static void bemit(pTHX_ SV *out, SV *value, encoder *enc, int depth)
             LEAVE;
             return;
         }
-        bput_fallback(aTHX_ out, value, enc->fallback);
+        bput_fallback(aTHX_ out, value, enc);
         return;
     }
     if (!SvOK(value)) { bput_tag(aTHX_ out, B_NONE); return; }
@@ -735,6 +770,250 @@ static void encoder_init(pTHX_ encoder *enc, SV *fallback)
     enc->direct = get_hv("Perldantic::Wire::DIRECT", 0);
     enc->state = get_hv("Perldantic::Model::STATE", 0);
     enc->tracking = tracking && SvTRUE(tracking);
+    enc->guarded = 0;
+    enc->error = NULL;
+}
+
+/*
+ * Host data read in place by the core (ffi/src/host_input.rs): the core walks Perl arrays and
+ * hashes through these functions instead of receiving a copy, and asks for anything else
+ * (scalars, objects, tied containers) in the binary wire format. Nodes are SV pointers, valid
+ * for the whole call; strings handed over live in mortal SVs, freed when the call returns.
+ */
+/* A plain scalar described without allocating (ffi/src/host_input.rs, PdScalar). */
+typedef struct {
+    int tag;          /* 0 undef, 1 true, 2 false, 3 integer, 4 float, 5 UTF-8 string */
+    long long integer;
+    double number;
+    const unsigned char *ptr;
+    size_t len;
+} pd_scalar;
+
+typedef struct {
+    void *ctx;
+    int (*kind)(void *ctx, void *node);
+    size_t (*array_len)(void *ctx, void *node);
+    void *(*array_item)(void *ctx, void *node, size_t index);
+    void *(*hash_get)(void *ctx, void *node, const unsigned char *key, size_t key_len);
+    size_t (*hash_len)(void *ctx, void *node);
+    size_t (*hash_entries)(void *ctx, void *node, const unsigned char **keys, size_t *key_lens,
+                           void **values, size_t capacity);
+    int (*scalar)(void *ctx, void *node, pd_scalar *out);
+    int (*to_binary)(void *ctx, void *node, const unsigned char **bytes, size_t *len);
+} pd_host;
+
+typedef unsigned char *(*pd_validate_host_fn)(void *validator, const pd_host *host, void *root,
+                                              const char *options, size_t *len);
+typedef void (*pd_buffer_free_fn)(unsigned char *buffer, size_t len);
+
+/* The core's exports, bound once by Perldantic::FFI (process-wide function addresses). */
+static pd_validate_host_fn core_validate_host = NULL;
+static pd_validate_host_fn core_check_host = NULL;
+static pd_buffer_free_fn core_buffer_free = NULL;
+
+/* The container behind a node that the core may read in place: a reference to a plain (not
+   blessed, not tied) array or hash. */
+static SV *host_container(SV *node)
+{
+    SV *target;
+    if (!SvROK(node)) return NULL;
+    target = SvRV(node);
+    if (SvOBJECT(target) || SvRMAGICAL(target)) return NULL;
+    if (SvTYPE(target) != SVt_PVAV && SvTYPE(target) != SVt_PVHV) return NULL;
+    return target;
+}
+
+static int host_kind(void *ctx, void *node)
+{
+    SV *target = host_container((SV *)node);
+    PERL_UNUSED_ARG(ctx);
+    if (!target) return 0;
+    return SvTYPE(target) == SVt_PVAV ? 1 : 2;
+}
+
+static size_t host_array_len(void *ctx, void *node)
+{
+    SV *target = host_container((SV *)node);
+    dTHX;
+    PERL_UNUSED_ARG(ctx);
+    return target && SvTYPE(target) == SVt_PVAV ? (size_t)(av_len((AV *)target) + 1) : 0;
+}
+
+static void *host_array_item(void *ctx, void *node, size_t index)
+{
+    SV *target = host_container((SV *)node);
+    SV **item;
+    dTHX;
+    PERL_UNUSED_ARG(ctx);
+    if (!target || SvTYPE(target) != SVt_PVAV) return &PL_sv_undef;
+    item = av_fetch((AV *)target, (SSize_t)index, 0);
+    return item ? *item : &PL_sv_undef;
+}
+
+static void *host_hash_get(void *ctx, void *node, const unsigned char *key, size_t key_len)
+{
+    SV *target = host_container((SV *)node);
+    SV **found;
+    size_t i;
+    int ascii = 1;
+    dTHX;
+    PERL_UNUSED_ARG(ctx);
+    if (!target || SvTYPE(target) != SVt_PVHV) return NULL;
+    for (i = 0; i < key_len; i++) if (key[i] & 0x80) { ascii = 0; break; }
+    /* a negative length marks UTF-8 key bytes; Perl finds the key however it is stored */
+    found = hv_fetch((HV *)target, (const char *)key, ascii ? (I32)key_len : -(I32)key_len, 0);
+    return found ? *found : NULL;
+}
+
+static size_t host_hash_len(void *ctx, void *node)
+{
+    SV *target = host_container((SV *)node);
+    dTHX;
+    PERL_UNUSED_ARG(ctx);
+    return target && SvTYPE(target) == SVt_PVHV ? (size_t)HvUSEDKEYS((HV *)target) : 0;
+}
+
+/* The entries of a hash in the order the binary encoder writes them (sorted keys), keys as
+   UTF-8 bytes. */
+static size_t host_hash_entries(void *ctx, void *node, const unsigned char **keys,
+                                size_t *key_lens, void **values, size_t capacity)
+{
+    SV *target = host_container((SV *)node);
+    HV *hash;
+    HE **entries;
+    HE *entry;
+    size_t count = 0, i;
+    int plain = 1;
+    dTHX;
+    PERL_UNUSED_ARG(ctx);
+    if (!target || SvTYPE(target) != SVt_PVHV || capacity == 0) return 0;
+    hash = (HV *)target;
+    Newx(entries, capacity, HE *);
+    SAVEFREEPV(entries);
+    hv_iterinit(hash);
+    while ((entry = hv_iternext(hash)) && count < capacity) {
+        if (HeKLEN(entry) == HEf_SVKEY || HeKUTF8(entry)) plain = 0;
+        entries[count++] = entry;
+    }
+    if (plain) {
+        qsort(entries, count, sizeof(HE *), compare_entries);
+        for (i = 0; i < count; i++) {
+            const char *key = HeKEY(entries[i]);
+            I32 len = HeKLEN(entries[i]), j;
+            for (j = 0; j < len; j++) if ((unsigned char)key[j] & 0x80) break;
+            if (j < len) {
+                /* Latin-1 bytes: the key as UTF-8, in a mortal copy */
+                STRLEN utf8_len;
+                SV *copy = sv_2mortal(newSVpvn(key, len));
+                keys[i] = (const unsigned char *)SvPVutf8(copy, utf8_len);
+                key_lens[i] = utf8_len;
+            } else {
+                keys[i] = (const unsigned char *)key;
+                key_lens[i] = (size_t)len;
+            }
+            values[i] = HeVAL(entries[i]);
+        }
+        return count;
+    } else {
+        /* UTF-8 keys: sort key SVs as the binary encoder does */
+        SV **key_svs;
+        Newx(key_svs, count, SV *);
+        SAVEFREEPV(key_svs);
+        for (i = 0; i < count; i++) key_svs[i] = hv_iterkeysv(entries[i]);
+        qsort(key_svs, count, sizeof(SV *), compare_keys);
+        for (i = 0; i < count; i++) {
+            HE *found = hv_fetch_ent(hash, key_svs[i], 0, 0);
+            STRLEN len;
+            SV *copy = sv_2mortal(newSVsv(key_svs[i]));
+            keys[i] = (const unsigned char *)SvPVutf8(copy, len);
+            key_lens[i] = len;
+            values[i] = found ? HeVAL(found) : &PL_sv_undef;
+        }
+        return count;
+    }
+}
+
+/* A plain scalar as the binary encoder would write it; 0 for anything else (references,
+   magic, integers beyond 64 bits, Latin-1 strings), which then goes through host_to_binary. */
+static int host_scalar(void *ctx, void *node, pd_scalar *out)
+{
+    SV *sv = (SV *)node;
+    PERL_UNUSED_ARG(ctx);
+    if (SvROK(sv) || SvGMAGICAL(sv)) return 0;
+    if (!SvOK(sv)) { out->tag = 0; return 1; }
+#ifdef SvIsBOOL
+    if (SvIsBOOL(sv)) { out->tag = SvIV_nomg(sv) ? 1 : 2; return 1; }
+#endif
+    if ((SvIOK(sv) || SvNOK(sv)) && !SvPOK(sv)) {
+        if (SvIOK(sv)) {
+            if (SvIsUV(sv) && SvUVX(sv) > (UV)IV_MAX) return 0;
+            out->tag = 3;
+            out->integer = (long long)SvIVX(sv);
+        } else {
+            out->tag = 4;
+            out->number = (double)SvNVX(sv);
+        }
+        return 1;
+    }
+    if (SvPOK(sv)) {
+        const unsigned char *text = (const unsigned char *)SvPVX(sv);
+        STRLEN len = SvCUR(sv), i;
+        if (!SvUTF8(sv)) for (i = 0; i < len; i++) if (text[i] & 0x80) return 0;
+        out->tag = 5;
+        out->ptr = text;
+        out->len = len;
+        return 1;
+    }
+    return 0;
+}
+
+static int host_to_binary(void *ctx, void *node, const unsigned char **bytes, size_t *len)
+{
+    encoder *enc = (encoder *)ctx;
+    SV *out;
+    dTHX;
+    out = sv_2mortal(newSVpvn("", 0));
+    bemit(aTHX_ out, (SV *)node, enc, 0);
+    if (enc->error) return 0;
+    *bytes = (const unsigned char *)SvPVX(out);
+    *len = SvCUR(out);
+    return 1;
+}
+
+/* A result buffer of the core as ('ok', $value, $warning) or ('envelope', $json), pushed on
+   the stack; the buffer is read from a Perl copy, so a dying decoder leaks nothing. */
+static int push_result(pTHX_ SV **sp_in, SV *copy, SV *json_decoder)
+{
+    SV **sp = sp_in;
+    breader r;
+    const unsigned char *bytes = (const unsigned char *)SvPVX(copy);
+    STRLEN len = SvCUR(copy);
+    if (len == 0) croak("Perldantic::XS: empty result from the core");
+    r.at = bytes + 1;
+    r.end = bytes + len;
+    r.json_decoder = json_decoder;
+    r.bless = get_hv("Perldantic::Wire::BLESS", 0);
+    if (bytes[0] == 'J') {
+        EXTEND(SP, 2);
+        mPUSHs(newSVpvs("envelope"));
+        mPUSHs(newSVpvn((const char *)r.at, (STRLEN)(r.end - r.at)));
+        PUTBACK;
+        return 2;
+    }
+    if (bytes[0] == 'B' || bytes[0] == 'W') {
+        SV *warning = NULL, *value;
+        if (bytes[0] == 'W') warning = sv_2mortal(bget_string(aTHX_ &r));
+        value = sv_2mortal(bread(aTHX_ &r, 0));
+        if (r.at != r.end) croak("Perldantic::XS: trailing bytes in a result of the core");
+        EXTEND(SP, 3);
+        PUSHs(sv_2mortal(newSVpvs("ok")));
+        PUSHs(value);
+        PUSHs(warning ? warning : sv_newmortal());
+        PUTBACK;
+        return 3;
+    }
+    croak("Perldantic::XS: unknown result kind %d", (int)bytes[0]);
+    return 0;
 }
 
 MODULE = Perldantic    PACKAGE = Perldantic::XS
@@ -818,3 +1097,54 @@ decode_result(address, len, json_decoder)
         } else {
             croak("Perldantic::XS::decode_result: unknown result kind %d", (int)bytes[0]);
         }
+
+void
+bind_core(validate_host, check_host, buffer_free)
+        UV validate_host
+        UV check_host
+        UV buffer_free
+    CODE:
+        /* the core's exports, found by Perldantic::FFI */
+        core_validate_host = INT2PTR(pd_validate_host_fn, validate_host);
+        core_check_host = INT2PTR(pd_validate_host_fn, check_host);
+        core_buffer_free = INT2PTR(pd_buffer_free_fn, buffer_free);
+
+void
+validate_host(validator, input, options, fallback, json_decoder, check)
+        UV validator
+        SV *input
+        SV *options
+        SV *fallback
+        SV *json_decoder
+        int check
+    PREINIT:
+        encoder enc;
+        pd_host host;
+        unsigned char *buffer;
+        size_t len = 0;
+        SV *copy;
+        int count;
+    PPCODE:
+        /* Validate Perl data read in place: ('ok', $value, $warning) or ('envelope', $json). */
+        if (!core_validate_host || !core_check_host || !core_buffer_free)
+            croak("Perldantic::XS::validate_host: the core is not bound");
+        encoder_init(aTHX_ &enc, fallback);
+        enc.guarded = 1;
+        host.ctx = &enc;
+        host.kind = host_kind;
+        host.array_len = host_array_len;
+        host.array_item = host_array_item;
+        host.hash_get = host_hash_get;
+        host.hash_len = host_hash_len;
+        host.hash_entries = host_hash_entries;
+        host.scalar = host_scalar;
+        host.to_binary = host_to_binary;
+        buffer = (check ? core_check_host : core_validate_host)(
+            INT2PTR(void *, validator), &host, input, SvOK(options) ? SvPV_nolen(options) : NULL, &len);
+        copy = sv_2mortal(newSVpvn((const char *)buffer, len));
+        core_buffer_free(buffer, len);
+        if (enc.error) croak_sv(sv_2mortal(enc.error));
+        PUTBACK;
+        count = push_result(aTHX_ SP, copy, json_decoder);
+        SPAGAIN;
+        PERL_UNUSED_VAR(count);

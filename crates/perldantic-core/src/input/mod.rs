@@ -2,6 +2,7 @@
 
 pub(crate) mod datetime;
 mod input_abstract;
+mod input_host;
 mod input_json;
 mod input_value;
 mod return_enums;
@@ -11,6 +12,7 @@ pub use input_abstract::{
     BorrowInput, ConsumeIterator, Input, Never, ValMatch, ValidatedDict, ValidatedList,
     ValidatedTuple,
 };
+pub use input_host::{HostData, HostDict, HostInput, HostKind, HostSeq};
 pub use return_enums::{EitherBytes, EitherFloat, EitherInt, EitherString, Int, ValidationMatch};
 pub(crate) use return_enums::{
     MaxLengthCheck, no_validator_iter_to_vec, validate_iter_to_set, validate_iter_to_vec,

@@ -15,6 +15,43 @@ typedef struct PdSerializer PdSerializer;
 // A compiled validator (opaque to C).
 typedef struct PdValidator PdValidator;
 
+// A plain scalar of the host, described without allocating: `tag` 0 for `None`, 1 and 2 for
+// `true` and `false`, 3 for the integer `int`, 4 for the float `float`, 5 for the UTF-8 string
+// at `ptr` (`len` bytes, valid for the call).
+typedef struct {
+  int32_t tag;
+  int64_t int_;
+  double float_;
+  const uint8_t *ptr;
+  size_t len;
+} PdScalar;
+
+// The functions a host provides; `ctx` is passed back to each of them.
+typedef struct {
+  void *ctx;
+  // 1 for an array read in place, 2 for a hash read in place, 0 for anything else.
+  int32_t (*kind)(void *ctx, void *node);
+  size_t (*array_len)(void *ctx, void *node);
+  void *(*array_item)(void *ctx, void *node, size_t index);
+  // The value under a key (UTF-8 bytes), or null.
+  void *(*hash_get)(void *ctx, void *node, const uint8_t *key, size_t key_len);
+  size_t (*hash_len)(void *ctx, void *node);
+  // Fill up to `capacity` entries, in the order to visit them: key (UTF-8 bytes) and value.
+  // Returns how many were written.
+  size_t (*hash_entries)(void *ctx,
+                         void *node,
+                         const uint8_t **keys,
+                         size_t *key_lens,
+                         void **values,
+                         size_t capacity);
+  // Describe a plain scalar (see [`PdScalar`]); returns 0 for anything else, which is then
+  // converted with `to_binary`.
+  int32_t (*scalar)(void *ctx, void *node, PdScalar *out);
+  // Write the node in the binary wire format; the bytes stay valid for the call. Returns 0
+  // when the host cannot convert the node (it keeps the error and raises it afterwards).
+  int32_t (*to_binary)(void *ctx, void *node, const uint8_t **bytes, size_t *len);
+} PdHost;
+
 // The host's callback: `(function id, call JSON, reply slot)`; it must answer through
 // [`pd_host_reply`] before returning, and must not unwind. Null removes the callback.
 typedef void (*PdHostCallback)(uint64_t, const char*, PdReply*);
@@ -117,6 +154,31 @@ uint8_t *pd_validator_check_binary(const PdValidator *validator,
                                    size_t input_len,
                                    const char *options,
                                    size_t *len);
+
+// Validate host data read in place: `root` is a node of `host` (see [`host_input::PdHost`]).
+// Returns the result as [`pd_validator_validate_binary`] does; when the host fails to convert a
+// value, the result is an error envelope and the host raises its own error.
+//
+// # Safety
+// `validator` is null or a live handle; `host` points to a table whose functions accept
+// `root` and every node they return, for the whole call; `options` is null or NUL-terminated;
+// `len` is null or writable.
+uint8_t *pd_validator_validate_host(const PdValidator *validator,
+                                    const PdHost *host,
+                                    void *root,
+                                    const char *options,
+                                    size_t *len);
+
+// [`pd_validator_validate_host`] answering only whether the input is valid, as
+// [`pd_validator_check_binary`] does.
+//
+// # Safety
+// As for [`pd_validator_validate_host`].
+uint8_t *pd_validator_check_host(const PdValidator *validator,
+                                 const PdHost *host,
+                                 void *root,
+                                 const char *options,
+                                 size_t *len);
 
 // [`pd_serializer_to_data`] with the value and the result in the binary wire format, returned
 // as [`pd_validator_validate_binary`] returns its result.

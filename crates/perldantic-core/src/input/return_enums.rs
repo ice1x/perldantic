@@ -54,6 +54,10 @@ impl<T> ValidationMatch<T> {
     pub fn into_inner(self) -> T {
         self.0
     }
+
+    pub fn map<U>(self, f: impl FnOnce(T) -> U) -> ValidationMatch<U> {
+        ValidationMatch(f(self.0), self.1)
+    }
 }
 
 /// A string borrowed from the input or produced by coercion.

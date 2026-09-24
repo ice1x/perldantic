@@ -31,7 +31,7 @@ pub use host::{
     Function, HostCall, HostError, HostException, HostFunction, SerializationInfo,
     SerializerHandler, ValidationInfo, ValidatorHandler,
 };
-pub use input::InputType;
+pub use input::{HostData, HostInput, HostKind, InputType};
 pub use jiter::PartialMode;
 pub use json_schema::{
     GeneratedJsonSchema, JsonSchemaError, JsonSchemaMode, JsonSchemaOptions, UnionFormat,

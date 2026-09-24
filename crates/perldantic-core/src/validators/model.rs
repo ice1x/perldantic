@@ -161,7 +161,7 @@ impl ModelValidator {
         state: &mut ValidationState<'_>,
     ) -> ValResult<Value> {
         let model = if self.root_model {
-            let state = &mut state.scoped_set_field_name(Some(ROOT_FIELD.to_owned()));
+            let state = &mut state.scoped_set_field_name(Some(Arc::from(ROOT_FIELD)));
             let output = self.validator.validate(input, state)?;
             let mut fields = Dict::new();
             fields.insert(Value::from(ROOT_FIELD), output);

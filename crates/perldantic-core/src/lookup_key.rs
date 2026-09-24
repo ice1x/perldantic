@@ -125,6 +125,14 @@ impl LookupPath {
             .try_fold(Cow::Borrowed(first), |value, item| item.value_get(value))
     }
 
+    /// Follow the rest of the path (all but the first key) from the value the first key found.
+    pub fn rest_get(&self, first: &Value) -> Option<Value> {
+        self.rest
+            .iter()
+            .try_fold(Cow::Borrowed(first), |value, item| item.value_get(value))
+            .map(Cow::into_owned)
+    }
+
     pub fn json_get<'a, 'data>(&self, dict: &'a JsonObject<'data>) -> Option<&'a JsonValue<'data>> {
         // first step is different as the first step is a key lookup; with duplicate keys the
         // last one wins, as in Python

@@ -76,7 +76,7 @@ impl Validator for DefinitionRefValidator {
             let validator = validator.expect("definitions are filled before validation");
             // Host data is guarded by identity, as upstream guards Python objects (which can be
             // cyclic); a host value reached again with the same definition is a loop.
-            if let Some(id) = input.as_value().map(value_identity) {
+            if let Some(id) = input.identity() {
                 let Ok(mut guard) = RecursionGuard::new(state, id, self.definition.id()) else {
                     return Err(ValError::new(ErrorTypeDefaults::RecursionLoop, input));
                 };
@@ -101,8 +101,4 @@ impl Validator for DefinitionRefValidator {
     fn get_name(&self) -> &str {
         self.definition.get_or_init_name(|v| v.get_name().into())
     }
-}
-
-fn value_identity(value: &Value) -> usize {
-    std::ptr::from_ref(value) as usize
 }

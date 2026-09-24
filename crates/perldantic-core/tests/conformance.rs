@@ -15,10 +15,10 @@ use std::path::{Path, PathBuf};
 use base64::Engine;
 use base64::engine::general_purpose::STANDARD;
 use perldantic_core::{
-    Decimal, Dict, EnumMember, EnumMixin, ErrorDetails, ErrorsOptions, ExtraBehavior, JsonOptions,
-    LocItem, Model, MultiHostUrl, PartialMode, SchemaSerializer, SchemaValidator, SerMode,
-    SerializeOptions, Url, ValidateError, ValidateOptions, Value, WarningsMode, speedate, temporal,
-    uuid,
+    Decimal, Dict, EnumMember, EnumMixin, ErrorDetails, ErrorsOptions, ExtraBehavior, HostData,
+    HostInput, HostKind, InputType, JsonOptions, LocItem, Model, MultiHostUrl, PartialMode,
+    SchemaSerializer, SchemaValidator, SerMode, SerializeOptions, Url, ValidateError,
+    ValidateOptions, Value, WarningsMode, speedate, temporal, uuid,
 };
 use serde_json::Value as Json;
 
@@ -561,7 +561,21 @@ fn run_case(case: &Json, supported: &[&str]) -> Result<Result<(), String>, Skip>
         }
     };
     let result = match case["mode"].as_str().unwrap() {
-        "python" => validator.validate_value(&decode(&case["input"])?, &opts),
+        "python" => {
+            let input = decode(&case["input"])?;
+            let result = validator.validate_value(&input, &opts);
+            // the same data read in place by a host must validate the same way
+            let host = ValueHost;
+            let through_host = validator.validate_host_as(
+                &HostInput::new(&host, &raw const input),
+                InputType::Python,
+                &opts,
+            );
+            if let Some(difference) = differ(&result, &through_host) {
+                return Ok(Err(format!("host input: {difference}")));
+            }
+            result
+        }
         "json" => match &case["input"] {
             Json::String(text) => validator.validate_json(text, &opts),
             _ => return Err(Skip("non-string JSON input".into())),
@@ -831,4 +845,88 @@ fn documented_divergences_are_skipped() {
         run_case(&case, &["list"]),
         Err(Skip("divergence #12: set iteration order".into()))
     );
+}
+
+/// A host whose data is `Value`s, read in place through `HostInput`: lists are its arrays and
+/// dicts with string keys its hashes, visited in their own order.
+struct ValueHost;
+
+impl HostData for ValueHost {
+    type Node = *const Value;
+
+    fn kind(&self, node: Self::Node) -> HostKind {
+        // SAFETY: nodes point into the input, which outlives the validation call.
+        match unsafe { &*node } {
+            Value::List(_) => HostKind::Array,
+            Value::Dict(dict) if dict.iter().all(|(k, _)| matches!(k, Value::Str(_))) => {
+                HostKind::Hash
+            }
+            _ => HostKind::Value,
+        }
+    }
+
+    fn to_value(&self, node: Self::Node) -> Value {
+        // SAFETY: as above.
+        unsafe { &*node }.clone()
+    }
+
+    fn array_len(&self, node: Self::Node) -> usize {
+        // SAFETY: as above.
+        match unsafe { &*node } {
+            Value::List(items) => items.len(),
+            _ => 0,
+        }
+    }
+
+    fn array_item(&self, node: Self::Node, index: usize) -> Self::Node {
+        // SAFETY: as above.
+        match unsafe { &*node } {
+            Value::List(items) => &raw const items[index],
+            _ => unreachable!("only arrays have items"),
+        }
+    }
+
+    fn hash_get(&self, node: Self::Node, key: &str) -> Option<Self::Node> {
+        // SAFETY: as above.
+        match unsafe { &*node } {
+            Value::Dict(dict) => dict.get_str(key).map(std::ptr::from_ref),
+            _ => None,
+        }
+    }
+
+    fn hash_entries(&self, node: Self::Node) -> Vec<(String, Self::Node)> {
+        // SAFETY: as above.
+        match unsafe { &*node } {
+            Value::Dict(dict) => dict
+                .iter()
+                .map(|(k, v)| {
+                    let Value::Str(k) = k else {
+                        unreachable!("hashes have string keys")
+                    };
+                    (k.clone(), std::ptr::from_ref(v))
+                })
+                .collect(),
+            _ => Vec::new(),
+        }
+    }
+
+    fn identity(&self, node: Self::Node) -> usize {
+        node as usize
+    }
+}
+
+/// How two validation results differ, if they do.
+fn differ(a: &Result<Value, ValidateError>, b: &Result<Value, ValidateError>) -> Option<String> {
+    let errors = |e: &perldantic_core::ValidationError| {
+        format!("{} {:?}", e.title(), e.errors(&ErrorsOptions::default()))
+    };
+    let same = match (a, b) {
+        (Ok(x), Ok(y)) => same_value(x, y),
+        (Err(ValidateError::Validation(x)), Err(ValidateError::Validation(y))) => {
+            errors(x) == errors(y)
+        }
+        (Err(ValidateError::Core(x)), Err(ValidateError::Core(y))) => x == y,
+        _ => false,
+    };
+    (!same).then(|| format!("{a:?} as a Value, {b:?} read in place"))
 }

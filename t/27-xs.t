@@ -25,6 +25,15 @@ my @values = (
     {'$dollar' => 1, z => 2}, [tuple(1, 'a'), set(3), bytes("\0\xff")], ordered(b => 1, a => 2),
     {nested => {deeper => [{x => 1.25}]}}, Test::Thing->new, sub {1},
 );
+{
+    require Tie::Hash;
+    require Tie::Array;
+    tie my %tied_hash, 'Tie::StdHash';
+    %tied_hash = (b => 1, a => [2]);
+    tie my @tied_array, 'Tie::StdArray';
+    @tied_array = (1, 'x');
+    push @values, \%tied_hash, \@tied_array;
+}
 for my $value (@values) {
     my ($native, $perl) = both($value);
     is $native, $perl, 'same JSON for ' . (defined $value ? "$value" : 'undef');
@@ -179,6 +188,50 @@ subtest 'plain model objects are built natively' => sub {
     my $kept = Test::Point->new(x => 1, y => 'k');
     my $holder = Perldantic::TypeAdapter->new(Perldantic::Types::ArrayRef(['Test::Point']))->validate([$kept]);
     ok $holder->[0] == $kept, 'model objects given as input are kept, as in pydantic';
+};
+
+package Test::Tied {
+    require Tie::Hash;
+    our @ISA = ('Tie::StdHash');
+}
+
+package Test::Named {
+    use Perldantic;
+    has "caf\x{e9}" => (is => 'ro', isa => Str, alias => "\x{263a}");
+    has n => (is => 'ro', isa => Int);
+}
+
+subtest 'validation reads Perl data in place' => sub {
+    my $any = Perldantic::TypeAdapter->new(Perldantic::Types::Any());
+    my $ints = Perldantic::TypeAdapter->new(Perldantic::Types::HashRef([Perldantic::Types::Int()]));
+
+    tie my %tied, 'Test::Tied';
+    %tied = (a => '1', b => 2);
+    is $ints->validate(\%tied), {a => 1, b => 2}, 'tied hashes are read through Perl';
+
+    my $latin1 = "caf\xe9";
+    utf8::downgrade($latin1);
+    is $any->validate({$latin1 => $latin1}), {"caf\x{e9}" => "caf\x{e9}"}, 'Latin-1 keys and values';
+    is $any->validate({"\x{263a}" => ["\x{263a}"]}), {"\x{263a}" => ["\x{263a}"]}, 'UTF-8 keys and values';
+    is Test::Named->new("\x{263a}" => 'x', n => '3')->{"caf\x{e9}"}, 'x', 'UTF-8 keys looked up by the core';
+
+    is $any->validate([18446744073709551615, -9223372036854775808, 0.5, !!1, undef]),
+        [18446744073709551615, -9223372036854775808, 0.5, !!1, undef], 'numbers of every size, booleans, undef';
+
+    my $e = dies { $any->validate([1, {bad => \1}]) };
+    isa_ok $e, 'Perldantic::UsageError';
+    like $e->message, qr/no wire form/, 'a value without a wire form raises the fallback\'s error';
+    is $any->validate([1]), [1], 'and the next call works';
+
+    my $point = Test::Point->new(x => 1, y => 'p');
+    my $kept = Perldantic::TypeAdapter->new(Perldantic::Types::ArrayRef(['Test::Point']))->validate([$point]);
+    ok $kept->[0] == $point, 'model objects given as input are kept';
+
+    my $cycle = {};
+    $cycle->{self} = $cycle;
+    my $tree = Perldantic::TypeAdapter->new(Perldantic::Types::Dict([self => Perldantic::Types::Any()]));
+    ok lives { $tree->validate({self => {}}) }, 'nested hashes';
+    ok Perldantic::TypeAdapter->new(Perldantic::Types::Int())->check('7'), 'check reads in place too';
 };
 
 subtest 'dumps without serializer functions write objects natively' => sub {

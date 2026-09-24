@@ -20,6 +20,8 @@ use super::{BuildValidator, CombinedValidator, Validator, as_dict, build_validat
 #[derive(Debug)]
 struct TypedDictField {
     name: String,
+    /// The name as the validation state holds it (`info.field_name`), shared, not copied.
+    shared_name: Arc<str>,
     lookup_path_collection: LookupPathCollection,
     required: bool,
     validator: Arc<CombinedValidator>,
@@ -108,6 +110,7 @@ impl BuildValidator for TypedDictValidator {
                 LookupPathCollection::new(field_info.get_str("validation_alias"), name)?;
             fields.push(TypedDictField {
                 name: name.clone(),
+                shared_name: Arc::from(name.as_str()),
                 lookup_path_collection,
                 required,
                 validator,
@@ -199,7 +202,7 @@ impl Validator for TypedDictValidator {
                     } else {
                         PartialMode::Off
                     };
-                    let state = &mut state.scoped_set_field_name(Some(field.name.clone()));
+                    let state = &mut state.scoped_set_field_name(Some(field.shared_name.clone()));
                     match field.validator.validate(value.borrow_input(), state) {
                         Ok(value) => {
                             set_item(state, &field.name, value);
