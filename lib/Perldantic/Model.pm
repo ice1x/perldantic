@@ -18,7 +18,9 @@ use Role::Tiny ();
 use Perldantic::Wire;
 
 # Declarations per model class: {fields => [spec, ...], config => {...}, parent => class,
-# field_validators => [{fields, mode, code}, ...], model_validators => [{mode, code}, ...]}.
+# field_validators => [{fields, mode, code}, ...], model_validators => [{mode, code}, ...],
+# field_serializers => [{fields, mode, when_used, return_type, code}, ...],
+# model_serializer => {mode, code}, computed_fields => [{name, type, alias}, ...]}.
 our %META;
 # Compiled validators and serializers per class, and the classes each one was built from (the
 # models its schema reaches and their parents). A declaration in a class drops exactly the
@@ -58,7 +60,12 @@ my %CONFIG_FLAG = map { $_ => 1 }
 
 sub _usage ($message) { Perldantic::UsageError->throw(message => $message) }
 
-sub _meta ($class) { $META{$class} //= {fields => [], config => {}, field_validators => [], model_validators => []} }
+sub _meta ($class) {
+    $META{$class} //= {
+        fields => [], config => {}, field_validators => [], model_validators => [], field_serializers => [],
+        computed_fields => [],
+    };
+}
 
 # Bumped by every declaration, so that other caches (TypeAdapter) know to rebuild.
 our $GENERATION = 0;
@@ -259,6 +266,66 @@ sub _declare_model_validator ($class, @args) {
     _changed($class);
 }
 
+my %SERIALIZER_MODE = map { $_ => 1 } qw(plain wrap);
+my %WHEN_USED = map { $_ => 1 } qw(always unless-none json json-unless-none);
+
+# A Perldantic type from an `isa`-like option (a class name stands for InstanceOf[]).
+sub _type_option ($what, $isa) {
+    $isa = Perldantic::Types::InstanceOf([$isa]) if defined $isa && !ref $isa;
+    _usage("$what: isa must be a Perldantic type or a Perldantic model class")
+        if !blessed $isa || !$isa->isa('Perldantic::Type');
+    return $isa;
+}
+
+sub _serializer_options ($what, %options) {
+    my $mode = delete $options{mode} // 'plain';
+    _usage("$what: mode must be plain or wrap, got '$mode'") if !$SERIALIZER_MODE{$mode};
+    my $when_used = delete $options{when_used} // 'always';
+    _usage("$what: when_used must be always, unless-none, json or json-unless-none, got '$when_used'")
+        if !$WHEN_USED{$when_used};
+    my $return_type = delete $options{return_type};
+    $return_type = _type_option("$what return_type", $return_type) if defined $return_type;
+    _usage("$what: unknown option '$_'") for sort keys %options;
+    return (mode => $mode, when_used => $when_used, return_type => $return_type);
+}
+
+# `field_serializer $name | [@names] => (%options) => sub {...}`
+sub _declare_field_serializer ($class, $fields, @args) {
+    my $code = pop @args;
+    _usage('field_serializer: the last argument must be a code reference') if ref $code ne 'CODE';
+    _usage('field_serializer: options must be key => value pairs') if @args % 2;
+    my %options = _serializer_options('field_serializer', @args);
+    my @fields = ref $fields eq 'ARRAY' ? @$fields : ($fields);
+    _usage('field_serializer: name at least one field') if !@fields || grep { !defined || ref } @fields;
+    push @{_meta($class)->{field_serializers}}, {%options, fields => \@fields, code => $code};
+    _changed($class);
+}
+
+# `model_serializer (%options), sub {...}`
+sub _declare_model_serializer ($class, @args) {
+    my $code = pop @args;
+    _usage('model_serializer: the last argument must be a code reference') if ref $code ne 'CODE';
+    _usage('model_serializer: options must be key => value pairs') if @args % 2;
+    _meta($class)->{model_serializer} = {_serializer_options('model_serializer', @args), code => $code};
+    _changed($class);
+}
+
+# `computed_field $name => (isa => $type, alias => $alias) [=> sub {...}]`: without a sub, the
+# class's method of that name computes it.
+sub _declare_computed_field ($class, $name, @args) {
+    my $code = @args % 2 ? pop @args : undef;
+    _usage("computed_field $name: the last argument must be a code reference")
+        if defined $code && ref $code ne 'CODE';
+    my %options = @args;
+    my $type = _type_option("computed_field $name", delete $options{isa} // Perldantic::Types::Any());
+    my $alias = delete $options{alias};
+    _usage("computed_field $name: unknown option '$_'") for sort keys %options;
+    _install($class, $name, $code) if $code;
+    my $fields = _meta($class)->{computed_fields};
+    @$fields = ((grep { $_->{name} ne $name } @$fields), {name => $name, type => $type, alias => $alias});
+    _changed($class);
+}
+
 sub _declare_config ($class, %settings) {
     for my $key (sort keys %settings) {
         _usage("model_config: unknown setting '$key'") if !$CONFIG_KEY{$key} && !$PERL_SETTING{$key};
@@ -391,11 +458,83 @@ sub _model_validator_schema ($class, $validator, $schema) {
     return _function_schema($mode, $code, $call, $schema);
 }
 
+# The `serialization` of a schema with a serializer function: `$args` builds the Perl
+# arguments from the core's.
+sub _serializer_function ($spec, $call, $visit, %extra) {
+    my ($mode, $code) = @$spec{qw(mode code)};
+    Sub::Util::set_subname(Sub::Util::subname($code), $call);
+    return {
+        type      => "function-$mode",
+        function  => $call,
+        info_arg  => !!1,
+        when_used => $spec->{when_used},
+        ($spec->{return_type} ? (return_schema => _link($spec->{return_type}->core_schema, $visit)) : ()),
+        %extra,
+    };
+}
+
+sub _field_serialization ($serializer, $visit) {
+    my $code = $serializer->{code};
+    my $call;
+    if ($serializer->{mode} eq 'wrap') {
+        my $info = _takes($code, 4);
+        $call = sub ($model, $value, $handler, $i) { $code->(_live($model), _live($value), $handler, $info ? $i : ()) };
+    } else {
+        my $info = _takes($code, 3);
+        $call = sub ($model, $value, $i) { $code->(_live($model), _live($value), $info ? $i : ()) };
+    }
+    return _serializer_function($serializer, $call, $visit, is_field_serializer => !!1);
+}
+
+sub _model_serialization ($serializer, $visit) {
+    my $code = $serializer->{code};
+    my $call;
+    if ($serializer->{mode} eq 'wrap') {
+        my $info = _takes($code, 3);
+        $call = sub ($model, $handler, $i) { $code->(_live($model), $handler, $info ? $i : ()) };
+    } else {
+        my $info = _takes($code, 2);
+        $call = sub ($model, $i) { $code->(_live($model), $info ? $i : ()) };
+    }
+    return _serializer_function($serializer, $call, $visit);
+}
+
+# The computed fields of a class and its ancestors (a redeclared one keeps its place).
+sub _computed_fields ($class) {
+    my @fields;
+    for my $field (map { @{_meta($_)->{computed_fields}} } reverse _lineage($class)) {
+        my ($at) = grep { $fields[$_]{name} eq $field->{name} } 0 .. $#fields;
+        if (defined $at) { $fields[$at] = $field } else { push @fields, $field }
+    }
+    return @fields;
+}
+
+sub _computed_field_schema ($class, $field, $visit) {
+    my $name = $field->{name};
+    _usage("computed_field: $class has no method '$name'") if !$class->can($name);
+    my $getter = Sub::Util::set_subname("${class}::$name", sub ($model, $property) { _live($model)->$property });
+    return {
+        type          => 'computed-field',
+        property_name => $name,
+        return_schema => _link($field->{type}->core_schema, $visit),
+        function      => $getter,
+        (defined $field->{alias} ? (alias => $field->{alias}) : ()),
+        # as pydantic marks them
+        metadata => {pydantic_js_updates => {readOnly => !!1}},
+    };
+}
+
+sub _computed_fields_schema ($class, $visit) {
+    my @fields = _computed_fields($class) or return ();
+    return (computed_fields => [map { _computed_field_schema($class, $_, $visit) } @fields]);
+}
+
 sub _field_schema ($spec, $visit, $for_json_schema) {
     my $schema = _link($spec->{type}->core_schema, $visit);
     for my $validator (@{$spec->{validators} // []}) {
         $schema = _field_validator_schema($spec->{owner}, $validator, $schema);
     }
+    $schema = {%$schema, serialization => _field_serialization($spec->{serializer}, $visit)} if $spec->{serializer};
     if ($spec->{default}) {
         $schema = {type => 'default', schema => $schema, default => $spec->{default}[0]};
     }
@@ -423,6 +562,15 @@ sub _model_schema ($class, $visit, $for_json_schema) {
             push @{$validators{$name}}, $validator;
         }
     }
+    # one serializer per field: the latest declared, a subclass's over its parent's
+    my %serializer;
+    for my $serializer (map { @{_meta($_)->{field_serializers}} } reverse _lineage($class)) {
+        for my $name (@{$serializer->{fields}}) {
+            _usage("field_serializer: $class has no field '$name'") if !grep { $_->{name} eq $name } @fields;
+            $serializer{$name} = $serializer;
+        }
+    }
+    my ($model_serializer) = grep {defined} map { _meta($_)->{model_serializer} } _lineage($class);
     my $schema = {
         type   => 'model',
         cls    => $class,
@@ -430,11 +578,13 @@ sub _model_schema ($class, $visit, $for_json_schema) {
             type       => 'model-fields',
             model_name => $class,
             fields     => Perldantic::Wire::ordered(map {
-                my $spec = {%$_, owner => $class, validators => $validators{$_->{name}}};
+                my $spec = {%$_, owner => $class, validators => $validators{$_->{name}}, serializer => $serializer{$_->{name}}};
                 ($_->{name} => _field_schema($spec, $visit, $for_json_schema));
             } @fields),
+            _computed_fields_schema($class, $visit),
         },
         (%$config ? (config => $config) : ()),
+        ($model_serializer ? (serialization => _model_serialization($model_serializer, $visit)) : ()),
     };
     for my $validator (map { @{_meta($_)->{model_validators}} } reverse _lineage($class)) {
         $schema = _model_validator_schema($class, $validator, $schema);
@@ -499,6 +649,17 @@ sub _input_object ($model) {
         return $object && ref $object eq $model->class ? $object : undef;
     }
     return undef;
+}
+
+# Serialize with objects tracked: serializer functions and computed fields get the very objects
+# being dumped.
+our $DUMPING;
+
+sub _dump_tracked ($code) {
+    local $TRACK_OBJECTS = 1;
+    local $DUMPING = 1;
+    local %INPUT_OBJECTS;
+    return $code->();
 }
 
 sub _validate_tracked ($code, $args = undef) {
@@ -605,12 +766,14 @@ sub model_validate_json ($class, $json, @options) {
 
 sub model_dump ($self, @options) {
     _object_method('model_dump', $self);
-    return ref($self)->_serializer->to_python($self, _options('model_dump', @options));
+    my $options = _options('model_dump', @options);
+    return _dump_tracked(sub { ref($self)->_serializer->to_python($self, $options) });
 }
 
 sub model_dump_json ($self, @options) {
     _object_method('model_dump_json', $self);
-    return ref($self)->_serializer->to_json($self, _options('model_dump_json', @options));
+    my $options = _options('model_dump_json', @options);
+    return _dump_tracked(sub { ref($self)->_serializer->to_json($self, $options) });
 }
 
 sub model_json_schema ($class, @options) {
@@ -670,7 +833,7 @@ sub _perldantic_wire ($self) {
     my @names = map { $_->{name} } _fields(ref $self);
     my @token;
     # Objects the core revalidates keep only their real field names.
-    if ($TRACK_OBJECTS && (_config(ref $self)->{revalidate_instances} // 'never') ne 'always') {
+    if ($TRACK_OBJECTS && ($DUMPING || (_config(ref $self)->{revalidate_instances} // 'never') ne 'always')) {
         my $token = Scalar::Util::refaddr($self);
         $INPUT_OBJECTS{$token} = $self;
         @token = ("$TOKEN_PREFIX$token");

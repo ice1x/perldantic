@@ -25,6 +25,9 @@ sub import ($class, @args) {
     *{"${target}::with"}         = sub (@roles) { Perldantic::Model::_declare_with($target, @roles) };
     *{"${target}::field_validator"} = sub ($fields, @args) { Perldantic::Model::_declare_field_validator($target, $fields, @args) };
     *{"${target}::model_validator"} = sub (@args) { Perldantic::Model::_declare_model_validator($target, @args) };
+    *{"${target}::field_serializer"} = sub ($fields, @args) { Perldantic::Model::_declare_field_serializer($target, $fields, @args) };
+    *{"${target}::model_serializer"} = sub (@args) { Perldantic::Model::_declare_model_serializer($target, @args) };
+    *{"${target}::computed_field"}   = sub ($name, @args) { Perldantic::Model::_declare_computed_field($target, $name, @args) };
     for my $type (qw(before after around)) {
         *{"${target}::$type"} = sub (@args) { Class::Method::Modifiers::install_modifier($target, $type, @args) };
     }
@@ -66,7 +69,8 @@ engine is a Python-free port of C<pydantic-core>.
 
 C<use Perldantic> turns the package into a model class (a L<Perldantic::Model>), enables
 C<strict> and C<warnings>, and imports C<has>, C<extends>, C<model_config>,
-C<field_validator>, C<model_validator> and the types of
+C<field_validator>, C<model_validator>, C<field_serializer>, C<model_serializer>,
+C<computed_field> and the types of
 L<Perldantic::Types>, as well as C<with> and the method modifiers C<before>, C<after> and
 C<around> (L<Class::Method::Modifiers>).
 
@@ -193,6 +197,49 @@ object.
 =back
 
 Errors have an empty location.
+
+=head2 field_serializer $name | [@names] => (%options) => sub {...}
+
+pydantic's C<@field_serializer>: how one or more fields are dumped, called as an object method.
+Options:
+
+=over
+
+=item C<mode>
+
+C<plain> (the default): C<< sub ($self, $value, $info) >> returns the dumped value. C<wrap>:
+C<< sub ($self, $value, $handler, $info) >>, where C<< $handler->($value) >> dumps the value
+as the field's type would.
+
+=item C<when_used>
+
+C<always> (the default), C<unless-none>, C<json> (only C<model_dump_json> and
+C<< mode => 'json' >>) or C<json-unless-none>.
+
+=item C<return_type>
+
+The type of what the sub returns, which then serializes it and describes it in the
+serialization JSON Schema.
+
+=back
+
+C<$info> is a L<Perldantic::SerializationInfo>, passed to subs that take it. One serializer
+applies per field: the latest declared, a subclass's over its parent's.
+
+=head2 model_serializer (%options), sub {...}
+
+pydantic's C<@model_serializer>: how the whole object is dumped. C<plain> (the default):
+C<< sub ($self, $info) >> returns the dumped data; C<wrap>: C<< sub ($self, $handler, $info) >>,
+where C<< $handler->($self) >> gives the fields as usual. Takes C<when_used> and C<return_type>
+like C<field_serializer>.
+
+=head2 computed_field $name => (isa => $type, alias => $alias) => sub {...}
+
+pydantic's C<@computed_field>: a value computed from the object and dumped with the fields. The
+sub is installed as the method C<$name>; without a sub, the class's own method C<$name> is
+used. Computed fields are not input; they appear after the fields in dumps (subject to
+C<include> / C<exclude> and C<by_alias>) and in the serialization JSON Schema, marked
+C<readOnly>.
 
 =head1 LICENSE
 

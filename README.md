@@ -60,7 +60,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00052 — `Decimal` (Math::BigFloat), `Uuid`, `Url` (core: `decimal`, `uuid`, `url` / `multi-host-url`)
   - [x] 00053 — `Enum[]`, unique arrays, chains, `Json`, `Dict[]` (core: `enum`, `set`, `frozenset`, `chain`, `json`, `typed-dict`)
   - [x] 00054 — `function-before/after/wrap/plain` via `HostCallback`
-  - [ ] 00055 — Perl `validator`, `model_validator`, `field_serializer`, `computed_field`
+  - [x] 00055 — Perl `field_validator`, `model_validator`, `field_serializer`, `model_serializer`, `computed_field`
   - [ ] 00056 — `InstanceOf[]` and Type::Tiny interop
 - [ ] 00057 — Native SV bridge
   - [ ] 00058 — XS `Input` over SV (strict mode via SV flags)
