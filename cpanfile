@@ -14,4 +14,6 @@ on configure => sub {
 on test => sub {
     requires 'Test2::V0', '0.000159';
     requires 'Test::LeakTrace', '0.17';
+    requires 'DateTime', '1.50';
+    requires 'Time::Moment', '0.44';
 };

@@ -28,6 +28,8 @@ WriteMakefile(
         TEST_REQUIRES => {
             'Test2::V0'       => '0.000159',
             'Test::LeakTrace' => '0.17',
+            'DateTime'        => '1.50',
+            'Time::Moment'    => '0.44',
         },
         META_MERGE => {
             'meta-spec' => { version => 2 },

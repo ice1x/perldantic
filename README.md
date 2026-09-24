@@ -56,7 +56,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00077 — Roles (`with`) and method modifiers for models; model objects passed as input kept, not copied
   - [x] 00076 — Perl input type in the core: Perl-worded error messages (hash/array reference, undef), sorted hash keys, arrays as strict tuples
 - [ ] 00050 — P1 types & callbacks
-  - [ ] 00051 — `Date`, `Time`, `DateTime`, `Duration` (core: `date`, `time`, `datetime`, `timedelta`; speedate; Time::Moment / DateTime)
+  - [x] 00051 — `Date`, `Time`, `DateTime`, `Duration` (core: `date`, `time`, `datetime`, `timedelta`; speedate; Time::Moment / DateTime)
   - [ ] 00052 — `Decimal` (Math::BigFloat), `Uuid`, `Url` (core: `decimal`, `uuid`, `url` / `multi-host-url`)
   - [ ] 00053 — `Enum[]`, unique arrays, chains, `Json`, `Dict[]` (core: `enum`, `set`, `frozenset`, `chain`, `json`, `typed-dict`)
   - [ ] 00054 — `function-before/after/wrap/plain` via `HostCallback`

@@ -236,7 +236,7 @@ Perl-specific decisions:
 |---|---|
 | Untyped scalars (`"5"` vs `5`) | Strict mode reads SV flags (`IOK`/`NOK`/`POK`, `builtin::created_as_number`). Phase 1 relies on Cpanel::JSON::XS encoding |
 | Booleans | Accept `builtin::true`/`false`, `JSON::PP::Boolean`, `Types::Serialiser`. Lax coercions follow pydantic |
-| Dates | Accept ISO strings, `Time::Moment` and `DateTime`. The output class is configurable |
+| Dates | Accept ISO strings, numbers (timestamps), `DateTime`, `Time::Moment` and `DateTime::Duration`. Output: Perldantic's own `Perldantic::Date/Time/DateTime/Duration` (1:1 with Python's naive/aware datetimes, times of day and timedeltas; no dependency), or `DateTime` / `Time::Moment` with `model_config temporal_class => ...` |
 | Decimal / BigInt | `Math::BigFloat` / `Math::BigInt`, passed across FFI as strings |
 | Accessors | Generated like Moo (`is => 'ro'/'rw'/...`), without a hard dependency on Moo/Moose |
 | Minimum Perl | 5.36 (signatures, `builtin`) |
