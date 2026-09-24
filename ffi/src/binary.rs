@@ -136,7 +136,7 @@ impl<'a> Reader<'a> {
                 let class = self.str()?.to_owned();
                 let fields = self.entries(depth)?;
                 let fields_set = fields.iter().map(|(k, _)| k.clone()).collect();
-                Value::Model(Box::new(Model {
+                Value::Model(std::sync::Arc::new(Model {
                     class,
                     fields,
                     fields_set,
@@ -376,7 +376,7 @@ mod tests {
         );
 
         let mut model = model;
-        model.fields_set.clear();
+        std::sync::Arc::make_mut(&mut model).fields_set.clear();
         let written = encode(&Value::Model(model));
         let mut expected = vec![MODEL_FULL];
         expected.extend(text("My::Point"));

@@ -257,7 +257,7 @@ fn model(class: &str, fields: Value, fields_set: &[&str], extra: Option<Value>) 
         Value::Dict(d) => d,
         _ => panic!(),
     });
-    Value::Model(Box::new(Model {
+    Value::Model(std::sync::Arc::new(Model {
         class: class.into(),
         fields,
         fields_set: fields_set.iter().map(|f| s(f)).collect(),

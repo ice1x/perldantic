@@ -25,7 +25,7 @@ fn dict(json: &str) -> Dict {
 }
 
 fn model(class: &str, fields: &str, fields_set: &[&str], extra: Option<&str>) -> Value {
-    Value::Model(Box::new(Model {
+    Value::Model(std::sync::Arc::new(Model {
         class: class.to_owned(),
         fields: dict(fields),
         fields_set: fields_set.iter().map(|f| Value::from(*f)).collect(),

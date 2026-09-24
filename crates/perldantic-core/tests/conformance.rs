@@ -114,7 +114,7 @@ fn decode_tag(tag: &str, payload: &Json, in_schema: bool) -> Result<Value, Skip>
                 .collect::<Result<_, Skip>>()?,
         ),
         "class" if in_schema => Value::Str(payload.as_str().unwrap().to_owned()),
-        "model" => Value::Model(Box::new(Model {
+        "model" => Value::Model(std::sync::Arc::new(Model {
             class: payload["class"].as_str().unwrap().to_owned(),
             fields: dict(&payload["fields"])?,
             fields_set: items(&payload["fields_set"])?,

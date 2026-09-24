@@ -97,7 +97,7 @@ fn rectangle(width: i64, height: i64) -> Value {
     let mut fields = Dict::new();
     fields.insert("width".into(), Value::Int(width));
     fields.insert("height".into(), Value::Int(height));
-    Value::Model(Box::new(Model {
+    Value::Model(std::sync::Arc::new(Model {
         class: "Rectangle".into(),
         fields,
         fields_set: vec!["width".into(), "height".into()],
