@@ -62,10 +62,10 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00054 — `function-before/after/wrap/plain` via `HostCallback`
   - [x] 00055 — Perl `field_validator`, `model_validator`, `field_serializer`, `model_serializer`, `computed_field`
   - [x] 00056 — `InstanceOf[]` and Type::Tiny interop
-- [ ] 00057 — Native SV bridge
-  - [ ] 00058 — XS `Input` over SV (strict mode via SV flags)
-  - [ ] 00059 — `Value` → SV without JSON
-  - [ ] 00060 — Benchmarks vs phase 1 and Type::Tiny+Moo → `docs/BENCHMARKS.md`
+- [x] 00057 — Native SV bridge
+  - [x] 00058 — Native encoder (XS): Perl data to wire JSON in C, numbers vs strings from SV flags
+  - [x] 00059 — One-pass decoding (no bignum, parser filters) and cached class plans for building objects
+  - [x] 00060 — Benchmarks vs phase 1 and Type::Tiny+Moo → `docs/BENCHMARKS.md`
 - [ ] 00061 — Integration scenarios
   - [ ] 00062 — CBT journal entry
   - [ ] 00063 — Story/book editor: recursive chapters
@@ -82,6 +82,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [ ] 00073 — Moo/Moose integration
   - [ ] 00074 — Prebuilt binaries / Alien dist
   - [ ] 00075 — Automated upstream sync
+  - [ ] 00080 — Direct `Value` ↔ SV bridge without JSON, if profiles call for it (docs/BENCHMARKS.md)
   - [ ] 00079 — Perl enum classes: declare enum members in a Perl package and validate them with the core `enum` schema (the core and the wire already carry enum members)
 
 MIT — see [LICENSE](LICENSE) and `NOTICE`.
