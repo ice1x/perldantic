@@ -110,7 +110,7 @@ impl SchemaSerializer {
     ) -> Result<Serialized<Value>, SerializeError> {
         let mut state = self.state(options, options.mode.clone());
         let output = self.serializer.to_python(value, &mut state)?;
-        let warning = state.warnings.final_check()?;
+        let warning = state.warnings.final_check(state.extra.input_type)?;
         Ok(Serialized { output, warning })
     }
 
@@ -129,7 +129,7 @@ impl SchemaSerializer {
             json.indent,
             json.ensure_ascii,
         )?;
-        let warning = state.warnings.final_check()?;
+        let warning = state.warnings.final_check(state.extra.input_type)?;
         // The writer only emits UTF-8.
         let output = String::from_utf8(bytes).expect("JSON output is UTF-8");
         Ok(Serialized { output, warning })

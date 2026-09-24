@@ -211,7 +211,7 @@ fn serialization_returns_values_json_and_warnings() {
     });
     assert_eq!(
         python,
-        r#"{"ok":["-_8=",1],"warning":"Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `bytes` - serialized value may not be as expected [input_value=1, input_type=int])"}"#
+        r#"{"ok":["-_8=",1],"warning":"Perldantic serializer warnings:\n  Expected `Bytes` - serialized value may not be as expected [input_value=1, input_type=Int]"}"#
     );
     // SAFETY: live handle and valid strings.
     let json = take(unsafe {

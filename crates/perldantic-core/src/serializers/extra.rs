@@ -355,14 +355,18 @@ impl CollectWarnings {
     }
 
     /// The warning to report at the end of the call, or the error in `error` mode.
-    pub fn final_check(&self) -> SerResult<Option<String>> {
+    /// Perl data gets Perl's words (docs/DIVERGENCES.md #8).
+    pub fn final_check(&self, input_type: InputType) -> SerResult<Option<String>> {
         if self.mode == WarningsMode::None || self.warnings.is_empty() {
             return Ok(None);
         }
-        let formatted_warnings: Vec<String> =
-            self.warnings.iter().map(UnexpectedValue::repr).collect();
+        let (library, format): (&str, fn(&UnexpectedValue) -> String) = match input_type {
+            InputType::Perl => ("Perldantic", UnexpectedValue::perl_text),
+            _ => ("Pydantic", UnexpectedValue::repr),
+        };
+        let formatted_warnings: Vec<String> = self.warnings.iter().map(format).collect();
         let message = format!(
-            "Pydantic serializer warnings:\n  {}",
+            "{library} serializer warnings:\n  {}",
             formatted_warnings.join("\n  ")
         );
         if self.mode == WarningsMode::Warn {

@@ -52,12 +52,12 @@ subtest 'unexpected values warn' => sub {
     my $warnings = warnings { $got = $int->to_python('x') };
     is $got, 'x', 'the value is serialized as-is';
     is scalar @$warnings, 1;
-    like $warnings->[0], qr/^Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue/;
+    like $warnings->[0], qr/^Perldantic serializer warnings:\n  Expected `Int` - serialized value may not be as expected \[input_value='x', input_type=Str\]/;
     is warns { $int->to_python('x', {warnings => 0}) }, 0, 'warnings => 0 silences them';
     my $e = dies { $int->to_python('x', {warnings => 'error'}) };
     isa_ok $e, 'Perldantic::SerializationError';
     is $e->type, 'PydanticSerializationError';
-    like $e->message, qr/PydanticSerializationUnexpectedValue/;
+    like $e->message, qr/Expected `Int`/;
 };
 
 subtest 'serialization errors are objects' => sub {

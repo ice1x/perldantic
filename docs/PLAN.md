@@ -203,6 +203,8 @@ pydantic's schema types internally.
   classes `Math::BigFloat`, `Perldantic::Uuid`, ...), input values written as Perl data
   (`undef`, `!!1`, `{a => 1}`) and input types by Types::Standard names (`Str`, `HashRef`, ...).
   There are no links to pydantic's documentation, whose pages are named by pydantic's codes.
+  Serializer warnings for Perl data name the expected type the way Perldantic::Types does
+  (`ArrayRef[Int]`, `Map[Str, Num]`, `AnyOf[Duration, Undef]`).
   The core gets a `Perl` input type with its own templates, as upstream already has for JSON;
   Perl's codes are accepted wherever an error type is named (`Perldantic::KnownError`).
   Recorded as divergence #8.

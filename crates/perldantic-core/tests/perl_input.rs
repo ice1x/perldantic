@@ -382,3 +382,70 @@ fn perl_arrays_are_sets_and_tuples() {
         );
     }
 }
+
+fn perl_warning(schema: &str, value: &str) -> String {
+    let s = SchemaSerializer::new(&j(schema), None).unwrap();
+    let perl = SerializeOptions {
+        input_type: InputType::Perl,
+        ..SerializeOptions::default()
+    };
+    s.to_python(&j(value), &perl).unwrap().warning.unwrap()
+}
+
+#[test]
+fn serializer_warnings_use_perl_words() {
+    assert_eq!(
+        perl_warning(r#"{"type": "int"}"#, r#""x""#),
+        "Perldantic serializer warnings:\n  Expected `Int` - serialized value may not be as expected [input_value='x', input_type=Str]"
+    );
+    for (schema, expected) in [
+        (
+            r#"{"type": "list", "items_schema": {"type": "int"}}"#,
+            "ArrayRef[Int]",
+        ),
+        (
+            r#"{"type": "set", "items_schema": {"type": "str"}}"#,
+            "ArrayRef[Str]",
+        ),
+        (
+            r#"{"type": "dict", "keys_schema": {"type": "str"}, "values_schema": {"type": "float"}}"#,
+            "Map[Str, Num]",
+        ),
+        (
+            r#"{"type": "tuple", "items_schema": [{"type": "bool"}, {"type": "bytes"}]}"#,
+            "Tuple[Bool, Bytes]",
+        ),
+        (
+            r#"{"type": "list", "items_schema": {"type": "union", "choices": [{"type": "timedelta"}, {"type": "none"}]}}"#,
+            "ArrayRef[AnyOf[Duration, Undef]]",
+        ),
+        (
+            r#"{"type": "nullable", "schema": {"type": "decimal"}}"#,
+            "Decimal",
+        ),
+    ] {
+        let warning = perl_warning(schema, r#""x""#);
+        assert!(
+            warning.contains(&format!("Expected `{expected}`")),
+            "{schema}: {warning}"
+        );
+        assert!(
+            warning.contains("input_value='x', input_type=Str]"),
+            "{warning}"
+        );
+    }
+    assert!(
+        perl_warning(r#"{"type": "int"}"#, r#"{"$k": [1, null]}"#)
+            .contains("input_value={'$k' => [1, undef]}, input_type=HashRef]")
+    );
+    // Python data keeps pydantic's words.
+    let s = SchemaSerializer::new(&j(r#"{"type": "int"}"#), None).unwrap();
+    let warning = s
+        .to_python(&j(r#""x""#), &SerializeOptions::default())
+        .unwrap()
+        .warning
+        .unwrap();
+    assert!(warning.starts_with(
+        "Pydantic serializer warnings:\n  PydanticSerializationUnexpectedValue(Expected `int`"
+    ));
+}
