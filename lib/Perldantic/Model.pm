@@ -375,7 +375,11 @@ sub _core_config_from ($config, $what) {
 sub _ref ($class) { $class =~ s/::/./gr }
 
 sub _link ($schema, $visit) {
-    if (ref $schema eq 'HASH') {
+    my $ref = ref $schema;
+    # union labels (tuples) and ordered dicts (Dict[] fields, tagged-union choices) hold schemas too
+    return Perldantic::Wire::tuple(map { _link($_, $visit) } @$schema) if $ref eq 'Perldantic::Wire::Tuple';
+    return Perldantic::Wire::ordered(map { _link($_, $visit) } @$schema) if $ref eq 'Perldantic::Wire::Ordered';
+    if ($ref eq 'HASH') {
         if (($schema->{type} // '') eq 'is-instance' && _is_model($schema->{cls})) {
             $visit->($schema->{cls});
             return {type => 'definition-ref', schema_ref => _ref($schema->{cls})};

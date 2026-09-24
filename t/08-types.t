@@ -111,7 +111,7 @@ subtest 'bad parameters are usage errors' => sub {
         [sub { Enum[[1]] },              'Enum[] takes strings, got ARRAY'],
         [sub { Literal[{}] },            'Literal[] takes plain values, got HASH'],
         [sub { Dict['a'] },              'Dict[] takes name => type pairs'],
-        [sub { Dict[a => 'Int'] },       'Dict[] takes a type for a, got Int'],
+        [sub { Dict[a => 1] },           'Dict[] takes a type for a, got 1'],
         [sub { InstanceOf[Int] },        'InstanceOf[] takes a class name'],
         [sub { slurpy Int },             'slurpy takes ArrayRef, ArrayRef[T], HashRef or HashRef[T], got Int'],
         [sub { ArrayRef('x') },          'ArrayRef takes its parameters as ArrayRef[...]'],
