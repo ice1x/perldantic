@@ -160,6 +160,14 @@ impl Validator for WithDefaultValidator {
 }
 
 impl WithDefaultValidator {
+    pub fn has_default(&self) -> bool {
+        !matches!(self.default, DefaultType::None)
+    }
+
+    pub fn omit_on_error(&self) -> bool {
+        matches!(self.on_error, OnError::Omit)
+    }
+
     /// Validate the default itself. Upstream runs the full `validate`, so an invalid default
     /// with `on_error='default'` recurses until the stack overflows; here the default's own
     /// error is reported instead (docs/DIVERGENCES.md #10).

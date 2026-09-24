@@ -584,11 +584,14 @@ impl<'o> GenerateJsonSchema<'o> {
             "union" => self.union_schema(schema),
             "tagged-union" => self.tagged_union_schema(schema),
             "lax-or-strict" => self.lax_or_strict_schema(schema),
-            "custom-error" | "model-field" => self.generate_inner(sub_schema(schema, "schema")?),
+            "custom-error" | "model-field" | "typed-dict-field" => {
+                self.generate_inner(sub_schema(schema, "schema")?)
+            }
             "chain" => self.chain_schema(schema),
             "json" => self.json_schema(schema),
             "computed-field" => self.generate_inner(sub_schema(schema, "return_schema")?),
             "model" => self.model_schema(schema),
+            "typed-dict" => self.typed_dict_schema(schema),
             "model-fields" => self.model_fields_schema(schema),
             "definitions" => self.definitions_schema(schema),
             "definition-ref" => {
@@ -1219,6 +1222,75 @@ impl<'o> GenerateJsonSchema<'o> {
             }
         }
         Ok(())
+    }
+
+    /// Port of `GenerateJsonSchema.typed_dict_schema`; the config is the schema's own
+    /// (docs/DIVERGENCES.md #15) and `cls` a class name.
+    fn typed_dict_schema(&mut self, schema: &Dict) -> JsResult<Dict> {
+        let total = schema.get_as("total")?.unwrap_or(true);
+        let fields: Dict = schema.get_as_req("fields")?;
+        let mut named_required_fields = Vec::new();
+        for (name, field) in fields.iter() {
+            let field = as_dict(field)?;
+            if self.field_is_present(field) {
+                named_required_fields.push((
+                    name.py_str(),
+                    self.field_is_required(field, total)?,
+                    field.clone(),
+                ));
+            }
+        }
+        let config = match schema.get_str("config") {
+            Some(Value::Dict(config)) => config.clone(),
+            _ => Dict::new(),
+        };
+        self.config_stack.push(config.clone());
+        let json_schema = self.named_required_fields_schema(named_required_fields);
+        self.config_stack.pop();
+        let mut json_schema = json_schema?;
+
+        let allow_additional_props = match schema.get_str("extras_schema") {
+            Some(Value::Dict(extras))
+                if extras.get_str("type") != Some(&Value::from("any")) || extras.len() != 1 =>
+            {
+                Value::Dict(self.generate_inner(extras)?)
+            }
+            _ => Value::Bool(true),
+        };
+        match schema.get_str("extra_behavior") {
+            Some(Value::Str(extra)) if extra == "forbid" => {
+                set(&mut json_schema, "additionalProperties", false);
+            }
+            Some(Value::Str(extra)) if extra == "allow" => {
+                set(
+                    &mut json_schema,
+                    "additionalProperties",
+                    allow_additional_props.clone(),
+                );
+            }
+            _ => {}
+        }
+
+        match schema.get_str("cls") {
+            Some(Value::Str(class)) => Self::update_class_schema(&mut json_schema, class, &config)?,
+            _ if !has(&json_schema, "additionalProperties") => {
+                match config.get_str("extra_fields_behavior") {
+                    Some(Value::Str(extra)) if extra == "forbid" => {
+                        set(&mut json_schema, "additionalProperties", false);
+                    }
+                    Some(Value::Str(extra)) if extra == "allow" => {
+                        set(
+                            &mut json_schema,
+                            "additionalProperties",
+                            allow_additional_props,
+                        );
+                    }
+                    _ => {}
+                }
+            }
+            _ => {}
+        }
+        Ok(json_schema)
     }
 
     fn model_fields_schema(&mut self, schema: &Dict) -> JsResult<Dict> {

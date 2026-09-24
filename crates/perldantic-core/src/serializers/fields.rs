@@ -76,9 +76,11 @@ pub(super) enum FieldsMode {
     SimpleDict,
     // a model - `GeneralFieldsSerializer` will get a tuple of the fields and the extra values
     ModelExtra,
+    // typeddict with extra items: keys that are not fields are extra values
+    TypedDictAllow,
 }
 
-/// General purpose serializer for fields - used by models (and later typed dicts)
+/// General purpose serializer for fields - used by models and typed dicts
 #[derive(Debug)]
 pub struct GeneralFieldsSerializer {
     fields: Vec<SerField>,
@@ -118,7 +120,7 @@ impl GeneralFieldsSerializer {
                 },
                 _ => None,
             },
-            FieldsMode::SimpleDict => match value {
+            FieldsMode::SimpleDict | FieldsMode::TypedDictAllow => match value {
                 Value::Dict(main) => Some((main, None)),
                 _ => None,
             },
@@ -179,6 +181,13 @@ impl GeneralFieldsSerializer {
                 };
                 let state = &mut state.scoped_include_exclude(next_include_exclude);
                 emit(field.get_key(&state.extra), value, serializer, state)?;
+            } else if self.mode == FieldsMode::TypedDictAllow {
+                if let Some(next_include_exclude) = self.filter.key_filter(key, state)?
+                    && !exclude_field_by_value(value, state)
+                {
+                    let state = &mut state.scoped_include_exclude(next_include_exclude);
+                    emit(key_str, value, extras_serializer, state)?;
+                }
             } else if state.check == SerCheck::Strict {
                 return Err(unexpected_field(key_str, state).into());
             }

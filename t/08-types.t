@@ -42,10 +42,10 @@ subtest 'parameterized types' => sub {
         [Enum[qw(open done)],       'Enum["open","done"]', {type => 'literal', expected => ['open', 'done']}],
         [Literal[1, 'a', undef],    'Literal[1,"a",undef]', {type => 'literal', expected => [1, 'a', undef]}],
         [Dict[name => Str, age => Optional[Int]], 'Dict[name=>Str,age=>Optional[Int]]',
-            {type => 'typed-dict', fields => {
+            {type => 'typed-dict', fields => Perldantic::Wire::ordered(
                 name => {type => 'typed-dict-field', schema => {type => 'str'}, required => T()},
                 age  => {type => 'typed-dict-field', schema => {type => 'int'}, required => F()},
-            }}],
+            )}],
         [InstanceOf['My::Class'],   'InstanceOf["My::Class"]', {type => 'is-instance', cls => 'My::Class'}],
         [Optional[Int],             'Optional[Int]',       {type => 'int'}],
     );
@@ -113,7 +113,7 @@ subtest 'bad parameters are usage errors' => sub {
         [sub { Dict['a'] },              'Dict[] takes name => type pairs'],
         [sub { Dict[a => 'Int'] },       'Dict[] takes a type for a, got Int'],
         [sub { InstanceOf[Int] },        'InstanceOf[] takes a class name'],
-        [sub { slurpy Int },             'slurpy takes ArrayRef or ArrayRef[T], got Int'],
+        [sub { slurpy Int },             'slurpy takes ArrayRef, ArrayRef[T], HashRef or HashRef[T], got Int'],
         [sub { ArrayRef('x') },          'ArrayRef takes its parameters as ArrayRef[...]'],
     );
     for my $case (@cases) {

@@ -783,9 +783,7 @@
    },
    "computed_fields": [],
    "extra_behavior": "ignore",
-   "config": {
-    "title": "MyTypedDict"
-   },
+   "config": {},
    "ref": "tests.test_titles.test_field_level_field_title_generator_precedence_over_config_level.<locals>.MyTypedDict:1"
   },
   "config": null,
@@ -1516,9 +1514,7 @@
    },
    "computed_fields": [],
    "extra_behavior": "ignore",
-   "config": {
-    "title": "MyTypedDict"
-   },
+   "config": {},
    "ref": "tests.test_titles.test_field_title_generator_in_typeddict_fields.<locals>.MyTypedDict:1"
   },
   "config": null,
@@ -1582,9 +1578,7 @@
    },
    "computed_fields": [],
    "extra_behavior": "ignore",
-   "config": {
-    "title": "MyTypedDict"
-   },
+   "config": {},
    "ref": "tests.test_titles.test_field_title_generator_in_typeddict_fields.<locals>.MyTypedDict:1"
   },
   "config": null,
@@ -1648,9 +1642,7 @@
    },
    "computed_fields": [],
    "extra_behavior": "ignore",
-   "config": {
-    "title": "MyTypedDict"
-   },
+   "config": {},
    "ref": "tests.test_titles.test_field_title_generator_in_typeddict_fields.<locals>.MyTypedDict:1"
   },
   "config": null,
@@ -1714,9 +1706,7 @@
    },
    "computed_fields": [],
    "extra_behavior": "ignore",
-   "config": {
-    "title": "MyTypedDict"
-   },
+   "config": {},
    "ref": "tests.test_titles.test_field_title_generator_in_typeddict_fields.<locals>.MyTypedDict:1"
   },
   "config": null,
@@ -1901,9 +1891,7 @@
    },
    "computed_fields": [],
    "extra_behavior": "ignore",
-   "config": {
-    "title": "MyTypedDict"
-   },
+   "config": {},
    "ref": "tests.test_titles.test_field_title_precedence_over_generators.<locals>.MyTypedDict:1"
   },
   "config": null,
@@ -2821,7 +2809,9 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "title": "MyTypedDict"
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
    },
    "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.MyTypedDict:1"
   },
@@ -2918,7 +2908,9 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "title": "MyTypedDict"
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
    },
    "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.MyTypedDict:1"
   },
@@ -3015,7 +3007,9 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "title": "MyTypedDict"
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
    },
    "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.MyTypedDict:1"
   },
@@ -3112,7 +3106,9 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "title": "MyTypedDict"
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
    },
    "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.MyTypedDict:1"
   },
@@ -3175,9 +3171,7 @@
    },
    "computed_fields": [],
    "extra_behavior": "ignore",
-   "config": {
-    "title": "MyTypedDict"
-   },
+   "config": {},
    "ref": "tests.test_titles.test_typeddict_config_field_title_generator.<locals>.MyTypedDict:1"
   },
   "config": null,
@@ -3258,9 +3252,7 @@
    },
    "computed_fields": [],
    "extra_behavior": "ignore",
-   "config": {
-    "title": "MyTypedDict"
-   },
+   "config": {},
    "ref": "tests.test_titles.test_typeddict_config_field_title_generator.<locals>.MyTypedDict:1"
   },
   "config": null,
@@ -3341,9 +3333,7 @@
    },
    "computed_fields": [],
    "extra_behavior": "ignore",
-   "config": {
-    "title": "MyTypedDict"
-   },
+   "config": {},
    "ref": "tests.test_titles.test_typeddict_config_field_title_generator.<locals>.MyTypedDict:1"
   },
   "config": null,
@@ -3424,9 +3414,7 @@
    },
    "computed_fields": [],
    "extra_behavior": "ignore",
-   "config": {
-    "title": "MyTypedDict"
-   },
+   "config": {},
    "ref": "tests.test_titles.test_typeddict_config_field_title_generator.<locals>.MyTypedDict:1"
   },
   "config": null,
@@ -3471,7 +3459,9 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "title": "MyTypedDict"
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
    },
    "ref": "tests.test_titles.test_typeddict_model_title_generator.<locals>.MyTypedDict:1"
   },
@@ -3499,7 +3489,9 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "title": "MyTypedDict"
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
    },
    "ref": "tests.test_titles.test_typeddict_model_title_generator.<locals>.MyTypedDict:1"
   },
@@ -3527,7 +3519,9 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "title": "MyTypedDict"
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
    },
    "ref": "tests.test_titles.test_typeddict_model_title_generator.<locals>.MyTypedDict:1"
   },

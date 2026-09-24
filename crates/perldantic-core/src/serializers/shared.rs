@@ -82,6 +82,7 @@ serializers! {
     super::type_serializers::string::StrSerializer,
     super::type_serializers::timedelta::TimeDeltaSerializer,
     super::type_serializers::tuple::TupleSerializer,
+    super::type_serializers::typed_dict::TypedDictSerializer,
     super::type_serializers::union::TaggedUnionSerializer,
     super::type_serializers::union::UnionSerializer,
     super::type_serializers::url::MultiHostUrlSerializer,
@@ -130,6 +131,8 @@ pub enum CombinedSerializer {
     Time(super::type_serializers::datetime_etc::TimeSerializer),
     Timedelta(super::type_serializers::timedelta::TimeDeltaSerializer),
     Tuple(super::type_serializers::tuple::TupleSerializer),
+    // Boxed: much larger than most serializers.
+    TypedDict(Box<super::type_serializers::typed_dict::TypedDictSerializer>),
     Union(super::type_serializers::union::UnionSerializer),
     // Boxed: much larger than most serializers.
     TaggedUnion(Box<super::type_serializers::union::TaggedUnionSerializer>),

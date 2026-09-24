@@ -423,9 +423,7 @@
      },
      "computed_fields": [],
      "extra_behavior": "ignore",
-     "config": {
-      "title": "TypedDictModel"
-     },
+     "config": {},
      "ref": "tests.test_type_adapter.defer_build_test_models.<locals>.TypedDictModel:1"
     }
    ]
@@ -1096,9 +1094,7 @@
    },
    "computed_fields": [],
    "extra_behavior": "ignore",
-   "config": {
-    "title": "TypedDictModel"
-   },
+   "config": {},
    "ref": "tests.test_type_adapter.defer_build_test_models.<locals>.TypedDictModel:1"
   },
   "config": null,

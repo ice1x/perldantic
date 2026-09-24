@@ -10466,10 +10466,13 @@
    },
    "computed_fields": [],
    "extra_behavior": "ignore",
-   "config": {
-    "title": "MyTypedDict"
-   },
-   "ref": "tests.test_json_schema._generate_deprecated_classes.<locals>.MyTypedDict:1"
+   "config": {},
+   "ref": "tests.test_json_schema._generate_deprecated_classes.<locals>.MyTypedDict:1",
+   "metadata": {
+    "pydantic_js_updates": {
+     "deprecated": true
+    }
+   }
   },
   "config": null,
   "mode": "validation",
@@ -10677,10 +10680,13 @@
        },
        "computed_fields": [],
        "extra_behavior": "ignore",
-       "config": {
-        "title": "MyTypedDict"
-       },
-       "ref": "tests.test_json_schema._generate_deprecated_classes.<locals>.MyTypedDict:1"
+       "config": {},
+       "ref": "tests.test_json_schema._generate_deprecated_classes.<locals>.MyTypedDict:1",
+       "metadata": {
+        "pydantic_js_updates": {
+         "deprecated": true
+        }
+       }
       },
       "metadata": {}
      }
@@ -26767,9 +26773,7 @@
         },
         "computed_fields": [],
         "extra_behavior": "ignore",
-        "config": {
-         "title": "child"
-        },
+        "config": {},
         "ref": "tests.test_json_schema.TypedDictParent:1"
        },
        "default": {
@@ -34349,8 +34353,7 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "ser_json_bytes": "base64",
-    "title": "MyTypedDict"
+    "ser_json_bytes": "base64"
    },
    "ref": "tests.test_json_schema.test_typeddict_default_bytes.<locals>.MyTypedDict:1"
   },
@@ -34400,8 +34403,7 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "ser_json_bytes": "utf8",
-    "title": "MyTypedDict"
+    "ser_json_bytes": "utf8"
    },
    "ref": "tests.test_json_schema.test_typeddict_default_bytes.<locals>.MyTypedDict:1"
   },
@@ -34456,8 +34458,7 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "ser_json_timedelta": "float",
-    "title": "MyTypedDict"
+    "ser_json_timedelta": "float"
    },
    "ref": "tests.test_json_schema.test_typeddict_default_timedelta.<locals>.MyTypedDict:1"
   },
@@ -34511,8 +34512,7 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "ser_json_timedelta": "iso8601",
-    "title": "MyTypedDict"
+    "ser_json_timedelta": "iso8601"
    },
    "ref": "tests.test_json_schema.test_typeddict_default_timedelta.<locals>.MyTypedDict:1"
   },
@@ -34556,7 +34556,10 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "title": "Test"
+    "title": "Test",
+    "json_schema_extra": {
+     "$function": "json_schema_extra"
+    }
    },
    "ref": "tests.test_json_schema.test_typeddict_with__callable_json_schema_extra.<locals>.Model:1"
   },
@@ -34595,8 +34598,7 @@
    "computed_fields": [],
    "extra_behavior": "allow",
    "config": {
-    "extra_fields_behavior": "allow",
-    "title": "Model"
+    "extra_fields_behavior": "allow"
    },
    "ref": "tests.test_json_schema.test_typeddict_with_extra_allow.<locals>.Model:1"
   },
@@ -34701,8 +34703,7 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "extra_fields_behavior": "ignore",
-    "title": "Model"
+    "extra_fields_behavior": "ignore"
    },
    "ref": "tests.test_json_schema.test_typeddict_with_extra_ignore.<locals>.Model:1"
   },
@@ -34747,7 +34748,10 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "title": "Test"
+    "title": "Test",
+    "json_schema_extra": {
+     "foobar": "hello"
+    }
    },
    "ref": "tests.test_json_schema.test_typeddict_with_json_schema_extra.<locals>.Model:1"
   },

@@ -9,6 +9,7 @@ use Scalar::Util qw(blessed);
 
 use Perldantic::Error;
 use Perldantic::Type;
+use Perldantic::Wire;
 
 my @SIMPLE = qw(Any Undef Bool Int Num Str Bytes Decimal Date Time DateTime Duration Uuid Url MultiHostUrl);
 my @PARAMETERIZED = qw(Maybe Optional ArrayRef Set FrozenSet Json Chain Tuple HashRef Map Dict Enum Literal InstanceOf);
@@ -171,14 +172,25 @@ sub Map :prototype(;$) (@args) {
 
 sub slurpy :prototype($) ($type) {
     my $name = blessed $type && $type->isa('Perldantic::Type') ? $type->name : $type // 'undef';
-    _usage("slurpy takes ArrayRef or ArrayRef[T], got $name") if $name !~ /\AArrayRef(?:\[|\z)/;
+    my ($kind) = $name =~ /\A(ArrayRef|HashRef)(?:\[|\z)/;
+    _usage("slurpy takes ArrayRef, ArrayRef[T], HashRef or HashRef[T], got $name") if !$kind;
     my ($items) = $type->parameters;
     return Perldantic::Type->new(
         name   => "slurpy $name",
         schema => ($items ? $items->core_schema : {type => 'any'}),
-        slurpy => 1,
+        slurpy => $kind,
+        # slurpy HashRef keeps unknown keys as they are
+        typed  => !!$items,
     );
 }
+
+# Check that a trailing slurpy parameter is of the kind a container takes.
+sub _slurpy_kind ($name, $param, $kind) {
+    _usage("$name\[] takes slurpy $kind or $kind\[T], got $param") if $param->{slurpy} ne $kind;
+    return $param;
+}
+
+sub _is_slurpy ($param) { blessed $param && $param->isa('Perldantic::Type') && $param->is_slurpy }
 
 sub Tuple :prototype(;$) (@args) {
     my $params = _params('Tuple', @args) // return Perldantic::Type->new(
@@ -187,7 +199,8 @@ sub Tuple :prototype(;$) (@args) {
     );
     my @items = @$params;
     my $variadic;
-    if (@items && blessed $items[-1] && $items[-1]->isa('Perldantic::Type') && $items[-1]->is_slurpy) {
+    if (@items && _is_slurpy($items[-1])) {
+        _slurpy_kind('Tuple', $items[-1], 'ArrayRef');
         $variadic = $#items;
     }
     _type('Tuple', $_) for defined $variadic ? @items[0 .. $variadic - 1] : @items;
@@ -205,23 +218,31 @@ sub Tuple :prototype(;$) (@args) {
 sub Dict :prototype(;$) (@args) {
     my $params = _params('Dict', @args)
         // return Perldantic::Type->new(name => 'Dict', schema => {type => 'typed-dict', fields => {}});
-    _usage('Dict[] takes name => type pairs') if @$params % 2;
-    my (%fields, @names);
-    for (my $i = 0; $i < @$params; $i += 2) {
-        my ($field, $type) = @$params[$i, $i + 1];
+    my @pairs = @$params;
+    my $rest = @pairs % 2 && _is_slurpy($pairs[-1]) ? _slurpy_kind('Dict', pop @pairs, 'HashRef') : undef;
+    _usage('Dict[] takes name => type pairs') if @pairs % 2;
+    my (@fields, @names);
+    for (my $i = 0; $i < @pairs; $i += 2) {
+        my ($field, $type) = @pairs[$i, $i + 1];
         _usage("Dict[] takes a type for $field, got " . ($type // 'undef'))
             if !blessed $type || !$type->isa('Perldantic::Type');
         _type('Dict', $type, 1);
         push @names, "$field=>$type";
-        $fields{$field} = {
+        # the core sees the fields in their declared order
+        push @fields, $field => {
             type     => 'typed-dict-field',
             schema   => $type->core_schema,
             required => $type->is_optional ? !!0 : !!1,
         };
     }
+    push @names, "$rest" if $rest;
     return Perldantic::Type->new(
-        name       => 'Dict[' . join(',', @names) . ']',
-        schema     => {type => 'typed-dict', fields => \%fields},
+        name   => 'Dict[' . join(',', @names) . ']',
+        schema => {
+            type   => 'typed-dict',
+            fields => Perldantic::Wire::ordered(@fields),
+            ($rest ? (extra_behavior => 'allow', ($rest->{typed} ? (extras_schema => $rest->core_schema) : ())) : ()),
+        },
         parameters => [@$params],
     );
 }
@@ -373,10 +394,12 @@ A hash reference with string keys (core C<dict>).
 
 A hash reference whose keys are validated as C<K> (core C<dict>).
 
-=item C<Dict[name =E<gt> T, ...]>
+=item C<Dict[name =E<gt> T, ...]>, C<Dict[name =E<gt> T, ..., slurpy HashRef[T]]>
 
-A hash reference with known keys (core C<typed-dict>), as in Types::Standard. The core validates
-it once C<typed-dict> is ported (task 00053).
+A hash reference with known keys (core C<typed-dict>), as in Types::Standard. Keys typed
+C<Optional[T]> may be left out. Unknown keys are dropped, as in pydantic; a trailing
+C<slurpy HashRef> keeps them and C<slurpy HashRef[T]> validates them as C<T>. The constraint
+C<extra_behavior> (C<'ignore'>, C<'allow'> or C<'forbid'>) sets the behaviour directly.
 
 =item C<Enum[...]>
 
@@ -395,7 +418,8 @@ supported (task 00056).
 
 =head2 slurpy
 
-Marks the last parameter of C<Tuple[]> as variadic.
+Marks the last parameter of C<Tuple[]> (C<slurpy ArrayRef[T]>) as variadic, or the unknown keys
+of C<Dict[]> (C<slurpy HashRef[T]>) as allowed.
 
 Wrong parameters, such as C<ArrayRef[1]> or C<Map[Int]>, raise C<Perldantic::UsageError>.
 

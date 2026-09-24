@@ -268,6 +268,14 @@ fn compare_errors(expected: &[Json], actual: &[ErrorDetails]) -> Result<(), Stri
 }
 
 /// Cases that depend on a documented divergence (docs/DIVERGENCES.md) are skipped.
+/// The recorder wraps `SchemaSerializer`, which some pydantic checks reject; that outcome says
+/// nothing about pydantic itself (the Perl runner skips these too).
+fn is_recorder_artifact(case: &Json) -> bool {
+    case["expected"]["exception"]["message"]
+        .as_str()
+        .is_some_and(|m| m.contains("'Recording"))
+}
+
 fn divergence(case: &Json) -> Option<Skip> {
     let uses_python_re = |j: &Json| j.to_string().contains(r#""regex_engine":"python-re""#);
     if uses_python_re(&case["schema"]) || uses_python_re(&case["config"]) {
@@ -354,10 +362,21 @@ fn has_multi_item_set(json: &Json) -> bool {
 
 /// Field entries of container schemas carry a `type` too, but are not validators: they are
 /// supported when their container is.
-const FIELD_TYPES: &[(&str, &str)] = &[("model-fields", "model-field")];
+const FIELD_TYPES: &[(&str, &str)] = &[
+    ("model-fields", "model-field"),
+    ("typed-dict", "typed-dict-field"),
+];
 
 fn supported_types() -> Vec<&'static str> {
-    let mut types = SchemaValidator::supported_schema_types().to_vec();
+    with_field_types(SchemaValidator::supported_schema_types())
+}
+
+fn supported_serializer_types() -> Vec<&'static str> {
+    with_field_types(SchemaSerializer::supported_schema_types())
+}
+
+fn with_field_types(containers: &[&'static str]) -> Vec<&'static str> {
+    let mut types = containers.to_vec();
     for (container, field) in FIELD_TYPES {
         if types.contains(container) {
             types.push(field);
@@ -417,7 +436,7 @@ fn serializer_options(json: &Json) -> Result<(SerializeOptions, JsonOptions), Sk
 
 /// Run a `to_python` / `to_json` case against `SchemaSerializer`.
 fn run_serializer_case(case: &Json) -> Result<Result<(), String>, Skip> {
-    let supported = SchemaSerializer::supported_schema_types();
+    let supported = supported_serializer_types();
     let mut types = Vec::new();
     schema_types(&case["schema"], &mut types);
     if let Some(t) = types.iter().find(|t| !supported.contains(&t.as_str())) {
@@ -497,6 +516,9 @@ fn run_serializer_case(case: &Json) -> Result<Result<(), String>, Skip> {
 fn run_case(case: &Json, supported: &[&str]) -> Result<Result<(), String>, Skip> {
     if let Some(skip) = divergence(case) {
         return Err(skip);
+    }
+    if is_recorder_artifact(case) {
+        return Err(Skip("recorder artifact".into()));
     }
     if matches!(case["mode"].as_str(), Some("to_python" | "to_json")) {
         return run_serializer_case(case);
@@ -709,10 +731,27 @@ fn serializer_cases_replay_against_schema_serializer() {
 }
 
 #[test]
+fn recorder_artifacts_are_recognised() {
+    let artifact: Json = serde_json::from_str(
+        r#"{"expected": {"exception": {"type": "TypeError", "message": "'RecordingSerializer' object is not an instance of 'SchemaSerializer'"}}}"#,
+    )
+    .unwrap();
+    assert!(is_recorder_artifact(&artifact));
+    let genuine: Json = serde_json::from_str(
+        r#"{"expected": {"exception": {"type": "TypeError", "message": "unhashable type: 'list'"}}}"#,
+    )
+    .unwrap();
+    assert!(!is_recorder_artifact(&genuine));
+}
+
+#[test]
 fn field_entries_are_supported_with_their_container() {
     let types = supported_types();
     assert!(types.contains(&"model-fields"));
     assert!(types.contains(&"model-field"));
+    let types = supported_serializer_types();
+    assert!(types.contains(&"typed-dict"));
+    assert!(types.contains(&"typed-dict-field"));
 }
 
 #[test]
