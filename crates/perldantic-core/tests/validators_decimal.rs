@@ -75,7 +75,7 @@ fn strict_perl_input_must_be_a_decimal() {
     let result = v.validate_value_as(&j(r#""1.5""#), InputType::Perl, &opts);
     assert_eq!(
         first_error(result).1,
-        "Input should be an instance of Decimal"
+        "Input should be an instance of Math::BigFloat"
     );
     assert_eq!(
         v.validate_value_as(&dec("1.5"), InputType::Perl, &opts)

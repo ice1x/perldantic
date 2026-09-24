@@ -123,6 +123,11 @@ impl ValidationError {
         self.input_type
     }
 
+    /// pydantic's documentation links only fit pydantic's codes: Perl input has none.
+    fn has_urls(&self) -> bool {
+        self.input_type != InputType::Perl
+    }
+
     /// Structured errors, like pydantic's `ValidationError.errors()`.
     ///
     /// A message that cannot be rendered (a malformed custom error context) is reported
@@ -133,16 +138,19 @@ impl ValidationError {
             .map(|line| {
                 let is_custom = matches!(line.error_type, ErrorType::CustomError { .. });
                 ErrorDetails {
-                    type_: line.error_type.type_string(),
+                    type_: line.error_type.type_string_for(self.input_type),
                     loc: line.location.items(),
                     msg: render_or_explain(&line.error_type, self.input_type),
                     input: options.include_input.then(|| line.input_value.clone()),
                     ctx: if options.include_context {
-                        line.error_type.context().map(Value::Dict)
+                        line.error_type
+                            .context_for(self.input_type)
+                            .map(Value::Dict)
                     } else {
                         None
                     },
-                    url: (options.include_url && !is_custom).then(|| error_url(&line.error_type)),
+                    url: (options.include_url && !is_custom && self.has_urls())
+                        .then(|| error_url(&line.error_type)),
                 }
             })
             .collect()
@@ -186,15 +194,32 @@ impl ValidationError {
         let mut out = String::with_capacity(200);
         write!(out, "{}", line.location).unwrap();
         let message = render_or_explain(&line.error_type, self.input_type);
-        write!(out, "  {message} [type={}", line.error_type.type_string()).unwrap();
+        let perl = self.input_type == InputType::Perl;
+        write!(
+            out,
+            "  {message} [type={}",
+            line.error_type.type_string_for(self.input_type)
+        )
+        .unwrap();
         // There is no meaningful input for errors raised before a default factory runs.
         if !hide_input && !matches!(line.error_type, ErrorType::DefaultFactoryNotCalled { .. }) {
             out.push_str(", input_value=");
-            write_truncated_to_limited_bytes(&mut out, &line.input_value.repr(), 50).unwrap();
-            write!(out, ", input_type={}", line.input_value.type_name()).unwrap();
+            let (repr, type_name) = if perl {
+                (
+                    line.input_value.perl_repr(),
+                    line.input_value.perl_type_name(),
+                )
+            } else {
+                (line.input_value.repr(), line.input_value.type_name())
+            };
+            write_truncated_to_limited_bytes(&mut out, &repr, 50).unwrap();
+            write!(out, ", input_type={type_name}").unwrap();
         }
         out.push(']');
-        if include_url && !matches!(line.error_type, ErrorType::CustomError { .. }) {
+        if include_url
+            && self.has_urls()
+            && !matches!(line.error_type, ErrorType::CustomError { .. })
+        {
             write!(
                 out,
                 "\n    For further information visit {}",

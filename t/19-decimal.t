@@ -64,7 +64,7 @@ subtest 'the Decimal type' => sub {
 
     my $strict = Perldantic::TypeAdapter->new(Decimal->with(strict => 1));
     $e = dies { $strict->validate_python('1.5') };
-    is $e->errors->[0]{msg}, 'Input should be an instance of Decimal';
+    is $e->errors->[0]{msg}, 'Input should be an instance of Math::BigFloat';
     is $strict->validate_python(bf('1.5'))->bstr, '1.5', 'Math::BigFloat objects pass strict mode';
 
     my $inf = Perldantic::TypeAdapter->new(Decimal->with(allow_inf_nan => 1));
@@ -77,7 +77,7 @@ subtest 'Math::BigFloat for other number types' => sub {
     is Perldantic::TypeAdapter->new(Num)->validate_python(bf('0.25')), 0.25;
     is Perldantic::TypeAdapter->new(Int)->validate_python(bf('1e2')), 100;
     my $e = dies { Perldantic::TypeAdapter->new(Int)->validate_python(bf('1.5')) };
-    is $e->errors->[0]{type}, 'int_from_float';
+    is $e->errors->[0]{type}, 'int_from_fraction';
     is [map { $_->bstr } @{Perldantic::TypeAdapter->new(ArrayRef[Decimal])->validate_python([1, '2.5'])}],
         ['1', '2.5'];
 };

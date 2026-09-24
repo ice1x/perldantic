@@ -196,12 +196,16 @@ pydantic's schema types internally.
 
 ### Perl data and messages
 
-- Error codes stay pydantic's (`dict_type`, `list_type`, `none_required`, ...): they are stable
-  identifiers, shared with the pydantic documentation.
-- Error messages for Perl input use Perl words: "Input should be a hash reference" instead of
-  "a valid dictionary", "an array reference" instead of "a valid list", "undef" instead of
-  "None". The core gets a `Perl` input type with its own message templates, as upstream already
-  has for JSON. Recorded as divergence #8.
+- Errors for Perl input use Perl's vocabulary throughout (task 00078): codes (`hash_type`,
+  `array_type`, `undef_required`, `number_type`, `duration_type`, ... instead of `dict_type`,
+  `list_type`, `none_required`, `float_type`, `time_delta_type`), messages ("Input should be a
+  hash reference" instead of "a valid dictionary"), contexts (`field_type` `Array` / `Hash`,
+  classes `Math::BigFloat`, `Perldantic::Uuid`, ...), input values written as Perl data
+  (`undef`, `!!1`, `{a => 1}`) and input types by Types::Standard names (`Str`, `HashRef`, ...).
+  There are no links to pydantic's documentation, whose pages are named by pydantic's codes.
+  The core gets a `Perl` input type with its own templates, as upstream already has for JSON;
+  Perl's codes are accepted wherever an error type is named (`Perldantic::KnownError`).
+  Recorded as divergence #8.
 - Perl arrays satisfy `Tuple` in strict mode, as JSON arrays do in pydantic.
 - Hash keys are strings. Keys of `Map[Int, ...]` are validated from strings, and integer keys
   come back as strings.

@@ -86,7 +86,7 @@ fn validation_returns_wire_values() {
             r#"{"$tuple": ["1", "x"]}"#,
             Some(r#"{"strict": true}"#)
         ),
-        r#"{"validation_error":{"title":"tuple[int, bytes]","message":"2 validation errors for tuple[int, bytes]\n0\n  Input should be a valid integer [type=int_type, input_value='1', input_type=str]\n    For further information visit https://errors.pydantic.dev/latest/v/int_type\n1\n  Input should be a valid bytes [type=bytes_type, input_value='x', input_type=str]\n    For further information visit https://errors.pydantic.dev/latest/v/bytes_type","errors":[{"type":"int_type","loc":[0],"msg":"Input should be a valid integer","input":"1","url":"https://errors.pydantic.dev/latest/v/int_type"},{"type":"bytes_type","loc":[1],"msg":"Input should be a valid bytes","input":"x","url":"https://errors.pydantic.dev/latest/v/bytes_type"}]}}"#
+        r#"{"validation_error":{"title":"tuple[int, bytes]","message":"2 validation errors for tuple[int, bytes]\n0\n  Input should be a valid integer [type=int_type, input_value='1', input_type=Str]\n1\n  Input should be a valid byte string [type=bytes_type, input_value='x', input_type=Str]","errors":[{"type":"int_type","loc":[0],"msg":"Input should be a valid integer","input":"1"},{"type":"bytes_type","loc":[1],"msg":"Input should be a valid byte string","input":"x"}]}}"#
     );
     // SAFETY: returned by pd_validator_new.
     unsafe { pd_validator_free(handle) };

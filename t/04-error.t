@@ -61,18 +61,15 @@ subtest 'ValidationError->json follows pydantic' => sub {
         title   => 'M',
         message => 'm',
         errors  => [
-            {type => 'int_parsing', loc => ['a', 0], msg => 'Input should be a valid integer', input => "x\x{263a}",
-                url => 'https://errors.pydantic.dev/2.12/v/int_parsing'},
+            {type => 'int_parsing', loc => ['a', 0], msg => 'Input should be a valid integer', input => "x\x{263a}"},
             {type => 'greater_than', loc => ['b'], msg => 'Input should be greater than 0', input => -1,
-                ctx => {gt => 0}, url => 'https://errors.pydantic.dev/2.12/v/greater_than'},
+                ctx => {gt => 0}},
         ],
     );
     is $e->json,
         '[{"type":"int_parsing","loc":["a",0],"msg":"Input should be a valid integer",'
-        . qq{"input":"x\x{263a}",}
-        . '"url":"https://errors.pydantic.dev/2.12/v/int_parsing"},'
-        . '{"type":"greater_than","loc":["b"],"msg":"Input should be greater than 0","input":-1,"ctx":{"gt":0},'
-        . '"url":"https://errors.pydantic.dev/2.12/v/greater_than"}]',
+        . qq["input":"x\x{263a}"},]
+        . '{"type":"greater_than","loc":["b"],"msg":"Input should be greater than 0","input":-1,"ctx":{"gt":0}}]',
         'keys in pydantic order, text (not bytes)';
     is $e->json(include_url => 0, include_context => 0, include_input => 0),
         '[{"type":"int_parsing","loc":["a",0],"msg":"Input should be a valid integer"},'

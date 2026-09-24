@@ -1,5 +1,5 @@
-//! Perl input (docs/DIVERGENCES.md #8): host data validated with `InputType::Perl` gets Perl
-//! wording in error messages, while error codes and contexts stay pydantic's, and a Perl array
+//! Perl input (docs/DIVERGENCES.md #8): host data validated with `InputType::Perl` gets Perl's
+//! vocabulary in errors (codes, messages, contexts, input values and types), and a Perl array
 //! satisfies a strict tuple.
 
 use perldantic_core::{
@@ -53,25 +53,25 @@ fn perl_input_uses_perl_words() {
         (
             r#"{"type": "none"}"#,
             "1",
-            "none_required",
+            "undef_required",
             "Input should be undef",
         ),
         (
             r#"{"type": "list"}"#,
             "1",
-            "list_type",
+            "array_type",
             "Input should be an array reference",
         ),
         (
             r#"{"type": "tuple", "items_schema": [{"type": "int"}]}"#,
             "1",
-            "tuple_type",
+            "array_type",
             "Input should be an array reference",
         ),
         (
             r#"{"type": "dict"}"#,
             "1",
-            "dict_type",
+            "hash_type",
             "Input should be a hash reference",
         ),
         (
@@ -97,6 +97,78 @@ fn perl_input_uses_perl_words() {
             r#""x""#,
             "int_parsing",
             "Input should be a valid integer, unable to parse string as an integer",
+        ),
+        (
+            r#"{"type": "int"}"#,
+            "1.5",
+            "int_from_fraction",
+            "Input should be a valid integer, got a number with a fractional part",
+        ),
+        (
+            r#"{"type": "float"}"#,
+            "[]",
+            "number_type",
+            "Input should be a valid number",
+        ),
+        (
+            r#"{"type": "float"}"#,
+            r#""x""#,
+            "number_parsing",
+            "Input should be a valid number, unable to parse string as a number",
+        ),
+        (
+            r#"{"type": "set"}"#,
+            "1",
+            "array_type",
+            "Input should be an array reference",
+        ),
+        (
+            r#"{"type": "frozenset"}"#,
+            "1",
+            "array_type",
+            "Input should be an array reference",
+        ),
+        (
+            r#"{"type": "bytes"}"#,
+            "1",
+            "bytes_type",
+            "Input should be a valid byte string",
+        ),
+        (
+            r#"{"type": "timedelta"}"#,
+            "[]",
+            "duration_type",
+            "Input should be a valid duration",
+        ),
+        (
+            r#"{"type": "timedelta"}"#,
+            r#""x""#,
+            "duration_parsing",
+            "Input should be a valid duration, invalid digit in duration",
+        ),
+        (
+            r#"{"type": "decimal"}"#,
+            "[]",
+            "decimal_type",
+            "Decimal input should be a number, a string or a Math::BigFloat object",
+        ),
+        (
+            r#"{"type": "uuid"}"#,
+            "[]",
+            "uuid_type",
+            "UUID input should be a string, a byte string or a Perldantic::Uuid object",
+        ),
+        (
+            r#"{"type": "url"}"#,
+            "[]",
+            "url_type",
+            "URL input should be a string or a Perldantic::Url object",
+        ),
+        (
+            r#"{"type": "json"}"#,
+            "[]",
+            "json_type",
+            "JSON input should be a string",
         ),
     ];
     for (schema, input, type_, msg) in cases {
@@ -128,19 +200,105 @@ fn python_input_keeps_pydantic_words() {
     );
 }
 
+fn perl_error(
+    schema: &str,
+    input: &Value,
+    options: &ValidateOptions,
+) -> perldantic_core::ValidationError {
+    match validator(schema).validate_value_as(input, InputType::Perl, options) {
+        Err(ValidateError::Validation(e)) => e,
+        other => panic!("expected a validation error, got {other:?}"),
+    }
+}
+
 #[test]
-fn contexts_stay_pydantic() {
-    let v = validator(r#"{"type": "list", "min_length": 2}"#);
-    let Err(ValidateError::Validation(e)) =
-        v.validate_value_as(&j("[1]"), InputType::Perl, &ValidateOptions::default())
-    else {
-        panic!("expected an error");
-    };
+fn contexts_use_perl_words() {
+    let e = perl_error(
+        r#"{"type": "list", "min_length": 2}"#,
+        &j("[1]"),
+        &ValidateOptions::default(),
+    );
     let ctx = e.errors(&ErrorsOptions::default())[0].ctx.clone().unwrap();
     assert_eq!(
         ctx,
-        j(r#"{"field_type": "List", "min_length": 2, "actual_length": 1}"#)
+        j(r#"{"field_type": "Array", "min_length": 2, "actual_length": 1}"#)
     );
+    let e = perl_error(r#"{"type": "decimal"}"#, &j(r#""1.5""#), &strict());
+    let details = &e.errors(&ErrorsOptions::default())[0];
+    assert_eq!(details.msg, "Input should be an instance of Math::BigFloat");
+    assert_eq!(details.ctx, Some(j(r#"{"class": "Math::BigFloat"}"#)));
+}
+
+#[test]
+fn perl_errors_have_no_pydantic_links() {
+    let e = perl_error(r#"{"type": "none"}"#, &j("1"), &ValidateOptions::default());
+    assert_eq!(e.errors(&ErrorsOptions::default())[0].url, None);
+    assert!(!e.display(true, false).contains("errors.pydantic.dev"));
+}
+
+#[test]
+fn perl_input_values_and_types() {
+    let input = j(r#"[null, true, false, 1, 1.5, "it's", [1], {"a": 1, "b c": null}]"#);
+    let e = perl_error(
+        r#"{"type": "tuple", "items_schema": [{"type": "str"}, {"type": "str"}, {"type": "str"}, {"type": "str"}, {"type": "str"}, {"type": "int"}, {"type": "str"}, {"type": "str"}]}"#,
+        &input,
+        &ValidateOptions::default(),
+    );
+    let text = e.display(false, false);
+    for expected in [
+        "input_value=undef, input_type=Undef]",
+        "input_value=!!1, input_type=Bool]",
+        "input_value=!!0, input_type=Bool]",
+        "input_value=1, input_type=Int]",
+        "input_value=1.5, input_type=Num]",
+        r"input_value='it\'s', input_type=Str]",
+        "input_value=[1], input_type=ArrayRef]",
+        "input_value={a => 1, 'b c' => undef}, input_type=HashRef]",
+    ] {
+        assert!(text.contains(expected), "{expected} in\n{text}");
+    }
+}
+
+#[test]
+fn perl_names_of_values() {
+    let cases = [
+        ("null", "undef", "Undef"),
+        (
+            "123456789012345678901234567890",
+            "123456789012345678901234567890",
+            "Int",
+        ),
+        (r#""a\nb""#, r#""a\nb""#, "Str"),
+        (r#""caf\u00e9 \\ \"""#, r#"'café \\ "'"#, "Str"),
+        ("[]", "[]", "ArrayRef"),
+        ("{}", "{}", "HashRef"),
+    ];
+    for (json, repr, type_name) in cases {
+        let value = j(json);
+        assert_eq!(
+            (value.perl_repr(), value.perl_type_name()),
+            (repr.to_owned(), type_name),
+            "{json}"
+        );
+    }
+}
+
+#[test]
+fn error_types_take_perl_codes() {
+    use perldantic_core::ErrorType;
+    for (perl, pydantic) in [
+        ("hash_type", "dict_type"),
+        ("array_type", "list_type"),
+        ("undef_required", "none_required"),
+        ("number_type", "float_type"),
+        ("number_parsing", "float_parsing"),
+        ("int_from_fraction", "int_from_float"),
+        ("duration_type", "time_delta_type"),
+    ] {
+        let error = ErrorType::new(perl, None).unwrap();
+        assert_eq!(error.type_string(), pydantic);
+        assert_eq!(error.type_string_for(InputType::Perl), perl);
+    }
 }
 
 #[test]
@@ -159,7 +317,7 @@ fn perl_arrays_are_strict_tuples() {
     // Only arrays: strict still refuses other kinds of input.
     assert_eq!(
         errors_with(&v, &j(r#"{"a": 1}"#), InputType::Perl, &strict()),
-        one("tuple_type", "Input should be an array reference")
+        one("array_type", "Input should be an array reference")
     );
 }
 
