@@ -247,6 +247,23 @@ fn unions_pick_the_model_member() {
     assert_eq!(out(&s, &Value::Int(5), &opts()), Value::Int(5));
 }
 
+/// Models built outside the validator (the Perl objects) may leave out fields that have a
+/// default; a union still picks their model instead of warning about the field count.
+#[test]
+fn unions_accept_models_without_defaulted_fields() {
+    let s = serializer(&format!(
+        r#"{{"type": "union", "choices": [{}, {{"type": "int"}}]}}"#,
+        model_schema("{}")
+    ));
+    let partial = model(
+        "M",
+        r#"{"a": 1, "b": null, "secret": "x"}"#,
+        &["a", "secret"],
+        None,
+    );
+    assert_eq!(out(&s, &partial, &opts()), j(r#"{"a": 1, "b": null}"#));
+}
+
 #[test]
 fn fields_serializer_needs_a_model() {
     let s = serializer(FIELDS);

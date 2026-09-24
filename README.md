@@ -69,7 +69,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
 - [ ] 00061 — Integration scenarios
   - [ ] 00062 — CBT journal entry
   - [ ] 00063 — Story/book editor: recursive chapters
-  - [ ] 00064 — IT task manager: tagged union by kind, deadlines
+  - [x] 00064 — IT task manager: tagged union by kind, deadlines
   - [ ] 00065 — ERP order: Decimal totals, cross-field model validator
   - [ ] 00066 — Bug tracker: URL/UUID, `extra => 'forbid'`, JSON import/export
 - [ ] 00067 — Docs & release 0.1.0
