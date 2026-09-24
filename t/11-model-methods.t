@@ -44,6 +44,15 @@ subtest 'model_validate and model_validate_json' => sub {
     is $e->errors->[0]{type}, 'model_type';
 };
 
+subtest 'model_check' => sub {
+    ok(Shop::Item->model_check({sku => 'a', price => '1'}), 'valid');
+    ok(!Shop::Item->model_check({sku => 'a', price => -1}), 'invalid');
+    ok(!Shop::Item->model_check({sku => 'a', price => '1'}, strict => 1), 'options');
+    ok(Shop::Order->model_check({id => 1, items => [Shop::Item->new(sku => 'b', price => 1)]}), 'nested objects');
+    my $e = dies { $order->model_check({}) };
+    is $e->message, 'model_check is a class method';
+};
+
 subtest 'model_dump' => sub {
     is $order->model_dump, {
         id     => 7,

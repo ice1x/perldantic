@@ -8,8 +8,8 @@ use perldantic_core::{Dict, Value};
 use perldantic_ffi::binary;
 use perldantic_ffi::{
     PdSerializer, PdValidator, pd_buffer_free, pd_serializer_free, pd_serializer_new,
-    pd_serializer_to_data_binary, pd_serializer_to_json_binary, pd_validator_free,
-    pd_validator_new, pd_validator_validate_binary,
+    pd_serializer_to_data_binary, pd_serializer_to_json_binary, pd_validator_check_binary,
+    pd_validator_free, pd_validator_new, pd_validator_validate_binary,
 };
 
 fn c(text: &str) -> CString {
@@ -180,4 +180,68 @@ fn serialization_returns_data_json_and_warnings() {
 fn null_buffers_are_ignored() {
     // SAFETY: null is ignored.
     unsafe { pd_buffer_free(ptr::null_mut(), 0) };
+}
+
+#[test]
+fn checking_answers_whether_input_is_valid() {
+    let handle = validator(r#"{"type": "list", "items_schema": {"type": "int"}}"#);
+    let check = |value: Value| {
+        let input = binary::encode(&value);
+        let mut len = 0;
+        // SAFETY: live handle, readable input, writable length.
+        let buffer = unsafe {
+            pd_validator_check_binary(
+                handle,
+                input.as_ptr(),
+                input.len(),
+                ptr::null(),
+                &raw mut len,
+            )
+        };
+        take(buffer, len)
+    };
+    assert_eq!(
+        check(Value::List(vec![Value::from("1")])),
+        Outcome::Value(Value::Bool(true), None)
+    );
+    assert_eq!(
+        check(Value::List(vec![Value::from("x")])),
+        Outcome::Value(Value::Bool(false), None)
+    );
+    assert_eq!(check(Value::None), Outcome::Value(Value::Bool(false), None));
+
+    let strict = |value: Value| {
+        let input = binary::encode(&value);
+        let options = c(r#"{"strict": true}"#);
+        let mut len = 0;
+        // SAFETY: live handle, readable input and options, writable length.
+        let buffer = unsafe {
+            pd_validator_check_binary(
+                handle,
+                input.as_ptr(),
+                input.len(),
+                options.as_ptr(),
+                &raw mut len,
+            )
+        };
+        take(buffer, len)
+    };
+    assert_eq!(
+        strict(Value::List(vec![Value::from("1")])),
+        Outcome::Value(Value::Bool(false), None),
+        "options apply"
+    );
+
+    let bad = [42u8];
+    let mut len = 0;
+    // SAFETY: as above.
+    let buffer = unsafe {
+        pd_validator_check_binary(handle, bad.as_ptr(), bad.len(), ptr::null(), &raw mut len)
+    };
+    assert!(
+        matches!(take(buffer, len), Outcome::Envelope(_)),
+        "other errors are still errors"
+    );
+    // SAFETY: a live handle, freed once.
+    unsafe { pd_validator_free(handle) };
 }

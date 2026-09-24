@@ -721,6 +721,14 @@ sub _validate_tracked ($code, $args = undef) {
     return _inflate($result, $args);
 }
 
+# Validation that only answers whether the input is valid; model objects given as input are
+# tracked as for _validate_tracked, for the functions that get them.
+sub _check_tracked ($code) {
+    local $TRACK_OBJECTS = 1;
+    local %INPUT_OBJECTS;
+    return $code->();
+}
+
 # In a validation error, inputs that were model objects become those objects again.
 sub _untrack_error ($e) {
     $_->{input} = _untrack($_->{input}) for @{$e->{errors}};
@@ -881,6 +889,12 @@ sub model_validate_json ($class, $json, @options) {
     _class_method('model_validate_json', $class);
     my $options = _options('model_validate_json', @options);
     return _validate_tracked(sub { $class->_validator->validate_json($json, $options) });
+}
+
+sub model_check ($class, $data, @options) {
+    _class_method('model_check', $class);
+    my $options = _options('model_check', @options);
+    return _check_tracked(sub { $class->_validator->check($data, $options) });
 }
 
 sub model_dump ($self, @options) {
@@ -1048,6 +1062,12 @@ With C<< for_json_schema => 1 >>, fields that have no plain default show none.
 
 Class methods: validate Perl data or JSON text (bytes or characters) into an object. Options
 are pydantic's: C<strict>, C<extra>, C<from_attributes>, C<context>, C<by_alias>, C<by_name>.
+
+=head2 model_check($data, %options)
+
+Class method: whether C<$data> would make a valid object, as a Perl boolean, without building
+the object (the fastest way to test input). Invalid input is false, not an error; options are
+those of C<model_validate>.
 
 =head2 model_dump(%options), model_dump_json(%options)
 

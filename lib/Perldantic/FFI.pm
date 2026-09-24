@@ -32,7 +32,7 @@ $ffi->attach([pd_json_schema => '_json_schema'] => ['string', 'string', 'string'
 $ffi->attach([pd_url_parts => '_url_parts'] => ['string'] => 'opaque');
 $ffi->attach([pd_string_free => '_string_free'] => ['opaque'] => 'void');
 # The binary transport (ffi/src/binary.rs), used when the native encoder is built.
-for my $name (qw(validator_validate serializer_to_data serializer_to_json)) {
+for my $name (qw(validator_validate validator_check serializer_to_data serializer_to_json)) {
     $ffi->attach(["pd_${name}_binary" => "_${name}_binary"] => ['opaque', 'opaque', 'usize', 'string', 'usize*'] =>
             'opaque');
 }
@@ -286,6 +286,19 @@ package Perldantic::FFI::Validator {
         });
     }
 
+    # Whether the input is valid, without building the validated value.
+    sub check ($self, $input, $options = undef) {
+        return Perldantic::FFI::_enter(sub {
+            return Perldantic::FFI::_binary_call(\&Perldantic::FFI::_validator_check_binary, $self->{handle}, $input,
+                $options)->{ok} ? !!1 : !!0
+                if $Perldantic::Wire::XS;
+            return !!1 if eval { $self->validate($input, $options); 1 };
+            my $e = $@;
+            return !!0 if Scalar::Util::blessed($e) && $e->isa('Perldantic::ValidationError');
+            die $e;
+        });
+    }
+
     sub validate_json ($self, $json, $options = undef) {
         $json = Encode::encode('UTF-8', $json) if utf8::is_utf8($json);
         my ($ptr, $len) = FFI::Platypus::Buffer::scalar_to_buffer($json);
@@ -454,6 +467,12 @@ C<by_name>.
 =item validate_json($json, \%options = undef)
 
 pydantic's C<validate_json>: validates JSON text (bytes or a character string).
+
+=item check($input, \%options = undef)
+
+Whether C<$input> is valid, as a Perl boolean: C<validate> without building the validated value.
+Invalid input is false, not an error; other failures (bad options, exceptions of functions in
+the schema) still die.
 
 =back
 

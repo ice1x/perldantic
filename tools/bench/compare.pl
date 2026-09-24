@@ -55,6 +55,11 @@ my @orders = map {
 } 1 .. $count;
 
 my $adapter = Perldantic::TypeAdapter->new(Perldantic::Types::ArrayRef(['Pd::Order']));
+# The same shape as a Type::Tiny type, for checking without building objects.
+my $tt_orders = do {
+    use Types::Standard qw(ArrayRef Dict Int Num Str);
+    ArrayRef [Dict [id => Int, customer => Str, items => ArrayRef [Dict [sku => Str, qty => Int, price => Num]]]];
+};
 my $json    = Cpanel::JSON::XS->new->canonical;
 my @pd      = @{$adapter->validate(\@orders)};
 my @moo     = map { Moo::Order->new($_) } @orders;
@@ -76,6 +81,8 @@ sub timed ($label, $code) {
 printf "%d orders x 10 items (Type::Tiny::XS %s)\n", $count, eval { require Type::Tiny::XS; 'on' } // 'off';
 timed('build   Perldantic validate', sub { $adapter->validate(\@orders) });
 timed('build   Moo + Type::Tiny new',       sub { [map { Moo::Order->new($_) } @orders] });
+timed('check   Perldantic check',       sub { $adapter->check(\@orders) });
+timed('check   Type::Tiny check',       sub { $tt_orders->check(\@orders) });
 timed('dump    Perldantic dump',     sub { $adapter->dump(\@pd) });
 timed('dump    Moo to_data',                sub { [map { $_->to_data } @moo] });
 timed('JSON    Perldantic dump_json',       sub { $adapter->dump_json(\@pd) });

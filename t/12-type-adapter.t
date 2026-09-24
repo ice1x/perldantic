@@ -24,6 +24,23 @@ subtest 'validate and validate_json' => sub {
     is $e->errors->[0]{type}, 'int_type', 'options are passed on';
 };
 
+subtest 'check' => sub {
+    my $ints = Perldantic::TypeAdapter->new(ArrayRef[Int]);
+    is $ints->check([1, '2']), T(), 'valid input';
+    is $ints->check(['x']), F(), 'invalid input is false, not an error';
+    is $ints->check(['1'], strict => 1), F(), 'options are passed on';
+    ok $ints->check([1]) eq '1' && $ints->check(['x']) eq '', 'Perl booleans';
+    my $points = Perldantic::TypeAdapter->new(ArrayRef['Geo::Point']);
+    ok $points->check([{x => 1, y => 2}, Geo::Point->new(x => 0, y => 0)]), 'models, and model objects as input';
+    ok !$points->check([{x => 1}]);
+    my $e = dies { $ints->check([1], bogus => 1) };
+    isa_ok $e, 'Perldantic::Error';    # bad options are still errors
+    {
+        local $Perldantic::Wire::XS = 0;
+        is [$ints->check([1]), $ints->check(['x'])], [T(), F()], 'the same without the native encoder';
+    }
+};
+
 subtest 'types holding models' => sub {
     my $path = Perldantic::TypeAdapter->new(ArrayRef['Geo::Point']);
     my $points = $path->validate([{x => 1, y => '2'}, Geo::Point->new(x => 0, y => 0)]);

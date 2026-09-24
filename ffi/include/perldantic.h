@@ -105,6 +105,19 @@ uint8_t *pd_validator_validate_binary(const PdValidator *validator,
                                       const char *options,
                                       size_t *len);
 
+// Whether the input is valid: [`pd_validator_validate_binary`] without the validated value,
+// which the caller does not need. The buffer holds `B` and a boolean; invalid input is `false`,
+// not an error. Anything else that fails (malformed input, an exception of a host function)
+// is a `J` error envelope, as for validation.
+//
+// # Safety
+// As for [`pd_validator_validate_binary`].
+uint8_t *pd_validator_check_binary(const PdValidator *validator,
+                                   const uint8_t *input,
+                                   size_t input_len,
+                                   const char *options,
+                                   size_t *len);
+
 // [`pd_serializer_to_data`] with the value and the result in the binary wire format, returned
 // as [`pd_validator_validate_binary`] returns its result.
 //
