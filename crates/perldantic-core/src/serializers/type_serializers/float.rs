@@ -85,6 +85,7 @@ fn extract_f64(value: &Value) -> Option<f64> {
         Value::Int(i) => Some(*i as f64),
         Value::BigInt(i) => i.to_f64().filter(|f| f.is_finite()),
         Value::Bool(b) => Some(f64::from(u8::from(*b))),
+        Value::Enum(_) => value.mixin_value().and_then(extract_f64),
         _ => None,
     }
 }

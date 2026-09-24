@@ -73,7 +73,10 @@
     {
      "$enum": [
       "S",
-      "a"
+      "a",
+      "a",
+      "str",
+      false
      ]
     }
    ]
@@ -86,7 +89,10 @@
    "output": {
     "$enum": [
      "S",
-     "a"
+     "a",
+     "a",
+     "str",
+     false
     ]
    }
   }
@@ -100,7 +106,10 @@
     {
      "$enum": [
       "S",
-      "a"
+      "a",
+      "a",
+      "str",
+      false
      ]
     }
    ]
@@ -110,7 +119,10 @@
   "input": {
    "$enum": [
     "S",
-    "a"
+    "a",
+    "a",
+    "str",
+    false
    ]
   },
   "options": {},
@@ -118,7 +130,10 @@
    "output": {
     "$enum": [
      "S",
-     "a"
+     "a",
+     "a",
+     "str",
+     false
     ]
    }
   }
@@ -154,7 +169,10 @@
   "input": {
    "$enum": [
     "S",
-    "a"
+    "a",
+    "a",
+    "str",
+    false
    ]
   },
   "options": {},
@@ -171,7 +189,10 @@
     {
      "$enum": [
       "FooEnum",
-      "foo_value"
+      "foo",
+      "foo_value",
+      null,
+      false
      ]
     }
    ]
@@ -181,7 +202,10 @@
   "input": {
    "$enum": [
     "FooEnum",
-    "foo_value"
+    "foo",
+    "foo_value",
+    null,
+    false
    ]
   },
   "options": {},
@@ -189,7 +213,10 @@
    "output": {
     "$enum": [
      "FooEnum",
-     "foo_value"
+     "foo",
+     "foo_value",
+     null,
+     false
     ]
    }
   }
@@ -203,7 +230,10 @@
     {
      "$enum": [
       "FooEnum",
-      "foo_value"
+      "foo",
+      "foo_value",
+      null,
+      false
      ]
     }
    ]
@@ -236,7 +266,10 @@
     {
      "$enum": [
       "FooEnum",
-      "foo_value"
+      "foo",
+      "foo_value",
+      null,
+      false
      ]
     }
    ]
@@ -269,7 +302,10 @@
     {
      "$enum": [
       "FooEnum",
-      "foo_value"
+      "foo",
+      "foo_value",
+      null,
+      false
      ]
     }
    ]
@@ -302,7 +338,10 @@
     {
      "$enum": [
       "Foo",
-      2
+      "foo",
+      2,
+      "int",
+      false
      ]
     }
    ]
@@ -312,7 +351,10 @@
   "input": {
    "$enum": [
     "Foo",
-    2
+    "foo",
+    2,
+    "int",
+    false
    ]
   },
   "options": {},
@@ -320,7 +362,10 @@
    "output": {
     "$enum": [
      "Foo",
-     2
+     "foo",
+     2,
+     "int",
+     false
     ]
    }
   }
@@ -334,7 +379,10 @@
     {
      "$enum": [
       "Foo",
-      2
+      "foo",
+      2,
+      "int",
+      false
      ]
     }
    ]
@@ -347,7 +395,10 @@
    "output": {
     "$enum": [
      "Foo",
-     2
+     "foo",
+     2,
+     "int",
+     false
     ]
    }
   }
@@ -361,7 +412,10 @@
     {
      "$enum": [
       "Foo",
-      2
+      "foo",
+      2,
+      "int",
+      false
      ]
     }
    ]
@@ -374,7 +428,10 @@
    "output": {
     "$enum": [
      "Foo",
-     2
+     "foo",
+     2,
+     "int",
+     false
     ]
    }
   }
@@ -388,7 +445,10 @@
     {
      "$enum": [
       "Foo",
-      2
+      "foo",
+      2,
+      "int",
+      false
      ]
     }
    ]
@@ -1353,7 +1413,10 @@
     {
      "$enum": [
       "Foo",
-      1
+      "foo",
+      1,
+      "int",
+      false
      ]
     },
     1
@@ -1364,7 +1427,10 @@
   "input": {
    "$enum": [
     "Foo",
-    1
+    "foo",
+    1,
+    "int",
+    false
    ]
   },
   "options": {},
@@ -1372,7 +1438,10 @@
    "output": {
     "$enum": [
      "Foo",
-     1
+     "foo",
+     1,
+     "int",
+     false
     ]
    }
   }
@@ -1386,7 +1455,10 @@
     {
      "$enum": [
       "Foo",
-      1
+      "foo",
+      1,
+      "int",
+      false
      ]
     },
     1
@@ -1409,7 +1481,10 @@
     {
      "$enum": [
       "Foo",
-      1
+      "foo",
+      1,
+      "int",
+      false
      ]
     },
     1
@@ -1432,7 +1507,10 @@
     {
      "$enum": [
       "Foo",
-      1
+      "foo",
+      1,
+      "int",
+      false
      ]
     },
     1
@@ -1467,7 +1545,10 @@
     {
      "$enum": [
       "Foo",
-      1
+      "foo",
+      1,
+      "int",
+      false
      ]
     }
    ]
@@ -1477,7 +1558,10 @@
   "input": {
    "$enum": [
     "Foo",
-    1
+    "foo",
+    1,
+    "int",
+    false
    ]
   },
   "options": {},
@@ -1485,7 +1569,10 @@
    "output": {
     "$enum": [
      "Foo",
-     1
+     "foo",
+     1,
+     "int",
+     false
     ]
    }
   }
@@ -1500,7 +1587,10 @@
     {
      "$enum": [
       "Foo",
-      1
+      "foo",
+      1,
+      "int",
+      false
      ]
     }
    ]
@@ -1523,7 +1613,10 @@
     {
      "$enum": [
       "Foo",
-      1
+      "foo",
+      1,
+      "int",
+      false
      ]
     }
    ]
@@ -1546,7 +1639,10 @@
     {
      "$enum": [
       "Foo",
-      1
+      "foo",
+      1,
+      "int",
+      false
      ]
     }
    ]
@@ -1579,7 +1675,10 @@
     {
      "$enum": [
       "Foo",
-      "foo_val"
+      "foo",
+      "foo_val",
+      "str",
+      false
      ]
     },
     "foo_val"
@@ -1590,7 +1689,10 @@
   "input": {
    "$enum": [
     "Foo",
-    "foo_val"
+    "foo",
+    "foo_val",
+    "str",
+    false
    ]
   },
   "options": {},
@@ -1598,7 +1700,10 @@
    "output": {
     "$enum": [
      "Foo",
-     "foo_val"
+     "foo",
+     "foo_val",
+     "str",
+     false
     ]
    }
   }
@@ -1612,7 +1717,10 @@
     {
      "$enum": [
       "Foo",
-      "foo_val"
+      "foo",
+      "foo_val",
+      "str",
+      false
      ]
     },
     "foo_val"
@@ -1635,7 +1743,10 @@
     {
      "$enum": [
       "Foo",
-      "foo_val"
+      "foo",
+      "foo_val",
+      "str",
+      false
      ]
     },
     "foo_val"
@@ -1658,7 +1769,10 @@
     {
      "$enum": [
       "Foo",
-      "foo_val"
+      "foo",
+      "foo_val",
+      "str",
+      false
      ]
     },
     "foo_val"
@@ -1693,7 +1807,10 @@
     {
      "$enum": [
       "Foo",
-      "foo_val"
+      "foo",
+      "foo_val",
+      "str",
+      false
      ]
     }
    ]
@@ -1703,7 +1820,10 @@
   "input": {
    "$enum": [
     "Foo",
-    "foo_val"
+    "foo",
+    "foo_val",
+    "str",
+    false
    ]
   },
   "options": {},
@@ -1711,7 +1831,10 @@
    "output": {
     "$enum": [
      "Foo",
-     "foo_val"
+     "foo",
+     "foo_val",
+     "str",
+     false
     ]
    }
   }
@@ -1726,7 +1849,10 @@
     {
      "$enum": [
       "Foo",
-      "foo_val"
+      "foo",
+      "foo_val",
+      "str",
+      false
      ]
     }
    ]
@@ -1749,7 +1875,10 @@
     {
      "$enum": [
       "Foo",
-      "foo_val"
+      "foo",
+      "foo_val",
+      "str",
+      false
      ]
     }
    ]
@@ -1772,7 +1901,10 @@
     {
      "$enum": [
       "Foo",
-      "foo_val"
+      "foo",
+      "foo_val",
+      "str",
+      false
      ]
     }
    ]
@@ -1805,7 +1937,10 @@
     {
      "$enum": [
       "Foo",
-      "foo_value"
+      "foo",
+      "foo_value",
+      "str",
+      false
      ]
     }
    ]
@@ -1815,7 +1950,10 @@
   "input": {
    "$enum": [
     "Foo",
-    "foo_value"
+    "foo",
+    "foo_value",
+    "str",
+    false
    ]
   },
   "options": {},
@@ -1823,7 +1961,10 @@
    "output": {
     "$enum": [
      "Foo",
-     "foo_value"
+     "foo",
+     "foo_value",
+     "str",
+     false
     ]
    }
   }
@@ -1837,7 +1978,10 @@
     {
      "$enum": [
       "Foo",
-      "foo_value"
+      "foo",
+      "foo_value",
+      "str",
+      false
      ]
     }
    ]
@@ -1850,7 +1994,10 @@
    "output": {
     "$enum": [
      "Foo",
-     "foo_value"
+     "foo",
+     "foo_value",
+     "str",
+     false
     ]
    }
   }
@@ -1864,7 +2011,10 @@
     {
      "$enum": [
       "Foo",
-      "foo_value"
+      "foo",
+      "foo_value",
+      "str",
+      false
      ]
     }
    ]
@@ -1877,7 +2027,10 @@
    "output": {
     "$enum": [
      "Foo",
-     "foo_value"
+     "foo",
+     "foo_value",
+     "str",
+     false
     ]
    }
   }
@@ -1891,7 +2044,10 @@
     {
      "$enum": [
       "Foo",
-      "foo_value"
+      "foo",
+      "foo_value",
+      "str",
+      false
      ]
     }
    ]

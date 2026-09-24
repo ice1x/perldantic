@@ -2037,22 +2037,32 @@
         {
          "$enum": [
           "EnumClass",
-          1
+          "enum_value",
+          1,
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "EnumClass",
-          2
+          "enum_value_2",
+          2,
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "EnumClass",
-          3
+          "enum_value_3",
+          3,
+          null,
+          false
          ]
         }
-       ]
+       ],
+       "cls_repr": "test_model_with_enum_int_field_validation_should_succeed_for_any_type_equality_checks.<locals>.EnumClass"
       }
      },
      "enum_field_2": {
@@ -2066,22 +2076,32 @@
         {
          "$enum": [
           "EnumClass",
-          1
+          "enum_value",
+          1,
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "EnumClass",
-          2
+          "enum_value_2",
+          2,
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "EnumClass",
-          3
+          "enum_value_3",
+          3,
+          null,
+          false
          ]
         }
-       ]
+       ],
+       "cls_repr": "test_model_with_enum_int_field_validation_should_succeed_for_any_type_equality_checks.<locals>.EnumClass"
       }
      },
      "enum_field_3": {
@@ -2095,22 +2115,32 @@
         {
          "$enum": [
           "EnumClass",
-          1
+          "enum_value",
+          1,
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "EnumClass",
-          2
+          "enum_value_2",
+          2,
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "EnumClass",
-          3
+          "enum_value_3",
+          3,
+          null,
+          false
          ]
         }
-       ]
+       ],
+       "cls_repr": "test_model_with_enum_int_field_validation_should_succeed_for_any_type_equality_checks.<locals>.EnumClass"
       }
      }
     }
@@ -2128,19 +2158,28 @@
       "enum_field": {
        "$enum": [
         "EnumClass",
-        1
+        "enum_value",
+        1,
+        null,
+        false
        ]
       },
       "enum_field_2": {
        "$enum": [
         "EnumClass",
-        2
+        "enum_value_2",
+        2,
+        null,
+        false
        ]
       },
       "enum_field_3": {
        "$enum": [
         "EnumClass",
-        3
+        "enum_value_3",
+        3,
+        null,
+        false
        ]
       }
      },
@@ -2176,22 +2215,32 @@
         {
          "$enum": [
           "EnumClass",
-          1
+          "enum_value",
+          1,
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "EnumClass",
-          2
+          "enum_value_2",
+          2,
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "EnumClass",
-          3
+          "enum_value_3",
+          3,
+          null,
+          false
          ]
         }
-       ]
+       ],
+       "cls_repr": "test_model_with_enum_int_field_validation_should_succeed_for_any_type_equality_checks.<locals>.EnumClass"
       }
      },
      "enum_field_2": {
@@ -2205,22 +2254,32 @@
         {
          "$enum": [
           "EnumClass",
-          1
+          "enum_value",
+          1,
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "EnumClass",
-          2
+          "enum_value_2",
+          2,
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "EnumClass",
-          3
+          "enum_value_3",
+          3,
+          null,
+          false
          ]
         }
-       ]
+       ],
+       "cls_repr": "test_model_with_enum_int_field_validation_should_succeed_for_any_type_equality_checks.<locals>.EnumClass"
       }
      },
      "enum_field_3": {
@@ -2234,22 +2293,32 @@
         {
          "$enum": [
           "EnumClass",
-          1
+          "enum_value",
+          1,
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "EnumClass",
-          2
+          "enum_value_2",
+          2,
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "EnumClass",
-          3
+          "enum_value_3",
+          3,
+          null,
+          false
          ]
         }
-       ]
+       ],
+       "cls_repr": "test_model_with_enum_int_field_validation_should_succeed_for_any_type_equality_checks.<locals>.EnumClass"
       }
      }
     }
@@ -2277,19 +2346,28 @@
       "enum_field": {
        "$enum": [
         "EnumClass",
-        1
+        "enum_value",
+        1,
+        null,
+        false
        ]
       },
       "enum_field_2": {
        "$enum": [
         "EnumClass",
-        2
+        "enum_value_2",
+        2,
+        null,
+        false
        ]
       },
       "enum_field_3": {
        "$enum": [
         "EnumClass",
-        3
+        "enum_value_3",
+        3,
+        null,
+        false
        ]
       }
      },

@@ -166,13 +166,47 @@ def host_model_schema(schema: dict[str, Any]) -> dict[str, Any]:
     return host
 
 
+def _is_default_enum_hook(function: Any) -> bool:
+    return getattr(function, '__qualname__', '') == 'GenerateSchema._enum_schema.<locals>.get_json_schema'
+
+
+def host_enum_schema(schema: dict[str, Any]) -> dict[str, Any]:
+    """An `enum` core schema with the class docstring moved into it.
+
+    pydantic adds a hook that only repeats the title (the class name, which the schema's `cls`
+    carries) and the docstring that `enum_schema()` itself sets; the hook is dropped and the
+    docstring recorded as `metadata.pydantic_js_updates`.
+    """
+    cls = schema['cls']
+    host = dict(schema)
+    metadata = dict(schema.get('metadata') or {})
+    functions = [f for f in metadata.get('pydantic_js_functions', ()) if not _is_default_enum_hook(f)]
+    if functions:
+        metadata['pydantic_js_functions'] = functions
+    else:
+        metadata.pop('pydantic_js_functions', None)
+    doc = inspect.cleandoc(cls.__doc__) if cls.__doc__ else None
+    # the default docstring of enum classes before Python 3.11 says nothing
+    if doc and doc != 'An enumeration.':
+        updates = dict(metadata.get('pydantic_js_updates') or {})
+        updates['description'] = doc
+        metadata['pydantic_js_updates'] = updates
+    if metadata:
+        host['metadata'] = metadata
+    else:
+        host.pop('metadata', None)
+    return host
+
+
 def host_schema(value: Any) -> Any:
-    """Rewrite every `model` and `typed-dict` schema in a core schema with the class data."""
+    """Rewrite every `model`, `typed-dict` and `enum` schema in a core schema with the class data."""
     if isinstance(value, dict):
         if value.get('type') == 'model' and isinstance(value.get('cls'), type):
             value = host_model_schema(value)
         elif value.get('type') == 'typed-dict' and isinstance(value.get('cls'), type):
             value = host_typed_dict_schema(value)
+        elif value.get('type') == 'enum' and isinstance(value.get('cls'), type):
+            value = host_enum_schema(value)
         return {k: host_schema(v) for k, v in value.items()}
     if isinstance(value, list):
         return [host_schema(v) for v in value]

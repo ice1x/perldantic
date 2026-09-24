@@ -97,6 +97,7 @@ pub(crate) fn infer_to_python_known(
             (ObType::Uuid | ObType::Url | ObType::MultiHostUrl | ObType::Decimal, _) => {
                 Value::Str(value.py_str())
             }
+            (ObType::Enum, Value::Enum(member)) => infer_to_python(&member.value, state)?,
             _ => value.clone(),
         },
         _ => match (ob_type, value) {
@@ -210,6 +211,7 @@ pub(crate) fn infer_serialize_known<S: Serializer>(
                 None => value.serialize(serializer),
             }
         }
+        (ObType::Enum, Value::Enum(member)) => infer_serialize(&member.value, serializer, state),
         // None, bool, int and str serialize as JSON does
         _ => value.serialize(serializer),
     }
@@ -229,6 +231,9 @@ pub(crate) fn infer_json_key_known<'a>(
 ) -> SerResult<Cow<'a, str>> {
     match (ob_type, key) {
         (ObType::None, _) => Ok(Cow::Borrowed("None")),
+        (ObType::Enum, Value::Enum(member)) => Ok(Cow::Owned(
+            infer_json_key(&member.value, state)?.into_owned(),
+        )),
         (ObType::Int | ObType::Uuid | ObType::Url | ObType::MultiHostUrl | ObType::Decimal, _) => {
             Ok(Cow::Owned(key.py_str()))
         }

@@ -101,6 +101,7 @@ fn extract_int(value: &Value) -> Option<Value> {
     match value {
         Value::Int(_) | Value::BigInt(_) => Some(value.clone()),
         Value::Bool(b) => Some(Value::Int(i64::from(*b))),
+        Value::Enum(_) => value.mixin_value().and_then(extract_int),
         _ => None,
     }
 }

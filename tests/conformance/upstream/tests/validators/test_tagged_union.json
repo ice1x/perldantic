@@ -1302,7 +1302,10 @@
       {
        "$enum": [
         "BarEnum",
-        1
+        "ONE",
+        1,
+        "int",
+        false
        ]
       },
       {
@@ -1327,7 +1330,10 @@
       {
        "$enum": [
         "FooEnum",
-        "banana"
+        "BANANA",
+        "banana",
+        "str",
+        false
        ]
       },
       {
@@ -1355,7 +1361,10 @@
       {
        "$enum": [
         "PlainEnum",
-        "two"
+        "TWO",
+        "two",
+        null,
+        false
        ]
       },
       {
@@ -1386,7 +1395,10 @@
    "foo": {
     "$enum": [
      "FooEnum",
-     "banana"
+     "BANANA",
+     "banana",
+     "str",
+     false
     ]
    },
    "spam": [
@@ -1418,7 +1430,10 @@
       {
        "$enum": [
         "BarEnum",
-        1
+        "ONE",
+        1,
+        "int",
+        false
        ]
       },
       {
@@ -1443,7 +1458,10 @@
       {
        "$enum": [
         "FooEnum",
-        "banana"
+        "BANANA",
+        "banana",
+        "str",
+        false
        ]
       },
       {
@@ -1471,7 +1489,10 @@
       {
        "$enum": [
         "PlainEnum",
-        "two"
+        "TWO",
+        "two",
+        null,
+        false
        ]
       },
       {
@@ -1502,7 +1523,10 @@
    "foo": {
     "$enum": [
      "BarEnum",
-     1
+     "ONE",
+     1,
+     "int",
+     false
     ]
    },
    "bar": "123"
@@ -1526,7 +1550,10 @@
       {
        "$enum": [
         "BarEnum",
-        1
+        "ONE",
+        1,
+        "int",
+        false
        ]
       },
       {
@@ -1551,7 +1578,10 @@
       {
        "$enum": [
         "FooEnum",
-        "banana"
+        "BANANA",
+        "banana",
+        "str",
+        false
        ]
       },
       {
@@ -1579,7 +1609,10 @@
       {
        "$enum": [
         "PlainEnum",
-        "two"
+        "TWO",
+        "two",
+        null,
+        false
        ]
       },
       {
@@ -1610,7 +1643,10 @@
    "foo": {
     "$enum": [
      "PlainEnum",
-     "two"
+     "TWO",
+     "two",
+     null,
+     false
     ]
    },
    "baz": "123"
@@ -1621,7 +1657,10 @@
     "foo": {
      "$enum": [
       "PlainEnum",
-      "two"
+      "TWO",
+      "two",
+      null,
+      false
      ]
     },
     "baz": 123
@@ -1639,7 +1678,10 @@
       {
        "$enum": [
         "BarEnum",
-        1
+        "ONE",
+        1,
+        "int",
+        false
        ]
       },
       {
@@ -1664,7 +1706,10 @@
       {
        "$enum": [
         "FooEnum",
-        "banana"
+        "BANANA",
+        "banana",
+        "str",
+        false
        ]
       },
       {
@@ -1692,7 +1737,10 @@
       {
        "$enum": [
         "PlainEnum",
-        "two"
+        "TWO",
+        "two",
+        null,
+        false
        ]
       },
       {
@@ -1723,7 +1771,10 @@
    "foo": {
     "$enum": [
      "FooEnum",
-     "apple"
+     "APPLE",
+     "apple",
+     "str",
+     false
     ]
    },
    "spam": [
@@ -1743,7 +1794,10 @@
       "foo": {
        "$enum": [
         "FooEnum",
-        "apple"
+        "APPLE",
+        "apple",
+        "str",
+        false
        ]
       },
       "spam": [

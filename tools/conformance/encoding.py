@@ -19,7 +19,11 @@ written as-is. Everything else is a single-key object whose key starts with `$`:
 
 Values that only describe Python objects (they cannot be rebuilt outside Python):
 
-    {"$enum": [class_name, value]}       enum member
+    {"$enum": [class_name, member_name, value, mixin, str_is_value]}   enum member; mixin is
+                                         "int", "str", "float" or "bytes" when the member is
+                                         also one (IntEnum, StrEnum, class E(str, Enum)), and
+                                         str_is_value is true when str() gives the value's
+                                         text (IntEnum, StrEnum), not "Class.NAME"
     {"$class": name}                     a class, e.g. a model's `cls`
     {"$model": {"class", "fields", "fields_set", "extra"}}   a validated model instance
     {"$function": name}                  a function or other callable
@@ -68,6 +72,31 @@ def _name(obj: Any) -> str:
     return getattr(obj, '__name__', type(obj).__name__)
 
 
+def _has_custom_missing(cls: Any) -> bool:
+    return isinstance(cls, type) and issubclass(cls, enum.Enum) and cls._missing_.__func__ is not enum.Enum._missing_.__func__
+
+
+def with_enum_class_data(schema: Any) -> Any:
+    """A copy of a core schema with what pydantic-core reads off enum classes moved into `enum` schemas.
+
+    Error messages name the class by `__qualname__` (recorded as `cls_repr`, which upstream
+    reads first). pydantic-core calls the class when no member matches, which runs its own
+    `_missing_` hook; ports need a host callback for that, so the hook is recorded as the
+    schema's `missing`.
+    """
+    if isinstance(schema, dict):
+        copy = {k: with_enum_class_data(v) for k, v in schema.items()}
+        cls = schema.get('cls')
+        if schema.get('type') == 'enum' and isinstance(cls, type):
+            copy.setdefault('cls_repr', cls.__qualname__)
+            if 'missing' not in schema and _has_custom_missing(cls):
+                copy['missing'] = cls._missing_
+        return copy
+    if isinstance(schema, list):
+        return [with_enum_class_data(v) for v in schema]
+    return schema
+
+
 def encode(value: Any) -> Any:
     """Encode a Python value into JSON-compatible data; never raises for odd objects."""
     try:
@@ -82,7 +111,9 @@ def _encode(value: Any) -> Any:
     if value is None:
         return None
     if isinstance(value, enum.Enum):
-        return {'$enum': [type(value).__name__, encode(value.value)]}
+        mixin = next((t.__name__ for t in (int, str, float, bytes) if isinstance(value, t)), None)
+        str_is_value = isinstance(value, enum.ReprEnum)
+        return {'$enum': [type(value).__name__, value.name, encode(value.value), mixin, str_is_value]}
 
     kind = type(value)
     if kind is str:

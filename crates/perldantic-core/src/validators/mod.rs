@@ -26,6 +26,7 @@ mod datetime;
 mod decimal;
 mod definitions;
 mod dict;
+mod enum_;
 mod float;
 mod int;
 mod json;
@@ -312,6 +313,7 @@ validators! {
     definitions::DefinitionRefValidator,
     definitions::DefinitionsValidatorBuilder,
     dict::DictValidator,
+    enum_::EnumValidator,
     float::FloatBuilder,
     int::IntValidator,
     json::JsonValidator,
@@ -370,6 +372,8 @@ pub enum CombinedValidator {
     Decimal(decimal::DecimalValidator),
     DefinitionRef(definitions::DefinitionRefValidator),
     Dict(dict::DictValidator),
+    // Boxed: much larger than most validators.
+    Enum(Box<enum_::EnumValidator>),
     Float(float::FloatValidator),
     ConstrainedFloat(float::ConstrainedFloatValidator),
     Int(int::IntValidator),

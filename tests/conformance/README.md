@@ -95,6 +95,7 @@ Values the core can represent:
 | `{"$uuid": "..."}` | `uuid.UUID` |
 | `{"$url": "..."}` | `pydantic_core.Url`, by its text (`str(url)`) |
 | `{"$multi_host_url": "..."}` | `pydantic_core.MultiHostUrl`, by its text |
+| `{"$enum": ["Class", "NAME", value, mixin, str_is_value]}` | an enum member: `mixin` is `"int"`, `"str"`, `"float"` or `"bytes"` when the member is also one (`IntEnum`, `StrEnum`, `class E(str, Enum)`), else `null`; `str_is_value` is true when `str()` gives the value's text (`enum.ReprEnum`) |
 
 Values that only describe Python objects:
 
@@ -102,19 +103,22 @@ Values that only describe Python objects:
 |---|---|
 | `{"$class": "Name"}` | a class, e.g. a model schema's `cls`; inside a schema or config the core reads it as the class name |
 | `{"$model": {"class", "fields", "fields_set", "extra"}}` | a validated model instance; the core represents it as `Value::Model` |
-| `{"$enum": ["Class", value]}` | an enum member |
 | `{"$function": "name"}` | a function (validator functions, default factories, ...) |
 | `{"$exception": ["Type", "message"]}` | an exception, e.g. in an error `ctx` |
 | `{"$subclass": ["Class", base_value]}` | an instance of a subclass of a builtin type |
 | `{"$bytearray": "<base64>"}` | `bytearray` |
 | `{"$object": "type name"}` | anything else; `str-with-surrogates` marks strings that are not valid Unicode |
 
+The recorder also moves into `enum` schemas what pydantic-core reads off the enum class:
+`cls_repr` (the class's `__qualname__`, which error messages name) and, when the class defines
+its own `_missing_` hook, `missing` (so the case is skipped until host callbacks exist).
+
 ## Replaying
 
 A runner builds a validator from `schema`/`config`, validates `input` in `mode` with `options`,
 and compares the outcome with `expected`. A case is skipped (and counted) when it uses a schema
 type or option that is not implemented yet, or contains a value the target cannot represent,
-e.g. `$function` before Perl callbacks exist or `$enum`. As validators are ported, their
+e.g. `$function` before Perl callbacks exist. As validators are ported, their
 cases become active automatically. Skipped cases are listed with the reason; an active case
 that does not match is a failure.
 

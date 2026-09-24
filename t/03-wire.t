@@ -105,6 +105,22 @@ subtest 'models round-trip' => sub {
         '{"$model":{"class":"M","extra":{"z":1},"fields":{"a":[1]},"fields_set":["a"]}}';
 };
 
+subtest 'enum members round-trip' => sub {
+    my $member = Perldantic::Wire::decode(
+        '{"$enum":{"class":"Color","name":"RED","value":{"$tuple":[1]},"mixin":"int","str_is_value":true}}');
+    isa_ok $member, 'Perldantic::Wire::Enum';
+    is $member->class, 'Color';
+    is $member->name, 'RED';
+    is $member->value, [1];
+    is $member->mixin, 'int';
+    ok $member->str_is_value;
+    is Perldantic::Wire::encode($member),
+        '{"$enum":{"class":"Color","mixin":"int","name":"RED","str_is_value":true,"value":[1]}}';
+    my $plain = Perldantic::Wire::Enum->new(class => 'Color', name => 'RED', value => 1);
+    is Perldantic::Wire::encode($plain), '{"$enum":{"class":"Color","name":"RED","value":1}}',
+        'mixin and str_is_value may be left out';
+};
+
 subtest 'unsupported values are usage errors' => sub {
     for my $bad (sub {1}, \1, bless({}, 'Some::Class')) {
         my $e = dies { Perldantic::Wire::encode([$bad]) };

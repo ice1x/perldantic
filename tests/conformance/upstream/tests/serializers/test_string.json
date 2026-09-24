@@ -644,7 +644,10 @@
   "input": {
    "$enum": [
     "StrEnum",
-    "foo-value"
+    "foo",
+    "foo-value",
+    "str",
+    false
    ]
   },
   "options": {},
@@ -652,7 +655,10 @@
    "output": {
     "$enum": [
      "StrEnum",
-     "foo-value"
+     "foo",
+     "foo-value",
+     "str",
+     false
     ]
    }
   }
@@ -668,7 +674,10 @@
   "input": {
    "$enum": [
     "StrEnum",
-    "foo-value"
+    "foo",
+    "foo-value",
+    "str",
+    false
    ]
   },
   "options": {
@@ -689,7 +698,10 @@
   "input": {
    "$enum": [
     "StrEnum",
-    "foo-value"
+    "foo",
+    "foo-value",
+    "str",
+    false
    ]
   },
   "options": {},
@@ -708,7 +720,10 @@
   "input": {
    "$enum": [
     "StrEnum",
-    "foo-value"
+    "foo",
+    "foo-value",
+    "str",
+    false
    ]
   },
   "options": {},
@@ -716,7 +731,10 @@
    "output": {
     "$enum": [
      "StrEnum",
-     "foo-value"
+     "foo",
+     "foo-value",
+     "str",
+     false
     ]
    }
   }
@@ -732,7 +750,10 @@
   "input": {
    "$enum": [
     "StrEnum",
-    "foo-value"
+    "foo",
+    "foo-value",
+    "str",
+    false
    ]
   },
   "options": {
@@ -753,7 +774,10 @@
   "input": {
    "$enum": [
     "StrEnum",
-    "foo-value"
+    "foo",
+    "foo-value",
+    "str",
+    false
    ]
   },
   "options": {},

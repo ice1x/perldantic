@@ -575,6 +575,7 @@ impl<'o> GenerateJsonSchema<'o> {
                 Ok(json_schema)
             }
             "literal" => self.literal_schema(schema),
+            "enum" => Self::enum_schema(schema),
             "list" => self.list_schema(schema),
             "tuple" => self.tuple_schema(schema),
             "set" | "frozenset" => self.set_schema(schema),
@@ -761,6 +762,39 @@ impl<'o> GenerateJsonSchema<'o> {
         } else {
             set(&mut result, "enum", Value::List(expected.clone()));
         }
+        if types.len() == 1
+            && let Some(Some(type_)) = types.into_iter().next()
+        {
+            set(&mut result, "type", type_);
+        }
+        Ok(result)
+    }
+
+    /// The class name is the title; the docstring comes through `metadata.pydantic_js_updates`
+    /// (docs/DIVERGENCES.md #15).
+    fn enum_schema(schema: &Dict) -> JsResult<Dict> {
+        let class: String = schema.get_as_req("cls")?;
+        let members: Vec<Value> = schema.get_as_req("members")?;
+        let expected = members
+            .iter()
+            .map(|member| match member {
+                Value::Enum(member) => to_jsonable_python(&member.value),
+                other => to_jsonable_python(other),
+            })
+            .collect::<JsResult<Vec<Value>>>()?;
+
+        let mut result = Dict::new();
+        set(&mut result, "title", class);
+        let type_of = |v: &Value| match v {
+            Value::Str(_) => Some("string"),
+            Value::Int(_) | Value::BigInt(_) => Some("integer"),
+            Value::Float(_) => Some("number"),
+            Value::Bool(_) => Some("boolean"),
+            Value::List(_) => Some("array"),
+            _ => None,
+        };
+        let types: HashSet<Option<&str>> = expected.iter().map(type_of).collect();
+        set(&mut result, "enum", Value::List(expected));
         if types.len() == 1
             && let Some(Some(type_)) = types.into_iter().next()
         {
@@ -1041,6 +1075,10 @@ impl<'o> GenerateJsonSchema<'o> {
         for (k, v) in choices.iter() {
             // Use the JSON representation so that the discriminator mapping can be matched
             // against the serialized payload value; keys must be strings for JSON
+            let k = match k {
+                Value::Enum(member) => &member.value,
+                other => other,
+            };
             let key = match k {
                 Value::Bool(true) => "true".to_owned(),
                 Value::Bool(false) => "false".to_owned(),

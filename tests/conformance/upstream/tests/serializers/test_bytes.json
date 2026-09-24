@@ -737,9 +737,12 @@
   "input": {
    "$enum": [
     "BytesEnum",
+    "foo",
     {
      "$bytes": "Zm9vLXZhbHVl"
-    }
+    },
+    "bytes",
+    false
    ]
   },
   "options": {},
@@ -747,9 +750,12 @@
    "output": {
     "$enum": [
      "BytesEnum",
+     "foo",
      {
       "$bytes": "Zm9vLXZhbHVl"
-     }
+     },
+     "bytes",
+     false
     ]
    }
   }
@@ -765,9 +771,12 @@
   "input": {
    "$enum": [
     "BytesEnum",
+    "foo",
     {
      "$bytes": "Zm9vLXZhbHVl"
-    }
+    },
+    "bytes",
+    false
    ]
   },
   "options": {
@@ -788,9 +797,12 @@
   "input": {
    "$enum": [
     "BytesEnum",
+    "foo",
     {
      "$bytes": "Zm9vLXZhbHVl"
-    }
+    },
+    "bytes",
+    false
    ]
   },
   "options": {},
@@ -809,9 +821,12 @@
   "input": {
    "$enum": [
     "BytesEnum",
+    "foo",
     {
      "$bytes": "Zm9vLXZhbHVl"
-    }
+    },
+    "bytes",
+    false
    ]
   },
   "options": {},
@@ -819,9 +834,12 @@
    "output": {
     "$enum": [
      "BytesEnum",
+     "foo",
      {
       "$bytes": "Zm9vLXZhbHVl"
-     }
+     },
+     "bytes",
+     false
     ]
    }
   }
@@ -837,9 +855,12 @@
   "input": {
    "$enum": [
     "BytesEnum",
+    "foo",
     {
      "$bytes": "Zm9vLXZhbHVl"
-    }
+    },
+    "bytes",
+    false
    ]
   },
   "options": {
@@ -860,9 +881,12 @@
   "input": {
    "$enum": [
     "BytesEnum",
+    "foo",
     {
      "$bytes": "Zm9vLXZhbHVl"
-    }
+    },
+    "bytes",
+    false
    ]
   },
   "options": {},

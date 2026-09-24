@@ -157,6 +157,7 @@ sub _tag ($value) {
         return {'$frozenset' => [map { _tag($_) } @$value]} if $class eq 'Perldantic::Wire::FrozenSet';
         return {'$bytes' => encode_base64($$value, '')} if $class eq 'Perldantic::Wire::Bytes';
         return {'$model' => $value->_wire}              if $class eq 'Perldantic::Wire::Model';
+        return {'$enum' => $value->_wire}               if $class eq 'Perldantic::Wire::Enum';
         return {$value->_wire_tag => $value->_wire_payload} if $value->isa('Perldantic::Temporal');
         return {'$uuid' => $value->as_string}           if $value->isa('Perldantic::Uuid');
         return {'$multi_host_url' => $value->as_string} if $value->isa('Perldantic::MultiHostUrl');
@@ -193,6 +194,7 @@ my %UNTAG = (
     float => sub ($name)  { $name eq 'nan' ? 9**9**9 / 9**9**9 : $name eq 'inf' ? 9**9**9 : -9**9**9 },
     dict  => sub ($pairs) { +{map { ((ref $_->[0] ? $JSON->encode($_->[0]) : $_->[0] // '') => _untag($_->[1])) } @$pairs} },
     model => sub ($model) { Perldantic::Wire::Model->new(%{_untag($model)}) },
+    enum  => sub ($member) { Perldantic::Wire::Enum->new(%{_untag($member)}) },
     date      => sub ($iso)   { Perldantic::Date->from_iso($iso) },
     time      => sub ($iso)   { Perldantic::Time->from_iso($iso) },
     datetime  => sub ($iso)   { Perldantic::DateTime->from_iso($iso) },
@@ -251,6 +253,35 @@ package Perldantic::Wire::Model {
     }
 }
 
+package Perldantic::Wire::Enum {
+
+    sub new ($class, %args) {
+        return bless {
+            class        => $args{class},
+            name         => $args{name},
+            value        => $args{value},
+            mixin        => $args{mixin},
+            str_is_value => !!$args{str_is_value},
+        }, $class;
+    }
+
+    sub class ($self)        { $self->{class} }
+    sub name ($self)         { $self->{name} }
+    sub value ($self)        { $self->{value} }
+    sub mixin ($self)        { $self->{mixin} }
+    sub str_is_value ($self) { $self->{str_is_value} }
+
+    sub _wire ($self) {
+        return {
+            class => $self->{class},
+            name  => $self->{name},
+            value => Perldantic::Wire::_tag($self->{value}),
+            (defined $self->{mixin} ? (mixin => $self->{mixin}) : ()),
+            ($self->{str_is_value} ? (str_is_value => !!1) : ()),
+        };
+    }
+}
+
 1;
 
 __END__
@@ -293,6 +324,10 @@ C<ordered(key =E<gt> value, ...)>, which keeps the given key order;
 
 =item * C<Perldantic::Wire::Model> is a model instance: C<class>, C<fields>, C<fields_set>
 (defaults to the field names) and C<extra>.
+
+=item * C<Perldantic::Wire::Enum> is an enum member: C<class>, C<name>, C<value> and, for
+members of enums that mix in a builtin type (Python's C<IntEnum>, C<StrEnum>), C<mixin>
+(C<int>, C<str>, C<float> or C<bytes>) and C<str_is_value>.
 
 =item * dates, times, datetimes and durations are L<Perldantic::Temporal> values (decoded as
 such too); L<DateTime> and L<Time::Moment> objects are sent as datetimes (a floating DateTime as

@@ -112,22 +112,25 @@
           {
            "$enum": [
             "CustomType",
-            "a"
+            "A",
+            "a",
+            null,
+            false
            ]
           },
           {
            "$enum": [
             "CustomType",
-            "b"
+            "B",
+            "b",
+            null,
+            false
            ]
           }
          ],
          "ref": "tests.test_json_schema.test_advanced_generic_schema.<locals>.CustomType:1",
          "metadata": {
           "pydantic_js_functions": [
-           {
-            "$function": "get_json_schema"
-           },
            {
             "$function": "__get_pydantic_json_schema__"
            }
@@ -152,22 +155,25 @@
           {
            "$enum": [
             "CustomType",
-            "a"
+            "A",
+            "a",
+            null,
+            false
            ]
           },
           {
            "$enum": [
             "CustomType",
-            "b"
+            "B",
+            "b",
+            null,
+            false
            ]
           }
          ],
          "ref": "tests.test_json_schema.test_advanced_generic_schema.<locals>.CustomType:1",
          "metadata": {
           "pydantic_js_functions": [
-           {
-            "$function": "get_json_schema"
-           },
            {
             "$function": "__get_pydantic_json_schema__"
            }
@@ -3158,24 +3164,23 @@
         {
          "$enum": [
           "FooEnum",
-          "f"
+          "foo",
+          "f",
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "FooEnum",
-          "b"
+          "bar",
+          "b",
+          null,
+          false
          ]
         }
        ],
-       "ref": "tests.test_json_schema.FooEnum:1",
-       "metadata": {
-        "pydantic_js_functions": [
-         {
-          "$function": "get_json_schema"
-         }
-        ]
-       }
+       "ref": "tests.test_json_schema.FooEnum:1"
       },
       "metadata": {}
      },
@@ -3190,25 +3195,24 @@
         {
          "$enum": [
           "BarEnum",
-          1
+          "foo",
+          1,
+          "int",
+          true
          ]
         },
         {
          "$enum": [
           "BarEnum",
-          2
+          "bar",
+          2,
+          "int",
+          true
          ]
         }
        ],
        "sub_type": "int",
-       "ref": "tests.test_json_schema.BarEnum:2",
-       "metadata": {
-        "pydantic_js_functions": [
-         {
-          "$function": "get_json_schema"
-         }
-        ]
-       }
+       "ref": "tests.test_json_schema.BarEnum:2"
       },
       "metadata": {}
      },
@@ -3225,25 +3229,24 @@
          {
           "$enum": [
            "SpamEnum",
-           "f"
+           "foo",
+           "f",
+           "str",
+           false
           ]
          },
          {
           "$enum": [
            "SpamEnum",
-           "b"
+           "bar",
+           "b",
+           "str",
+           false
           ]
          }
         ],
         "sub_type": "str",
-        "ref": "tests.test_json_schema.test_choices.<locals>.SpamEnum:3",
-        "metadata": {
-         "pydantic_js_functions": [
-          {
-           "$function": "get_json_schema"
-          }
-         ]
-        }
+        "ref": "tests.test_json_schema.test_choices.<locals>.SpamEnum:3"
        },
        "default": null
       },
@@ -11484,7 +11487,10 @@
           {
            "$enum": [
             "PetType",
-            "cat"
+            "cat",
+            "cat",
+            null,
+            false
            ]
           },
           {
@@ -11495,7 +11501,10 @@
               {
                "$enum": [
                 "PetColor",
-                "black"
+                "black",
+                "black",
+                "str",
+                false
                ]
               },
               {
@@ -11506,7 +11515,10 @@
                   {
                    "$enum": [
                     "PetInfo",
-                    0
+                    "height",
+                    0,
+                    null,
+                    false
                    ]
                   },
                   {
@@ -11525,7 +11537,10 @@
                         {
                          "$enum": [
                           "PetType",
-                          "cat"
+                          "cat",
+                          "cat",
+                          null,
+                          false
                          ]
                         }
                        ]
@@ -11540,7 +11555,10 @@
                         {
                          "$enum": [
                           "PetColor",
-                          "black"
+                          "black",
+                          "black",
+                          "str",
+                          false
                          ]
                         }
                        ]
@@ -11555,7 +11573,10 @@
                         {
                          "$enum": [
                           "PetInfo",
-                          0
+                          "height",
+                          0,
+                          null,
+                          false
                          ]
                         }
                        ]
@@ -11585,7 +11606,10 @@
                   {
                    "$enum": [
                     "PetInfo",
-                    1
+                    "weight",
+                    1,
+                    null,
+                    false
                    ]
                   },
                   {
@@ -11604,7 +11628,10 @@
                         {
                          "$enum": [
                           "PetType",
-                          "cat"
+                          "cat",
+                          "cat",
+                          null,
+                          false
                          ]
                         }
                        ]
@@ -11619,7 +11646,10 @@
                         {
                          "$enum": [
                           "PetColor",
-                          "black"
+                          "black",
+                          "black",
+                          "str",
+                          false
                          ]
                         }
                        ]
@@ -11634,7 +11664,10 @@
                         {
                          "$enum": [
                           "PetInfo",
-                          1
+                          "weight",
+                          1,
+                          null,
+                          false
                          ]
                         }
                        ]
@@ -11672,7 +11705,10 @@
               {
                "$enum": [
                 "PetColor",
-                "white"
+                "white",
+                "white",
+                "str",
+                false
                ]
               },
               {
@@ -11691,7 +11727,10 @@
                     {
                      "$enum": [
                       "PetType",
-                      "cat"
+                      "cat",
+                      "cat",
+                      null,
+                      false
                      ]
                     }
                    ]
@@ -11706,7 +11745,10 @@
                     {
                      "$enum": [
                       "PetColor",
-                      "white"
+                      "white",
+                      "white",
+                      "str",
+                      false
                      ]
                     }
                    ]
@@ -11744,7 +11786,10 @@
           {
            "$enum": [
             "PetType",
-            "dog"
+            "dog",
+            "dog",
+            null,
+            false
            ]
           },
           {
@@ -11763,7 +11808,10 @@
                 {
                  "$enum": [
                   "PetType",
-                  "dog"
+                  "dog",
+                  "dog",
+                  null,
+                  false
                  ]
                 }
                ]
@@ -13588,31 +13636,33 @@
       {
        "$enum": [
         "Names",
-        "Rick"
+        "rick",
+        "Rick",
+        "str",
+        false
        ]
       },
       {
        "$enum": [
         "Names",
-        "Morty"
+        "morty",
+        "Morty",
+        "str",
+        false
        ]
       },
       {
        "$enum": [
         "Names",
-        "Summer"
+        "summer",
+        "Summer",
+        "str",
+        false
        ]
       }
      ],
      "sub_type": "str",
-     "ref": "tests.test_json_schema.test_enum_and_model_have_same_behaviour.<locals>.Names:1",
-     "metadata": {
-      "pydantic_js_functions": [
-       {
-        "$function": "get_json_schema"
-       }
-      ]
-     }
+     "ref": "tests.test_json_schema.test_enum_and_model_have_same_behaviour.<locals>.Names:1"
     },
     {
      "type": "model",
@@ -13762,34 +13812,33 @@
     {
      "$enum": [
       "MyEnum",
+      "foo",
       {
        "$tuple": [
         1,
         2
        ]
-      }
+      },
+      null,
+      false
      ]
     },
     {
      "$enum": [
       "MyEnum",
+      "bar",
       {
        "$tuple": [
         2,
         3
        ]
-      }
+      },
+      null,
+      false
      ]
     }
    ],
-   "ref": "tests.test_json_schema.test_enum_complex_value.<locals>.MyEnum:1",
-   "metadata": {
-    "pydantic_js_functions": [
-     {
-      "$function": "get_json_schema"
-     }
-    ]
-   }
+   "ref": "tests.test_json_schema.test_enum_complex_value.<locals>.MyEnum:1"
   },
   "config": null,
   "mode": "validation",
@@ -13836,25 +13885,24 @@
          {
           "$enum": [
            "MyEnum",
-           "foo"
+           "FOO",
+           "foo",
+           "str",
+           false
           ]
          },
          {
           "$enum": [
            "MyEnum",
-           "bar"
+           "BAR",
+           "bar",
+           "str",
+           false
           ]
          }
         ],
         "sub_type": "str",
-        "ref": "tests.test_json_schema.test_enum_dict.<locals>.MyEnum:1",
-        "metadata": {
-         "pydantic_js_functions": [
-          {
-           "$function": "get_json_schema"
-          }
-         ]
-        }
+        "ref": "tests.test_json_schema.test_enum_dict.<locals>.MyEnum:1"
        },
        "values_schema": {
         "type": "str"
@@ -13985,31 +14033,33 @@
       {
        "$enum": [
         "Names",
-        "Rick"
+        "rick",
+        "Rick",
+        "str",
+        false
        ]
       },
       {
        "$enum": [
         "Names",
-        "Morty"
+        "morty",
+        "Morty",
+        "str",
+        false
        ]
       },
       {
        "$enum": [
         "Names",
-        "Summer"
+        "summer",
+        "Summer",
+        "str",
+        false
        ]
       }
      ],
      "sub_type": "str",
-     "ref": "tests.test_json_schema.test_enum_includes_extra_without_other_params.<locals>.Names:1",
-     "metadata": {
-      "pydantic_js_functions": [
-       {
-        "$function": "get_json_schema"
-       }
-      ]
-     }
+     "ref": "tests.test_json_schema.test_enum_includes_extra_without_other_params.<locals>.Names:1"
     }
    ]
   },
@@ -14102,24 +14152,23 @@
          {
           "$enum": [
            "MyEnum",
-           1
+           "FOO",
+           1,
+           "int",
+           true
           ]
          }
         ],
         "sub_type": "int",
-        "ref": "tests.test_json_schema.test_enum_int_default.<locals>.MyEnum:1",
-        "metadata": {
-         "pydantic_js_functions": [
-          {
-           "$function": "get_json_schema"
-          }
-         ]
-        }
+        "ref": "tests.test_json_schema.test_enum_int_default.<locals>.MyEnum:1"
        },
        "default": {
         "$enum": [
          "MyEnum",
-         1
+         "FOO",
+         1,
+         "int",
+         true
         ]
        }
       },
@@ -14210,13 +14259,19 @@
           {
            "$enum": [
             "SpamEnum",
-            "f"
+            "foo",
+            "f",
+            "str",
+            false
            ]
           },
           {
            "$enum": [
             "SpamEnum",
-            "b"
+            "bar",
+            "b",
+            "str",
+            false
            ]
           }
          ],
@@ -14225,12 +14280,12 @@
          "metadata": {
           "pydantic_js_functions": [
            {
-            "$function": "get_json_schema"
-           },
-           {
             "$function": "__get_pydantic_json_schema__"
            }
-          ]
+          ],
+          "pydantic_js_updates": {
+           "description": "Spam enum."
+          }
          }
         }
        },
@@ -14350,24 +14405,28 @@
         {
          "$enum": [
           "FooBar",
-          "foo"
+          "foo",
+          "foo",
+          "str",
+          false
          ]
         },
         {
          "$enum": [
           "FooBar",
-          "bar"
+          "bar",
+          "bar",
+          "str",
+          false
          ]
         }
        ],
        "sub_type": "str",
        "ref": "tests.test_json_schema.test_enum_schema_cleandoc.<locals>.FooBar:1",
        "metadata": {
-        "pydantic_js_functions": [
-         {
-          "$function": "get_json_schema"
-         }
-        ]
+        "pydantic_js_updates": {
+         "description": "This is docstring which needs to be cleaned up"
+        }
        }
       },
       "metadata": {}
@@ -14511,25 +14570,24 @@
       {
        "$enum": [
         "FooBarEnum",
-        "foo"
+        "foo",
+        "foo",
+        "str",
+        false
        ]
       },
       {
        "$enum": [
         "FooBarEnum",
-        "bar"
+        "bar",
+        "bar",
+        "str",
+        false
        ]
       }
      ],
      "sub_type": "str",
-     "ref": "tests.test_json_schema.test_enum_schema_custom_field.<locals>.FooBarEnum:1",
-     "metadata": {
-      "pydantic_js_functions": [
-       {
-        "$function": "get_json_schema"
-       }
-      ]
-     }
+     "ref": "tests.test_json_schema.test_enum_schema_custom_field.<locals>.FooBarEnum:1"
     }
    ]
   },
@@ -14645,24 +14703,23 @@
          {
           "$enum": [
            "MyEnum",
-           "foo"
+           "FOO",
+           "foo",
+           "str",
+           false
           ]
          }
         ],
         "sub_type": "str",
-        "ref": "tests.test_json_schema.test_enum_str_default.<locals>.MyEnum:1",
-        "metadata": {
-         "pydantic_js_functions": [
-          {
-           "$function": "get_json_schema"
-          }
-         ]
-        }
+        "ref": "tests.test_json_schema.test_enum_str_default.<locals>.MyEnum:1"
        },
        "default": {
         "$enum": [
          "MyEnum",
-         "foo"
+         "FOO",
+         "foo",
+         "str",
+         false
         ]
        }
       },
@@ -19481,31 +19538,33 @@
          {
           "$enum": [
            "FoodChoice",
-           "spam"
+           "spam",
+           "spam",
+           "str",
+           false
           ]
          },
          {
           "$enum": [
            "FoodChoice",
-           "egg"
+           "egg",
+           "egg",
+           "str",
+           false
           ]
          },
          {
           "$enum": [
            "FoodChoice",
-           "chips"
+           "chips",
+           "chips",
+           "str",
+           false
           ]
          }
         ],
         "sub_type": "str",
-        "ref": "tests.test_json_schema.test_list_enum_schema_extras.<locals>.FoodChoice:1",
-        "metadata": {
-         "pydantic_js_functions": [
-          {
-           "$function": "get_json_schema"
-          }
-         ]
-        }
+        "ref": "tests.test_json_schema.test_list_enum_schema_extras.<locals>.FoodChoice:1"
        }
       },
       "metadata": {
@@ -20137,7 +20196,10 @@
         {
          "$enum": [
           "MyEnum",
-          "foo"
+          "FOO",
+          "foo",
+          "str",
+          false
          ]
         }
        ]
@@ -20152,13 +20214,19 @@
         {
          "$enum": [
           "MyEnum",
-          "foo"
+          "FOO",
+          "foo",
+          "str",
+          false
          ]
         },
         {
          "$enum": [
           "MyEnum",
-          "bar"
+          "BAR",
+          "bar",
+          "str",
+          false
          ]
         }
        ]
@@ -20426,25 +20494,24 @@
         {
          "$enum": [
           "FloatEnum",
-          123.0
+          "a",
+          123.0,
+          "float",
+          false
          ]
         },
         {
          "$enum": [
           "FloatEnum",
-          123.1
+          "b",
+          123.1,
+          "float",
+          false
          ]
         }
        ],
        "sub_type": "float",
-       "ref": "tests.test_json_schema.test_literal_types.<locals>.FloatEnum:1",
-       "metadata": {
-        "pydantic_js_functions": [
-         {
-          "$function": "get_json_schema"
-         }
-        ]
-       }
+       "ref": "tests.test_json_schema.test_literal_types.<locals>.FloatEnum:1"
       },
       "metadata": {}
      },
@@ -20484,14 +20551,7 @@
          456
         ]
        ],
-       "ref": "tests.test_json_schema.test_literal_types.<locals>.ListEnum:2",
-       "metadata": {
-        "pydantic_js_functions": [
-         {
-          "$function": "get_json_schema"
-         }
-        ]
-       }
+       "ref": "tests.test_json_schema.test_literal_types.<locals>.ListEnum:2"
       },
       "metadata": {}
      },
@@ -24757,22 +24817,25 @@
         {
          "$enum": [
           "CustomType",
-          "a"
+          "A",
+          "a",
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "CustomType",
-          "b"
+          "B",
+          "b",
+          null,
+          false
          ]
         }
        ],
        "ref": "tests.test_json_schema.test_override_enum_json_schema.<locals>.CustomType:1",
        "metadata": {
         "pydantic_js_functions": [
-         {
-          "$function": "get_json_schema"
-         },
          {
           "$function": "__get_pydantic_json_schema__"
          }
@@ -27866,53 +27929,72 @@
         {
          "$enum": [
           "ExampleEnum",
-          "GT"
+          "gt",
+          "GT",
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "ExampleEnum",
-          "LT"
+          "lt",
+          "LT",
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "ExampleEnum",
-          "GE"
+          "ge",
+          "GE",
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "ExampleEnum",
-          "LE"
+          "le",
+          "LE",
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "ExampleEnum",
-          "ML"
+          "max_length",
+          "ML",
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "ExampleEnum",
-          "MO"
+          "multiple_of",
+          "MO",
+          null,
+          false
          ]
         },
         {
          "$enum": [
           "ExampleEnum",
-          "RE"
+          "regex",
+          "RE",
+          null,
+          false
          ]
         }
        ],
        "ref": "tests.test_json_schema.test_schema_attributes.<locals>.ExampleEnum:1",
        "metadata": {
-        "pydantic_js_functions": [
-         {
-          "$function": "get_json_schema"
-         }
-        ]
+        "pydantic_js_updates": {
+         "description": "This is a test description."
+        }
        }
       },
       "metadata": {}

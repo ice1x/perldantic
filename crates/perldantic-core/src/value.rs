@@ -56,6 +56,53 @@ pub enum Value {
     MultiHostUrl(Box<crate::url::MultiHostUrl>),
     /// Python's `decimal.Decimal`; `==` compares the representation (`1.50` is not `1.5`).
     Decimal(Box<crate::decimal::Decimal>),
+    /// A member of an `enum.Enum` class.
+    Enum(Box<EnumMember>),
+}
+
+/// The builtin type an enum class mixes in (`IntEnum`, `StrEnum`, `class E(float, Enum)`):
+/// its members are also values of that type.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum EnumMixin {
+    Int,
+    Str,
+    Float,
+    Bytes,
+}
+
+impl EnumMixin {
+    pub fn name(self) -> &'static str {
+        match self {
+            Self::Int => "int",
+            Self::Str => "str",
+            Self::Float => "float",
+            Self::Bytes => "bytes",
+        }
+    }
+
+    pub fn from_name(name: &str) -> Option<Self> {
+        match name {
+            "int" => Some(Self::Int),
+            "str" => Some(Self::Str),
+            "float" => Some(Self::Float),
+            "bytes" => Some(Self::Bytes),
+            _ => None,
+        }
+    }
+}
+
+/// An enum member. The class is identified by name, as model classes are
+/// (docs/DIVERGENCES.md #13); members are singletons, so two members are the same member
+/// when their class and name match.
+#[derive(Debug, Clone, PartialEq)]
+pub struct EnumMember {
+    pub class: String,
+    pub name: String,
+    pub value: Value,
+    pub mixin: Option<EnumMixin>,
+    /// Whether `str()` gives the value's text (`IntEnum`, `StrEnum`: `enum.ReprEnum`) rather
+    /// than `Class.NAME`.
+    pub str_is_value: bool,
 }
 
 /// A model instance: what pydantic stores on a `BaseModel`. The class is identified by name;
@@ -110,6 +157,7 @@ impl PartialEq for Value {
             (Self::Url(a), Self::Url(b)) => a == b,
             (Self::MultiHostUrl(a), Self::MultiHostUrl(b)) => a == b,
             (Self::Decimal(a), Self::Decimal(b)) => a == b,
+            (Self::Enum(a), Self::Enum(b)) => a == b,
             _ => false,
         }
     }
@@ -144,6 +192,17 @@ impl Value {
     /// Python's `==`: numbers compare across `bool`, `int` and `float`, containers compare
     /// item by item. Plain `==` on `Value` keeps variants apart instead.
     pub fn py_eq(&self, other: &Self) -> bool {
+        match (self, other) {
+            (Self::Enum(a), Self::Enum(b)) => {
+                return (a.class == b.class && a.name == b.name)
+                    // members of mixed-in enums compare as their values (`IntEnum` 1 == 1)
+                    || (a.mixin.is_some() && b.mixin.is_some() && a.value.py_eq(&b.value));
+            }
+            (Self::Enum(member), plain) | (plain, Self::Enum(member)) => {
+                return member.mixin.is_some() && member.value.py_eq(plain);
+            }
+            _ => {}
+        }
         if let (Some(a), Some(b)) = (self.as_py_number(), other.as_py_number()) {
             return a.py_eq(&b);
         }
@@ -182,6 +241,14 @@ impl Value {
         }
     }
 
+    /// The value an enum member of a mixed-in enum class (`IntEnum`, `StrEnum`) also is.
+    pub fn mixin_value(&self) -> Option<&Self> {
+        match self {
+            Self::Enum(member) if member.mixin.is_some() => Some(&member.value),
+            _ => None,
+        }
+    }
+
     fn as_py_number(&self) -> Option<PyNumber> {
         match self {
             Self::Bool(b) => Some(PyNumber::Int(BigInt::from(u8::from(*b)))),
@@ -216,6 +283,7 @@ impl Value {
             Self::Url(_) => "Url",
             Self::MultiHostUrl(_) => "MultiHostUrl",
             Self::Decimal(_) => "Decimal",
+            Self::Enum(member) => &member.class,
         }
     }
 
@@ -249,6 +317,9 @@ impl Value {
             Self::Url(u) => u.as_str().into_owned(),
             Self::MultiHostUrl(u) => u.as_str().into_owned(),
             Self::Decimal(d) => d.to_string(),
+            // `IntEnum` and `StrEnum` print their value, other enums `Class.NAME`
+            Self::Enum(member) if member.str_is_value => member.value.py_str(),
+            Self::Enum(member) => format!("{}.{}", member.class, member.name),
             other => other.repr(),
         }
     }
@@ -323,6 +394,11 @@ impl Value {
             Self::Url(u) => out.push_str(&u.repr()),
             Self::MultiHostUrl(u) => out.push_str(&u.repr()),
             Self::Decimal(d) => out.push_str(&d.repr()),
+            Self::Enum(member) => {
+                write!(out, "<{}.{}: ", member.class, member.name).unwrap();
+                member.value.write_repr(out);
+                out.push('>');
+            }
         }
     }
 
@@ -532,6 +608,7 @@ impl Serialize for Value {
             Self::Url(u) => serializer.serialize_str(&u.as_str()),
             Self::MultiHostUrl(u) => serializer.serialize_str(&u.as_str()),
             Self::Decimal(d) => serializer.serialize_str(&d.to_string()),
+            Self::Enum(member) => member.value.serialize(serializer),
             // Like `model_dump`: the fields, then the extra values.
             Self::Model(model) => {
                 let extra = model.extra.iter().flat_map(Dict::iter);

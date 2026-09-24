@@ -11,6 +11,7 @@
     {
      "$enum": [
       "MyEnum",
+      "complex_",
       {
        "$dict": [
         [
@@ -20,16 +21,20 @@
          1
         ]
        ]
-      }
+      },
+      null,
+      false
      ]
     }
-   ]
+   ],
+   "cls_repr": "test_infer_json_key.<locals>.MyEnum"
   },
   "config": null,
   "mode": "to_json",
   "input": {
    "$enum": [
     "MyEnum",
+    "complex_",
     {
      "$dict": [
       [
@@ -39,7 +44,9 @@
        1
       ]
      ]
-    }
+    },
+    null,
+    false
    ]
   },
   "options": {},
@@ -59,21 +66,28 @@
     {
      "$enum": [
       "MyEnum",
+      "complex_",
       {
        "$object": "complex"
-      }
+      },
+      null,
+      false
      ]
     }
-   ]
+   ],
+   "cls_repr": "test_infer_serialize.<locals>.MyEnum"
   },
   "config": null,
   "mode": "to_json",
   "input": {
    "$enum": [
     "MyEnum",
+    "complex_",
     {
      "$object": "complex"
-    }
+    },
+    null,
+    false
    ]
   },
   "options": {},
@@ -93,21 +107,28 @@
     {
      "$enum": [
       "MyEnum",
+      "complex_",
       {
        "$object": "complex"
-      }
+      },
+      null,
+      false
      ]
     }
-   ]
+   ],
+   "cls_repr": "test_infer_to_python.<locals>.MyEnum"
   },
   "config": null,
   "mode": "to_python",
   "input": {
    "$enum": [
     "MyEnum",
+    "complex_",
     {
      "$object": "complex"
-    }
+    },
+    null,
+    false
    ]
   },
   "options": {

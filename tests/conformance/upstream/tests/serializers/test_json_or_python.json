@@ -98,7 +98,10 @@
      {
       "$enum": [
        "MyEnum",
-       "A"
+       "A",
+       "A",
+       "str",
+       false
       ]
      },
      1
@@ -107,7 +110,10 @@
      {
       "$enum": [
        "MyEnum",
-       "B"
+       "B",
+       "B",
+       "str",
+       false
       ]
      },
      2
@@ -154,7 +160,10 @@
      {
       "$enum": [
        "MyEnum",
-       "A"
+       "A",
+       "A",
+       "str",
+       false
       ]
      },
      1
@@ -163,7 +172,10 @@
      {
       "$enum": [
        "MyEnum",
-       "B"
+       "B",
+       "B",
+       "str",
+       false
       ]
      },
      2
@@ -178,7 +190,10 @@
       {
        "$enum": [
         "MyEnum",
-        "A"
+        "A",
+        "A",
+        "str",
+        false
        ]
       },
       1
@@ -187,7 +202,10 @@
       {
        "$enum": [
         "MyEnum",
-        "B"
+        "B",
+        "B",
+        "str",
+        false
        ]
       },
       2
