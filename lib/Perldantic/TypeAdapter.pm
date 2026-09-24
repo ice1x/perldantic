@@ -74,8 +74,9 @@ sub validate_python ($self, $data, @options) {
 }
 
 sub validate_json ($self, $json, @options) {
-    my $result = $self->_compiled('validator')->validate_json($json, _options('validate_json', @options));
-    return $self->_temporal(Perldantic::Model::_inflate($result));
+    my $options = _options('validate_json', @options);
+    return $self->_temporal(
+        Perldantic::Model::_validate_tracked(sub { $self->_compiled('validator')->validate_json($json, $options) }));
 }
 
 # `temporal_class` from the config (models convert their own fields).

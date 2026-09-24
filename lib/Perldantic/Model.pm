@@ -4,6 +4,7 @@ use v5.36;
 
 our $VERSION = '0.01';
 
+use B ();
 use Hash::Util::FieldHash ();
 use Scalar::Util qw(blessed);
 use Sub::Util ();
@@ -16,7 +17,8 @@ use Perldantic::Types ();
 use Role::Tiny ();
 use Perldantic::Wire;
 
-# Declarations per model class: {fields => [spec, ...], config => {...}, parent => class}.
+# Declarations per model class: {fields => [spec, ...], config => {...}, parent => class,
+# field_validators => [{fields, mode, code}, ...], model_validators => [{mode, code}, ...]}.
 our %META;
 # Compiled validators and serializers per class, and the classes each one was built from (the
 # models its schema reaches and their parents). A declaration in a class drops exactly the
@@ -56,7 +58,7 @@ my %CONFIG_FLAG = map { $_ => 1 }
 
 sub _usage ($message) { Perldantic::UsageError->throw(message => $message) }
 
-sub _meta ($class) { $META{$class} //= {fields => [], config => {}} }
+sub _meta ($class) { $META{$class} //= {fields => [], config => {}, field_validators => [], model_validators => []} }
 
 # Bumped by every declaration, so that other caches (TypeAdapter) know to rebuild.
 our $GENERATION = 0;
@@ -226,6 +228,37 @@ sub _declare_with ($class, @roles) {
     _declare_has($class, @$_) for Perldantic::Role::_fields(@roles);
 }
 
+my %FIELD_MODE = map { $_ => 1 } qw(before after wrap plain);
+my %MODEL_MODE = map { $_ => 1 } qw(before after wrap);
+
+# `field_validator $name | [@names] => (%options) => sub {...}`
+sub _declare_field_validator ($class, $fields, @args) {
+    my $code = pop @args;
+    _usage('field_validator: the last argument must be a code reference') if ref $code ne 'CODE';
+    _usage('field_validator: options must be key => value pairs') if @args % 2;
+    my %options = @args;
+    my $mode = delete $options{mode} // 'after';
+    _usage("field_validator: mode must be before, after, wrap or plain, got '$mode'") if !$FIELD_MODE{$mode};
+    _usage("field_validator: unknown option '$_'") for sort keys %options;
+    my @fields = ref $fields eq 'ARRAY' ? @$fields : ($fields);
+    _usage('field_validator: name at least one field') if !@fields || grep { !defined || ref } @fields;
+    push @{_meta($class)->{field_validators}}, {fields => \@fields, mode => $mode, code => $code};
+    _changed($class);
+}
+
+# `model_validator mode => $mode, sub {...}`
+sub _declare_model_validator ($class, @args) {
+    my $code = pop @args;
+    _usage('model_validator: the last argument must be a code reference') if ref $code ne 'CODE';
+    _usage('model_validator: options must be key => value pairs') if @args % 2;
+    my %options = @args;
+    my $mode = delete $options{mode};
+    _usage('model_validator: mode must be before, after or wrap') if !defined $mode || !$MODEL_MODE{$mode};
+    _usage("model_validator: unknown option '$_'") for sort keys %options;
+    push @{_meta($class)->{model_validators}}, {mode => $mode, code => $code};
+    _changed($class);
+}
+
 sub _declare_config ($class, %settings) {
     for my $key (sort keys %settings) {
         _usage("model_config: unknown setting '$key'") if !$CONFIG_KEY{$key} && !$PERL_SETTING{$key};
@@ -289,8 +322,80 @@ sub _link ($schema, $visit) {
     return $schema;
 }
 
+# How many arguments a sub takes, or undef when it takes any number (no signature, or a slurpy
+# one): pydantic passes `info` only to functions that take it.
+sub _max_args ($code) {
+    my $cv = B::svref_2object($code);
+    for (my $op = $cv->START; $op && $$op; $op = $op->next) {
+        next if $op->name =~ /\A(?:nextstate|dbstate|null|enter)\z/;
+        if ($op->name eq 'argcheck') {
+            my ($params, undef, $slurpy) = $op->aux_list($cv);
+            return $slurpy ? undef : $params;
+        }
+        last;
+    }
+    return undef;
+}
+
+sub _takes ($code, $count) {
+    my $max = _max_args($code);
+    return !defined $max || $max >= $count;
+}
+
+# Validated data from the core, as the functions of a model see it: models become objects.
+# Validation tracks objects, so the objects a function returns come back unchanged.
+sub _live ($value) { _inflate($value) }
+
+sub _live_handler ($handler) {
+    return sub (@args) { _live($handler->(@args)) };
+}
+
+# A function schema calling `$code` through `$call`, named after it.
+sub _function_schema ($mode, $code, $call, $schema) {
+    Sub::Util::set_subname(Sub::Util::subname($code), $call);
+    return {
+        type     => "function-$mode",
+        function => {type => 'with-info', function => $call},
+        # a plain validator takes any input, as pydantic's JSON Schema says
+        ($mode eq 'plain' ? (json_schema_input_schema => {type => 'any'}) : (schema => $schema)),
+    };
+}
+
+# The validators of a class and its ancestors that apply to a field, oldest first.
+sub _field_validators ($class) {
+    return map { @{_meta($_)->{field_validators}} } reverse _lineage($class);
+}
+
+sub _field_validator_schema ($class, $validator, $schema) {
+    my ($mode, $code) = @$validator{qw(mode code)};
+    my $info = _takes($code, $mode eq 'wrap' ? 4 : 3);
+    my $call = $mode eq 'wrap'
+        ? sub ($value, $handler, $i) { $code->($class, _live($value), _live_handler($handler), $info ? $i : ()) }
+        : sub ($value, $i) { $code->($class, _live($value), $info ? $i : ()) };
+    return _function_schema($mode, $code, $call, $schema);
+}
+
+sub _model_validator_schema ($class, $validator, $schema) {
+    my ($mode, $code) = @$validator{qw(mode code)};
+    my $call;
+    if ($mode eq 'after') {
+        my $info = _takes($code, 2);
+        $call = sub ($model, $i) { $code->(_live($model), $info ? $i : ()) };
+    } elsif ($mode eq 'before') {
+        my $info = _takes($code, 3);
+        $call = sub ($data, $i) { $code->($class, _live($data), $info ? $i : ()) };
+    } else {
+        my $info = _takes($code, 4);
+        $call = sub ($data, $handler, $i) { $code->($class, _live($data), _live_handler($handler), $info ? $i : ()) };
+    }
+    return _function_schema($mode, $code, $call, $schema);
+}
+
 sub _field_schema ($spec, $visit, $for_json_schema) {
     my $schema = _link($spec->{type}->core_schema, $visit);
+    for my $validator (@{$spec->{validators} // []}) {
+        $schema = _field_validator_schema($spec->{owner}, $validator, $schema);
+    }
     if ($spec->{default}) {
         $schema = {type => 'default', schema => $schema, default => $spec->{default}[0]};
     }
@@ -310,17 +415,32 @@ sub _field_schema ($spec, $visit, $for_json_schema) {
 
 sub _model_schema ($class, $visit, $for_json_schema) {
     my $config = _core_config($class);
-    return {
+    my @fields = _fields($class);
+    my %validators;
+    for my $validator (_field_validators($class)) {
+        for my $name (@{$validator->{fields}}) {
+            _usage("field_validator: $class has no field '$name'") if !grep { $_->{name} eq $name } @fields;
+            push @{$validators{$name}}, $validator;
+        }
+    }
+    my $schema = {
         type   => 'model',
         cls    => $class,
-        ref    => _ref($class),
         schema => {
             type       => 'model-fields',
             model_name => $class,
-            fields     => Perldantic::Wire::ordered(map { ($_->{name} => _field_schema($_, $visit, $for_json_schema)) } _fields($class)),
+            fields     => Perldantic::Wire::ordered(map {
+                my $spec = {%$_, owner => $class, validators => $validators{$_->{name}}};
+                ($_->{name} => _field_schema($spec, $visit, $for_json_schema));
+            } @fields),
         },
         (%$config ? (config => $config) : ()),
     };
+    for my $validator (map { @{_meta($_)->{model_validators}} } reverse _lineage($class)) {
+        $schema = _model_validator_schema($class, $validator, $schema);
+    }
+    # the reference names the outermost schema, which the model's validators wrap
+    return {%$schema, ref => _ref($class)};
 }
 
 # The core schema of a class: its model and every model it refers to, as definitions.
@@ -346,7 +466,9 @@ sub _linked_schema ($schema, $for_json_schema = 0, $depends_on = {}) {
 sub _compiled ($cache, $compiler, $class) {
     return $cache->{$class} //= do {
         my %depends_on;
-        my $compiled = $compiler->new($class->core_schema(depends_on => \%depends_on));
+        # errors are titled with the model, whatever functions wrap its schema (as pydantic)
+        my $title = _config($class)->{title} // $class;
+        my $compiled = $compiler->new($class->core_schema(depends_on => \%depends_on), {title => $title});
         $DEPENDS_ON{$class} = {%{$DEPENDS_ON{$class} // {}}, %depends_on};
         $compiled;
     };
@@ -477,7 +599,8 @@ sub model_validate ($class, $data, @options) {
 
 sub model_validate_json ($class, $json, @options) {
     _class_method('model_validate_json', $class);
-    return _inflate($class->_validator->validate_json($json, _options('model_validate_json', @options)));
+    my $options = _options('model_validate_json', @options);
+    return _validate_tracked(sub { $class->_validator->validate_json($json, $options) });
 }
 
 sub model_dump ($self, @options) {
