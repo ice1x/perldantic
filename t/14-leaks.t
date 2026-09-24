@@ -90,6 +90,33 @@ no_leaks_ok {
     local $@;
     eval { $colors->validate(2) };
 } 'enum members';
+my $checked = Perldantic::FFI::Validator->new({
+    type     => 'function-wrap',
+    function => {type => 'with-info', function => sub ($value, $handler, $info) {
+        my $out = eval { $handler->($value) };
+        die "not a number\n" if !defined $out;
+        return $out;
+    }},
+    schema => {type => 'int'},
+});
+my $tens = Perldantic::FFI::Serializer->new(
+    {type => 'int', serialization => {type => 'function-plain', function => sub ($v) { $v * 10 }}});
+my $kaput = Perldantic::FFI::Validator->new(
+    {type => 'function-plain', function => {type => 'no-info', function => sub ($v) { die bless {}, 'Leak::Kaput' }}});
+$checked->validate(1);
+no_leaks_ok {
+    $checked->validate('2');
+    local $@;
+    eval { $checked->validate('x') };
+    eval { $kaput->validate(1) };
+    $tens->to_json(3);
+} 'functions in schemas';
+no_leaks_ok {
+    my $offset = 1;
+    my $v = Perldantic::FFI::Validator->new(
+        {type => 'function-plain', function => {type => 'no-info', function => sub ($x) { $x + $offset }}});
+    $v->validate(1);
+} 'validators with their own functions';
 no_leaks_ok {
     my $values = $list->validate_python([1, undef, '2.5']);
     $list->dump_json($values);

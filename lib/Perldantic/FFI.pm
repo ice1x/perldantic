@@ -5,8 +5,10 @@ use Carp ();
 use Encode ();
 use FFI::Platypus 2.00;
 use FFI::Platypus::Buffer qw(scalar_to_buffer);
+use Scalar::Util qw(blessed);
 
 use Perldantic::Error;
+use Perldantic::Info;
 use Perldantic::Wire;
 
 our $VERSION = '0.01';
@@ -29,6 +31,11 @@ $ffi->attach([pd_serializer_to_json => '_serializer_to_json'] => ['opaque', 'str
 $ffi->attach([pd_json_schema => '_json_schema'] => ['string', 'string', 'string'] => 'opaque');
 $ffi->attach([pd_url_parts => '_url_parts'] => ['string'] => 'opaque');
 $ffi->attach([pd_string_free => '_string_free'] => ['opaque'] => 'void');
+$ffi->type('(uint64,string,opaque)->void' => 'pd_host_callback');
+$ffi->attach([pd_set_host_callback => '_set_host_callback'] => ['pd_host_callback'] => 'void');
+$ffi->attach([pd_host_reply => '_host_reply'] => ['opaque', 'string'] => 'void');
+$ffi->attach([pd_validator_handler_call => '_validator_handler_call'] => ['opaque', 'string', 'string'] => 'opaque');
+$ffi->attach([pd_serializer_handler_call => '_serializer_handler_call'] => ['opaque', 'string', 'string'] => 'opaque');
 
 # Options the core takes as booleans; Perl callers pass any truth value.
 my %FLAG = map { $_ => 1 } qw(
@@ -82,13 +89,132 @@ sub _envelope ($ptr) {
     return Perldantic::Wire::decode($json);
 }
 
+# ---- functions in schemas ------------------------------------------------------------------
+#
+# The core calls Perl functions (code references in schemas, see Perldantic::Wire) through one
+# callback. Exceptions a function raises that are not validation failures reach the caller of
+# the core unchanged: they wait here, by id, until the core reports them back.
+
+my %EXCEPTION;
+my $LAST_EXCEPTION_ID = 0;
+# How many calls into the core are running; exceptions left over when the outermost one ends
+# were swallowed by the core (e.g. turned into a serialization error).
+our $DEPTH = 0;
+
+# A validator function that dies with a string reports a value error with that message.
+sub _error_message ($text) {
+    return $text =~ s/ at \S.* line \d+\.?\n\z//sr =~ s/\n\z//r;
+}
+
+# What the function raised, as the core's reply.
+sub _host_error ($error) {
+    my %reply;
+    if (!ref $error) {
+        %reply = (kind => 'value', message => _error_message($error));
+    } elsif (blessed $error && $error->isa('Perldantic::ValidationError')) {
+        %reply = (kind => 'validation', title => $error->title, errors => $error->errors);
+    } elsif (blessed $error && $error->isa('Perldantic::CustomError')) {
+        %reply = (kind => 'custom', error_type => $error->type, message_template => $error->message, context => $error->context);
+    } elsif (blessed $error && $error->isa('Perldantic::KnownError')) {
+        %reply = (kind => 'known', error_type => $error->type, context => $error->context);
+    } elsif (blessed $error && $error->isa('Perldantic::Omit')) {
+        %reply = (kind => 'omit');
+    } elsif (blessed $error && $error->isa('Perldantic::UseDefault')) {
+        %reply = (kind => 'use_default');
+    } elsif (blessed $error && $error->isa('Perldantic::SerializationError')) {
+        my $unexpected = ($error->type // '') eq 'PydanticSerializationUnexpectedValue';
+        %reply = (kind => $unexpected ? 'unexpected_value' : 'serialization', message => $error->message);
+    } else {
+        my $id = ++$LAST_EXCEPTION_ID;
+        $EXCEPTION{$id} = $error;
+        %reply = (kind => 'other', message => _error_message("$error"), id => $id);
+    }
+    return Perldantic::Wire::encode({error => \%reply});
+}
+
+# A handler for the duration of one wrap call: it validates or serializes with the wrapped
+# schema, and refuses to run once the call is over (the core's handler is gone by then).
+sub _handler ($call, $address, $alive) {
+    return sub ($value, $where = undef) {
+        Perldantic::UsageError->throw(message => 'A handler can only be called while its function runs')
+            if !$$alive;
+        my $result = _unwrap(_envelope($call->(
+            $address, Perldantic::Wire::encode($value), defined $where ? Perldantic::Wire::encode($where) : undef)));
+        return $result->{ok};
+    };
+}
+
+sub _info ($class, $info) {
+    return () if !defined $info;
+    return $class->new(%$info);
+}
+
+# Run the function the core called; returns the reply.
+sub _host_call ($id, $json) {
+    my $function = Perldantic::Wire::function($id)
+        // Perldantic::InternalError->throw(message => "The core called function $id, which no longer exists");
+    my $call = Perldantic::Wire::decode($json);
+    my $kind = $call->{call};
+    my $alive = 1;
+    my @args;
+    if ($kind eq 'validate') {
+        @args = ($call->{input}, _info('Perldantic::ValidationInfo', $call->{info}));
+    } elsif ($kind eq 'validate_wrap') {
+        @args = ($call->{input}, _handler(\&_validator_handler_call, $call->{handler}, \$alive),
+            _info('Perldantic::ValidationInfo', $call->{info}));
+    } elsif ($kind eq 'serialize') {
+        @args = ((defined $call->{model} ? $call->{model} : ()), $call->{value},
+            _info('Perldantic::SerializationInfo', $call->{info}));
+    } elsif ($kind eq 'serialize_wrap') {
+        @args = ((defined $call->{model} ? $call->{model} : ()), $call->{value},
+            _handler(\&_serializer_handler_call, $call->{handler}, \$alive),
+            _info('Perldantic::SerializationInfo', $call->{info}));
+    } else {
+        Perldantic::InternalError->throw(message => "Unknown call `$kind` from the core");
+    }
+    my $result = eval { $function->(@args) };
+    my $error = $@;
+    $alive = 0;
+    die $error if $error;
+    return '{"ok":' . Perldantic::Wire::encode($result) . '}';
+}
+
+# The callback must always reply and never die: dying would unwind through Rust.
+my $CALLBACK = $ffi->closure(sub ($id, $json, $reply) {
+    my $answer = eval { _host_call($id, $json) };
+    if (!defined $answer) {
+        my $error = $@;
+        $answer = eval { _host_error($error) };
+    }
+    $answer //= '{"error":{"kind":"value","message":"The error of a Perl function could not be reported"}}';
+    _host_reply($reply, $answer);
+});
+$CALLBACK->sticky;
+_set_host_callback($CALLBACK);
+
+# Run a call into the core from Perl (not from a function the core called).
+sub _enter ($body) {
+    local $DEPTH = $DEPTH + 1;
+    my ($result, $error);
+    eval { $result = $body->(); 1 } or $error = $@;
+    %EXCEPTION = () if $DEPTH == 1;
+    die $error if defined $error;
+    return $result;
+}
+
 # The `ok` value of an envelope, or die with the error it holds.
 sub _unwrap ($envelope) {
     return $envelope if exists $envelope->{ok};
     if (my $error = $envelope->{validation_error}) {
         Perldantic::ValidationError->throw(%$error);
     }
-    die Perldantic::Error->from_core($envelope->{error} // {message => 'Malformed result from the core'});
+    my $error = $envelope->{error} // {message => 'Malformed result from the core'};
+    if (($error->{type} // '') eq 'HostException' && defined $error->{id}) {
+        # a function's own exception, raised again unchanged
+        my $exception = delete $EXCEPTION{$error->{id}};
+        die $exception if defined $exception;
+    }
+    die Perldantic::Error->from_core($error);
 }
 
 sub _compile ($new, $schema, $config) {
@@ -113,21 +239,28 @@ sub url_parts ($url) {
 package Perldantic::FFI::Validator {
 
     sub new ($class, $schema, $config = undef) {
-        return bless {handle => Perldantic::FFI::_compile(\&Perldantic::FFI::_validator_new, $schema, $config)}, $class;
+        # the validator keeps the functions its schema holds alive
+        local @Perldantic::Wire::FUNCTIONS;
+        my $handle = Perldantic::FFI::_compile(\&Perldantic::FFI::_validator_new, $schema, $config);
+        return bless {handle => $handle, functions => [@Perldantic::Wire::FUNCTIONS]}, $class;
     }
 
     sub validate ($self, $input, $options = undef) {
-        my $envelope = Perldantic::FFI::_envelope(Perldantic::FFI::_validator_validate(
-            $self->{handle}, Perldantic::Wire::encode($input), Perldantic::FFI::_options($options)));
-        return Perldantic::FFI::_unwrap($envelope)->{ok};
+        return Perldantic::FFI::_enter(sub {
+            my $envelope = Perldantic::FFI::_envelope(Perldantic::FFI::_validator_validate(
+                $self->{handle}, Perldantic::Wire::encode($input), Perldantic::FFI::_options($options)));
+            return Perldantic::FFI::_unwrap($envelope)->{ok};
+        });
     }
 
     sub validate_json ($self, $json, $options = undef) {
         $json = Encode::encode('UTF-8', $json) if utf8::is_utf8($json);
         my ($ptr, $len) = FFI::Platypus::Buffer::scalar_to_buffer($json);
-        my $envelope = Perldantic::FFI::_envelope(Perldantic::FFI::_validator_validate_json(
-            $self->{handle}, $ptr, $len, Perldantic::FFI::_options($options)));
-        return Perldantic::FFI::_unwrap($envelope)->{ok};
+        return Perldantic::FFI::_enter(sub {
+            my $envelope = Perldantic::FFI::_envelope(Perldantic::FFI::_validator_validate_json(
+                $self->{handle}, $ptr, $len, Perldantic::FFI::_options($options)));
+            return Perldantic::FFI::_unwrap($envelope)->{ok};
+        });
     }
 
     sub DESTROY ($self) {
@@ -138,12 +271,16 @@ package Perldantic::FFI::Validator {
 package Perldantic::FFI::Serializer {
 
     sub new ($class, $schema, $config = undef) {
-        return bless {handle => Perldantic::FFI::_compile(\&Perldantic::FFI::_serializer_new, $schema, $config)}, $class;
+        local @Perldantic::Wire::FUNCTIONS;
+        my $handle = Perldantic::FFI::_compile(\&Perldantic::FFI::_serializer_new, $schema, $config);
+        return bless {handle => $handle, functions => [@Perldantic::Wire::FUNCTIONS]}, $class;
     }
 
     sub _call ($self, $function, $value, $options) {
-        my $result = Perldantic::FFI::_unwrap(Perldantic::FFI::_envelope($function->(
-            $self->{handle}, Perldantic::Wire::encode($value), Perldantic::FFI::_options($options))));
+        my $result = Perldantic::FFI::_enter(sub {
+            Perldantic::FFI::_unwrap(Perldantic::FFI::_envelope($function->(
+                $self->{handle}, Perldantic::Wire::encode($value), Perldantic::FFI::_options($options))));
+        });
         Carp::carp($result->{warning}) if defined $result->{warning};
         return $result->{ok};
     }
@@ -198,6 +335,39 @@ C<Perldantic::ValidationError>, a bad schema C<Perldantic::SchemaError>, a bad o
 argument C<Perldantic::UsageError>, a serialization failure C<Perldantic::SerializationError>
 and a Rust panic C<Perldantic::InternalError>. Serializer and JSON Schema warnings are emitted
 with C<warn>.
+
+=head1 Functions
+
+Code references in a schema are functions the core calls, as pydantic calls Python callables:
+validators in C<function-before>, C<function-after>, C<function-plain> and C<function-wrap>
+schemas, and serializers in a schema's C<serialization> (C<function-plain> or
+C<function-wrap>). They get pydantic's arguments:
+
+=over
+
+=item * validators: C<($input)>, wrap validators C<($input, $handler)>;
+
+=item * serializers: C<($value)>, wrap serializers C<($value, $handler)>; field serializers
+get the model first;
+
+=item * functions with C<< type => 'with-info' >> (validators) or C<< info_arg => 1 >>
+(serializers) also get an info object last (L<Perldantic::Info>).
+
+=back
+
+A C<$handler> runs the wrapped schema: C<< $handler->($value) >>, or with a location for its
+errors (validators) or a list index or dict key that C<include> / C<exclude> apply to
+(serializers) as second argument. It only works while the function runs.
+
+Validator functions report invalid input by dying with a string (a C<value_error> with that
+message) or with the classes in L<Perldantic::Error> (C<Perldantic::CustomError>,
+C<Perldantic::KnownError>, C<Perldantic::Omit>, C<Perldantic::UseDefault>); a
+C<Perldantic::ValidationError>, e.g. from a handler, counts as those errors. Any other exception
+object ends validation and reaches the caller unchanged. A serializer function's failure is
+reported as a C<Perldantic::SerializationError> (C<Error calling function `name`: ...>), as in
+pydantic.
+
+A validator or serializer keeps the functions of its schema alive.
 
 =head1 FUNCTIONS
 

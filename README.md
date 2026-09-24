@@ -59,7 +59,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00051 — `Date`, `Time`, `DateTime`, `Duration` (core: `date`, `time`, `datetime`, `timedelta`; speedate; Time::Moment / DateTime)
   - [x] 00052 — `Decimal` (Math::BigFloat), `Uuid`, `Url` (core: `decimal`, `uuid`, `url` / `multi-host-url`)
   - [x] 00053 — `Enum[]`, unique arrays, chains, `Json`, `Dict[]` (core: `enum`, `set`, `frozenset`, `chain`, `json`, `typed-dict`)
-  - [ ] 00054 — `function-before/after/wrap/plain` via `HostCallback`
+  - [x] 00054 — `function-before/after/wrap/plain` via `HostCallback`
   - [ ] 00055 — Perl `validator`, `model_validator`, `field_serializer`, `computed_field`
   - [ ] 00056 — `InstanceOf[]` and Type::Tiny interop
 - [ ] 00057 — Native SV bridge
