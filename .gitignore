@@ -52,3 +52,6 @@ inc/
 # Tool environments
 /tools/.venv/
 __pycache__/
+
+# generated from Perldantic.xs by xsubpp
+/Perldantic.c

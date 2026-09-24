@@ -865,7 +865,7 @@ sub model_copy ($self, %options) {
 sub _wire_json ($self) {
     my $plan = _plan(ref $self);
     my $fields = join ',',
-        map { exists $self->{$_} ? Perldantic::Wire::_string($_) . ':' . Perldantic::Wire::_emit($self->{$_}) : () }
+        map { exists $self->{$_} ? Perldantic::Wire::_string($_) . ':' . Perldantic::Wire::_emit_any($self->{$_}) : () }
         @{$plan->{names}};
     my @set = sort keys %{$STATE{$self}{fields_set} // {}};
     if ($TRACK_OBJECTS && ($DUMPING || !$plan->{revalidate})) {
@@ -874,7 +874,7 @@ sub _wire_json ($self) {
         push @set, "$TOKEN_PREFIX$token";
     }
     return '{"$model":{"class":' . Perldantic::Wire::_string(ref $self)
-        . ',"extra":' . Perldantic::Wire::_emit($STATE{$self}{extra})
+        . ',"extra":' . Perldantic::Wire::_emit_any($STATE{$self}{extra})
         . ',"fields":{' . $fields . '}'
         . ',"fields_set":[' . join(',', map { Perldantic::Wire::_string($_) } @set) . ']}}';
 }
