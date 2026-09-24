@@ -24,7 +24,12 @@ use super::input_abstract::{
     ValidatedTuple,
 };
 use super::return_enums::{EitherBytes, EitherFloat, EitherInt, EitherString, ValidationMatch};
-use super::shared::{float_as_int, int_as_bool, str_as_bool, str_as_float, str_as_int};
+use super::shared::{
+    float_as_int, int_as_bool, str_as_bool, str_as_decimal, str_as_float, str_as_int,
+    tuple_as_decimal,
+};
+use crate::core_error::CoreError;
+use crate::decimal::Decimal;
 
 impl<'data> Input for JsonValue<'data> {
     fn as_json(&self) -> Option<&JsonValue<'_>> {
@@ -192,6 +197,26 @@ impl<'data> Input for JsonValue<'data> {
         }
     }
 
+    fn validate_decimal(&self, strict: bool) -> ValMatch<Decimal> {
+        match self {
+            // through Rust's formatting of the float, as upstream does
+            JsonValue::Float(f) => {
+                str_as_decimal(self, &f.to_string()).map(ValidationMatch::strict)
+            }
+            JsonValue::Str(s) => str_as_decimal(self, s).map(ValidationMatch::strict),
+            JsonValue::Int(i) => Ok(ValidationMatch::strict(Decimal::from_bigint(&(*i).into()))),
+            JsonValue::BigInt(i) => Ok(ValidationMatch::strict(Decimal::from_bigint(i))),
+            JsonValue::Array(array) if !strict && array.as_slice().len() == 3 => {
+                let items: Vec<Value> = array.iter().map(Value::from).collect();
+                // upstream lets Python's ValueError escape
+                tuple_as_decimal(&items)
+                    .map(ValidationMatch::lax)
+                    .map_err(|e| ValError::InternalErr(CoreError::Value(e.0.to_owned())))
+            }
+            _ => Err(ValError::new(ErrorTypeDefaults::DecimalType, self)),
+        }
+    }
+
     type Dict<'a>
         = &'a JsonObject<'data>
     where
@@ -304,6 +329,10 @@ impl Input for str {
 
     fn validate_float(&self, _strict: bool) -> ValMatch<EitherFloat> {
         str_as_float(self, self).map(ValidationMatch::lax)
+    }
+
+    fn validate_decimal(&self, _strict: bool) -> ValMatch<Decimal> {
+        str_as_decimal(self, self).map(ValidationMatch::strict)
     }
 
     type Dict<'a> = Never;

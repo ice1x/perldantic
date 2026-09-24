@@ -3,6 +3,7 @@
 pub(crate) mod any;
 pub(crate) mod bytes;
 pub(crate) mod datetime_etc;
+pub(crate) mod decimal;
 pub(crate) mod definitions;
 pub(crate) mod dict;
 pub(crate) mod float;

@@ -11,7 +11,7 @@ BEGIN {
 
 use Perldantic::FFI;
 use Perldantic::TypeAdapter;
-use Perldantic::Types qw(ArrayRef Maybe Num Str Map DateTime);
+use Perldantic::Types qw(ArrayRef Maybe Num Str Map DateTime Decimal Uuid Url);
 use Perldantic::Wire qw(tuple bytes);
 
 package Leak::Node {
@@ -69,6 +69,18 @@ no_leaks_ok {
     $when->dump_json($values);
     my $sorted = $values->[0] <=> $values->[1];
 } 'dates and times';
+my $others = Perldantic::TypeAdapter->new(ArrayRef[Decimal]);
+my $ids = Perldantic::TypeAdapter->new(Uuid);
+my $urls = Perldantic::TypeAdapter->new(Url);
+$others->validate_python(['1.50']);
+$urls->validate_python('https://example.com')->host;
+no_leaks_ok {
+    my $values = $others->validate_python(['1.50', 2]);
+    $others->dump_json($values);
+    my $id = $ids->validate_python('12345678123456781234567812345678');
+    my $url = $urls->validate_python('https://example.com/a?b=1');
+    my @parts = ($url->host, $url->query_params, "$id");
+} 'decimals, UUIDs and URLs';
 no_leaks_ok {
     my $values = $list->validate_python([1, undef, '2.5']);
     $list->dump_json($values);

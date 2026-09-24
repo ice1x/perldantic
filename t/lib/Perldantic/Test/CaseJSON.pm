@@ -116,6 +116,7 @@ sub _tagged ($tag, $payload, $in_schema) {
     return Perldantic::Time->from_iso($payload)     if $tag eq '$time';
     return Perldantic::DateTime->from_iso($payload) if $tag eq '$datetime';
     return Perldantic::Uuid->new($payload)          if $tag eq '$uuid';
+    return Perldantic::Wire::decode(qq({"\$decimal":"$payload"})) if $tag eq '$decimal';
     return Perldantic::Url->_from_wire($payload)    if $tag eq '$url';
     return Perldantic::MultiHostUrl->_from_wire($payload) if $tag eq '$multi_host_url';
     if ($tag eq '$timedelta') {

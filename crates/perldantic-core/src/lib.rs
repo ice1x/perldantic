@@ -5,6 +5,7 @@
 
 pub(crate) mod build_tools;
 mod core_error;
+pub mod decimal;
 pub(crate) mod definitions;
 pub mod errors;
 pub mod input;
@@ -20,6 +21,7 @@ mod value;
 
 pub use build_tools::ExtraBehavior;
 pub use core_error::{CoreError, CoreErrorKind, CoreResult};
+pub use decimal::Decimal;
 pub use errors::{
     ErrorDetails, ErrorType, ErrorTypeDefaults, ErrorsOptions, LocItem, Location, Number,
     ToErrorValue, ValError, ValLineError, ValResult, ValidationError,

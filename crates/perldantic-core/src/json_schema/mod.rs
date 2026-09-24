@@ -14,6 +14,7 @@ use std::fmt;
 
 use crate::build_tools::SchemaDict;
 use crate::core_error::CoreError;
+use crate::input::Input;
 use crate::serializers::{SchemaSerializer, SerMode, SerializeError, SerializeOptions};
 use crate::validators::as_dict;
 use crate::value::{Dict, Value};
@@ -565,6 +566,7 @@ impl<'o> GenerateJsonSchema<'o> {
             "time" => Ok(self.common_temporal_schema("time", self.ser_json_temporal())),
             "datetime" => Ok(self.common_temporal_schema("date-time", self.ser_json_temporal())),
             "timedelta" => Ok(self.timedelta_schema()),
+            "decimal" => Ok(self.decimal_schema(schema)),
             "url" => Ok(Self::url_schema(schema, "uri")),
             "multi-host-url" => Ok(Self::url_schema(schema, "multi-host-uri")),
             "uuid" => {
@@ -647,6 +649,30 @@ impl<'o> GenerateJsonSchema<'o> {
 
     fn ser_json_temporal(&self) -> &str {
         self.config_str("ser_json_temporal").unwrap_or("iso8601")
+    }
+
+    /// A string, or in validation mode also a number with the bounds as floats.
+    fn decimal_schema(&self, schema: &Dict) -> Dict {
+        let json_schema = self.str_schema(&Dict::new());
+        if self.mode() != JsonSchemaMode::Validation {
+            return json_schema;
+        }
+        let mut float_core = Dict::new();
+        for key in ["multiple_of", "le", "ge", "lt", "gt"] {
+            if let Some(bound) = schema.get_str(key)
+                && let Ok(decimal) = bound.validate_decimal(false)
+            {
+                set(&mut float_core, key, decimal.into_inner().to_f64());
+            }
+        }
+        let float_schema = Self::numeric_schema(&float_core, "number");
+        let mut any_of = Dict::new();
+        set(
+            &mut any_of,
+            "anyOf",
+            Value::List(vec![Value::Dict(float_schema), Value::Dict(json_schema)]),
+        );
+        any_of
     }
 
     /// `url_schema` and `multi_host_url_schema`; `multi-host-uri` is a pydantic-specific format.

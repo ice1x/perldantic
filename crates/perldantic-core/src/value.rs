@@ -6,6 +6,7 @@
 //! `repr()` and `type_name()` reproduce Python's `repr()` and `type(x).__name__`, because
 //! pydantic embeds them in error output (`input_value=..., input_type=...`).
 
+use crate::decimal::Decimal;
 use crate::temporal;
 use std::fmt::Write as _;
 
@@ -51,6 +52,8 @@ pub enum Value {
     Url(Box<crate::url::Url>),
     /// `pydantic_core.MultiHostUrl`.
     MultiHostUrl(Box<crate::url::MultiHostUrl>),
+    /// Python's `decimal.Decimal`; `==` compares the representation (`1.50` is not `1.5`).
+    Decimal(Box<crate::decimal::Decimal>),
 }
 
 /// A model instance: what pydantic stores on a `BaseModel`. The class is identified by name;
@@ -102,6 +105,7 @@ impl PartialEq for Value {
             (Self::Uuid(a), Self::Uuid(b)) => a == b,
             (Self::Url(a), Self::Url(b)) => a == b,
             (Self::MultiHostUrl(a), Self::MultiHostUrl(b)) => a == b,
+            (Self::Decimal(a), Self::Decimal(b)) => a == b,
             _ => false,
         }
     }
@@ -177,6 +181,7 @@ impl Value {
             Self::Int(i) => Some(PyNumber::Int(BigInt::from(*i))),
             Self::BigInt(i) => Some(PyNumber::Int(i.clone())),
             Self::Float(f) => Some(PyNumber::Float(*f)),
+            Self::Decimal(d) => Some(PyNumber::Decimal((**d).clone())),
             _ => None,
         }
     }
@@ -202,6 +207,7 @@ impl Value {
             Self::Uuid(_) => "UUID",
             Self::Url(_) => "Url",
             Self::MultiHostUrl(_) => "MultiHostUrl",
+            Self::Decimal(_) => "Decimal",
         }
     }
 
@@ -224,6 +230,7 @@ impl Value {
             Self::Uuid(u) => u.to_string(),
             Self::Url(u) => u.as_str().into_owned(),
             Self::MultiHostUrl(u) => u.as_str().into_owned(),
+            Self::Decimal(d) => d.to_string(),
             other => other.repr(),
         }
     }
@@ -291,6 +298,7 @@ impl Value {
             Self::Uuid(u) => write!(out, "UUID('{u}')").unwrap(),
             Self::Url(u) => out.push_str(&u.repr()),
             Self::MultiHostUrl(u) => out.push_str(&u.repr()),
+            Self::Decimal(d) => out.push_str(&d.repr()),
         }
     }
 
@@ -426,11 +434,28 @@ fn is_printable(c: char) -> bool {
 enum PyNumber {
     Int(BigInt),
     Float(f64),
+    Decimal(Decimal),
 }
 
 impl PyNumber {
+    /// A decimal of the same value; `None` for a float NaN, which equals nothing.
+    fn as_decimal(&self) -> Option<Decimal> {
+        match self {
+            Self::Int(i) => Some(Decimal::from_bigint(i)),
+            Self::Float(f) if f.is_infinite() => Some(Decimal::infinity(*f < 0.0)),
+            Self::Float(f) => Decimal::from_f64_exact(*f),
+            Self::Decimal(d) => Some(d.clone()),
+        }
+    }
+
     fn py_eq(&self, other: &Self) -> bool {
         match (self, other) {
+            (Self::Decimal(_), _) | (_, Self::Decimal(_)) => {
+                match (self.as_decimal(), other.as_decimal()) {
+                    (Some(a), Some(b)) => a.py_eq(&b),
+                    _ => false,
+                }
+            }
             (Self::Int(a), Self::Int(b)) => a == b,
             (Self::Float(a), Self::Float(b)) => a == b,
             (Self::Int(i), Self::Float(f)) | (Self::Float(f), Self::Int(i)) => {
@@ -482,6 +507,7 @@ impl Serialize for Value {
             Self::Uuid(u) => serializer.serialize_str(&u.to_string()),
             Self::Url(u) => serializer.serialize_str(&u.as_str()),
             Self::MultiHostUrl(u) => serializer.serialize_str(&u.as_str()),
+            Self::Decimal(d) => serializer.serialize_str(&d.to_string()),
             // Like `model_dump`: the fields, then the extra values.
             Self::Model(model) => {
                 let extra = model.extra.iter().flat_map(Dict::iter);

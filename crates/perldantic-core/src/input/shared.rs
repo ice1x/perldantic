@@ -4,7 +4,11 @@ use std::borrow::Cow;
 
 use jiter::{JsonErrorType, NumberInt};
 
+use num_traits::ToPrimitive;
+
+use crate::decimal::{Decimal, TupleError, TupleExponent};
 use crate::errors::{ErrorTypeDefaults, ValError, ValResult};
+use crate::value::Value;
 
 use super::{EitherFloat, EitherInt, Input};
 
@@ -194,5 +198,55 @@ pub fn float_as_int(input: &(impl Input + ?Sized), float: f64) -> ValResult<Eith
         Ok(EitherInt::I64(float as i64))
     } else {
         Err(ValError::new(ErrorTypeDefaults::IntParsingSize, input))
+    }
+}
+
+/// `Decimal(text)` (upstream `create_decimal` on a string): invalid text is a parsing error.
+pub fn str_as_decimal(input: &(impl Input + ?Sized), str: &str) -> ValResult<Decimal> {
+    Decimal::parse(str).ok_or_else(|| ValError::new(ErrorTypeDefaults::DecimalParsing, input))
+}
+
+/// `Decimal((sign, digits, exponent))` from the items of a tuple (or a JSON array); Python
+/// raises `ValueError` for anything but an int sign, a sequence of digits and an int or
+/// `'F'` / `'n'` / `'N'` exponent.
+pub fn tuple_as_decimal(items: &[Value]) -> Result<Decimal, TupleError> {
+    let as_int = |v: &Value| match v {
+        Value::Int(i) => Some(*i),
+        Value::Bool(b) => Some(i64::from(*b)),
+        _ => None,
+    };
+    let [sign, digits, exponent] = items else {
+        return Err(TupleError("argument must be a sequence of length 3"));
+    };
+    let sign = as_int(sign).ok_or(TupleError("sign must be an integer with the value 0 or 1"))?;
+    let digits = match digits {
+        Value::Tuple(items) | Value::List(items) => items
+            .iter()
+            .map(|d| as_int(d).ok_or(TupleError("coefficient must be a tuple of digits")))
+            .collect::<Result<Vec<i64>, _>>()?,
+        _ => return Err(TupleError("coefficient must be a tuple of digits")),
+    };
+    let exponent = match exponent {
+        Value::Str(s) if s == "F" => TupleExponent::Infinity,
+        Value::Str(s) if s == "n" => TupleExponent::NaN,
+        Value::Str(s) if s == "N" => TupleExponent::SignalingNaN,
+        other => {
+            TupleExponent::Int(as_int(other).ok_or(TupleError("exponent must be an integer"))?)
+        }
+    };
+    Decimal::from_tuple(sign, &digits, exponent)
+}
+
+/// `int(decimal)` for the int validator (upstream `decimal_as_int`).
+pub fn decimal_as_int(input: &(impl Input + ?Sized), decimal: &Decimal) -> ValResult<EitherInt> {
+    if !decimal.is_finite() {
+        return Err(ValError::new(ErrorTypeDefaults::FiniteNumber, input));
+    }
+    match decimal.to_integer() {
+        Some(int) => Ok(match int.to_i64() {
+            Some(i) => EitherInt::I64(i),
+            None => EitherInt::BigInt(int),
+        }),
+        None => Err(ValError::new(ErrorTypeDefaults::IntFromFloat, input)),
     }
 }

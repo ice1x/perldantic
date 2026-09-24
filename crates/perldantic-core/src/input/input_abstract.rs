@@ -7,6 +7,7 @@ use std::fmt;
 use jiter::JsonValue;
 
 use crate::core_error::CoreResult;
+use crate::decimal::Decimal;
 use crate::errors::{ErrorTypeDefaults, LocItem, ValError, ValResult};
 use crate::lookup_key::LookupPath;
 use speedate::MicrosecondsPrecisionOverflowBehavior;
@@ -75,6 +76,8 @@ pub trait Input: fmt::Debug {
     }
 
     fn validate_float(&self, strict: bool) -> ValMatch<EitherFloat>;
+
+    fn validate_decimal(&self, strict: bool) -> ValMatch<Decimal>;
 
     fn validate_date(&self, strict: bool, mode: TemporalUnitMode) -> ValMatch<speedate::Date>;
 

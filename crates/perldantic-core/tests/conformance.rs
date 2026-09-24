@@ -15,9 +15,9 @@ use std::path::{Path, PathBuf};
 use base64::Engine;
 use base64::engine::general_purpose::STANDARD;
 use perldantic_core::{
-    Dict, ErrorDetails, ErrorsOptions, ExtraBehavior, JsonOptions, LocItem, Model, MultiHostUrl,
-    PartialMode, SchemaSerializer, SchemaValidator, SerMode, SerializeOptions, Url, ValidateError,
-    ValidateOptions, Value, WarningsMode, speedate, temporal, uuid,
+    Decimal, Dict, ErrorDetails, ErrorsOptions, ExtraBehavior, JsonOptions, LocItem, Model,
+    MultiHostUrl, PartialMode, SchemaSerializer, SchemaValidator, SerMode, SerializeOptions, Url,
+    ValidateError, ValidateOptions, Value, WarningsMode, speedate, temporal, uuid,
 };
 use serde_json::Value as Json;
 
@@ -130,6 +130,7 @@ fn decode_tag(tag: &str, payload: &Json, in_schema: bool) -> Result<Value, Skip>
             let part = |i: usize| payload[i].as_i64().unwrap();
             Value::TimeDelta(temporal::duration_from_parts(part(0), part(1), part(2)).unwrap())
         }
+        "decimal" => Value::Decimal(Box::new(Decimal::parse(payload.as_str().unwrap()).unwrap())),
         "uuid" => Value::Uuid(uuid::Uuid::parse_str(payload.as_str().unwrap()).unwrap()),
         // `str(url)`: an empty path is kept empty so the text round-trips
         "url" => Value::Url(Box::new(
@@ -683,12 +684,12 @@ fn serializer_cases_replay_against_schema_serializer() {
     assert_eq!(run_case(&case(r#"{"json": "1"}"#), &[]), Ok(Ok(())));
     assert!(run_case(&case(r#"{"json": "2"}"#), &[]).unwrap().is_err());
     let unsupported: Json = serde_json::from_str(
-        r#"{"schema": {"type": "decimal"}, "config": null, "mode": "to_python", "input": 1, "options": {}, "expected": {"output": 1}}"#,
+        r#"{"schema": {"type": "complex"}, "config": null, "mode": "to_python", "input": 1, "options": {}, "expected": {"output": 1}}"#,
     )
     .unwrap();
     assert_eq!(
         run_case(&unsupported, &[]),
-        Err(Skip("serializer type decimal".into()))
+        Err(Skip("serializer type complex".into()))
     );
     let (opts, _) = serializer_options(
         &serde_json::from_str(
