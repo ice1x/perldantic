@@ -13,7 +13,7 @@ use Perldantic::Type;
 use Perldantic::Wire;
 
 my @SIMPLE = qw(Any Undef Bool Int Num Str Bytes Decimal Date Time DateTime Duration Uuid Url MultiHostUrl);
-my @PARAMETERIZED = qw(Maybe Optional ArrayRef Set FrozenSet Json Chain Tuple HashRef Map Dict Enum Literal InstanceOf);
+my @PARAMETERIZED = qw(Maybe Optional ArrayRef Set FrozenSet Json Chain Tuple HashRef Map Dict Enum Literal InstanceOf AnyOf);
 
 our @EXPORT_OK   = (@SIMPLE, @PARAMETERIZED, 'slurpy');
 our %EXPORT_TAGS = (all => \@EXPORT_OK);
@@ -253,6 +253,7 @@ sub Dict :prototype(;$) (@args) {
     my (@fields, @names);
     for (my $i = 0; $i < @pairs; $i += 2) {
         my ($field, $type) = @pairs[$i, $i + 1];
+        $type = _as_type($type);
         _usage("Dict[] takes a type for $field, got " . ($type // 'undef'))
             if !blessed $type || !$type->isa('Perldantic::Type');
         _type('Dict', $type, 1);
@@ -299,6 +300,81 @@ sub Literal :prototype(;$) (@args) {
     });
 }
 
+# How a union names one of its alternatives: its class for InstanceOf[], its name otherwise.
+sub _label ($type) { $type->{label} // $type->name }
+
+# `A | B`: a value of any of the types (core `union`, smart mode). Unions flatten; errors are
+# located under the name of each alternative.
+sub _union (@items) {
+    my @members;
+    for my $item (@items) {
+        my $type = _as_type($item);
+        _usage('An alternative of a union must be a type or a class name, got ' . ($item // 'undef'))
+            if !blessed $type || !$type->isa('Perldantic::Type');
+        _usage('Optional[] is only supported inside Dict[]') if $type->is_optional;
+        push @members, $type->{members} && !$type->{discriminator} ? @{$type->{members}} : $type;
+    }
+    return Perldantic::Type->new(
+        name       => join('|', map { _label($_) } @members),
+        members    => \@members,
+        parameters => [@members],
+        build      => sub {
+            return {type => 'union', choices => [map { Perldantic::Wire::tuple($_->core_schema, _label($_)) } @members]};
+        },
+    );
+}
+
+sub AnyOf :prototype(;$) (@args) {
+    my $params = _params('AnyOf', @args) // _usage('AnyOf[] takes at least 2 types');
+    _usage('AnyOf[] takes at least 2 types') if @$params < 2;
+    return _union(@$params);
+}
+
+# The values of the discriminator field of a union's alternative: a model or a Dict[] whose
+# field has Enum[] or Literal[] values.
+sub _tags ($type, $field) {
+    my $schema = $type->core_schema;
+    my $field_schema;
+    if ($schema->{type} eq 'is-instance' && Perldantic::Model::_is_model($schema->{cls})) {
+        my ($spec) = grep { $_->{name} eq $field } Perldantic::Model::_fields($schema->{cls});
+        $field_schema = $spec && $spec->{type}->core_schema;
+    }
+    elsif ($schema->{type} eq 'typed-dict') {
+        my %fields = @{$schema->{fields}};
+        $field_schema = $fields{$field} && $fields{$field}{schema};
+    }
+    return () if !$field_schema || $field_schema->{type} ne 'literal';
+    return @{$field_schema->{expected}};
+}
+
+# A union picking its alternative by the value of a field (core `tagged-union`): only that
+# alternative validates, and errors are located under the tag. Built when first used, as the
+# alternatives' models may be declared later.
+sub _tagged_union ($union, $field) {
+    my @members = @{$union->{members}};
+    return Perldantic::Type->new(
+        name          => $union->name,
+        members       => \@members,
+        parameters    => [@members],
+        discriminator => $field,
+        build         => sub {
+            my (@choices, %owner);
+            for my $member (@members) {
+                my @tags = _tags($member, $field);
+                _usage("discriminator '$field': " . _label($member) . " has no '$field' field with Enum[] or Literal[] values")
+                    if !@tags;
+                for my $tag (@tags) {
+                    _usage("discriminator '$field': tag '$tag' is used by $owner{$tag} and " . _label($member))
+                        if exists $owner{$tag};
+                    $owner{$tag} = _label($member);
+                    push @choices, $tag => $member->core_schema;
+                }
+            }
+            return {type => 'tagged-union', discriminator => $field, choices => Perldantic::Wire::ordered(@choices)};
+        },
+    );
+}
+
 # Classes whose objects Perldantic sends to the core as data (dates, URLs, numbers...): the core
 # sees no object to check the class of.
 my %CONVERTED = map { $_ => 1 } qw(
@@ -319,6 +395,8 @@ sub InstanceOf :prototype(;$) (@args) {
     return Perldantic::Type->new(
         name   => 'InstanceOf[' . _quote($class) . ']',
         schema => {type => 'is-instance', cls => $class},
+        # how unions name it
+        label  => $class,
     );
 }
 
@@ -459,6 +537,18 @@ as JSON (C<dump_json> fails, as pydantic does for arbitrary types) and have no J
 Classes whose objects Perldantic turns into data (DateTime, Time::Moment, DateTime::Duration,
 URI, Math::BigInt, Math::BigFloat, the Perldantic value classes) are not accepted: use the
 matching type.
+
+=item C<AnyOf[A, B, ...]>, C<A | B>
+
+A value of any of the types (core C<union>, pydantic's smart mode: the exact match wins,
+then the first that validates). C<|> joins types (unions flatten) and takes a class name next
+to a type: C<< InstanceOf['Cat'] | 'Dog' >>; C<AnyOf[]> takes class names only too
+(C<AnyOf['Cat', 'Dog']>). Errors are located under the name of each alternative.
+
+C<< (AnyOf['Cat', 'Dog'])->with(discriminator => 'kind') >> picks the alternative by the value
+of a field (core C<tagged-union>): each alternative is a model or a C<Dict[]> whose field has
+C<Enum[]> or C<Literal[]> values, and only the alternative with the input's tag validates. The
+parentheses matter: C<< AnyOf[...]->with >> would call C<with> on the array reference.
 
 =back
 

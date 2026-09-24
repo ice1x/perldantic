@@ -8,6 +8,7 @@ use Perldantic::Error;
 
 use overload
     '""'     => sub ($self, @) { $self->{name} },
+    '|'      => sub ($self, $other, $swap, @) { Perldantic::Types::_union($swap ? ($other, $self) : ($self, $other)) },
     bool     => sub { 1 },
     fallback => 1;
 
@@ -70,6 +71,7 @@ sub is_optional ($self) { !!$self->{optional} }
 sub is_slurpy ($self)   { !!$self->{slurpy} }
 
 sub core_schema ($self) {
+    return $self->{build}->() if $self->{build};
     return $self->{wrap}->($self->{inner}->core_schema) if $self->{inner};
     return _clone($self->{schema});
 }
@@ -82,6 +84,12 @@ sub _clone ($data) {
 }
 
 sub with ($self, %constraints) {
+    if ($self->{members} && exists $constraints{discriminator}) {
+        my $field = delete $constraints{discriminator};
+        Perldantic::UsageError->throw(message => "Constraint '$_' does not apply to a union with a discriminator")
+            for sort keys %constraints;
+        return Perldantic::Types::_tagged_union($self, $field);
+    }
     if ($self->{inner}) {
         return (ref $self)->new(%$self, inner => $self->{inner}->with(%constraints));
     }
