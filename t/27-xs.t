@@ -1,6 +1,7 @@
 use v5.36;
 use Test2::V0;
 
+use Perldantic::TypeAdapter;
 use Perldantic::Wire qw(tuple set bytes ordered);
 
 skip_all 'the native encoder is not built' if !$Perldantic::Wire::XS;
@@ -39,5 +40,50 @@ is $native, $perl, 'deep nesting goes past the native depth limit through Perl';
 
 my $e = dies { Perldantic::Wire::encode([\1]) };
 isa_ok $e, 'Perldantic::UsageError';
+
+package Test::Point {
+    use Perldantic;
+    has x => (is => 'rw', isa => Int, clearer => 1);
+    has y => (is => 'ro', isa => Str);
+}
+
+subtest 'model objects without state are written natively' => sub {
+    my $point = Test::Point->new(x => 1, y => "caf\x{e9}");
+    Perldantic::Model::_plan('Test::Point');
+    is Perldantic::Wire::encode($point), qq({"\$model":{"class":"Test::Point","fields":{"x":1,"y":"caf\xc3\xa9"}}}),
+        'fields in declared order; the core takes every held field as set';
+    is Test::Point->new(x => 2, y => 'b')->model_dump(exclude_unset => 1), {x => 2, y => 'b'};
+
+    my $some = Test::Point->new(y => 'only');
+    like Perldantic::Wire::encode($some), qr/"fields_set":\["y"\]/, 'objects with state go through Perl';
+    is $some->model_dump(exclude_unset => 1), {y => 'only'};
+    $point->clear_x;
+    like Perldantic::Wire::encode($point), qr/"fields_set":\["y"\]/, 'and so does a changed one';
+
+    my $tracked = Test::Point->new(x => 3, y => 't');
+    local $Perldantic::Model::TRACK_OBJECTS = 1;
+    like Perldantic::Wire::encode($tracked), qr/perldantic object/, 'objects tracked by a call carry their token';
+};
+
+subtest 'a changed class is written with its new fields' => sub {
+    package Test::Grows { use Perldantic; has a => (is => 'ro', isa => Int) }
+    my $old = Test::Grows->new(a => 1);
+    Perldantic::Model::_plan('Test::Grows');
+    is Perldantic::Wire::encode($old), qq({"\$model":{"class":"Test::Grows","fields":{"a":1}}});
+    package Test::Grows { has b => (is => 'ro', isa => Int) }
+    my $new = Test::Grows->new(a => 1, b => 2);
+    like Perldantic::Wire::encode($new), qr/"fields":\{"a":1,"b":2\}/;
+};
+
+subtest 'dumps without serializer functions write objects natively' => sub {
+    my $calls = 0;
+    no warnings 'redefine';
+    my $original = \&Perldantic::Model::_wire_json;
+    local *Perldantic::Model::_wire_json = sub { $calls++; $original->(@_) };
+    my $points = [map { Test::Point->new(x => $_, y => 'p') } 1 .. 3];
+    is Test::Point->new(x => 1, y => 'p')->model_dump_json, '{"x":1,"y":"p"}';
+    Perldantic::TypeAdapter->new(Perldantic::Types::ArrayRef(['Test::Point']))->dump($points);
+    is $calls, 0, 'no object went through Perl';
+};
 
 done_testing;
