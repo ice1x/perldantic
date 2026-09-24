@@ -95,7 +95,7 @@ From a checkout: `perl Makefile.PL && make && make test && make install`. Start 
   - [ ] 00073 — Moo/Moose integration
   - [ ] 00074 — Prebuilt binaries / Alien dist
   - [ ] 00075 — Automated upstream sync
-  - [ ] 00080 — Direct `Value` ↔ SV bridge without JSON, if profiles call for it (docs/BENCHMARKS.md)
+  - [x] 00080 — No JSON at the boundary: a binary wire format, and validation reading Perl data in place (docs/BENCHMARKS.md)
   - [ ] 00079 — Perl enum classes: declare enum members in a Perl package and validate them with the core `enum` schema (the core and the wire already carry enum members)
   - [ ] 00081 — Lazy model objects, opt-in (`model_config lazy => 1` or a TypeAdapter option): validated data stays in the core and a field becomes a Perl value only when read; pays off when few fields are read; not the default, since such objects are not plain blessed hashes (Moo compatibility)
 
