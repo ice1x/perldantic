@@ -9,8 +9,9 @@ use Perldantic::Wire;
 sub bf ($text) { Math::BigFloat->new($text) }
 
 subtest 'wire' => sub {
-    is Perldantic::Wire::encode([bf('1.50'), bf('1e100'), bf('-0.0000001')]),
-        '[{"$decimal":"15e-1"},{"$decimal":"1e+100"},{"$decimal":"-1e-7"}]';
+    is Perldantic::Wire::encode([bf('1.50'), bf(1050), bf('-0.0000001')]),
+        '[{"$decimal":"1.5"},{"$decimal":"1050"},{"$decimal":"-0.0000001"}]', 'plain decimal notation, as Decimal(1050) has it';
+    is Perldantic::Wire::encode(bf('1e30')), '{"$decimal":"1' . ('0' x 30) . '"}';
     is Perldantic::Wire::encode([Math::BigFloat->binf('-'), Math::BigFloat->bnan]),
         '[{"$decimal":"-Infinity"},{"$decimal":"NaN"}]';
     my $back = Perldantic::Wire::decode('[{"$decimal":"1.23E+4"},{"$decimal":"-Infinity"},{"$decimal":"sNaN"}]');
@@ -23,7 +24,7 @@ subtest 'wire' => sub {
     is $kept->bstr, '2.5', 'Math::BigFloat drops trailing zeros';
     is Perldantic::Wire::encode($kept), '{"$decimal":"2.50"}', 'but the core gets its text back';
     $kept->badd(1);
-    is Perldantic::Wire::encode($kept), '{"$decimal":"35e-1"}', 'until the value changes';
+    is Perldantic::Wire::encode($kept), '{"$decimal":"3.5"}', 'until the value changes';
 
     # a rounded decimal keeps its scale, as Decimal.quantize does
     is Perldantic::Wire::encode([bf('278.996')->bfround(-2, 'common'), bf('12.5')->bround(5), bf('-3')->bfround(-1)]),
@@ -39,6 +40,7 @@ subtest 'the Decimal type' => sub {
     is $ta->validate(bf('0.1'))->bstr, '0.1';
     is $ta->validate_json('"1.5"')->bstr, '1.5';
     is $ta->dump_json(bf('1.50')), '"1.5"', 'JSON output is text, as in pydantic';
+    is $ta->dump_json(bf(1050)), '"1050"', 'no exponent for a whole number';
     is $ta->dump_json($ta->validate('19.990')), '"19.990"', 'validated decimals keep their exponent';
     is $ta->dump(bf('2.5'), mode => 'json'), '2.5';
     is $ta->json_schema, {anyOf => [{type => 'number'}, {type => 'string'}]};
