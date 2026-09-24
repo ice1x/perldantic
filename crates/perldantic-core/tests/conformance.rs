@@ -354,7 +354,10 @@ fn has_multi_item_set(json: &Json) -> bool {
 
 /// Field entries of container schemas carry a `type` too, but are not validators: they are
 /// supported when their container is.
-const FIELD_TYPES: &[(&str, &str)] = &[("model-fields", "model-field")];
+const FIELD_TYPES: &[(&str, &str)] = &[
+    ("model-fields", "model-field"),
+    ("typed-dict", "typed-dict-field"),
+];
 
 fn supported_types() -> Vec<&'static str> {
     let mut types = SchemaValidator::supported_schema_types().to_vec();

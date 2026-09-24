@@ -10469,7 +10469,12 @@
    "config": {
     "title": "MyTypedDict"
    },
-   "ref": "tests.test_json_schema._generate_deprecated_classes.<locals>.MyTypedDict:1"
+   "ref": "tests.test_json_schema._generate_deprecated_classes.<locals>.MyTypedDict:1",
+   "metadata": {
+    "pydantic_js_updates": {
+     "deprecated": true
+    }
+   }
   },
   "config": null,
   "mode": "validation",
@@ -10680,7 +10685,12 @@
        "config": {
         "title": "MyTypedDict"
        },
-       "ref": "tests.test_json_schema._generate_deprecated_classes.<locals>.MyTypedDict:1"
+       "ref": "tests.test_json_schema._generate_deprecated_classes.<locals>.MyTypedDict:1",
+       "metadata": {
+        "pydantic_js_updates": {
+         "deprecated": true
+        }
+       }
       },
       "metadata": {}
      }
@@ -34556,7 +34566,10 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "title": "Test"
+    "title": "Test",
+    "json_schema_extra": {
+     "$function": "json_schema_extra"
+    }
    },
    "ref": "tests.test_json_schema.test_typeddict_with__callable_json_schema_extra.<locals>.Model:1"
   },
@@ -34747,7 +34760,10 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "title": "Test"
+    "title": "Test",
+    "json_schema_extra": {
+     "foobar": "hello"
+    }
    },
    "ref": "tests.test_json_schema.test_typeddict_with_json_schema_extra.<locals>.Model:1"
   },

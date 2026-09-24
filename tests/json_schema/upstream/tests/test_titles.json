@@ -2821,7 +2821,10 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "title": "MyTypedDict"
+    "title": "MyTypedDict",
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
    },
    "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.MyTypedDict:1"
   },
@@ -2918,7 +2921,10 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "title": "MyTypedDict"
+    "title": "MyTypedDict",
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
    },
    "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.MyTypedDict:1"
   },
@@ -3015,7 +3021,10 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "title": "MyTypedDict"
+    "title": "MyTypedDict",
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
    },
    "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.MyTypedDict:1"
   },
@@ -3112,7 +3121,10 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "title": "MyTypedDict"
+    "title": "MyTypedDict",
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
    },
    "ref": "tests.test_titles.test_model_title_generator_returns_invalid_type.<locals>.MyTypedDict:1"
   },
@@ -3471,7 +3483,10 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "title": "MyTypedDict"
+    "title": "MyTypedDict",
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
    },
    "ref": "tests.test_titles.test_typeddict_model_title_generator.<locals>.MyTypedDict:1"
   },
@@ -3499,7 +3514,10 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "title": "MyTypedDict"
+    "title": "MyTypedDict",
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
    },
    "ref": "tests.test_titles.test_typeddict_model_title_generator.<locals>.MyTypedDict:1"
   },
@@ -3527,7 +3545,10 @@
    "computed_fields": [],
    "extra_behavior": "ignore",
    "config": {
-    "title": "MyTypedDict"
+    "title": "MyTypedDict",
+    "model_title_generator": {
+     "$function": "<lambda>"
+    }
    },
    "ref": "tests.test_titles.test_typeddict_model_title_generator.<locals>.MyTypedDict:1"
   },

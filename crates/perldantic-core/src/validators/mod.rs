@@ -42,6 +42,7 @@ mod string;
 mod time;
 mod timedelta;
 mod tuple;
+mod typed_dict;
 mod union;
 pub(crate) mod url;
 mod uuid;
@@ -327,6 +328,7 @@ validators! {
     time::TimeValidator,
     timedelta::TimeDeltaValidator,
     tuple::TupleValidator,
+    typed_dict::TypedDictValidator,
     union::TaggedUnionValidator,
     union::UnionValidator,
     url::MultiHostUrlValidator,
@@ -388,6 +390,8 @@ pub enum CombinedValidator {
     Time(time::TimeValidator),
     Timedelta(timedelta::TimeDeltaValidator),
     Tuple(tuple::TupleValidator),
+    // Boxed: much larger than most validators.
+    TypedDict(Box<typed_dict::TypedDictValidator>),
     Union(union::UnionValidator),
     // Boxed: much larger than most validators.
     TaggedUnion(Box<union::TaggedUnionValidator>),

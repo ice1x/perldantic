@@ -13,11 +13,12 @@ port the way a host would (docs/DIVERGENCES.md #15):
 
 - the model class's `model_config` keys that shape the JSON Schema (`title`, `json_schema_extra`,
   `json_schema_mode_override`, `json_schema_serialization_defaults_required`,
-  `model_title_generator`) go into the `model` schema's `config`;
+  `model_title_generator`) go into the `model` schema's `config`, and a TypedDict's
+  `__pydantic_config__` into the `typed-dict` schema's;
 - a config pushed for the whole schema (`TypeAdapter(..., config=...)`) is recorded as the case's
   `config`, converted to core config names plus the keys above;
-- the class docstring becomes `metadata.pydantic_js_updates.description`, and `__deprecated__`
-  becomes `deprecated`;
+- the class docstring (of models and TypedDicts) becomes `metadata.pydantic_js_updates.description`,
+  and `__deprecated__` becomes `deprecated`;
 - `BaseModel.__get_pydantic_json_schema__`, which every model lists in
   `metadata.pydantic_js_functions` and which only calls the handler, is dropped.
 
@@ -108,6 +109,36 @@ def host_config(config_dict: dict[str, Any], core_config: dict[str, Any] | None 
     return config
 
 
+def host_typed_dict_schema(schema: dict[str, Any]) -> dict[str, Any]:
+    """A `typed-dict` core schema with what pydantic reads off the TypedDict class moved into it."""
+    cls = schema['cls']
+    host = dict(schema)
+    config = host_config(getattr(cls, '__pydantic_config__', None) or {}, schema.get('config') or {})
+    if config:
+        host['config'] = config
+    _move_class_updates(host, cls, config)
+    return host
+
+
+def _move_class_updates(host: dict[str, Any], cls: type, config: dict[str, Any]) -> None:
+    """Record the class docstring and deprecation as `metadata.pydantic_js_updates`."""
+    metadata = dict(host.get('metadata') or {})
+    updates = dict(metadata.get('pydantic_js_updates') or {})
+    extra = config.get('json_schema_extra')
+    doc = _docstring(cls)
+    # pydantic sets the docstring only when `json_schema_extra` does not override it
+    if doc and not (isinstance(extra, dict) and 'description' in extra):
+        updates['description'] = doc
+    if hasattr(cls, '__deprecated__'):
+        updates['deprecated'] = True
+    if updates:
+        metadata['pydantic_js_updates'] = updates
+    if metadata:
+        host['metadata'] = metadata
+    else:
+        host.pop('metadata', None)
+
+
 def host_model_schema(schema: dict[str, Any]) -> dict[str, Any]:
     """A `model` core schema with what pydantic reads off the class moved into the schema."""
     cls = schema['cls']
@@ -129,28 +160,18 @@ def host_model_schema(schema: dict[str, Any]) -> dict[str, Any]:
         metadata['pydantic_js_functions'] = functions
     else:
         metadata.pop('pydantic_js_functions', None)
-    updates = dict(metadata.get('pydantic_js_updates') or {})
-    extra = config.get('json_schema_extra')
-    doc = _docstring(cls)
-    # pydantic sets the docstring only when `json_schema_extra` does not override it
-    if doc and not (isinstance(extra, dict) and 'description' in extra):
-        updates['description'] = doc
-    if hasattr(cls, '__deprecated__'):
-        updates['deprecated'] = True
-    if updates:
-        metadata['pydantic_js_updates'] = updates
-    if metadata:
-        host['metadata'] = metadata
-    else:
-        host.pop('metadata', None)
+    host['metadata'] = metadata
+    _move_class_updates(host, cls, config)
     return host
 
 
 def host_schema(value: Any) -> Any:
-    """Rewrite every `model` schema in a core schema with `host_model_schema`."""
+    """Rewrite every `model` and `typed-dict` schema in a core schema with the class data."""
     if isinstance(value, dict):
         if value.get('type') == 'model' and isinstance(value.get('cls'), type):
             value = host_model_schema(value)
+        elif value.get('type') == 'typed-dict' and isinstance(value.get('cls'), type):
+            value = host_typed_dict_schema(value)
         return {k: host_schema(v) for k, v in value.items()}
     if isinstance(value, list):
         return [host_schema(v) for v in value]

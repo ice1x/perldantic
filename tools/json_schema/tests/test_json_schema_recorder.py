@@ -40,6 +40,25 @@ def test_model_class_data_moves_into_the_schema(fake):
     assert schema['metadata'] == {'pydantic_js_updates': {'description': doc}}
 
 
+def test_typed_dict_class_data_moves_into_the_schema(fake):
+    from typing_extensions import TypedDict, deprecated
+
+    doc = fake.sentence()
+    title_generator = str.upper
+
+    @deprecated('old')
+    class Movie(TypedDict):
+        __pydantic_config__ = ConfigDict(model_title_generator=title_generator, extra='forbid')
+        name: str
+
+    Movie.__doc__ = doc
+    schema = host_schema(TypeAdapter(Movie).core_schema)
+
+    assert schema['config']['model_title_generator'] is title_generator
+    assert schema['config']['extra_fields_behavior'] == 'forbid'
+    assert schema['metadata']['pydantic_js_updates'] == {'description': doc, 'deprecated': True}
+
+
 def test_docstring_is_left_out_when_json_schema_extra_sets_a_description(fake):
     class Model(BaseModel):
         """Docstring."""
