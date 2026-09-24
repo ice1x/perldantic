@@ -234,7 +234,7 @@ Perl-specific decisions:
 
 | Issue | Decision |
 |---|---|
-| Untyped scalars (`"5"` vs `5`) | Strict mode reads SV flags (`IOK`/`NOK`/`POK`, `builtin::created_as_number`). Phase 1 relies on Cpanel::JSON::XS encoding |
+| Untyped scalars (`"5"` vs `5`) | Strict mode reads SV flags (`IOK`/`NOK`/`POK`, `builtin::created_as_number`): the encoder writes numbers that were never strings as JSON numbers |
 | Booleans | Accept `builtin::true`/`false`, `JSON::PP::Boolean`, `Types::Serialiser`. Lax coercions follow pydantic |
 | Dates | Accept ISO strings, numbers (timestamps), `DateTime`, `Time::Moment` and `DateTime::Duration`. Output: Perldantic's own `Perldantic::Date/Time/DateTime/Duration` (1:1 with Python's naive/aware datetimes, times of day and timedeltas; no dependency), or `DateTime` / `Time::Moment` with `model_config temporal_class => ...` |
 | Decimal / BigInt | `Math::BigFloat` / `Math::BigInt`, passed across FFI as strings |
@@ -246,9 +246,14 @@ Perl-specific decisions:
 - **Phase 1 (MVP): FFI::Platypus with JSON in and out.** The Rust crate is built at install time
   by `FFI::Build::File::Cargo`. This is simple and safe, but every call pays for a JSON round
   trip, and some scalar type information is lost.
-- **Phase 2: native bridge.** A small XS layer implements `Input` over SVs, zero-copy, and builds
-  SVs directly from `Value`. Callbacks cross the boundary as FFI closures. Target: at least 5×
-  faster than phase 1 on nested models.
+- **Phase 2: native bridge.** Planned as a small XS layer implementing `Input` over SVs and
+  building SVs directly from `Value`, at least 5× faster than phase 1 on nested models.
+  Profiling (docs/BENCHMARKS.md) showed the time went to pure-Perl walks around the JSON, not to
+  JSON itself, so phase 2 kept JSON at the boundary: a native encoder in C (`Perldantic.xs`,
+  numbers told from strings by SV flags), one-pass decoding by Cpanel::JSON::XS, and cached
+  per-class plans for building objects. Building objects became 6× faster than phase 1.
+  Callbacks cross the boundary as FFI closures. A direct `Value` ↔ SV bridge is backlog task
+  00080.
 
 ## 6. Stages
 
