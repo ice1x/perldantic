@@ -14,6 +14,7 @@ pub(crate) mod recursion_guard;
 pub mod serializers;
 pub mod temporal;
 mod tools;
+pub mod url;
 pub(crate) mod validators;
 mod value;
 
@@ -34,6 +35,7 @@ pub use serializers::{
     UnexpectedValue, WarningsMode,
 };
 pub use speedate;
+pub use url::{MultiHostUrl, Url, UrlHost};
 pub use uuid;
 pub use validators::{SchemaValidator, ValidateError, ValidateOptions};
 pub use value::{Dict, Model, Value};

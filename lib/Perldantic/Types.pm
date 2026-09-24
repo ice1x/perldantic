@@ -10,7 +10,7 @@ use Scalar::Util qw(blessed);
 use Perldantic::Error;
 use Perldantic::Type;
 
-my @SIMPLE = qw(Any Undef Bool Int Num Str Bytes Date Time DateTime Duration Uuid);
+my @SIMPLE = qw(Any Undef Bool Int Num Str Bytes Date Time DateTime Duration Uuid Url MultiHostUrl);
 my @PARAMETERIZED = qw(Maybe Optional ArrayRef Tuple HashRef Map Dict Enum Literal InstanceOf);
 
 our @EXPORT_OK   = (@SIMPLE, @PARAMETERIZED, 'slurpy');
@@ -36,6 +36,8 @@ sub Time ()  { Perldantic::Type->new(name => 'Time',  schema => {type => 'time'}
 sub DateTime () { Perldantic::Type->new(name => 'DateTime', schema => {type => 'datetime'}) }
 sub Duration () { Perldantic::Type->new(name => 'Duration', schema => {type => 'timedelta'}) }
 sub Uuid ()     { Perldantic::Type->new(name => 'Uuid',     schema => {type => 'uuid'}) }
+sub Url ()      { Perldantic::Type->new(name => 'Url',      schema => {type => 'url'}) }
+sub MultiHostUrl () { Perldantic::Type->new(name => 'MultiHostUrl', schema => {type => 'multi-host-url'}) }
 
 # The parameters of `Name[...]`, or undef for a bare `Name`.
 sub _params ($name, @args) {
@@ -272,6 +274,13 @@ must call the L<DateTime> class as C<< DateTime::->new(...) >>, as with Types::D
 Core C<uuid>. It takes UUID text (hyphenated or not), 16 bytes (C<Perldantic::Wire::bytes>) and
 L<Perldantic::Uuid> objects, and validates into L<Perldantic::Uuid> values; in strict mode only
 UUID objects are accepted.
+
+=item C<Url>, C<MultiHostUrl>
+
+Core C<url> and C<multi-host-url>. They take URL text, L<URI> objects and
+L<Perldantic::Url> / L<Perldantic::MultiHostUrl> objects, and validate into the latter. A
+model's C<url_preserve_empty_path> config (or the C<preserve_empty_path> constraint) keeps an
+empty path empty instead of normalising it to C</>.
 
 =item C<Maybe[T]>
 

@@ -78,6 +78,8 @@ serializers! {
     super::type_serializers::tuple::TupleSerializer,
     super::type_serializers::union::TaggedUnionSerializer,
     super::type_serializers::union::UnionSerializer,
+    super::type_serializers::url::MultiHostUrlSerializer,
+    super::type_serializers::url::UrlSerializer,
     super::type_serializers::uuid::UuidSerializer,
     super::type_serializers::with_default::WithDefaultSerializer,
 }
@@ -122,6 +124,8 @@ pub enum CombinedSerializer {
     Union(super::type_serializers::union::UnionSerializer),
     // Boxed: much larger than most serializers.
     TaggedUnion(Box<super::type_serializers::union::TaggedUnionSerializer>),
+    Url(super::type_serializers::url::UrlSerializer),
+    MultiHostUrl(super::type_serializers::url::MultiHostUrlSerializer),
     Uuid(super::type_serializers::uuid::UuidSerializer),
     WithDefault(super::type_serializers::with_default::WithDefaultSerializer),
 }

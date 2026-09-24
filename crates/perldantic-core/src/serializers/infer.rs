@@ -92,7 +92,7 @@ pub(crate) fn infer_to_python_known(
                 .temporal_mode
                 .to_json(value)
                 .unwrap_or_else(|| value.clone()),
-            (ObType::Uuid, _) => Value::Str(value.py_str()),
+            (ObType::Uuid | ObType::Url | ObType::MultiHostUrl, _) => Value::Str(value.py_str()),
             _ => value.clone(),
         },
         _ => match (ob_type, value) {
@@ -222,7 +222,9 @@ pub(crate) fn infer_json_key_known<'a>(
 ) -> SerResult<Cow<'a, str>> {
     match (ob_type, key) {
         (ObType::None, _) => Ok(Cow::Borrowed("None")),
-        (ObType::Int | ObType::Uuid, _) => Ok(Cow::Owned(key.py_str())),
+        (ObType::Int | ObType::Uuid | ObType::Url | ObType::MultiHostUrl, _) => {
+            Ok(Cow::Owned(key.py_str()))
+        }
         (ObType::Float, Value::Float(v)) => {
             if (v.is_nan() || v.is_infinite()) && state.config.inf_nan_mode == InfNanMode::Null {
                 Ok(Cow::Borrowed("None"))

@@ -27,9 +27,11 @@ my %CONSTRAINTS = (
     datetime  => [qw(strict le lt ge gt now_op now_utc_offset tz_constraint microseconds_precision)],
     timedelta => [qw(strict le lt ge gt microseconds_precision)],
     uuid      => [qw(strict version)],
+    url       => [qw(strict max_length allowed_schemes host_required default_host default_port default_path preserve_empty_path)],
+    'multi-host-url' => [qw(strict max_length allowed_schemes host_required default_host default_port default_path preserve_empty_path)],
 );
 # Constraints the core takes as booleans; any Perl truth value is accepted.
-my %FLAG = map { $_ => 1 } qw(strict allow_inf_nan strip_whitespace to_lower to_upper);
+my %FLAG = map { $_ => 1 } qw(strict allow_inf_nan strip_whitespace to_lower to_upper host_required preserve_empty_path);
 # Every constraint name, whatever the type.
 our %ANY_CONSTRAINT = map { $_ => 1 } map {@$_} values %CONSTRAINTS;
 my %ALLOWED = map { my $t = $_; ($t => {map { $_ => 1 } @{$CONSTRAINTS{$t}}}) } keys %CONSTRAINTS;
@@ -147,6 +149,9 @@ A copy of the type with pydantic constraints added to its schema:
 =item C<Duration>: C<strict le lt ge gt microseconds_precision>
 
 =item C<Uuid>: C<strict version>
+
+=item C<Url>, C<MultiHostUrl>: C<strict max_length allowed_schemes host_required default_host
+default_port default_path preserve_empty_path>
 
 =back
 

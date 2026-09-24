@@ -13,6 +13,7 @@ use Scalar::Util qw(blessed reftype);
 
 use Perldantic::Error;
 use Perldantic::Temporal;
+use Perldantic::Url;
 use Perldantic::Uuid;
 
 our @EXPORT_OK = qw(tuple set bytes ordered);
@@ -134,6 +135,9 @@ sub _tag ($value) {
         return {'$model' => $value->_wire}              if $class eq 'Perldantic::Wire::Model';
         return {$value->_wire_tag => $value->_wire_payload} if $value->isa('Perldantic::Temporal');
         return {'$uuid' => $value->as_string}           if $value->isa('Perldantic::Uuid');
+        return {'$multi_host_url' => $value->as_string} if $value->isa('Perldantic::MultiHostUrl');
+        return {'$url' => $value->as_string}            if $value->isa('Perldantic::Url');
+        return $value->as_string                        if $value->isa('URI');
         return {'$datetime' => _datetime_iso($value)} if $value->isa('DateTime');
         return {'$datetime' => _time_moment_iso($value)} if $value->isa('Time::Moment');
         return _tag(_duration_parts($value)) if $value->isa('DateTime::Duration');
@@ -167,6 +171,8 @@ my %UNTAG = (
     time      => sub ($iso)   { Perldantic::Time->from_iso($iso) },
     datetime  => sub ($iso)   { Perldantic::DateTime->from_iso($iso) },
     uuid      => sub ($text)  { Perldantic::Uuid->new($text) },
+    url            => sub ($text) { Perldantic::Url->_from_wire($text) },
+    multi_host_url => sub ($text) { Perldantic::MultiHostUrl->_from_wire($text) },
     timedelta => sub ($parts) {
         my ($days, $seconds, $microseconds) = @$parts;
         Perldantic::Duration->new(days => $days, seconds => $seconds, microseconds => $microseconds);
@@ -265,6 +271,9 @@ such too); L<DateTime> and L<Time::Moment> objects are sent as datetimes (a floa
 a naive one) and L<DateTime::Duration> objects without months as durations;
 
 =item * UUIDs are L<Perldantic::Uuid> values, C<{"$uuid": "..."}> (decoded as such too);
+
+=item * URLs are L<Perldantic::Url> and L<Perldantic::MultiHostUrl> values, C<{"$url": "..."}>
+and C<{"$multi_host_url": "..."}> (decoded as such too); L<URI> objects are sent as their text;
 
 =item * an object with a C<_perldantic_wire> method is sent as what that method returns.
 

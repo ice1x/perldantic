@@ -45,12 +45,14 @@ my %CONFIG_KEY = (
     serialize_by_alias   => 'serialize_by_alias',
     revalidate_instances => 'revalidate_instances',
     json_schema_extra    => 'json_schema_extra',
+    url_preserve_empty_path => 'url_preserve_empty_path',
 );
 # Settings of the Perl layer only; the core never sees them.
 my %PERL_SETTING = map { $_ => 1 } qw(temporal_class);
 
 my %CONFIG_FLAG = map { $_ => 1 }
-    qw(strict str_strip_whitespace str_to_lower str_to_upper validate_by_name validate_by_alias serialize_by_alias);
+    qw(strict str_strip_whitespace str_to_lower str_to_upper validate_by_name validate_by_alias serialize_by_alias
+    url_preserve_empty_path);
 
 sub _usage ($message) { Perldantic::UsageError->throw(message => $message) }
 

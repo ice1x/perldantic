@@ -11,13 +11,17 @@
 //!   `{"$datetime": "2022-06-08T12:13:14+01:00"}` (Python's `isoformat`) and
 //!   `{"$timedelta": [days, seconds, microseconds]}` (Python's normalised fields);
 //! - `{"$uuid": "12345678-1234-5678-1234-567812345678"}` (read in any form `uuid` parses);
+//! - `{"$url": "https://example.com/"}` and `{"$multi_host_url": "redis://h1,h2/0"}`, by their
+//!   text (read back keeping an empty path empty, so the text round-trips);
 //! - `{"$model": {"class", "fields", "fields_set", "extra"}}` for model instances.
 
 use std::fmt::Write as _;
 
 use base64::Engine;
 use base64::engine::general_purpose::STANDARD;
-use perldantic_core::{CoreError, CoreResult, Dict, Model, Value, speedate, temporal, uuid};
+use perldantic_core::{
+    CoreError, CoreResult, Dict, Model, MultiHostUrl, Url, Value, speedate, temporal, uuid,
+};
 
 /// Parse wire JSON into a value.
 pub fn decode(json: &str) -> CoreResult<Value> {
@@ -126,6 +130,12 @@ fn decode_tag(tag: &str, payload: Value) -> CoreResult<Value> {
             ),
             _ => return Err(invalid("$uuid takes UUID text", &payload)),
         },
+        "url" => Value::Url(Box::new(parse_url(&payload, "$url", Url::parse)?)),
+        "multi_host_url" => Value::MultiHostUrl(Box::new(parse_url(
+            &payload,
+            "$multi_host_url",
+            MultiHostUrl::parse,
+        )?)),
         other => {
             return Err(CoreError::Value(format!(
                 "Invalid wire value: unknown tag `${other}`"
@@ -144,6 +154,20 @@ fn parse_temporal<T>(
             parse(text).map_err(|_| invalid(&format!("{tag} takes ISO 8601 text"), payload))
         }
         _ => Err(invalid(&format!("{tag} takes ISO 8601 text"), payload)),
+    }
+}
+
+/// URL text as the core writes it; an empty path stays empty so the text round-trips.
+fn parse_url<T>(
+    payload: &Value,
+    tag: &str,
+    parse: impl Fn(&str, bool) -> CoreResult<T>,
+) -> CoreResult<T> {
+    match payload {
+        Value::Str(text) => {
+            parse(text, true).map_err(|_| invalid(&format!("{tag} takes URL text"), payload))
+        }
+        _ => Err(invalid(&format!("{tag} takes URL text"), payload)),
     }
 }
 
@@ -298,6 +322,10 @@ fn write_value(value: &Value, out: &mut String) {
             write!(out, "[{days},{seconds},{micros}]").expect("writing to a String");
         }),
         Value::Uuid(u) => write_tagged("uuid", out, |out| write_str(&u.to_string(), out)),
+        Value::Url(u) => write_tagged("url", out, |out| write_str(&u.as_str(), out)),
+        Value::MultiHostUrl(u) => {
+            write_tagged("multi_host_url", out, |out| write_str(&u.as_str(), out));
+        }
         Value::Model(model) => write_tagged("model", out, |out| {
             out.push_str("{\"class\":");
             write_str(&model.class, out);
@@ -412,6 +440,23 @@ mod tests {
         assert_eq!(
             decode(r#"{"$uuid": "nope"}"#).unwrap_err().to_string(),
             "Invalid wire value: $uuid takes UUID text, got 'nope'"
+        );
+    }
+
+    #[test]
+    fn urls_are_their_text() {
+        for json in [
+            r#"{"$url":"https://example.com/"}"#,
+            r#"{"$url":"https://example.com"}"#,
+            r#"{"$url":"https://example.com?a=1"}"#,
+            r#"{"$multi_host_url":"redis://u:p@h1:1,h2:2/0"}"#,
+            r#"{"$multi_host_url":"postgres://h1,h2"}"#,
+        ] {
+            assert_eq!(encode(&decode(json).unwrap()), json, "{json}");
+        }
+        assert_eq!(
+            decode(r#"{"$url": "nope"}"#).unwrap_err().to_string(),
+            "Invalid wire value: $url takes URL text, got 'nope'"
         );
     }
 
