@@ -64,6 +64,29 @@ subtest 'tagged unions' => sub {
         'Dict[] alternatives';
 };
 
+subtest 'union fields of models declared later' => sub {
+    my @warnings;
+    local $SIG{__WARN__} = sub { push @warnings, @_ };
+    my $e = dies {
+        package Test::Zoo {
+            use Perldantic;
+            has resident => (is => 'ro', isa => (AnyOf['Test::Owl', 'Test::Bat'])->with(discriminator => 'kind'));
+            has visitor  => (is => 'ro', isa => 'Test::Owl' | Int);
+        }
+    };
+    is $e, undef, 'the alternatives are looked at when the field is first used';
+    package Test::Owl { use Perldantic; has kind => (is => 'ro', isa => Literal['owl']) }
+    package Test::Bat { use Perldantic; has kind => (is => 'ro', isa => Literal['bat']) }
+    my $zoo = Test::Zoo->new(resident => {kind => 'bat'}, visitor => {kind => 'owl'});
+    isa_ok $zoo->resident, 'Test::Bat';
+    isa_ok $zoo->visitor, 'Test::Owl';
+    is \@warnings, [], 'no warnings';
+
+    $e = dies { package Test::Zoo2 { use Perldantic; has pet => (is => 'ro', isa => Int | Str, strict => 1) } };
+    is $e->message, "has pet: Constraint 'strict' does not apply to Int|Str";
+    is \@warnings, [], 'no warnings for a constraint on a union';
+};
+
 subtest 'models inside Dict[]' => sub {
     my $owned = Perldantic::TypeAdapter->new(Dict[owner => Str, pet => 'Test::Cat']);
     isa_ok $owned->validate({owner => 'ada', pet => {kind => 'cat', lives => 3}})->{pet}, 'Test::Cat';
