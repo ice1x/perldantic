@@ -6,11 +6,18 @@
 #include <stddef.h>
 #include <stdint.h>
 
+// Where the host puts its answer to one call (opaque to C).
+typedef struct PdReply PdReply;
+
 // A compiled serializer (opaque to C).
 typedef struct PdSerializer PdSerializer;
 
 // A compiled validator (opaque to C).
 typedef struct PdValidator PdValidator;
+
+// The host's callback: `(function id, call JSON, reply slot)`; it must answer through
+// [`pd_host_reply`] before returning, and must not unwind. Null removes the callback.
+typedef void (*PdHostCallback)(uint64_t, const char*, PdReply*);
 
 #ifdef __cplusplus
 extern "C" {
@@ -108,6 +115,33 @@ char *pd_url_parts(const char *url);
 // # Safety
 // `string` is null or was returned by a `pd_*` function and not freed yet.
 void pd_string_free(char *string);
+
+// Register the host's callback (or remove it with a null pointer). Functions in schemas can
+// only be called while a callback is registered.
+void pd_set_host_callback(PdHostCallback callback);
+
+// Answer a call: `result` is the reply JSON, copied before this returns.
+//
+// # Safety
+// `reply` is the slot the callback received, during that callback; `result` is a
+// NUL-terminated string.
+void pd_host_reply(PdReply *reply, const char *result);
+
+// Validate `input` with a wrap validator's `handler` (from a `validate_wrap` call), errors
+// located under `outer_location` (JSON: a string, an integer or `null`; may be null).
+//
+// # Safety
+// `handler` is the value of a `validate_wrap` call that has not returned yet; the strings
+// are NUL-terminated.
+char *pd_validator_handler_call(void *handler, const char *input, const char *outer_location);
+
+// Serialize `value` with a wrap serializer's `handler` (from a `serialize_wrap` call);
+// `index_key` (JSON: a list index or a dict key, or `null`; may be null) applies `include` /
+// `exclude` at that position, and a filtered-out value is a `PydanticOmit` error.
+//
+// # Safety
+// As for [`pd_validator_handler_call`], with a `serialize_wrap` call's handler.
+char *pd_serializer_handler_call(void *handler, const char *value, const char *index_key);
 
 #ifdef __cplusplus
 }  // extern "C"

@@ -22,6 +22,12 @@ pub trait HostFunction: Send + Sync + fmt::Debug {
 
     /// Call the function.
     fn call(&self, call: HostCall<'_>) -> Result<Value, HostError>;
+
+    /// The host's own identifier for the function, if it keeps one (an FFI host refers to
+    /// its functions by id).
+    fn host_id(&self) -> Option<u64> {
+        None
+    }
 }
 
 /// A host function held in a schema. Two handles are equal when they are the same function.
@@ -39,6 +45,10 @@ impl Function {
 
     pub fn call(&self, call: HostCall<'_>) -> Result<Value, HostError> {
         self.0.call(call)
+    }
+
+    pub fn host_id(&self) -> Option<u64> {
+        self.0.host_id()
     }
 }
 

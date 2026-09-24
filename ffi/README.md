@@ -25,6 +25,14 @@ FFI::Build::File::Cargo builds it at install time. This is phase 1 of the transp
   - `{"ok": ...}`, where serializer results add `"warning"` and JSON Schema results add
     `"warnings"`;
   - `{"validation_error": {"title", "message", "errors"}}`, with pydantic's error dicts;
-  - `{"error": {"type", "message"}}`, where `type` is the Python exception pydantic would raise.
+  - `{"error": {"type", "message"}}`, where `type` is the Python exception pydantic would raise. An
+    exception raised by a host function comes back as `HostException` with the host's `id`.
+- **Host functions:** a schema refers to a function of the host as
+  `{"$function": {"id", "name"}}` (validators in `function-*` schemas, serializers in
+  `serialization`). The host registers one callback with `pd_set_host_callback`; the core calls
+  it with the function's id, the call as JSON and a reply slot, and the host answers with
+  `pd_host_reply` before returning (FFI::Platypus closures cannot return strings). Wrap
+  functions get a `handler` to pass to `pd_validator_handler_call` / `pd_serializer_handler_call`
+  while the call runs. [`src/host.rs`](src/host.rs) documents the call and reply formats.
 - **Panics:** every export runs under `catch_unwind`. A Rust panic becomes an `InternalError`
   envelope and never unwinds into the host.
