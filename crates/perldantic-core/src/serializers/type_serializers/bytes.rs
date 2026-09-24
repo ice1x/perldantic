@@ -62,16 +62,24 @@ impl BuildSerializer for BytesSerializer {
     }
 }
 
+/// The octets of `bytes`, or of a `bytes` subclass instance (a member of a bytes enum).
+fn as_bytes(value: &Value) -> Option<&[u8]> {
+    match value.mixin_value().unwrap_or(value) {
+        Value::Bytes(bytes) => Some(bytes),
+        _ => None,
+    }
+}
+
 impl TypeSerializer for BytesSerializer {
     fn to_python(&self, value: &Value, state: &mut SerializationState) -> SerResult<Value> {
-        match value {
-            Value::Bytes(bytes) => match state.extra.mode {
+        match as_bytes(value) {
+            Some(bytes) => match state.extra.mode {
                 SerMode::Json => Ok(Value::Str(
                     self.bytes_mode.bytes_to_string(bytes)?.into_owned(),
                 )),
                 _ => Ok(value.clone()),
             },
-            _ => {
+            None => {
                 state.warn_fallback_py(self.get_name(), value)?;
                 infer_to_python(value, state)
             }
@@ -83,9 +91,9 @@ impl TypeSerializer for BytesSerializer {
         key: &'a Value,
         state: &mut SerializationState,
     ) -> SerResult<Cow<'a, str>> {
-        match key {
-            Value::Bytes(bytes) => Ok(self.bytes_mode.bytes_to_string(bytes)?),
-            _ => {
+        match as_bytes(key) {
+            Some(bytes) => Ok(self.bytes_mode.bytes_to_string(bytes)?),
+            None => {
                 state.warn_fallback_py(self.get_name(), key)?;
                 infer_json_key(key, state)
             }
@@ -98,9 +106,9 @@ impl TypeSerializer for BytesSerializer {
         serializer: S,
         state: &mut SerializationState,
     ) -> Result<S::Ok, S::Error> {
-        match value {
-            Value::Bytes(bytes) => self.bytes_mode.serialize_bytes(bytes, serializer),
-            _ => {
+        match as_bytes(value) {
+            Some(bytes) => self.bytes_mode.serialize_bytes(bytes, serializer),
+            None => {
                 state.warn_fallback_ser::<S>(self.get_name(), value)?;
                 infer_serialize(value, serializer, state)
             }

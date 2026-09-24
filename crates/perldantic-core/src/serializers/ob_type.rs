@@ -30,6 +30,7 @@ pub(crate) enum ObType {
     Url,
     MultiHostUrl,
     Decimal,
+    Enum,
     /// A model instance, serialized through its fields.
     PydanticSerializable,
 }
@@ -64,6 +65,7 @@ pub(crate) fn get_type(value: &Value) -> ObType {
         Value::Url(_) => ObType::Url,
         Value::MultiHostUrl(_) => ObType::MultiHostUrl,
         Value::Decimal(_) => ObType::Decimal,
+        Value::Enum(_) => ObType::Enum,
     }
 }
 
@@ -71,6 +73,13 @@ pub(crate) fn is_type(value: &Value, expected: ObType) -> IsType {
     let actual = get_type(value);
     if actual == expected {
         return IsType::Exact;
+    }
+    // members of `IntEnum`, `StrEnum` etc. are instances of a subclass of their value's type
+    if let Some(mixin_value) = value.mixin_value() {
+        return match is_type(mixin_value, expected) {
+            IsType::Exact | IsType::Subclass => IsType::Subclass,
+            IsType::False => IsType::False,
+        };
     }
     match (actual, expected) {
         // bool is a subclass of int; int passes for float (pydantic-core#866)
@@ -98,5 +107,22 @@ mod tests {
             "pydantic_serializable"
         );
         assert_eq!(ObType::Set.to_string(), "set");
+        let member = |value: Value, mixin| {
+            Value::Enum(Box::new(crate::value::EnumMember {
+                class: "E".into(),
+                name: "A".into(),
+                value,
+                mixin,
+                str_is_value: false,
+            }))
+        };
+        let int_enum = member(Value::Int(1), Some(crate::value::EnumMixin::Int));
+        assert_eq!(is_type(&int_enum, ObType::Enum), IsType::Exact);
+        assert_eq!(is_type(&int_enum, ObType::Int), IsType::Subclass);
+        assert_eq!(is_type(&int_enum, ObType::Float), IsType::Subclass);
+        assert_eq!(
+            is_type(&member(Value::Int(1), None), ObType::Int),
+            IsType::False
+        );
     }
 }

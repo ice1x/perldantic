@@ -1846,7 +1846,10 @@
   "input": {
    "$enum": [
     "FruitEnum",
-    "pear"
+    "pear",
+    "pear",
+    "str",
+    false
    ]
   },
   "options": {},
@@ -1895,7 +1898,10 @@
   "input": {
    "$enum": [
     "FruitEnum",
-    "pear"
+    "pear",
+    "pear",
+    "str",
+    false
    ]
   },
   "options": {},
@@ -1915,7 +1921,10 @@
   "input": {
    "$enum": [
     "PlainEnum",
-    "one"
+    "ONE",
+    "one",
+    null,
+    false
    ]
   },
   "options": {},
@@ -1934,7 +1943,10 @@
   "input": {
    "$enum": [
     "PlainEnum",
-    "one"
+    "ONE",
+    "one",
+    null,
+    false
    ]
   },
   "options": {},

@@ -4541,7 +4541,10 @@
   "input": {
    "$enum": [
     "PlainEnum",
-    1
+    "ONE",
+    1,
+    null,
+    false
    ]
   },
   "options": {},

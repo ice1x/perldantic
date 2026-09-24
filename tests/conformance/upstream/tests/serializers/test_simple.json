@@ -1696,7 +1696,10 @@
   "input": {
    "$enum": [
     "MyIntEnum",
-    1
+    "one",
+    1,
+    "int",
+    true
    ]
   },
   "options": {},
@@ -1704,7 +1707,10 @@
    "output": {
     "$enum": [
      "MyIntEnum",
-     1
+     "one",
+     1,
+     "int",
+     true
     ]
    }
   }
@@ -1720,7 +1726,10 @@
   "input": {
    "$enum": [
     "MyIntEnum",
-    1
+    "one",
+    1,
+    "int",
+    true
    ]
   },
   "options": {},
@@ -1739,7 +1748,10 @@
   "input": {
    "$enum": [
     "MyIntEnum",
-    1
+    "one",
+    1,
+    "int",
+    true
    ]
   },
   "options": {
@@ -1760,7 +1772,10 @@
   "input": {
    "$enum": [
     "MyIntEnum",
-    1
+    "one",
+    1,
+    "int",
+    true
    ]
   },
   "options": {},
@@ -1768,7 +1783,10 @@
    "output": {
     "$enum": [
      "MyIntEnum",
-     1
+     "one",
+     1,
+     "int",
+     true
     ]
    }
   }
@@ -1784,7 +1802,10 @@
   "input": {
    "$enum": [
     "MyIntEnum",
-    1
+    "one",
+    1,
+    "int",
+    true
    ]
   },
   "options": {},
@@ -1803,7 +1824,10 @@
   "input": {
    "$enum": [
     "MyIntEnum",
-    1
+    "one",
+    1,
+    "int",
+    true
    ]
   },
   "options": {

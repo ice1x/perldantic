@@ -75,6 +75,25 @@ def test_typed_dict_config_comes_from_its_class_not_the_parent(fake):
     assert address['config'] == {}
 
 
+def test_enum_class_data_moves_into_the_schema(fake):
+    import enum
+
+    doc = fake.sentence()
+
+    class Color(enum.Enum):
+        RED = 1
+
+    Color.__doc__ = doc
+
+    class Plain(enum.Enum):
+        A = 'a'
+
+    color = host_schema(TypeAdapter(Color).core_schema)
+    # pydantic's own hook only repeats the title and docstring enum_schema() sets
+    assert color['metadata'] == {'pydantic_js_updates': {'description': doc}}
+    assert host_schema(TypeAdapter(Plain).core_schema).get('metadata', {}) == {}
+
+
 def test_docstring_is_left_out_when_json_schema_extra_sets_a_description(fake):
     class Model(BaseModel):
         """Docstring."""

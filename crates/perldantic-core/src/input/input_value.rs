@@ -13,7 +13,7 @@ use crate::core_error::CoreResult;
 use crate::errors::{ErrorType, ErrorTypeDefaults, LocItem, ValError, ValResult};
 use crate::lookup_key::LookupPath;
 use crate::validators::config::ValBytesMode;
-use crate::value::{Dict, Value};
+use crate::value::{Dict, EnumMember, EnumMixin, Value};
 
 use speedate::{Date, DateTime, Duration, MicrosecondsPrecisionOverflowBehavior, Time};
 
@@ -60,6 +60,94 @@ fn maybe_as_string(v: &Value, unicode_error: ErrorType) -> ValResult<Option<&str
     }
 }
 
+// Enum members as input. Members of mixed-in enums (`IntEnum`, `StrEnum`) are instances of a
+// subclass of `int`, `str` or `float`: strict mode takes them for that type, and lax mode
+// coerces them as it would the value. Lax string and int validation also take the value of any
+// other enum member (upstream `maybe_as_enum`).
+
+fn enum_as_str<'a>(
+    input: &'a Value,
+    member: &'a EnumMember,
+    strict: bool,
+    coerce_numbers_to_str: bool,
+) -> ValMatch<EitherString<'a>> {
+    match (&member.value, member.mixin) {
+        (Value::Str(s), Some(EnumMixin::Str)) => Ok(ValidationMatch::strict(s.as_str().into())),
+        (_, Some(EnumMixin::Int | EnumMixin::Float)) if !strict && coerce_numbers_to_str => {
+            Ok(ValidationMatch::lax(input.py_str().into()))
+        }
+        (value, _) if !strict => Ok(ValidationMatch::lax(value.py_str().into())),
+        _ => Err(ValError::new(ErrorTypeDefaults::StringType, input)),
+    }
+}
+
+fn enum_as_bool(input: &Value, member: &EnumMember, strict: bool) -> ValMatch<bool> {
+    if !strict {
+        match (&member.value, member.mixin) {
+            (Value::Str(s), Some(EnumMixin::Str)) => {
+                return str_as_bool(input, s).map(ValidationMatch::lax);
+            }
+            (Value::Int(i), Some(EnumMixin::Int)) => {
+                return int_as_bool(input, *i).map(ValidationMatch::lax);
+            }
+            (Value::Float(f), Some(EnumMixin::Float)) => {
+                if let Ok(int) = float_as_int(input, *f) {
+                    return int
+                        .as_bool()
+                        .ok_or_else(|| ValError::new(ErrorTypeDefaults::BoolParsing, input))
+                        .map(ValidationMatch::lax);
+                }
+            }
+            _ => {}
+        }
+    }
+    Err(ValError::new(ErrorTypeDefaults::BoolType, input))
+}
+
+fn enum_as_int(input: &Value, member: &EnumMember, strict: bool) -> ValMatch<EitherInt> {
+    let as_int = |value: &Value| match value {
+        Value::Int(i) => Some(EitherInt::I64(*i)),
+        Value::BigInt(b) => Some(EitherInt::BigInt(b.clone())),
+        _ => None,
+    };
+    match (&member.value, member.mixin) {
+        (value, Some(EnumMixin::Int)) => {
+            if let Some(int) = as_int(value) {
+                return Ok(ValidationMatch::strict(int));
+            }
+        }
+        (Value::Str(s), Some(EnumMixin::Str)) if !strict => {
+            return str_as_int(input, s).map(ValidationMatch::lax);
+        }
+        (Value::Float(f), Some(EnumMixin::Float)) if !strict => {
+            return float_as_int(input, *f).map(ValidationMatch::lax);
+        }
+        (value, None) if !strict => {
+            if let Some(int) = as_int(value) {
+                return Ok(ValidationMatch::lax(int));
+            }
+        }
+        _ => {}
+    }
+    Err(ValError::new(ErrorTypeDefaults::IntType, input))
+}
+
+#[allow(clippy::cast_precision_loss)] // as Python's float(int)
+fn enum_as_float(input: &Value, member: &EnumMember, strict: bool) -> ValMatch<EitherFloat> {
+    match (&member.value, member.mixin) {
+        (Value::Str(s), Some(EnumMixin::Str)) if !strict => {
+            str_as_float(input, s).map(ValidationMatch::lax)
+        }
+        (Value::Float(f), Some(EnumMixin::Float)) => {
+            Ok(ValidationMatch::strict(EitherFloat::F64(*f)))
+        }
+        (Value::Int(i), Some(EnumMixin::Int)) => {
+            Ok(ValidationMatch::strict(EitherFloat::F64(*i as f64)))
+        }
+        _ => Err(ValError::new(ErrorTypeDefaults::FloatType, input)),
+    }
+}
+
 impl Input for Value {
     fn as_error_value(&self) -> Value {
         self.clone()
@@ -78,6 +166,9 @@ impl Input for Value {
         strict: bool,
         coerce_numbers_to_str: bool,
     ) -> ValMatch<EitherString<'_>> {
+        if let Value::Enum(member) = self {
+            return enum_as_str(self, member, strict, coerce_numbers_to_str);
+        }
         match self {
             Value::Str(s) => Ok(ValidationMatch::exact(s.as_str().into())),
             Value::Bytes(b) if !strict => match from_utf8(b) {
@@ -108,6 +199,9 @@ impl Input for Value {
     fn validate_bool(&self, strict: bool) -> ValMatch<bool> {
         if let Value::Bool(b) = self {
             return Ok(ValidationMatch::exact(*b));
+        }
+        if let Value::Enum(member) = self {
+            return enum_as_bool(self, member, strict);
         }
         if !strict {
             if let Some(s) = maybe_as_string(self, ErrorTypeDefaults::BoolParsing)? {
@@ -141,6 +235,9 @@ impl Input for Value {
     }
 
     fn validate_int(&self, strict: bool) -> ValMatch<EitherInt> {
+        if let Value::Enum(member) = self {
+            return enum_as_int(self, member, strict);
+        }
         match self {
             Value::Int(i) => return Ok(ValidationMatch::exact(EitherInt::I64(*i))),
             Value::BigInt(b) => return Ok(ValidationMatch::exact(EitherInt::BigInt(b.clone()))),
@@ -165,6 +262,9 @@ impl Input for Value {
     }
 
     fn validate_float(&self, strict: bool) -> ValMatch<EitherFloat> {
+        if let Value::Enum(member) = self {
+            return enum_as_float(self, member, strict);
+        }
         match self {
             Value::Float(f) => Ok(ValidationMatch::exact(EitherFloat::F64(*f))),
             Value::Str(_) | Value::Bytes(_) if !strict => {

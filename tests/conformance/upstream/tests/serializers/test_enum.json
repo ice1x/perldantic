@@ -13,17 +13,24 @@
      {
       "$enum": [
        "MyEnum",
-       1
+       "a",
+       1,
+       "int",
+       false
       ]
      },
      {
       "$enum": [
        "MyEnum",
-       2
+       "b",
+       2,
+       "int",
+       false
       ]
      }
     ],
-    "sub_type": "int"
+    "sub_type": "int",
+    "cls_repr": "test_int_dict_key.<locals>.MyEnum"
    },
    "values_schema": {
     "type": "str"
@@ -37,7 +44,10 @@
      {
       "$enum": [
        "MyEnum",
-       1
+       "a",
+       1,
+       "int",
+       false
       ]
      },
      "x"
@@ -52,7 +62,10 @@
       {
        "$enum": [
         "MyEnum",
-        1
+        "a",
+        1,
+        "int",
+        false
        ]
       },
       "x"
@@ -75,17 +88,24 @@
      {
       "$enum": [
        "MyEnum",
-       1
+       "a",
+       1,
+       "int",
+       false
       ]
      },
      {
       "$enum": [
        "MyEnum",
-       2
+       "b",
+       2,
+       "int",
+       false
       ]
      }
     ],
-    "sub_type": "int"
+    "sub_type": "int",
+    "cls_repr": "test_int_dict_key.<locals>.MyEnum"
    },
    "values_schema": {
     "type": "str"
@@ -99,7 +119,10 @@
      {
       "$enum": [
        "MyEnum",
-       1
+       "a",
+       1,
+       "int",
+       false
       ]
      },
      "x"
@@ -129,17 +152,24 @@
      {
       "$enum": [
        "MyEnum",
-       1
+       "a",
+       1,
+       "int",
+       false
       ]
      },
      {
       "$enum": [
        "MyEnum",
-       2
+       "b",
+       2,
+       "int",
+       false
       ]
      }
     ],
-    "sub_type": "int"
+    "sub_type": "int",
+    "cls_repr": "test_int_dict_key.<locals>.MyEnum"
    },
    "values_schema": {
     "type": "str"
@@ -153,7 +183,10 @@
      {
       "$enum": [
        "MyEnum",
-       1
+       "a",
+       1,
+       "int",
+       false
       ]
      },
      "x"
@@ -179,17 +212,24 @@
      {
       "$enum": [
        "MyEnum",
-       1
+       "a",
+       1,
+       "int",
+       false
       ]
      },
      {
       "$enum": [
        "MyEnum",
-       2
+       "b",
+       2,
+       "int",
+       false
       ]
      }
     ],
-    "sub_type": "int"
+    "sub_type": "int",
+    "cls_repr": "test_int_dict_key.<locals>.MyEnum"
    },
    "values_schema": {
     "type": "str"
@@ -224,17 +264,24 @@
      {
       "$enum": [
        "MyEnum",
-       1
+       "a",
+       1,
+       "int",
+       false
       ]
      },
      {
       "$enum": [
        "MyEnum",
-       2
+       "b",
+       2,
+       "int",
+       false
       ]
      }
     ],
-    "sub_type": "int"
+    "sub_type": "int",
+    "cls_repr": "test_int_dict_key.<locals>.MyEnum"
    },
    "values_schema": {
     "type": "str"
@@ -265,24 +312,34 @@
     {
      "$enum": [
       "MyEnum",
-      1
+      "a",
+      1,
+      "int",
+      false
      ]
     },
     {
      "$enum": [
       "MyEnum",
-      2
+      "b",
+      2,
+      "int",
+      false
      ]
     }
    ],
-   "sub_type": "int"
+   "sub_type": "int",
+   "cls_repr": "test_int_enum.<locals>.MyEnum"
   },
   "config": null,
   "mode": "to_python",
   "input": {
    "$enum": [
     "MyEnum",
-    1
+    "a",
+    1,
+    "int",
+    false
    ]
   },
   "options": {},
@@ -290,7 +347,10 @@
    "output": {
     "$enum": [
      "MyEnum",
-     1
+     "a",
+     1,
+     "int",
+     false
     ]
    }
   }
@@ -307,24 +367,34 @@
     {
      "$enum": [
       "MyEnum",
-      1
+      "a",
+      1,
+      "int",
+      false
      ]
     },
     {
      "$enum": [
       "MyEnum",
-      2
+      "b",
+      2,
+      "int",
+      false
      ]
     }
    ],
-   "sub_type": "int"
+   "sub_type": "int",
+   "cls_repr": "test_int_enum.<locals>.MyEnum"
   },
   "config": null,
   "mode": "to_python",
   "input": {
    "$enum": [
     "MyEnum",
-    1
+    "a",
+    1,
+    "int",
+    false
    ]
   },
   "options": {
@@ -346,24 +416,34 @@
     {
      "$enum": [
       "MyEnum",
-      1
+      "a",
+      1,
+      "int",
+      false
      ]
     },
     {
      "$enum": [
       "MyEnum",
-      2
+      "b",
+      2,
+      "int",
+      false
      ]
     }
    ],
-   "sub_type": "int"
+   "sub_type": "int",
+   "cls_repr": "test_int_enum.<locals>.MyEnum"
   },
   "config": null,
   "mode": "to_json",
   "input": {
    "$enum": [
     "MyEnum",
-    1
+    "a",
+    1,
+    "int",
+    false
    ]
   },
   "options": {},
@@ -383,17 +463,24 @@
     {
      "$enum": [
       "MyEnum",
-      1
+      "a",
+      1,
+      "int",
+      false
      ]
     },
     {
      "$enum": [
       "MyEnum",
-      2
+      "b",
+      2,
+      "int",
+      false
      ]
     }
    ],
-   "sub_type": "int"
+   "sub_type": "int",
+   "cls_repr": "test_int_enum.<locals>.MyEnum"
   },
   "config": null,
   "mode": "to_python",
@@ -418,17 +505,24 @@
     {
      "$enum": [
       "MyEnum",
-      1
+      "a",
+      1,
+      "int",
+      false
      ]
     },
     {
      "$enum": [
       "MyEnum",
-      2
+      "b",
+      2,
+      "int",
+      false
      ]
     }
    ],
-   "sub_type": "int"
+   "sub_type": "int",
+   "cls_repr": "test_int_enum.<locals>.MyEnum"
   },
   "config": null,
   "mode": "to_json",
@@ -455,16 +549,23 @@
      {
       "$enum": [
        "MyEnum",
-       1
+       "a",
+       1,
+       null,
+       false
       ]
      },
      {
       "$enum": [
        "MyEnum",
-       2
+       "b",
+       2,
+       null,
+       false
       ]
      }
-    ]
+    ],
+    "cls_repr": "test_plain_dict_key.<locals>.MyEnum"
    },
    "values_schema": {
     "type": "str"
@@ -478,7 +579,10 @@
      {
       "$enum": [
        "MyEnum",
-       1
+       "a",
+       1,
+       null,
+       false
       ]
      },
      "x"
@@ -493,7 +597,10 @@
       {
        "$enum": [
         "MyEnum",
-        1
+        "a",
+        1,
+        null,
+        false
        ]
       },
       "x"
@@ -516,16 +623,23 @@
      {
       "$enum": [
        "MyEnum",
-       1
+       "a",
+       1,
+       null,
+       false
       ]
      },
      {
       "$enum": [
        "MyEnum",
-       2
+       "b",
+       2,
+       null,
+       false
       ]
      }
-    ]
+    ],
+    "cls_repr": "test_plain_dict_key.<locals>.MyEnum"
    },
    "values_schema": {
     "type": "str"
@@ -539,7 +653,10 @@
      {
       "$enum": [
        "MyEnum",
-       1
+       "a",
+       1,
+       null,
+       false
       ]
      },
      "x"
@@ -569,16 +686,23 @@
      {
       "$enum": [
        "MyEnum",
-       1
+       "a",
+       1,
+       null,
+       false
       ]
      },
      {
       "$enum": [
        "MyEnum",
-       2
+       "b",
+       2,
+       null,
+       false
       ]
      }
-    ]
+    ],
+    "cls_repr": "test_plain_dict_key.<locals>.MyEnum"
    },
    "values_schema": {
     "type": "str"
@@ -592,7 +716,10 @@
      {
       "$enum": [
        "MyEnum",
-       1
+       "a",
+       1,
+       null,
+       false
       ]
      },
      "x"
@@ -618,16 +745,23 @@
      {
       "$enum": [
        "MyEnum",
-       1
+       "a",
+       1,
+       null,
+       false
       ]
      },
      {
       "$enum": [
        "MyEnum",
-       2
+       "b",
+       2,
+       null,
+       false
       ]
      }
-    ]
+    ],
+    "cls_repr": "test_plain_dict_key.<locals>.MyEnum"
    },
    "values_schema": {
     "type": "str"
@@ -662,16 +796,23 @@
      {
       "$enum": [
        "MyEnum",
-       1
+       "a",
+       1,
+       null,
+       false
       ]
      },
      {
       "$enum": [
        "MyEnum",
-       2
+       "b",
+       2,
+       null,
+       false
       ]
      }
-    ]
+    ],
+    "cls_repr": "test_plain_dict_key.<locals>.MyEnum"
    },
    "values_schema": {
     "type": "str"
@@ -702,23 +843,33 @@
     {
      "$enum": [
       "MyEnum",
-      1
+      "a",
+      1,
+      null,
+      false
      ]
     },
     {
      "$enum": [
       "MyEnum",
-      2
+      "b",
+      2,
+      null,
+      false
      ]
     }
-   ]
+   ],
+   "cls_repr": "test_plain_enum.<locals>.MyEnum"
   },
   "config": null,
   "mode": "to_python",
   "input": {
    "$enum": [
     "MyEnum",
-    1
+    "a",
+    1,
+    null,
+    false
    ]
   },
   "options": {},
@@ -726,7 +877,10 @@
    "output": {
     "$enum": [
      "MyEnum",
-     1
+     "a",
+     1,
+     null,
+     false
     ]
    }
   }
@@ -743,23 +897,33 @@
     {
      "$enum": [
       "MyEnum",
-      1
+      "a",
+      1,
+      null,
+      false
      ]
     },
     {
      "$enum": [
       "MyEnum",
-      2
+      "b",
+      2,
+      null,
+      false
      ]
     }
-   ]
+   ],
+   "cls_repr": "test_plain_enum.<locals>.MyEnum"
   },
   "config": null,
   "mode": "to_python",
   "input": {
    "$enum": [
     "MyEnum",
-    1
+    "a",
+    1,
+    null,
+    false
    ]
   },
   "options": {
@@ -781,23 +945,33 @@
     {
      "$enum": [
       "MyEnum",
-      1
+      "a",
+      1,
+      null,
+      false
      ]
     },
     {
      "$enum": [
       "MyEnum",
-      2
+      "b",
+      2,
+      null,
+      false
      ]
     }
-   ]
+   ],
+   "cls_repr": "test_plain_enum.<locals>.MyEnum"
   },
   "config": null,
   "mode": "to_json",
   "input": {
    "$enum": [
     "MyEnum",
-    1
+    "a",
+    1,
+    null,
+    false
    ]
   },
   "options": {},
@@ -817,16 +991,23 @@
     {
      "$enum": [
       "MyEnum",
-      1
+      "a",
+      1,
+      null,
+      false
      ]
     },
     {
      "$enum": [
       "MyEnum",
-      2
+      "b",
+      2,
+      null,
+      false
      ]
     }
-   ]
+   ],
+   "cls_repr": "test_plain_enum.<locals>.MyEnum"
   },
   "config": null,
   "mode": "to_python",
@@ -851,16 +1032,23 @@
     {
      "$enum": [
       "MyEnum",
-      1
+      "a",
+      1,
+      null,
+      false
      ]
     },
     {
      "$enum": [
       "MyEnum",
-      2
+      "b",
+      2,
+      null,
+      false
      ]
     }
-   ]
+   ],
+   "cls_repr": "test_plain_enum.<locals>.MyEnum"
   },
   "config": null,
   "mode": "to_json",
@@ -885,24 +1073,34 @@
     {
      "$enum": [
       "MyEnum",
-      "a"
+      "a",
+      "a",
+      "str",
+      false
      ]
     },
     {
      "$enum": [
       "MyEnum",
-      "b"
+      "b",
+      "b",
+      "str",
+      false
      ]
     }
    ],
-   "sub_type": "str"
+   "sub_type": "str",
+   "cls_repr": "test_str_enum.<locals>.MyEnum"
   },
   "config": null,
   "mode": "to_python",
   "input": {
    "$enum": [
     "MyEnum",
-    "a"
+    "a",
+    "a",
+    "str",
+    false
    ]
   },
   "options": {},
@@ -910,7 +1108,10 @@
    "output": {
     "$enum": [
      "MyEnum",
-     "a"
+     "a",
+     "a",
+     "str",
+     false
     ]
    }
   }
@@ -927,24 +1128,34 @@
     {
      "$enum": [
       "MyEnum",
-      "a"
+      "a",
+      "a",
+      "str",
+      false
      ]
     },
     {
      "$enum": [
       "MyEnum",
-      "b"
+      "b",
+      "b",
+      "str",
+      false
      ]
     }
    ],
-   "sub_type": "str"
+   "sub_type": "str",
+   "cls_repr": "test_str_enum.<locals>.MyEnum"
   },
   "config": null,
   "mode": "to_python",
   "input": {
    "$enum": [
     "MyEnum",
-    "a"
+    "a",
+    "a",
+    "str",
+    false
    ]
   },
   "options": {
@@ -966,24 +1177,34 @@
     {
      "$enum": [
       "MyEnum",
-      "a"
+      "a",
+      "a",
+      "str",
+      false
      ]
     },
     {
      "$enum": [
       "MyEnum",
-      "b"
+      "b",
+      "b",
+      "str",
+      false
      ]
     }
    ],
-   "sub_type": "str"
+   "sub_type": "str",
+   "cls_repr": "test_str_enum.<locals>.MyEnum"
   },
   "config": null,
   "mode": "to_json",
   "input": {
    "$enum": [
     "MyEnum",
-    "a"
+    "a",
+    "a",
+    "str",
+    false
    ]
   },
   "options": {},
@@ -1003,17 +1224,24 @@
     {
      "$enum": [
       "MyEnum",
-      "a"
+      "a",
+      "a",
+      "str",
+      false
      ]
     },
     {
      "$enum": [
       "MyEnum",
-      "b"
+      "b",
+      "b",
+      "str",
+      false
      ]
     }
    ],
-   "sub_type": "str"
+   "sub_type": "str",
+   "cls_repr": "test_str_enum.<locals>.MyEnum"
   },
   "config": null,
   "mode": "to_python",
@@ -1038,17 +1266,24 @@
     {
      "$enum": [
       "MyEnum",
-      "a"
+      "a",
+      "a",
+      "str",
+      false
      ]
     },
     {
      "$enum": [
       "MyEnum",
-      "b"
+      "b",
+      "b",
+      "str",
+      false
      ]
     }
    ],
-   "sub_type": "str"
+   "sub_type": "str",
+   "cls_repr": "test_str_enum.<locals>.MyEnum"
   },
   "config": null,
   "mode": "to_json",

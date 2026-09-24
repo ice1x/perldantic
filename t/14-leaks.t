@@ -81,6 +81,15 @@ no_leaks_ok {
     my $url = $urls->validate_python('https://example.com/a?b=1');
     my @parts = ($url->host, $url->query_params, "$id");
 } 'decimals, UUIDs and URLs';
+my $red = Perldantic::Wire::Enum->new(class => 'Color', name => 'RED', value => 1);
+my $colors = Perldantic::FFI::Validator->new({type => 'enum', cls => 'Color', members => [$red]});
+my $color_dump = Perldantic::FFI::Serializer->new({type => 'enum', cls => 'Color', members => [$red]});
+no_leaks_ok {
+    my $member = $colors->validate(1);
+    $color_dump->to_json($member);
+    local $@;
+    eval { $colors->validate(2) };
+} 'enum members';
 no_leaks_ok {
     my $values = $list->validate_python([1, undef, '2.5']);
     $list->dump_json($values);

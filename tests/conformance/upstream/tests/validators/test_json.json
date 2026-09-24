@@ -645,7 +645,10 @@
    "output": {
     "$enum": [
      "MyEnum",
-     "a"
+     "a",
+     "a",
+     null,
+     false
     ]
    }
   }
@@ -685,7 +688,10 @@
    "output": {
     "$enum": [
      "MyEnum",
-     "b"
+     "b",
+     "b",
+     null,
+     false
     ]
    }
   }

@@ -238,18 +238,14 @@
         {
          "$enum": [
           "MyEnum",
-          1
+          "a",
+          1,
+          null,
+          false
          ]
         }
        ],
-       "ref": "tests.test_generics.test_generic_enum_bound.<locals>.MyEnum:1",
-       "metadata": {
-        "pydantic_js_functions": [
-         {
-          "$function": "get_json_schema"
-         }
-        ]
-       }
+       "ref": "tests.test_generics.test_generic_enum_bound.<locals>.MyEnum:1"
       },
       "metadata": {}
      }
@@ -349,19 +345,15 @@
             {
              "$enum": [
               "EnumA",
-              "a"
+              "a",
+              "a",
+              "str",
+              false
              ]
             }
            ],
            "sub_type": "str",
-           "ref": "tests.test_generics.test_generic_enums.<locals>.EnumA:1",
-           "metadata": {
-            "pydantic_js_functions": [
-             {
-              "$function": "get_json_schema"
-             }
-            ]
-           }
+           "ref": "tests.test_generics.test_generic_enums.<locals>.EnumA:1"
           },
           "metadata": {}
          }
@@ -402,19 +394,15 @@
             {
              "$enum": [
               "EnumB",
-              "b"
+              "b",
+              "b",
+              "str",
+              false
              ]
             }
            ],
            "sub_type": "str",
-           "ref": "tests.test_generics.test_generic_enums.<locals>.EnumB:3",
-           "metadata": {
-            "pydantic_js_functions": [
-             {
-              "$function": "get_json_schema"
-             }
-            ]
-           }
+           "ref": "tests.test_generics.test_generic_enums.<locals>.EnumB:3"
           },
           "metadata": {}
          }
@@ -567,19 +555,15 @@
         {
          "$enum": [
           "MyEnum",
-          1
+          "a",
+          1,
+          "int",
+          true
          ]
         }
        ],
        "sub_type": "int",
-       "ref": "tests.test_generics.test_generic_intenum_bound.<locals>.MyEnum:1",
-       "metadata": {
-        "pydantic_js_functions": [
-         {
-          "$function": "get_json_schema"
-         }
-        ]
-       }
+       "ref": "tests.test_generics.test_generic_intenum_bound.<locals>.MyEnum:1"
       },
       "metadata": {}
      }

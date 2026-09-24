@@ -4212,7 +4212,10 @@
   "input": {
    "$enum": [
     "BinaryEnum",
-    0
+    "ZERO",
+    0,
+    "int",
+    true
    ]
   },
   "options": {},
@@ -4220,7 +4223,10 @@
    "output": {
     "$enum": [
      "BinaryEnum",
-     0
+     "ZERO",
+     0,
+     "int",
+     true
     ]
    }
   }
@@ -4262,7 +4268,10 @@
   "input": {
    "$enum": [
     "BinaryEnum",
-    1
+    "ONE",
+    1,
+    "int",
+    true
    ]
   },
   "options": {},
@@ -4270,7 +4279,10 @@
    "output": {
     "$enum": [
      "BinaryEnum",
-     1
+     "ONE",
+     1,
+     "int",
+     true
     ]
    }
   }

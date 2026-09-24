@@ -60,7 +60,11 @@ its Python class. The recorder hands them to the port the way a host would (docs
 - the `model_config` keys go into the `model` schema's `config`, with core config names;
 - the docstring and `__deprecated__` go into `metadata.pydantic_js_updates`;
 - the default `BaseModel.__get_pydantic_json_schema__` hook, which only calls the handler, is
-  dropped.
+  dropped;
+- a TypedDict's own `__pydantic_config__` becomes the `typed-dict` schema's `config` (never the
+  enclosing model's);
+- an enum class's docstring goes into the `enum` schema's `metadata.pydantic_js_updates`, and
+  the hook pydantic adds to repeat the title and docstring is dropped.
 
 Python callables that are left, such as custom hooks and validators, are encoded as
 `{"$function": name}`, and cases containing them are skipped.

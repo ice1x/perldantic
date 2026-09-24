@@ -125,6 +125,11 @@ sub _tagged ($tag, $payload, $in_schema) {
         return Perldantic::Duration->new(days => $days, seconds => $seconds, microseconds => $microseconds);
     }
     return $payload if $tag eq '$class' && $in_schema;
+    if ($tag eq '$enum') {
+        my ($class, $name, $value, $mixin, $str_is_value) = @$payload;
+        return Perldantic::Wire::Enum->new(
+            class => $class, name => $name, value => $walk->($value), mixin => $mixin, str_is_value => $str_is_value);
+    }
     if ($tag eq '$model') {
         my $extra = node_get($payload, 'extra');
         return Perldantic::Wire::Model->new(

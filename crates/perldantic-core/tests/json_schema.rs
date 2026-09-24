@@ -18,7 +18,9 @@ use std::path::{Path, PathBuf};
 
 use base64::Engine;
 use base64::engine::general_purpose::STANDARD;
-use perldantic_core::{Decimal, MultiHostUrl, Url, speedate, temporal, uuid};
+use perldantic_core::{
+    Decimal, EnumMember, EnumMixin, MultiHostUrl, Url, speedate, temporal, uuid,
+};
 use perldantic_core::{
     Dict, JsonSchemaError, JsonSchemaMode, JsonSchemaOptions, UnionFormat, Value,
     generate_json_schema,
@@ -113,6 +115,13 @@ fn decode_tag(tag: &str, payload: &Json) -> Result<Value, Skip> {
         }
         "decimal" => Value::Decimal(Box::new(Decimal::parse(payload.as_str().unwrap()).unwrap())),
         "uuid" => Value::Uuid(uuid::Uuid::parse_str(payload.as_str().unwrap()).unwrap()),
+        "enum" => Value::Enum(Box::new(EnumMember {
+            class: payload[0].as_str().unwrap().to_owned(),
+            name: payload[1].as_str().unwrap().to_owned(),
+            value: decode(&payload[2])?,
+            mixin: payload[3].as_str().and_then(EnumMixin::from_name),
+            str_is_value: payload[4].as_bool().unwrap(),
+        })),
         // `str(url)`: an empty path is kept empty so the text round-trips
         "url" => Value::Url(Box::new(
             Url::parse(payload.as_str().unwrap(), true).unwrap(),

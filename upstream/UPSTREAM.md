@@ -99,7 +99,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `serializers/type_serializers/deque.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/dict.rs` | `crates/perldantic-core/src/serializers/type_serializers/dict.rs` | P0 | ported |  |
 | `serializers/type_serializers/ellipsis.rs` | - | drop | dropped | Python-only type |
-| `serializers/type_serializers/enum_.rs` | `crates/perldantic-core/src/serializers/type_serializers/enum_.rs` | P1 | pending |  |
+| `serializers/type_serializers/enum_.rs` | `crates/perldantic-core/src/serializers/type_serializers/enum_.rs` | P1 | done | members are `Value::Enum` (class by name) |
 | `serializers/type_serializers/float.rs` | `crates/perldantic-core/src/serializers/type_serializers/float.rs` | P0 | ported |  |
 | `serializers/type_serializers/format.rs` | `crates/perldantic-core/src/serializers/type_serializers/format.rs` | P1 | pending |  |
 | `serializers/type_serializers/fraction.rs` | - | drop | dropped | Python-only type |
@@ -149,7 +149,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/deque.rs` | - | drop | dropped | Python-only type |
 | `validators/dict.rs` | `crates/perldantic-core/src/validators/dict.rs` | P0 | ported |  |
 | `validators/ellipsis.rs` | - | drop | dropped | Python-only type |
-| `validators/enum_.rs` | `crates/perldantic-core/src/validators/enum_.rs` | P1 | pending |  |
+| `validators/enum_.rs` | `crates/perldantic-core/src/validators/enum_.rs` | P1 | done | one validator with a sub type instead of four generic ones; the class call is a lookup by value, `missing` (`_missing_`) waits for host callbacks (00054) |
 | `validators/float.rs` | `crates/perldantic-core/src/validators/float.rs` | P0 | ported |  |
 | `validators/fraction.rs` | - | drop | dropped | Python-only type |
 | `validators/frozendict.rs` | - | drop | dropped | Python-only type |
@@ -163,7 +163,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/json_or_python.rs` | - | drop | dropped | Python-only type |
 | `validators/lax_or_strict.rs` | `crates/perldantic-core/src/validators/lax_or_strict.rs` | P0 | ported |  |
 | `validators/list.rs` | `crates/perldantic-core/src/validators/list.rs` | P0 | ported |  |
-| `validators/literal.rs` | `crates/perldantic-core/src/validators/literal.rs` | P0 | partial | hash lookups replaced by Python-equality tables (`Value::py_eq`); enum lookups come with `enum` |
+| `validators/literal.rs` | `crates/perldantic-core/src/validators/literal.rs` | P0 | done | hash lookups replaced by Python-equality tables (`Value::py_eq`) |
 | `validators/missing_sentinel.rs` | - | drop | dropped | Python-only type |
 | `validators/mod.rs` | `crates/perldantic-core/src/validators/mod.rs` | P0 | partial | `SchemaValidator` (new, validate_value, validate_json), `Extra`, build dispatch, `Validator`/`BuildValidator`; more methods as validators need them |
 | `validators/model.rs` | `crates/perldantic-core/src/validators/model.rs` | P0 | partial | `cls` is a class name and instances are `Value::Model` (DIVERGENCES #13); `post_init`, `custom_init` and `self_instance` wait for host callbacks; assignment comes with the Perl model API |

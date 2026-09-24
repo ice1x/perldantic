@@ -104,6 +104,8 @@ sub plain ($value) {
     return "Math::BigFloat:" . $value->bstr if $class eq 'Math::BigFloat';
     return ref($value) . ':' . $value->iso if $class && $value->isa('Perldantic::Temporal');
     return "$class:$value" if $class eq 'Perldantic::Uuid' || $class eq 'Perldantic::Url' || $class eq 'Perldantic::MultiHostUrl';
+    # members are singletons: the class and name identify one
+    return "enum:" . $value->class . '.' . $value->name if $class eq 'Perldantic::Wire::Enum';
     if ($class eq 'Perldantic::Wire::Model') {
         return Perldantic::Wire::Model->new(
             class      => $value->class,

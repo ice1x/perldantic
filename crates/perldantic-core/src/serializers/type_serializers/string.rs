@@ -8,7 +8,7 @@ use serde::Serializer;
 use crate::core_error::CoreResult;
 use crate::definitions::DefinitionsBuilder;
 use crate::serializers::errors::SerResult;
-use crate::serializers::extra::SerializationState;
+use crate::serializers::extra::{SerMode, SerializationState};
 use crate::serializers::infer::{infer_json_key, infer_serialize, infer_to_python};
 use crate::serializers::ob_type::{IsType, ObType, is_type};
 use crate::serializers::shared::{BuildSerializer, CombinedSerializer, TypeSerializer};
@@ -38,10 +38,22 @@ impl BuildSerializer for StrSerializer {
     }
 }
 
+/// The text of a `str`, or of a `str` subclass instance (a `StrEnum` member).
+fn as_str(value: &Value) -> Option<&str> {
+    match value.mixin_value().unwrap_or(value) {
+        Value::Str(s) => Some(s),
+        _ => None,
+    }
+}
+
 impl TypeSerializer for StrSerializer {
     fn to_python(&self, value: &Value, state: &mut SerializationState) -> SerResult<Value> {
         match is_type(value, ObType::Str) {
-            IsType::Exact | IsType::Subclass => Ok(value.clone()),
+            IsType::Exact => Ok(value.clone()),
+            IsType::Subclass => match state.extra.mode {
+                SerMode::Json => Ok(as_str(value).map_or_else(|| value.clone(), Value::from)),
+                _ => Ok(value.clone()),
+            },
             IsType::False => {
                 state.warn_fallback_py(self.get_name(), value)?;
                 infer_to_python(value, state)
@@ -54,7 +66,7 @@ impl TypeSerializer for StrSerializer {
         key: &'a Value,
         state: &mut SerializationState,
     ) -> SerResult<Cow<'a, str>> {
-        if let Value::Str(s) = key {
+        if let Some(s) = as_str(key) {
             Ok(Cow::Borrowed(s))
         } else {
             state.warn_fallback_py(self.get_name(), key)?;
@@ -68,7 +80,7 @@ impl TypeSerializer for StrSerializer {
         serializer: S,
         state: &mut SerializationState,
     ) -> Result<S::Ok, S::Error> {
-        if let Value::Str(s) = value {
+        if let Some(s) = as_str(value) {
             serializer.serialize_str(s)
         } else {
             state.warn_fallback_ser::<S>(self.get_name(), value)?;

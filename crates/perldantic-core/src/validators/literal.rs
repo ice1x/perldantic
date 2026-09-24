@@ -193,6 +193,52 @@ impl<T: Debug> LiteralLookup<T> {
         }
         Ok(None)
     }
+
+    /// Used by int enums
+    pub fn validate_int<I: Input + ?Sized>(
+        &self,
+        input: &I,
+        strict: bool,
+    ) -> ValResult<Option<&T>> {
+        if let Some(expected_ints) = &self.expected_int
+            && let Ok(either_int) = input.validate_int(strict)
+            && let Some(id) = expected_ints.get(&either_int.into_inner().into_i64()?)
+        {
+            return Ok(Some(&self.values[*id]));
+        }
+        Ok(None)
+    }
+
+    /// Used by str enums
+    pub fn validate_str<I: Input + ?Sized>(
+        &self,
+        input: &I,
+        strict: bool,
+    ) -> ValResult<Option<&T>> {
+        if let Some(expected_strings) = &self.expected_str
+            && let Ok(either_str) = input.validate_str(strict, false)
+            && let Some(id) = expected_strings.get(either_str.into_inner().as_cow().as_ref())
+        {
+            return Ok(Some(&self.values[*id]));
+        }
+        Ok(None)
+    }
+
+    /// Used by float enums
+    pub fn validate_float<I: Input + ?Sized>(
+        &self,
+        input: &I,
+        strict: bool,
+    ) -> ValResult<Option<&T>> {
+        if let Some(expected_py) = &self.expected_py_dict
+            && let Ok(either_float) = input.validate_float(strict)
+            && let Some(id) =
+                expected_py.get_item(&Value::Float(either_float.into_inner().as_f64()))
+        {
+            return Ok(Some(&self.values[id]));
+        }
+        Ok(None)
+    }
 }
 
 #[derive(Debug, Clone)]

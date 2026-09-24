@@ -26,7 +26,7 @@ from typing import Any
 
 import pytest
 
-from conformance.encoding import encode
+from conformance.encoding import encode, with_enum_class_data
 
 _ADDRESS = re.compile(r' at 0x[0-9a-fA-F]+')
 
@@ -70,7 +70,7 @@ def _record(schema: Any, config: Any, mode: str, input_value: Any, options: dict
         return
     case = {
         'test': _current_test,
-        'schema': _safe_encode(schema),
+        'schema': _safe_encode(with_enum_class_data(schema)),
         'config': _safe_encode(config),
         'mode': mode,
         'input': input_value,

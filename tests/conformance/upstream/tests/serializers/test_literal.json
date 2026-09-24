@@ -208,7 +208,10 @@
           {
            "$enum": [
             "SomeEnum",
-            "dog"
+            "DOG",
+            "dog",
+            "str",
+            false
            ]
           },
           {
@@ -229,7 +232,10 @@
                  {
                   "$enum": [
                    "SomeEnum",
-                   "dog"
+                   "DOG",
+                   "dog",
+                   "str",
+                   false
                   ]
                  }
                 ]
@@ -237,7 +243,10 @@
                "default": {
                 "$enum": [
                  "SomeEnum",
-                 "dog"
+                 "DOG",
+                 "dog",
+                 "str",
+                 false
                 ]
                }
               }
@@ -257,7 +266,10 @@
           {
            "$enum": [
             "SomeEnum",
-            "cat"
+            "CAT",
+            "cat",
+            "str",
+            false
            ]
           },
           {
@@ -278,7 +290,10 @@
                  {
                   "$enum": [
                    "SomeEnum",
-                   "cat"
+                   "CAT",
+                   "cat",
+                   "str",
+                   false
                   ]
                  }
                 ]
@@ -286,7 +301,10 @@
                "default": {
                 "$enum": [
                  "SomeEnum",
-                 "cat"
+                 "CAT",
+                 "cat",
+                 "str",
+                 false
                 ]
                }
               }

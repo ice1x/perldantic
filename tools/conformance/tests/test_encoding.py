@@ -13,7 +13,7 @@ from pydantic_core import MultiHostUrl, Url
 from hypothesis import given
 from hypothesis import strategies as st
 
-from conformance.encoding import UnsupportedValue, decode, encode
+from conformance.encoding import UnsupportedValue, decode, encode, with_enum_class_data
 
 Faker.seed(20260923)
 fake = Faker()
@@ -99,14 +99,55 @@ def test_opaque_python_objects_are_described_not_decoded():
     def validator(value):
         return value
 
-    assert encode(Color.RED) == {'$enum': ['Color', 1]}
+    assert encode(Color.RED) == {'$enum': ['Color', 'RED', 1, None, False]}
     assert encode(Color) == {'$class': 'Color'}
     assert encode(validator) == {'$function': 'validator'}
     assert encode(ValueError('boom')) == {'$exception': ['ValueError', 'boom']}
     assert encode(object()) == {'$object': 'object'}
-    for wire in ({'$enum': ['Color', 1]}, {'$function': 'f'}, {'$object': 'object'}):
+    for wire in ({'$enum': ['Color', 'RED', 1, None, False]}, {'$function': 'f'}, {'$object': 'object'}):
         with pytest.raises(UnsupportedValue):
             decode(wire)
+
+
+def test_enum_members_keep_their_name_and_value_type():
+    name = fake.word().upper()
+    Plain = enum.Enum('Plain', {name: fake.pyint()})
+    Number = enum.IntEnum('Number', {name: 3})
+    Text = enum.StrEnum('Text', {name: 'x'})
+    Mixed = enum.Enum('Mixed', {name: 'y'}, type=str)
+    Real = enum.Enum('Real', {name: 1.5}, type=float)
+    Raw = enum.Enum('Raw', {name: b'z'}, type=bytes)
+
+    member = Plain[name]
+    assert encode(member) == {'$enum': ['Plain', name, member.value, None, False]}
+    assert encode(Number[name]) == {'$enum': ['Number', name, 3, 'int', True]}
+    assert encode(Text[name]) == {'$enum': ['Text', name, 'x', 'str', True]}
+    assert encode(Mixed[name]) == {'$enum': ['Mixed', name, 'y', 'str', False]}
+    assert encode(Real[name]) == {'$enum': ['Real', name, 1.5, 'float', False]}
+    assert encode(Raw[name]) == {'$enum': ['Raw', name, {'$bytes': 'eg=='}, 'bytes', False]}
+
+
+def test_enum_schemas_get_the_class_data():
+    from pydantic_core import core_schema
+
+    class Plain(enum.Enum):
+        A = 1
+
+    class Lenient(enum.Enum):
+        A = 1
+
+        @classmethod
+        def _missing_(cls, value):
+            return cls.A
+
+    plain = core_schema.enum_schema(Plain, list(Plain))
+    lenient = core_schema.list_schema(core_schema.enum_schema(Lenient, list(Lenient)))
+    assert with_enum_class_data(plain) == {**plain, 'cls_repr': Plain.__qualname__}
+    assert '<locals>' in Plain.__qualname__
+    marked = with_enum_class_data(lenient)
+    assert marked['items_schema']['missing'] == Lenient._missing_
+    assert marked['items_schema']['cls_repr'] == Lenient.__qualname__
+    assert 'missing' not in lenient['items_schema'], 'the schema itself is left alone'
 
 
 def test_model_instances_keep_fields_and_fields_set():

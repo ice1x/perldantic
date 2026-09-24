@@ -58,7 +58,7 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
 - [ ] 00050 — P1 types & callbacks
   - [x] 00051 — `Date`, `Time`, `DateTime`, `Duration` (core: `date`, `time`, `datetime`, `timedelta`; speedate; Time::Moment / DateTime)
   - [x] 00052 — `Decimal` (Math::BigFloat), `Uuid`, `Url` (core: `decimal`, `uuid`, `url` / `multi-host-url`)
-  - [ ] 00053 — `Enum[]`, unique arrays, chains, `Json`, `Dict[]` (core: `enum`, `set`, `frozenset`, `chain`, `json`, `typed-dict`)
+  - [x] 00053 — `Enum[]`, unique arrays, chains, `Json`, `Dict[]` (core: `enum`, `set`, `frozenset`, `chain`, `json`, `typed-dict`)
   - [ ] 00054 — `function-before/after/wrap/plain` via `HostCallback`
   - [ ] 00055 — Perl `validator`, `model_validator`, `field_serializer`, `computed_field`
   - [ ] 00056 — `InstanceOf[]` and Type::Tiny interop
@@ -82,5 +82,6 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [ ] 00073 — Moo/Moose integration
   - [ ] 00074 — Prebuilt binaries / Alien dist
   - [ ] 00075 — Automated upstream sync
+  - [ ] 00079 — Perl enum classes: declare enum members in a Perl package and validate them with the core `enum` schema (the core and the wire already carry enum members)
 
 MIT — see [LICENSE](LICENSE) and `NOTICE`.

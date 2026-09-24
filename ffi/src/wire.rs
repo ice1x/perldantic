@@ -14,14 +14,18 @@
 //! - `{"$decimal": "1.50"}`, Python's `str` of the decimal;
 //! - `{"$url": "https://example.com/"}` and `{"$multi_host_url": "redis://h1,h2/0"}`, by their
 //!   text (read back keeping an empty path empty, so the text round-trips);
-//! - `{"$model": {"class", "fields", "fields_set", "extra"}}` for model instances.
+//! - `{"$model": {"class", "fields", "fields_set", "extra"}}` for model instances;
+//! - `{"$enum": {"class", "name", "value", "mixin", "str_is_value"}}` for enum members
+//!   (`mixin`, the builtin type an `IntEnum` or `StrEnum` member also is, and `str_is_value`
+//!   may be left out).
 
 use std::fmt::Write as _;
 
 use base64::Engine;
 use base64::engine::general_purpose::STANDARD;
 use perldantic_core::{
-    CoreError, CoreResult, Decimal, Dict, Model, MultiHostUrl, Url, Value, speedate, temporal, uuid,
+    CoreError, CoreResult, Decimal, Dict, EnumMember, EnumMixin, Model, MultiHostUrl, Url, Value,
+    speedate, temporal, uuid,
 };
 
 /// Parse wire JSON into a value.
@@ -109,6 +113,7 @@ fn decode_tag(tag: &str, payload: Value) -> CoreResult<Value> {
             )
         }
         "model" => decode_model(payload)?,
+        "enum" => decode_enum(payload)?,
         "date" => Value::Date(parse_temporal(
             &payload,
             "$date",
@@ -193,6 +198,47 @@ fn decode_timedelta(payload: &Value) -> CoreResult<Value> {
         }
         _ => Err(invalid(WHAT, payload)),
     }
+}
+
+fn decode_enum(payload: Value) -> CoreResult<Value> {
+    let Value::Dict(mut member) = payload else {
+        return Err(invalid("$enum takes an object", &payload));
+    };
+    let given = member.clone();
+    let (Some(Value::Str(class)), Some(Value::Str(name)), Some(value)) = (
+        member.remove_str("class"),
+        member.remove_str("name"),
+        member.remove_str("value"),
+    ) else {
+        return Err(invalid(
+            "$enum needs `class`, `name` and `value`",
+            &Value::Dict(given),
+        ));
+    };
+    let mixin = match member.remove_str("mixin") {
+        None | Some(Value::None) => None,
+        Some(Value::Str(name)) if EnumMixin::from_name(&name).is_some() => {
+            EnumMixin::from_name(&name)
+        }
+        Some(other) => {
+            return Err(invalid(
+                "$enum `mixin` takes \"int\", \"str\", \"float\" or \"bytes\"",
+                &other,
+            ));
+        }
+    };
+    let str_is_value = match member.remove_str("str_is_value") {
+        None | Some(Value::None) => false,
+        Some(Value::Bool(b)) => b,
+        Some(other) => return Err(invalid("$enum `str_is_value` takes a boolean", &other)),
+    };
+    Ok(Value::Enum(Box::new(EnumMember {
+        class,
+        name,
+        value: untag(value)?,
+        mixin,
+        str_is_value,
+    })))
 }
 
 fn decode_model(payload: Value) -> CoreResult<Value> {
@@ -353,6 +399,22 @@ fn write_value(value: &Value, out: &mut String) {
             }
             out.push('}');
         }),
+        Value::Enum(member) => write_tagged("enum", out, |out| {
+            out.push_str("{\"class\":");
+            write_str(&member.class, out);
+            out.push_str(",\"name\":");
+            write_str(&member.name, out);
+            out.push_str(",\"value\":");
+            write_value(&member.value, out);
+            if let Some(mixin) = member.mixin {
+                out.push_str(",\"mixin\":");
+                write_str(mixin.name(), out);
+            }
+            if member.str_is_value {
+                out.push_str(",\"str_is_value\":true");
+            }
+            out.push('}');
+        }),
     }
 }
 
@@ -453,6 +515,42 @@ mod tests {
         assert_eq!(
             decode(r#"{"$uuid": "nope"}"#).unwrap_err().to_string(),
             "Invalid wire value: $uuid takes UUID text, got 'nope'"
+        );
+    }
+
+    #[test]
+    fn enum_members_carry_class_name_and_value() {
+        let member = |value: Value, mixin, str_is_value| {
+            Value::Enum(Box::new(EnumMember {
+                class: "Color".into(),
+                name: "RED".into(),
+                value,
+                mixin,
+                str_is_value,
+            }))
+        };
+        let plain = member(Value::Int(1), None, false);
+        let json = r#"{"$enum":{"class":"Color","name":"RED","value":1}}"#;
+        assert_eq!(encode(&plain), json);
+        assert_eq!(decode(json).unwrap(), plain);
+        let int_enum = member(Value::Int(1), Some(EnumMixin::Int), true);
+        let json = r#"{"$enum":{"class":"Color","name":"RED","value":1,"mixin":"int","str_is_value":true}}"#;
+        assert_eq!(encode(&int_enum), json);
+        assert_eq!(decode(json).unwrap(), int_enum);
+        // values are wire values themselves
+        let tuple = member(Value::Tuple(vec![Value::Int(1)]), None, false);
+        assert_eq!(decode(&encode(&tuple)).unwrap(), tuple);
+        assert_eq!(
+            decode(r#"{"$enum": {"class": "Color"}}"#)
+                .unwrap_err()
+                .to_string(),
+            "Invalid wire value: $enum needs `class`, `name` and `value`, got {'class': 'Color'}"
+        );
+        assert_eq!(
+            decode(r#"{"$enum": {"class": "C", "name": "A", "value": 1, "mixin": "list"}}"#)
+                .unwrap_err()
+                .to_string(),
+            "Invalid wire value: $enum `mixin` takes \"int\", \"str\", \"float\" or \"bytes\", got 'list'"
         );
     }
 
