@@ -735,7 +735,7 @@ sub _inflate ($value, $args = undef) {
         my $temporal = $plan->{temporal};
         my $self = bless {
             map {
-                my $field = _inflate($fields->{$_});
+                my $field = ref $fields->{$_} ? _inflate($fields->{$_}) : $fields->{$_};
                 ($_ => $temporal eq 'Perldantic' ? $field : Perldantic::Temporal::_convert_deep($field, $temporal));
             } keys %$fields
         }, $class;
@@ -759,8 +759,8 @@ sub _inflate ($value, $args = undef) {
         }
         return $self;
     }
-    return [map { _inflate($_) } @$value] if $ref eq 'ARRAY';
-    return {map { $_ => _inflate($value->{$_}) } keys %$value} if $ref eq 'HASH';
+    return [map { ref $_ ? _inflate($_) : $_ } @$value] if $ref eq 'ARRAY';
+    return {map { $_ => (ref $value->{$_} ? _inflate($value->{$_}) : $value->{$_}) } keys %$value} if $ref eq 'HASH';
     return $value;
 }
 
@@ -864,9 +864,7 @@ sub model_copy ($self, %options) {
 # gives, without building it).
 sub _wire_json ($self) {
     my $plan = _plan(ref $self);
-    my $fields = join ',',
-        map { exists $self->{$_} ? Perldantic::Wire::_string($_) . ':' . Perldantic::Wire::_emit_any($self->{$_}) : () }
-        @{$plan->{names}};
+    my $fields = Perldantic::Wire::_object_any([map { exists $self->{$_} ? ($_ => $self->{$_}) : () } @{$plan->{names}}]);
     my @set = sort keys %{$STATE{$self}{fields_set} // {}};
     if ($TRACK_OBJECTS && ($DUMPING || !$plan->{revalidate})) {
         my $token = Scalar::Util::refaddr($self);
@@ -875,8 +873,8 @@ sub _wire_json ($self) {
     }
     return '{"$model":{"class":' . Perldantic::Wire::_string(ref $self)
         . ',"extra":' . Perldantic::Wire::_emit_any($STATE{$self}{extra})
-        . ',"fields":{' . $fields . '}'
-        . ',"fields_set":[' . join(',', map { Perldantic::Wire::_string($_) } @set) . ']}}';
+        . ',"fields":' . $fields
+        . ',"fields_set":' . Perldantic::Wire::_emit_any(\@set) . '}}';
 }
 
 sub _perldantic_wire ($self) {
