@@ -28,7 +28,8 @@ pub use errors::{
     ToErrorValue, ValError, ValLineError, ValResult, ValidationError,
 };
 pub use host::{
-    Function, HostCall, HostError, HostException, HostFunction, ValidationInfo, ValidatorHandler,
+    Function, HostCall, HostError, HostException, HostFunction, SerializationInfo,
+    SerializerHandler, ValidationInfo, ValidatorHandler,
 };
 pub use input::InputType;
 pub use jiter::PartialMode;

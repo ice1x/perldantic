@@ -8,6 +8,8 @@ pub(crate) mod definitions;
 pub(crate) mod dict;
 pub(crate) mod enum_;
 pub(crate) mod float;
+pub(crate) mod format;
+pub(crate) mod function;
 pub(crate) mod json;
 pub(crate) mod list;
 pub(crate) mod literal;

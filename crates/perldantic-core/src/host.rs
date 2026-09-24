@@ -1,6 +1,6 @@
 //! Functions of the host language, called from inside the core: the Python callables of
-//! upstream `function-*` schemas (validators now; serializers, default factories and hooks with
-//! the tasks that need them).
+//! upstream `function-*` schemas and serializer functions (default factories and hooks come
+//! with the tasks that need them).
 //!
 //! A schema holds a function as a [`Value::Function`]. The core calls it with a [`HostCall`]
 //! describing the arguments and gets back a value or a [`HostError`], which stands for what the
@@ -68,6 +68,21 @@ pub enum HostCall<'a> {
         handler: &'a mut dyn ValidatorHandler,
         info: Option<ValidationInfo>,
     },
+    /// A plain serializer function: `f([model, ]value[, info])`; `model` is given to field
+    /// serializers.
+    Serialize {
+        value: Value,
+        model: Option<Value>,
+        info: Option<SerializationInfo>,
+    },
+    /// A wrap serializer function: `f([model, ]value, handler[, info])`; the handler runs the
+    /// wrapped serializer.
+    SerializeWrap {
+        value: Value,
+        model: Option<Value>,
+        handler: &'a mut dyn SerializerHandler,
+        info: Option<SerializationInfo>,
+    },
 }
 
 /// What upstream passes to validator functions that take `info` (`ValidationInfo`).
@@ -83,6 +98,34 @@ pub struct ValidationInfo {
     pub field_name: Option<String>,
     /// `python` or `json`, as the input was given (upstream's `mode`).
     pub mode: InputType,
+}
+
+/// What upstream passes to serializer functions that take `info` (`SerializationInfo`).
+#[derive(Debug, Clone, PartialEq)]
+#[allow(clippy::struct_excessive_bools)]
+pub struct SerializationInfo {
+    pub include: Option<Value>,
+    pub exclude: Option<Value>,
+    pub context: Option<Value>,
+    /// `python`, `json` or another mode name given to `to_python`.
+    pub mode: crate::serializers::SerMode,
+    pub by_alias: Option<bool>,
+    pub exclude_unset: bool,
+    pub exclude_defaults: bool,
+    pub exclude_none: bool,
+    pub exclude_computed_fields: bool,
+    pub round_trip: bool,
+    pub serialize_as_any: bool,
+    /// The field being serialized, for field serializers.
+    pub field_name: Option<String>,
+}
+
+/// The `handler` of a wrap serializer: serializes a value with the wrapped schema (always to
+/// Python values, as upstream's `SerializationCallable`).
+pub trait SerializerHandler {
+    /// Serialize `value`. With `index_key` (a list index or dict key), `include` / `exclude`
+    /// apply to that position, and a value they filter out raises `HostError::Omit`.
+    fn serialize(&mut self, value: Value, index_key: Option<Value>) -> Result<Value, HostError>;
 }
 
 /// The `handler` of a wrap validator: validates a value with the wrapped schema.
@@ -118,6 +161,9 @@ pub enum HostError {
     UseDefault,
     /// A failure of the core itself inside the call (e.g. a schema error in the handler).
     Core(CoreError),
+    /// A serialization error (`PydanticSerializationError`,
+    /// `PydanticSerializationUnexpectedValue`), e.g. from a wrap serializer's handler.
+    Serialization(crate::serializers::SerializeError),
     /// Any other exception: it aborts validation and reaches the caller unchanged.
     Other(HostException),
 }
@@ -199,6 +245,48 @@ impl HostError {
             Self::UseDefault => ValError::UseDefault,
             Self::Core(error) => ValError::InternalErr(error),
             Self::Other(exception) => ValError::InternalErr(CoreError::Host(exception)),
+            Self::Serialization(error) => ValError::InternalErr(match error {
+                crate::serializers::SerializeError::Core(error) => error,
+                other => CoreError::Value(other.py_display()),
+            }),
+        }
+    }
+}
+
+/// Python's `str()` of the raised exception with its class, as `{err}` shows a `PyErr`.
+impl fmt::Display for HostError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::Value(message) => write!(f, "ValueError: {message}"),
+            Self::Assertion(message) => write!(f, "AssertionError: {message}"),
+            Self::Custom {
+                error_type,
+                message_template,
+                context,
+            } => {
+                let error =
+                    ErrorType::new_custom_error(error_type, message_template, context.clone());
+                write!(
+                    f,
+                    "PydanticCustomError: {}",
+                    error
+                        .render_message(InputType::Python)
+                        .unwrap_or_else(|_| message_template.clone())
+                )
+            }
+            Self::Known(error_type) => write!(
+                f,
+                "PydanticKnownError: {}",
+                error_type
+                    .render_message(InputType::Python)
+                    .unwrap_or_default()
+            ),
+            Self::Validation(error) => write!(f, "ValidationError: {error}"),
+            Self::Omit => f.write_str("PydanticOmit: PydanticOmit()"),
+            Self::UseDefault => f.write_str("PydanticUseDefault: PydanticUseDefault()"),
+            Self::Core(error) => write!(f, "{}: {error}", error.kind().python_name()),
+            Self::Serialization(error) => f.write_str(&error.py_display()),
+            Self::Other(exception) => f.write_str(exception.message()),
         }
     }
 }

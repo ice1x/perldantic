@@ -68,6 +68,22 @@ impl SerializationState {
         }
     }
 
+    /// A state for serializing on behalf of a host function (a wrap serializer's handler):
+    /// the same settings and position, with warnings of its own.
+    pub fn fork(&self) -> Self {
+        Self {
+            warnings: CollectWarnings::new(self.warnings.mode),
+            rec_guard: self.rec_guard.clone(),
+            config: self.config,
+            model: self.model.clone(),
+            unset_fields: None,
+            field_name: self.field_name.clone(),
+            check: self.check,
+            include_exclude: self.include_exclude.clone(),
+            extra: self.extra.clone(),
+        }
+    }
+
     /// Guard against serializing the same host value with the same serializer again, which
     /// upstream detects for cyclic Python objects.
     pub fn recursion_guard(
@@ -173,6 +189,8 @@ pub(crate) struct Extra {
     pub serialize_unknown: bool,
     pub serialize_as_any: bool,
     pub input_type: InputType,
+    /// Context passed to serializer functions.
+    pub context: Option<Value>,
 }
 
 impl Extra {
@@ -268,6 +286,11 @@ impl CollectWarnings {
             mode,
             warnings: Vec::new(),
         }
+    }
+
+    /// Take over the warnings collected by a forked state.
+    pub fn absorb(&mut self, other: CollectWarnings) {
+        self.warnings.extend(other.warnings);
     }
 
     pub fn register_warning(&mut self, warning: UnexpectedValue) {

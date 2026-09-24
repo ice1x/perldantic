@@ -33,9 +33,8 @@ use shared::{BuildSerializer, CombinedSerializer, to_json_bytes};
 
 /// Options of a serialization call (upstream `to_python` / `to_json` keyword arguments).
 ///
-/// Upstream's `round_trip`, `context`, `exclude_computed_fields` and `polymorphic_serialization`
-/// only matter for serializer functions, computed fields and model subclasses, which need host
-/// callbacks; they come with those.
+/// Upstream's `round_trip`, `exclude_computed_fields` and `polymorphic_serialization` only matter
+/// for computed fields and model subclasses; they come with those.
 #[derive(Debug, Clone, Default)]
 #[allow(clippy::struct_excessive_bools)]
 pub struct SerializeOptions {
@@ -49,6 +48,8 @@ pub struct SerializeOptions {
     pub exclude_none: bool,
     pub warnings: WarningsMode,
     pub serialize_as_any: bool,
+    /// Passed to serializer functions as `info.context`.
+    pub context: Option<Value>,
     /// Where the data comes from: `Perl` arrays stand for tuples and sets, which Perl lacks
     /// (docs/DIVERGENCES.md #19).
     pub input_type: InputType,
@@ -143,6 +144,7 @@ impl SchemaSerializer {
             serialize_unknown: false,
             serialize_as_any: options.serialize_as_any,
             input_type: options.input_type,
+            context: options.context.clone(),
         };
         SerializationState::new(
             self.config,
