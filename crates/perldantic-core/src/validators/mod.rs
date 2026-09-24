@@ -28,6 +28,7 @@ mod definitions;
 mod dict;
 mod enum_;
 mod float;
+mod function;
 mod int;
 mod json;
 mod lax_or_strict;
@@ -315,6 +316,10 @@ validators! {
     dict::DictValidator,
     enum_::EnumValidator,
     float::FloatBuilder,
+    function::FunctionAfterValidator,
+    function::FunctionBeforeValidator,
+    function::FunctionPlainValidator,
+    function::FunctionWrapValidator,
     int::IntValidator,
     json::JsonValidator,
     lax_or_strict::LaxOrStrictValidator,
@@ -376,6 +381,10 @@ pub enum CombinedValidator {
     Enum(Box<enum_::EnumValidator>),
     Float(float::FloatValidator),
     ConstrainedFloat(float::ConstrainedFloatValidator),
+    FunctionBefore(function::FunctionBeforeValidator),
+    FunctionAfter(function::FunctionAfterValidator),
+    FunctionPlain(function::FunctionPlainValidator),
+    FunctionWrap(function::FunctionWrapValidator),
     Int(int::IntValidator),
     // Boxed: much larger than most validators.
     ConstrainedInt(Box<int::ConstrainedIntValidator>),

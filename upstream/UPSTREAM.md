@@ -60,7 +60,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `errors/mod.rs` | `crates/perldantic-core/src/errors/mod.rs` | P0 | ported |  |
 | `errors/types.rs` | `crates/perldantic-core/src/errors/types.rs` | P0 | ported |  |
 | `errors/validation_exception.rs` | `crates/perldantic-core/src/errors/validation_error.rs` | P0 | ported | renamed; `PyLineError` folded into `ErrorDetails` |
-| `errors/value_exception.rs` | `crates/perldantic-core/src/errors/value_exception.rs` | P0 | partial | custom-message formatting ported into `types.rs`; exception classes belong to the host |
+| `errors/value_exception.rs` | `crates/perldantic-core/src/errors/value_exception.rs` | P0 | partial | custom-message formatting ported into `types.rs`; exception classes belong to the host, which reports `PydanticCustomError` / `PydanticKnownError` / `PydanticOmit` / `PydanticUseDefault` as `HostError` variants |
 | `input/datetime.rs` | `crates/perldantic-core/src/input/datetime.rs` | P1 | done | values are speedate types throughout (no `Either*` wrappers); Python's forms live in `src/temporal.rs` |
 | `input/input_abstract.rs` | `crates/perldantic-core/src/input/input_abstract.rs` | P0 | partial | P0 methods; more are added with their validators |
 | `input/input_json.rs` | `crates/perldantic-core/src/input/input_json.rs` | P0 | partial | P0 methods for JSON and `str` |
@@ -154,7 +154,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/fraction.rs` | - | drop | dropped | Python-only type |
 | `validators/frozendict.rs` | - | drop | dropped | Python-only type |
 | `validators/frozenset.rs` | `crates/perldantic-core/src/validators/set.rs` | P1 | done | shares `set.rs` |
-| `validators/function.rs` | `crates/perldantic-core/src/validators/function.rs` | P1 | pending |  |
+| `validators/function.rs` | `crates/perldantic-core/src/validators/function.rs` | P1 | partial | callables are host functions (`src/host.rs`: `HostFunction`, `HostError` for what they raise, `ValidationInfo`); `InternalValidator` (from `generator.rs`) is the wrap handler; assignment validation pending with `validate_assignment` |
 | `validators/generator.rs` | `crates/perldantic-core/src/validators/generator.rs` | P2 | pending |  |
 | `validators/int.rs` | `crates/perldantic-core/src/validators/int.rs` | P0 | ported |  |
 | `validators/is_instance.rs` | `crates/perldantic-core/src/validators/is_instance.rs` | P2 | pending |  |

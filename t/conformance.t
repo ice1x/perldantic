@@ -82,6 +82,9 @@ sub needs_host_callbacks ($schema) {
         my %h = @$p;
         $feature = 'post_init' if defined $h{post_init};
         $feature = 'custom_init' if $h{custom_init};
+        # a class used as a validator function is called like one
+        $feature = 'class as function'
+            if ref $h{function} eq 'Perldantic::Wire::Ordered' && tag_of([@{$h{function}}]) eq '$class';
         return defined $feature;
     });
     skip_case("host callbacks: $feature") if $feature;

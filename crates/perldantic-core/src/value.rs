@@ -58,6 +58,8 @@ pub enum Value {
     Decimal(Box<crate::decimal::Decimal>),
     /// A member of an `enum.Enum` class.
     Enum(Box<EnumMember>),
+    /// A function of the host language, e.g. a validator in a `function-*` schema.
+    Function(crate::host::Function),
 }
 
 /// The builtin type an enum class mixes in (`IntEnum`, `StrEnum`, `class E(float, Enum)`):
@@ -158,6 +160,7 @@ impl PartialEq for Value {
             (Self::MultiHostUrl(a), Self::MultiHostUrl(b)) => a == b,
             (Self::Decimal(a), Self::Decimal(b)) => a == b,
             (Self::Enum(a), Self::Enum(b)) => a == b,
+            (Self::Function(a), Self::Function(b)) => a == b,
             _ => false,
         }
     }
@@ -284,6 +287,7 @@ impl Value {
             Self::MultiHostUrl(_) => "MultiHostUrl",
             Self::Decimal(_) => "Decimal",
             Self::Enum(member) => &member.class,
+            Self::Function(_) => "function",
         }
     }
 
@@ -399,6 +403,7 @@ impl Value {
                 member.value.write_repr(out);
                 out.push('>');
             }
+            Self::Function(function) => write!(out, "<function {}>", function.name()).unwrap(),
         }
     }
 
@@ -609,6 +614,9 @@ impl Serialize for Value {
             Self::MultiHostUrl(u) => serializer.serialize_str(&u.as_str()),
             Self::Decimal(d) => serializer.serialize_str(&d.to_string()),
             Self::Enum(member) => member.value.serialize(serializer),
+            Self::Function(function) => {
+                serializer.serialize_str(&format!("<function {}>", function.name()))
+            }
             // Like `model_dump`: the fields, then the extra values.
             Self::Model(model) => {
                 let extra = model.extra.iter().flat_map(Dict::iter);

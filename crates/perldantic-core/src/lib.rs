@@ -8,6 +8,7 @@ mod core_error;
 pub mod decimal;
 pub(crate) mod definitions;
 pub mod errors;
+pub mod host;
 pub mod input;
 pub mod json_schema;
 mod lookup_key;
@@ -25,6 +26,9 @@ pub use decimal::Decimal;
 pub use errors::{
     ErrorDetails, ErrorType, ErrorTypeDefaults, ErrorsOptions, LocItem, Location, Number,
     ToErrorValue, ValError, ValLineError, ValResult, ValidationError,
+};
+pub use host::{
+    Function, HostCall, HostError, HostException, HostFunction, ValidationInfo, ValidatorHandler,
 };
 pub use input::InputType;
 pub use jiter::PartialMode;

@@ -15,6 +15,7 @@
 //! - `{"$url": "https://example.com/"}` and `{"$multi_host_url": "redis://h1,h2/0"}`, by their
 //!   text (read back keeping an empty path empty, so the text round-trips);
 //! - `{"$model": {"class", "fields", "fields_set", "extra"}}` for model instances;
+//! - `{"$function": "name"}` describes a host function (it cannot be sent back);
 //! - `{"$enum": {"class", "name", "value", "mixin", "str_is_value"}}` for enum members
 //!   (`mixin`, the builtin type an `IntEnum` or `StrEnum` member also is, and `str_is_value`
 //!   may be left out).
@@ -399,6 +400,10 @@ fn write_value(value: &Value, out: &mut String) {
             }
             out.push('}');
         }),
+        // Host functions cannot cross the wire yet (task 00054): they are described by name.
+        Value::Function(function) => write_tagged("function", out, |out| {
+            write_str(function.name(), out);
+        }),
         Value::Enum(member) => write_tagged("enum", out, |out| {
             out.push_str("{\"class\":");
             write_str(&member.class, out);
@@ -515,6 +520,32 @@ mod tests {
         assert_eq!(
             decode(r#"{"$uuid": "nope"}"#).unwrap_err().to_string(),
             "Invalid wire value: $uuid takes UUID text, got 'nope'"
+        );
+    }
+
+    #[derive(Debug)]
+    struct Named;
+
+    impl perldantic_core::HostFunction for Named {
+        fn name(&self) -> &'static str {
+            "check"
+        }
+
+        fn call(
+            &self,
+            _: perldantic_core::HostCall<'_>,
+        ) -> Result<Value, perldantic_core::HostError> {
+            Ok(Value::None)
+        }
+    }
+
+    #[test]
+    fn host_functions_are_described_by_name() {
+        let value = Value::Function(perldantic_core::Function::new(Named));
+        assert_eq!(encode(&value), r#"{"$function":"check"}"#);
+        assert_eq!(
+            decode(r#"{"$function": "check"}"#).unwrap_err().to_string(),
+            "Invalid wire value: unknown tag `$function`"
         );
     }
 
