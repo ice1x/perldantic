@@ -50,7 +50,7 @@ fn unary(
 ) -> Value {
     function(name, move |call| match call {
         HostCall::Validate { input, .. } => body(input),
-        HostCall::ValidateWrap { .. } => panic!("not a wrap validator"),
+        _ => panic!("a before, after or plain validator"),
     })
 }
 
@@ -295,7 +295,7 @@ fn wrap(
         HostCall::ValidateWrap { input, handler, .. } => handler
             .validate(input, outer_location.map(LocItem::from))
             .or_else(on_error),
-        HostCall::Validate { .. } => panic!("a wrap validator"),
+        _ => panic!("a wrap validator"),
     })
 }
 
@@ -340,7 +340,7 @@ fn wrap_validators_get_a_handler() {
                 }
             })
         }
-        HostCall::Validate { .. } => panic!("a wrap validator"),
+        _ => panic!("a wrap validator"),
     });
     let v = validator(&function_schema("function-wrap", reraise, false, int));
     assert_eq!(

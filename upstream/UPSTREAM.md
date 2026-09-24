@@ -101,10 +101,10 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `serializers/type_serializers/ellipsis.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/enum_.rs` | `crates/perldantic-core/src/serializers/type_serializers/enum_.rs` | P1 | done | members are `Value::Enum` (class by name) |
 | `serializers/type_serializers/float.rs` | `crates/perldantic-core/src/serializers/type_serializers/float.rs` | P0 | ported |  |
-| `serializers/type_serializers/format.rs` | `crates/perldantic-core/src/serializers/type_serializers/format.rs` | P1 | pending |  |
+| `serializers/type_serializers/format.rs` | `crates/perldantic-core/src/serializers/type_serializers/format.rs` | P1 | partial | `WhenUsed` only; the `format` / `to-string` serializers need Python's `format()` |
 | `serializers/type_serializers/fraction.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/frozendict.rs` | - | drop | dropped | Python-only type |
-| `serializers/type_serializers/function.rs` | `crates/perldantic-core/src/serializers/type_serializers/function.rs` | P1 | pending |  |
+| `serializers/type_serializers/function.rs` | `crates/perldantic-core/src/serializers/type_serializers/function.rs` | P1 | done | functions are host functions (`HostCall::Serialize` / `SerializeWrap`, `SerializationInfo`); the wrap handler's warnings join the caller's single warning instead of a separate `UserWarning` per call; `round_trip` and `exclude_computed_fields` are always false until their options exist |
 | `serializers/type_serializers/generator.rs` | `crates/perldantic-core/src/serializers/type_serializers/generator.rs` | P2 | pending |  |
 | `serializers/type_serializers/json.rs` | `crates/perldantic-core/src/serializers/type_serializers/json.rs` | P1 | done | `round_trip` not supported yet (not a serialize option) |
 | `serializers/type_serializers/json_or_python.rs` | - | drop | dropped | Python-only type |

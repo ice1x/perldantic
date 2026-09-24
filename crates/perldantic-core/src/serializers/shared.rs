@@ -66,6 +66,10 @@ serializers! {
     super::type_serializers::dict::DictSerializer,
     super::type_serializers::enum_::EnumSerializer,
     super::type_serializers::float::FloatSerializer,
+    super::type_serializers::function::FunctionAfterSerializerBuilder,
+    super::type_serializers::function::FunctionBeforeSerializerBuilder,
+    super::type_serializers::function::FunctionPlainSerializerBuilder,
+    super::type_serializers::function::FunctionWrapSerializerBuilder,
     super::type_serializers::json::JsonSerializer,
     super::type_serializers::list::ListSerializer,
     super::type_serializers::literal::LiteralSerializer,
@@ -118,6 +122,9 @@ pub enum CombinedSerializer {
     Dict(super::type_serializers::dict::DictSerializer),
     Enum(super::type_serializers::enum_::EnumSerializer),
     Float(super::type_serializers::float::FloatSerializer),
+    // Boxed: much larger than most serializers.
+    Function(Box<super::type_serializers::function::FunctionPlainSerializer>),
+    FunctionWrap(Box<super::type_serializers::function::FunctionWrapSerializer>),
     Int(super::type_serializers::simple::IntSerializer),
     Json(super::type_serializers::json::JsonSerializer),
     List(super::type_serializers::list::ListSerializer),
@@ -153,10 +160,20 @@ impl CombinedSerializer {
         if let Some(ser_schema) = schema.get_as::<Dict>("serialization")? {
             let op_ser_type: Option<String> = ser_schema.get_as("type")?;
             match op_ser_type.as_deref() {
-                Some("function-plain" | "function-wrap") => {
-                    return schema_err!(
-                        "`{}` serializers are not supported yet: host callbacks are not implemented",
-                        op_ser_type.unwrap_or_default()
+                Some("function-plain") => {
+                    // `FunctionPlainSerializer` is not a pure `CombinedSerializer::build` from
+                    // the serialization schema, it needs the whole schema
+                    return super::type_serializers::function::FunctionPlainSerializer::build(
+                        schema,
+                        config,
+                        definitions,
+                    );
+                }
+                Some("function-wrap") => {
+                    return super::type_serializers::function::FunctionWrapSerializer::build(
+                        schema,
+                        config,
+                        definitions,
                     );
                 }
                 Some(
