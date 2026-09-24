@@ -22,6 +22,8 @@ use Perldantic::Uuid;
 our @EXPORT_OK = qw(tuple set frozenset bytes ordered);
 
 my $JSON = Cpanel::JSON::XS->new->utf8->canonical->allow_nonref->allow_bignum->unblessed_bool;
+# The decoder of the core's JSON, set up with %UNTAG below.
+my $DECODER;
 
 # Code references travel as host functions the core calls back (Perldantic::FFI), by their id.
 # The registry is a field hash: it holds functions weakly and forgets them when they are freed.
@@ -122,10 +124,10 @@ sub _write ($data) {
 }
 
 sub decode ($json) {
-    my $data = eval { $JSON->decode($json) };
+    my $data = eval { $DECODER->decode($json) };
     Perldantic::InternalError->throw(message => "Malformed JSON from the core: $@", cause => $@)
         if !defined $data && $@;
-    return _untag($data);
+    return $data;
 }
 
 sub _cannot ($value, $why) {
@@ -233,15 +235,19 @@ sub _tag ($value) {
     _cannot("a $type reference", "$type has no wire form");
 }
 
+# Decoding the core's JSON: tagged objects are turned into Perl values by the parser itself
+# (single-key object filters), so the result needs no second walk. Integers beyond 64 bits
+# come tagged ($bigint), which spares the parser allow_bignum and its slow floats.
 my %UNTAG = (
-    tuple => sub ($items) { [map { _untag($_) } @$items] },
-    set   => sub ($items) { [map { _untag($_) } @$items] },
-    frozenset => sub ($items) { [map { _untag($_) } @$items] },
-    bytes => sub ($text)  { decode_base64($text) },
-    float => sub ($name)  { $name eq 'nan' ? 9**9**9 / 9**9**9 : $name eq 'inf' ? 9**9**9 : -9**9**9 },
-    dict  => sub ($pairs) { +{map { ((ref $_->[0] ? $JSON->encode($_->[0]) : $_->[0] // '') => _untag($_->[1])) } @$pairs} },
-    model => sub ($model) { Perldantic::Wire::Model->new(%{_untag($model)}) },
-    enum  => sub ($member) { Perldantic::Wire::Enum->new(%{_untag($member)}) },
+    tuple     => sub ($items) { $items },
+    set       => sub ($items) { $items },
+    frozenset => sub ($items) { $items },
+    bytes     => sub ($text)  { decode_base64($text) },
+    float     => sub ($name)  { $name eq 'nan' ? 9**9**9 / 9**9**9 : $name eq 'inf' ? 9**9**9 : -9**9**9 },
+    bigint    => sub ($text)  { Math::BigInt->new($text) },
+    dict      => sub ($pairs) { +{map { ((ref $_->[0] ? _key_text($_->[0]) : $_->[0] // '') => $_->[1]) } @$pairs} },
+    model     => sub ($model) { Perldantic::Wire::Model->new(%$model) },
+    enum      => sub ($member) { Perldantic::Wire::Enum->new(%$member) },
     host => sub ($host) {
         $OBJECT{$host->{id} // ''}
             // Perldantic::InternalError->throw(message => "The core returned an unknown object of class $host->{class}");
@@ -263,22 +269,13 @@ my %UNTAG = (
     },
 );
 
-sub _untag ($value) {
-    # allow_bignum keeps big integers exact, but also turns floats it cannot hold exactly into
-    # Math::BigFloat; the core's floats are f64, so they come back as plain numbers.
-    return $value->numify + 0 if blessed $value && $value->isa('Math::BigFloat');
-    my $type = reftype $value // '';
-    return [map { _untag($_) } @$value] if $type eq 'ARRAY' && !blessed $value;
-    return $value if $type ne 'HASH' || blessed $value;
-    if (keys %$value == 1) {
-        my ($key) = keys %$value;
-        if ($key =~ /^\$(.*)/s) {
-            my $untag = $UNTAG{$1}
-                // Perldantic::InternalError->throw(message => "Unknown wire tag `$key` from the core");
-            return $untag->($value->{$key});
-        }
-    }
-    return {map { $_ => _untag($value->{$_}) } keys %$value};
+$DECODER = Cpanel::JSON::XS->new->utf8->allow_nonref->unblessed_bool;
+# The filters return one value: returning an empty list would keep the object as it is.
+$DECODER->filter_json_single_key_object('$' . $_ => $UNTAG{$_}) for keys %UNTAG;
+
+# A dict key that is no string or number: its wire JSON, with sorted keys.
+sub _key_text ($key) {
+    return $JSON->encode($JSON->decode(encode($key)));
 }
 
 package Perldantic::Wire::Model {
@@ -409,10 +406,12 @@ C<Perldantic::Wire::function($id)> gives it back;
 
 =back
 
-Decoding turns tuples and sets into array references and bytes into byte strings (a dict key
-that is none of string or number is keyed by its wire JSON, and a C<null> key by the empty
-string), and returns
-native booleans and C<Math::BigInt> for big integers.
+Decoding turns tuples and sets into array references and bytes into byte strings, and returns
+native booleans and C<Math::BigInt> for integers beyond 64 bits (which the core tags,
+C<{"$bigint": "..."}>). A dict key becomes what its value decodes to when that is a string or a
+number (bytes keys are their byte strings), its wire JSON otherwise (a tuple C<(1, 2)> is keyed
+C<[1,2]>, with sorted keys in objects), and a C<null> key the empty string. Decoding is done by
+the JSON parser itself (tagged objects are single-key object filters), in one pass.
 
 A value with no wire form (a reference to a scalar or a glob) raises
 C<Perldantic::UsageError>; malformed JSON from the core raises C<Perldantic::InternalError>.

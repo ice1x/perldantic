@@ -125,9 +125,10 @@ sub plain ($value) {
 sub wire_key ($key) {
     return $key // '' if !ref $key;
     return "$key" if blessed $key && $key->isa('Math::BigInt');
-    # Wire::decode keys a non-scalar dict key by its wire JSON (sorted keys, as Cpanel re-encodes).
-    return Cpanel::JSON::XS->new->canonical->allow_nonref->encode(
-        Cpanel::JSON::XS->new->decode(Perldantic::Wire::encode($key)));
+    # The key Wire::decode gives: what the key decodes to, when that is no reference, its wire
+    # JSON otherwise.
+    my $decoded = Perldantic::Wire::decode(Perldantic::Wire::encode($key));
+    return ref $decoded ? Perldantic::Wire::_key_text($decoded) : $decoded // '';
 }
 
 sub describe ($value) {

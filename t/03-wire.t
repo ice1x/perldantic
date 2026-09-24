@@ -54,7 +54,7 @@ subtest 'wire JSON is decoded into Perl data' => sub {
     my $data = Perldantic::Wire::decode(
         '{"a":[1,2.5,"x",true,false,null],"t":{"$tuple":[1]},"s":{"$set":["a"]},'
             . '"b":{"$bytes":"aGk="},"f":{"$float":"-inf"},"d":{"$dict":[[1,"one"],["$x",2]]},'
-            . qq{"u":"caf\xc3\xa9","big":123456789012345678901234567890}
+            . qq{"u":"caf\xc3\xa9","big":{"\$bigint":"123456789012345678901234567890"}}
             . '}');
     is $data->{a}, [1, 2.5, 'x', T(), F(), undef];
     ok builtin::is_bool($data->{a}[3]), 'booleans are native Perl booleans';
@@ -63,8 +63,9 @@ subtest 'wire JSON is decoded into Perl data' => sub {
     is $data->{b}, 'hi', 'bytes become byte strings';
     is $data->{f}, -$inf;
     is $data->{d}, {1 => 'one', '$x' => 2};
-    is Perldantic::Wire::decode('{"$dict":[[{"$tuple":[1,2]},"t"]]}'), {'{"$tuple":[1,2]}' => 't'},
+    is Perldantic::Wire::decode('{"$dict":[[{"$tuple":[1,2]},"t"]]}'), {'[1,2]' => 't'},
         'a key that is not a string or number is keyed by its wire JSON';
+    is Perldantic::Wire::decode('{"$dict":[[{"$bytes":"aGk="},1]]}'), {hi => 1}, 'bytes keys by their bytes';
     is Perldantic::Wire::decode('{"$dict":[[null,1]]}'), {'' => 1}, 'a null key is the empty string';
     is $data->{u}, "caf\x{e9}", 'strings are decoded text';
     isa_ok $data->{big}, 'Math::BigInt';
