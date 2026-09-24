@@ -40,6 +40,10 @@ our $COLLECT;
 # (Perldantic::Model::_plan fills it; a declaration empties it). Only objects without state are
 # written so, and only while no call tracks objects (see Perldantic.xs, emit_model).
 our %DIRECT;
+# Model classes the native decoder builds objects of itself, with their number of fields
+# (Perldantic::Model::_plan fills it): a validated model that set every field, has no extra
+# values and carries no input-object token is blessed as it is (see Perldantic.xs, bread).
+our %BLESS;
 
 sub _function_id ($code) {
     push @FUNCTIONS, $code if $COLLECT;
