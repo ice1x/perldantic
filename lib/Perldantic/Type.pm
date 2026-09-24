@@ -106,7 +106,11 @@ sub with ($self, %constraints) {
                 if !grep { $_ eq $value } @$choices;
         }
     }
-    return (ref $self)->new(%$self, schema => {%{$self->core_schema}, %constraints});
+    my $schema = {%{$self->core_schema}, %constraints};
+    # pydantic's UUID1..UUID8 annotations name the version in the JSON Schema format
+    $schema->{metadata} = {%{$schema->{metadata} // {}}, pydantic_js_updates => {format => "uuid$constraints{version}"}}
+        if $schema->{type} eq 'uuid' && defined $constraints{version};
+    return (ref $self)->new(%$self, schema => $schema);
 }
 
 1;

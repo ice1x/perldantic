@@ -460,7 +460,8 @@ must call the L<DateTime> class as C<< DateTime::->new(...) >>, as with Types::D
 
 Core C<uuid>. It takes UUID text (hyphenated or not), 16 bytes (C<Perldantic::Wire::bytes>) and
 L<Perldantic::Uuid> objects, and validates into L<Perldantic::Uuid> values; in strict mode only
-UUID objects are accepted.
+UUID objects are accepted. C<< version => 4 >> requires that version and, as pydantic's C<UUID4>,
+shows it in the JSON Schema format (C<uuid4>).
 
 =item C<Url>, C<MultiHostUrl>
 

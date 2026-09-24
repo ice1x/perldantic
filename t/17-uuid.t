@@ -61,6 +61,8 @@ subtest 'the Uuid type' => sub {
     is $ta->dump_json($u), qq("$TEXT");
     is $ta->dump_python($u, mode => 'json'), $TEXT;
     is $ta->json_schema, {type => 'string', format => 'uuid'};
+    is Perldantic::TypeAdapter->new(Uuid->with(version => 4))->json_schema, {type => 'string', format => 'uuid4'},
+        'a version shows in the format, as for pydantic UUID4';
 
     my $e = dies { $ta->validate_python('nope') };
     isa_ok $e, 'Perldantic::ValidationError';
@@ -95,7 +97,7 @@ subtest 'models' => sub {
     isa_ok $order->id, 'Perldantic::Uuid';
     is $order->model_dump_json, qq({"id":"$id"});
     is Test::Order->model_validate_json($order->model_dump_json)->id, $order->id, 'JSON round trip';
-    is Test::Order->model_json_schema->{properties}{id}, {type => 'string', format => 'uuid', title => 'Id'};
+    is Test::Order->model_json_schema->{properties}{id}, {type => 'string', format => 'uuid4', title => 'Id'};
     my $e = dies { Test::Order->new(id => $TEXT) };
     is $e->errors->[0]{loc}, ['id'];
 };
