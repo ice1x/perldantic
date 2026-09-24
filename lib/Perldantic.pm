@@ -100,8 +100,9 @@ The field must be given. Other fields without a default may be left out and are 
 =item C<default>, C<builder>, C<lazy>
 
 A plain default value, or a code reference / builder method called with the object. As in
-pydantic, defaults are not validated. C<lazy> delays code defaults and builders until the
-field is first read.
+pydantic, defaults are not validated unless C<< validate_default => 1 >> (or the
+C<validate_default> model config) asks for it; only plain defaults can be. C<lazy> delays code
+defaults and builders until the field is first read.
 
 =item C<predicate>, C<clearer>
 
@@ -140,7 +141,7 @@ if declared in the class.
 pydantic's model config: C<title>, C<strict>, C<extra> (C<allow>, C<ignore> or C<forbid>),
 C<str_strip_whitespace>, C<str_to_lower>, C<str_to_upper>, C<str_min_length>,
 C<str_max_length>, C<validate_by_name>, C<validate_by_alias>, C<serialize_by_alias>,
-C<revalidate_instances>, C<url_preserve_empty_path> and C<json_schema_extra>; and, for the Perl
+C<revalidate_instances>, C<url_preserve_empty_path>, C<validate_default> and C<json_schema_extra>; and, for the Perl
 layer only, C<temporal_class> (see L<Perldantic::Temporal>).
 
 =head2 field_validator $name | [@names] => (mode => $mode) => sub {...}

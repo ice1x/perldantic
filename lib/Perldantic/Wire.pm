@@ -260,6 +260,8 @@ sub _decimal_text ($value) {
     return $known->[0] if $known && $known->[1] eq $value->bsstr;
     return 'NaN' if $value->is_nan;
     return $value->is_negative ? '-Infinity' : 'Infinity' if $value->is_inf;
+    # a rounded value (bfround / bround) shows its scale in bstr, as a quantized Decimal
+    return $value->bstr if defined $value->precision || defined $value->accuracy;
     return $value->bsstr;
 }
 
@@ -429,7 +431,8 @@ a naive one) and L<DateTime::Duration> objects without months as durations;
 
 =item * L<Math::BigFloat> objects are decimals, C<{"$decimal": "..."}> (decoded as such too;
 C<Math::BigInt> objects are integers). Math::BigFloat drops trailing zeros, so a decoded object
-remembers the core's text (C<2.0>) and sends it back while its value is unchanged;
+remembers the core's text (C<2.0>) and sends it back while its value is unchanged; a value
+rounded with C<bfround> or C<bround> keeps the digits it was rounded to (C<279.00>);
 
 =item * UUIDs are L<Perldantic::Uuid> values, C<{"$uuid": "..."}> (decoded as such too);
 
