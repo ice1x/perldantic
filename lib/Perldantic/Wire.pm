@@ -81,10 +81,12 @@ sub ordered (@pairs) {
 }
 
 sub encode ($value) {
-    my $tagged = _tag($value);
-    my $json   = eval { _write($tagged) };
-    Perldantic::InternalError->throw(message => "Cannot encode a value for the core: $@", cause => $@)
-        if !defined $json;
+    my $json = eval { _emit($value) };
+    if (!defined $json) {
+        my $e = $@;
+        die $e if blessed $e && $e->isa('Perldantic::Error');
+        Perldantic::InternalError->throw(message => "Cannot encode a value for the core: $e", cause => $e);
+    }
     return $json;
 }
 
@@ -96,31 +98,96 @@ my $STRING = Cpanel::JSON::XS->new->utf8->allow_nonref;
 # changes values such as 0.1 + 0.2.)
 sub _float ($value) {
     my $text;
-    for my $digits (1 .. 17) {
+    # `%g` drops trailing zeros: 15 digits give the shortest form of normal values that need
+    # fewer; subnormal ones have less precision and are tried from 1 digit
+    my $from = $value != 0 && abs($value) < 2.2250738585072014e-308 ? 1 : 15;
+    for my $digits ($from .. 17) {
         $text = sprintf "%.${digits}g", $value;
         last if $text == $value;
     }
     return $text =~ /[.eE]/ ? $text : "$text.0";
 }
 
-# Write tagged data (see _tag) as JSON: hashes with sorted keys, scalars by their Perl kind.
-sub _write ($data) {
-    return 'null' if !defined $data;
-    if (my $class = blessed $data) {
-        return $data ? 'true' : 'false'
-            if $data->isa('JSON::PP::Boolean') || $data->isa('Types::Serialiser::Boolean');
-        return $data->bstr if $data->isa('Math::BigInt');
-        die "unexpected $class object\n";
+# JSON text of a string; plain ASCII needs no escaping.
+sub _string ($text) {
+    return $text =~ /[^\x20-\x21\x23-\x5b\x5d-\x7e]/ ? $STRING->encode("$text") : qq("$text");
+}
+
+sub _list ($items) {
+    return '[' . join(',', map { _emit($_) } @$items) . ']';
+}
+
+sub _pairs (@pairs) {
+    my @entries;
+    while (my ($key, $value) = splice @pairs, 0, 2) {
+        push @entries, '[' . _emit($key) . ',' . _emit($value) . ']';
     }
-    my $type = ref $data;
-    return '[' . join(',', map { _write($_) } @$data) . ']' if $type eq 'ARRAY';
-    return '{' . join(',', map { $STRING->encode("$_") . ':' . _write($data->{$_}) } sort keys %$data) . '}'
-        if $type eq 'HASH';
-    return $data ? 'true' : 'false' if builtin::is_bool($data);
-    my $flags = B::svref_2object(\$data)->FLAGS;
-    return $STRING->encode("$data") if $flags & B::SVf_POK || !($flags & (B::SVf_IOK | B::SVf_NOK));
-    return "$data" if $flags & B::SVf_IOK;
-    return _float($data);
+    return '{"$dict":[' . join(',', @entries) . ']}';
+}
+
+sub _tagged ($tag, $json) { qq({"\$$tag":$json}) }
+
+# A dict in a given key order: a JSON object keeps it (the core reads keys in order) when all
+# keys are plain strings (not numbers or booleans, which would become strings).
+sub _ordered ($pairs) {
+    my @entries;
+    for (my $i = 0; $i < @$pairs; $i += 2) {
+        my $key = $pairs->[$i];
+        return _pairs(@$pairs)
+            if ref $key || !defined $key || builtin::is_bool($key) || builtin::created_as_number($key)
+            || $key =~ /\A\$/;
+        push @entries, _string($key) . ':' . _emit($pairs->[$i + 1]);
+    }
+    return '{' . join(',', @entries) . '}';
+}
+
+# Write a Perl value as wire JSON, in one pass: plain data as JSON (hashes with sorted keys,
+# scalars by their Perl kind), everything JSON cannot express as tagged objects.
+sub _emit ($value) {
+    my $ref = ref $value;
+    if (!$ref) {
+        return 'null' if !defined $value;
+        return $value ? 'true' : 'false' if builtin::is_bool($value);
+        return _string($value) if !builtin::created_as_number($value);
+        my $flags = B::svref_2object(\$value)->FLAGS;
+        return "$value" if $flags & B::SVf_IOK;
+        return _tagged(float => '"nan"') if $value != $value;
+        return _tagged(float => $value > 0 ? '"inf"' : '"-inf"') if $value * 0 != 0;
+        return _float($value);
+    }
+    return _list($value) if $ref eq 'ARRAY';
+    if ($ref eq 'HASH') {
+        my @keys = sort keys %$value;
+        return _pairs(map { ($_ => $value->{$_}) } @keys) if grep {/^\$/} @keys;
+        return '{' . join(',', map { _string($_) . ':' . _emit($value->{$_}) } @keys) . '}';
+    }
+    if (blessed $value) {
+        return _tagged(tuple => _list($value))                if $ref eq 'Perldantic::Wire::Tuple';
+        return _tagged(set => _list($value))                  if $ref eq 'Perldantic::Wire::Set';
+        return _tagged(frozenset => _list($value))            if $ref eq 'Perldantic::Wire::FrozenSet';
+        return _ordered($value)                               if $ref eq 'Perldantic::Wire::Ordered';
+        return _tagged(bytes => _string(encode_base64($$value, ''))) if $ref eq 'Perldantic::Wire::Bytes';
+        return _tagged(model => $value->_json)                if $ref eq 'Perldantic::Wire::Model';
+        return _tagged(enum => $value->_json)                 if $ref eq 'Perldantic::Wire::Enum';
+        return qq({"@{[$value->_wire_tag]}":) . _emit($value->_wire_payload) . '}' if $value->isa('Perldantic::Temporal');
+        return _tagged(uuid => _string($value->as_string))    if $value->isa('Perldantic::Uuid');
+        return _tagged(multi_host_url => _string($value->as_string)) if $value->isa('Perldantic::MultiHostUrl');
+        return _tagged(url => _string($value->as_string))     if $value->isa('Perldantic::Url');
+        return _string($value->as_string)                     if $value->isa('URI');
+        return _tagged(datetime => _string(_datetime_iso($value)))     if $value->isa('DateTime');
+        return _tagged(datetime => _string(_time_moment_iso($value)))  if $value->isa('Time::Moment');
+        return _emit(_duration_parts($value))                 if $value->isa('DateTime::Duration');
+        return Perldantic::Model::_wire_json($value)          if $value->isa('Perldantic::Model');
+        return _emit($value->_perldantic_wire)                if $value->can('_perldantic_wire');
+        return $value ? 'true' : 'false'
+            if $value->isa('JSON::PP::Boolean') || $value->isa('Types::Serialiser::Boolean');
+        return _tagged(decimal => _string(_decimal_text($value))) if $value->isa('Math::BigFloat');
+        return $value->bstr                                   if $value->isa('Math::BigInt');
+        return _tagged(host => _emit(_host_object($value, $ref)));
+    }
+    return _tagged(function => _emit({id => _function_id($value), name => _function_name($value)}))
+        if $ref eq 'CODE';
+    _cannot("a $ref reference", "$ref has no wire form");
 }
 
 sub decode ($json) {
@@ -132,15 +199,6 @@ sub decode ($json) {
 
 sub _cannot ($value, $why) {
     Perldantic::UsageError->throw(message => "Cannot pass $value to the core: $why");
-}
-
-# A float that is not finite; only numbers that were never strings count.
-sub _special_float ($value) {
-    my $flags = B::svref_2object(\$value)->FLAGS;
-    return undef if !($flags & B::SVf_NOK) || ($flags & B::SVf_POK);
-    return 'nan' if $value != $value;
-    return $value > 0 ? 'inf' : '-inf' if $value * 0 != 0;
-    return undef;
 }
 
 # ISO 8601 text of a DateTime object, naive when its timezone is floating.
@@ -191,48 +249,6 @@ sub _decimal ($text) {
         : Math::BigFloat->new($text);
     $DECIMAL_TEXT{$value} = [$text, $value->bsstr];
     return $value;
-}
-
-sub _tag ($value) {
-    if (!ref $value) {
-        return $value if !defined $value;
-        my $special = _special_float($value);
-        return defined $special ? {'$float' => $special} : $value;
-    }
-    if (my $class = blessed $value) {
-        return {'$tuple' => [map { _tag($_) } @$value]} if $class eq 'Perldantic::Wire::Tuple';
-        return {'$set' => [map { _tag($_) } @$value]}   if $class eq 'Perldantic::Wire::Set';
-        return {'$frozenset' => [map { _tag($_) } @$value]} if $class eq 'Perldantic::Wire::FrozenSet';
-        return {'$bytes' => encode_base64($$value, '')} if $class eq 'Perldantic::Wire::Bytes';
-        return {'$model' => $value->_wire}              if $class eq 'Perldantic::Wire::Model';
-        return {'$enum' => $value->_wire}               if $class eq 'Perldantic::Wire::Enum';
-        return {$value->_wire_tag => $value->_wire_payload} if $value->isa('Perldantic::Temporal');
-        return {'$uuid' => $value->as_string}           if $value->isa('Perldantic::Uuid');
-        return {'$multi_host_url' => $value->as_string} if $value->isa('Perldantic::MultiHostUrl');
-        return {'$url' => $value->as_string}            if $value->isa('Perldantic::Url');
-        return $value->as_string                        if $value->isa('URI');
-        return {'$datetime' => _datetime_iso($value)} if $value->isa('DateTime');
-        return {'$datetime' => _time_moment_iso($value)} if $value->isa('Time::Moment');
-        return _tag(_duration_parts($value)) if $value->isa('DateTime::Duration');
-        if ($class eq 'Perldantic::Wire::Ordered') {
-            my @pairs = @$value;
-            return {'$dict' => [map { [_tag($pairs[2 * $_]), _tag($pairs[2 * $_ + 1])] } 0 .. @pairs / 2 - 1]};
-        }
-        return _tag($value->_perldantic_wire) if $value->can('_perldantic_wire');
-        return $value if $value->isa('JSON::PP::Boolean') || $value->isa('Types::Serialiser::Boolean');
-        return {'$decimal' => _decimal_text($value)} if $value->isa('Math::BigFloat');
-        return $value if $value->isa('Math::BigInt');
-        return {'$host' => _host_object($value, $class)};
-    }
-    my $type = reftype $value;
-    return [map { _tag($_) } @$value] if $type eq 'ARRAY';
-    return {'$function' => {id => _function_id($value), name => _function_name($value)}} if $type eq 'CODE';
-    if ($type eq 'HASH') {
-        my @keys = sort keys %$value;
-        return {map { $_ => _tag($value->{$_}) } @keys} if !grep {/^\$/} @keys;
-        return {'$dict' => [map { [$_, _tag($value->{$_})] } @keys]};
-    }
-    _cannot("a $type reference", "$type has no wire form");
 }
 
 # Decoding the core's JSON: tagged objects are turned into Perl values by the parser itself
@@ -295,13 +311,11 @@ package Perldantic::Wire::Model {
     sub fields_set ($self) { $self->{fields_set} }
     sub extra ($self)      { $self->{extra} }
 
-    sub _wire ($self) {
-        return {
-            class      => $self->{class},
-            fields     => Perldantic::Wire::_tag($self->{fields}),
-            fields_set => Perldantic::Wire::_tag($self->{fields_set}),
-            extra      => Perldantic::Wire::_tag($self->{extra}),
-        };
+    sub _json ($self) {
+        return '{"class":' . Perldantic::Wire::_string($self->{class})
+            . ',"extra":' . Perldantic::Wire::_emit($self->{extra})
+            . ',"fields":' . Perldantic::Wire::_emit($self->{fields})
+            . ',"fields_set":' . Perldantic::Wire::_emit($self->{fields_set}) . '}';
     }
 }
 
@@ -323,14 +337,12 @@ package Perldantic::Wire::Enum {
     sub mixin ($self)        { $self->{mixin} }
     sub str_is_value ($self) { $self->{str_is_value} }
 
-    sub _wire ($self) {
-        return {
-            class => $self->{class},
-            name  => $self->{name},
-            value => Perldantic::Wire::_tag($self->{value}),
-            (defined $self->{mixin} ? (mixin => $self->{mixin}) : ()),
-            ($self->{str_is_value} ? (str_is_value => !!1) : ()),
-        };
+    sub _json ($self) {
+        return '{"class":' . Perldantic::Wire::_string($self->{class})
+            . (defined $self->{mixin} ? ',"mixin":' . Perldantic::Wire::_string($self->{mixin}) : '')
+            . ',"name":' . Perldantic::Wire::_string($self->{name})
+            . ($self->{str_is_value} ? ',"str_is_value":true' : '')
+            . ',"value":' . Perldantic::Wire::_emit($self->{value}) . '}';
     }
 }
 

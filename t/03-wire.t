@@ -38,8 +38,10 @@ subtest 'values JSON cannot express are tagged' => sub {
 };
 
 subtest 'ordered dicts and objects with a wire form' => sub {
-    is Perldantic::Wire::encode(ordered(b => 1, a => tuple(2))), '{"$dict":[["b",1],["a",{"$tuple":[2]}]]}',
+    is Perldantic::Wire::encode(ordered(b => 1, a => tuple(2))), '{"b":1,"a":{"$tuple":[2]}}',
         'ordered() keeps the given key order';
+    is Perldantic::Wire::encode(ordered(1 => 'x', '$y' => 2)), '{"$dict":[[1,"x"],["$y",2]]}',
+        'as pairs when keys are numbers or start with $';
     is Perldantic::Wire::encode(ordered(tuple(1), 2, 3.5, 'x')), '{"$dict":[[{"$tuple":[1]},2],[3.5,"x"]]}',
         'keys may be any value';
     package Test::WireObject { sub new { bless {}, shift } sub _perldantic_wire { Perldantic::Wire::tuple(7) } }

@@ -692,21 +692,55 @@ sub new ($class, @args) {
 
 sub does ($self, $role) { Role::Tiny::does_role($self, $role) }
 
+# What inflating objects of a class needs, worked out once per class and declaration
+# generation: its fields, their temporal class, its BUILD methods (parents first).
+my %PLAN;
+
+sub _plan ($class) {
+    my $plan = $PLAN{$class};
+    return $plan if $plan && $plan->{generation} == $GENERATION;
+    my @builds = grep {defined} map {
+        no strict 'refs';
+        *{"${_}::BUILD"}{CODE};
+    } reverse @{mro::get_linear_isa($class)};
+    my @fields = _fields($class);
+    my $config = _config($class);
+    return $PLAN{$class} = {
+        generation => $GENERATION,
+        fields     => \@fields,
+        names      => [map { $_->{name} } @fields],
+        temporal   => $config->{temporal_class} // 'Perldantic',
+        revalidate => ($config->{revalidate_instances} // 'never') eq 'always',
+        builds     => \@builds,
+    };
+}
+
 # Turn validated data from the core into objects, building nested models first.
 sub _inflate ($value, $args = undef) {
-    if (blessed $value && $value->isa('Perldantic::Wire::Model')) {
-        my $class  = $value->class;
-        my $fields = $value->fields;
-        if (my $object = _input_object($value)) {
-            return $object;
+    my $ref = ref $value or return $value;
+    if ($ref eq 'Perldantic::Wire::Model') {
+        my $class  = $value->{class};
+        my $fields = $value->{fields};
+        my $fields_set = $value->{fields_set};
+        my %set;
+        for my $name (@$fields_set) {
+            if (index($name, $TOKEN_PREFIX) == 0) {
+                my $object = _input_object($value);
+                return $object if $object;
+                next;
+            }
+            $set{$name} = 1;
         }
-        my $temporal = _config($class)->{temporal_class} // 'Perldantic';
+        my $plan = _plan($class);
+        my $temporal = $plan->{temporal};
         my $self = bless {
-            map { $_ => Perldantic::Temporal::_convert_deep(_inflate($fields->{$_}), $temporal) } keys %$fields
+            map {
+                my $field = _inflate($fields->{$_});
+                ($_ => $temporal eq 'Perldantic' ? $field : Perldantic::Temporal::_convert_deep($field, $temporal));
+            } keys %$fields
         }, $class;
-        my %set    = map { $_ => 1 } grep { !/\A\Q$TOKEN_PREFIX\E/ } @{$value->fields_set};
-        $STATE{$self} = {fields_set => \%set, extra => $value->extra};
-        for my $spec (_fields($class)) {
+        $STATE{$self} = {fields_set => \%set, extra => $value->{extra}};
+        for my $spec (@{$plan->{fields}}) {
             my $name = $spec->{name};
             if ($set{$name}) {
                 $spec->{trigger}->($self, $self->{$name}) if $spec->{trigger};
@@ -719,19 +753,19 @@ sub _inflate ($value, $args = undef) {
                 _fill_lazy($self, $spec);
             }
         }
-        _build($self, $args // {%$fields});
+        if (@{$plan->{builds}}) {
+            $args //= {%$fields};
+            $self->$_($args) for @{$plan->{builds}};
+        }
         return $self;
     }
-    return [map { _inflate($_) } @$value] if ref $value eq 'ARRAY';
-    return {map { $_ => _inflate($value->{$_}) } keys %$value} if ref $value eq 'HASH' && !blessed $value;
+    return [map { _inflate($_) } @$value] if $ref eq 'ARRAY';
+    return {map { $_ => _inflate($value->{$_}) } keys %$value} if $ref eq 'HASH';
     return $value;
 }
 
 sub _build ($self, $args) {
-    for my $class (reverse @{mro::get_linear_isa(ref $self)}) {
-        my $build = do { no strict 'refs'; *{"${class}::BUILD"}{CODE} } // next;
-        $self->$build($args);
-    }
+    $self->$_($args) for @{_plan(ref $self)->{builds}};
 }
 
 # ---- pydantic methods ---------------------------------------------------------------------
@@ -826,11 +860,31 @@ sub model_copy ($self, %options) {
     return $copy;
 }
 
+# The wire JSON of the object, written directly (what encoding _perldantic_wire's result
+# gives, without building it).
+sub _wire_json ($self) {
+    my $plan = _plan(ref $self);
+    my $fields = join ',',
+        map { exists $self->{$_} ? Perldantic::Wire::_string($_) . ':' . Perldantic::Wire::_emit($self->{$_}) : () }
+        @{$plan->{names}};
+    my @set = sort keys %{$STATE{$self}{fields_set} // {}};
+    if ($TRACK_OBJECTS && ($DUMPING || !$plan->{revalidate})) {
+        my $token = Scalar::Util::refaddr($self);
+        $INPUT_OBJECTS{$token} = $self;
+        push @set, "$TOKEN_PREFIX$token";
+    }
+    return '{"$model":{"class":' . Perldantic::Wire::_string(ref $self)
+        . ',"extra":' . Perldantic::Wire::_emit($STATE{$self}{extra})
+        . ',"fields":{' . $fields . '}'
+        . ',"fields_set":[' . join(',', map { Perldantic::Wire::_string($_) } @set) . ']}}';
+}
+
 sub _perldantic_wire ($self) {
-    my @names = map { $_->{name} } _fields(ref $self);
+    my $plan = _plan(ref $self);
+    my @names = @{$plan->{names}};
     my @token;
     # Objects the core revalidates keep only their real field names.
-    if ($TRACK_OBJECTS && ($DUMPING || (_config(ref $self)->{revalidate_instances} // 'never') ne 'always')) {
+    if ($TRACK_OBJECTS && ($DUMPING || !$plan->{revalidate})) {
         my $token = Scalar::Util::refaddr($self);
         $INPUT_OBJECTS{$token} = $self;
         @token = ("$TOKEN_PREFIX$token");
