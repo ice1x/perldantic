@@ -17,6 +17,7 @@ use crate::value::{Dict, Value};
 mod any;
 mod bool;
 mod bytes;
+mod chain;
 pub(crate) mod config;
 pub(crate) use config::TemporalUnitMode;
 mod custom_error;
@@ -27,6 +28,7 @@ mod definitions;
 mod dict;
 mod float;
 mod int;
+mod json;
 mod lax_or_strict;
 mod list;
 pub(crate) mod literal;
@@ -301,6 +303,7 @@ validators! {
     any::AnyValidator,
     bool::BoolValidator,
     bytes::BytesValidator,
+    chain::ChainValidator,
     custom_error::CustomErrorValidator,
     date::DateValidator,
     datetime::DateTimeValidator,
@@ -310,6 +313,7 @@ validators! {
     dict::DictValidator,
     float::FloatBuilder,
     int::IntValidator,
+    json::JsonValidator,
     lax_or_strict::LaxOrStrictValidator,
     list::ListValidator,
     literal::LiteralValidator,
@@ -357,6 +361,7 @@ pub enum CombinedValidator {
     Bool(bool::BoolValidator),
     Bytes(bytes::BytesValidator),
     ConstrainedBytes(bytes::BytesConstrainedValidator),
+    Chain(chain::ChainValidator),
     CustomError(custom_error::CustomErrorValidator),
     Date(date::DateValidator),
     Datetime(datetime::DateTimeValidator),
@@ -368,6 +373,7 @@ pub enum CombinedValidator {
     Int(int::IntValidator),
     // Boxed: much larger than most validators.
     ConstrainedInt(Box<int::ConstrainedIntValidator>),
+    Json(json::JsonValidator),
     LaxOrStrict(lax_or_strict::LaxOrStrictValidator),
     List(list::ListValidator),
     Literal(literal::LiteralValidator),
