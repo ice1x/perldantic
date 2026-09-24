@@ -22,6 +22,14 @@ package Leak::Node {
     sub _build_slug ($self) { lc $self->name }
 }
 
+package Leak::Checked {
+    use Perldantic;
+    has low  => (is => 'ro', isa => Int);
+    has high => (is => 'ro', isa => Int);
+    field_validator low => sub ($class, $value, $info) { $value < 0 ? die "negative\n" : $value };
+    model_validator mode => 'after', sub ($self) { die "reversed\n" if $self->low > $self->high; $self };
+}
+
 package main;
 
 my $ints = Perldantic::FFI::Validator->new({type => 'list', items_schema => {type => 'int'}});
@@ -90,6 +98,13 @@ no_leaks_ok {
     local $@;
     eval { $colors->validate(2) };
 } 'enum members';
+Leak::Checked->new(low => 1, high => 2);
+no_leaks_ok {
+    Leak::Checked->new(low => 1, high => 2);
+    local $@;
+    eval { Leak::Checked->new(low => -1, high => 2) };
+    eval { Leak::Checked->new(low => 3, high => 2) };
+} 'model and field validators';
 my $checked = Perldantic::FFI::Validator->new({
     type     => 'function-wrap',
     function => {type => 'with-info', function => sub ($value, $handler, $info) {
