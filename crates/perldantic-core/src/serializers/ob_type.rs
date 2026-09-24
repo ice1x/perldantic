@@ -68,7 +68,7 @@ pub(crate) fn get_type(value: &Value) -> ObType {
         Value::MultiHostUrl(_) => ObType::MultiHostUrl,
         Value::Decimal(_) => ObType::Decimal,
         Value::Enum(_) => ObType::Enum,
-        Value::Function(_) => ObType::Unknown,
+        Value::Function(_) | Value::Host(_) => ObType::Unknown,
     }
 }
 

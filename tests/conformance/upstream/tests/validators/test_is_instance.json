@@ -53,6 +53,10 @@
    "type": "is-instance",
    "cls": {
     "$class": "HasIsInstance"
+   },
+   "cls_repr": "HasIsInstance",
+   "instancecheck": {
+    "$function": "__instancecheck__"
    }
   },
   "config": null,
@@ -70,6 +74,10 @@
    "type": "is-instance",
    "cls": {
     "$class": "HasIsInstance"
+   },
+   "cls_repr": "HasIsInstance",
+   "instancecheck": {
+    "$function": "__instancecheck__"
    }
   },
   "config": null,
@@ -98,6 +106,10 @@
    "type": "is-instance",
    "cls": {
     "$class": "HasIsInstance"
+   },
+   "cls_repr": "HasIsInstance",
+   "instancecheck": {
+    "$function": "__instancecheck__"
    }
   },
   "config": null,
@@ -118,7 +130,8 @@
    "type": "is-instance",
    "cls": {
     "$class": "Foo"
-   }
+   },
+   "cls_repr": "Foo"
   },
   "config": null,
   "mode": "python",
@@ -139,7 +152,8 @@
    "type": "is-instance",
    "cls": {
     "$class": "Foo"
-   }
+   },
+   "cls_repr": "Foo"
   },
   "config": null,
   "mode": "python",
@@ -160,7 +174,8 @@
    "type": "is-instance",
    "cls": {
     "$class": "Foo"
-   }
+   },
+   "cls_repr": "Foo"
   },
   "config": null,
   "mode": "python",
@@ -192,7 +207,8 @@
    "type": "is-instance",
    "cls": {
     "$class": "Foo"
-   }
+   },
+   "cls_repr": "Foo"
   },
   "config": null,
   "mode": "python",
@@ -224,7 +240,8 @@
    "type": "is-instance",
    "cls": {
     "$class": "type"
-   }
+   },
+   "cls_repr": "type"
   },
   "config": null,
   "mode": "json",
@@ -260,7 +277,8 @@
     "type": "is-instance",
     "cls": {
      "$class": "type"
-    }
+    },
+    "cls_repr": "type"
    }
   },
   "config": null,
@@ -353,7 +371,8 @@
      "type": "is-instance",
      "cls": {
       "$class": "Foo"
-     }
+     },
+     "cls_repr": "Foo"
     }
    ]
   },
@@ -393,7 +412,8 @@
    "type": "is-instance",
    "cls": {
     "$class": "Foo"
-   }
+   },
+   "cls_repr": "Foo"
   },
   "config": null,
   "mode": "json",

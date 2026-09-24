@@ -15,6 +15,8 @@
 //! - `{"$url": "https://example.com/"}` and `{"$multi_host_url": "redis://h1,h2/0"}`, by their
 //!   text (read back keeping an empty path empty, so the text round-trips);
 //! - `{"$model": {"class", "fields", "fields_set", "extra"}}` for model instances;
+//! - `{"$host": {"id", "class", "isa", "repr"}}` for any other object of the host, which the
+//!   core only checks for its class and hands back;
 //! - `{"$function": {"id", "name"}}` for a function of the host, called through its callback
 //!   ([`crate::host`]); a function the host did not give is written without `id`;
 //! - `{"$enum": {"class", "name", "value", "mixin", "str_is_value"}}` for enum members
@@ -26,8 +28,8 @@ use std::fmt::Write as _;
 use base64::Engine;
 use base64::engine::general_purpose::STANDARD;
 use perldantic_core::{
-    CoreError, CoreResult, Decimal, Dict, EnumMember, EnumMixin, Function, Model, MultiHostUrl,
-    Url, Value, speedate, temporal, uuid,
+    CoreError, CoreResult, Decimal, Dict, EnumMember, EnumMixin, Function, HostObject, Model,
+    MultiHostUrl, Url, Value, speedate, temporal, uuid,
 };
 
 /// Parse wire JSON into a value.
@@ -117,6 +119,7 @@ fn decode_tag(tag: &str, payload: Value) -> CoreResult<Value> {
         "model" => decode_model(payload)?,
         "enum" => decode_enum(payload)?,
         "function" => decode_function(payload)?,
+        "host" => decode_host(payload)?,
         "date" => Value::Date(parse_temporal(
             &payload,
             "$date",
@@ -201,6 +204,39 @@ fn decode_timedelta(payload: &Value) -> CoreResult<Value> {
         }
         _ => Err(invalid(WHAT, payload)),
     }
+}
+
+/// An object of the host: `{"id", "class", "isa", "repr"}` (`isa` and `repr` may be left out).
+fn decode_host(payload: Value) -> CoreResult<Value> {
+    let Value::Dict(object) = &payload else {
+        return Err(invalid("$host takes an object", &payload));
+    };
+    let (Some(Value::Int(id)), Some(Value::Str(class))) =
+        (object.get_str("id"), object.get_str("class"))
+    else {
+        return Err(invalid("$host needs an `id` and a `class`", &payload));
+    };
+    let isa = match object.get_str("isa") {
+        None => Vec::new(),
+        Some(Value::List(classes)) => classes
+            .iter()
+            .map(|c| match c {
+                Value::Str(c) => Ok(c.clone()),
+                other => Err(invalid("$host `isa` takes class names", other)),
+            })
+            .collect::<CoreResult<_>>()?,
+        Some(other) => return Err(invalid("$host `isa` takes a list", other)),
+    };
+    let repr = match object.get_str("repr") {
+        Some(Value::Str(repr)) => repr.clone(),
+        _ => format!("<{class} object>"),
+    };
+    Ok(Value::Host(Box::new(HostObject {
+        id: id.unsigned_abs(),
+        class: class.clone(),
+        isa,
+        repr,
+    })))
 }
 
 /// A host function: `{"id", "name"}`, called through the host's callback ([`crate::host`]).
@@ -429,6 +465,20 @@ fn write_value(value: &Value, out: &mut String) {
             }
             out.push('}');
         }),
+        Value::Host(object) => write_tagged("host", out, |out| {
+            write!(out, "{{\"id\":{},\"class\":", object.id).expect("writing to a String");
+            write_str(&object.class, out);
+            out.push_str(",\"isa\":[");
+            for (i, class) in object.isa.iter().enumerate() {
+                if i > 0 {
+                    out.push(',');
+                }
+                write_str(class, out);
+            }
+            out.push_str("],\"repr\":");
+            write_str(&object.repr, out);
+            out.push('}');
+        }),
         Value::Enum(member) => write_tagged("enum", out, |out| {
             out.push_str("{\"class\":");
             write_str(&member.class, out);
@@ -562,6 +612,22 @@ mod tests {
         ) -> Result<Value, perldantic_core::HostError> {
             Ok(Value::None)
         }
+    }
+
+    #[test]
+    fn host_objects_travel_by_id() {
+        let json = r#"{"$host":{"id":5,"class":"My::Point","isa":["My::Point","My::Base"],"repr":"My::Point=HASH(0x1)"}}"#;
+        let value = decode(json).unwrap();
+        let Value::Host(object) = &value else {
+            panic!("{value:?}")
+        };
+        assert!(object.is_instance("My::Base") && !object.is_instance("Other"));
+        assert_eq!(value.repr(), "My::Point=HASH(0x1)");
+        assert_eq!(encode(&value), json);
+        assert_eq!(
+            decode(r#"{"$host": {"id": 1}}"#).unwrap_err().to_string(),
+            "Invalid wire value: $host needs an `id` and a `class`, got {'id': 1}"
+        );
     }
 
     #[test]

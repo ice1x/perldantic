@@ -157,7 +157,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/function.rs` | `crates/perldantic-core/src/validators/function.rs` | P1 | partial | callables are host functions (`src/host.rs`: `HostFunction`, `HostError` for what they raise, `ValidationInfo`); `InternalValidator` (from `generator.rs`) is the wrap handler; assignment validation pending with `validate_assignment` |
 | `validators/generator.rs` | `crates/perldantic-core/src/validators/generator.rs` | P2 | pending |  |
 | `validators/int.rs` | `crates/perldantic-core/src/validators/int.rs` | P0 | ported |  |
-| `validators/is_instance.rs` | `crates/perldantic-core/src/validators/is_instance.rs` | P2 | pending |  |
+| `validators/is_instance.rs` | `crates/perldantic-core/src/validators/is_instance.rs` | P1 | done | classes by name; host objects (`Value::Host`) carry their ancestry; a metaclass's `__instancecheck__` needs host callbacks |
 | `validators/is_subclass.rs` | - | drop | dropped | Python-only type |
 | `validators/json.rs` | `crates/perldantic-core/src/validators/json.rs` | P1 | done |  |
 | `validators/json_or_python.rs` | - | drop | dropped | Python-only type |

@@ -76,24 +76,30 @@ def _has_custom_missing(cls: Any) -> bool:
     return isinstance(cls, type) and issubclass(cls, enum.Enum) and cls._missing_.__func__ is not enum.Enum._missing_.__func__
 
 
-def with_enum_class_data(schema: Any) -> Any:
-    """A copy of a core schema with what pydantic-core reads off enum classes moved into `enum` schemas.
+def _has_custom_instancecheck(cls: Any) -> bool:
+    return isinstance(cls, type) and type(cls).__instancecheck__ is not type.__instancecheck__
 
-    Error messages name the class by `__qualname__` (recorded as `cls_repr`, which upstream
-    reads first). pydantic-core calls the class when no member matches, which runs its own
-    `_missing_` hook; ports need a host callback for that, so the hook is recorded as the
-    schema's `missing`.
+
+def with_class_data(schema: Any) -> Any:
+    """A copy of a core schema with what pydantic-core reads off classes moved into the schemas.
+
+    Error messages name `enum` and `is-instance` classes by `__qualname__` (recorded as
+    `cls_repr`, which upstream reads first). Calling Python for a class is recorded as a function
+    (so the case is skipped until host callbacks exist): an enum class's own `_missing_` hook as
+    the schema's `missing`, a metaclass's own `__instancecheck__` as `instancecheck`.
     """
     if isinstance(schema, dict):
-        copy = {k: with_enum_class_data(v) for k, v in schema.items()}
+        copy = {k: with_class_data(v) for k, v in schema.items()}
         cls = schema.get('cls')
-        if schema.get('type') == 'enum' and isinstance(cls, type):
+        if schema.get('type') in ('enum', 'is-instance') and isinstance(cls, type):
             copy.setdefault('cls_repr', cls.__qualname__)
-            if 'missing' not in schema and _has_custom_missing(cls):
-                copy['missing'] = cls._missing_
+        if schema.get('type') == 'enum' and 'missing' not in schema and _has_custom_missing(cls):
+            copy['missing'] = cls._missing_
+        if schema.get('type') == 'is-instance' and _has_custom_instancecheck(cls):
+            copy['instancecheck'] = type(cls).__instancecheck__
         return copy
     if isinstance(schema, list):
-        return [with_enum_class_data(v) for v in schema]
+        return [with_class_data(v) for v in schema]
     return schema
 
 

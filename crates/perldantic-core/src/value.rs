@@ -60,6 +60,35 @@ pub enum Value {
     Enum(Box<EnumMember>),
     /// A function of the host language, e.g. a validator in a `function-*` schema.
     Function(crate::host::Function),
+    /// An object of the host language the core does not look into (upstream: an arbitrary
+    /// Python object), e.g. a Perl object that is not a model.
+    Host(Box<HostObject>),
+}
+
+/// An object of the host: what the core needs to know about it, and the host's handle to get
+/// it back.
+#[derive(Debug, Clone)]
+pub struct HostObject {
+    /// The host's handle for the object; equal handles are the same object.
+    pub id: u64,
+    /// The object's class.
+    pub class: String,
+    /// The classes it is an instance of (its class and ancestors), for `is-instance`.
+    pub isa: Vec<String>,
+    /// How the host shows the object (upstream `repr()`).
+    pub repr: String,
+}
+
+impl PartialEq for HostObject {
+    fn eq(&self, other: &Self) -> bool {
+        self.id == other.id
+    }
+}
+
+impl HostObject {
+    pub fn is_instance(&self, class: &str) -> bool {
+        self.class == class || self.isa.iter().any(|c| c == class)
+    }
 }
 
 /// The builtin type an enum class mixes in (`IntEnum`, `StrEnum`, `class E(float, Enum)`):
@@ -161,6 +190,7 @@ impl PartialEq for Value {
             (Self::Decimal(a), Self::Decimal(b)) => a == b,
             (Self::Enum(a), Self::Enum(b)) => a == b,
             (Self::Function(a), Self::Function(b)) => a == b,
+            (Self::Host(a), Self::Host(b)) => a == b,
             _ => false,
         }
     }
@@ -288,6 +318,45 @@ impl Value {
             Self::Decimal(_) => "Decimal",
             Self::Enum(member) => &member.class,
             Self::Function(_) => "function",
+            Self::Host(object) => &object.class,
+        }
+    }
+
+    /// Whether the value is an instance of the class named `class`, as Python's `isinstance`
+    /// sees it: builtin types by their name (`bool` is an `int`, everything an `object`),
+    /// models and enum members by their class, host objects by their ancestry.
+    pub fn is_instance(&self, class: &str) -> bool {
+        if class == "object" {
+            return true;
+        }
+        match (self, class) {
+            (Self::Host(object), _) => object.is_instance(class),
+            (Self::Model(model), _) => model.class == class,
+            (Self::Enum(member), _) => {
+                member.class == class
+                    || class == "Enum"
+                    || member.mixin.is_some_and(|m| m.name() == class)
+            }
+            (Self::Bool(_), "bool" | "int")
+            | (Self::Int(_) | Self::BigInt(_), "int")
+            | (Self::Float(_), "float")
+            | (Self::Str(_), "str")
+            | (Self::Bytes(_), "bytes")
+            | (Self::List(_), "list")
+            | (Self::Tuple(_), "tuple")
+            | (Self::Dict(_), "dict")
+            | (Self::Set(_), "set")
+            | (Self::FrozenSet(_), "frozenset")
+            | (Self::None, "NoneType")
+            | (Self::Decimal(_), "Decimal")
+            | (Self::Uuid(_), "UUID")
+            | (Self::Date(_), "date")
+            | (Self::Time(_), "time")
+            | (Self::DateTime(_), "datetime" | "date")
+            | (Self::TimeDelta(_), "timedelta")
+            | (Self::Url(_), "Url")
+            | (Self::MultiHostUrl(_), "MultiHostUrl") => true,
+            _ => false,
         }
     }
 
@@ -404,6 +473,7 @@ impl Value {
                 out.push('>');
             }
             Self::Function(function) => write!(out, "<function {}>", function.name()).unwrap(),
+            Self::Host(object) => out.push_str(&object.repr),
         }
     }
 
@@ -617,6 +687,7 @@ impl Serialize for Value {
             Self::Function(function) => {
                 serializer.serialize_str(&format!("<function {}>", function.name()))
             }
+            Self::Host(object) => serializer.serialize_str(&object.repr),
             // Like `model_dump`: the fields, then the extra values.
             Self::Model(model) => {
                 let extra = model.extra.iter().flat_map(Dict::iter);

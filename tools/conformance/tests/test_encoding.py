@@ -13,7 +13,7 @@ from pydantic_core import MultiHostUrl, Url
 from hypothesis import given
 from hypothesis import strategies as st
 
-from conformance.encoding import UnsupportedValue, decode, encode, with_enum_class_data
+from conformance.encoding import UnsupportedValue, decode, encode, with_class_data
 
 Faker.seed(20260923)
 fake = Faker()
@@ -142,12 +142,32 @@ def test_enum_schemas_get_the_class_data():
 
     plain = core_schema.enum_schema(Plain, list(Plain))
     lenient = core_schema.list_schema(core_schema.enum_schema(Lenient, list(Lenient)))
-    assert with_enum_class_data(plain) == {**plain, 'cls_repr': Plain.__qualname__}
+    assert with_class_data(plain) == {**plain, 'cls_repr': Plain.__qualname__}
     assert '<locals>' in Plain.__qualname__
-    marked = with_enum_class_data(lenient)
+    marked = with_class_data(lenient)
     assert marked['items_schema']['missing'] == Lenient._missing_
     assert marked['items_schema']['cls_repr'] == Lenient.__qualname__
     assert 'missing' not in lenient['items_schema'], 'the schema itself is left alone'
+
+
+def test_is_instance_schemas_get_the_class_data():
+    from pydantic_core import core_schema
+
+    class Plain:
+        pass
+
+    class Meta(type):
+        def __instancecheck__(cls, instance):
+            return True
+
+    class Checked(metaclass=Meta):
+        pass
+
+    plain = with_class_data(core_schema.is_instance_schema(Plain))
+    assert plain['cls_repr'] == Plain.__qualname__
+    assert 'instancecheck' not in plain
+    checked = with_class_data(core_schema.is_instance_schema(Checked))
+    assert checked['instancecheck'] == Meta.__instancecheck__
 
 
 def test_model_instances_keep_fields_and_fields_set():

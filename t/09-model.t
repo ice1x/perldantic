@@ -199,7 +199,9 @@ subtest 'declaration errors are usage errors' => sub {
 subtest 'a model referring to an unknown class' => sub {
     package Test::Dangling { use Perldantic; has p => (is => 'ro', isa => 'Test::Missing') }
     my $e = dies { Test::Dangling->new(p => {}) };
-    isa_ok $e, 'Perldantic::SchemaError';
+    isa_ok $e, 'Perldantic::ValidationError';
+    is $e->errors->[0]{msg}, 'Input should be an instance of Test::Missing',
+        'a class that is not a model takes instances only';
 };
 
 done_testing;
