@@ -29,15 +29,38 @@ my $JSON = Cpanel::JSON::XS->new->utf8->canonical->allow_nonref->allow_bignum->u
 # call met for that purpose.
 Hash::Util::FieldHash::fieldhash(my %FUNCTION);
 our @FUNCTIONS;
+# Set while a schema is compiled: only then are the functions and objects met collected.
+our $COLLECT;
 
 sub _function_id ($code) {
-    push @FUNCTIONS, $code;
+    push @FUNCTIONS, $code if $COLLECT;
     weaken($FUNCTION{$code} = $code) if !exists $FUNCTION{$code};
     return Hash::Util::FieldHash::id($code);
 }
 
 # The function registered under an id, if it is still alive.
 sub function ($id) { $FUNCTION{$id} }
+
+# Objects of other classes travel as host objects the core hands back unchanged (only their
+# class matters to it), by their id; the registry works as for functions, and @OBJECTS collects
+# the objects an encode call met (a compiled schema keeps those of its defaults alive).
+Hash::Util::FieldHash::fieldhash(my %OBJECT);
+our @OBJECTS;
+
+sub _host_object ($object, $class) {
+    push @OBJECTS, $object if $COLLECT;
+    weaken($OBJECT{$object} = $object) if !exists $OBJECT{$object};
+    my $repr = eval { "$object" } // "$class object";
+    return {
+        id    => Hash::Util::FieldHash::id($object),
+        class => $class,
+        isa   => [@{mro::get_linear_isa($class)}],
+        repr  => $repr,
+    };
+}
+
+# The object registered under an id, if it is still alive.
+sub object ($id) { $OBJECT{$id} }
 
 # A function's name without its package, as pydantic shows `__name__`.
 sub _function_name ($code) {
@@ -197,7 +220,7 @@ sub _tag ($value) {
         return $value if $value->isa('JSON::PP::Boolean') || $value->isa('Types::Serialiser::Boolean');
         return {'$decimal' => _decimal_text($value)} if $value->isa('Math::BigFloat');
         return $value if $value->isa('Math::BigInt');
-        _cannot("a $class object", "$class has no wire form");
+        return {'$host' => _host_object($value, $class)};
     }
     my $type = reftype $value;
     return [map { _tag($_) } @$value] if $type eq 'ARRAY';
@@ -219,6 +242,10 @@ my %UNTAG = (
     dict  => sub ($pairs) { +{map { ((ref $_->[0] ? $JSON->encode($_->[0]) : $_->[0] // '') => _untag($_->[1])) } @$pairs} },
     model => sub ($model) { Perldantic::Wire::Model->new(%{_untag($model)}) },
     enum  => sub ($member) { Perldantic::Wire::Enum->new(%{_untag($member)}) },
+    host => sub ($host) {
+        $OBJECT{$host->{id} // ''}
+            // Perldantic::InternalError->throw(message => "The core returned an unknown object of class $host->{class}");
+    },
     function => sub ($function) {
         $FUNCTION{$function->{id} // ''}
             // Perldantic::InternalError->throw(message => "The core returned an unknown function `$function->{name}`");
@@ -370,6 +397,10 @@ remembers the core's text (C<2.0>) and sends it back while its value is unchange
 =item * URLs are L<Perldantic::Url> and L<Perldantic::MultiHostUrl> values, C<{"$url": "..."}>
 and C<{"$multi_host_url": "..."}> (decoded as such too); L<URI> objects are sent as their text;
 
+=item * any other object is a host object the core only checks the class of and hands back,
+C<{"$host": {"id", "class", "isa", "repr"}}>, and decodes back to the same object
+(C<Perldantic::Wire::object($id)>);
+
 =item * a code reference is a function the core calls back (see L<Perldantic::FFI>),
 C<{"$function": {"id": ..., "name": ...}}>; the id is the code reference's while it lives, and
 C<Perldantic::Wire::function($id)> gives it back;
@@ -383,7 +414,7 @@ that is none of string or number is keyed by its wire JSON, and a C<null> key by
 string), and returns
 native booleans and C<Math::BigInt> for big integers.
 
-A value with no wire form (a code reference, an unknown object) raises
+A value with no wire form (a reference to a scalar or a glob) raises
 C<Perldantic::UsageError>; malformed JSON from the core raises C<Perldantic::InternalError>.
 
 =cut

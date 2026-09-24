@@ -52,3 +52,24 @@ macro_rules! sub_schema_builder {
 
 sub_schema_builder!(CustomErrorBuilder, "custom-error", "schema");
 sub_schema_builder!(LaxOrStrictBuilder, "lax-or-strict", "strict_schema");
+
+/// Schemas whose values are serialized by inference.
+macro_rules! any_build_serializer {
+    ($Struct:ident, $expected_type:literal) => {
+        pub struct $Struct;
+
+        impl BuildSerializer for $Struct {
+            const EXPECTED_TYPE: &'static str = $expected_type;
+
+            fn build(
+                schema: &Dict,
+                config: Option<&Dict>,
+                definitions: &mut DefinitionsBuilder<Arc<CombinedSerializer>>,
+            ) -> CoreResult<Arc<CombinedSerializer>> {
+                super::any::AnySerializer::build(schema, config, definitions)
+            }
+        }
+    };
+}
+
+any_build_serializer!(IsInstanceBuilder, "is-instance");

@@ -28,6 +28,7 @@ WriteMakefile(
         TEST_REQUIRES => {
             'Test2::V0'       => '0.000159',
             'Test::LeakTrace' => '0.17',
+            'Type::Tiny'      => '1.012',
             'DateTime'        => '1.50',
             'Time::Moment'    => '0.44',
             'URI'             => '1.60',

@@ -78,6 +78,7 @@ serializers! {
     super::type_serializers::nullable::NullableSerializer,
     super::type_serializers::other::ChainBuilder,
     super::type_serializers::other::CustomErrorBuilder,
+    super::type_serializers::other::IsInstanceBuilder,
     super::type_serializers::other::LaxOrStrictBuilder,
     super::type_serializers::set::FrozenSetSerializer,
     super::type_serializers::set::SetSerializer,
