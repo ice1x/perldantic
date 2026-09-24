@@ -85,11 +85,13 @@ sub _temporal ($self, $value) {
 }
 
 sub dump_python ($self, $value, @options) {
-    return $self->_compiled('serializer')->to_python($value, _options('dump_python', @options));
+    my $options = _options('dump_python', @options);
+    return Perldantic::Model::_dump_tracked(sub { $self->_compiled('serializer')->to_python($value, $options) });
 }
 
 sub dump_json ($self, $value, @options) {
-    return $self->_compiled('serializer')->to_json($value, _options('dump_json', @options));
+    my $options = _options('dump_json', @options);
+    return Perldantic::Model::_dump_tracked(sub { $self->_compiled('serializer')->to_json($value, $options) });
 }
 
 sub json_schema ($self, @options) {

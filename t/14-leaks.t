@@ -30,6 +30,14 @@ package Leak::Checked {
     model_validator mode => 'after', sub ($self) { die "reversed\n" if $self->low > $self->high; $self };
 }
 
+package Leak::Shape {
+    use Perldantic;
+    has w => (is => 'ro', isa => Int);
+    has h => (is => 'ro', isa => Int);
+    field_serializer w => sub ($self, $value, $info) { $value * 2 };
+    computed_field area => (isa => Int) => sub ($self) { $self->w * $self->h };
+}
+
 package main;
 
 my $ints = Perldantic::FFI::Validator->new({type => 'list', items_schema => {type => 'int'}});
@@ -132,6 +140,12 @@ no_leaks_ok {
         {type => 'function-plain', function => {type => 'no-info', function => sub ($x) { $x + $offset }}});
     $v->validate(1);
 } 'validators with their own functions';
+my $shape = Leak::Shape->new(w => 2, h => 3);
+$shape->model_dump;
+no_leaks_ok {
+    $shape->model_dump;
+    $shape->model_dump_json;
+} 'serializers and computed fields';
 no_leaks_ok {
     my $values = $list->validate_python([1, undef, '2.5']);
     $list->dump_json($values);
