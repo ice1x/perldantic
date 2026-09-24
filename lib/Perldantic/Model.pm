@@ -26,7 +26,8 @@ our %META;
 # models its schema reaches and their parents). A declaration in a class drops exactly the
 # compiled objects built from it.
 my (%VALIDATOR, %SERIALIZER, %DEPENDS_ON);
-# Per-object state that is not a field: {fields_set => {name => 1}, extra => {...}}.
+# Per-object state that is not a field: {fields_set => {name => 1} or [names], extra => {...}}.
+# Objects built from the core keep the core's list of set names until one is changed.
 Hash::Util::FieldHash::fieldhash(my %STATE);
 
 my %HAS_OPTIONS = map { $_ => 1 } qw(
@@ -200,15 +201,43 @@ sub _install_accessors ($class, $spec) {
         if $spec->{is} eq 'rwp';
     _install($class, $spec->{predicate}, sub ($self) { exists $self->{$name} }) if $spec->{predicate};
     _install($class, $spec->{clearer}, sub ($self) {
-        delete $STATE{$self}{fields_set}{$name};
+        delete _fields_set($self)->{$name};
         delete $self->{$name};
     }) if $spec->{clearer};
 }
 
 sub _set ($self, $spec, $value) {
     $self->{$spec->{name}} = $value;
-    $STATE{$self}{fields_set}{$spec->{name}} = 1;
+    _fields_set($self)->{$spec->{name}} = 1;
     $spec->{trigger}->($self, $value) if $spec->{trigger};
+}
+
+# An object without state (the common case of one built with every field given and no extra
+# fields) has set exactly the fields it holds.
+sub _held_fields ($self) {
+    return grep { exists $self->{$_} } @{_plan(ref $self)->{names}};
+}
+
+# The names of the fields set, as a hash one may change.
+sub _fields_set ($self) {
+    my $state = $STATE{$self};
+    return ($STATE{$self} = {fields_set => {map { $_ => 1 } _held_fields($self)}})->{fields_set} if !$state;
+    my $set = $state->{fields_set};
+    return $state->{fields_set} = {map { $_ => 1 } @$set} if ref $set eq 'ARRAY';
+    return $state->{fields_set} //= {};
+}
+
+# The names of the fields set, sorted.
+sub _fields_set_names ($self) {
+    my $state = $STATE{$self} // return sort(_held_fields($self));
+    my $set = $state->{fields_set} // return ();
+    return sort(ref $set eq 'ARRAY' ? @$set : keys %$set);
+}
+
+# The extra fields, if the object has any.
+sub _extra ($self) {
+    my $state = $STATE{$self};
+    return $state ? $state->{extra} : undef;
 }
 
 sub _fill_lazy ($self, $spec) {
@@ -726,58 +755,74 @@ sub _plan ($class) {
         generation => $GENERATION,
         fields     => \@fields,
         names      => [map { $_->{name} } @fields],
+        # fields with something to do when they were given (a trigger) or not
+        triggers   => [grep { $_->{trigger} } @fields],
+        unset      => [grep { $_->{lazy} || !$_->{default} } @fields],
         temporal   => $config->{temporal_class} // 'Perldantic',
         revalidate => ($config->{revalidate_instances} // 'never') eq 'always',
         builds     => \@builds,
     };
 }
 
-# Turn validated data from the core into objects, building nested models first.
+# Turn validated data from the core into objects, building nested models first. The decoded
+# data is fresh, so it is changed in place: a model's fields hash becomes the object.
 sub _inflate ($value, $args = undef) {
     my $ref = ref $value or return $value;
     if ($ref eq 'Perldantic::Wire::Model') {
-        my $class  = $value->{class};
-        my $fields = $value->{fields};
         my $fields_set = $value->{fields_set};
-        my %set;
-        for my $name (@$fields_set) {
-            if (index($name, $TOKEN_PREFIX) == 0) {
+        if (%INPUT_OBJECTS) {
+            for my $name (@$fields_set) {
+                next if index($name, $TOKEN_PREFIX) != 0;
                 my $object = _input_object($value);
                 return $object if $object;
-                next;
-            }
-            $set{$name} = 1;
-        }
-        my $plan = _plan($class);
-        my $temporal = $plan->{temporal};
-        my $self = bless {
-            map {
-                my $field = ref $fields->{$_} ? _inflate($fields->{$_}) : $fields->{$_};
-                ($_ => $temporal eq 'Perldantic' ? $field : Perldantic::Temporal::_convert_deep($field, $temporal));
-            } keys %$fields
-        }, $class;
-        $STATE{$self} = {fields_set => \%set, extra => $value->{extra}};
-        for my $spec (@{$plan->{fields}}) {
-            my $name = $spec->{name};
-            if ($set{$name}) {
-                $spec->{trigger}->($self, $self->{$name}) if $spec->{trigger};
-                next;
-            }
-            if ($spec->{lazy} || (!$spec->{default} && !$spec->{default_code} && !$spec->{builder})) {
-                delete $self->{$name};
-            }
-            elsif (!$spec->{default}) {
-                _fill_lazy($self, $spec);
+                $fields_set = [grep { index($_, $TOKEN_PREFIX) != 0 } @$fields_set];
+                last;
             }
         }
-        if (@{$plan->{builds}}) {
-            $args //= {%$fields};
-            $self->$_($args) for @{$plan->{builds}};
+        my $class = $value->{class};
+        my $plan  = $PLAN{$class};
+        $plan = _plan($class) if !$plan || $plan->{generation} != $GENERATION;
+        my $self = $value->{fields};
+        $args //= {%$self} if @{$plan->{builds}};
+        for my $field (values %$self) {
+            $field = _inflate($field) if ref $field;
         }
+        if ($plan->{temporal} ne 'Perldantic') {
+            $_ = Perldantic::Temporal::_convert_deep($_, $plan->{temporal}) for values %$self;
+        }
+        bless $self, $class;
+
+        # Without extra fields the set names are field names: as many as there are fields means
+        # every field was given, and the object needs no state (see _held_fields).
+        my $all_set = !defined $value->{extra} && @$fields_set >= @{$plan->{fields}};
+        $STATE{$self} = {fields_set => $fields_set, extra => $value->{extra}} if !$all_set;
+        if (@{$plan->{triggers}} || (!$all_set && @{$plan->{unset}})) {
+            my %set;
+            @set{@$fields_set} = ();
+            for my $spec (@{$plan->{triggers}}) {
+                $spec->{trigger}->($self, $self->{$spec->{name}}) if exists $set{$spec->{name}};
+            }
+            for my $spec ($all_set ? () : @{$plan->{unset}}) {
+                next if exists $set{$spec->{name}};
+                if ($spec->{lazy} || (!$spec->{default_code} && !$spec->{builder})) {
+                    delete $self->{$spec->{name}};
+                }
+                else {
+                    _fill_lazy($self, $spec);
+                }
+            }
+        }
+        $self->$_($args) for @{$plan->{builds}};
         return $self;
     }
-    return [map { ref $_ ? _inflate($_) : $_ } @$value] if $ref eq 'ARRAY';
-    return {map { $_ => (ref $value->{$_} ? _inflate($value->{$_}) : $value->{$_}) } keys %$value} if $ref eq 'HASH';
+    if ($ref eq 'ARRAY') {
+        ref and $_ = _inflate($_) for @$value;
+        return $value;
+    }
+    if ($ref eq 'HASH') {
+        ref and $_ = _inflate($_) for values %$value;
+        return $value;
+    }
     return $value;
 }
 
@@ -844,12 +889,12 @@ sub model_json_schema ($class, @options) {
 
 sub model_fields_set ($self) {
     _object_method('model_fields_set', $self);
-    return sort keys %{$STATE{$self}{fields_set}};
+    return _fields_set_names($self);
 }
 
 sub model_extra ($self) {
     _object_method('model_extra', $self);
-    return $STATE{$self}{extra};
+    return _extra($self);
 }
 
 sub _deep_copy ($value) {
@@ -867,10 +912,9 @@ sub model_copy ($self, %options) {
     }
     my $copy = $options{deep} ? _deep_copy({%$self}) : {%$self};
     bless $copy, ref $self;
-    my $state = $STATE{$self};
-    my $extra = $state->{extra};
+    my $extra = _extra($self);
     $STATE{$copy} = {
-        fields_set => {%{$state->{fields_set}}},
+        fields_set => {map { $_ => 1 } _fields_set_names($self)},
         extra      => defined $extra ? ($options{deep} ? _deep_copy($extra) : {%$extra}) : undef,
     };
     my %field = map { $_->{name} => 1 } _fields(ref $self);
@@ -895,14 +939,14 @@ sub model_copy ($self, %options) {
 sub _wire_json ($self) {
     my $plan = _plan(ref $self);
     my $fields = Perldantic::Wire::_object_any([map { exists $self->{$_} ? ($_ => $self->{$_}) : () } @{$plan->{names}}]);
-    my @set = sort keys %{$STATE{$self}{fields_set} // {}};
+    my @set = _fields_set_names($self);
     if ($TRACK_OBJECTS && ($DUMPING || !$plan->{revalidate})) {
         my $token = Scalar::Util::refaddr($self);
         $INPUT_OBJECTS{$token} = $self;
         push @set, "$TOKEN_PREFIX$token";
     }
     return '{"$model":{"class":' . Perldantic::Wire::_string(ref $self)
-        . ',"extra":' . Perldantic::Wire::_emit_any($STATE{$self}{extra})
+        . ',"extra":' . Perldantic::Wire::_emit_any(_extra($self))
         . ',"fields":' . $fields
         . ',"fields_set":' . Perldantic::Wire::_emit_any(\@set) . '}}';
 }
@@ -920,8 +964,8 @@ sub _perldantic_wire ($self) {
     return Perldantic::Wire::Model->new(
         class      => ref $self,
         fields     => Perldantic::Wire::ordered(map { exists $self->{$_} ? ($_ => $self->{$_}) : () } @names),
-        fields_set => [(sort keys %{$STATE{$self}{fields_set} // {}}), @token],
-        extra      => $STATE{$self}{extra},
+        fields_set => [_fields_set_names($self), @token],
+        extra      => _extra($self),
     );
 }
 

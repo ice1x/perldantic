@@ -16,8 +16,8 @@ package Pd::Order { use Perldantic; has id => (is => 'ro', isa => Int); has cust
 ```
 
 The Moo models have the same attributes (`isa` from Types::Standard, `items` coerced from
-hashes to objects) and a hand-written `to_data`. Each operation is repeated for at least a
-second; the table shows the mean. Run it after `make`:
+hashes to objects) and a hand-written `to_data`. Each operation runs for two seconds; the tables
+show the median call, which other load on the machine skews less than a mean. Run it after `make`:
 
 ```sh
 perl -Iblib/lib -Iblib/arch tools/bench/compare.pl 200
@@ -31,7 +31,7 @@ Machine: Apple M1 Max, Perl 5.42.0, Rust 1.98.1, release build of the core.
 
 | Operation | Phase 1 (before 00057) | Now | Speed-up | Moo + Type::Tiny |
 |---|---:|---:|---:|---:|
-| Build: `validate` | 96.5 ms | 15.8 ms | 6.1× | 8.0 ms |
+| Build: `validate` | 96.5 ms | 10.5 ms | 9.2× | 8.9 ms |
 | Dump to Perl data: `dump` | 102.3 ms | 18.0 ms | 5.7× | 1.7 ms |
 | Dump to JSON: `dump_json` | 72.6 ms | 17.1 ms | 4.2× | 2.4 ms (with JSON::XS) |
 
@@ -39,7 +39,7 @@ Machine: Apple M1 Max, Perl 5.42.0, Rust 1.98.1, release build of the core.
 
 | Operation | Phase 1 | Now | Moo + Type::Tiny |
 |---|---:|---:|---:|
-| `validate` | 9.5 ms | 1.5 ms | 0.8 ms |
+| `validate` | 9.5 ms | 0.95 ms | 0.8 ms |
 | `dump` | 9.9 ms | 1.8 ms | 0.2 ms |
 | `dump_json` | 7.1 ms | 1.7 ms | 0.3 ms |
 

@@ -134,4 +134,41 @@ subtest 'class and instance methods are checked' => sub {
     is $e->message, 'model_validate takes options as key => value pairs';
 };
 
+
+package Shop::Full {
+    use Perldantic;
+    has a     => (is => 'rw', isa => Int, clearer => 1);
+    has b     => (is => 'ro', isa => Str, predicate => 1);
+    has c     => (is => 'lazy', isa => Int, default => sub { 7 }, clearer => 1);
+    has d     => (is => 'ro', isa => Int, default => 1);
+}
+
+subtest 'fields set of objects built with every field given' => sub {
+    my $full = Shop::Full->new(a => 1, b => 'x', c => 2, d => 3);
+    is [$full->model_fields_set], [qw(a b c d)], 'every field';
+    is $full->model_extra, undef;
+    is $full->model_dump(exclude_unset => 1), {a => 1, b => 'x', c => 2, d => 3};
+
+    $full->clear_c;
+    is [$full->model_fields_set], [qw(a b d)], 'a cleared field is not set';
+    is $full->c, 7, 'a lazy field is built again';
+    is [$full->model_fields_set], [qw(a b d)], 'and a built default is not set';
+    $full->a(5);
+    is [$full->model_fields_set], [qw(a b d)], 'writing keeps it set';
+
+    my $other = Shop::Full->new(a => 1, b => 'x', c => 2, d => 3);
+    $other->clear_a;
+    $other->a(9);
+    is [$other->model_fields_set], [qw(a b c d)], 'cleared and written again';
+
+    my $copy = Shop::Full->new(a => 1, b => 'x', c => 2, d => 3)->model_copy(update => {a => 2});
+    is [$copy->model_fields_set], [qw(a b c d)];
+    is $copy->a, 2;
+
+    my $some = Shop::Full->new(b => 'y');
+    is [$some->model_fields_set], ['b'], 'objects with fields left out still know';
+    is $some->model_dump(exclude_unset => 1), {b => 'y'};
+    ok !exists $some->{a}, 'and do not hold them';
+};
+
 done_testing;

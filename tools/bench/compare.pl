@@ -59,11 +59,16 @@ my $json    = Cpanel::JSON::XS->new->canonical;
 my @pd      = @{$adapter->validate(\@orders)};
 my @moo     = map { Moo::Order->new($_) } @orders;
 
+# The median of the calls made in two seconds: other load on the machine skews a mean.
 sub timed ($label, $code) {
     $code->() for 1 .. 3;
-    my ($runs, $start) = (0, time);
-    $code->(), $runs++ while time - $start < 1;
-    my $ms = (time - $start) / $runs * 1000;
+    my (@times, $start);
+    for ($start = time; time - $start < 2;) {
+        my $call = time;
+        $code->();
+        push @times, time - $call;
+    }
+    my $ms = (sort { $a <=> $b } @times)[@times / 2] * 1000;
     printf "%-34s %9.2f ms\n", $label, $ms;
     return $ms;
 }
