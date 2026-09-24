@@ -32,11 +32,16 @@ my @orders = map {
 my $adapter = Perldantic::TypeAdapter->new(Perldantic::Types::ArrayRef(['Bench::Order']));
 my $objects = $adapter->validate(\@orders);
 
+# The median of the calls made in two seconds: other load on the machine skews a mean.
 sub timed ($label, $code) {
     $code->() for 1 .. 3;
-    my ($runs, $start) = (0, time);
-    $code->(), $runs++ while time - $start < 1;
-    printf "%-22s %9.2f ms\n", $label, (time - $start) / $runs * 1000;
+    my (@times, $start);
+    for ($start = time; time - $start < 2;) {
+        my $call = time;
+        $code->();
+        push @times, time - $call;
+    }
+    printf "%-22s %9.2f ms\n", $label, (sort { $a <=> $b } @times)[@times / 2] * 1000;
 }
 
 printf "%d orders x 10 items\n", $count;
