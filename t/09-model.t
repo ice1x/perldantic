@@ -149,6 +149,44 @@ subtest 'model_config' => sub {
     is Test::Strict->new(n => 1)->n, 1;
 };
 
+subtest 'validate_default' => sub {
+    package Test::Defaults {
+        use Perldantic;
+        has plain   => (is => 'ro', isa => Decimal, default => '1.5');
+        has checked => (is => 'ro', isa => Decimal, default => '2.5', validate_default => 1);
+        has maybe   => (is => 'ro', isa => Int);
+    }
+    my $d = Test::Defaults->new;
+    is $d->plain, '1.5', 'a default is used as given, as in pydantic';
+    isa_ok $d->checked, 'Math::BigFloat';
+    is $d->checked->bstr, '2.5', 'validate_default validates it';
+    ok !exists $d->{maybe}, 'fields without a default stay out';
+
+    package Test::DefaultsBad {
+        use Perldantic;
+        has n => (is => 'ro', isa => Int, default => 'x', validate_default => 1);
+    }
+    my $e = dies { Test::DefaultsBad->new };
+    is [map { [$_->{loc}, $_->{type}] } @{$e->errors}], [[['n'], 'int_parsing']], 'an invalid default is an error';
+    ok lives { Test::DefaultsBad->new(n => 1) }, 'only when it is used';
+
+    package Test::DefaultsAll {
+        use Perldantic;
+        model_config validate_default => 1;
+        has n     => (is => 'ro', isa => Int, default => '7');
+        has m     => (is => 'ro', isa => Int, default => 'x', validate_default => 0);
+        has maybe => (is => 'ro', isa => Int);
+    }
+    my $all = Test::DefaultsAll->new;
+    is $all->n, 7, 'model_config sets it for every field';
+    is $all->m, 'x', 'a field can opt out';
+    ok !exists $all->{maybe};
+
+    $e = dies { package Test::DefaultsCode; use Perldantic; has n => (is => 'ro', isa => Int, default => sub { 1 }, validate_default => 1) };
+    isa_ok $e, 'Perldantic::UsageError';
+    is $e->message, 'has n: validate_default needs a plain default (code defaults and builders are not validated)';
+};
+
 subtest 'more Moo options' => sub {
     @Test::Misc::triggered = ();
     my $m = Test::Misc->new(7);

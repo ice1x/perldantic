@@ -24,6 +24,10 @@ subtest 'wire' => sub {
     is Perldantic::Wire::encode($kept), '{"$decimal":"2.50"}', 'but the core gets its text back';
     $kept->badd(1);
     is Perldantic::Wire::encode($kept), '{"$decimal":"35e-1"}', 'until the value changes';
+
+    # a rounded decimal keeps its scale, as Decimal.quantize does
+    is Perldantic::Wire::encode([bf('278.996')->bfround(-2, 'common'), bf('12.5')->bround(5), bf('-3')->bfround(-1)]),
+        '[{"$decimal":"279.00"},{"$decimal":"12.500"},{"$decimal":"-3.0"}]';
 };
 
 subtest 'the Decimal type' => sub {

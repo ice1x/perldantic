@@ -31,6 +31,7 @@ Hash::Util::FieldHash::fieldhash(my %STATE);
 
 my %HAS_OPTIONS = map { $_ => 1 } qw(
     is isa required default builder lazy predicate clearer init_arg trigger documentation alias
+    validate_default
 );
 my %UNSUPPORTED = map { $_ => 1 } qw(coerce handles weak_ref reader writer moosify);
 
@@ -50,13 +51,14 @@ my %CONFIG_KEY = (
     revalidate_instances => 'revalidate_instances',
     json_schema_extra    => 'json_schema_extra',
     url_preserve_empty_path => 'url_preserve_empty_path',
+    validate_default     => 'validate_default',
 );
 # Settings of the Perl layer only; the core never sees them.
 my %PERL_SETTING = map { $_ => 1 } qw(temporal_class);
 
 my %CONFIG_FLAG = map { $_ => 1 }
     qw(strict str_strip_whitespace str_to_lower str_to_upper validate_by_name validate_by_alias serialize_by_alias
-    url_preserve_empty_path);
+    url_preserve_empty_path validate_default);
 
 sub _usage ($message) { Perldantic::UsageError->throw(message => $message) }
 
@@ -151,6 +153,11 @@ sub _field_spec ($class, $name, %options) {
         if $spec{lazy} && !$spec{default_code} && !$spec{builder} && !$spec{default};
     _usage("has $name: a required field cannot have a default")
         if $spec{required} && ($spec{default} || $spec{default_code} || $spec{builder});
+    if (exists $options{validate_default}) {
+        $spec{validate_default} = !!delete $options{validate_default};
+        _usage("has $name: validate_default needs a plain default (code defaults and builders are not validated)")
+            if $spec{validate_default} && ($spec{default_code} || $spec{builder});
+    }
 
     if (exists $options{init_arg}) {
         my $init_arg = delete $options{init_arg};
@@ -537,12 +544,15 @@ sub _field_schema ($spec, $visit, $for_json_schema) {
     }
     $schema = {%$schema, serialization => _field_serialization($spec->{serializer}, $visit)} if $spec->{serializer};
     if ($spec->{default}) {
-        $schema = {type => 'default', schema => $schema, default => $spec->{default}[0]};
+        $schema = {type => 'default', schema => $schema, default => $spec->{default}[0],
+            (defined $spec->{validate_default} ? (validate_default => $spec->{validate_default}) : ())};
     }
     elsif (!$spec->{required}) {
         # Validation needs a default to leave the field out; Perl fills or removes it afterwards.
         # A JSON Schema shows no default, as pydantic does for default factories.
-        $schema = {type => 'default', schema => $schema, ($for_json_schema ? () : (default => undef))};
+        # The placeholder is never validated, whatever model_config says.
+        $schema = {type => 'default', schema => $schema,
+            ($for_json_schema ? () : (default => undef, validate_default => !!0))};
     }
     my $alias = $spec->{init_arg} // $spec->{alias};
     return {
