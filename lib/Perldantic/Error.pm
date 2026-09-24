@@ -180,12 +180,16 @@ Perldantic::Error - exception objects raised by Perldantic
 
 =head1 SYNOPSIS
 
+    use Perldantic::TypeAdapter;
+    use Perldantic::Types qw(Int);
     use Scalar::Util qw(blessed);
 
-    eval { $validator->validate($input) };
+    my $positive = Perldantic::TypeAdapter->new(Int->with(gt => 0));
+
+    eval { $positive->validate(-1) };
     if (blessed $@ && $@->isa('Perldantic::ValidationError')) {
         for my $error (@{ $@->errors }) {
-            say join('.', @{ $error->{loc} }), ": $error->{msg}";
+            say join('.', @{ $error->{loc} }), ": $error->{msg}";    # ": Input should be greater than 0"
         }
     }
 
@@ -302,5 +306,10 @@ C<Perldantic::InternalError> only: the underlying error, when there is one.
 =head2 context
 
 C<Perldantic::CustomError> and C<Perldantic::KnownError> only: the error context.
+
+
+=head1 SEE ALSO
+
+L<Perldantic>, L<Perldantic::Model>, L<Perldantic::TypeAdapter>
 
 =cut

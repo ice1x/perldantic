@@ -48,8 +48,14 @@ Perldantic - pydantic for Perl, powered by a Rust core
 
 =head1 SYNOPSIS
 
-    package Ticket;
+    package Person;
     use Perldantic;                        # instead of `use Moo;`
+
+    has name  => (is => 'ro', isa => Str, required => 1, min_length => 1);
+    has email => (is => 'ro', isa => Str, pattern => '^[^@]+@[^@]+$');
+
+    package Ticket;
+    use Perldantic;
 
     has id     => (is => 'ro', isa => Int, required => 1, gt => 0);
     has title  => (is => 'rw', isa => Str, required => 1, max_length => 200);
@@ -58,8 +64,24 @@ Perldantic - pydantic for Perl, powered by a Rust core
     has owner  => (is => 'ro', isa => Maybe['Person']);   # another Perldantic model
     model_config extra => 'forbid';
 
+    field_validator title => sub ($class, $title) { ucfirst $title };
+
     package main;
-    my $t = Ticket->new(id => '42', title => 'bug');       # "42" becomes 42
+    use Scalar::Util qw(blessed);
+
+    my $t = Ticket->new(id => '42', title => 'bug', owner => {name => 'Ann'});
+    say $t->id;                            # 42: "42" became a number
+    say $t->owner->name;                   # Ann: the hash became a Person
+    say $t->model_dump_json;               # {"id":42,"title":"Bug",...,"owner":{"name":"Ann"}}
+    my $schema = Ticket->model_json_schema;   # JSON Schema, as Perl data
+
+    my $copy = Ticket->model_validate_json('{"id": 7, "title": "crash"}');
+
+    eval { Ticket->new(id => 0, title => 'x', colour => 'red') };
+    if (blessed $@ && $@->isa('Perldantic::ValidationError')) {
+        say $@->error_count;               # 2: id is not > 0, colour is not a field
+        say $_->{type} for @{$@->errors};  # greater_than, extra_forbidden
+    }
 
 =head1 DESCRIPTION
 
@@ -243,6 +265,20 @@ sub is installed as the method C<$name>; without a sub, the class's own method C
 used. Computed fields are not input; they appear after the fields in dumps (subject to
 C<include> / C<exclude> and C<by_alias>) and in the serialization JSON Schema, marked
 C<readOnly>.
+
+=head1 SEE ALSO
+
+L<Perldantic::Model> (the methods of model objects), L<Perldantic::Types> (the types),
+L<Perldantic::Type> (constraints), L<Perldantic::TypeAdapter> (validating any type),
+L<Perldantic::Role>, L<Perldantic::Error>, L<Perldantic::Temporal>, L<Perldantic::Uuid>,
+L<Perldantic::Url>, L<Perldantic::FFI> (the core schema API).
+
+F<docs/DIVERGENCES.md> lists where Perldantic differs from pydantic, and
+L<https://docs.pydantic.dev> documents the behaviour it follows.
+
+=head1 AUTHOR
+
+ice1x
 
 =head1 LICENSE
 

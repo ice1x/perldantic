@@ -118,9 +118,9 @@ Perldantic::TypeAdapter - validate and serialize any Perldantic type
     use Perldantic::Types qw(ArrayRef Int);
 
     my $ints = Perldantic::TypeAdapter->new(ArrayRef[Int]);
-    my $list = $ints->validate([1, '2']);      # [1, 2]
-    my $json = $ints->dump_json($list);               # '[1,2]'
-    my $js   = $ints->json_schema;                    # {type => 'array', items => {type => 'integer'}}
+    my $list = $ints->validate([1, '2']);        # [1, 2]
+    my $json = $ints->dump_json($list);          # '[1,2]'
+    my $js   = $ints->json_schema;               # {type => 'array', items => {type => 'integer'}}
 
     my $points = Perldantic::TypeAdapter->new(ArrayRef['My::Point']);   # models inside types
 
@@ -152,5 +152,10 @@ The JSON Schema, as Perl data; options as for C<model_json_schema>.
 
 Misuse (a missing or wrong type, unknown options or config settings) raises
 C<Perldantic::UsageError>.
+
+
+=head1 SEE ALSO
+
+L<Perldantic::Types>, L<Perldantic::Type>, L<Perldantic::Model>, L<Perldantic>
 
 =cut

@@ -566,4 +566,9 @@ of C<Dict[]> (C<slurpy HashRef[T]>) as allowed.
 
 Wrong parameters, such as C<ArrayRef[1]> or C<Map[Int]>, raise C<Perldantic::UsageError>.
 
+
+=head1 SEE ALSO
+
+L<Perldantic::Type> (constraints), L<Perldantic::TypeAdapter>, L<Perldantic>, L<Types::Standard>
+
 =cut
