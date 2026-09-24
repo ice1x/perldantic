@@ -59,6 +59,22 @@ def test_typed_dict_class_data_moves_into_the_schema(fake):
     assert schema['metadata']['pydantic_js_updates'] == {'description': doc, 'deprecated': True}
 
 
+def test_typed_dict_config_comes_from_its_class_not_the_parent(fake):
+    from typing_extensions import TypedDict
+
+    class Address(TypedDict):
+        city: str
+
+    class Person(BaseModel):
+        model_config = ConfigDict(title=fake.word(), extra='forbid')
+        address: Address
+
+    schema = host_schema(Person.__pydantic_core_schema__)
+    address = schema['schema']['fields']['address']['schema']
+    # pydantic's JSON Schema reads only the TypedDict class's own `__pydantic_config__`
+    assert address['config'] == {}
+
+
 def test_docstring_is_left_out_when_json_schema_extra_sets_a_description(fake):
     class Model(BaseModel):
         """Docstring."""

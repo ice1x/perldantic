@@ -23,7 +23,7 @@ my %CONSTRAINTS = (
     set       => [qw(strict min_length max_length fail_fast)],
     frozenset => [qw(strict min_length max_length fail_fast)],
     dict  => [qw(strict min_length max_length)],
-    'typed-dict' => [qw(strict)],
+    'typed-dict' => [qw(strict extra_behavior)],
     decimal   => [qw(strict allow_inf_nan multiple_of le lt ge gt max_digits decimal_places)],
     date      => [qw(strict le lt ge gt now_op now_utc_offset)],
     time      => [qw(strict le lt ge gt tz_constraint microseconds_precision)],
@@ -35,6 +35,8 @@ my %CONSTRAINTS = (
 );
 # Constraints the core takes as booleans; any Perl truth value is accepted.
 my %FLAG = map { $_ => 1 } qw(strict fail_fast allow_inf_nan strip_whitespace to_lower to_upper host_required preserve_empty_path);
+# Constraints that take one of a few strings.
+my %CHOICE = (extra_behavior => [qw(allow ignore forbid)]);
 # Every constraint name, whatever the type.
 our %ANY_CONSTRAINT = map { $_ => 1 } map {@$_} values %CONSTRAINTS;
 my %ALLOWED = map { my $t = $_; ($t => {map { $_ => 1 } @{$CONSTRAINTS{$t}}}) } keys %CONSTRAINTS;
@@ -88,6 +90,13 @@ sub with ($self, %constraints) {
         Perldantic::UsageError->throw(message => "Constraint '$key' does not apply to $self->{name}")
             if !$allowed->{$key};
         $constraints{$key} = $constraints{$key} ? !!1 : !!0 if $FLAG{$key};
+        if (my $choices = $CHOICE{$key}) {
+            my $value = $constraints{$key} // 'undef';
+            Perldantic::UsageError->throw(message => "$key takes "
+                    . join(', ', map {"'$_'"} @$choices[0 .. $#$choices - 1])
+                    . " or '$choices->[-1]', got '$value'")
+                if !grep { $_ eq $value } @$choices;
+        }
     }
     return (ref $self)->new(%$self, schema => {%{$self->core_schema}, %constraints});
 }
@@ -175,6 +184,6 @@ True for C<Optional[T]>.
 
 =head2 is_slurpy
 
-True for C<slurpy ArrayRef[T]>.
+True for C<slurpy ArrayRef[T]> and C<slurpy HashRef[T]>.
 
 =cut

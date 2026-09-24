@@ -442,9 +442,7 @@
    },
    "computed_fields": [],
    "extra_behavior": "ignore",
-   "config": {
-    "title": "MyModel"
-   },
+   "config": {},
    "ref": "tests.test_docs_extraction.test_typeddict.<locals>.MyModel:1"
   },
   "config": null,
@@ -491,9 +489,7 @@
    },
    "computed_fields": [],
    "extra_behavior": "ignore",
-   "config": {
-    "title": "MyModel"
-   },
+   "config": {},
    "ref": "tests.test_docs_extraction.test_typeddict.<locals>.MyModel:1"
   },
   "config": null,
@@ -551,9 +547,7 @@
        },
        "computed_fields": [],
        "extra_behavior": "ignore",
-       "config": {
-        "title": "ModelTDAsField"
-       },
+       "config": {},
        "ref": "tests.test_docs_extraction.test_typeddict_as_field.<locals>.ModelTDAsField:1"
       },
       "metadata": {}

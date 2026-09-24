@@ -122,7 +122,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `serializers/type_serializers/string.rs` | `crates/perldantic-core/src/serializers/type_serializers/string.rs` | P0 | ported |  |
 | `serializers/type_serializers/timedelta.rs` | `crates/perldantic-core/src/serializers/type_serializers/timedelta.rs` | P1 | done |  |
 | `serializers/type_serializers/tuple.rs` | `crates/perldantic-core/src/serializers/type_serializers/tuple.rs` | P0 | ported | out-of-range `variadic_item_index` is a schema error (DIVERGENCES #11) |
-| `serializers/type_serializers/typed_dict.rs` | `crates/perldantic-core/src/serializers/type_serializers/typed_dict.rs` | P1 | pending |  |
+| `serializers/type_serializers/typed_dict.rs` | `crates/perldantic-core/src/serializers/type_serializers/typed_dict.rs` | P1 | done | computed fields and `serialization_exclude_if` wait for host callbacks (00054) |
 | `serializers/type_serializers/union.rs` | `crates/perldantic-core/src/serializers/type_serializers/union.rs` | P0 | partial | function discriminators wait for host callbacks |
 | `serializers/type_serializers/url.rs` | `crates/perldantic-core/src/serializers/type_serializers/url.rs` | P1 | done |  |
 | `serializers/type_serializers/uuid.rs` | `crates/perldantic-core/src/serializers/type_serializers/uuid.rs` | P1 | done |  |
@@ -180,7 +180,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/time.rs` | `crates/perldantic-core/src/validators/time.rs` | P1 | done |  |
 | `validators/timedelta.rs` | `crates/perldantic-core/src/validators/timedelta.rs` | P1 | done |  |
 | `validators/tuple.rs` | `crates/perldantic-core/src/validators/tuple.rs` | P0 | ported | out-of-range `variadic_item_index` is a schema error (DIVERGENCES #11) |
-| `validators/typed_dict.rs` | `crates/perldantic-core/src/validators/typed_dict.rs` | P1 | pending |  |
+| `validators/typed_dict.rs` | `crates/perldantic-core/src/validators/typed_dict.rs` | P1 | done | `cls` is a class name (DIVERGENCES #13) |
 | `validators/union.rs` | `crates/perldantic-core/src/validators/union.rs` | P0 | partial | `union` and `tagged-union`; function discriminators wait for host callbacks |
 | `validators/url.rs` | `crates/perldantic-core/src/validators/url.rs` | P1 | done | no prebuilt simple validators |
 | `validators/uuid.rs` | `crates/perldantic-core/src/validators/uuid.rs` | P1 | done | `Value::Uuid`; strict mode wants a UUID object for Perl input too |

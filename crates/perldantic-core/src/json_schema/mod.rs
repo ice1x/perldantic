@@ -584,7 +584,9 @@ impl<'o> GenerateJsonSchema<'o> {
             "union" => self.union_schema(schema),
             "tagged-union" => self.tagged_union_schema(schema),
             "lax-or-strict" => self.lax_or_strict_schema(schema),
-            "custom-error" | "model-field" => self.generate_inner(sub_schema(schema, "schema")?),
+            "custom-error" | "model-field" | "typed-dict-field" => {
+                self.generate_inner(sub_schema(schema, "schema")?)
+            }
             "chain" => self.chain_schema(schema),
             "json" => self.json_schema(schema),
             "computed-field" => self.generate_inner(sub_schema(schema, "return_schema")?),

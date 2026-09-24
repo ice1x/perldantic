@@ -113,9 +113,10 @@ def host_typed_dict_schema(schema: dict[str, Any]) -> dict[str, Any]:
     """A `typed-dict` core schema with what pydantic reads off the TypedDict class moved into it."""
     cls = schema['cls']
     host = dict(schema)
-    config = host_config(getattr(cls, '__pydantic_config__', None) or {}, schema.get('config') or {})
-    if config:
-        host['config'] = config
+    # pydantic's JSON Schema reads the class's own config, not the core schema's `config`, which
+    # carries the enclosing model's settings; an empty config is still pushed on the stack
+    config = host_config(getattr(cls, '__pydantic_config__', None) or {})
+    host['config'] = config
     _move_class_updates(host, cls, config)
     return host
 

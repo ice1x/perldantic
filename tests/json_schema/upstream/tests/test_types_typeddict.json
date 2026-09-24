@@ -53,9 +53,7 @@
        },
        "computed_fields": [],
        "extra_behavior": "ignore",
-       "config": {
-        "title": "DataTD"
-       },
+       "config": {},
        "ref": "tests.test_types_typeddict.test_typed_dict_inheritance_schema.<locals>.DataTD:1"
       },
       "metadata": {}
@@ -203,9 +201,7 @@
        },
        "computed_fields": [],
        "extra_behavior": "ignore",
-       "config": {
-        "title": "DataTD"
-       },
+       "config": {},
        "ref": "tests.test_types_typeddict.test_typeddict_annotated_nonoptional_schema.<locals>.DataTD:1"
       },
       "metadata": {}
@@ -329,9 +325,7 @@
    },
    "computed_fields": [],
    "extra_behavior": "forbid",
-   "config": {
-    "title": "TD"
-   },
+   "config": {},
    "ref": "tests.test_types_typeddict.test_typeddict_closed.<locals>.TD:1"
   },
   "config": null,
@@ -449,9 +443,7 @@
     "type": "any"
    },
    "extra_behavior": "allow",
-   "config": {
-    "title": "TD"
-   },
+   "config": {},
    "ref": "tests.test_types_typeddict.test_typeddict_extraitems_any.<locals>.TD:1"
   },
   "config": null,
@@ -498,9 +490,7 @@
     "type": "str"
    },
    "extra_behavior": "allow",
-   "config": {
-    "title": "TD"
-   },
+   "config": {},
    "ref": "tests.test_types_typeddict.test_typeddict_extraitems_constrained.<locals>.TD:1"
   },
   "config": null,
@@ -572,9 +562,7 @@
        },
        "computed_fields": [],
        "extra_behavior": "ignore",
-       "config": {
-        "title": "DataTD"
-       },
+       "config": {},
        "ref": "tests.test_types_typeddict.test_typeddict_not_required_schema.<locals>.DataTD:1"
       },
       "metadata": {}
@@ -692,9 +680,7 @@
        },
        "computed_fields": [],
        "extra_behavior": "ignore",
-       "config": {
-        "title": "DataTD"
-       },
+       "config": {},
        "ref": "tests.test_types_typeddict.test_typeddict_required.<locals>.DataTD:1"
       },
       "metadata": {}
@@ -830,9 +816,7 @@
        },
        "computed_fields": [],
        "extra_behavior": "ignore",
-       "config": {
-        "title": "DataTD"
-       },
+       "config": {},
        "ref": "tests.test_types_typeddict.test_typeddict_schema.<locals>.DataTD:2"
       },
       "metadata": {}
@@ -857,9 +841,7 @@
        },
        "computed_fields": [],
        "extra_behavior": "ignore",
-       "config": {
-        "title": "CustomTD"
-       },
+       "config": {},
        "ref": "tests.test_types_typeddict.test_typeddict_schema.<locals>.CustomTD:3"
       },
       "metadata": {}
@@ -1036,9 +1018,7 @@
        },
        "computed_fields": [],
        "extra_behavior": "ignore",
-       "config": {
-        "title": "DataTD"
-       },
+       "config": {},
        "ref": "tests.test_types_typeddict.test_typeddict_schema.<locals>.DataTD:2"
       },
       "metadata": {}
@@ -1063,9 +1043,7 @@
        },
        "computed_fields": [],
        "extra_behavior": "ignore",
-       "config": {
-        "title": "CustomTD"
-       },
+       "config": {},
        "ref": "tests.test_types_typeddict.test_typeddict_schema.<locals>.CustomTD:3"
       },
       "metadata": {}
