@@ -1,8 +1,7 @@
-//! Serializing the fields of models (and later typed dicts). Port of upstream
-//! `serializers/fields.rs`.
+//! Serializing the fields of models and typed dicts. Port of upstream `serializers/fields.rs`.
 //!
-//! Computed fields and `serialization_exclude_if` need host callbacks and are rejected when the
-//! serializer is built.
+//! `serialization_exclude_if` needs a host callback that is not wired yet and is rejected when
+//! the serializer is built.
 
 use std::borrow::Cow;
 use std::sync::Arc;
@@ -11,6 +10,7 @@ use serde::ser::SerializeMap;
 
 use crate::value::{Dict, Value};
 
+use super::computed_fields::ComputedFields;
 use super::errors::{SerResult, SerializeError, UnexpectedValue, py_err_se_err};
 use super::extra::{Extra, IncludeExclude, SerCheck, SerializationState};
 use super::filter::SchemaFilter;
@@ -88,6 +88,7 @@ pub struct GeneralFieldsSerializer {
     extra_serializer: Option<Arc<CombinedSerializer>>,
     filter: SchemaFilter<Value>,
     required_fields: usize,
+    computed_fields: Option<ComputedFields>,
 }
 
 impl GeneralFieldsSerializer {
@@ -95,6 +96,7 @@ impl GeneralFieldsSerializer {
         fields: Vec<SerField>,
         mode: FieldsMode,
         extra_serializer: Option<Arc<CombinedSerializer>>,
+        computed_fields: Option<ComputedFields>,
     ) -> Self {
         let required_fields = fields.iter().filter(|f| f.required).count();
         Self {
@@ -103,6 +105,7 @@ impl GeneralFieldsSerializer {
             extra_serializer,
             filter: SchemaFilter::default(),
             required_fields,
+            computed_fields,
         }
     }
 
@@ -207,6 +210,11 @@ impl GeneralFieldsSerializer {
                 let state = &mut state.scoped_include_exclude(next_include_exclude);
                 emit(key_str, value, extras_serializer, state)?;
             }
+        }
+
+        if let Some(computed_fields) = &self.computed_fields {
+            let model = get_model(state)?.clone();
+            computed_fields.for_each(&model, &self.filter, state, &mut emit)?;
         }
         Ok(())
     }

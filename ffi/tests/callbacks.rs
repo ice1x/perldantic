@@ -93,6 +93,15 @@ unsafe extern "C" fn host(id: u64, call: *const c_char, slot: *mut PdReply) {
         8 => return,
         // echo the info argument
         9 => json!({"ok": call["info"]}),
+        // a computed field: the model's name, upper-cased
+        10 => {
+            assert_eq!(call["call"], "property");
+            let name = call["model"]["$model"]["fields"][call["name"].as_str().unwrap()]
+                .as_str()
+                .unwrap()
+                .to_uppercase();
+            json!({"ok": name})
+        }
         other => panic!("unknown function {other}"),
     };
     reply(slot, &answer);
@@ -232,4 +241,31 @@ fn serializer_functions_run_in_the_host() {
         // SAFETY: handle from pd_serializer_new, freed once.
         unsafe { pd_serializer_free(handle) };
     }
+}
+
+#[test]
+fn computed_fields_ask_the_host() {
+    register();
+    let s = serializer(&json!({
+        "type": "model",
+        "cls": "Person",
+        "schema": {
+            "type": "model-fields",
+            "fields": {"name": {"type": "model-field", "schema": {"type": "str"}}},
+            "computed_fields": [{
+                "type": "computed-field",
+                "property_name": "name",
+                "alias": "shout",
+                "return_schema": {"type": "str"},
+                "function": function(10, "shout"),
+            }],
+        },
+    }));
+    let model = c(r#"{"$model": {"class": "Person", "fields": {"name": "ada"}}}"#);
+    let options = c(r#"{"by_alias": true}"#);
+    // SAFETY: live handle and valid strings.
+    let result = take(unsafe { pd_serializer_to_json(s, model.as_ptr(), options.as_ptr()) });
+    assert_eq!(result["ok"], r#"{"name":"ada","shout":"ADA"}"#);
+    // SAFETY: handle from pd_serializer_new.
+    unsafe { pd_serializer_free(s) };
 }

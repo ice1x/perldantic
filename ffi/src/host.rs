@@ -11,6 +11,7 @@
 //! - `{"call": "validate_wrap", "input", "handler", "info"}`, where `handler` is passed to
 //!   [`pd_validator_handler_call`];
 //! - `{"call": "serialize", "value", "model", "info"}`;
+//! - `{"call": "property", "model", "name"}` (a computed field of a model);
 //! - `{"call": "serialize_wrap", "value", "model", "handler", "info"}`, with
 //!   [`pd_serializer_handler_call`].
 //!
@@ -130,6 +131,14 @@ impl HostFunction for FfiFunction {
                 out.push_str(&wire::encode(&input));
                 push_handler((&raw mut handler).cast(), &mut out);
                 push_validation_info(info.as_ref(), &mut out);
+                out.push('}');
+                self.invoke(&out)
+            }
+            HostCall::Property { model, name } => {
+                out.push_str("{\"call\":\"property\",\"model\":");
+                out.push_str(&wire::encode(&model));
+                out.push_str(",\"name\":");
+                wire::write_str(&name, &mut out);
                 out.push('}');
                 self.invoke(&out)
             }

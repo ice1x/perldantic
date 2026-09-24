@@ -6,6 +6,7 @@ use std::sync::Arc;
 use crate::build_tools::{ExtraBehavior, SchemaDict, schema_err, schema_or_config};
 use crate::core_error::{CoreError, CoreResult};
 use crate::definitions::DefinitionsBuilder;
+use crate::serializers::computed_fields::ComputedFields;
 use crate::serializers::errors::SerResult;
 use crate::serializers::extra::SerializationState;
 use crate::serializers::fields::{FieldsMode, GeneralFieldsSerializer, SerField};
@@ -42,14 +43,7 @@ impl BuildSerializer for TypedDictSerializer {
             }
             (_, _) => None,
         };
-        if schema
-            .get_str("computed_fields")
-            .is_some_and(|c| !matches!(c, Value::None) && c != &Value::List(vec![]))
-        {
-            return schema_err!(
-                "`computed_fields` are not supported yet: host callbacks are not implemented"
-            );
-        }
+        let computed_fields = ComputedFields::new(schema, config, definitions)?;
 
         let fields_dict: Dict = schema.get_as_req("fields")?;
         let mut fields = Vec::with_capacity(fields_dict.len());
@@ -96,7 +90,12 @@ impl BuildSerializer for TypedDictSerializer {
         }
 
         Ok(Arc::new(CombinedSerializer::TypedDict(Box::new(Self {
-            serializer: GeneralFieldsSerializer::new(fields, fields_mode, extra_serializer),
+            serializer: GeneralFieldsSerializer::new(
+                fields,
+                fields_mode,
+                extra_serializer,
+                computed_fields,
+            ),
         }))))
     }
 }

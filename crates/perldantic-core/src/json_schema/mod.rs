@@ -1306,6 +1306,9 @@ impl<'o> GenerateJsonSchema<'o> {
                 ));
             }
         }
+        if self.mode() == JsonSchemaMode::Serialization {
+            named_required_fields.extend(Self::name_required_computed_fields(schema)?);
+        }
         let config = match schema.get_str("config") {
             Some(Value::Dict(config)) => config.clone(),
             _ => Dict::new(),
@@ -1373,16 +1376,7 @@ impl<'o> GenerateJsonSchema<'o> {
             }
         }
         if self.mode() == JsonSchemaMode::Serialization {
-            let computed_fields: Vec<Value> = schema.get_as("computed_fields")?.unwrap_or_default();
-            for field in &computed_fields {
-                let field = as_dict(field)?;
-                let name: String = field.get_as_req("property_name")?;
-                let required = matches!(
-                    field.get_str("serialization_exclude_if"),
-                    None | Some(Value::None)
-                );
-                named_required_fields.push((name, required, field.clone()));
-            }
+            named_required_fields.extend(Self::name_required_computed_fields(schema)?);
         }
         let mut json_schema = self.named_required_fields_schema(named_required_fields)?;
         if let Some(extras_schema) = schema.get_str("extras_schema")
@@ -1457,6 +1451,24 @@ impl<'o> GenerateJsonSchema<'o> {
                 .unwrap_or(name),
             _ => name,
         }
+    }
+
+    /// The computed fields of a model or typed dict, shown in serialization mode (upstream
+    /// `_name_required_computed_fields`).
+    fn name_required_computed_fields(schema: &Dict) -> JsResult<Vec<(String, bool, Dict)>> {
+        let computed_fields: Vec<Value> = schema.get_as("computed_fields")?.unwrap_or_default();
+        computed_fields
+            .iter()
+            .map(|field| {
+                let field = as_dict(field)?;
+                let name: String = field.get_as_req("property_name")?;
+                let required = matches!(
+                    field.get_str("serialization_exclude_if"),
+                    None | Some(Value::None)
+                );
+                Ok((name, required, field.clone()))
+            })
+            .collect()
     }
 
     /// Whether the field should be included in the generated JSON schema.
