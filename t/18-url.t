@@ -73,35 +73,35 @@ subtest 'wire' => sub {
 
 subtest 'the Url and MultiHostUrl types' => sub {
     my $ta = Perldantic::TypeAdapter->new(Url);
-    my $u = $ta->validate_python('https://example.com/x');
+    my $u = $ta->validate('https://example.com/x');
     isa_ok $u, 'Perldantic::Url';
-    is $ta->validate_python(URI->new('https://example.com'))->as_string, 'https://example.com/', 'URI objects';
-    is $ta->validate_python($u)->as_string, 'https://example.com/x', 'Url objects';
+    is $ta->validate(URI->new('https://example.com'))->as_string, 'https://example.com/', 'URI objects';
+    is $ta->validate($u)->as_string, 'https://example.com/x', 'Url objects';
     is $ta->dump_json($u), '"https://example.com/x"';
-    is $ta->dump_python($u, mode => 'json'), 'https://example.com/x';
+    is $ta->dump($u, mode => 'json'), 'https://example.com/x';
     is $ta->json_schema, {type => 'string', format => 'uri', minLength => 1};
 
     my $https = Perldantic::TypeAdapter->new(Url->with(allowed_schemes => ['https'], max_length => 30));
-    my $e = dies { $https->validate_python('ftp://example.com') };
+    my $e = dies { $https->validate('ftp://example.com') };
     is $e->errors->[0]{msg}, "URL scheme should be 'https'";
-    $e = dies { $https->validate_python('https://example.com/' . 'x' x 30) };
+    $e = dies { $https->validate('https://example.com/' . 'x' x 30) };
     is $e->errors->[0]{type}, 'url_too_long';
 
     my $defaults = Perldantic::TypeAdapter->new(
         Url->with(default_host => 'localhost', default_port => 8000, default_path => '/api', host_required => 1));
-    is $defaults->validate_python('redis://')->as_string, 'redis://localhost:8000/api';
-    is Perldantic::TypeAdapter->new(Url->with(preserve_empty_path => 1))->validate_python('https://ex.com')->as_string,
+    is $defaults->validate('redis://')->as_string, 'redis://localhost:8000/api';
+    is Perldantic::TypeAdapter->new(Url->with(preserve_empty_path => 1))->validate('https://ex.com')->as_string,
         'https://ex.com';
 
     my $multi = Perldantic::TypeAdapter->new(MultiHostUrl->with(allowed_schemes => ['redis']));
-    my $m = $multi->validate_python('redis://a:1,b:2/0');
+    my $m = $multi->validate('redis://a:1,b:2/0');
     isa_ok $m, 'Perldantic::MultiHostUrl';
     is scalar @{$m->hosts}, 2;
     is Perldantic::TypeAdapter->new(MultiHostUrl)->json_schema, {type => 'string', format => 'multi-host-uri', minLength => 1};
     $e = dies { MultiHostUrl->with(pattern => 'x') };
     is $e->message, "Constraint 'pattern' does not apply to MultiHostUrl";
 
-    is [map {"$_"} @{Perldantic::TypeAdapter->new(ArrayRef[Url])->validate_python(['http://a.com', 'http://b.com'])}],
+    is [map {"$_"} @{Perldantic::TypeAdapter->new(ArrayRef[Url])->validate(['http://a.com', 'http://b.com'])}],
         ['http://a.com/', 'http://b.com/'], 'nested';
 };
 

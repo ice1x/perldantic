@@ -13,7 +13,7 @@ use Perldantic::Type;
 use Perldantic::Wire;
 
 my @SIMPLE = qw(Any Undef Bool Int Num Str Bytes Decimal Date Time DateTime Duration Uuid Url MultiHostUrl);
-my @PARAMETERIZED = qw(Maybe Optional ArrayRef Set FrozenSet Json Chain Tuple HashRef Map Dict Enum Literal InstanceOf AnyOf);
+my @PARAMETERIZED = qw(Maybe Optional ArrayRef Set Json Chain Tuple HashRef Map Dict Enum Literal InstanceOf AnyOf);
 
 our @EXPORT_OK   = (@SIMPLE, @PARAMETERIZED, 'slurpy');
 our %EXPORT_TAGS = (all => \@EXPORT_OK);
@@ -137,7 +137,7 @@ sub ArrayRef :prototype(;$) (@args) {
     );
 }
 
-# `Set[T]` and `FrozenSet[T]`: arrays of distinct items (core `set` / `frozenset`).
+# `Set[T]`: an array of distinct items (core `set`).
 sub _set ($name, $core, @args) {
     my $params = _params($name, @args) // return Perldantic::Type->new(name => $name, schema => {type => $core});
     _count($name, $params, 1);
@@ -149,8 +149,7 @@ sub _set ($name, $core, @args) {
     );
 }
 
-sub Set :prototype(;$) (@args)       { _set('Set', 'set', @args) }
-sub FrozenSet :prototype(;$) (@args) { _set('FrozenSet', 'frozenset', @args) }
+sub Set :prototype(;$) (@args) { _set('Set', 'set', @args) }
 
 # `Json[T]`: JSON text, parsed and validated as T (core `json`).
 sub Json :prototype(;$) (@args) {
@@ -483,11 +482,11 @@ release supports it only inside C<Dict[]>.
 
 An array reference (core C<list>).
 
-=item C<Set>, C<Set[T]>, C<FrozenSet>, C<FrozenSet[T]>
+=item C<Set>, C<Set[T]>
 
-An array reference of distinct items (core C<set> / C<frozenset>): repeated items (by pydantic's
-equality, so C<1> and C<1.0> are the same) are kept once, in the order given; items that could
-not be in a Python set (array or hash references) are errors. Input may be any array
+An array reference of distinct items (core C<set>): repeated items (C<1> and C<1.0> are the
+same) are kept once, in the order given; array and hash references cannot be items and are
+errors. Input may be any array
 reference; output is an array reference.
 
 =item C<Json>, C<Json[T]>

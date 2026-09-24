@@ -149,10 +149,10 @@ package main;
 my $t  = Ticket->new(id => "42", title => "bug");               # Moo-style; lax: "42" -> 42
 my $t2 = Ticket->model_validate({ id => 42, title => "bug" });  # pydantic-style, same result
 my $t3 = Ticket->model_validate_json($json);
-say $t->model_dump_json(exclude_none => 1);
+say $t->model_dump_json(exclude_undef => 1);
 my $h  = $t->model_dump;                                        # plain hashref
 say encode_json(Ticket->model_json_schema);
-my $ints = Perldantic::TypeAdapter->new(ArrayRef[Int])->validate_python([1, "2"]);
+my $ints = Perldantic::TypeAdapter->new(ArrayRef[Int])->validate([1, "2"]);
 ```
 
 ### Moo/Moose compatibility
@@ -205,6 +205,13 @@ pydantic's schema types internally.
   There are no links to pydantic's documentation, whose pages are named by pydantic's codes.
   Serializer warnings for Perl data name the expected type the way Perldantic::Types does
   (`ArrayRef[Int]`, `Map[Str, Num]`, `AnyOf[Duration, Undef]`).
+- The Perl API has no names of Python types either: `TypeAdapter->validate` / `dump`
+  (pydantic's `validate_python` / `dump_python`), dump option `exclude_undef` (`exclude_none`),
+  `mode => 'perl'` (`python`), `when_used => 'unless-undef'` / `'json-unless-undef'`,
+  `SerializationInfo->exclude_undef` and `mode` `perl`; there is no `FrozenSet` type (in Perl it
+  would be `Set`). The Perl layer translates to the core's pydantic-shaped options, and refuses
+  the Python names with a `Perldantic::UsageError`. The raw FFI layer (`Perldantic::FFI`) takes
+  the core's options as they are.
   The core gets a `Perl` input type with its own templates, as upstream already has for JSON;
   Perl's codes are accepted wherever an error type is named (`Perldantic::KnownError`).
   Recorded as divergence #8.

@@ -5,9 +5,8 @@ use std::ptr;
 
 use perldantic_ffi::{
     PdSerializer, PdValidator, pd_json_schema, pd_serializer_free, pd_serializer_new,
-    pd_serializer_to_json, pd_serializer_to_python, pd_string_free, pd_url_parts,
-    pd_validator_free, pd_validator_new, pd_validator_validate, pd_validator_validate_json,
-    pd_version,
+    pd_serializer_to_data, pd_serializer_to_json, pd_string_free, pd_url_parts, pd_validator_free,
+    pd_validator_new, pd_validator_validate, pd_validator_validate_json, pd_version,
 };
 
 fn c(text: &str) -> CString {
@@ -207,7 +206,7 @@ fn serialization_returns_values_json_and_warnings() {
     let value = c(r#"[{"$bytes": "+/8="}, 1]"#);
     // SAFETY: live handle and valid strings.
     let python = take(unsafe {
-        pd_serializer_to_python(handle, value.as_ptr(), c(r#"{"mode": "json"}"#).as_ptr())
+        pd_serializer_to_data(handle, value.as_ptr(), c(r#"{"mode": "json"}"#).as_ptr())
     });
     assert_eq!(
         python,
@@ -224,7 +223,7 @@ fn serialization_returns_values_json_and_warnings() {
     assert_eq!(json, r#"{"ok":"[\n \"-_8=\",\n 1\n]","warning":null}"#);
     // SAFETY: live handle and valid strings.
     let error = take(unsafe {
-        pd_serializer_to_python(
+        pd_serializer_to_data(
             handle,
             value.as_ptr(),
             c(r#"{"warnings": "error"}"#).as_ptr(),

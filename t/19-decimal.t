@@ -32,53 +32,53 @@ subtest 'wire' => sub {
 
 subtest 'the Decimal type' => sub {
     my $ta = Perldantic::TypeAdapter->new(Decimal);
-    my $d = $ta->validate_python('3.14159265358979323846264338327950288');
+    my $d = $ta->validate('3.14159265358979323846264338327950288');
     isa_ok $d, 'Math::BigFloat';
     is $d->bstr, '3.14159265358979323846264338327950288', 'every digit is kept';
-    is $ta->validate_python(42)->bstr, '42';
-    is $ta->validate_python(bf('0.1'))->bstr, '0.1';
+    is $ta->validate(42)->bstr, '42';
+    is $ta->validate(bf('0.1'))->bstr, '0.1';
     is $ta->validate_json('"1.5"')->bstr, '1.5';
     is $ta->dump_json(bf('1.50')), '"1.5"', 'JSON output is text, as in pydantic';
-    is $ta->dump_json($ta->validate_python('19.990')), '"19.990"', 'validated decimals keep their exponent';
-    is $ta->dump_python(bf('2.5'), mode => 'json'), '2.5';
+    is $ta->dump_json($ta->validate('19.990')), '"19.990"', 'validated decimals keep their exponent';
+    is $ta->dump(bf('2.5'), mode => 'json'), '2.5';
     is $ta->json_schema, {anyOf => [{type => 'number'}, {type => 'string'}]};
 
-    my $e = dies { $ta->validate_python('abc') };
+    my $e = dies { $ta->validate('abc') };
     isa_ok $e, 'Perldantic::ValidationError';
     is $e->errors->[0]{type}, 'decimal_parsing';
-    $e = dies { $ta->validate_python('inf') };
+    $e = dies { $ta->validate('inf') };
     is $e->errors->[0]{type}, 'finite_number';
 
     my $money = Perldantic::TypeAdapter->new(Decimal->with(max_digits => 5, decimal_places => 2, ge => 0));
-    is $money->validate_python('123.45')->bstr, '123.45';
-    $e = dies { $money->validate_python('1.234') };
+    is $money->validate('123.45')->bstr, '123.45';
+    $e = dies { $money->validate('1.234') };
     is $e->errors->[0]{msg}, 'Decimal input should have no more than 2 decimal places';
-    $e = dies { $money->validate_python('-1') };
+    $e = dies { $money->validate('-1') };
     is $e->errors->[0]{type}, 'greater_than_equal';
     isa_ok $e->errors->[0]{ctx}{ge}, 'Math::BigFloat';
 
     my $cents = Perldantic::TypeAdapter->new(Decimal->with(multiple_of => bf('0.01')));
-    ok lives { $cents->validate_python('0.30') };
-    $e = dies { $cents->validate_python('0.305') };
+    ok lives { $cents->validate('0.30') };
+    $e = dies { $cents->validate('0.305') };
     is $e->errors->[0]{msg}, 'Input should be a multiple of 0.01';
 
     my $strict = Perldantic::TypeAdapter->new(Decimal->with(strict => 1));
-    $e = dies { $strict->validate_python('1.5') };
+    $e = dies { $strict->validate('1.5') };
     is $e->errors->[0]{msg}, 'Input should be an instance of Math::BigFloat';
-    is $strict->validate_python(bf('1.5'))->bstr, '1.5', 'Math::BigFloat objects pass strict mode';
+    is $strict->validate(bf('1.5'))->bstr, '1.5', 'Math::BigFloat objects pass strict mode';
 
     my $inf = Perldantic::TypeAdapter->new(Decimal->with(allow_inf_nan => 1));
-    ok $inf->validate_python('-Infinity')->is_inf('-');
+    ok $inf->validate('-Infinity')->is_inf('-');
     $e = dies { Decimal->with(scale => 2) };
     is $e->message, "Constraint 'scale' does not apply to Decimal";
 };
 
 subtest 'Math::BigFloat for other number types' => sub {
-    is Perldantic::TypeAdapter->new(Num)->validate_python(bf('0.25')), 0.25;
-    is Perldantic::TypeAdapter->new(Int)->validate_python(bf('1e2')), 100;
-    my $e = dies { Perldantic::TypeAdapter->new(Int)->validate_python(bf('1.5')) };
+    is Perldantic::TypeAdapter->new(Num)->validate(bf('0.25')), 0.25;
+    is Perldantic::TypeAdapter->new(Int)->validate(bf('1e2')), 100;
+    my $e = dies { Perldantic::TypeAdapter->new(Int)->validate(bf('1.5')) };
     is $e->errors->[0]{type}, 'int_from_fraction';
-    is [map { $_->bstr } @{Perldantic::TypeAdapter->new(ArrayRef[Decimal])->validate_python([1, '2.5'])}],
+    is [map { $_->bstr } @{Perldantic::TypeAdapter->new(ArrayRef[Decimal])->validate([1, '2.5'])}],
         ['1', '2.5'];
 };
 

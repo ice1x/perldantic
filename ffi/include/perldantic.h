@@ -82,9 +82,7 @@ void pd_serializer_free(PdSerializer *serializer);
 //
 // # Safety
 // `serializer` is null or a live handle; string arguments are null or NUL-terminated.
-char *pd_serializer_to_python(const PdSerializer *serializer,
-                              const char *value,
-                              const char *options);
+char *pd_serializer_to_data(const PdSerializer *serializer, const char *value, const char *options);
 
 // Serialize to JSON text (upstream `to_json`); `options` may also hold `indent` and
 // `ensure_ascii`. The envelope's `ok` is the JSON text as a string.

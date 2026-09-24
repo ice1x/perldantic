@@ -12,7 +12,7 @@ use crate::build_tools::{SchemaDict, schema_err};
 use crate::core_error::CoreResult;
 use crate::definitions::DefinitionsBuilder;
 use crate::errors::{ErrorType, ValError, ValResult};
-use crate::input::{Input, ValidationMatch};
+use crate::input::{Input, InputType, ValidationMatch};
 use crate::value::{Dict, Value};
 
 use super::validation_state::ValidationState;
@@ -245,6 +245,8 @@ impl<T: Debug> LiteralLookup<T> {
 pub struct LiteralValidator {
     lookup: Box<LiteralLookup<Value>>,
     expected_repr: String,
+    /// The expected values as Perl data, for Perl input (docs/DIVERGENCES.md #8).
+    expected_perl: String,
     name: String,
 }
 
@@ -261,12 +263,15 @@ impl BuildValidator for LiteralValidator {
             return schema_err!("`expected` should have length > 0");
         }
         let repr_args: Vec<String> = expected.iter().map(Value::repr).collect();
+        let perl_args: Vec<String> = expected.iter().map(Value::perl_repr).collect();
+        let expected_perl = expected_repr(&perl_args);
         let expected_repr = expected_repr(&repr_args);
         let name = expected_name(&repr_args, Self::EXPECTED_TYPE);
         let lookup = Box::new(LiteralLookup::new(expected.iter().map(|v| (v, v.clone())))?);
         Ok(Arc::new(CombinedValidator::Literal(Self {
             lookup,
             expected_repr,
+            expected_perl,
             name,
         })))
     }
@@ -276,13 +281,17 @@ impl Validator for LiteralValidator {
     fn validate(
         &self,
         input: &(impl Input + ?Sized),
-        _state: &mut ValidationState<'_>,
+        state: &mut ValidationState<'_>,
     ) -> ValResult<Value> {
         match self.lookup.validate(input)? {
             Some((_, v)) => Ok(v.clone()),
             None => Err(ValError::new(
                 ErrorType::LiteralError {
-                    expected: self.expected_repr.clone(),
+                    expected: if state.extra().input_type == InputType::Perl {
+                        self.expected_perl.clone()
+                    } else {
+                        self.expected_repr.clone()
+                    },
                     context: None,
                 },
                 input,

@@ -42,7 +42,7 @@ subtest 'value classes' => sub {
 };
 
 subtest 'types validate through the core' => sub {
-    my $v = sub ($type, $input, %opts) { Perldantic::TypeAdapter->new($type)->validate_python($input, %opts) };
+    my $v = sub ($type, $input, %opts) { Perldantic::TypeAdapter->new($type)->validate($input, %opts) };
     my $d = $v->(Date, '2022-06-08');
     isa_ok $d, 'Perldantic::Date';
     is "$d", '2022-06-08';
@@ -67,7 +67,7 @@ subtest 'types validate through the core' => sub {
 };
 
 subtest 'DateTime and Time::Moment objects are accepted' => sub {
-    my $v = sub ($type, $input) { Perldantic::TypeAdapter->new($type)->validate_python($input) };
+    my $v = sub ($type, $input) { Perldantic::TypeAdapter->new($type)->validate($input) };
     SKIP: {
         skip 'DateTime is not installed', 4 if !eval { require DateTime; 1 };
         my $aware = DateTime::->new(year => 2022, month => 6, day => 8, hour => 12, nanosecond => 5000,

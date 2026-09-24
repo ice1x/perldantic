@@ -142,7 +142,7 @@ subtest 'info' => sub {
 
 subtest 'serializer functions' => sub {
     my $ten = serializer({type => 'int', serialization => {type => 'function-plain', function => sub ($v) { $v * 10 }}});
-    is $ten->to_python(1), 10;
+    is $ten->to_perl(1), 10;
     is $ten->to_json(2), '20';
 
     my $info;
@@ -154,16 +154,16 @@ subtest 'serializer functions' => sub {
     isa_ok $info, 'Perldantic::SerializationInfo';
     is $info->mode, 'json';
     is $info->context, {a => 1};
-    ok !$info->exclude_none;
+    ok !$info->exclude_undef;
 
     my $wrap = serializer({
         type          => 'int',
         serialization => {type => 'function-wrap', function => sub ($v, $handler) { $handler->($v) + 1 }},
     });
-    is $wrap->to_python(1), 2;
+    is $wrap->to_perl(1), 2;
 
     my $boom = serializer({type => 'int', serialization => {type => 'function-plain', function => sub ($v) { die "nope\n" }}});
-    my $e = dies { $boom->to_python(1) };
+    my $e = dies { $boom->to_perl(1) };
     isa_ok $e, 'Perldantic::SerializationError';
     like $e->message, qr/\AError calling function `__ANON__`: /;
 };
@@ -179,7 +179,7 @@ subtest 'computed fields' => sub {
             function      => sub ($model, $name) { uc($model->{name}) . "!($name)" },
         }],
     });
-    is $shout->to_python({name => 'ada'}), {name => 'ada', loud => 'ADA!(loud)'};
+    is $shout->to_perl({name => 'ada'}), {name => 'ada', loud => 'ADA!(loud)'};
     my $object = Test::Kaput->new;
     my $broken = serializer({
         type   => 'typed-dict',
@@ -187,7 +187,7 @@ subtest 'computed fields' => sub {
         computed_fields => [{type => 'computed-field', property_name => 'x', return_schema => {type => 'int'},
             function => sub ($model, $name) { die $object }}],
     });
-    ref_is dies { $broken->to_python({}) }, $object, 'the exception of a getter reaches the caller unchanged';
+    ref_is dies { $broken->to_perl({}) }, $object, 'the exception of a getter reaches the caller unchanged';
     my $e = dies { $broken->to_json({}) };
     isa_ok $e, 'Perldantic::SerializationError';
     is $e->message, "Error serializing to JSON: $object", 'as text while writing JSON, as in pydantic';
@@ -217,7 +217,7 @@ subtest 'handlers only work while their function runs' => sub {
             },
         },
     });
-    is $items->to_python([1, 2, 3], {exclude => [1]}), [1, 'Perldantic::Omit', 3],
+    is $items->to_perl([1, 2, 3], {exclude => [1]}), [1, 'Perldantic::Omit', 3],
         'items filtered out by index raise Perldantic::Omit';
 };
 

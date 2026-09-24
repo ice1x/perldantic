@@ -162,7 +162,7 @@ A copy of the type with pydantic constraints added to its schema:
 
 =item C<Bytes>, C<ArrayRef>, C<Tuple>, C<HashRef>, C<Map>: C<strict min_length max_length>
 
-=item C<Set>, C<FrozenSet>: C<strict min_length max_length fail_fast>
+=item C<Set>: C<strict min_length max_length fail_fast>
 
 =item C<Bool>, C<Dict>: C<strict>
 

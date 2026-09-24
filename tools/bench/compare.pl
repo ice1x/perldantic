@@ -56,7 +56,7 @@ my @orders = map {
 
 my $adapter = Perldantic::TypeAdapter->new(Perldantic::Types::ArrayRef(['Pd::Order']));
 my $json    = Cpanel::JSON::XS->new->canonical;
-my @pd      = @{$adapter->validate_python(\@orders)};
+my @pd      = @{$adapter->validate(\@orders)};
 my @moo     = map { Moo::Order->new($_) } @orders;
 
 sub timed ($label, $code) {
@@ -69,9 +69,9 @@ sub timed ($label, $code) {
 }
 
 printf "%d orders x 10 items (Type::Tiny::XS %s)\n", $count, eval { require Type::Tiny::XS; 'on' } // 'off';
-timed('build   Perldantic validate_python', sub { $adapter->validate_python(\@orders) });
+timed('build   Perldantic validate', sub { $adapter->validate(\@orders) });
 timed('build   Moo + Type::Tiny new',       sub { [map { Moo::Order->new($_) } @orders] });
-timed('dump    Perldantic dump_python',     sub { $adapter->dump_python(\@pd) });
+timed('dump    Perldantic dump',     sub { $adapter->dump(\@pd) });
 timed('dump    Moo to_data',                sub { [map { $_->to_data } @moo] });
 timed('JSON    Perldantic dump_json',       sub { $adapter->dump_json(\@pd) });
 timed('JSON    Moo to_data + JSON::XS',     sub { $json->encode([map { $_->to_data } @moo]) });
