@@ -73,6 +73,11 @@ sub validate ($self, $data, @options) {
         Perldantic::Model::_validate_tracked(sub { $self->_compiled('validator')->validate($data, $options) }));
 }
 
+sub check ($self, $data, @options) {
+    my $options = _options('check', @options);
+    return Perldantic::Model::_check_tracked(sub { $self->_compiled('validator')->check($data, $options) });
+}
+
 sub validate_json ($self, $json, @options) {
     my $options = _options('validate_json', @options);
     return $self->_temporal(
@@ -143,6 +148,12 @@ errors are titled with the type name (C<ArrayRef[Int]>) unless the config sets C
 =head2 validate($data, %options), validate_json($json, %options)
 
 Validate Perl data or JSON text; options as for C<model_validate>.
+
+=head2 check($data, %options)
+
+Whether C<$data> is valid, as a Perl boolean (like Type::Tiny's C<check>). It validates as
+C<validate> does but builds no result, so it is the fastest way to test input; invalid input is
+false, not an error.
 
 =head2 dump($value, %options), dump_json($value, %options)
 

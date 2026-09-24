@@ -573,6 +573,43 @@ pub unsafe extern "C" fn pd_validator_validate_binary(
     )
 }
 
+/// Whether the input is valid: [`pd_validator_validate_binary`] without the validated value,
+/// which the caller does not need. The buffer holds `B` and a boolean; invalid input is `false`,
+/// not an error. Anything else that fails (malformed input, an exception of a host function)
+/// is a `J` error envelope, as for validation.
+///
+/// # Safety
+/// As for [`pd_validator_validate_binary`].
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn pd_validator_check_binary(
+    validator: *const PdValidator,
+    input: *const u8,
+    input_len: usize,
+    options: *const c_char,
+    len: *mut usize,
+) -> *mut u8 {
+    into_buffer(
+        || {
+            // SAFETY: guaranteed by the caller.
+            let (validator, input, options) = unsafe {
+                (
+                    handle_arg(validator, "validator")?,
+                    binary_arg(input, input_len, "input")?,
+                    options_arg(options)?,
+                )
+            };
+            let (options, input_type) =
+                options::host_validate_options(&options).map_err(|e| core_error(&e))?;
+            match validator.0.validate_value_as(&input, input_type, &options) {
+                Ok(_) => Ok((Value::Bool(true), None)),
+                Err(ValidateError::Validation(_)) => Ok((Value::Bool(false), None)),
+                Err(e) => Err(validate_error(&e)),
+            }
+        },
+        len,
+    )
+}
+
 /// [`pd_serializer_to_data`] with the value and the result in the binary wire format, returned
 /// as [`pd_validator_validate_binary`] returns its result.
 ///
