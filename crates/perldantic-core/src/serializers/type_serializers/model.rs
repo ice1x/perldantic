@@ -9,6 +9,7 @@ use std::sync::Arc;
 use crate::build_tools::{ExtraBehavior, SchemaDict, schema_err};
 use crate::core_error::{CoreError, CoreResult};
 use crate::definitions::DefinitionsBuilder;
+use crate::serializers::computed_fields::ComputedFields;
 use crate::serializers::errors::SerResult;
 use crate::serializers::extra::{SerCheck, SerializationState};
 use crate::serializers::fields::{FieldsMode, GeneralFieldsSerializer, SerField};
@@ -49,14 +50,7 @@ impl BuildSerializer for ModelFieldsBuilder {
             }
             (_, _) => None,
         };
-        if schema
-            .get_str("computed_fields")
-            .is_some_and(|c| !matches!(c, Value::None) && c != &Value::List(vec![]))
-        {
-            return schema_err!(
-                "`computed_fields` are not supported yet: host callbacks are not implemented"
-            );
-        }
+        let computed_fields = ComputedFields::new(schema, config, definitions)?;
         let serialize_by_alias: Option<bool> = config.get_as("serialize_by_alias")?;
 
         let fields_dict: Dict = schema.get_as_req("fields")?;
@@ -106,7 +100,8 @@ impl BuildSerializer for ModelFieldsBuilder {
         }
 
         Ok(Arc::new(
-            GeneralFieldsSerializer::new(fields, fields_mode, extra_serializer).into(),
+            GeneralFieldsSerializer::new(fields, fields_mode, extra_serializer, computed_fields)
+                .into(),
         ))
     }
 }

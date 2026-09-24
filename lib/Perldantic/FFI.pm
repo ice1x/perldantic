@@ -162,6 +162,8 @@ sub _host_call ($id, $json) {
     } elsif ($kind eq 'validate_wrap') {
         @args = ($call->{input}, _handler(\&_validator_handler_call, $call->{handler}, \$alive),
             _info('Perldantic::ValidationInfo', $call->{info}));
+    } elsif ($kind eq 'property') {
+        @args = ($call->{model}, $call->{name});
     } elsif ($kind eq 'serialize') {
         @args = ((defined $call->{model} ? $call->{model} : ()), $call->{value},
             _info('Perldantic::SerializationInfo', $call->{info}));
@@ -351,7 +353,10 @@ C<function-wrap>). They get pydantic's arguments:
 get the model first;
 
 =item * functions with C<< type => 'with-info' >> (validators) or C<< info_arg => 1 >>
-(serializers) also get an info object last (L<Perldantic::Info>).
+(serializers) also get an info object last (L<Perldantic::Info>);
+
+=item * the C<function> of a C<computed-field> schema computes the field: C<($model, $name)>
+(pydantic reads the property of the model object instead).
 
 =back
 

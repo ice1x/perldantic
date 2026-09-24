@@ -12,6 +12,7 @@ use crate::definitions::{Definitions, DefinitionsBuilder};
 use crate::validators::as_dict;
 use crate::value::Value;
 
+mod computed_fields;
 pub(crate) mod config;
 mod errors;
 mod extra;

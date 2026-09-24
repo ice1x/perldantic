@@ -168,6 +168,31 @@ subtest 'serializer functions' => sub {
     like $e->message, qr/\AError calling function `__ANON__`: /;
 };
 
+subtest 'computed fields' => sub {
+    my $shout = serializer({
+        type   => 'typed-dict',
+        fields => {name => {type => 'typed-dict-field', schema => {type => 'str'}}},
+        computed_fields => [{
+            type          => 'computed-field',
+            property_name => 'loud',
+            return_schema => {type => 'str'},
+            function      => sub ($model, $name) { uc($model->{name}) . "!($name)" },
+        }],
+    });
+    is $shout->to_python({name => 'ada'}), {name => 'ada', loud => 'ADA!(loud)'};
+    my $object = Test::Kaput->new;
+    my $broken = serializer({
+        type   => 'typed-dict',
+        fields => {},
+        computed_fields => [{type => 'computed-field', property_name => 'x', return_schema => {type => 'int'},
+            function => sub ($model, $name) { die $object }}],
+    });
+    ref_is dies { $broken->to_python({}) }, $object, 'the exception of a getter reaches the caller unchanged';
+    my $e = dies { $broken->to_json({}) };
+    isa_ok $e, 'Perldantic::SerializationError';
+    is $e->message, "Error serializing to JSON: $object", 'as text while writing JSON, as in pydantic';
+};
+
 subtest 'handlers only work while their function runs' => sub {
     my $kept;
     my $v = compile(function_schema(wrap => sub ($value, $handler) { $kept = $handler; $handler->($value) }));

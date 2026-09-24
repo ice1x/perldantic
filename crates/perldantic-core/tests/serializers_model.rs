@@ -276,15 +276,16 @@ fn schema_errors() {
     );
     let err = SchemaSerializer::new(
         &j(
-            r#"{"type": "model-fields", "computed_fields": [{"type": "computed-field"}],
-               "fields": {}}"#,
+            r#"{"type": "model-fields", "fields": {}, "computed_fields": [
+                {"type": "computed-field", "property_name": "area", "return_schema": {"type": "int"}}
+            ]}"#,
         ),
         None,
     )
     .unwrap_err();
     assert!(
         err.to_string()
-            .contains("`computed_fields` are not supported yet"),
+            .contains("Computed field `area` needs the host `function` computing it"),
         "{err}"
     );
 }

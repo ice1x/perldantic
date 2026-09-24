@@ -85,6 +85,9 @@ pub enum HostCall<'a> {
         model: Option<Value>,
         info: Option<SerializationInfo>,
     },
+    /// A computed field: the value of property `name` of `model` (upstream reads the
+    /// property of the Python object; see docs/DIVERGENCES.md #20).
+    Property { model: Value, name: String },
     /// A wrap serializer function: `f([model, ]value, handler[, info])`; the handler runs the
     /// wrapped serializer.
     SerializeWrap {

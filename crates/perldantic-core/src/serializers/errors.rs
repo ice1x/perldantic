@@ -41,9 +41,13 @@ impl SerializeError {
 }
 
 impl SerializeError {
-    /// The error as Python prints an exception: `Kind: message`.
+    /// The error as Python prints an exception: `Kind: message`. A host's own exception is
+    /// shown as the host describes it.
     pub fn py_display(&self) -> String {
-        format!("{}: {self}", self.python_name())
+        match self {
+            Self::Core(CoreError::Host(exception)) => exception.message().to_owned(),
+            _ => format!("{}: {self}", self.python_name()),
+        }
     }
 }
 

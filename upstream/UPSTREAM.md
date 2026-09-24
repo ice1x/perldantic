@@ -75,11 +75,11 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `recursion_guard.rs` | `crates/perldantic-core/src/recursion_guard.rs` | P0 | ported | safe inline array instead of `MaybeUninit` |
 | `schema_gather.rs` | `crates/perldantic-core/src/schema_gather.rs` | P1 | pending | schema traversal for cleaning |
 | `self_schema.py` | - | drop | dropped | Python-generated self schema; replaced by serde CoreSchema |
-| `serializers/computed_fields.rs` | `crates/perldantic-core/src/serializers/computed_fields.rs` | P0 | pending |  |
+| `serializers/computed_fields.rs` | `crates/perldantic-core/src/serializers/computed_fields.rs` | P0 | done | the value comes from the schema's host `function` (DIVERGENCES #20); `serialization_exclude_if` pending |
 | `serializers/config.rs` | `crates/perldantic-core/src/serializers/config.rs` | P0 | done | bytes, inf/nan and temporal (`ser_json_temporal`, `ser_json_timedelta`) modes |
 | `serializers/errors.rs` | `crates/perldantic-core/src/serializers/errors.rs` | P0 | ported | exceptions are `SerializeError` variants |
 | `serializers/extra.rs` | `crates/perldantic-core/src/serializers/extra.rs` | P0 | ported | warnings are returned with the output instead of emitted |
-| `serializers/fields.rs` | `crates/perldantic-core/src/serializers/fields.rs` | P0 | partial | model fields; computed fields and `serialization_exclude_if` wait for host callbacks; `exclude_unset` uses the model's unset field names instead of the `MISSING` sentinel |
+| `serializers/fields.rs` | `crates/perldantic-core/src/serializers/fields.rs` | P0 | partial | model and typed-dict fields, computed fields; `serialization_exclude_if` waits for a host callback; `exclude_unset` uses the model's unset field names instead of the `MISSING` sentinel |
 | `serializers/filter.rs` | `crates/perldantic-core/src/serializers/filter.rs` | P0 | ported | `...` is `true`; membership by Python equality |
 | `serializers/infer.rs` | `crates/perldantic-core/src/serializers/infer.rs` | P0 | partial | the kinds `Value` has; model instances as dicts (DIVERGENCES #14); no `fallback` callbacks |
 | `serializers/mod.rs` | `crates/perldantic-core/src/serializers/mod.rs` | P0 | ported | `to_json`/`to_jsonable_python` module functions not needed |
