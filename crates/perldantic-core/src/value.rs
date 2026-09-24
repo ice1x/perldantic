@@ -36,6 +36,8 @@ pub enum Value {
     Dict(Dict),
     /// A Python `set`: items are unique and their order carries no meaning.
     Set(Vec<Value>),
+    /// A Python `frozenset`, like `Set`.
+    FrozenSet(Vec<Value>),
     /// A model instance, built by `model` schemas.
     Model(Box<Model>),
     /// Python's `datetime.date`.
@@ -94,7 +96,9 @@ impl PartialEq for Value {
             (Self::Bytes(a), Self::Bytes(b)) => a == b,
             (Self::List(a), Self::List(b)) | (Self::Tuple(a), Self::Tuple(b)) => a == b,
             (Self::Dict(a), Self::Dict(b)) => a == b,
-            (Self::Set(a), Self::Set(b)) => same_items(a, b, |x, y| x == y),
+            (Self::Set(a), Self::Set(b)) | (Self::FrozenSet(a), Self::FrozenSet(b)) => {
+                same_items(a, b, |x, y| x == y)
+            }
             (Self::Model(a), Self::Model(b)) => a == b,
             (Self::Date(a), Self::Date(b)) => a == b,
             (Self::Time(a), Self::Time(b)) => a == b,
@@ -150,7 +154,10 @@ impl Value {
             (Self::List(a), Self::List(b)) | (Self::Tuple(a), Self::Tuple(b)) => {
                 a.len() == b.len() && a.iter().zip(b).all(|(x, y)| x.py_eq(y))
             }
-            (Self::Set(a), Self::Set(b)) => same_items(a, b, Self::py_eq),
+            // a set equals a frozenset with the same items
+            (Self::Set(a) | Self::FrozenSet(a), Self::Set(b) | Self::FrozenSet(b)) => {
+                same_items(a, b, Self::py_eq)
+            }
             // Like `BaseModel.__eq__`: same class, fields and extra; `fields_set` is ignored.
             (Self::Model(a), Self::Model(b)) => {
                 a.class == b.class
@@ -199,6 +206,7 @@ impl Value {
             Self::Tuple(_) => "tuple",
             Self::Dict(_) => "dict",
             Self::Set(_) => "set",
+            Self::FrozenSet(_) => "frozenset",
             Self::Model(model) => &model.class,
             Self::Date(_) => "date",
             Self::Time(_) => "time",
@@ -208,6 +216,16 @@ impl Value {
             Self::Url(_) => "Url",
             Self::MultiHostUrl(_) => "MultiHostUrl",
             Self::Decimal(_) => "Decimal",
+        }
+    }
+
+    /// Whether Python can hash the value (put it in a set or use it as a dict key): lists,
+    /// dicts, sets and model instances cannot be, nor tuples holding them.
+    pub fn is_hashable(&self) -> bool {
+        match self {
+            Self::List(_) | Self::Dict(_) | Self::Set(_) | Self::Model(_) => false,
+            Self::Tuple(items) => items.iter().all(Self::is_hashable),
+            _ => true,
         }
     }
 
@@ -266,6 +284,12 @@ impl Value {
                 out.push(')');
             }
             Self::Set(items) if items.is_empty() => out.push_str("set()"),
+            Self::FrozenSet(items) if items.is_empty() => out.push_str("frozenset()"),
+            Self::FrozenSet(items) => {
+                out.push_str("frozenset({");
+                write_items(items, out);
+                out.push_str("})");
+            }
             Self::Set(items) => {
                 out.push('{');
                 write_items(items, out);
@@ -485,7 +509,7 @@ impl Serialize for Value {
             Self::Float(f) => serializer.serialize_f64(*f),
             Self::Str(s) => serializer.serialize_str(s),
             Self::Bytes(b) => serializer.serialize_str(&String::from_utf8_lossy(b)),
-            Self::List(items) | Self::Tuple(items) | Self::Set(items) => {
+            Self::List(items) | Self::Tuple(items) | Self::Set(items) | Self::FrozenSet(items) => {
                 let mut seq = serializer.serialize_seq(Some(items.len()))?;
                 for item in items {
                     seq.serialize_element(item)?;

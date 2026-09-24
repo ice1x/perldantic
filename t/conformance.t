@@ -71,8 +71,8 @@ sub divergence ($case) {
     my $expected = node_get($case, 'expected');
     my $output   = node_get($expected, 'output');
     my $ordered_output = node_has($expected, 'json')
-        || (defined $output && !(ref $output eq 'Perldantic::Wire::Ordered' && tag_of([@$output]) eq '$set'));
-    my $multi_set = any_object(node_get($case, 'input'), sub ($p) { tag_of($p) eq '$set' && @{$p->[1]} > 1 });
+        || (defined $output && !(ref $output eq 'Perldantic::Wire::Ordered' && tag_of([@$output]) =~ /\A\$(?:frozen)?set\z/));
+    my $multi_set = any_object(node_get($case, 'input'), sub ($p) { tag_of($p) =~ /\A\$(?:frozen)?set\z/ && @{$p->[1]} > 1 });
     skip_case('divergence #12: set iteration order') if $multi_set && $ordered_output;
 }
 
@@ -97,7 +97,8 @@ sub plain ($value) {
         if $class eq 'Perldantic::Wire::Ordered';
     return [map { plain($_) } @$value] if $class eq 'Perldantic::Wire::Tuple';
     # Sets have no order: compared as multisets (see eq_value).
-    return bless [map { plain($_) } @$value], 'SetCmp' if $class eq 'Perldantic::Wire::Set';
+    return bless [map { plain($_) } @$value], 'SetCmp'
+        if $class eq 'Perldantic::Wire::Set' || $class eq 'Perldantic::Wire::FrozenSet';
     return $$value if $class eq 'Perldantic::Wire::Bytes';
     return "$value" if $class eq 'Math::BigInt';
     return "Math::BigFloat:" . $value->bstr if $class eq 'Math::BigFloat';
@@ -166,6 +167,8 @@ sub serializer_options ($raw) {
             $options->{$key} = interpret($value);
         }
     }
+    # Recorded from Python data: arrays do not stand for tuples and sets here.
+    $options->{input_type} = 'python';
     return $options;
 }
 

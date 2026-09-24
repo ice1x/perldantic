@@ -134,6 +134,13 @@ pub trait Input: fmt::Debug {
 
     fn validate_list(&self, strict: bool) -> ValMatch<Self::List<'_>>;
 
+    /// A set: a Python `set` exactly, other sequences in lax mode, a JSON array or a Perl
+    /// array (Perl has no sets) always.
+    fn validate_set(&self, strict: bool, input_type: InputType) -> ValMatch<Self::List<'_>>;
+
+    /// A frozenset, like [`Input::validate_set`].
+    fn validate_frozenset(&self, strict: bool, input_type: InputType) -> ValMatch<Self::List<'_>>;
+
     type Tuple<'a>: ValidatedTuple
     where
         Self: 'a;

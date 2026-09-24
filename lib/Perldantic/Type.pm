@@ -20,6 +20,8 @@ my %CONSTRAINTS = (
     bool  => [qw(strict)],
     list  => [qw(strict min_length max_length)],
     tuple => [qw(strict min_length max_length)],
+    set       => [qw(strict min_length max_length fail_fast)],
+    frozenset => [qw(strict min_length max_length fail_fast)],
     dict  => [qw(strict min_length max_length)],
     'typed-dict' => [qw(strict)],
     decimal   => [qw(strict allow_inf_nan multiple_of le lt ge gt max_digits decimal_places)],
@@ -32,7 +34,7 @@ my %CONSTRAINTS = (
     'multi-host-url' => [qw(strict max_length allowed_schemes host_required default_host default_port default_path preserve_empty_path)],
 );
 # Constraints the core takes as booleans; any Perl truth value is accepted.
-my %FLAG = map { $_ => 1 } qw(strict allow_inf_nan strip_whitespace to_lower to_upper host_required preserve_empty_path);
+my %FLAG = map { $_ => 1 } qw(strict fail_fast allow_inf_nan strip_whitespace to_lower to_upper host_required preserve_empty_path);
 # Every constraint name, whatever the type.
 our %ANY_CONSTRAINT = map { $_ => 1 } map {@$_} values %CONSTRAINTS;
 my %ALLOWED = map { my $t = $_; ($t => {map { $_ => 1 } @{$CONSTRAINTS{$t}}}) } keys %CONSTRAINTS;
@@ -138,6 +140,8 @@ A copy of the type with pydantic constraints added to its schema:
 =item C<Str>: C<strict min_length max_length pattern strip_whitespace to_lower to_upper>
 
 =item C<Bytes>, C<ArrayRef>, C<Tuple>, C<HashRef>, C<Map>: C<strict min_length max_length>
+
+=item C<Set>, C<FrozenSet>: C<strict min_length max_length fail_fast>
 
 =item C<Bool>, C<Dict>: C<strict>
 

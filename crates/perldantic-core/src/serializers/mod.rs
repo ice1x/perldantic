@@ -26,6 +26,7 @@ mod type_serializers;
 pub use errors::{SerializeError, UnexpectedValue};
 pub use extra::{SerMode, WarningsMode};
 
+use crate::input::InputType;
 use config::SerializationConfig;
 use extra::{Extra, SerializationState};
 use shared::{BuildSerializer, CombinedSerializer, to_json_bytes};
@@ -48,6 +49,9 @@ pub struct SerializeOptions {
     pub exclude_none: bool,
     pub warnings: WarningsMode,
     pub serialize_as_any: bool,
+    /// Where the data comes from: `Perl` arrays stand for tuples and sets, which Perl lacks
+    /// (docs/DIVERGENCES.md #19).
+    pub input_type: InputType,
 }
 
 /// JSON formatting options of `to_json`.
@@ -138,6 +142,7 @@ impl SchemaSerializer {
             exclude_none: options.exclude_none,
             serialize_unknown: false,
             serialize_as_any: options.serialize_as_any,
+            input_type: options.input_type,
         };
         SerializationState::new(
             self.config,

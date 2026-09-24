@@ -11,7 +11,7 @@ use Perldantic::Error;
 use Perldantic::Type;
 
 my @SIMPLE = qw(Any Undef Bool Int Num Str Bytes Decimal Date Time DateTime Duration Uuid Url MultiHostUrl);
-my @PARAMETERIZED = qw(Maybe Optional ArrayRef Tuple HashRef Map Dict Enum Literal InstanceOf);
+my @PARAMETERIZED = qw(Maybe Optional ArrayRef Set FrozenSet Tuple HashRef Map Dict Enum Literal InstanceOf);
 
 our @EXPORT_OK   = (@SIMPLE, @PARAMETERIZED, 'slurpy');
 our %EXPORT_TAGS = (all => \@EXPORT_OK);
@@ -106,6 +106,21 @@ sub ArrayRef :prototype(;$) (@args) {
         parameters => [$items],
     );
 }
+
+# `Set[T]` and `FrozenSet[T]`: arrays of distinct items (core `set` / `frozenset`).
+sub _set ($name, $core, @args) {
+    my $params = _params($name, @args) // return Perldantic::Type->new(name => $name, schema => {type => $core});
+    _count($name, $params, 1);
+    my $items = _type($name, $params->[0]);
+    return Perldantic::Type->new(
+        name       => "$name\[$items]",
+        schema     => {type => $core, items_schema => $items->core_schema},
+        parameters => [$items],
+    );
+}
+
+sub Set :prototype(;$) (@args)       { _set('Set', 'set', @args) }
+sub FrozenSet :prototype(;$) (@args) { _set('FrozenSet', 'frozenset', @args) }
 
 sub HashRef :prototype(;$) (@args) {
     my $params = _params('HashRef', @args)
@@ -302,6 +317,13 @@ release supports it only inside C<Dict[]>.
 =item C<ArrayRef>, C<ArrayRef[T]>
 
 An array reference (core C<list>).
+
+=item C<Set>, C<Set[T]>, C<FrozenSet>, C<FrozenSet[T]>
+
+An array reference of distinct items (core C<set> / C<frozenset>): repeated items (by pydantic's
+equality, so C<1> and C<1.0> are the same) are kept once, in the order given; items that could
+not be in a Python set (array or hash references) are errors. Input may be any array
+reference; output is an array reference.
 
 =item C<Tuple>, C<Tuple[A, B, ...]>, C<Tuple[A, slurpy ArrayRef[T]]>
 

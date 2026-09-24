@@ -18,12 +18,13 @@ use Perldantic::Temporal;
 use Perldantic::Url;
 use Perldantic::Uuid;
 
-our @EXPORT_OK = qw(tuple set bytes ordered);
+our @EXPORT_OK = qw(tuple set frozenset bytes ordered);
 
 my $JSON = Cpanel::JSON::XS->new->utf8->canonical->allow_nonref->allow_bignum->unblessed_bool;
 
 sub tuple (@items) { bless [@items], 'Perldantic::Wire::Tuple' }
 sub set (@items)   { bless [@items], 'Perldantic::Wire::Set' }
+sub frozenset (@items) { bless [@items], 'Perldantic::Wire::FrozenSet' }
 sub bytes ($octets) { bless \(my $copy = $octets), 'Perldantic::Wire::Bytes' }
 
 sub ordered (@pairs) {
@@ -153,6 +154,7 @@ sub _tag ($value) {
     if (my $class = blessed $value) {
         return {'$tuple' => [map { _tag($_) } @$value]} if $class eq 'Perldantic::Wire::Tuple';
         return {'$set' => [map { _tag($_) } @$value]}   if $class eq 'Perldantic::Wire::Set';
+        return {'$frozenset' => [map { _tag($_) } @$value]} if $class eq 'Perldantic::Wire::FrozenSet';
         return {'$bytes' => encode_base64($$value, '')} if $class eq 'Perldantic::Wire::Bytes';
         return {'$model' => $value->_wire}              if $class eq 'Perldantic::Wire::Model';
         return {$value->_wire_tag => $value->_wire_payload} if $value->isa('Perldantic::Temporal');
@@ -186,6 +188,7 @@ sub _tag ($value) {
 my %UNTAG = (
     tuple => sub ($items) { [map { _untag($_) } @$items] },
     set   => sub ($items) { [map { _untag($_) } @$items] },
+    frozenset => sub ($items) { [map { _untag($_) } @$items] },
     bytes => sub ($text)  { decode_base64($text) },
     float => sub ($name)  { $name eq 'nan' ? 9**9**9 / 9**9**9 : $name eq 'inf' ? 9**9**9 : -9**9**9 },
     dict  => sub ($pairs) { +{map { ((ref $_->[0] ? $JSON->encode($_->[0]) : $_->[0] // '') => _untag($_->[1])) } @$pairs} },
@@ -278,7 +281,8 @@ What JSON cannot express is tagged:
 
 =over
 
-=item * C<tuple(@items)> and C<set(@items)> mark an array as a tuple or a set;
+=item * C<tuple(@items)>, C<set(@items)> and C<frozenset(@items)> mark an array as a tuple, a set
+or a frozenset;
 
 =item * C<bytes($octets)> marks a byte string (Perl strings are text otherwise);
 

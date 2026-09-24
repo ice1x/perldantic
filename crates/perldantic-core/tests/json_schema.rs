@@ -86,6 +86,7 @@ fn decode_tag(tag: &str, payload: &Json) -> Result<Value, Skip> {
     Ok(match tag {
         "tuple" => Value::Tuple(items()?),
         "set" => Value::Set(items()?),
+        "frozenset" => Value::FrozenSet(items()?),
         "bytes" => Value::Bytes(STANDARD.decode(payload.as_str().unwrap()).unwrap()),
         "float" => Value::Float(match payload.as_str().unwrap() {
             "inf" => f64::INFINITY,

@@ -107,7 +107,11 @@ pub fn host_validate_options(options: &Dict) -> CoreResult<(ValidateOptions, Inp
 
 /// Options of `to_python` / `to_json`.
 pub fn serialize_options(options: &Dict) -> CoreResult<(SerializeOptions, JsonOptions)> {
-    let mut opts = SerializeOptions::default();
+    let mut opts = SerializeOptions {
+        // the host is Perl unless the caller says otherwise
+        input_type: InputType::Perl,
+        ..SerializeOptions::default()
+    };
     let mut json = JsonOptions::default();
     for (key, value) in entries(options) {
         match key {
@@ -125,6 +129,14 @@ pub fn serialize_options(options: &Dict) -> CoreResult<(SerializeOptions, JsonOp
             "exclude_defaults" => opts.exclude_defaults = flag(key, value)?,
             "exclude_none" => opts.exclude_none = flag(key, value)?,
             "serialize_as_any" => opts.serialize_as_any = flag(key, value)?,
+            "input_type" => {
+                opts.input_type = match value {
+                    Value::Str(s) if s == "perl" || s == "python" => {
+                        InputType::try_from(s.as_str())?
+                    }
+                    other => return Err(wrong_type(key, "'perl' or 'python'", other)),
+                };
+            }
             "warnings" => {
                 opts.warnings = match value {
                     Value::Bool(b) => WarningsMode::from(*b),
@@ -219,6 +231,15 @@ mod tests {
                 .to_string(),
             "invalid value for 'input_type': 'json'"
         );
+    }
+
+    #[test]
+    fn serializers_treat_data_as_perl_by_default() {
+        let (opts, _) = serialize_options(&dict("{}")).unwrap();
+        assert_eq!(opts.input_type, InputType::Perl);
+        let (opts, _) = serialize_options(&dict(r#"{"input_type": "python"}"#)).unwrap();
+        assert_eq!(opts.input_type, InputType::Python);
+        assert!(serialize_options(&dict(r#"{"input_type": 1}"#)).is_err());
     }
 
     #[test]

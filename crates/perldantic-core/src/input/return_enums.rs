@@ -310,6 +310,85 @@ pub(crate) fn validate_iter_to_vec(
     }
 }
 
+/// Validate items into a set (upstream `validate_iter_to_set`): items must be hashable,
+/// Python-equal items are kept once, and `max_length` applies to the deduplicated items.
+#[allow(clippy::too_many_arguments)]
+pub(crate) fn validate_iter_to_set(
+    iter: impl Iterator<Item = impl BorrowInput>,
+    input: &(impl Input + ?Sized),
+    field_type: &'static str,
+    max_length: Option<usize>,
+    validator: Option<&CombinedValidator>,
+    state: &mut ValidationState<'_>,
+    fail_fast: bool,
+) -> ValResult<Vec<Value>> {
+    let mut output: Vec<Value> = Vec::new();
+    let mut errors: Vec<ValLineError> = Vec::new();
+    let allow_partial = state.allow_partial;
+
+    for (index, is_last_partial, item) in state.enumerate_last_partial(iter) {
+        state.allow_partial = if is_last_partial {
+            allow_partial
+        } else {
+            PartialMode::Off
+        };
+        let item = item.borrow_input();
+        let validated = match validator {
+            Some(validator) => validator.validate(item, state),
+            None => Ok(item.to_value()),
+        }
+        .and_then(|value| {
+            if value.is_hashable() {
+                Ok(value)
+            } else {
+                Err(ValError::new(ErrorTypeDefaults::SetItemNotHashable, item))
+            }
+        });
+        match validated {
+            Ok(value) => {
+                if !output.iter().any(|existing| existing.py_eq(&value)) {
+                    output.push(value);
+                }
+                if let Some(max_length) = max_length
+                    && output.len() > max_length
+                {
+                    return Err(ValError::new(
+                        ErrorType::TooLong {
+                            field_type: field_type.to_string(),
+                            max_length,
+                            // all that is known is that there were more than `max_length`
+                            // distinct items
+                            actual_length: None,
+                            context: None,
+                        },
+                        input,
+                    ));
+                }
+            }
+            Err(ValError::LineErrors(line_errors)) => {
+                if !is_last_partial {
+                    errors.extend(
+                        line_errors
+                            .into_iter()
+                            .map(|err| err.with_outer_location(index)),
+                    );
+                }
+            }
+            Err(ValError::Omit) => (),
+            Err(err) => return Err(err),
+        }
+        if fail_fast && !errors.is_empty() {
+            return Err(ValError::LineErrors(errors));
+        }
+    }
+
+    if errors.is_empty() {
+        Ok(output)
+    } else {
+        Err(ValError::LineErrors(errors))
+    }
+}
+
 /// Copy every item unchanged, checking only the maximum length.
 pub(crate) fn no_validator_iter_to_vec(
     iter: impl Iterator<Item = impl BorrowInput>,
