@@ -93,6 +93,8 @@ Values the core can represent:
 | `{"$date": ...}` / `{"$time": ...}` / `{"$datetime": ...}` | ISO 8601 text |
 | `{"$timedelta": [days, seconds, microseconds]}` | `datetime.timedelta` |
 | `{"$uuid": "..."}` | `uuid.UUID` |
+| `{"$url": "..."}` | `pydantic_core.Url`, by its text (`str(url)`) |
+| `{"$multi_host_url": "..."}` | `pydantic_core.MultiHostUrl`, by its text |
 
 Values that only describe Python objects:
 
