@@ -34,6 +34,7 @@ mod model;
 mod model_fields;
 mod none;
 mod nullable;
+mod set;
 mod shared;
 mod string;
 mod time;
@@ -316,6 +317,8 @@ validators! {
     model_fields::ModelFieldsValidator,
     none::NoneValidator,
     nullable::NullableValidator,
+    set::FrozenSetValidator,
+    set::SetValidator,
     string::StrValidator,
     time::TimeValidator,
     timedelta::TimeDeltaValidator,
@@ -372,6 +375,8 @@ pub enum CombinedValidator {
     ModelFields(model_fields::ModelFieldsValidator),
     None(none::NoneValidator),
     Nullable(nullable::NullableValidator),
+    Set(set::SetValidator),
+    FrozenSet(set::FrozenSetValidator),
     Str(string::StrValidator),
     StrConstrained(string::StrConstrainedValidator),
     Time(time::TimeValidator),

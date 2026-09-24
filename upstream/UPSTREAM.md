@@ -117,7 +117,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `serializers/type_serializers/nullable.rs` | `crates/perldantic-core/src/serializers/type_serializers/nullable.rs` | P0 | ported |  |
 | `serializers/type_serializers/ordered_dict.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/other.rs` | - | drop | dropped | Python-specific fallbacks |
-| `serializers/type_serializers/set_frozenset.rs` | `crates/perldantic-core/src/serializers/type_serializers/set.rs` | P1 | partial | `set`; `frozenset` comes with `Value` frozensets |
+| `serializers/type_serializers/set_frozenset.rs` | `crates/perldantic-core/src/serializers/type_serializers/set.rs` | P1 | done | Perl arrays accepted for Perl data (DIVERGENCES #19) |
 | `serializers/type_serializers/simple.rs` | `crates/perldantic-core/src/serializers/type_serializers/simple.rs` | P0 | ported |  |
 | `serializers/type_serializers/string.rs` | `crates/perldantic-core/src/serializers/type_serializers/string.rs` | P0 | ported |  |
 | `serializers/type_serializers/timedelta.rs` | `crates/perldantic-core/src/serializers/type_serializers/timedelta.rs` | P1 | done |  |
@@ -153,7 +153,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/float.rs` | `crates/perldantic-core/src/validators/float.rs` | P0 | ported |  |
 | `validators/fraction.rs` | - | drop | dropped | Python-only type |
 | `validators/frozendict.rs` | - | drop | dropped | Python-only type |
-| `validators/frozenset.rs` | `crates/perldantic-core/src/validators/frozenset.rs` | P1 | pending |  |
+| `validators/frozenset.rs` | `crates/perldantic-core/src/validators/set.rs` | P1 | done | shares `set.rs` |
 | `validators/function.rs` | `crates/perldantic-core/src/validators/function.rs` | P1 | pending |  |
 | `validators/generator.rs` | `crates/perldantic-core/src/validators/generator.rs` | P2 | pending |  |
 | `validators/int.rs` | `crates/perldantic-core/src/validators/int.rs` | P0 | ported |  |
@@ -173,7 +173,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/nullable.rs` | `crates/perldantic-core/src/validators/nullable.rs` | P0 | ported |  |
 | `validators/ordered_dict.rs` | - | drop | dropped | Python-only type |
 | `validators/prebuilt.rs` | - | drop | dropped | reuses validators attached to Python classes |
-| `validators/set.rs` | `crates/perldantic-core/src/validators/set.rs` | P1 | pending |  |
+| `validators/set.rs` | `crates/perldantic-core/src/validators/set.rs` | P1 | done | items kept in input order (DIVERGENCES #12); Perl arrays are exact sets |
 | `validators/shared/lookup_tree.rs` | `crates/perldantic-core/src/validators/shared/lookup_tree.rs` | P0 | ported | index lookups in a `BTreeMap` for a deterministic order |
 | `validators/shared/mod.rs` | `crates/perldantic-core/src/validators/shared/mod.rs` | P0 | pending |  |
 | `validators/string.rs` | `crates/perldantic-core/src/validators/string.rs` | P0 | ported | `python-re` engine unavailable (divergence 7); no regex LRU cache yet |

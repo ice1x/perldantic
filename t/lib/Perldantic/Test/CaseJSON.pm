@@ -12,7 +12,7 @@ use Math::BigInt;
 
 use Perldantic::Url;
 use Perldantic::Uuid;
-use Perldantic::Wire qw(tuple set bytes ordered);
+use Perldantic::Wire qw(tuple set frozenset bytes ordered);
 
 our @EXPORT_OK = qw(parse_json interpret node_get node_has);
 
@@ -105,6 +105,7 @@ sub _tagged ($tag, $payload, $in_schema) {
     my $walk = sub ($n) { interpret($n, in_schema => $in_schema) };
     return tuple(@{$walk->($payload)}) if $tag eq '$tuple';
     return set(@{$walk->($payload)})   if $tag eq '$set';
+    return frozenset(@{$walk->($payload)}) if $tag eq '$frozenset';
     return bytes(decode_base64($payload)) if $tag eq '$bytes';
     if ($tag eq '$float') {
         return 9**9**9 if $payload eq 'inf';

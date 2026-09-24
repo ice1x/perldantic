@@ -81,7 +81,9 @@ pub(crate) fn infer_to_python_known(
             (ObType::Tuple, Value::Tuple(items)) | (ObType::List, Value::List(items)) => {
                 Value::List(serialize_seq_filter(items, state)?)
             }
-            (ObType::Set, Value::Set(items)) => Value::List(serialize_seq(items, state)?),
+            (ObType::Set, Value::Set(items)) | (ObType::Frozenset, Value::FrozenSet(items)) => {
+                Value::List(serialize_seq(items, state)?)
+            }
             (ObType::Dict, Value::Dict(dict)) => Value::Dict(pairs_to_python(dict.iter(), state)?),
             (ObType::PydanticSerializable, Value::Model(model)) => {
                 let extra = model.extra.iter().flat_map(Dict::iter);
@@ -103,6 +105,9 @@ pub(crate) fn infer_to_python_known(
             }
             (ObType::List, Value::List(items)) => Value::List(serialize_seq_filter(items, state)?),
             (ObType::Set, Value::Set(items)) => Value::Set(serialize_seq(items, state)?),
+            (ObType::Frozenset, Value::FrozenSet(items)) => {
+                Value::FrozenSet(serialize_seq(items, state)?)
+            }
             (ObType::Dict, Value::Dict(dict)) => Value::Dict(pairs_to_python(dict.iter(), state)?),
             (ObType::PydanticSerializable, Value::Model(model)) => {
                 let extra = model.extra.iter().flat_map(Dict::iter);
@@ -189,7 +194,7 @@ pub(crate) fn infer_serialize_known<S: Serializer>(
             }
             seq.end()
         }
-        (ObType::Set, Value::Set(items)) => {
+        (ObType::Set, Value::Set(items)) | (ObType::Frozenset, Value::FrozenSet(items)) => {
             let state = &mut state.scoped_include_exclude(IncludeExclude::empty());
             let mut seq = serializer.serialize_seq(Some(items.len()))?;
             for element in items {

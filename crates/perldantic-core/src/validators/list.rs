@@ -97,6 +97,7 @@ macro_rules! min_length_check {
         }
     }};
 }
+pub(crate) use min_length_check;
 
 impl BuildValidator for ListValidator {
     const EXPECTED_TYPE: &'static str = "list";

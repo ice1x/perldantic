@@ -3,7 +3,8 @@
 //! satisfies a strict tuple.
 
 use perldantic_core::{
-    ErrorsOptions, InputType, SchemaValidator, ValidateError, ValidateOptions, Value,
+    ErrorsOptions, InputType, JsonOptions, SchemaSerializer, SchemaValidator, SerializeOptions,
+    ValidateError, ValidateOptions, Value,
 };
 
 fn j(json: &str) -> Value {
@@ -172,4 +173,54 @@ fn validate_value_is_python_input() {
     assert_eq!(e.input_type(), InputType::Python);
     assert_eq!(InputType::try_from("perl"), Ok(InputType::Perl));
     assert_eq!(InputType::Perl.as_str(), "perl");
+}
+
+#[test]
+fn perl_arrays_are_sets_and_tuples() {
+    let set = validator(r#"{"type": "set", "items_schema": {"type": "int"}, "strict": true}"#);
+    assert_eq!(
+        set.validate_value_as(
+            &j("[1, 1, 2]"),
+            InputType::Perl,
+            &ValidateOptions::default()
+        )
+        .unwrap(),
+        Value::Set(vec![Value::Int(1), Value::Int(2)])
+    );
+    assert_eq!(
+        errors_with(&set, &j("[1]"), InputType::Python, &strict()),
+        one("set_type", "Input should be a valid set")
+    );
+
+    // serializers take Perl arrays for tuples and sets without warnings
+    let perl = SerializeOptions {
+        input_type: InputType::Perl,
+        ..SerializeOptions::default()
+    };
+    for schema in [
+        r#"{"type": "set"}"#,
+        r#"{"type": "frozenset"}"#,
+        r#"{"type": "tuple", "items_schema": [{"type": "int"}], "variadic_item_index": 0}"#,
+    ] {
+        let s = SchemaSerializer::new(&j(schema), None).unwrap();
+        let out = s
+            .to_json(&j("[1, 2]"), &perl, &JsonOptions::default())
+            .unwrap();
+        assert_eq!(
+            (out.output.as_str(), out.warning),
+            ("[1,2]", None),
+            "{schema}"
+        );
+        let python = s
+            .to_json(
+                &j("[1, 2]"),
+                &SerializeOptions::default(),
+                &JsonOptions::default(),
+            )
+            .unwrap();
+        assert!(
+            python.warning.is_some(),
+            "{schema}: Python data warns as upstream"
+        );
+    }
 }

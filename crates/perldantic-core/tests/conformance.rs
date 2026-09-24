@@ -97,6 +97,7 @@ fn decode_tag(tag: &str, payload: &Json, in_schema: bool) -> Result<Value, Skip>
     Ok(match tag {
         "tuple" => Value::Tuple(items(payload)?),
         "set" => Value::Set(items(payload)?),
+        "frozenset" => Value::FrozenSet(items(payload)?),
         "bytes" => Value::Bytes(STANDARD.decode(payload.as_str().unwrap()).unwrap()),
         "float" => Value::Float(match payload.as_str().unwrap() {
             "inf" => f64::INFINITY,
@@ -286,7 +287,9 @@ fn divergence(case: &Json) -> Option<Skip> {
     // A set turned into a sequence comes out in Python's hash order.
     let output = &case["expected"]["output"];
     let ordered_output = case["expected"].get("json").is_some()
-        || (!output.is_null() && output.get("$set").is_none());
+        || (!output.is_null()
+            && output.get("$set").is_none()
+            && output.get("$frozenset").is_none());
     (has_multi_item_set(&case["input"]) && ordered_output)
         .then(|| Skip("divergence #12: set iteration order".into()))
 }
@@ -340,7 +343,7 @@ fn needs_host_callbacks(schema: &Json) -> Option<&'static str> {
 
 fn has_multi_item_set(json: &Json) -> bool {
     match json {
-        Json::Object(map) => match map.get("$set") {
+        Json::Object(map) => match map.get("$set").or_else(|| map.get("$frozenset")) {
             Some(Json::Array(items)) if map.len() == 1 => items.len() > 1,
             _ => map.values().any(has_multi_item_set),
         },

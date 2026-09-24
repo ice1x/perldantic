@@ -341,8 +341,36 @@ impl Input for Value {
     fn validate_list(&self, strict: bool) -> ValMatch<&[Value]> {
         match self {
             Value::List(items) => Ok(ValidationMatch::exact(items)),
-            Value::Tuple(items) | Value::Set(items) if !strict => Ok(ValidationMatch::lax(items)),
+            Value::Tuple(items) | Value::Set(items) | Value::FrozenSet(items) if !strict => {
+                Ok(ValidationMatch::lax(items))
+            }
             _ => Err(ValError::new(ErrorTypeDefaults::ListType, self)),
+        }
+    }
+
+    fn validate_set(&self, strict: bool, input_type: InputType) -> ValMatch<&[Value]> {
+        match self {
+            Value::Set(items) => Ok(ValidationMatch::exact(items)),
+            Value::List(items) if input_type == InputType::Perl => {
+                Ok(ValidationMatch::strict(items))
+            }
+            Value::List(items) | Value::Tuple(items) | Value::FrozenSet(items) if !strict => {
+                Ok(ValidationMatch::lax(items))
+            }
+            _ => Err(ValError::new(ErrorTypeDefaults::SetType, self)),
+        }
+    }
+
+    fn validate_frozenset(&self, strict: bool, input_type: InputType) -> ValMatch<&[Value]> {
+        match self {
+            Value::FrozenSet(items) => Ok(ValidationMatch::exact(items)),
+            Value::List(items) if input_type == InputType::Perl => {
+                Ok(ValidationMatch::strict(items))
+            }
+            Value::List(items) | Value::Tuple(items) | Value::Set(items) if !strict => {
+                Ok(ValidationMatch::lax(items))
+            }
+            _ => Err(ValError::new(ErrorTypeDefaults::FrozenSetType, self)),
         }
     }
 
@@ -351,7 +379,9 @@ impl Input for Value {
     fn validate_tuple(&self, strict: bool) -> ValMatch<&[Value]> {
         match self {
             Value::Tuple(items) => Ok(ValidationMatch::exact(items)),
-            Value::List(items) | Value::Set(items) if !strict => Ok(ValidationMatch::lax(items)),
+            Value::List(items) | Value::Set(items) | Value::FrozenSet(items) if !strict => {
+                Ok(ValidationMatch::lax(items))
+            }
             _ => Err(ValError::new(ErrorTypeDefaults::TupleType, self)),
         }
     }

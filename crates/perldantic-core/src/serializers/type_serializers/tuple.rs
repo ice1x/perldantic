@@ -69,8 +69,12 @@ impl BuildSerializer for TupleSerializer {
 
 impl TypeSerializer for TupleSerializer {
     fn to_python(&self, value: &Value, state: &mut SerializationState) -> SerResult<Value> {
-        match value {
-            Value::Tuple(tuple) => {
+        let tuple = match value {
+            Value::Tuple(tuple) => Some(tuple.as_slice()),
+            other => state.extra.perl_array(other),
+        };
+        match tuple {
+            Some(tuple) => {
                 let mut items = Vec::with_capacity(tuple.len());
                 self.for_each_tuple_item_and_serializer(tuple, state, |entry| {
                     entry
@@ -83,7 +87,7 @@ impl TypeSerializer for TupleSerializer {
                     _ => Ok(Value::Tuple(items)),
                 }
             }
-            _ => {
+            None => {
                 state.warn_fallback_py(&self.name, value)?;
                 infer_to_python(value, state)
             }
@@ -120,8 +124,12 @@ impl TypeSerializer for TupleSerializer {
         serializer: S,
         state: &mut SerializationState,
     ) -> Result<S::Ok, S::Error> {
-        match value {
-            Value::Tuple(tuple) => {
+        let tuple = match value {
+            Value::Tuple(tuple) => Some(tuple.as_slice()),
+            other => state.extra.perl_array(other),
+        };
+        match tuple {
+            Some(tuple) => {
                 let mut seq = serializer.serialize_seq(Some(tuple.len()))?;
                 self.for_each_tuple_item_and_serializer(tuple, state, |entry| {
                     seq.serialize_element(&PydanticSerializer::new(
@@ -133,7 +141,7 @@ impl TypeSerializer for TupleSerializer {
                 .map_err(|e| py_err_se_err(&e))??;
                 seq.end()
             }
-            _ => {
+            None => {
                 state.warn_fallback_ser::<S>(&self.name, value)?;
                 infer_serialize(value, serializer, state)
             }

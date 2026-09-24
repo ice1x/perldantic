@@ -15,6 +15,8 @@ use crate::validators::TemporalUnitMode;
 use crate::validators::config::ValBytesMode;
 use crate::value::Value;
 
+use super::InputType;
+
 use super::datetime::{
     bytes_as_date, bytes_as_datetime, bytes_as_time, bytes_as_timedelta, float_as_datetime,
     float_as_duration, float_as_time, int_as_datetime, int_as_duration, int_as_time,
@@ -245,6 +247,25 @@ impl<'data> Input for JsonValue<'data> {
         }
     }
 
+    // a list is allowed here, since otherwise a set could not be created from JSON
+    fn validate_set(&self, _strict: bool, _input_type: InputType) -> ValMatch<&JsonArray<'data>> {
+        match self {
+            JsonValue::Array(a) => Ok(ValidationMatch::strict(a)),
+            _ => Err(ValError::new(ErrorTypeDefaults::SetType, self)),
+        }
+    }
+
+    fn validate_frozenset(
+        &self,
+        _strict: bool,
+        _input_type: InputType,
+    ) -> ValMatch<&JsonArray<'data>> {
+        match self {
+            JsonValue::Array(a) => Ok(ValidationMatch::strict(a)),
+            _ => Err(ValError::new(ErrorTypeDefaults::FrozenSetType, self)),
+        }
+    }
+
     type Tuple<'a>
         = &'a JsonArray<'data>
     where
@@ -345,6 +366,15 @@ impl Input for str {
 
     fn validate_list(&self, _strict: bool) -> ValMatch<Never> {
         Err(ValError::new(ErrorTypeDefaults::ListType, self))
+    }
+
+    fn validate_set(&self, _strict: bool, _input_type: InputType) -> ValMatch<Never> {
+        Err(ValError::new(ErrorTypeDefaults::SetType, self))
+    }
+
+    // upstream reports a set error here too
+    fn validate_frozenset(&self, _strict: bool, _input_type: InputType) -> ValMatch<Never> {
+        Err(ValError::new(ErrorTypeDefaults::SetType, self))
     }
 
     type Tuple<'a> = Never;

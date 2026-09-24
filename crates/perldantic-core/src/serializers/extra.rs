@@ -7,6 +7,7 @@ use serde::ser::Error;
 
 use super::config::SerializationConfig;
 use super::errors::{SerResult, SerializeError, UNEXPECTED_TYPE_SER_MARKER, UnexpectedValue};
+use crate::input::InputType;
 use crate::recursion_guard::{
     ContainsRecursionState, RecursionError, RecursionGuard, RecursionState,
 };
@@ -171,9 +172,18 @@ pub(crate) struct Extra {
     pub exclude_none: bool,
     pub serialize_unknown: bool,
     pub serialize_as_any: bool,
+    pub input_type: InputType,
 }
 
 impl Extra {
+    /// A Perl array given where a tuple or a set is expected: Perl has neither.
+    pub fn perl_array<'v>(&self, value: &'v Value) -> Option<&'v [Value]> {
+        match value {
+            Value::List(items) if self.input_type == InputType::Perl => Some(items),
+            _ => None,
+        }
+    }
+
     pub fn serialize_by_alias_or(&self, serialize_by_alias: Option<bool>) -> bool {
         self.by_alias.or(serialize_by_alias).unwrap_or(false)
     }

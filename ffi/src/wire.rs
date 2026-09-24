@@ -4,7 +4,7 @@
 //!
 //! - `null`, booleans, integers of any size, finite floats (written with a fraction or an
 //!   exponent, so they stay floats), strings, arrays (lists) and objects with string keys (dicts);
-//! - `{"$tuple": [...]}`, `{"$set": [...]}`, `{"$bytes": "<base64>"}`,
+//! - `{"$tuple": [...]}`, `{"$set": [...]}`, `{"$frozenset": [...]}`, `{"$bytes": "<base64>"}`,
 //!   `{"$float": "inf" | "-inf" | "nan"}`;
 //! - `{"$dict": [[key, value], ...]}` for dicts with non-string keys or keys starting with `$`;
 //! - `{"$date": "2022-06-08"}`, `{"$time": "12:13:14.000001+01:00"}`,
@@ -72,6 +72,7 @@ fn decode_tag(tag: &str, payload: Value) -> CoreResult<Value> {
     Ok(match tag {
         "tuple" => Value::Tuple(list(payload, "$tuple takes a list")?),
         "set" => Value::Set(list(payload, "$set takes a list")?),
+        "frozenset" => Value::FrozenSet(list(payload, "$frozenset takes a list")?),
         "bytes" => match &payload {
             Value::Str(text) => Value::Bytes(
                 STANDARD
@@ -314,6 +315,9 @@ fn write_value(value: &Value, out: &mut String) {
         Value::List(items) => write_items(items, out),
         Value::Tuple(items) => write_tagged("tuple", out, |out| write_items(items, out)),
         Value::Set(items) => write_tagged("set", out, |out| write_items(items, out)),
+        Value::FrozenSet(items) => {
+            write_tagged("frozenset", out, |out| write_items(items, out));
+        }
         Value::Dict(dict) => write_dict(dict, out),
         Value::Date(d) => write_tagged("date", out, |out| write_str(&temporal::date_str(d), out)),
         Value::Time(t) => write_tagged("time", out, |out| write_str(&temporal::time_str(t), out)),

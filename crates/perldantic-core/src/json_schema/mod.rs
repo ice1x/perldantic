@@ -577,7 +577,7 @@ impl<'o> GenerateJsonSchema<'o> {
             "literal" => self.literal_schema(schema),
             "list" => self.list_schema(schema),
             "tuple" => self.tuple_schema(schema),
-            "set" => self.set_schema(schema),
+            "set" | "frozenset" => self.set_schema(schema),
             "dict" => self.dict_schema(schema),
             "default" => self.default_schema(schema),
             "nullable" => self.nullable_schema(schema),
