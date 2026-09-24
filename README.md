@@ -66,12 +66,12 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
   - [x] 00058 — Native encoder (XS): Perl data to wire JSON in C, numbers vs strings from SV flags
   - [x] 00059 — One-pass decoding (no bignum, parser filters) and cached class plans for building objects
   - [x] 00060 — Benchmarks vs phase 1 and Type::Tiny+Moo → `docs/BENCHMARKS.md`
-- [ ] 00061 — Integration scenarios
+- [x] 00061 — Integration scenarios
   - [x] 00062 — CBT journal entry
   - [x] 00063 — Story/book editor: recursive chapters
   - [x] 00064 — IT task manager: tagged union by kind, deadlines
   - [x] 00065 — ERP order: Decimal totals, cross-field model validator
-  - [ ] 00066 — Bug tracker: URL/UUID, `extra => 'forbid'`, JSON import/export
+  - [x] 00066 — Bug tracker: URL/UUID, `extra => 'forbid'`, JSON import/export
 - [ ] 00067 — Docs & release 0.1.0
   - [ ] 00078 — Perl-friendly naming: review every public name taken from Python (methods, options, constraint keys, type names), agree on a rename table, rename with deprecated aliases
   - [ ] 00068 — POD for all modules
