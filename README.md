@@ -15,6 +15,25 @@ From a checkout: `perl Makefile.PL && make && make test && make install`. Start 
 [Perldantic](lib/Perldantic.pm)'s documentation (`perldoc Perldantic`), or with
 [docs/MIGRATING_FROM_PYDANTIC.md](docs/MIGRATING_FROM_PYDANTIC.md) if you know pydantic.
 
+## Performance
+
+Against Moo + Type::Tiny (Type::Tiny::XS installed) on the same models, 200 orders of 10 items
+each (2,200 objects), median call on an Apple M1 Max:
+
+| Operation | Perldantic | Moo + Type::Tiny | |
+|---|---:|---:|---:|
+| Build objects: `validate` / `new` | 1.62 ms | 8.02 ms | 5.0× faster |
+| Build lazy objects: `validate(..., lazy => 1)` / `new` | 0.89 ms | 8.74 ms | 9.8× faster |
+| Check only: `check` / Type::Tiny `check` | 0.77 ms | 1.92 ms | 2.5× faster |
+| Dump to Perl data: `dump` / hand-written `to_data` | 1.89 ms | 1.65 ms | 1.15× slower |
+| Dump to JSON: `dump_json` / `to_data` + JSON::XS | 1.42 ms | 2.42 ms | 1.7× faster |
+| Dump lazy objects to JSON | 0.55 ms | 2.64 ms | 4.8× faster |
+
+Lazy objects (opt-in) keep the validated data in the core until an object is read; reading
+every field of every object afterwards is slower than building them in full. Method, more
+numbers and where the time goes: [docs/BENCHMARKS.md](docs/BENCHMARKS.md); reproduce with
+`perl -Iblib/lib -Iblib/arch tools/bench/compare.pl 200`.
+
 ## Tasks
 
 - [x] 00001 — Scaffold & upstream import
