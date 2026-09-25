@@ -522,7 +522,8 @@ C<extra_behavior> (C<'ignore'>, C<'allow'> or C<'forbid'>) sets the behaviour di
 
 =item C<Enum[...]>
 
-One of the given strings (core C<literal>).
+One of the given strings (core C<literal>). For named members, declare an enum class with
+L<Perldantic::Enum>.
 
 =item C<Literal[...]>
 
@@ -532,7 +533,8 @@ One of the given plain values, C<undef> included (core C<literal>).
 
 An object of the class or a subclass (core C<is-instance>), validated and returned as the very
 object; a class name stands for C<InstanceOf[]> wherever a type is expected. For a Perldantic
-model class, the model's own schema applies instead. Objects of other classes cannot be written
+model class, the model's own schema applies instead, and for an enum class
+(L<Perldantic::Enum>) the core C<enum> schema. Objects of other classes cannot be written
 as JSON (C<dump_json> fails, as pydantic does for arbitrary types) and have no JSON Schema.
 Classes whose objects Perldantic turns into data (DateTime, Time::Moment, DateTime::Duration,
 URI, Math::BigInt, Math::BigFloat, the Perldantic value classes) are not accepted: use the

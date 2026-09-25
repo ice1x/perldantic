@@ -38,6 +38,15 @@ package Leak::Shape {
     computed_field area => (isa => Int) => sub ($self) { $self->w * $self->h };
 }
 
+package Leak::Color {
+    use Perldantic::Enum RED => 'red', GREEN => 'green';
+}
+
+package Leak::Paint {
+    use Perldantic;
+    has color => (is => 'ro', isa => 'Leak::Color', default => Leak::Color->RED);
+}
+
 package main;
 
 my $ints = Perldantic::FFI::Validator->new({type => 'list', items_schema => {type => 'int'}});
@@ -84,6 +93,21 @@ no_leaks_ok {
 } 'lazy objects';
 ok Perldantic::FFI::_lazy_live() == 0, 'the core holds no lazy model once its objects are gone';
 no_leaks_ok { Leak::Node->core_schema } 'model schemas (no closure cycles)';
+Leak::Paint->new(color => 'green')->model_dump_json;
+no_leaks_ok {
+    my $paint = Leak::Paint->new(color => 'green');
+    Leak::Paint->new(color => Leak::Color->RED)->model_dump;
+    $paint->model_dump_json;
+    Leak::Paint->model_validate_json('{"color": "red"}', lazy => 1)->color;
+} 'enum members';
+no_leaks_ok { local $@; eval { Leak::Paint->new(color => 'pink') } } 'enum errors';
+my $other = Perldantic::FFI::Validator->new({type => 'enum', cls => 'Leak::Other',
+    members => [Perldantic::Wire::Enum->new(class => 'Leak::Other', name => 'A', value => 1)]});
+$other->validate(1);
+no_leaks_ok {
+    my $member = Perldantic::Wire::decode('{"$enum": {"class": "Leak::Other", "name": "A", "value": 1}}');
+    $other->validate(1);
+} 'members of classes Perl does not know';
 my $leaf = Leak::Node->new(name => 'leaf');
 no_leaks_ok { my $node = Leak::Node->new(name => 'n', children => [$leaf, {name => 'x'}]) } 'model objects as input';
 no_leaks_ok { local $@; eval { Leak::Node->new(name => 'n', children => [$leaf, 5]) } } 'errors with model objects';

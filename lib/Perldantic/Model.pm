@@ -9,6 +9,7 @@ use Hash::Util::FieldHash ();
 use Scalar::Util qw(blessed);
 use Sub::Util ();
 
+use Perldantic::Enum ();
 use Perldantic::Error;
 use Perldantic::FFI;
 use Perldantic::Role ();
@@ -145,7 +146,8 @@ sub _field_spec ($class, $name, %options) {
         if (ref $default eq 'CODE') {
             $spec{default_code} = $default;
         }
-        elsif (ref $default) {
+        elsif (ref $default && !(blessed $default && $default->isa('Perldantic::Enum'))) {
+            # enum members are shared objects that never change: plain defaults
             _usage("has $name: a reference default must be wrapped in a code reference");
         }
         else {
@@ -445,7 +447,7 @@ sub _core_config_from ($config, $what) {
     return \%core;
 }
 
-# Replace `is-instance` of model classes by references to their definitions.
+# Replace `is-instance` of model and enum classes by references to their definitions.
 # The core ref of a model: pydantic's `module.Qualname` shape, so JSON Schema `$defs` are named
 # after the last package component (`Shop::Item` is `Item`) unless names collide.
 sub _ref ($class) { $class =~ s/::/./gr }
@@ -456,7 +458,8 @@ sub _link ($schema, $visit) {
     return Perldantic::Wire::tuple(map { _link($_, $visit) } @$schema) if $ref eq 'Perldantic::Wire::Tuple';
     return Perldantic::Wire::ordered(map { _link($_, $visit) } @$schema) if $ref eq 'Perldantic::Wire::Ordered';
     if ($ref eq 'HASH') {
-        if (($schema->{type} // '') eq 'is-instance' && _is_model($schema->{cls})) {
+        if (($schema->{type} // '') eq 'is-instance'
+            && (_is_model($schema->{cls}) || Perldantic::Enum::_is_enum($schema->{cls}))) {
             $visit->($schema->{cls});
             return {type => 'definition-ref', schema_ref => _ref($schema->{cls})};
         }
@@ -678,15 +681,17 @@ sub core_schema ($class, %options) {
     return _linked_schema({type => 'is-instance', cls => $class}, $options{for_json_schema}, $options{depends_on});
 }
 
-# A core schema in which model classes (`is-instance` of a model) refer to definitions of their
-# model schemas, collected with every model they reach in turn.
+# A core schema in which model and enum classes (`is-instance` of one) refer to definitions of
+# their schemas, collected with every model they reach in turn.
 sub _linked_schema ($schema, $for_json_schema = 0, $depends_on = {}) {
     my (%seen, @definitions);
     # __SUB__ rather than a closure over $visit, which would be a reference cycle.
-    my $visit = sub ($model) {
-        return if $seen{$model}++;
-        $depends_on->{$_} = 1 for _lineage($model);
-        push @definitions, _model_schema($model, __SUB__, !!$for_json_schema);
+    my $visit = sub ($class) {
+        return if $seen{$class}++;
+        return push @definitions, Perldantic::Enum::_core_schema($class, _ref($class))
+            if Perldantic::Enum::_is_enum($class);
+        $depends_on->{$_} = 1 for _lineage($class);
+        push @definitions, _model_schema($class, __SUB__, !!$for_json_schema);
     };
     my $linked = _link($schema, $visit);
     return $linked if !@definitions;

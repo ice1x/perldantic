@@ -112,8 +112,8 @@ with a C<_build_$name> builder unless there is a default) or C<bare> (no accesso
 =item C<isa>
 
 A L<Perldantic::Types> type, a L<Type::Tiny> constraint, or a class name: a Perldantic model
-class, or any other class, whose objects the field then takes (C<InstanceOf[]>). Defaults to
-C<Any>.
+class, an enum class (L<Perldantic::Enum>), or any other class, whose objects the field then
+takes (C<InstanceOf[]>). Defaults to C<Any>.
 
 =item C<required>
 
@@ -121,7 +121,8 @@ The field must be given. Other fields without a default may be left out and are 
 
 =item C<default>, C<builder>, C<lazy>
 
-A plain default value, or a code reference / builder method called with the object. As in
+A plain default value (enum members count as plain values), or a code reference / builder
+method called with the object. As in
 pydantic, defaults are not validated unless C<< validate_default => 1 >> (or the
 C<validate_default> model config) asks for it; only plain defaults can be. C<lazy> delays code
 defaults and builders until the field is first read.

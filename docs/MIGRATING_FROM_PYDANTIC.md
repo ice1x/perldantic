@@ -22,7 +22,8 @@ behaviour differences are listed in [DIVERGENCES.md](DIVERGENCES.md).
 10. [Errors](#errors)
 11. [Unions](#unions)
 12. [Dates, UUIDs, URLs and decimals](#dates-uuids-urls-and-decimals)
-13. [Not available](#not-available)
+13. [Enum classes](#enum-classes)
+14. [Not available](#not-available)
 
 ## Models
 
@@ -149,7 +150,8 @@ with `use Perldantic` (in a model) or `use Perldantic::Types qw(...)` (anywhere 
 | `dict[K, V]` | `Map[K, V]` | keys validated as `K` |
 | `TypedDict` | `Dict[name => T, ...]` | `Optional[T]` marks a key that may be missing |
 | `Literal['a', 1]` | `Literal['a', 1]` | |
-| a `str` enum | `Enum[qw(a b)]` | plain strings, no enum classes yet |
+| `Literal['a', 'b']` used as an enum | `Enum[qw(a b)]` | plain strings |
+| an `Enum`, `IntEnum` or `StrEnum` class `E` | `'E'` (a class declared with `use Perldantic::Enum`) | see [Enum classes](#enum-classes) |
 | `Union[A, B]`, `A \| B` | `A \| B`, `AnyOf[A, B]` | |
 | `Json[T]` | `Json[T]` | |
 | a model class `M` | `'M'` (the class name) | also `ArrayRef['M']`, `Maybe['M']`, ... |
@@ -550,6 +552,43 @@ say $event->model_dump_json;
 # {"at":"2024-01-02T03:04:05Z","id":"0e7ac198-9acd-4c0c-b4b4-761974bf71d7","site":"https://example.com/","price":"1.10"}
 ```
 
+## Enum classes
+
+`use Perldantic::Enum` declares an enum class in the current package, with its members as
+name => value pairs. The class name is then a type; input is looked up by value, and the field
+holds the member, one object per member that reads as its value. There is no separate
+`IntEnum` or `StrEnum`: when every value is an integer, numeric strings match as they do for
+`IntEnum`, and likewise for strings and floats.
+
+```python
+class Size(IntEnum):
+    S = 1
+    M = 2
+    L = 3
+
+class Shirt(BaseModel):
+    size: Size = Size.M
+```
+
+```perl
+package Size;
+use Perldantic::Enum S => 1, M => 2, L => 3;
+
+package Shirt;
+use Perldantic;
+has size => (is => 'ro', isa => 'Size', default => Size->M);
+
+package main;
+my $shirt = Shirt->new(size => '3');
+say $shirt->size->name;                        # L
+say $shirt->size == Size->L ? 'large' : '';    # large
+say $shirt->model_dump_json;                   # {"size":3}
+say Size->from_value(1)->name;                 # S
+```
+
+`model_dump` keeps members, and `mode => 'json'` writes their values. Strict validation
+takes only members from Perl data (JSON input is always a value).
+
 ## Not available
 
 These pydantic features have no Perldantic counterpart yet:
@@ -558,7 +597,7 @@ These pydantic features have no Perldantic counterpart yet:
   `model_rebuild` (not needed: models are compiled on first use and recompiled when a class
   they use changes);
 - generic models, dataclasses, `@validate_call`, `RootModel`;
-- Python `Enum` classes (use `Enum[...]` or `Literal[...]`);
+- enum member aliases (two names for one value) and `use_enum_values`;
 - `SecretStr`, `EmailStr` and other types from `pydantic.networks` and `pydantic.types` beyond
   those listed above (a `pattern` constraint or a Type::Tiny constraint covers most of them);
 - `json_schema_extra` functions and custom `GenerateJsonSchema` classes;
