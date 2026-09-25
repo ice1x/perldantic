@@ -158,7 +158,13 @@ impl Validator for EnumValidator {
             return Ok(Value::Enum(member.clone()));
         }
         let strict = state.strict_or(self.strict);
-        if strict && state.extra().input_type == InputType::Python {
+        // host input (Python's or Perl's) must be a member; JSON has only values
+        if strict
+            && matches!(
+                state.extra().input_type,
+                InputType::Python | InputType::Perl
+            )
+        {
             return Err(ValError::new(
                 ErrorType::IsInstanceOf {
                     class: self.class_repr.clone(),

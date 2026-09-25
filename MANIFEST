@@ -137,6 +137,7 @@ ffi/tests/callbacks.rs
 ffi/tests/header.rs
 ffi/tests/lazy_abi.rs
 lib/Perldantic.pm
+lib/Perldantic/Enum.pm
 lib/Perldantic/Error.pm
 lib/Perldantic/FFI.pm
 lib/Perldantic/Info.pm
@@ -188,6 +189,7 @@ t/36-pod.t
 t/37-migrating-guide.t
 t/38-distribution.t
 t/39-lazy.t
+t/40-enum.t
 t/conformance.t
 t/lib/Perldantic/Test/CaseJSON.pm
 tests/conformance/upstream/tests/serializers/test_any.json

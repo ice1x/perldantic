@@ -24,6 +24,7 @@
 typedef struct {
     HV *bless; /* %Perldantic::Wire::BLESS */
     HV *lazy;  /* %Perldantic::Wire::LAZY */
+    HV *enums; /* %Perldantic::Enum::CLASSES */
 } my_cxt_t;
 START_MY_CXT
 
@@ -31,6 +32,7 @@ static void cxt_fetch(pTHX_ my_cxt_t *cxt)
 {
     cxt->bless = get_hv("Perldantic::Wire::BLESS", GV_ADD);
     cxt->lazy = get_hv("Perldantic::Wire::LAZY", GV_ADD);
+    cxt->enums = get_hv("Perldantic::Enum::CLASSES", GV_ADD);
 }
 
 /* How deep plain data may nest before the fallback (which has no such limit) takes over. */
@@ -349,8 +351,18 @@ static void emit_pairs(pTHX_ SV *out, AV *pairs, encoder *enc)
  */
 enum {
     B_NONE = 0, B_TRUE = 1, B_FALSE = 2, B_INT = 3, B_FLOAT = 4, B_STR = 5, B_LIST = 6,
-    B_DICT = 7, B_JSON = 8, B_MODEL = 9, B_MODEL_FULL = 10, B_BYTES = 11, B_LAZY = 12
+    B_DICT = 7, B_JSON = 8, B_MODEL = 9, B_MODEL_FULL = 10, B_BYTES = 11, B_LAZY = 12,
+    B_ENUM = 13
 };
+
+/* The registry entry of a Perl enum class (Perldantic::Enum), or NULL. */
+static HV *enum_class(pTHX_ SV *class)
+{
+    dMY_CXT;
+    HE *entry = MY_CXT.enums ? hv_fetch_ent(MY_CXT.enums, class, 0, 0) : NULL;
+    if (!entry || !SvROK(HeVAL(entry)) || SvTYPE(SvRV(HeVAL(entry))) != SVt_PVHV) return NULL;
+    return (HV *)SvRV(HeVAL(entry));
+}
 
 static void bput_len(pTHX_ SV *out, STRLEN len)
 {
@@ -441,6 +453,32 @@ static void bput_fallback(pTHX_ SV *out, SV *value, encoder *enc)
 }
 
 static void bemit(pTHX_ SV *out, SV *value, encoder *enc, int depth);
+
+/* A member of a Perl enum class as an enum node, with the class's sub type as its mixin (see
+   Perldantic::Enum::_perldantic_wire). Returns 0 for objects of other classes. */
+static int bemit_enum(pTHX_ SV *out, SV *target, encoder *enc, int depth)
+{
+    HV *stash = SvSTASH(target);
+    const char *class = HvNAME(stash);
+    SV *class_sv;
+    HV *entry;
+    SV **name, **value, **sub_type;
+    if (!class) return 0;
+    class_sv = sv_2mortal(newSVpvn_flags(class, HvNAMELEN(stash), HvNAMEUTF8(stash) ? SVf_UTF8 : 0));
+    if (!(entry = enum_class(aTHX_ class_sv))) return 0;
+    name = hv_fetchs((HV *)target, "name", 0);
+    value = hv_fetchs((HV *)target, "value", 0);
+    if (!name || !value) return 0;
+    sub_type = hv_fetchs(entry, "sub_type", 0);
+    bput_tag(aTHX_ out, B_ENUM);
+    bput_bytes(aTHX_ out, class, HvNAMELEN(stash));
+    bput_sv_string(aTHX_ out, *name);
+    if (sub_type && SvOK(*sub_type)) bput_sv_string(aTHX_ out, *sub_type);
+    else bput_len(aTHX_ out, 0);
+    bput_tag(aTHX_ out, 1); /* a member reads as its value */
+    bemit(aTHX_ out, *value, enc, depth + 1);
+    return 1;
+}
 
 /* A model object as a model node, under the conditions of emit_model. */
 static int bemit_model(pTHX_ SV *out, SV *target, encoder *enc, int depth)
@@ -606,7 +644,9 @@ static void bemit(pTHX_ SV *out, SV *value, encoder *enc, int depth)
     if (SvROK(value)) {
         SV *target = SvRV(value);
         if (SvOBJECT(target)) {
-            if (SvTYPE(target) == SVt_PVHV && bemit_model(aTHX_ out, target, enc, depth)) return;
+            if (SvTYPE(target) == SVt_PVHV
+                && (bemit_model(aTHX_ out, target, enc, depth) || bemit_enum(aTHX_ out, target, enc, depth)))
+                return;
             bput_fallback(aTHX_ out, value, enc);
             return;
         }
@@ -978,6 +1018,34 @@ static SV *bread(pTHX_ breader *r, int depth)
         return sv_bless(ref, gv_stashpvs("Perldantic::Wire::Model", GV_ADD));
     }
     case B_LAZY: return bread_lazy(aTHX_ r, depth);
+    case B_ENUM: {
+        /* the member itself for a Perl enum class, else a Perldantic::Wire::Enum */
+        SV *class = sv_2mortal(bget_string(aTHX_ r));
+        SV *name = sv_2mortal(bget_string(aTHX_ r));
+        SV *mixin = sv_2mortal(bget_string(aTHX_ r));
+        int str_is_value;
+        SV *value;
+        HV *entry, *member;
+        bneed(aTHX_ r, 1);
+        str_is_value = *r->at++ != 0;
+        value = bread(aTHX_ r, depth + 1);
+        if ((entry = enum_class(aTHX_ class)) != NULL) {
+            SV **by_name = hv_fetchs(entry, "by_name", 0);
+            HE *found = by_name && SvROK(*by_name) && SvTYPE(SvRV(*by_name)) == SVt_PVHV
+                ? hv_fetch_ent((HV *)SvRV(*by_name), name, 0, 0) : NULL;
+            if (found) {
+                SvREFCNT_dec(value);
+                return newSVsv(HeVAL(found));
+            }
+        }
+        member = newHV();
+        (void)hv_stores(member, "class", newSVsv(class));
+        (void)hv_stores(member, "name", newSVsv(name));
+        (void)hv_stores(member, "value", value);
+        (void)hv_stores(member, "mixin", SvCUR(mixin) ? newSVsv(mixin) : newSV(0));
+        (void)hv_stores(member, "str_is_value", newSVsv(str_is_value ? &PL_sv_yes : &PL_sv_no));
+        return sv_bless(newRV_noinc((SV *)member), gv_stashpvs("Perldantic::Wire::Enum", GV_ADD));
+    }
     default:
         croak("Perldantic::XS::decode_result: unknown tag %d", (int)tag);
     }

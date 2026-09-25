@@ -319,7 +319,12 @@ my %UNTAG = (
         $model->{fields_set} //= [sort keys %{$model->{fields} //= {}}];
         bless $model, 'Perldantic::Wire::Model';
     },
-    enum      => sub ($member) { Perldantic::Wire::Enum->new(%$member) },
+    # members of Perl enum classes are those classes' own objects
+    enum      => sub ($member) {
+        $Perldantic::Enum::CLASSES{$member->{class} // ''}
+            ? Perldantic::Enum::_from_wire($member)
+            : Perldantic::Wire::Enum->new(%$member);
+    },
     host => sub ($host) {
         $OBJECT{$host->{id} // ''}
             // Perldantic::InternalError->throw(message => "The core returned an unknown object of class $host->{class}");

@@ -115,7 +115,7 @@ numbers and where the time goes: [docs/BENCHMARKS.md](docs/BENCHMARKS.md); repro
   - [ ] 00074 — Prebuilt binaries / Alien dist
   - [ ] 00075 — Automated upstream sync
   - [x] 00080 — No JSON at the boundary: a binary wire format, and validation reading Perl data in place (docs/BENCHMARKS.md)
-  - [ ] 00079 — Perl enum classes: declare enum members in a Perl package and validate them with the core `enum` schema (the core and the wire already carry enum members)
+  - [x] 00079 — Perl enum classes: declare enum members in a Perl package and validate them with the core `enum` schema (the core and the wire already carry enum members)
   - [x] 00081 — Lazy model objects, opt-in (`lazy => 1` per call, `model_config lazy => 1`, or a TypeAdapter's config): validated data stays in the core until an object is read (validation ~10x faster than Moo); not the default, since such objects hold nothing until read (Moo compatibility)
 
 MIT — see [LICENSE](LICENSE) and `NOTICE`.

@@ -20,6 +20,7 @@
 //! | 10 | any other model instance | class length, class bytes, fields as a dict (tag 7 or 8), fields set as a list, extra (tag 0 or a dict) |
 //! | 11 | bytes | length, bytes |
 //! | 12 | a lazy model: one the core keeps ([`crate::lazy`]), known to the host by a handle | class length, class bytes, handle (`u64`), count, then names of fields to leave out when they were not set |
+//! | 13 | an enum member | class, name and mixin (empty for none) as length and bytes, a byte (1 when `str()` gives the value), the value |
 //!
 //! The names a lazy node lists are for the host sending a model back: fields its objects do not
 //! hold unless given (Perl leaves out optional fields without a default). The core writes none.
@@ -28,7 +29,7 @@
 //! that hold host input objects anywhere in them (set names starting with NUL): the host maps
 //! those back to its own objects while the call lasts, so they are written in full.
 
-use perldantic_core::{CoreError, CoreResult, Dict, Model, Value};
+use perldantic_core::{CoreError, CoreResult, Dict, EnumMember, EnumMixin, Model, Value};
 
 use crate::{lazy, wire};
 
@@ -45,6 +46,7 @@ const MODEL: u8 = 9;
 const MODEL_FULL: u8 = 10;
 const BYTES: u8 = 11;
 const LAZY: u8 = 12;
+const ENUM: u8 = 13;
 
 /// Nesting deeper than this is refused rather than risking the stack; the host writes deeper
 /// data as a JSON node.
@@ -190,6 +192,26 @@ impl<'a> Reader<'a> {
                     }
                 }
                 Value::Model(model)
+            }
+            ENUM => {
+                let class = self.str()?.to_owned();
+                let name = self.str()?.to_owned();
+                let mixin = match self.str()? {
+                    "" => None,
+                    mixin => Some(
+                        EnumMixin::from_name(mixin)
+                            .ok_or_else(|| malformed(&format!("unknown enum mixin `{mixin}`")))?,
+                    ),
+                };
+                let str_is_value = self.byte()? != 0;
+                let value = self.value(depth + 1)?;
+                Value::Enum(Box::new(EnumMember {
+                    class,
+                    name,
+                    value,
+                    mixin,
+                    str_is_value,
+                }))
             }
             tag => return Err(malformed(&format!("unknown tag {tag}"))),
         })
@@ -352,6 +374,14 @@ fn write_value(value: &Value, out: &mut Vec<u8>, lazy: bool) {
             }
         }
         Value::Model(model) => write_full_model(model, out, lazy),
+        Value::Enum(member) => {
+            out.push(ENUM);
+            write_bytes(member.class.as_bytes(), out);
+            write_bytes(member.name.as_bytes(), out);
+            write_bytes(member.mixin.map_or("", EnumMixin::name).as_bytes(), out);
+            out.push(u8::from(member.str_is_value));
+            write_value(&member.value, out, lazy);
+        }
         other => write_json(other, out),
     }
 }
@@ -411,6 +441,47 @@ mod tests {
             "keys starting with $ need no tagging"
         );
         assert_eq!(decode(&bytes).unwrap(), value);
+    }
+
+    #[test]
+    fn enum_members_read_and_write() {
+        use perldantic_core::{EnumMember, EnumMixin};
+        let member = |mixin, str_is_value| {
+            Value::Enum(Box::new(EnumMember {
+                class: "My::Level".into(),
+                name: "LOW".into(),
+                value: Value::Int(1),
+                mixin,
+                str_is_value,
+            }))
+        };
+        let plain = member(None, false);
+        let mut bytes = vec![ENUM];
+        bytes.extend(text("My::Level"));
+        bytes.extend(text("LOW"));
+        bytes.extend(text(""));
+        bytes.push(0);
+        bytes.extend(node(INT, &1i64.to_le_bytes()));
+        assert_eq!(encode(&plain), bytes);
+        assert_eq!(decode(&bytes).unwrap(), plain);
+
+        let int = member(Some(EnumMixin::Int), true);
+        let mut bytes = vec![ENUM];
+        bytes.extend(text("My::Level"));
+        bytes.extend(text("LOW"));
+        bytes.extend(text("int"));
+        bytes.push(1);
+        bytes.extend(node(INT, &1i64.to_le_bytes()));
+        assert_eq!(encode(&int), bytes);
+        assert_eq!(decode(&bytes).unwrap(), int);
+
+        let mut bad = vec![ENUM];
+        bad.extend(text("My::Level"));
+        bad.extend(text("LOW"));
+        bad.extend(text("list"));
+        bad.push(0);
+        bad.push(NONE);
+        assert!(decode(&bad).unwrap_err().to_string().contains("enum mixin"));
     }
 
     #[test]

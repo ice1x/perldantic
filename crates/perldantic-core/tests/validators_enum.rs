@@ -2,9 +2,9 @@
 //! pydantic-core 2.49 with Python 3.12.
 
 use perldantic_core::{
-    Dict, EnumMember, EnumMixin, ErrorsOptions, JsonOptions, JsonSchemaOptions, SchemaSerializer,
-    SchemaValidator, SerMode, SerializeOptions, ValidateError, ValidateOptions, Value,
-    generate_json_schema,
+    Dict, EnumMember, EnumMixin, ErrorsOptions, InputType, JsonOptions, JsonSchemaOptions,
+    SchemaSerializer, SchemaValidator, SerMode, SerializeOptions, ValidateError, ValidateOptions,
+    Value, generate_json_schema,
 };
 
 fn member(class: &str, name: &str, value: Value, mixin: Option<EnumMixin>) -> Value {
@@ -122,6 +122,20 @@ fn plain_enums_match_values_laxly() {
     );
     assert_eq!(v.validate_json("1", &strict()).unwrap(), red());
     assert_eq!(v.validate_json(r#""g""#, &lax).unwrap(), green());
+}
+
+#[test]
+fn strict_perl_input_must_be_a_member() {
+    let v = SchemaValidator::new(&color(), None).unwrap();
+    assert_eq!(
+        v.validate_value_as(&red(), InputType::Perl, &strict())
+            .unwrap(),
+        red()
+    );
+    assert_eq!(
+        error(v.validate_value_as(&Value::Int(1), InputType::Perl, &strict())),
+        err("is_instance_of", "Input should be an instance of Color")
+    );
 }
 
 #[test]
