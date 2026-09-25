@@ -12,6 +12,10 @@ Revision history for Perldantic
     - Perldantic::Call's validate_call: pydantic's validate_call for Perl subs, with
       Type::Params' options (positional, named, slurpy, returns, method).
     - Validation of small inputs spends less time in Perl (one eval per call).
+    - Installing without Rust: releases ship the core library prebuilt for Linux (x86_64,
+      aarch64; glibc 2.28+) and macOS (arm64, x86_64); Makefile.PL fetches the one for the
+      platform and checks it against the checksums in the distribution when cargo is
+      missing (PERLDANTIC_BUILD=source|prebuilt|auto).
 
 0.01  2026-09-24
     - First release: pydantic's data validation for Perl, on a Python-free Rust port of

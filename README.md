@@ -4,14 +4,17 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
 
 ## Installation
 
-Perldantic needs Perl 5.36 or newer and a Rust toolchain (`cargo`, 1.88 or newer), which builds
-the core during installation:
+Perldantic needs Perl 5.36 or newer and a C compiler. Its core is built with Rust (`cargo`, 1.88
+or newer) when that is installed; releases also ship the core prebuilt for Linux (x86_64 and
+aarch64, glibc 2.28 or newer) and macOS (Apple silicon and Intel), which installation fetches
+and checks otherwise:
 
 ```sh
 cpanm Perldantic
 ```
 
-From a checkout: `perl Makefile.PL && make && make test && make install`. Start with
+`PERLDANTIC_BUILD=source` or `PERLDANTIC_BUILD=prebuilt` chooses. From a checkout:
+`perl Makefile.PL && make && make test && make install`. Start with
 [Perldantic](lib/Perldantic.pm)'s documentation (`perldoc Perldantic`), or with
 [docs/MIGRATING_FROM_PYDANTIC.md](docs/MIGRATING_FROM_PYDANTIC.md) if you know pydantic.
 
@@ -112,7 +115,7 @@ numbers and where the time goes: [docs/BENCHMARKS.md](docs/BENCHMARKS.md); repro
 - [ ] 00071 — Backlog (post-0.1)
   - [x] 00072 — `arguments` / `call`: Perl sub signature validation (`Perldantic::Call`'s `validate_call`)
   - [ ] 00073 — Moo/Moose integration
-  - [ ] 00074 — Prebuilt binaries / Alien dist
+  - [x] 00074 — Prebuilt binaries: the core library built for Linux and macOS by the release workflow, fetched and checksum-checked by Makefile.PL when Rust is missing
   - [ ] 00075 — Automated upstream sync
   - [x] 00080 — No JSON at the boundary: a binary wire format, and validation reading Perl data in place (docs/BENCHMARKS.md)
   - [x] 00079 — Perl enum classes: declare enum members in a Perl package and validate them with the core `enum` schema (the core and the wire already carry enum members)

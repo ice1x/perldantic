@@ -138,6 +138,7 @@ ffi/tests/binary_abi.rs
 ffi/tests/callbacks.rs
 ffi/tests/header.rs
 ffi/tests/lazy_abi.rs
+inc/Perldantic/Prebuilt.pm
 lib/Perldantic.pm
 lib/Perldantic/Arguments.pm
 lib/Perldantic/Call.pm
@@ -195,6 +196,7 @@ t/38-distribution.t
 t/39-lazy.t
 t/40-enum.t
 t/41-validate-call.t
+t/42-prebuilt.t
 t/conformance.t
 t/lib/Perldantic/Test/CaseJSON.pm
 tests/conformance/upstream/tests/serializers/test_any.json
