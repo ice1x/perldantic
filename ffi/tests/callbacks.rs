@@ -102,6 +102,11 @@ unsafe extern "C" fn host(id: u64, call: *const c_char, slot: *mut PdReply) {
                 .to_uppercase();
             json!({"ok": name})
         }
+        // a called function: what it was called with
+        11 => {
+            assert_eq!(call["call"], "call");
+            json!({"ok": [call["args"], call["kwargs"]]})
+        }
         other => panic!("unknown function {other}"),
     };
     reply(slot, &answer);
@@ -268,4 +273,24 @@ fn computed_fields_ask_the_host() {
     assert_eq!(result["ok"], r#"{"name":"ada","shout":"ADA"}"#);
     // SAFETY: handle from pd_serializer_new.
     unsafe { pd_serializer_free(s) };
+}
+
+#[test]
+fn called_functions_get_the_arguments() {
+    register();
+    let schema = json!({
+        "type": "call",
+        "function": function(11, "echo"),
+        "arguments_schema": {"type": "arguments", "arguments_schema": [
+            {"name": "a", "mode": "positional_only", "schema": {"type": "int"}},
+            {"name": "b", "mode": "keyword_only", "schema": {"type": "str"}},
+        ]},
+    });
+    let handle = validator(&schema);
+    assert_eq!(
+        validate(handle, &json!({"$args_kwargs": [["1"], {"b": "x"}]})),
+        json!({"ok": [[1], {"b": "x"}]})
+    );
+    // SAFETY: a handle from pd_validator_new, freed once.
+    unsafe { pd_validator_free(handle) };
 }

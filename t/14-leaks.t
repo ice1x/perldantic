@@ -110,6 +110,10 @@ no_leaks_ok {
     local $@;
     eval { $call_args->validate(Perldantic::Arguments->new(args => [1], kwargs => {b => 1})) };
 } 'arguments';
+my $called = Perldantic::FFI::Validator->new({type => 'call', function => sub ($n) { $n + 1 },
+    arguments_schema => {type => 'arguments', arguments_schema => [{name => 'n', schema => {type => 'int'}}]}});
+$called->validate([1]);
+no_leaks_ok { $called->validate([2]) } 'called functions';
 my $other = Perldantic::FFI::Validator->new({type => 'enum', cls => 'Leak::Other',
     members => [Perldantic::Wire::Enum->new(class => 'Leak::Other', name => 'A', value => 1)]});
 $other->validate(1);

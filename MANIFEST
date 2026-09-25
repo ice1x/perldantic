@@ -79,6 +79,7 @@ crates/perldantic-core/src/validators/any.rs
 crates/perldantic-core/src/validators/arguments.rs
 crates/perldantic-core/src/validators/bool.rs
 crates/perldantic-core/src/validators/bytes.rs
+crates/perldantic-core/src/validators/call.rs
 crates/perldantic-core/src/validators/chain.rs
 crates/perldantic-core/src/validators/config.rs
 crates/perldantic-core/src/validators/custom_error.rs

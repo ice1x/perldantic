@@ -7,6 +7,8 @@ Revision history for Perldantic
     - Strict validation of Perl data takes only enum members, not their values.
     - `arguments` core schemas (Perldantic::FFI) and Perldantic::Arguments, pydantic-core's
       ArgsKwargs: the positional and named arguments of a call.
+    - `call` core schemas: a Perl sub called with validated arguments, its result
+      validated by a return schema.
 
 0.01  2026-09-24
     - First release: pydantic's data validation for Perl, on a Python-free Rust port of

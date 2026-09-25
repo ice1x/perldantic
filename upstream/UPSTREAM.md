@@ -134,7 +134,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `validators/arguments_v3.rs` | `crates/perldantic-core/src/validators/arguments_v3.rs` | P2 | pending |  |
 | `validators/bool.rs` | `crates/perldantic-core/src/validators/bool.rs` | P0 | ported |  |
 | `validators/bytes.rs` | `crates/perldantic-core/src/validators/bytes.rs` | P0 | ported |  |
-| `validators/call.rs` | `crates/perldantic-core/src/validators/call.rs` | P2 | pending |  |
+| `validators/call.rs` | `crates/perldantic-core/src/validators/call.rs` | P2 | done | the function is a host function (`HostCall::Call`); what it raises reaches the caller, as a `PyErr` does |
 | `validators/callable.rs` | `crates/perldantic-core/src/validators/callable.rs` | P2 | pending |  |
 | `validators/chain.rs` | `crates/perldantic-core/src/validators/chain.rs` | P1 | done |  |
 | `validators/complex.rs` | - | drop | dropped | Python-only type |

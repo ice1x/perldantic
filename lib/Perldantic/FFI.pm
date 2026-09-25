@@ -140,11 +140,16 @@ sub _host_error ($error) {
         my $unexpected = ($error->type // '') eq 'PydanticSerializationUnexpectedValue';
         %reply = (kind => $unexpected ? 'unexpected_value' : 'serialization', message => $error->message);
     } else {
-        my $id = ++$LAST_EXCEPTION_ID;
-        $EXCEPTION{$id} = $error;
-        %reply = (kind => 'other', message => _error_message("$error"), id => $id);
+        return _passed_through($error);
     }
     return Perldantic::Wire::encode({error => \%reply});
+}
+
+# An exception the core hands back unchanged, raised again once the call into the core returns.
+sub _passed_through ($error) {
+    my $id = ++$LAST_EXCEPTION_ID;
+    $EXCEPTION{$id} = $error;
+    return Perldantic::Wire::encode({error => {kind => 'other', message => _error_message("$error"), id => $id}});
 }
 
 # A handler for the duration of one wrap call: it validates or serializes with the wrapped
@@ -182,6 +187,9 @@ sub _host_call ($id, $json) {
     } elsif ($kind eq 'serialize') {
         @args = ((defined $call->{model} ? $call->{model} : ()), $call->{value},
             _info('Perldantic::SerializationInfo', $call->{info}));
+    } elsif ($kind eq 'call') {
+        # positional arguments, then named ones as pairs, as Perl subs take them
+        @args = (@{$call->{args}}, %{$call->{kwargs}});
     } elsif ($kind eq 'serialize_wrap') {
         @args = ((defined $call->{model} ? $call->{model} : ()), $call->{value},
             _handler(\&_serializer_handler_call, $call->{handler}, \$alive),
@@ -192,6 +200,8 @@ sub _host_call ($id, $json) {
     my $result = eval { $function->(@args) };
     my $error = $@;
     $alive = 0;
+    # what a called function raises is no validation failure: it reaches the caller as it is
+    return _passed_through($error) if $error && $kind eq 'call';
     die $error if $error;
     return '{"ok":' . Perldantic::Wire::encode($result) . '}';
 }
@@ -453,7 +463,12 @@ get the model first;
 (serializers) also get an info object last (L<Perldantic::Info>);
 
 =item * the C<function> of a C<computed-field> schema computes the field: C<($model, $name)>
-(pydantic reads the property of the model object instead).
+(pydantic reads the property of the model object instead);
+
+=item * the C<function> of a C<call> schema gets the arguments its C<arguments_schema>
+validated: the positional ones, then the named ones as C<< name => value >> pairs. It is called
+in scalar context, and whatever it raises reaches the caller unchanged, validation errors
+included.
 
 =back
 

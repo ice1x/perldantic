@@ -13,7 +13,9 @@
 //! - `{"call": "serialize", "value", "model", "info"}`;
 //! - `{"call": "property", "model", "name"}` (a computed field of a model);
 //! - `{"call": "serialize_wrap", "value", "model", "handler", "info"}`, with
-//!   [`pd_serializer_handler_call`].
+//!   [`pd_serializer_handler_call`];
+//! - `{"call": "call", "args", "kwargs"}` (the function of a `call` schema, with its validated
+//!   positional arguments as a list and keyword arguments as a dict).
 //!
 //! `info` is `null` for functions that take none. The reply is `{"ok": value}` or
 //! `{"error": {"kind", ...}}`, `kind` being what the function raised: `value` or `assertion`
@@ -162,6 +164,14 @@ impl HostFunction for FfiFunction {
                 push_model(model.as_ref(), &mut out);
                 push_handler((&raw mut handler).cast(), &mut out);
                 push_serialization_info(info.as_ref(), &mut out);
+                out.push('}');
+                self.invoke(&out)
+            }
+            HostCall::Call { args, kwargs } => {
+                out.push_str("{\"call\":\"call\",\"args\":");
+                out.push_str(&wire::encode(&Value::List(args)));
+                out.push_str(",\"kwargs\":");
+                out.push_str(&wire::encode(&Value::Dict(kwargs)));
                 out.push('}');
                 self.invoke(&out)
             }
