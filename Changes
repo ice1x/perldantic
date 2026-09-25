@@ -23,6 +23,9 @@ Revision history for Perldantic
     - Perldantic::FFI: the core schema API itself (validators and serializers for
       pydantic core_schema dicts, JSON Schema).
     - check / model_check: validation without building a result.
+    - Lazy objects, opt-in (`lazy => 1` per call, `model_config lazy => 1`, or a
+      TypeAdapter's config): validated data stays in the core until an object is read,
+      about 10x faster than building Moo objects.
     - Performance: validation reads Perl data in place and builds objects in C (5x faster
       than Moo + Type::Tiny::XS on docs/BENCHMARKS.md's models; check 2.5x faster than
       Type::Tiny::XS's check).

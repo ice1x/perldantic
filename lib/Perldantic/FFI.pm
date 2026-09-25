@@ -37,8 +37,14 @@ for my $name (qw(validator_validate validator_check serializer_to_data serialize
             'opaque');
 }
 $ffi->attach([pd_buffer_free => '_buffer_free'] => ['opaque', 'usize'] => 'void');
-# Validation reads Perl data in place (Perldantic.xs calls these exports itself).
-Perldantic::XS::bind_core(map { $ffi->find_symbol($_) } qw(pd_validator_validate_host pd_validator_check_host pd_buffer_free))
+$ffi->attach(
+    [pd_validator_validate_json_lazy => '_validator_validate_json_lazy'] =>
+        ['opaque', 'opaque', 'usize', 'string', 'usize*'] => 'opaque');
+$ffi->attach([pd_lazy_live => '_lazy_live'] => [] => 'usize');
+# Validation reads Perl data in place, and lazy objects read the core's models (Perldantic.xs
+# calls these exports itself).
+Perldantic::XS::bind_core(map { $ffi->find_symbol($_) } qw(pd_validator_validate_host pd_validator_check_host
+    pd_validator_validate_host_lazy pd_buffer_free pd_lazy_contents pd_lazy_clone pd_lazy_release))
     if $Perldantic::Wire::XS;
 $ffi->type('(uint64,string,opaque)->void' => 'pd_host_callback');
 $ffi->attach([pd_set_host_callback => '_set_host_callback'] => ['pd_host_callback'] => 'void');
@@ -228,12 +234,16 @@ sub _unwrap ($envelope) {
     die Perldantic::Error->from_core($error);
 }
 
+# What a validation of Perl data returns (Perldantic.xs, validate_host).
+use constant {MODE_BUILD => 0, MODE_CHECK => 1, MODE_LAZY => 2};
+
 # Validate Perl data read in place by the core (Perldantic.xs, ffi/src/host_input.rs); returns
-# the result as _binary_call does. `$check` asks only whether the input is valid.
-sub _validate_in_place ($handle, $input, $options, $check) {
+# the result as _binary_call does. `$mode` is MODE_BUILD, MODE_CHECK (only whether the input is valid) or
+# MODE_LAZY (models as lazy objects).
+sub _validate_in_place ($handle, $input, $options, $mode) {
     my @result = eval {
         Perldantic::XS::validate_host($handle, $input, _options($options), \&Perldantic::Wire::_emit,
-            \&Perldantic::Wire::decode, $check ? 1 : 0);
+            \&Perldantic::Wire::decode, $mode);
     };
     if (!@result) {
         my $e = $@;
@@ -250,7 +260,11 @@ sub _binary_call ($function, $handle, $value, $options) {
     my $input = Perldantic::Wire::encode_binary($value);
     my ($address, $size) = scalar_to_buffer($input);
     my $len;
-    my $buffer = $function->($handle, $address, $size, _options($options), \$len);
+    return _take_buffer($function->($handle, $address, $size, _options($options), \$len), $len);
+}
+
+# The result of a binary export from its buffer, which is released.
+sub _take_buffer ($buffer, $len) {
     Perldantic::InternalError->throw(message => 'The core returned no result') if !$buffer;
     my @result = eval { Perldantic::XS::decode_result($buffer, $len, \&Perldantic::Wire::decode) };
     my $error = $@;
@@ -294,9 +308,12 @@ package Perldantic::FFI::Validator {
         }, $class;
     }
 
-    sub validate ($self, $input, $options = undef) {
+    # `$lazy` asks for lazy model objects, which need the native part.
+    sub validate ($self, $input, $options = undef, $lazy = 0) {
         return Perldantic::FFI::_enter(sub {
-            return Perldantic::FFI::_validate_in_place($self->{handle}, $input, $options, 0)->{ok} if $Perldantic::Wire::XS;
+            return Perldantic::FFI::_validate_in_place($self->{handle}, $input, $options,
+                $lazy ? Perldantic::FFI::MODE_LAZY : Perldantic::FFI::MODE_BUILD)->{ok}
+                if $Perldantic::Wire::XS;
             my $envelope = Perldantic::FFI::_envelope(Perldantic::FFI::_validator_validate(
                 $self->{handle}, Perldantic::Wire::encode($input), Perldantic::FFI::_options($options)));
             return Perldantic::FFI::_unwrap($envelope)->{ok};
@@ -306,7 +323,8 @@ package Perldantic::FFI::Validator {
     # Whether the input is valid, without building the validated value.
     sub check ($self, $input, $options = undef) {
         return Perldantic::FFI::_enter(sub {
-            return Perldantic::FFI::_validate_in_place($self->{handle}, $input, $options, 1)->{ok} ? !!1 : !!0
+            return Perldantic::FFI::_validate_in_place($self->{handle}, $input, $options, Perldantic::FFI::MODE_CHECK)->{ok}
+                ? !!1 : !!0
                 if $Perldantic::Wire::XS;
             return !!1 if eval { $self->validate($input, $options); 1 };
             my $e = $@;
@@ -315,10 +333,16 @@ package Perldantic::FFI::Validator {
         });
     }
 
-    sub validate_json ($self, $json, $options = undef) {
+    sub validate_json ($self, $json, $options = undef, $lazy = 0) {
         $json = Encode::encode('UTF-8', $json) if utf8::is_utf8($json);
         my ($ptr, $len) = FFI::Platypus::Buffer::scalar_to_buffer($json);
         return Perldantic::FFI::_enter(sub {
+            if ($lazy && $Perldantic::Wire::XS) {
+                my $size;
+                my $buffer = Perldantic::FFI::_validator_validate_json_lazy($self->{handle}, $ptr, $len,
+                    Perldantic::FFI::_options($options), \$size);
+                return Perldantic::FFI::_take_buffer($buffer, $size)->{ok};
+            }
             my $envelope = Perldantic::FFI::_envelope(Perldantic::FFI::_validator_validate_json(
                 $self->{handle}, $ptr, $len, Perldantic::FFI::_options($options)));
             return Perldantic::FFI::_unwrap($envelope)->{ok};

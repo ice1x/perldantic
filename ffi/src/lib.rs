@@ -21,6 +21,7 @@
 pub mod binary;
 pub mod host;
 pub mod host_input;
+pub mod lazy;
 pub mod options;
 pub mod wire;
 
@@ -361,22 +362,8 @@ pub unsafe extern "C" fn pd_validator_validate_json(
         // SAFETY: guaranteed by the caller.
         let (validator, options) =
             unsafe { (handle_arg(validator, "validator")?, options_arg(options)?) };
-        let bytes: &[u8] = if json.is_null() {
-            if len != 0 {
-                return Err(internal_error("`json` is a null pointer"));
-            }
-            &[]
-        } else {
-            // SAFETY: guaranteed by the caller.
-            unsafe { std::slice::from_raw_parts(json, len) }
-        };
-        let text = std::str::from_utf8(bytes).map_err(|e| {
-            core_error(&CoreError::UnicodeDecode(format!(
-                "'utf-8' codec can't decode byte 0x{:02x} in position {}: invalid utf-8",
-                bytes[e.valid_up_to()],
-                e.valid_up_to()
-            )))
-        })?;
+        // SAFETY: guaranteed by the caller.
+        let text = unsafe { json_arg(json, len)? };
         let options = options::validate_options(&options).map_err(|e| core_error(&e))?;
         let output = validator
             .0
@@ -384,6 +371,29 @@ pub unsafe extern "C" fn pd_validator_validate_json(
             .map_err(|e| validate_error(&e))?;
         Ok(ok_envelope(&wire::encode(&output)))
     }))
+}
+
+/// A JSON document argument as text, or the error pydantic raises for bytes that are not UTF-8.
+///
+/// # Safety
+/// `json` points to `len` readable bytes that outlive the call, or is null with `len` 0.
+unsafe fn json_arg<'a>(json: *const u8, len: usize) -> Result<&'a str, String> {
+    let bytes: &[u8] = if json.is_null() {
+        if len != 0 {
+            return Err(internal_error("`json` is a null pointer"));
+        }
+        &[]
+    } else {
+        // SAFETY: guaranteed by the caller.
+        unsafe { std::slice::from_raw_parts(json, len) }
+    };
+    std::str::from_utf8(bytes).map_err(|e| {
+        core_error(&CoreError::UnicodeDecode(format!(
+            "'utf-8' codec can't decode byte 0x{:02x} in position {}: invalid utf-8",
+            bytes[e.valid_up_to()],
+            e.valid_up_to()
+        )))
+    })
 }
 
 /// Compile a serializer from a core schema and an optional core config; see
@@ -494,10 +504,19 @@ type BinaryResult = Result<(Value, Option<String>), String>;
 /// `W`, the warning's length (`u32`, little endian) and UTF-8 bytes, then the value; or `J` and a
 /// JSON error envelope, as the other exports return. No panic unwinds into C.
 fn into_buffer(body: impl FnOnce() -> BinaryResult, len: *mut usize) -> *mut u8 {
+    into_buffer_with(body, len, binary::encode)
+}
+
+/// [`into_buffer`] writing the value with `encode`.
+fn into_buffer_with(
+    body: impl FnOnce() -> BinaryResult,
+    len: *mut usize,
+    encode: fn(&Value) -> Vec<u8>,
+) -> *mut u8 {
     let buffer = match catch_unwind(AssertUnwindSafe(body)) {
         Ok(Ok((value, None))) => {
             let mut out = vec![b'B'];
-            out.extend(binary::encode(&value));
+            out.extend(encode(&value));
             out
         }
         Ok(Ok((value, Some(warning)))) => {
@@ -505,7 +524,7 @@ fn into_buffer(body: impl FnOnce() -> BinaryResult, len: *mut usize) -> *mut u8 
             let warning_len = u32::try_from(warning.len()).expect("warnings are short");
             out.extend_from_slice(&warning_len.to_le_bytes());
             out.extend_from_slice(warning.as_bytes());
-            out.extend(binary::encode(&value));
+            out.extend(encode(&value));
             out
         }
         Ok(Err(envelope)) => [b"J".as_slice(), envelope.as_bytes()].concat(),
@@ -628,7 +647,24 @@ pub unsafe extern "C" fn pd_validator_validate_host(
     len: *mut usize,
 ) -> *mut u8 {
     // SAFETY: guaranteed by the caller.
-    unsafe { validate_host(validator, host, root, options, len, false) }
+    unsafe { validate_host(validator, host, root, options, len, Mode::Validate) }
+}
+
+/// [`pd_validator_validate_host`] for lazy host objects: models in the result are lazy nodes
+/// (tag 12 of [`binary`]), each a handle the host releases with [`pd_lazy_release`].
+///
+/// # Safety
+/// As for [`pd_validator_validate_host`].
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn pd_validator_validate_host_lazy(
+    validator: *const PdValidator,
+    host: *const host_input::PdHost,
+    root: *mut std::ffi::c_void,
+    options: *const c_char,
+    len: *mut usize,
+) -> *mut u8 {
+    // SAFETY: guaranteed by the caller.
+    unsafe { validate_host(validator, host, root, options, len, Mode::Lazy) }
 }
 
 /// [`pd_validator_validate_host`] answering only whether the input is valid, as
@@ -645,7 +681,15 @@ pub unsafe extern "C" fn pd_validator_check_host(
     len: *mut usize,
 ) -> *mut u8 {
     // SAFETY: guaranteed by the caller.
-    unsafe { validate_host(validator, host, root, options, len, true) }
+    unsafe { validate_host(validator, host, root, options, len, Mode::Check) }
+}
+
+/// What a validation of host data returns.
+#[derive(Clone, Copy, PartialEq)]
+enum Mode {
+    Validate,
+    Check,
+    Lazy,
 }
 
 /// # Safety
@@ -656,9 +700,10 @@ unsafe fn validate_host(
     root: *mut std::ffi::c_void,
     options: *const c_char,
     len: *mut usize,
-    check: bool,
+    mode: Mode,
 ) -> *mut u8 {
-    into_buffer(
+    let check = mode == Mode::Check;
+    into_buffer_with(
         || {
             // SAFETY: guaranteed by the caller.
             let (validator, host, options) = unsafe {
@@ -685,7 +730,93 @@ unsafe fn validate_host(
             }
         },
         len,
+        if mode == Mode::Lazy {
+            binary::encode_lazy
+        } else {
+            binary::encode
+        },
     )
+}
+
+/// [`pd_validator_validate_json`] for lazy host objects, returning a buffer as
+/// [`pd_validator_validate_host_lazy`] does.
+///
+/// # Safety
+/// As for [`pd_validator_validate_json`]; `len` is null or writable.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn pd_validator_validate_json_lazy(
+    validator: *const PdValidator,
+    json: *const u8,
+    json_len: usize,
+    options: *const c_char,
+    len: *mut usize,
+) -> *mut u8 {
+    into_buffer_with(
+        || {
+            // SAFETY: guaranteed by the caller.
+            let (validator, options) =
+                unsafe { (handle_arg(validator, "validator")?, options_arg(options)?) };
+            // SAFETY: guaranteed by the caller.
+            let text = unsafe { json_arg(json, json_len)? };
+            let options = options::validate_options(&options).map_err(|e| core_error(&e))?;
+            let output = validator
+                .0
+                .validate_json(text, &options)
+                .map_err(|e| validate_error(&e))?;
+            Ok((output, None))
+        },
+        len,
+        binary::encode_lazy,
+    )
+}
+
+/// The contents of a lazy model for its host object: a buffer as
+/// [`pd_validator_validate_binary`] returns, holding the model in full (tag 10), with the
+/// models in its fields as new lazy nodes; an error envelope when the handle is not live.
+///
+/// # Safety
+/// `len` is null or writable.
+#[unsafe(no_mangle)]
+pub unsafe extern "C" fn pd_lazy_contents(handle: u64, len: *mut usize) -> *mut u8 {
+    let model = usize::try_from(handle).ok().and_then(lazy::get);
+    let buffer = match model {
+        Some(model) => [b"B".as_slice(), &binary::encode_lazy_contents(&model)].concat(),
+        None => [
+            b"J".as_slice(),
+            internal_error("A lazy model handle is not live").as_bytes(),
+        ]
+        .concat(),
+    };
+    let buffer = buffer.into_boxed_slice();
+    if !len.is_null() {
+        // SAFETY: guaranteed by the caller.
+        unsafe { *len = buffer.len() };
+    }
+    Box::into_raw(buffer).cast::<u8>()
+}
+
+/// A new handle to the model behind `handle` (for a copy of the host object), or 0 when the
+/// handle is not live.
+#[unsafe(no_mangle)]
+pub extern "C" fn pd_lazy_clone(handle: u64) -> u64 {
+    usize::try_from(handle)
+        .ok()
+        .and_then(lazy::get)
+        .map_or(0, |model| lazy::register(model) as u64)
+}
+
+/// Release a handle of a lazy model; unknown handles are ignored.
+#[unsafe(no_mangle)]
+pub extern "C" fn pd_lazy_release(handle: u64) {
+    if let Ok(handle) = usize::try_from(handle) {
+        lazy::release(handle);
+    }
+}
+
+/// How many handles of lazy models are live (for leak checks).
+#[unsafe(no_mangle)]
+pub extern "C" fn pd_lazy_live() -> usize {
+    lazy::live()
 }
 
 /// [`pd_serializer_to_data`] with the value and the result in the binary wire format, returned

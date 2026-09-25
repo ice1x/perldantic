@@ -44,6 +44,13 @@ our %DIRECT;
 # (Perldantic::Model::_plan fills it): a validated model that set every field, has no extra
 # values and carries no input-object token is blessed as it is (see Perldantic.xs, bread).
 our %BLESS;
+# Model classes whose objects may be lazy (task 00081), class => 1 or 0 (_plan fills it): lazy
+# nodes of other classes are read in full at once (see Perldantic.xs, bread_lazy).
+our %LAZY;
+# Model classes whose lazy objects not read yet are dumped from the core's model as it is, with
+# the fields their objects leave out unless given (see Perldantic.xs, bemit_model): classes
+# that fill no field in Perl.
+our %LAZY_DUMP;
 
 sub _function_id ($code) {
     push @FUNCTIONS, $code if $COLLECT;

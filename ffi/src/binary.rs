@@ -17,12 +17,20 @@
 //! | 7 | a dict with string keys | count, then per entry: key length, key bytes, value |
 //! | 8 | anything else, as wire JSON | length, JSON bytes |
 //! | 9 | a model instance that set exactly the fields it holds (string keys), with no extra values | class length, class bytes, count, then entries as in a dict |
-//! | 10 | any other model instance (written only) | class length, class bytes, fields as a dict (tag 7 or 8), fields set as a list, extra (tag 0 or a dict) |
+//! | 10 | any other model instance | class length, class bytes, fields as a dict (tag 7 or 8), fields set as a list, extra (tag 0 or a dict) |
 //! | 11 | bytes | length, bytes |
+//! | 12 | a lazy model: one the core keeps ([`crate::lazy`]), known to the host by a handle | class length, class bytes, handle (`u64`), count, then names of fields to leave out when they were not set |
+//!
+//! The names a lazy node lists are for the host sending a model back: fields its objects do not
+//! hold unless given (Perl leaves out optional fields without a default). The core writes none.
+//!
+//! Results for lazy host objects ([`encode_lazy`]) write models as lazy nodes, except those
+//! that hold host input objects anywhere in them (set names starting with NUL): the host maps
+//! those back to its own objects while the call lasts, so they are written in full.
 
 use perldantic_core::{CoreError, CoreResult, Dict, Model, Value};
 
-use crate::wire;
+use crate::{lazy, wire};
 
 const NONE: u8 = 0;
 const TRUE: u8 = 1;
@@ -36,6 +44,7 @@ const JSON: u8 = 8;
 const MODEL: u8 = 9;
 const MODEL_FULL: u8 = 10;
 const BYTES: u8 = 11;
+const LAZY: u8 = 12;
 
 /// Nesting deeper than this is refused rather than risking the stack; the host writes deeper
 /// data as a JSON node.
@@ -143,6 +152,45 @@ impl<'a> Reader<'a> {
                     extra: None,
                 }))
             }
+            MODEL_FULL => {
+                let class = self.str()?.to_owned();
+                let Value::Dict(fields) = self.value(depth + 1)? else {
+                    return Err(malformed("model fields are not a dict"));
+                };
+                let Value::List(fields_set) = self.value(depth + 1)? else {
+                    return Err(malformed("model fields set is not a list"));
+                };
+                let extra = match self.value(depth + 1)? {
+                    Value::None => None,
+                    Value::Dict(extra) => Some(extra),
+                    _ => return Err(malformed("model extra is not a dict")),
+                };
+                Value::Model(std::sync::Arc::new(Model {
+                    class,
+                    fields,
+                    fields_set,
+                    extra,
+                }))
+            }
+            LAZY => {
+                self.str()?;
+                let handle = u64::from_le_bytes(self.eight()?);
+                let mut model = usize::try_from(handle)
+                    .ok()
+                    .and_then(lazy::get)
+                    .ok_or_else(|| malformed("a lazy model handle is not live"))?;
+                for _ in 0..self.u32()? {
+                    let name = self.str()?;
+                    let set = model
+                        .fields_set
+                        .iter()
+                        .any(|n| matches!(n, Value::Str(n) if n == name));
+                    if !set && model.fields.get_str(name).is_some() {
+                        std::sync::Arc::make_mut(&mut model).fields.remove_str(name);
+                    }
+                }
+                Value::Model(model)
+            }
             tag => return Err(malformed(&format!("unknown tag {tag}"))),
         })
     }
@@ -151,8 +199,49 @@ impl<'a> Reader<'a> {
 /// Write a value in its binary form.
 pub fn encode(value: &Value) -> Vec<u8> {
     let mut out = Vec::new();
-    write_value(value, &mut out);
+    write_value(value, &mut out, false);
     out
+}
+
+/// Write a value for lazy host objects: its models as lazy nodes, each registered in
+/// [`lazy`] for the host to release (see the module documentation for the exception).
+pub fn encode_lazy(value: &Value) -> Vec<u8> {
+    let mut out = Vec::new();
+    write_value(value, &mut out, true);
+    out
+}
+
+/// The contents of a lazy model, for its host object: the model in full (tag 10), with the
+/// models in its fields written lazily.
+pub fn encode_lazy_contents(model: &Model) -> Vec<u8> {
+    let mut out = Vec::new();
+    write_full_model(model, &mut out, true);
+    out
+}
+
+/// Whether a value holds a host input object anywhere: a model with a set name starting with
+/// NUL, the host's mark for objects it wants back.
+fn holds_host_objects(value: &Value) -> bool {
+    match value {
+        Value::Model(model) => model_holds_host_objects(model),
+        Value::List(items) | Value::Tuple(items) | Value::Set(items) | Value::FrozenSet(items) => {
+            items.iter().any(holds_host_objects)
+        }
+        Value::Dict(dict) => dict.iter().any(|(_, v)| holds_host_objects(v)),
+        _ => false,
+    }
+}
+
+fn model_holds_host_objects(model: &Model) -> bool {
+    model
+        .fields_set
+        .iter()
+        .any(|name| matches!(name, Value::Str(s) if s.starts_with('\0')))
+        || model.fields.iter().any(|(_, v)| holds_host_objects(v))
+        || model
+            .extra
+            .as_ref()
+            .is_some_and(|extra| extra.iter().any(|(_, v)| holds_host_objects(v)))
 }
 
 fn write_len(len: usize, out: &mut Vec<u8>) {
@@ -170,16 +259,16 @@ fn write_json(value: &Value, out: &mut Vec<u8>) {
     write_bytes(wire::encode(value).as_bytes(), out);
 }
 
-fn write_items(items: &[Value], out: &mut Vec<u8>) {
+fn write_items(items: &[Value], out: &mut Vec<u8>, lazy: bool) {
     out.push(LIST);
     write_len(items.len(), out);
     for item in items {
-        write_value(item, out);
+        write_value(item, out, lazy);
     }
 }
 
 /// A dict with string keys as a dict node; any other as wire JSON (which has `$dict` pairs).
-fn write_dict(dict: &Dict, out: &mut Vec<u8>) {
+fn write_dict(dict: &Dict, out: &mut Vec<u8>, lazy: bool) {
     if !dict.iter().all(|(k, _)| matches!(k, Value::Str(_))) {
         write_json(&Value::Dict(dict.clone()), out);
         return;
@@ -191,7 +280,7 @@ fn write_dict(dict: &Dict, out: &mut Vec<u8>) {
             unreachable!("checked above")
         };
         write_bytes(key.as_bytes(), out);
-        write_value(value, out);
+        write_value(value, out, lazy);
     }
 }
 
@@ -207,7 +296,18 @@ fn sets_exactly_its_fields(model: &Model) -> bool {
             .all(|name| model.fields.get(name).is_some())
 }
 
-fn write_value(value: &Value, out: &mut Vec<u8>) {
+fn write_full_model(model: &Model, out: &mut Vec<u8>, lazy: bool) {
+    out.push(MODEL_FULL);
+    write_bytes(model.class.as_bytes(), out);
+    write_dict(&model.fields, out, lazy);
+    write_items(&model.fields_set, out, false);
+    match &model.extra {
+        Some(extra) => write_dict(extra, out, lazy),
+        None => out.push(NONE),
+    }
+}
+
+fn write_value(value: &Value, out: &mut Vec<u8>, lazy: bool) {
     match value {
         Value::None => out.push(NONE),
         Value::Bool(true) => out.push(TRUE),
@@ -229,9 +329,16 @@ fn write_value(value: &Value, out: &mut Vec<u8>) {
             write_bytes(b, out);
         }
         Value::List(items) | Value::Tuple(items) | Value::Set(items) | Value::FrozenSet(items) => {
-            write_items(items, out);
+            write_items(items, out, lazy);
         }
-        Value::Dict(dict) => write_dict(dict, out),
+        Value::Dict(dict) => write_dict(dict, out, lazy),
+        Value::Model(model) if lazy && !model_holds_host_objects(model) => {
+            out.push(LAZY);
+            write_bytes(model.class.as_bytes(), out);
+            let handle = lazy::register(model.clone());
+            out.extend_from_slice(&(handle as u64).to_le_bytes());
+            write_len(0, out);
+        }
         Value::Model(model) if sets_exactly_its_fields(model) => {
             out.push(MODEL);
             write_bytes(model.class.as_bytes(), out);
@@ -241,19 +348,10 @@ fn write_value(value: &Value, out: &mut Vec<u8>) {
                     unreachable!("checked")
                 };
                 write_bytes(key.as_bytes(), out);
-                write_value(value, out);
+                write_value(value, out, lazy);
             }
         }
-        Value::Model(model) => {
-            out.push(MODEL_FULL);
-            write_bytes(model.class.as_bytes(), out);
-            write_dict(&model.fields, out);
-            write_items(&model.fields_set, out);
-            match &model.extra {
-                Some(extra) => write_dict(extra, out),
-                None => out.push(NONE),
-            }
-        }
+        Value::Model(model) => write_full_model(model, out, lazy),
         other => write_json(other, out),
     }
 }
@@ -385,6 +483,11 @@ mod tests {
         expected.extend(node(INT, &1i64.to_le_bytes()));
         expected.extend([LIST, 0, 0, 0, 0, NONE]);
         assert_eq!(written, expected, "in full when a field was not set");
+        assert_eq!(
+            encode(&decode(&written).unwrap()),
+            written,
+            "and read back in full"
+        );
     }
 
     #[test]
@@ -398,6 +501,24 @@ mod tests {
             vec![42],
             vec![NONE, NONE],
             vec![MODEL_FULL],
+            [
+                vec![MODEL_FULL],
+                text("A"),
+                vec![NONE, LIST, 0, 0, 0, 0, NONE],
+            ]
+            .concat(),
+            [
+                vec![MODEL_FULL],
+                text("A"),
+                vec![DICT, 0, 0, 0, 0, NONE, NONE],
+            ]
+            .concat(),
+            [
+                vec![MODEL_FULL],
+                text("A"),
+                vec![DICT, 0, 0, 0, 0, LIST, 0, 0, 0, 0, INT],
+            ]
+            .concat(),
         ] {
             assert!(decode(&bytes).is_err(), "{bytes:?}");
         }
@@ -412,5 +533,134 @@ mod tests {
             .join()
             .unwrap();
         assert!(result, "too deep");
+    }
+
+    fn point(fields_set: &[&str]) -> std::sync::Arc<Model> {
+        let mut fields = Dict::new();
+        fields.insert(Value::from("x"), Value::Int(1));
+        std::sync::Arc::new(Model {
+            class: "My::Point".to_owned(),
+            fields,
+            fields_set: fields_set.iter().map(|s| Value::from(*s)).collect(),
+            extra: None,
+        })
+    }
+
+    /// The handle of a lazy node at the start of `bytes`, checking its class.
+    fn lazy_handle(bytes: &[u8], class: &str) -> usize {
+        assert_eq!(bytes[0], LAZY);
+        let expected = text(class);
+        assert_eq!(&bytes[1..=expected.len()], expected.as_slice());
+        let at = 1 + 4 + class.len();
+        u64::from_le_bytes(bytes[at..at + 8].try_into().unwrap()) as usize
+    }
+
+    #[test]
+    fn lazy_results_write_models_as_handles() {
+        let model = point(&["x"]);
+        let value = Value::List(vec![Value::Model(model.clone())]);
+        let bytes = encode_lazy(&value);
+        assert_eq!(&bytes[..5], &[LIST, 1, 0, 0, 0]);
+        let handle = lazy_handle(&bytes[5..], "My::Point");
+        assert_eq!(bytes.len(), 5 + 1 + 4 + 9 + 8 + 4, "with no names");
+        assert!(std::sync::Arc::ptr_eq(&lazy::get(handle).unwrap(), &model));
+
+        let Value::List(items) = decode(&bytes).unwrap() else {
+            panic!("a list")
+        };
+        let Value::Model(read) = &items[0] else {
+            panic!("a model")
+        };
+        assert!(
+            std::sync::Arc::ptr_eq(read, &model),
+            "a lazy node reads as the model it stands for"
+        );
+        lazy::release(handle);
+        assert!(decode(&bytes).is_err(), "a released handle is refused");
+    }
+
+    #[test]
+    fn lazy_nodes_from_the_host_leave_out_fields_not_set() {
+        let mut fields = Dict::new();
+        fields.insert(Value::from("x"), Value::Int(1));
+        fields.insert(Value::from("note"), Value::None);
+        fields.insert(Value::from("tag"), Value::None);
+        let model = std::sync::Arc::new(Model {
+            class: "My::Point".to_owned(),
+            fields,
+            fields_set: vec![Value::from("x"), Value::from("tag")],
+            extra: None,
+        });
+        let handle = lazy::register(model.clone());
+        let mut bytes = vec![LAZY];
+        bytes.extend(text("My::Point"));
+        bytes.extend((handle as u64).to_le_bytes());
+        bytes.extend([3, 0, 0, 0]);
+        for name in ["note", "tag", "absent"] {
+            bytes.extend(text(name));
+        }
+        let Value::Model(read) = decode(&bytes).unwrap() else {
+            panic!("a model")
+        };
+        assert_eq!(read.fields.get_str("note"), None, "not set: left out");
+        assert_eq!(read.fields.get_str("tag"), Some(&Value::None), "set: kept");
+        assert_eq!(read.fields.get_str("x"), Some(&Value::Int(1)));
+        assert_eq!(model.fields.len(), 3, "the kept model is not changed");
+        lazy::release(handle);
+    }
+
+    #[test]
+    fn lazy_contents_are_the_model_in_full_with_lazy_models_inside() {
+        let inner = point(&["x"]);
+        let mut fields = Dict::new();
+        fields.insert(Value::from("p"), Value::Model(inner.clone()));
+        let outer = Model {
+            class: "My::Line".to_owned(),
+            fields,
+            fields_set: vec![Value::from("p")],
+            extra: None,
+        };
+        let bytes = encode_lazy_contents(&outer);
+        let mut expected = vec![MODEL_FULL];
+        expected.extend(text("My::Line"));
+        expected.extend([DICT, 1, 0, 0, 0]);
+        expected.extend(text("p"));
+        assert_eq!(&bytes[..expected.len()], expected.as_slice());
+        let handle = lazy_handle(&bytes[expected.len()..], "My::Point");
+        let rest = &bytes[expected.len() + 1 + 4 + 9 + 8 + 4..];
+        let mut tail = vec![LIST, 1, 0, 0, 0];
+        tail.extend(node(STR, &text("p")));
+        tail.push(NONE);
+        assert_eq!(rest, tail.as_slice(), "fields set and no extra");
+        assert!(std::sync::Arc::ptr_eq(&lazy::get(handle).unwrap(), &inner));
+        lazy::release(handle);
+    }
+
+    #[test]
+    fn models_holding_host_objects_are_written_in_full() {
+        let token = point(&["x", "\0perldantic object 7"]);
+        let mut fields = Dict::new();
+        fields.insert(Value::from("p"), Value::Model(token.clone()));
+        fields.insert(Value::from("q"), Value::Model(point(&["x"])));
+        let outer = Value::Model(std::sync::Arc::new(Model {
+            class: "My::Line".to_owned(),
+            fields,
+            fields_set: vec![Value::from("p"), Value::from("q")],
+            extra: None,
+        }));
+        let bytes = encode_lazy(&outer);
+        assert_eq!(bytes[0], MODEL, "the model holding one is written out");
+        let mut p = text("p");
+        p.extend(encode(&Value::Model(token)));
+        assert!(
+            bytes.windows(p.len()).any(|w| w == p.as_slice()),
+            "the host object is written in full"
+        );
+        let q = [text("q"), vec![LAZY]].concat();
+        let at = bytes
+            .windows(q.len())
+            .position(|w| w == q.as_slice())
+            .expect("a model without one stays lazy");
+        lazy::release(lazy_handle(&bytes[at + 5..], "My::Point"));
     }
 }

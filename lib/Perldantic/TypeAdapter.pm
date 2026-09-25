@@ -67,21 +67,32 @@ sub _options ($name, @options) {
     return {@options};
 }
 
+# Whether a validation returns lazy objects: the call's `lazy` option, else the config (a model
+# class's own for an adapter of one).
+sub _lazy ($self, $options) {
+    return delete $options->{lazy} if exists $options->{lazy};
+    return Perldantic::Model::_plan($self->{model})->{lazy} if $self->{model};
+    return !!$self->{config}{lazy};
+}
+
 sub validate ($self, $data, @options) {
     my $options = _options('validate', @options);
+    my $lazy = $self->_lazy($options);
     return $self->_temporal(
-        Perldantic::Model::_validate_tracked(sub { $self->_compiled('validator')->validate($data, $options) }));
+        Perldantic::Model::_validate_tracked(sub { $self->_compiled('validator')->validate($data, $options, $lazy) }));
 }
 
 sub check ($self, $data, @options) {
     my $options = _options('check', @options);
+    delete $options->{lazy};
     return Perldantic::Model::_check_tracked(sub { $self->_compiled('validator')->check($data, $options) });
 }
 
 sub validate_json ($self, $json, @options) {
     my $options = _options('validate_json', @options);
-    return $self->_temporal(
-        Perldantic::Model::_validate_tracked(sub { $self->_compiled('validator')->validate_json($json, $options) }));
+    my $lazy = $self->_lazy($options);
+    return $self->_temporal(Perldantic::Model::_validate_tracked(
+        sub { $self->_compiled('validator')->validate_json($json, $options, $lazy) }));
 }
 
 # `temporal_class` from the config (models convert their own fields).
@@ -147,7 +158,10 @@ errors are titled with the type name (C<ArrayRef[Int]>) unless the config sets C
 
 =head2 validate($data, %options), validate_json($json, %options)
 
-Validate Perl data or JSON text; options as for C<model_validate>.
+Validate Perl data or JSON text; options as for C<model_validate>. Without a C<lazy> option,
+model objects are lazy (see L<Perldantic::Model/LAZY OBJECTS>) when the adapter's C<config>
+sets C<< lazy => 1 >>, or, for an adapter of a model class, when the class's C<model_config>
+does.
 
 =head2 check($data, %options)
 

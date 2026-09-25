@@ -190,6 +190,27 @@ subtest 'plain model objects are built natively' => sub {
     ok $holder->[0] == $kept, 'model objects given as input are kept, as in pydantic';
 };
 
+package Test::Leaf {
+    use Perldantic;
+    has name => (is => 'ro', isa => Str, required => 1);
+    has note => (is => 'ro', isa => Maybe [Str]);
+}
+package Test::Branch {
+    use Perldantic;
+    has id     => (is => 'ro', isa => Int, required => 1);
+    has leaves => (is => 'ro', isa => ArrayRef ['Test::Leaf'], required => 1);
+}
+
+subtest 'objects built natively hold objects built in Perl' => sub {
+    my $kept = Test::Leaf->new(name => 'kept');
+    for my $call (1 .. 3) {
+        my $branch = Test::Branch->new(id => 1, leaves => [{name => 'a'}, $kept]);
+        isa_ok $branch->leaves->[0], ['Test::Leaf'], "call $call: a nested model with fields left out";
+        ok !exists $branch->leaves->[0]{note};
+        ok $branch->leaves->[1] == $kept, "call $call: a nested model object given";
+    }
+};
+
 package Test::Tied {
     require Tie::Hash;
     our @ISA = ('Tie::StdHash');

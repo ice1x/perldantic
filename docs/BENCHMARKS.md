@@ -39,6 +39,19 @@ Machine: Apple M1 Max, Perl 5.42.0, Rust 1.98.1, release build of the core.
 | Dump to Perl data: `dump` / `to_data` | 1.89 ms | 1.65 ms | 1.15× slower |
 | Dump to JSON: `dump_json` / `to_data` + JSON::XS | 1.42 ms | 2.42 ms | 1.7× faster |
 
+With lazy objects (`lazy => 1`, see LAZY OBJECTS in Perldantic::Model's documentation), on
+the same 200 × 10:
+
+| Operation | Perldantic | Moo + Type::Tiny | |
+|---|---:|---:|---:|
+| Build objects: `validate(..., lazy => 1)` / `new` | 0.89 ms | 8.74 ms | 9.8× faster |
+| Dump lazy objects to JSON / `to_data` + JSON::XS | 0.55 ms | 2.64 ms | 4.8× faster |
+| Build, then read every field: lazy | 4.86 ms | 9.47 ms | 1.9× faster |
+| Build, then read every field: built in full | 2.98 ms | 9.47 ms | 3.2× faster |
+
+Reading every field of every lazy object costs more than building the objects at once, so lazy
+objects are for data that is mostly passed on, dumped, or read in part.
+
 20 orders × 10 items:
 
 | Operation | Perldantic | Moo + Type::Tiny |
@@ -86,5 +99,7 @@ them: copying and blessing the same hashes in plain Perl, checking nothing, take
    C functions (`HostData`, `ffi/src/host_input.rs`); scalars are described without allocating.
    Every host-data case of the conformance suite is validated both ways and must agree.
 
-Lazy model objects, which would keep validated data in the core until a field is read and so
-go below the object-building floor, are an opt-in on the backlog (task 00081).
+7. **Lazy objects (opt-in).** Validation leaves the data in the core and returns objects that
+   hold a handle to it (`ffi/src/lazy.rs`); an object reads its fields in when first used, and
+   one not read yet is dumped from the core's data directly. This goes below the
+   object-building floor.

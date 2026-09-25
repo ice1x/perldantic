@@ -169,6 +169,17 @@ uint8_t *pd_validator_validate_host(const PdValidator *validator,
                                     const char *options,
                                     size_t *len);
 
+// [`pd_validator_validate_host`] for lazy host objects: models in the result are lazy nodes
+// (tag 12 of [`binary`]), each a handle the host releases with [`pd_lazy_release`].
+//
+// # Safety
+// As for [`pd_validator_validate_host`].
+uint8_t *pd_validator_validate_host_lazy(const PdValidator *validator,
+                                         const PdHost *host,
+                                         void *root,
+                                         const char *options,
+                                         size_t *len);
+
 // [`pd_validator_validate_host`] answering only whether the input is valid, as
 // [`pd_validator_check_binary`] does.
 //
@@ -179,6 +190,35 @@ uint8_t *pd_validator_check_host(const PdValidator *validator,
                                  void *root,
                                  const char *options,
                                  size_t *len);
+
+// [`pd_validator_validate_json`] for lazy host objects, returning a buffer as
+// [`pd_validator_validate_host_lazy`] does.
+//
+// # Safety
+// As for [`pd_validator_validate_json`]; `len` is null or writable.
+uint8_t *pd_validator_validate_json_lazy(const PdValidator *validator,
+                                         const uint8_t *json,
+                                         size_t json_len,
+                                         const char *options,
+                                         size_t *len);
+
+// The contents of a lazy model for its host object: a buffer as
+// [`pd_validator_validate_binary`] returns, holding the model in full (tag 10), with the
+// models in its fields as new lazy nodes; an error envelope when the handle is not live.
+//
+// # Safety
+// `len` is null or writable.
+uint8_t *pd_lazy_contents(uint64_t handle, size_t *len);
+
+// A new handle to the model behind `handle` (for a copy of the host object), or 0 when the
+// handle is not live.
+uint64_t pd_lazy_clone(uint64_t handle);
+
+// Release a handle of a lazy model; unknown handles are ignored.
+void pd_lazy_release(uint64_t handle);
+
+// How many handles of lazy models are live (for leak checks).
+size_t pd_lazy_live(void);
 
 // [`pd_serializer_to_data`] with the value and the result in the binary wire format, returned
 // as [`pd_validator_validate_binary`] returns its result.

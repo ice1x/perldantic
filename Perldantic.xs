@@ -18,6 +18,21 @@
 #include <stdlib.h>
 #include <string.h>
 
+/* The Perl side's registries the decoder reads on every call, looked up once per interpreter
+   (they are package hashes, emptied but never replaced). */
+#define MY_CXT_KEY "Perldantic::XS::_guts" XS_VERSION
+typedef struct {
+    HV *bless; /* %Perldantic::Wire::BLESS */
+    HV *lazy;  /* %Perldantic::Wire::LAZY */
+} my_cxt_t;
+START_MY_CXT
+
+static void cxt_fetch(pTHX_ my_cxt_t *cxt)
+{
+    cxt->bless = get_hv("Perldantic::Wire::BLESS", GV_ADD);
+    cxt->lazy = get_hv("Perldantic::Wire::LAZY", GV_ADD);
+}
+
 /* How deep plain data may nest before the fallback (which has no such limit) takes over. */
 #define MAX_DEPTH 512
 
@@ -27,12 +42,64 @@ typedef struct {
     SV *fallback;
     HV *direct;   /* %Perldantic::Wire::DIRECT: class => [field names] */
     HV *state;    /* %Perldantic::Model::STATE, a field hash keyed by object address */
+    HV *lazy_dump; /* %Perldantic::Wire::LAZY_DUMP: class => [fields left out unless set] */
     int tracking; /* $Perldantic::Model::TRACK_OBJECTS: objects then carry tokens */
     int guarded;  /* Rust frames are on the stack: a dying fallback must not unwind through them */
     SV *error;    /* the first exception a guarded fallback raised (owned) */
 } encoder;
 
 static void emit(pTHX_ SV *out, SV *value, encoder *enc, int depth);
+
+/* Lazy objects (task 00081): a blessed, empty hash with ext magic holding the handle of a model
+   the core keeps (ffi/src/lazy.rs). The magic releases the handle with the object; a thread
+   cloning the object gets its own handle. Perldantic::Model::_realize reads the fields in. */
+typedef void (*pd_buffer_free_fn)(unsigned char *buffer, size_t len);
+typedef unsigned char *(*pd_lazy_contents_fn)(U64 handle, size_t *len);
+typedef U64 (*pd_lazy_clone_fn)(U64 handle);
+typedef void (*pd_lazy_release_fn)(U64 handle);
+
+static pd_buffer_free_fn core_buffer_free = NULL;
+static pd_lazy_contents_fn core_lazy_contents = NULL;
+static pd_lazy_clone_fn core_lazy_clone = NULL;
+static pd_lazy_release_fn core_lazy_release = NULL;
+
+static int lazy_free(pTHX_ SV *sv, MAGIC *mg)
+{
+    UV handle = PTR2UV(mg->mg_ptr);
+    PERL_UNUSED_ARG(sv);
+    if (handle && core_lazy_release) core_lazy_release((U64)handle);
+    mg->mg_ptr = NULL;
+    return 0;
+}
+
+#ifdef USE_ITHREADS
+static int lazy_dup(pTHX_ MAGIC *mg, CLONE_PARAMS *param)
+{
+    UV handle = PTR2UV(mg->mg_ptr);
+    PERL_UNUSED_ARG(param);
+    mg->mg_ptr = handle && core_lazy_clone ? INT2PTR(char *, (UV)core_lazy_clone((U64)handle)) : NULL;
+    return 0;
+}
+#endif
+
+static MGVTBL lazy_vtbl = {
+    NULL, NULL, NULL, NULL, lazy_free, NULL,
+#ifdef USE_ITHREADS
+    lazy_dup,
+#else
+    NULL,
+#endif
+    NULL
+};
+
+/* The lazy magic of a hash, if it is a lazy object not read yet. */
+static MAGIC *lazy_magic(pTHX_ SV *target)
+{
+    MAGIC *mg;
+    if (!SvRMAGICAL(target)) return NULL;
+    mg = mg_findext(target, PERL_MAGIC_ext, &lazy_vtbl);
+    return mg && mg->mg_ptr ? mg : NULL;
+}
 
 /* JSON text of a UTF-8 byte string: quotes, backslashes and control characters escaped. */
 static void emit_string(pTHX_ SV *out, const char *text, STRLEN len)
@@ -176,7 +243,7 @@ static int emit_model(pTHX_ SV *out, SV *target, encoder *enc, int depth)
     int first = 1;
     char address[32];
     int length;
-    if (enc->tracking || !enc->direct || !class) return 0;
+    if (enc->tracking || !enc->direct || !class || lazy_magic(aTHX_ target)) return 0;
     names = hv_fetch(enc->direct, class,
         HvNAMEUTF8(stash) ? -(I32)HvNAMELEN(stash) : (I32)HvNAMELEN(stash), 0);
     if (!names || !SvROK(*names) || SvTYPE(SvRV(*names)) != SVt_PVAV) return 0;
@@ -282,7 +349,7 @@ static void emit_pairs(pTHX_ SV *out, AV *pairs, encoder *enc)
  */
 enum {
     B_NONE = 0, B_TRUE = 1, B_FALSE = 2, B_INT = 3, B_FLOAT = 4, B_STR = 5, B_LIST = 6,
-    B_DICT = 7, B_JSON = 8, B_MODEL = 9, B_MODEL_FULL = 10, B_BYTES = 11
+    B_DICT = 7, B_JSON = 8, B_MODEL = 9, B_MODEL_FULL = 10, B_BYTES = 11, B_LAZY = 12
 };
 
 static void bput_len(pTHX_ SV *out, STRLEN len)
@@ -387,7 +454,45 @@ static int bemit_model(pTHX_ SV *out, SV *target, encoder *enc, int depth)
     STRLEN count_at;
     char address[32];
     int length;
-    if (enc->tracking || !enc->direct || !class) return 0;
+    MAGIC *lazy;
+    if (enc->tracking || !class) return 0;
+    if ((lazy = lazy_magic(aTHX_ target)) != NULL) {
+        /* the core's own model, when it is what the object would hold: not when fields were
+           stored in the hash directly, or the class fills fields in Perl (then Perl reads the
+           object in first) */
+        SV **drop = NULL;
+        AV *names;
+        SSize_t n;
+        if (!HvUSEDKEYS((HV *)target) && enc->lazy_dump)
+            drop = hv_fetch(enc->lazy_dump, class,
+                HvNAMEUTF8(stash) ? -(I32)HvNAMELEN(stash) : (I32)HvNAMELEN(stash), 0);
+        if (!drop || !SvROK(*drop) || SvTYPE(SvRV(*drop)) != SVt_PVAV) {
+            /* read in by Perl, then written as any object (its own lazy objects stay lazy);
+               not while Rust frames are on the stack, where the fallback guards errors */
+            dSP;
+            if (enc->guarded) return 0;
+            ENTER;
+            SAVETMPS;
+            PUSHMARK(SP);
+            XPUSHs(sv_2mortal(newRV_inc(target)));
+            PUTBACK;
+            call_pv("Perldantic::Model::_realize", G_DISCARD);
+            FREETMPS;
+            LEAVE;
+            return lazy_magic(aTHX_ target) ? 0 : bemit_model(aTHX_ out, target, enc, depth);
+        }
+        names = (AV *)SvRV(*drop);
+        bput_tag(aTHX_ out, B_LAZY);
+        bput_bytes(aTHX_ out, class, HvNAMELEN(stash));
+        bput_u64(aTHX_ out, (U64)PTR2UV(lazy->mg_ptr));
+        bput_len(aTHX_ out, (STRLEN)(av_len(names) + 1));
+        for (n = 0; n <= av_len(names); n++) {
+            SV **name = av_fetch(names, n, 0);
+            bput_sv_string(aTHX_ out, name ? *name : &PL_sv_no);
+        }
+        return 1;
+    }
+    if (!enc->direct) return 0;
     names = hv_fetch(enc->direct, class,
         HvNAMEUTF8(stash) ? -(I32)HvNAMELEN(stash) : (I32)HvNAMELEN(stash), 0);
     if (!names || !SvROK(*names) || SvTYPE(SvRV(*names)) != SVt_PVAV) return 0;
@@ -561,18 +666,42 @@ typedef struct {
     const unsigned char *end;
     SV *json_decoder;
     HV *bless; /* %Perldantic::Wire::BLESS: class => number of fields */
+    HV *lazy;  /* %Perldantic::Wire::LAZY: class => whether its objects may be lazy */
+    UV pending; /* values read so far that Perldantic::Model::_inflate must still turn into
+                   objects: a model holding one is left to Perl too, which does not look
+                   inside objects */
 } breader;
+
+static void breader_init(pTHX_ breader *r, const unsigned char *at, const unsigned char *end,
+                         SV *json_decoder)
+{
+    r->at = at;
+    r->end = end;
+    r->json_decoder = json_decoder;
+    dMY_CXT;
+    r->bless = MY_CXT.bless;
+    r->lazy = MY_CXT.lazy;
+    r->pending = 0;
+}
 
 /* Whether a validated model can be blessed as it is: its class is registered, it set every
    field (without extra values, the names set are field names) and carries no input-object
    token (names starting with NUL). */
+static int bset_all(pTHX_ breader *r, SV *class, SV *fields_set, SV *extra);
+
 static int bblessable(pTHX_ breader *r, SV *class, SV *fields, SV *fields_set, SV *extra)
+{
+    if (!SvROK(fields) || SvOBJECT(SvRV(fields)) || SvTYPE(SvRV(fields)) != SVt_PVHV) return 0;
+    return bset_all(aTHX_ r, class, fields_set, extra);
+}
+
+/* The conditions of bblessable on all but the fields hash. */
+static int bset_all(pTHX_ breader *r, SV *class, SV *fields_set, SV *extra)
 {
     HE *count;
     AV *names;
     SSize_t last, i;
     if (!r->bless || SvOK(extra)) return 0;
-    if (!SvROK(fields) || SvOBJECT(SvRV(fields)) || SvTYPE(SvRV(fields)) != SVt_PVHV) return 0;
     if (!SvROK(fields_set) || SvTYPE(SvRV(fields_set)) != SVt_PVAV) return 0;
     count = hv_fetch_ent(r->bless, class, 0, 0);
     if (!count) return 0;
@@ -631,10 +760,90 @@ static SV *bget_string(pTHX_ breader *r)
 
 static SV *bread(pTHX_ breader *r, int depth);
 
-static HV *bread_entries(pTHX_ breader *r, int depth)
+/* The contents of a lazy model from the core, in a Perl copy (so a dying reader leaks nothing),
+   after the result kind byte. */
+static SV *lazy_contents(pTHX_ U64 handle)
+{
+    size_t len = 0;
+    unsigned char *buffer;
+    SV *copy;
+    if (!core_lazy_contents || !core_buffer_free) croak("Perldantic::XS: the core is not bound");
+    buffer = core_lazy_contents(handle, &len);
+    if (!buffer || len == 0) croak("Perldantic::XS: empty result from the core");
+    copy = sv_2mortal(newSVpvn((const char *)buffer, len));
+    core_buffer_free(buffer, len);
+    if (SvPVX(copy)[0] != 'B') croak("Perldantic::XS: %s", SvPVX(copy) + 1);
+    return copy;
+}
+
+/* Whether objects of a class may be lazy, asking Perldantic::Model::_lazy_plan for classes it
+   has not planned yet. */
+static int lazy_class(pTHX_ breader *r, SV *class)
+{
+    HE *entry;
+    if (!r->lazy) return 0;
+    entry = hv_fetch_ent(r->lazy, class, 0, 0);
+    if (!entry) {
+        CV *plan = get_cv("Perldantic::Model::_lazy_plan", 0);
+        dSP;
+        if (!plan) return 0;
+        ENTER;
+        SAVETMPS;
+        PUSHMARK(SP);
+        XPUSHs(class);
+        PUTBACK;
+        call_sv((SV *)plan, G_DISCARD);
+        FREETMPS;
+        LEAVE;
+        entry = hv_fetch_ent(r->lazy, class, 0, 0);
+    }
+    return entry && SvTRUE(HeVAL(entry));
+}
+
+/* A lazy node: a lazy object when its class allows, else the model read in full now. */
+static SV *bread_lazy(pTHX_ breader *r, int depth)
+{
+    SV *class = sv_2mortal(bget_string(aTHX_ r));
+    U64 handle = bget_u64(aTHX_ r);
+    U32 names = bget_len(aTHX_ r), i;
+    HV *stash;
+    /* names only come from hosts sending models back */
+    for (i = 0; i < names; i++) {
+        U32 len = bget_len(aTHX_ r);
+        bneed(aTHX_ r, len);
+        r->at += len;
+    }
+    if (lazy_class(aTHX_ r, class) && (stash = gv_stashsv(class, 0)) != NULL) {
+        HV *object = newHV();
+        SV *ref = newRV_noinc((SV *)object);
+        MAGIC *mg = sv_magicext((SV *)object, NULL, PERL_MAGIC_ext, &lazy_vtbl, NULL, 0);
+        mg->mg_ptr = INT2PTR(char *, (UV)handle);
+#ifdef USE_ITHREADS
+        mg->mg_flags |= MGf_DUP;
+#endif
+        return sv_bless(ref, stash);
+    } else {
+        SV *copy, *value;
+        breader inner;
+        /* released once copied: a dying reader must not leave the handle behind */
+        copy = lazy_contents(aTHX_ handle);
+        if (core_lazy_release) core_lazy_release(handle);
+        inner = *r;
+        inner.at = (const unsigned char *)SvPVX(copy) + 1;
+        inner.end = (const unsigned char *)SvPVX(copy) + SvCUR(copy);
+        value = bread(aTHX_ &inner, depth + 1);
+        r->pending = inner.pending;
+        if (inner.at != inner.end) {
+            SvREFCNT_dec(value);
+            croak("Perldantic::XS: trailing bytes in a lazy model");
+        }
+        return value;
+    }
+}
+
+static void bread_entries_into(pTHX_ breader *r, int depth, HV *hash)
 {
     U32 count = bget_len(aTHX_ r), i;
-    HV *hash = newHV();
     for (i = 0; i < count; i++) {
         U32 len = bget_len(aTHX_ r), j;
         const char *key;
@@ -648,6 +857,12 @@ static HV *bread_entries(pTHX_ breader *r, int depth)
         /* a negative length marks a UTF-8 key; Perl stores it downgraded when it can */
         if (!hv_store(hash, key, ascii ? (I32)len : -(I32)len, value, 0)) SvREFCNT_dec(value);
     }
+}
+
+static HV *bread_entries(pTHX_ breader *r, int depth)
+{
+    HV *hash = newHV();
+    bread_entries_into(aTHX_ r, depth, hash);
     return hash;
 }
 
@@ -694,6 +909,7 @@ static SV *bread(pTHX_ breader *r, int depth)
         bneed(aTHX_ r, len);
         json = sv_2mortal(newSVpvn((const char *)r->at, len));
         r->at += len;
+        r->pending++;
         ENTER;
         SAVETMPS;
         PUSHMARK(SP);
@@ -711,11 +927,13 @@ static SV *bread(pTHX_ breader *r, int depth)
     case B_MODEL: {
         /* a model that set exactly the fields it holds, with no extra values */
         SV *class = bget_string(aTHX_ r);
+        UV pending = r->pending;
         HV *fields = bread_entries(aTHX_ r, depth);
         SV *fields_ref = newRV_noinc((SV *)fields);
         HE *count = r->bless ? hv_fetch_ent(r->bless, class, 0, 0) : NULL;
         HV *stash;
-        if (count && HvUSEDKEYS(fields) >= SvIV(HeVAL(count)) && (stash = gv_stashsv(class, 0)) != NULL) {
+        if (count && r->pending == pending && HvUSEDKEYS(fields) >= SvIV(HeVAL(count))
+            && (stash = gv_stashsv(class, 0)) != NULL) {
             SvREFCNT_dec(class);
             return sv_bless(fields_ref, stash);
         } else {
@@ -730,17 +948,19 @@ static SV *bread(pTHX_ breader *r, int depth)
             (void)hv_stores(model, "fields", fields_ref);
             (void)hv_stores(model, "fields_set", newRV_noinc((SV *)names));
             (void)hv_stores(model, "extra", newSV(0));
+            r->pending++;
             return sv_bless(ref, gv_stashpvs("Perldantic::Wire::Model", GV_ADD));
         }
     }
     case B_MODEL_FULL: {
         SV *class = bget_string(aTHX_ r);
+        UV pending = r->pending;
         SV *fields = bread(aTHX_ r, depth + 1);
         SV *fields_set = bread(aTHX_ r, depth + 1);
         SV *extra = bread(aTHX_ r, depth + 1);
         HV *model, *stash;
         SV *ref;
-        if (bblessable(aTHX_ r, class, fields, fields_set, extra)
+        if (r->pending == pending && bblessable(aTHX_ r, class, fields, fields_set, extra)
             && (stash = gv_stashsv(class, 0)) != NULL) {
             /* the fields hash is the object, as Perldantic::Model::_inflate makes it */
             SvREFCNT_dec(class);
@@ -754,8 +974,10 @@ static SV *bread(pTHX_ breader *r, int depth)
         (void)hv_stores(model, "fields", fields);
         (void)hv_stores(model, "fields_set", fields_set);
         (void)hv_stores(model, "extra", extra);
+        r->pending++;
         return sv_bless(ref, gv_stashpvs("Perldantic::Wire::Model", GV_ADD));
     }
+    case B_LAZY: return bread_lazy(aTHX_ r, depth);
     default:
         croak("Perldantic::XS::decode_result: unknown tag %d", (int)tag);
     }
@@ -768,6 +990,7 @@ static void encoder_init(pTHX_ encoder *enc, SV *fallback)
     SV *tracking = get_sv("Perldantic::Model::TRACK_OBJECTS", 0);
     enc->fallback = fallback;
     enc->direct = get_hv("Perldantic::Wire::DIRECT", 0);
+    enc->lazy_dump = get_hv("Perldantic::Wire::LAZY_DUMP", 0);
     enc->state = get_hv("Perldantic::Model::STATE", 0);
     enc->tracking = tracking && SvTRUE(tracking);
     enc->guarded = 0;
@@ -804,12 +1027,11 @@ typedef struct {
 
 typedef unsigned char *(*pd_validate_host_fn)(void *validator, const pd_host *host, void *root,
                                               const char *options, size_t *len);
-typedef void (*pd_buffer_free_fn)(unsigned char *buffer, size_t len);
 
 /* The core's exports, bound once by Perldantic::FFI (process-wide function addresses). */
 static pd_validate_host_fn core_validate_host = NULL;
 static pd_validate_host_fn core_check_host = NULL;
-static pd_buffer_free_fn core_buffer_free = NULL;
+static pd_validate_host_fn core_validate_host_lazy = NULL;
 
 /* The container behind a node that the core may read in place: a reference to a plain (not
    blessed, not tied) array or hash. */
@@ -989,10 +1211,7 @@ static int push_result(pTHX_ SV **sp_in, SV *copy, SV *json_decoder)
     const unsigned char *bytes = (const unsigned char *)SvPVX(copy);
     STRLEN len = SvCUR(copy);
     if (len == 0) croak("Perldantic::XS: empty result from the core");
-    r.at = bytes + 1;
-    r.end = bytes + len;
-    r.json_decoder = json_decoder;
-    r.bless = get_hv("Perldantic::Wire::BLESS", 0);
+    breader_init(aTHX_ &r, bytes + 1, bytes + len, json_decoder);
     if (bytes[0] == 'J') {
         EXTEND(SP, 2);
         mPUSHs(newSVpvs("envelope"));
@@ -1019,6 +1238,21 @@ static int push_result(pTHX_ SV **sp_in, SV *copy, SV *json_decoder)
 MODULE = Perldantic    PACKAGE = Perldantic::XS
 
 PROTOTYPES: DISABLE
+
+BOOT:
+{
+    MY_CXT_INIT;
+    cxt_fetch(aTHX_ &MY_CXT);
+}
+
+void
+CLONE(...)
+    CODE:
+    {
+        MY_CXT_CLONE;
+        cxt_fetch(aTHX_ &MY_CXT);
+        PERL_UNUSED_VAR(items);
+    }
 
 SV *
 encode(value, fallback)
@@ -1073,10 +1307,7 @@ decode_result(address, len, json_decoder)
         /* A result buffer of a binary export: ('ok', $value, $warning) or ('envelope', $json). */
         if (!address || !len) croak("Perldantic::XS::decode_result: empty buffer");
         bytes = INT2PTR(const unsigned char *, address);
-        r.at = bytes + 1;
-        r.end = bytes + len;
-        r.json_decoder = json_decoder;
-        r.bless = get_hv("Perldantic::Wire::BLESS", 0);
+        breader_init(aTHX_ &r, bytes + 1, bytes + len, json_decoder);
         if (bytes[0] == 'J') {
             EXTEND(SP, 2);
             mPUSHs(newSVpvs("envelope"));
@@ -1099,24 +1330,77 @@ decode_result(address, len, json_decoder)
         }
 
 void
-bind_core(validate_host, check_host, buffer_free)
+bind_core(validate_host, check_host, validate_host_lazy, buffer_free, lazy_contents, lazy_clone, lazy_release)
         UV validate_host
         UV check_host
+        UV validate_host_lazy
         UV buffer_free
+        UV lazy_contents
+        UV lazy_clone
+        UV lazy_release
     CODE:
         /* the core's exports, found by Perldantic::FFI */
         core_validate_host = INT2PTR(pd_validate_host_fn, validate_host);
         core_check_host = INT2PTR(pd_validate_host_fn, check_host);
+        core_validate_host_lazy = INT2PTR(pd_validate_host_fn, validate_host_lazy);
         core_buffer_free = INT2PTR(pd_buffer_free_fn, buffer_free);
+        core_lazy_contents = INT2PTR(pd_lazy_contents_fn, lazy_contents);
+        core_lazy_clone = INT2PTR(pd_lazy_clone_fn, lazy_clone);
+        core_lazy_release = INT2PTR(pd_lazy_release_fn, lazy_release);
 
 void
-validate_host(validator, input, options, fallback, json_decoder, check)
+lazy_expand(object, json_decoder)
+        SV *object
+        SV *json_decoder
+    PREINIT:
+        SV *target, *copy, *class, *fields, *fields_set, *extra;
+        MAGIC *mg;
+        breader r;
+        U64 handle;
+    PPCODE:
+        /* Read a lazy object in, its handle released: models in its fields are new lazy
+           objects. Returns ($fields, $fields_set, $extra) for Perl to finish the object with,
+           or an empty list when there is nothing to finish (or the value is not lazy). */
+        if (!SvROK(object)) XSRETURN_EMPTY;
+        target = SvRV(object);
+        if (SvTYPE(target) != SVt_PVHV || !(mg = lazy_magic(aTHX_ target))) XSRETURN_EMPTY;
+        handle = (U64)PTR2UV(mg->mg_ptr);
+        copy = lazy_contents(aTHX_ handle);
+        breader_init(aTHX_ &r, (const unsigned char *)SvPVX(copy) + 1,
+            (const unsigned char *)SvPVX(copy) + SvCUR(copy), json_decoder);
+        bneed(aTHX_ &r, 1);
+        if (*r.at++ != B_MODEL_FULL) croak("Perldantic::XS::lazy_expand: not a model");
+        class = sv_2mortal(bget_string(aTHX_ &r));
+        bneed(aTHX_ &r, 1);
+        if (*r.at == B_DICT && !HvUSEDKEYS((HV *)target)) {
+            /* the fields go straight into the object */
+            r.at++;
+            bread_entries_into(aTHX_ &r, 1, (HV *)target);
+            fields = sv_2mortal(newRV_inc(target));
+        } else {
+            fields = sv_2mortal(bread(aTHX_ &r, 1));
+        }
+        fields_set = sv_2mortal(bread(aTHX_ &r, 1));
+        extra = sv_2mortal(bread(aTHX_ &r, 1));
+        if (r.at != r.end) croak("Perldantic::XS::lazy_expand: trailing bytes");
+        sv_unmagicext(target, PERL_MAGIC_ext, &lazy_vtbl);
+        if (SvRV(fields) == target && r.pending == 0 && bset_all(aTHX_ &r, class, fields_set, extra)) {
+            /* every field given, nothing for Perl to build */
+            XSRETURN_EMPTY;
+        }
+        EXTEND(SP, 3);
+        PUSHs(fields);
+        PUSHs(fields_set);
+        PUSHs(extra);
+
+void
+validate_host(validator, input, options, fallback, json_decoder, mode)
         UV validator
         SV *input
         SV *options
         SV *fallback
         SV *json_decoder
-        int check
+        int mode
     PREINIT:
         encoder enc;
         pd_host host;
@@ -1125,8 +1409,9 @@ validate_host(validator, input, options, fallback, json_decoder, check)
         SV *copy;
         int count;
     PPCODE:
-        /* Validate Perl data read in place: ('ok', $value, $warning) or ('envelope', $json). */
-        if (!core_validate_host || !core_check_host || !core_buffer_free)
+        /* Validate Perl data read in place: ('ok', $value, $warning) or ('envelope', $json).
+           Mode 0 builds the value, 1 only checks, 2 returns lazy objects. */
+        if (!core_validate_host || !core_check_host || !core_validate_host_lazy || !core_buffer_free)
             croak("Perldantic::XS::validate_host: the core is not bound");
         encoder_init(aTHX_ &enc, fallback);
         enc.guarded = 1;
@@ -1139,7 +1424,7 @@ validate_host(validator, input, options, fallback, json_decoder, check)
         host.hash_entries = host_hash_entries;
         host.scalar = host_scalar;
         host.to_binary = host_to_binary;
-        buffer = (check ? core_check_host : core_validate_host)(
+        buffer = (mode == 1 ? core_check_host : mode == 2 ? core_validate_host_lazy : core_validate_host)(
             INT2PTR(void *, validator), &host, input, SvOK(options) ? SvPV_nolen(options) : NULL, &len);
         copy = sv_2mortal(newSVpvn((const char *)buffer, len));
         core_buffer_free(buffer, len);

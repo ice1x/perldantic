@@ -73,6 +73,16 @@ no_leaks_ok {
     $node->model_copy(deep => 1);
 } 'models';
 no_leaks_ok { local $@; eval { Leak::Node->new(children => [{}]) } } 'model validation errors';
+Leak::Node->model_validate($tree, lazy => 1)->children->[1]->name;
+no_leaks_ok {
+    my $node = Leak::Node->model_validate($tree, lazy => 1);
+    $node->model_dump_json;
+    my $child = $node->children->[1];
+    $child->children->[0]->slug;
+    $node->model_dump;
+    Leak::Node->model_validate_json('{"name": "j", "children": [{"name": "k"}]}', lazy => 1)->children;
+} 'lazy objects';
+ok Perldantic::FFI::_lazy_live() == 0, 'the core holds no lazy model once its objects are gone';
 no_leaks_ok { Leak::Node->core_schema } 'model schemas (no closure cycles)';
 my $leaf = Leak::Node->new(name => 'leaf');
 no_leaks_ok { my $node = Leak::Node->new(name => 'n', children => [$leaf, {name => 'x'}]) } 'model objects as input';
