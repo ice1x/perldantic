@@ -9,9 +9,10 @@ BEGIN {
         or skip_all('Test::LeakTrace is not installed');
 }
 
+use Perldantic::Call;
 use Perldantic::FFI;
 use Perldantic::TypeAdapter;
-use Perldantic::Types qw(ArrayRef Maybe Num Str Map DateTime Decimal Uuid Url);
+use Perldantic::Types qw(ArrayRef Int Maybe Num Str Map DateTime Decimal Uuid Url);
 use Perldantic::Wire qw(tuple bytes);
 
 package Leak::Node {
@@ -114,6 +115,15 @@ my $called = Perldantic::FFI::Validator->new({type => 'call', function => sub ($
     arguments_schema => {type => 'arguments', arguments_schema => [{name => 'n', schema => {type => 'int'}}]}});
 $called->validate([1]);
 no_leaks_ok { $called->validate([2]) } 'called functions';
+my $validated_sub = Perldantic::Call::validate_call(sub ($node, %o) { $node->name . ($o{n} // 0) },
+    positional => ['Leak::Node'], named => [n => Int, {default => 1}], returns => Str);
+$validated_sub->({name => 'a'}, n => 2);
+no_leaks_ok {
+    $validated_sub->({name => 'a'}, n => 2);
+    $validated_sub->(Leak::Node->new(name => 'b'));
+    local $@;
+    eval { $validated_sub->({name => 'a'}, n => 'x') };
+} 'validate_call';
 my $other = Perldantic::FFI::Validator->new({type => 'enum', cls => 'Leak::Other',
     members => [Perldantic::Wire::Enum->new(class => 'Leak::Other', name => 'A', value => 1)]});
 $other->validate(1);

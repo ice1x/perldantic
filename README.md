@@ -110,7 +110,7 @@ numbers and where the time goes: [docs/BENCHMARKS.md](docs/BENCHMARKS.md); repro
   - [x] 00069 — `docs/MIGRATING_FROM_PYDANTIC.md`
   - [ ] 00070 — CPAN release `Perldantic-0.01`, tag `v0.1.0`
 - [ ] 00071 — Backlog (post-0.1)
-  - [ ] 00072 — `arguments` / `call`: Perl sub signature validation
+  - [x] 00072 — `arguments` / `call`: Perl sub signature validation (`Perldantic::Call`'s `validate_call`)
   - [ ] 00073 — Moo/Moose integration
   - [ ] 00074 — Prebuilt binaries / Alien dist
   - [ ] 00075 — Automated upstream sync

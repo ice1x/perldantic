@@ -273,6 +273,7 @@ C<readOnly>.
 
 L<Perldantic::Model> (the methods of model objects), L<Perldantic::Types> (the types),
 L<Perldantic::Type> (constraints), L<Perldantic::TypeAdapter> (validating any type),
+L<Perldantic::Call> (validating the arguments of subs), L<Perldantic::Enum> (enum classes),
 L<Perldantic::Role>, L<Perldantic::Error>, L<Perldantic::Temporal>, L<Perldantic::Uuid>,
 L<Perldantic::Url>, L<Perldantic::FFI> (the core schema API).
 

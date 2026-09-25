@@ -23,7 +23,8 @@ behaviour differences are listed in [DIVERGENCES.md](DIVERGENCES.md).
 11. [Unions](#unions)
 12. [Dates, UUIDs, URLs and decimals](#dates-uuids-urls-and-decimals)
 13. [Enum classes](#enum-classes)
-14. [Not available](#not-available)
+14. [Validating calls](#validating-calls)
+15. [Not available](#not-available)
 
 ## Models
 
@@ -589,6 +590,33 @@ say Size->from_value(1)->name;                 # S
 `model_dump` keeps members, and `mode => 'json'` writes their values. Strict validation
 takes only members from Perl data (JSON input is always a value).
 
+## Validating calls
+
+`@validate_call` is `validate_call` from `Perldantic::Call`, with the options of Type::Params'
+`signature_for`: `positional` arguments (pydantic's positional-only parameters), `named` ones
+(keyword-only, given as `name => value` pairs or a hash reference), a trailing `slurpy` type for
+`*args` / `**kwargs`, and `returns` for `validate_return=True`. Errors are located by position or
+name and titled with the sub's name.
+
+```python
+@validate_call(validate_return=True)
+def repeat(text: str, /, *, times: int = 2) -> str:
+    return text * times
+```
+
+```perl
+use Perldantic::Call qw(validate_call);
+use Perldantic::Types qw(Int Str);
+
+validate_call repeat => (positional => [Str], named => [times => Int, {default => 2}], returns => Str);
+sub repeat ($text, %opt) { $text x $opt{times} }
+
+say repeat('ab');                  # abab
+say repeat('ab', times => '3');    # ababab
+eval { repeat('ab', times => 'x') };
+say $@->errors->[0]{loc}[0];       # times
+```
+
 ## Not available
 
 These pydantic features have no Perldantic counterpart yet:
@@ -596,7 +624,7 @@ These pydantic features have no Perldantic counterpart yet:
 - `validate_assignment`, `frozen` models (use `is => 'ro'`), `model_construct`,
   `model_rebuild` (not needed: models are compiled on first use and recompiled when a class
   they use changes);
-- generic models, dataclasses, `@validate_call`, `RootModel`;
+- generic models, dataclasses, `RootModel`;
 - enum member aliases (two names for one value) and `use_enum_values`;
 - `SecretStr`, `EmailStr` and other types from `pydantic.networks` and `pydantic.types` beyond
   those listed above (a `pattern` constraint or a Type::Tiny constraint covers most of them);
