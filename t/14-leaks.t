@@ -124,6 +124,16 @@ no_leaks_ok {
     local $@;
     eval { $validated_sub->({name => 'a'}, n => 'x') };
 } 'validate_call';
+my $moo_type = ArrayRef [Int];
+$moo_type->check([1]);
+no_leaks_ok {
+    my $type = ArrayRef [Int];
+    $type->check([1]);
+    $type->coerce(['2']);
+    $type->get_message(['x']);
+    local $@;
+    eval { $type->(['x']) };
+} 'types as constraints';
 my $other = Perldantic::FFI::Validator->new({type => 'enum', cls => 'Leak::Other',
     members => [Perldantic::Wire::Enum->new(class => 'Leak::Other', name => 'A', value => 1)]});
 $other->validate(1);

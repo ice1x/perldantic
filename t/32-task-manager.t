@@ -1,6 +1,8 @@
 use v5.36;
 use Test2::V0;
 
+use JSON::PP;
+
 # An IT task manager: a sprint board holds bugs, features and chores, told apart by `kind`
 # (a tagged union), each with a deadline and an estimate. Boards are imported from another
 # tracker's JSON API and exported back.
@@ -167,6 +169,34 @@ subtest 'schema for API clients' => sub {
     is $items->{discriminator}{mapping}, {bug => '#/$defs/Bug', feature => '#/$defs/Feature', chore => '#/$defs/Chore'};
     is [map { $_->{'$ref'} } @{$items->{oneOf}}], ['#/$defs/Bug', '#/$defs/Feature', '#/$defs/Chore'];
     is $schema->{'$defs'}{Bug}{properties}{deadline}{anyOf}, [{type => 'string', format => 'date'}, {type => 'null'}];
+};
+
+# The tracker's older notifier is a Moo class; it takes the board's types, and boards as data.
+subtest 'a Moo class with Perldantic types' => sub {
+    skip_all 'Moo is not installed' if !eval { require Moo; 1 };
+    my $notifier = eval q{
+        package Tasks::Notifier;
+        use Moo;
+        use Perldantic::Types qw(ArrayRef InstanceOf Str);
+        has channel => (is => 'ro', isa => Str->with(pattern => '^#[a-z-]+$'), required => 1);
+        has board   => (is => 'ro', isa => InstanceOf['Tasks::Board'], required => 1,
+            coerce => InstanceOf(['Tasks::Board'])->coercion);
+        has mention => (is => 'ro', isa => ArrayRef[Str->with(pattern => '^@')], default => sub { [] });
+        sub late_message ($self) {
+            my @late = @{$self->board->late};
+            return @late ? "$self->{channel}: late " . join(', ', @late) : '';
+        }
+        __PACKAGE__;
+    } or die $@;
+    my $data = JSON::PP->new->decode($export);
+    my $notify = $notifier->new(channel => '#sprint', board => $data);
+    isa_ok $notify->board, ['Tasks::Board'], 'a board built from the export';
+    isa_ok $notify->board->tasks->[0], ['Tasks::Bug'];
+    is $notify->late_message, '#sprint: late 102';
+    my $e = dies { $notifier->new(channel => 'sprint', board => $data) };
+    like "$e", qr/String should match pattern/, 'the channel is checked';
+    $e = dies { $notifier->new(channel => '#sprint', board => {sprint => 'x'}) };
+    like "$e", qr/validation error for InstanceOf\["Tasks::Board"\]\nends\n  Field required/, 'a bad board is reported';
 };
 
 done_testing;

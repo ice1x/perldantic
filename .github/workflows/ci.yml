@@ -54,6 +54,10 @@ jobs:
           perl-version: ${{ matrix.perl }}
       - name: Install dependencies
         run: cpanm --notest --installdeps --with-configure .
+      # the Moo, Moose and Type::Tiny parts of the tests run where those are installed
+      - name: Install Moo, Moose and Type::Tiny
+        if: matrix.perl == '5.40'
+        run: cpanm --notest Moo Moose Type::Tiny
       - name: Build
         run: perl Makefile.PL && make
       - name: Test

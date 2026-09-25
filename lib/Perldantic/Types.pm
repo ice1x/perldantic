@@ -433,6 +433,9 @@ one by one, or all of them with C<:all>.
 As with Type::Tiny, C<Name[...]> is a function call on an array reference. To call a method on
 a parameterized type, put it in a variable or in parentheses first: C<< (ArrayRef[Int])->with(...) >>.
 
+The types work outside Perldantic models too: as C<isa> in L<Moo> classes, and through
+L<Type::Tiny> in L<Moose> (see L<Perldantic::Type/IN MOO, MOOSE AND TYPE::TINY>).
+
 =head1 TYPES
 
 =over

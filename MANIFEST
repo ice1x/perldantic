@@ -197,6 +197,7 @@ t/39-lazy.t
 t/40-enum.t
 t/41-validate-call.t
 t/42-prebuilt.t
+t/43-moo-moose.t
 t/conformance.t
 t/lib/Perldantic/Test/CaseJSON.pm
 tests/conformance/upstream/tests/serializers/test_any.json
