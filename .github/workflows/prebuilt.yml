@@ -1,0 +1,133 @@
+name: Prebuilt
+
+# Core libraries built for each supported platform, for installing without Rust
+# (inc/Perldantic/Prebuilt.pm). Every change builds them and installs the distribution from them
+# on a machine that has no cargo in reach of Makefile.PL; a manual run with a tag name also
+# publishes them as a draft release, whose SHA256SUMS the distribution then ships
+# (docs/RELEASING.md).
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag the libraries are for (e.g. v0.2.0); empty builds only'
+        required: false
+
+env:
+  CARGO_TERM_COLOR: always
+
+permissions:
+  contents: read
+
+jobs:
+  linux:
+    name: Library (${{ matrix.target }})
+    runs-on: ${{ matrix.os }}
+    # glibc 2.28 (RHEL 8, Debian 10, Ubuntu 18.10 and later): what the library needs is the
+    # build system's
+    container: quay.io/pypa/manylinux_2_28_${{ matrix.arch }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {os: ubuntu-latest, arch: x86_64, target: x86_64-unknown-linux-gnu}
+          - {os: ubuntu-24.04-arm, arch: aarch64, target: aarch64-unknown-linux-gnu}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - run: cargo build --release --locked -p perldantic-ffi
+      - run: |
+          mkdir release
+          cp target/release/libperldantic_ffi.so release/libperldantic-${{ matrix.target }}.so
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lib-${{ matrix.target }}
+          path: release/
+
+  macos:
+    name: Library (${{ matrix.target }})
+    runs-on: macos-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        target: [aarch64-apple-darwin, x86_64-apple-darwin]
+    env:
+      MACOSX_DEPLOYMENT_TARGET: '11.0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - run: cargo build --release --locked -p perldantic-ffi --target ${{ matrix.target }}
+      - run: |
+          mkdir release
+          cp target/${{ matrix.target }}/release/libperldantic_ffi.dylib release/libperldantic-${{ matrix.target }}.dylib
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lib-${{ matrix.target }}
+          path: release/
+
+  install:
+    name: Install without Rust (${{ matrix.target }})
+    needs: [linux, macos]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - {os: ubuntu-latest, target: x86_64-unknown-linux-gnu}
+          - {os: ubuntu-24.04-arm, target: aarch64-unknown-linux-gnu}
+          - {os: macos-latest, target: aarch64-apple-darwin}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: '5.36'
+      - uses: actions/download-artifact@v4
+        with:
+          name: lib-${{ matrix.target }}
+          path: release
+      - name: Install dependencies
+        run: cpanm --notest --installdeps --with-configure .
+      - name: Checksums
+        run: perl tools/release/prebuilt-sums.pl release https://example.invalid/unused
+      - name: Build without Rust
+        env:
+          PERLDANTIC_BUILD: prebuilt
+        run: |
+          PERLDANTIC_PREBUILT_URL="file://$PWD/release/" perl Makefile.PL
+          make
+          test ! -e ffi/target && test ! -e target
+      - name: Test
+        run: make test
+
+  release:
+    name: Draft release
+    if: github.event_name == 'workflow_dispatch' && inputs.tag != ''
+    needs: [linux, macos, install]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: lib-*
+          path: release
+          merge-multiple: true
+      - name: Checksums
+        run: |
+          perl tools/release/prebuilt-sums.pl release \
+            "https://github.com/${{ github.repository }}/releases/download/${{ inputs.tag }}"
+          cp prebuilt/SHA256SUMS release/
+      - name: Draft the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${{ inputs.tag }}" --draft --target "${{ github.sha }}" \
+            --title "Perldantic ${{ inputs.tag }}" \
+            --notes "Core libraries for installing without Rust, built from ${{ github.sha }}." \
+            release/*

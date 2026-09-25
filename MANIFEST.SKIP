@@ -19,6 +19,7 @@
 ^ffi/target/
 ^ffi/_build/
 ^fbx\.json$
+^prebuilt/.*\.(?:so|dylib)$
 ^Perldantic\.c$
 ^Perldantic\.o$
 ^Perldantic\.bs$
