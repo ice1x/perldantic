@@ -9,6 +9,9 @@ Revision history for Perldantic
       ArgsKwargs: the positional and named arguments of a call.
     - `call` core schemas: a Perl sub called with validated arguments, its result
       validated by a return schema.
+    - Perldantic::Call's validate_call: pydantic's validate_call for Perl subs, with
+      Type::Params' options (positional, named, slurpy, returns, method).
+    - Validation of small inputs spends less time in Perl (one eval per call).
 
 0.01  2026-09-24
     - First release: pydantic's data validation for Perl, on a Python-free Rust port of

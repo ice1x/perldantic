@@ -219,6 +219,33 @@ my $CALLBACK = $ffi->closure(sub ($id, $json, $reply) {
 $CALLBACK->sticky;
 _set_host_callback($CALLBACK);
 
+# _enter around _validate_in_place, in one step: validation is the call made most often, and
+# small inputs (the arguments of a sub) spend more time in these layers than in the core.
+sub _validate_now ($handle, $input, $options, $mode) {
+    local $DEPTH = $DEPTH + 1;
+    my (@result, $result, $error);
+    # as _validate_in_place: failing to encode the input is an internal error unless Perldantic
+    # raised it; what the result holds (exceptions of functions included) is raised as it is
+    if (!eval {
+        @result = Perldantic::XS::validate_host($handle, $input, defined $options ? _options($options) : undef,
+            \&Perldantic::Wire::_emit, \&Perldantic::Wire::decode, $mode);
+        1;
+    }) {
+        my $e = $@;
+        $error = blessed $e && $e->isa('Perldantic::Error') ? $e
+            : Perldantic::InternalError->new(message => "Cannot encode a value for the core: $e", cause => $e);
+    }
+    elsif ($result[0] eq 'envelope') {
+        eval { $result = _unwrap(Perldantic::Wire::decode($result[1]))->{ok}; 1 } or $error = $@;
+    }
+    else {
+        $result = $result[1];
+    }
+    %EXCEPTION = () if $DEPTH == 1;
+    die $error if defined $error;
+    return $result;
+}
+
 # Run a call into the core from Perl (not from a function the core called).
 sub _enter ($body) {
     local $DEPTH = $DEPTH + 1;
@@ -320,6 +347,9 @@ package Perldantic::FFI::Validator {
 
     # `$lazy` asks for lazy model objects, which need the native part.
     sub validate ($self, $input, $options = undef, $lazy = 0) {
+        return Perldantic::FFI::_validate_now($self->{handle}, $input, $options,
+            $lazy ? Perldantic::FFI::MODE_LAZY : Perldantic::FFI::MODE_BUILD)
+            if $Perldantic::Wire::XS;
         return Perldantic::FFI::_enter(sub {
             return Perldantic::FFI::_validate_in_place($self->{handle}, $input, $options,
                 $lazy ? Perldantic::FFI::MODE_LAZY : Perldantic::FFI::MODE_BUILD)->{ok}

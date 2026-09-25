@@ -1,6 +1,7 @@
 use v5.36;
 use Test2::V0;
 
+use JSON::PP;
 use Math::BigFloat;
 
 # An ERP sales order: lines with money as decimals (never floats), discounts, tax, and totals
@@ -144,6 +145,49 @@ subtest 'posting to accounting' => sub {
     my $schema = ERP::Order->model_json_schema;
     is $schema->{'$defs'}{Line}{properties}{unit_price},
         {anyOf => [{type => 'number', minimum => 0}, {type => 'string'}], title => 'Unit Price'};
+};
+
+# An accounting service: its entry points validate their arguments like the orders themselves.
+package ERP::Ledger {
+    use v5.36;
+    use Perldantic::Call qw(validate_call);
+    use Perldantic::Types qw(ArrayRef Date Decimal Str);
+
+    our @POSTED;
+
+    # post(order, on => date, memo => text): the order is validated as the model
+    validate_call post => (positional => ['ERP::Order'], named => [on => Date, memo => Str, {default => ''}],
+        returns => Str);
+    sub post ($order, %entry) {
+        push @POSTED, [$order, $entry{on}, $entry{memo}];
+        return 'JE-' . $order->number =~ s/\D//gr;
+    }
+
+    # a correction: an amount of money for an order number
+    validate_call correct => (named => [order => Str, {default => 'SO-000000'}, amount => Decimal]);
+    sub correct (%c) { "$c{order}: " . $c{amount}->bstr }
+}
+
+subtest 'posting through the ledger service' => sub {
+    local @ERP::Ledger::POSTED;
+    my $order = ERP::Order->model_validate_json($posted);
+    is ERP::Ledger::post($order, on => '2026-09-26'), 'JE-004217';
+    my ($entry) = @ERP::Ledger::POSTED;
+    ref_is $entry->[0], $order, 'the order object as it was given';
+    isa_ok $entry->[1], ['Perldantic::Date'];
+    is $entry->[2], '', 'the memo default';
+
+    my $json_order = JSON::PP->new->decode($posted);
+    is ERP::Ledger::post($json_order, on => '2026-09-26', memo => 'from the shop'), 'JE-004217';
+    isa_ok $ERP::Ledger::POSTED[-1][0], ['ERP::Order'], 'an order built from plain data';
+    my $e = dies { ERP::Ledger::post({%$json_order, total => '1.00'}, on => 'someday') };
+    is [sort map { join('.', @{$_->{loc}}) . ":$_->{type}" } @{$e->errors}],
+        ['0:value_error', 'on:date_from_datetime_parsing'], 'the order and the date are both checked';
+    is $e->title, 'ERP::Ledger::post';
+
+    is ERP::Ledger::correct(amount => '12.50'), 'SO-000000: 12.5', 'a decimal';
+    $e = dies { ERP::Ledger::correct(amount => 'lots') };
+    is $e->errors->[0]{loc}, ['amount'];
 };
 
 done_testing;
