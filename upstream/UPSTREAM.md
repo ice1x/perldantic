@@ -19,6 +19,11 @@ and fail against it (47 tests); both types are dropped from the port.
 
 ## Sync procedure
 
+The *Upstream* workflow (`.github/workflows/upstream.yml`) checks pydantic every week and keeps
+what changed in `pydantic-core/` since the base commit, mapped to the files below, in an open
+issue labelled `upstream-sync`; `python -m upstream.report --pydantic ../pydantic --head <commit>`
+(in `tools/`) writes the same report locally. Syncing is then:
+
 1. `git -C ../pydantic fetch && git -C ../pydantic diff <base>..<new> -- pydantic-core/src pydantic-core/tests`
 2. Port each changed file to its target in the map below, test-first.
 3. Replace the snapshot with the new commit, then update the base commit here and in

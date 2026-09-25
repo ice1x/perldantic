@@ -1,0 +1,54 @@
+name: Upstream
+
+# Watches pydantic-core for changes since Perldantic's base commit (upstream/UPSTREAM.md) and
+# keeps them, mapped to the port, in one open issue labelled upstream-sync
+# (tools/upstream/report.py). Porting them is the sync UPSTREAM.md describes.
+
+on:
+  schedule:
+    - cron: '17 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: pydantic/pydantic
+          path: pydantic
+          fetch-depth: 0
+          filter: blob:none
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Latest pydantic-core release
+        id: release
+        run: |
+          version=$(curl -fsSL https://pypi.org/pypi/pydantic-core/json \
+            | python -c 'import json, sys; print(json.load(sys.stdin)["info"]["version"])')
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+      - name: Report
+        working-directory: tools
+        run: |
+          python -m upstream.report --pydantic ../pydantic --head HEAD \
+            --latest "${{ steps.release.outputs.version }}" > ../report.md
+          cat ../report.md >> "$GITHUB_STEP_SUMMARY"
+      - name: Keep the report in the upstream-sync issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          number=$(gh issue list --label upstream-sync --state open --json number --jq '.[0].number // empty')
+          if [ -n "$number" ]; then
+            gh issue edit "$number" --body-file report.md
+          elif ! grep -q 'No changes to pydantic-core' report.md; then
+            gh label create upstream-sync --color 5319e7 \
+              --description 'Changes in pydantic-core to port' 2>/dev/null || true
+            gh issue create --title 'Upstream pydantic-core changes to port' \
+              --label upstream-sync --body-file report.md
+          fi
