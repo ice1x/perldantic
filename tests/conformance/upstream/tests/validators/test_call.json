@@ -530,7 +530,15 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1
+    ],
+    {
+     "b": 1,
+     "c": 1
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -883,7 +891,15 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1
+    ],
+    {
+     "b": 1,
+     "c": 1
+    }
+   ]
   },
   "options": {
    "strict": null,

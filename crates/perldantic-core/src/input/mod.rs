@@ -9,7 +9,7 @@ mod return_enums;
 mod shared;
 
 pub use input_abstract::{
-    BorrowInput, ConsumeIterator, Input, Never, ValMatch, ValidatedDict, ValidatedList,
+    Arguments, BorrowInput, ConsumeIterator, Input, Never, ValMatch, ValidatedDict, ValidatedList,
     ValidatedTuple,
 };
 pub use input_host::{HostData, HostDict, HostInput, HostKind, HostSeq};

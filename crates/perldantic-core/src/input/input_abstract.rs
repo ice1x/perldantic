@@ -165,6 +165,17 @@ pub trait Input: fmt::Debug {
         let _ = input_type;
         self.validate_tuple(strict)
     }
+
+    /// The arguments of a call (`arguments` schemas): `ArgsKwargs`, or a sequence of positional
+    /// arguments, or a mapping of keyword arguments.
+    fn validate_args(&self) -> ValResult<Arguments<Self::Tuple<'_>, Self::Dict<'_>>>;
+}
+
+/// Positional and keyword arguments to validate (upstream's `Arguments` trait): either may be
+/// missing.
+pub struct Arguments<A, K> {
+    pub args: Option<A>,
+    pub kwargs: Option<K>,
 }
 
 /// Abstracts over owned and borrowed items yielded while iterating collections.

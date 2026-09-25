@@ -63,6 +63,26 @@ pub enum Value {
     /// An object of the host language the core does not look into (upstream: an arbitrary
     /// Python object), e.g. a Perl object that is not a model.
     Host(Box<HostObject>),
+    /// The arguments of a call, as `arguments` schemas validate them
+    /// (`pydantic_core.ArgsKwargs`).
+    ArgsKwargs(Box<ArgsKwargs>),
+}
+
+/// Positional and keyword arguments of a call (upstream `ArgsKwargs`); no keyword arguments
+/// are `None`, as upstream drops an empty dict.
+#[derive(Debug, Clone, PartialEq)]
+pub struct ArgsKwargs {
+    pub args: Vec<Value>,
+    pub kwargs: Option<Dict>,
+}
+
+impl ArgsKwargs {
+    pub fn new(args: Vec<Value>, kwargs: Dict) -> Self {
+        Self {
+            args,
+            kwargs: (!kwargs.is_empty()).then_some(kwargs),
+        }
+    }
 }
 
 /// An object of the host: what the core needs to know about it, and the host's handle to get
@@ -191,6 +211,7 @@ impl PartialEq for Value {
             (Self::Enum(a), Self::Enum(b)) => a == b,
             (Self::Function(a), Self::Function(b)) => a == b,
             (Self::Host(a), Self::Host(b)) => a == b,
+            (Self::ArgsKwargs(a), Self::ArgsKwargs(b)) => a == b,
             _ => false,
         }
     }
@@ -270,6 +291,15 @@ impl Value {
             (Self::Uuid(a), Self::Uuid(b)) => a == b,
             (Self::Url(a), Self::Url(b)) => a == b,
             (Self::MultiHostUrl(a), Self::MultiHostUrl(b)) => a == b,
+            (Self::ArgsKwargs(a), Self::ArgsKwargs(b)) => {
+                a.args.len() == b.args.len()
+                    && a.args.iter().zip(&b.args).all(|(x, y)| x.py_eq(y))
+                    && match (&a.kwargs, &b.kwargs) {
+                        (Some(x), Some(y)) => dicts_py_eq(x, y),
+                        (None, None) => true,
+                        _ => false,
+                    }
+            }
             _ => false,
         }
     }
@@ -319,6 +349,7 @@ impl Value {
             Self::Enum(member) => &member.class,
             Self::Function(_) => "function",
             Self::Host(object) => &object.class,
+            Self::ArgsKwargs(_) => "ArgsKwargs",
         }
     }
 
@@ -439,7 +470,9 @@ impl Value {
     /// dicts, sets and model instances cannot be, nor tuples holding them.
     pub fn is_hashable(&self) -> bool {
         match self {
-            Self::List(_) | Self::Dict(_) | Self::Set(_) | Self::Model(_) => false,
+            Self::List(_) | Self::Dict(_) | Self::Set(_) | Self::Model(_) | Self::ArgsKwargs(_) => {
+                false
+            }
             Self::Tuple(items) => items.iter().all(Self::is_hashable),
             _ => true,
         }
@@ -549,6 +582,15 @@ impl Value {
             }
             Self::Function(function) => write!(out, "<function {}>", function.name()).unwrap(),
             Self::Host(object) => out.push_str(&object.repr),
+            Self::ArgsKwargs(arguments) => {
+                out.push_str("ArgsKwargs(");
+                Self::Tuple(arguments.args.clone()).write_repr(out);
+                if let Some(kwargs) = &arguments.kwargs {
+                    out.push_str(", ");
+                    Self::Dict(kwargs.clone()).write_repr(out);
+                }
+                out.push(')');
+            }
         }
     }
 
@@ -763,6 +805,8 @@ impl Serialize for Value {
                 serializer.serialize_str(&format!("<function {}>", function.name()))
             }
             Self::Host(object) => serializer.serialize_str(&object.repr),
+            // an unknown object to pydantic's JSON serializer: its repr
+            Self::ArgsKwargs(_) => serializer.serialize_str(&self.repr()),
             // Like `model_dump`: the fields, then the extra values.
             Self::Model(model) => {
                 let extra = model.extra.iter().flat_map(Dict::iter);

@@ -21,7 +21,8 @@ use crate::value::{Dict, Value};
 
 use super::InputType;
 use super::input_abstract::{
-    BorrowInput, ConsumeIterator, Input, ValMatch, ValidatedDict, ValidatedList, ValidatedTuple,
+    Arguments, BorrowInput, ConsumeIterator, Input, ValMatch, ValidatedDict, ValidatedList,
+    ValidatedTuple,
 };
 use super::return_enums::{EitherBytes, EitherFloat, EitherInt, EitherString, ValidationMatch};
 
@@ -354,6 +355,25 @@ impl<H: HostData> Input for HostInput<'_, H> {
                 Ok(ValidationMatch::exact(self.host_seq(node)))
             }
             _ => self.validate_tuple(strict),
+        }
+    }
+
+    fn validate_args(&self) -> ValResult<Arguments<HostSeq<'_, H>, HostDict<'_, H>>> {
+        match self.container() {
+            Some((node, HostKind::Array)) => Ok(Arguments {
+                args: Some(self.host_seq(node)),
+                kwargs: None,
+            }),
+            Some((node, HostKind::Hash)) => Ok(Arguments {
+                args: None,
+                kwargs: Some(HostDict::Host(self.host, node)),
+            }),
+            _ => self.value().validate_args().map(|arguments| Arguments {
+                args: arguments.args.map(|args| HostSeq::Value(self.host, args)),
+                kwargs: arguments
+                    .kwargs
+                    .map(|kwargs| HostDict::Value(self.host, kwargs)),
+            }),
         }
     }
 }

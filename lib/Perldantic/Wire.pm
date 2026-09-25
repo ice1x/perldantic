@@ -16,6 +16,7 @@ use MIME::Base64 qw(encode_base64 decode_base64);
 use Scalar::Util qw(blessed reftype weaken);
 use Sub::Util ();
 
+use Perldantic::Arguments;
 use Perldantic::Error;
 use Perldantic::Temporal;
 use Perldantic::Url;
@@ -220,6 +221,7 @@ sub _emit ($value) {
         return _tagged(bytes => _string(encode_base64($$value, ''))) if $ref eq 'Perldantic::Wire::Bytes';
         return _tagged(model => $value->_json)                if $ref eq 'Perldantic::Wire::Model';
         return _tagged(enum => $value->_json)                 if $ref eq 'Perldantic::Wire::Enum';
+        return $value->_wire_json                             if $ref eq 'Perldantic::Arguments';
         return qq({"@{[$value->_wire_tag]}":) . _emit_any($value->_wire_payload) . '}' if $value->isa('Perldantic::Temporal');
         return _tagged(uuid => _string($value->as_string))    if $value->isa('Perldantic::Uuid');
         return _tagged(multi_host_url => _string($value->as_string)) if $value->isa('Perldantic::MultiHostUrl');
@@ -320,6 +322,9 @@ my %UNTAG = (
         bless $model, 'Perldantic::Wire::Model';
     },
     # members of Perl enum classes are those classes' own objects
+    args_kwargs => sub ($parts) {
+        Perldantic::Arguments->new(args => $parts->[0], kwargs => $parts->[1] // {});
+    },
     enum      => sub ($member) {
         $Perldantic::Enum::CLASSES{$member->{class} // ''}
             ? Perldantic::Enum::_from_wire($member)
@@ -460,6 +465,8 @@ C<ordered(key =E<gt> value, ...)>, which keeps the given key order;
 =item * C<Perldantic::Wire::Enum> is an enum member: C<class>, C<name>, C<value> and, for
 members of enums that mix in a builtin type (Python's C<IntEnum>, C<StrEnum>), C<mixin>
 (C<int>, C<str>, C<float> or C<bytes>) and C<str_is_value>.
+
+=item * L<Perldantic::Arguments> is the arguments of a call (C<args>, C<kwargs>).
 
 =item * dates, times, datetimes and durations are L<Perldantic::Temporal> values (decoded as
 such too); L<DateTime> and L<Time::Moment> objects are sent as datetimes (a floating DateTime as

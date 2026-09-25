@@ -127,7 +127,10 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -163,7 +166,14 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     2,
+     3
+    ],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -483,7 +493,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     "not_an_int"
+    ],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -522,7 +537,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     "not_an_int"
+    ],
+    null
+   ]
   },
   "options": {
    "strict": null,

@@ -76,6 +76,7 @@ crates/perldantic-core/src/temporal.rs
 crates/perldantic-core/src/tools.rs
 crates/perldantic-core/src/url.rs
 crates/perldantic-core/src/validators/any.rs
+crates/perldantic-core/src/validators/arguments.rs
 crates/perldantic-core/src/validators/bool.rs
 crates/perldantic-core/src/validators/bytes.rs
 crates/perldantic-core/src/validators/chain.rs
@@ -137,6 +138,7 @@ ffi/tests/callbacks.rs
 ffi/tests/header.rs
 ffi/tests/lazy_abi.rs
 lib/Perldantic.pm
+lib/Perldantic/Arguments.pm
 lib/Perldantic/Enum.pm
 lib/Perldantic/Error.pm
 lib/Perldantic/FFI.pm

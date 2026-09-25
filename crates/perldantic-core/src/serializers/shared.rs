@@ -76,6 +76,7 @@ serializers! {
     super::type_serializers::model::ModelFieldsBuilder,
     super::type_serializers::model::ModelSerializer,
     super::type_serializers::nullable::NullableSerializer,
+    super::type_serializers::other::ArgumentsBuilder,
     super::type_serializers::other::ChainBuilder,
     super::type_serializers::other::CustomErrorBuilder,
     super::type_serializers::other::IsInstanceBuilder,

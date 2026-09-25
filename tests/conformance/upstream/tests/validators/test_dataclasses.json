@@ -4513,7 +4513,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     "hello",
+     true
+    ],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -4656,7 +4662,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     "hello",
+     true
+    ],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -4703,7 +4715,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": "hello",
+     "b": true
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -4750,7 +4768,15 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     "hello"
+    ],
+    {
+     "a": "hello",
+     "b": true
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -5251,7 +5277,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     "hello",
+     true
+    ],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -5303,7 +5335,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     "hello",
+     "true"
+    ],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -5355,7 +5393,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     "hello",
+     true
+    ],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -5407,7 +5451,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": "hello",
+     "b": true
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -5459,7 +5509,15 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     "hello"
+    ],
+    {
+     "a": "hello",
+     "b": true
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -5725,7 +5783,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": "hello"
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -7062,7 +7125,15 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     {
+      "$bytes": "aGVsbG8="
+     },
+     "True"
+    ],
+    null
+   ]
   },
   "options": {
    "self_instance": {
@@ -7116,7 +7187,17 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "aAlias": {
+      "$bytes": "aGVsbG8="
+     },
+     "bAlias": [
+      "True"
+     ]
+    }
+   ]
   },
   "options": {
    "self_instance": {
@@ -7127,6 +7208,79 @@
    "output": {
     "$object": "Foo"
    }
+  }
+ },
+ {
+  "id": "tests/validators/test_dataclasses.py::test_dataclass_self_init_alias#1",
+  "test": "tests/validators/test_dataclasses.py::test_dataclass_self_init_alias",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "a",
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "str"
+      },
+      "validation_alias": "aAlias"
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "bool"
+      },
+      "validation_alias": [
+       "bAlias",
+       0
+      ]
+     }
+    ]
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "aAlias": {
+      "$bytes": "aGVsbG8="
+     },
+     "bAlias": [
+      "wrong"
+     ]
+    }
+   ]
+  },
+  "options": {
+   "self_instance": {
+    "$object": "Foo"
+   }
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_parsing",
+     "loc": [
+      "bAlias",
+      0
+     ],
+     "msg": "Input should be a valid boolean, unable to interpret input",
+     "input": "wrong"
+    }
+   ],
+   "title": "Foo"
   }
  },
  {
@@ -7173,7 +7327,17 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "aAlias": {
+      "$bytes": "aGVsbG8="
+     },
+     "bAlias": [
+      "True"
+     ]
+    }
+   ]
   },
   "options": {
    "self_instance": {
@@ -7184,6 +7348,81 @@
    "output": {
     "$object": "Foo"
    }
+  }
+ },
+ {
+  "id": "tests/validators/test_dataclasses.py::test_dataclass_self_init_alias_field_name#1",
+  "test": "tests/validators/test_dataclasses.py::test_dataclass_self_init_alias_field_name",
+  "schema": {
+   "type": "dataclass",
+   "cls": {
+    "$class": "Foo"
+   },
+   "fields": [
+    "a",
+    "b"
+   ],
+   "schema": {
+    "type": "dataclass-args",
+    "dataclass_name": "Foo",
+    "fields": [
+     {
+      "type": "dataclass-field",
+      "name": "a",
+      "schema": {
+       "type": "str"
+      },
+      "validation_alias": "aAlias"
+     },
+     {
+      "type": "dataclass-field",
+      "name": "b",
+      "schema": {
+       "type": "bool"
+      },
+      "validation_alias": [
+       "bAlias",
+       0
+      ]
+     }
+    ]
+   },
+   "config": {
+    "loc_by_alias": false
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "aAlias": {
+      "$bytes": "aGVsbG8="
+     },
+     "bAlias": [
+      "wrong"
+     ]
+    }
+   ]
+  },
+  "options": {
+   "self_instance": {
+    "$object": "Foo"
+   }
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "bool_parsing",
+     "loc": [
+      "b"
+     ],
+     "msg": "Input should be a valid boolean, unable to interpret input",
+     "input": "wrong"
+    }
+   ],
+   "title": "Foo"
   }
  },
  {
@@ -7235,7 +7474,17 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     {
+      "$bytes": "aGVsbG8="
+     },
+     "True"
+    ],
+    {
+     "c": "123"
+    }
+   ]
   },
   "options": {
    "self_instance": {
@@ -8488,7 +8737,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": "hello",
+     "b": true
+    }
+   ]
   },
   "options": {},
   "expected": {
@@ -8498,7 +8753,13 @@
      "loc": [],
      "msg": "Input should be an instance of FooDataclass",
      "input": {
-      "$object": "ArgsKwargs"
+      "$args_kwargs": [
+       [],
+       {
+        "a": "hello",
+        "b": true
+       }
+      ]
      },
      "ctx": {
       "class_name": "FooDataclass"

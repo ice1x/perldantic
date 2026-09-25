@@ -1,6 +1,7 @@
 use v5.36;
 use Test2::V0;
 
+use Perldantic::Arguments;
 use Perldantic::FFI;
 use Perldantic::Wire qw(tuple);
 
@@ -81,6 +82,23 @@ subtest 'Perl data is reported in Perl words' => sub {
     is $e->errors->[0]{msg}, 'Input should be a valid array', 'JSON input keeps JSON words';
     my $pair = Perldantic::FFI::Validator->new({type => 'tuple', items_schema => [{type => 'int'}]});
     is $pair->validate([1], {strict => 1}), [1], 'arrays are strict tuples';
+};
+
+subtest 'the arguments of a call' => sub {
+    my $v = Perldantic::FFI::Validator->new({type => 'arguments', arguments_schema => [
+        {name => 'a', mode => 'positional_only', schema => {type => 'int'}},
+        {name => 'b', schema => {type => 'default', schema => {type => 'int'}, default => 0}},
+    ]});
+    is $v->validate(Perldantic::Arguments->new(args => ['1'], kwargs => {b => '2'})), [[1], {b => 2}],
+        'Perldantic::Arguments';
+    is $v->validate([1, 2]), [[1, 2], {}], 'an array: positional arguments';
+    is $v->validate_json('[1]'), [[1], {b => 0}], 'JSON';
+    my $e = dies { $v->validate({b => 1}) };
+    is $e->errors->[0]{type}, 'missing_positional_only_argument', 'a hash: named arguments';
+    $e = dies { $v->validate(1) };
+    is $e->errors->[0]{msg}, 'Arguments must be an array reference, a hash reference or a Perldantic::Arguments object';
+    $e = dies { $v->validate(Perldantic::Arguments->new(args => [1], kwargs => {c => 1})) };
+    is [map { [$_->{type}, $_->{loc}] } @{$e->errors}], [['unexpected_keyword_argument', ['c']]];
 };
 
 subtest 'bad schemas raise a SchemaError' => sub {

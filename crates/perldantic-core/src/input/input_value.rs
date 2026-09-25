@@ -24,7 +24,8 @@ use super::datetime::{
     int_as_time,
 };
 use super::input_abstract::{
-    BorrowInput, ConsumeIterator, Input, ValMatch, ValidatedDict, ValidatedList, ValidatedTuple,
+    Arguments, BorrowInput, ConsumeIterator, Input, ValMatch, ValidatedDict, ValidatedList,
+    ValidatedTuple,
 };
 use super::return_enums::{EitherBytes, EitherFloat, EitherInt, EitherString, ValidationMatch};
 use super::shared::{
@@ -492,6 +493,24 @@ impl Input for Value {
                 Ok(ValidationMatch::exact(items))
             }
             _ => self.validate_tuple(strict),
+        }
+    }
+
+    fn validate_args(&self) -> ValResult<Arguments<&[Value], &Dict>> {
+        match self {
+            Value::Dict(kwargs) => Ok(Arguments {
+                args: None,
+                kwargs: Some(kwargs),
+            }),
+            Value::ArgsKwargs(arguments) => Ok(Arguments {
+                args: Some(&arguments.args),
+                kwargs: arguments.kwargs.as_ref(),
+            }),
+            Value::Tuple(args) | Value::List(args) => Ok(Arguments {
+                args: Some(args),
+                kwargs: None,
+            }),
+            _ => Err(ValError::new(ErrorTypeDefaults::ArgumentsType, self)),
         }
     }
 }

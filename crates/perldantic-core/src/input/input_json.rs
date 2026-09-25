@@ -22,7 +22,7 @@ use super::datetime::{
     float_as_duration, float_as_time, int_as_datetime, int_as_duration, int_as_time,
 };
 use super::input_abstract::{
-    BorrowInput, ConsumeIterator, Input, Never, ValMatch, ValidatedDict, ValidatedList,
+    Arguments, BorrowInput, ConsumeIterator, Input, Never, ValMatch, ValidatedDict, ValidatedList,
     ValidatedTuple,
 };
 use super::return_enums::{EitherBytes, EitherFloat, EitherInt, EitherString, ValidationMatch};
@@ -278,6 +278,20 @@ impl<'data> Input for JsonValue<'data> {
             _ => Err(ValError::new(ErrorTypeDefaults::TupleType, self)),
         }
     }
+
+    fn validate_args(&self) -> ValResult<Arguments<&JsonArray<'data>, &JsonObject<'data>>> {
+        match self {
+            JsonValue::Object(kwargs) => Ok(Arguments {
+                args: None,
+                kwargs: Some(kwargs),
+            }),
+            JsonValue::Array(args) => Ok(Arguments {
+                args: Some(args),
+                kwargs: None,
+            }),
+            _ => Err(ValError::new(ErrorTypeDefaults::ArgumentsType, self)),
+        }
+    }
 }
 
 impl<'data> BorrowInput for JsonValue<'data> {
@@ -381,6 +395,10 @@ impl Input for str {
 
     fn validate_tuple(&self, _strict: bool) -> ValMatch<Never> {
         Err(ValError::new(ErrorTypeDefaults::TupleType, self))
+    }
+
+    fn validate_args(&self) -> ValResult<Arguments<Never, Never>> {
+        Err(ValError::new(ErrorTypeDefaults::ArgumentsType, self))
     }
 }
 

@@ -211,3 +211,16 @@ def test_urls_are_encoded_by_their_text():
     assert encode(url) == {'$url': f'https://{host}/path?q=1'}
     assert type(decode(encode(url))) is Url
     assert type(decode(encode(MultiHostUrl(f'redis://{host}')))) is MultiHostUrl
+
+
+def test_args_kwargs_keep_their_arguments():
+    from pydantic_core import ArgsKwargs
+
+    name = fake.first_name()
+    assert encode(ArgsKwargs((1, name), {'a': (2,)})) == {
+        '$args_kwargs': [[1, name], {'a': {'$tuple': [2]}}]
+    }
+    assert encode(ArgsKwargs(())) == {'$args_kwargs': [[], None]}
+    value = ArgsKwargs((1,), {'b': 'x'})
+    assert decode(json.loads(json.dumps(encode(value)))) == value
+    assert decode({'$args_kwargs': [[], None]}) == ArgsKwargs(())

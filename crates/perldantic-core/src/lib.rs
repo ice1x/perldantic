@@ -45,7 +45,7 @@ pub use speedate;
 pub use url::{MultiHostUrl, Url, UrlHost};
 pub use uuid;
 pub use validators::{SchemaValidator, ValidateError, ValidateOptions};
-pub use value::{Dict, EnumMember, EnumMixin, HostObject, Model, Value};
+pub use value::{ArgsKwargs, Dict, EnumMember, EnumMixin, HostObject, Model, Value};
 
 /// Version of this crate.
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");

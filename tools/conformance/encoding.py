@@ -16,6 +16,8 @@ written as-is. Everything else is a single-key object whose key starts with `$`:
     {"$uuid": "..."}             uuid.UUID
     {"$url": "..."}              pydantic_core.Url (its text, as str() gives it)
     {"$multi_host_url": "..."}   pydantic_core.MultiHostUrl
+    {"$args_kwargs": [args, kwargs]}   pydantic_core.ArgsKwargs: positional arguments as a
+                                 list, keyword arguments as a dict or null
 
 Values that only describe Python objects (they cannot be rebuilt outside Python):
 
@@ -46,7 +48,7 @@ import math
 import uuid
 from typing import Any
 
-from pydantic_core import MultiHostUrl, Url
+from pydantic_core import ArgsKwargs, MultiHostUrl, Url
 
 
 class UnsupportedValue(ValueError):
@@ -164,6 +166,8 @@ def _encode(value: Any) -> Any:
         return {'$url': str(value)}
     if kind is MultiHostUrl:
         return {'$multi_host_url': str(value)}
+    if kind is ArgsKwargs:
+        return {'$args_kwargs': [encode(list(value.args)), encode(value.kwargs)]}
 
     if isinstance(value, type):
         return {'$class': value.__name__}
@@ -203,6 +207,7 @@ _DECODERS = {
     '$uuid': uuid.UUID,
     '$url': Url,
     '$multi_host_url': MultiHostUrl,
+    '$args_kwargs': lambda v: ArgsKwargs(tuple(decode(v[0])), decode(v[1])),
 }
 
 

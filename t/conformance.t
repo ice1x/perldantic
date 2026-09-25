@@ -109,6 +109,7 @@ sub plain ($value) {
     return "$class:$value" if $class eq 'Perldantic::Uuid' || $class eq 'Perldantic::Url' || $class eq 'Perldantic::MultiHostUrl';
     # members are singletons: the class and name identify one
     return "enum:" . $value->class . '.' . $value->name if $class eq 'Perldantic::Wire::Enum';
+    return ['ArgsKwargs', plain(Perldantic::Wire::tuple(@{$value->args})), plain($value->kwargs)] if $class eq 'Perldantic::Arguments';
     if ($class eq 'Perldantic::Wire::Model') {
         return Perldantic::Wire::Model->new(
             class      => $value->class,

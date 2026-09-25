@@ -124,6 +124,28 @@ subtest 'enum members round-trip' => sub {
         'mixin and str_is_value may be left out';
 };
 
+subtest 'arguments round-trip' => sub {
+    require Perldantic::Arguments;
+    my $arguments = Perldantic::Wire::decode('{"$args_kwargs":[[1,{"$tuple":[2]}],{"a":3}]}');
+    isa_ok $arguments, 'Perldantic::Arguments';
+    is $arguments->args, [1, [2]];
+    is $arguments->kwargs, {a => 3};
+    is Perldantic::Wire::encode($arguments), '{"$args_kwargs":[[1,[2]],{"a":3}]}';
+    my $positional = Perldantic::Arguments->new(args => ['x']);
+    is $positional->kwargs, {}, 'no keyword arguments';
+    is Perldantic::Wire::encode($positional), '{"$args_kwargs":[["x"],null]}';
+    is Perldantic::Wire::decode('{"$args_kwargs":[[],null]}')->kwargs, {};
+    is Perldantic::Wire::encode(Perldantic::Arguments->new(kwargs => ordered(b => 1, a => 2))),
+        '{"$args_kwargs":[[],{"b":1,"a":2}]}', 'keyword arguments in a given order';
+    my $e = dies { Perldantic::Arguments->new(args => {}) };
+    isa_ok $e, ['Perldantic::UsageError'];
+    like $e->message, qr/args must be an array reference/;
+    $e = dies { Perldantic::Arguments->new(kwargs => []) };
+    like $e->message, qr/kwargs must be a hash reference/;
+    $e = dies { Perldantic::Arguments->new(argz => []) };
+    like $e->message, qr/unknown option 'argz'/;
+};
+
 subtest 'code references are host functions' => sub {
     sub check_value ($value) { $value }
     my $json = Perldantic::Wire::encode([\&check_value]);
