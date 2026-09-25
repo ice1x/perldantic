@@ -4,10 +4,14 @@ use v5.36;
 
 our $VERSION = '0.01';
 
+use Hash::Util::FieldHash ();
+
 use Perldantic::Error;
 
 use overload
     '""'     => sub ($self, @) { $self->{name} },
+    # Moo's isa: a sub that dies for invalid values
+    '&{}'    => sub ($self, @) { sub ($value, @) { $self->_adapter->validate($value); return } },
     '|'      => sub ($self, $other, $swap, @) { Perldantic::Types::_union($swap ? ($other, $self) : ($self, $other)) },
     bool     => sub { 1 },
     fallback => 1;
@@ -81,6 +85,38 @@ sub _clone ($data) {
     return {map { $_ => _clone($data->{$_}) } keys %$data} if ref $data eq 'HASH';
     return [map { _clone($_) } @$data] if ref $data eq 'ARRAY';
     return $data;
+}
+
+# The Type::API constraint protocol, which Type::Tiny (Types::TypeTiny::to_TypeTiny) and through
+# it Moose understand: validation decides, and its conversion is the coercion.
+Hash::Util::FieldHash::fieldhash my %ADAPTER;
+
+# A TypeAdapter of the type, kept per type object. It holds a copy of the type: holding the type
+# itself would keep both alive for good.
+sub _adapter ($self) {
+    return $ADAPTER{$self} //= do {
+        require Perldantic::TypeAdapter;
+        Perldantic::TypeAdapter->new(bless {%$self}, ref $self);
+    };
+}
+
+sub check ($self, $value) { $self->_adapter->check($value) }
+
+sub get_message ($self, $value) {
+    local $@;
+    return eval { $self->_adapter->validate($value); 1 } ? undef : "$@";
+}
+
+sub has_coercion ($self) { !!1 }
+
+sub coerce ($self, $value) {
+    local $@;
+    my $result = eval { $self->_adapter->validate($value) };
+    return $@ ? $value : $result;
+}
+
+sub coercion ($self) {
+    return sub ($value, @) { $self->coerce($value) };
 }
 
 sub with ($self, %constraints) {
@@ -208,6 +244,41 @@ True for C<Optional[T]>.
 =head2 is_slurpy
 
 True for C<slurpy ArrayRef[T]> and C<slurpy HashRef[T]>.
+
+=head1 IN MOO, MOOSE AND TYPE::TINY
+
+A type is a type constraint for classes that are not Perldantic models too. It implements the
+constraint protocol of L<Type::API> (C<check>, C<get_message>, C<has_coercion>, C<coerce>),
+which L<Types::TypeTiny>'s C<to_TypeTiny> turns into a L<Type::Tiny> type, and it can be called
+as a code reference that dies with a C<Perldantic::ValidationError> for invalid values, which
+is what L<Moo>'s C<isa> takes:
+
+    package Order;
+    use Moo;
+    use Perldantic::Types qw(ArrayRef InstanceOf Int Str);
+
+    has id    => (is => 'ro', isa => Int->with(gt => 0), required => 1);
+    has tags  => (is => 'ro', isa => ArrayRef[Str]);
+    has where => (is => 'ro', isa => InstanceOf['Point'], coerce => InstanceOf(['Point'])->coercion);
+
+In L<Moose>, give C<isa> the Type::Tiny type:
+C<< isa => Types::TypeTiny::to_TypeTiny(ArrayRef[Int]), coerce => 1 >>.
+
+Validation decides what is valid, conversions included: C<'2'> passes C<Int>. The coercion is
+validation's conversion, so a hash reference becomes a model object and C<'2'> becomes C<2>.
+
+=head2 check($value)
+
+Whether C<$value> is valid (as L<Perldantic::TypeAdapter>'s C<check>).
+
+=head2 get_message($value)
+
+The text of the validation error for C<$value>, or C<undef> when it is valid.
+
+=head2 has_coercion, coerce($value), coercion
+
+C<has_coercion> is true. C<coerce> returns the validated value, or C<$value> as it is when it
+is invalid; C<coercion> is C<coerce> as a code reference (for Moo's C<coerce>).
 
 
 =head1 SEE ALSO

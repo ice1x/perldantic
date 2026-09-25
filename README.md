@@ -114,7 +114,7 @@ numbers and where the time goes: [docs/BENCHMARKS.md](docs/BENCHMARKS.md); repro
   - [ ] 00070 — CPAN release `Perldantic-0.01`, tag `v0.1.0`
 - [ ] 00071 — Backlog (post-0.1)
   - [x] 00072 — `arguments` / `call`: Perl sub signature validation (`Perldantic::Call`'s `validate_call`)
-  - [ ] 00073 — Moo/Moose integration
+  - [x] 00073 — Moo/Moose integration: Perldantic types as `isa` (and coercions) in Moo classes, and as Type::Tiny types (Type::API protocol) in Moose
   - [x] 00074 — Prebuilt binaries: the core library built for Linux and macOS by the release workflow, fetched and checksum-checked by Makefile.PL when Rust is missing
   - [ ] 00075 — Automated upstream sync
   - [x] 00080 — No JSON at the boundary: a binary wire format, and validation reading Perl data in place (docs/BENCHMARKS.md)

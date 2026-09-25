@@ -16,6 +16,10 @@ Revision history for Perldantic
       aarch64; glibc 2.28+) and macOS (arm64, x86_64); Makefile.PL fetches the one for the
       platform and checks it against the checksums in the distribution when cargo is
       missing (PERLDANTIC_BUILD=source|prebuilt|auto).
+    - Perldantic types in Moo and Moose classes: a type is Moo's code-reference isa, has a
+      coercion (validation's conversion: hashes become model objects), and implements the
+      Type::API protocol (check, get_message, has_coercion, coerce) that Type::Tiny's
+      to_TypeTiny, and so Moose, understands.
 
 0.01  2026-09-24
     - First release: pydantic's data validation for Perl, on a Python-free Rust port of
