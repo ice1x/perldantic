@@ -75,7 +75,7 @@ subtest 'Type::Tiny' => sub {
 };
 
 subtest 'Moose' => sub {
-    skip_all 'Moose is not installed' if !eval { require Moose; 1 };
+    skip_all 'Moose and Type::Tiny are not installed' if !eval { require Moose; require Types::TypeTiny; 1 };
     my $class = eval q{
         package Mm::Crate;
         use Moose;

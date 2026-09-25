@@ -3,6 +3,7 @@
 
 use std::ffi::CString;
 use std::ptr;
+use std::sync::{Mutex, MutexGuard, PoisonError};
 
 use perldantic_core::{Dict, Value};
 use perldantic_ffi::binary;
@@ -17,6 +18,13 @@ const POINTS: &str = r#"{"type": "list", "items_schema": {"type": "model", "cls"
         "x": {"type": "model-field", "schema": {"type": "int"}},
         "y": {"type": "model-field", "schema": {"type": "default", "schema": {"type": "int"},
               "default": 0}}}}}}"#;
+
+/// The tests count live handles, which the others change: they run one at a time.
+static SERIAL: Mutex<()> = Mutex::new(());
+
+fn serial() -> MutexGuard<'static, ()> {
+    SERIAL.lock().unwrap_or_else(PoisonError::into_inner)
+}
 
 fn c(text: &str) -> CString {
     CString::new(text).unwrap()
@@ -91,6 +99,7 @@ fn contents(handle: u64) -> Vec<u8> {
 
 #[test]
 fn validated_models_stay_in_the_core_until_released() {
+    let _serial = serial();
     let validator = validator(POINTS);
     let before = pd_lazy_live();
     let bytes = validate_lazy(validator, r#"[{"x": 1}, {"x": 2, "y": 3}]"#);
@@ -135,6 +144,7 @@ fn validated_models_stay_in_the_core_until_released() {
 
 #[test]
 fn lazy_models_serialize_as_they_are() {
+    let _serial = serial();
     let validator = validator(POINTS);
     let serializer = serializer(POINTS);
     let bytes = validate_lazy(validator, r#"[{"x": 1}]"#);
@@ -174,6 +184,7 @@ fn lazy_models_serialize_as_they_are() {
 
 #[test]
 fn invalid_input_is_a_validation_error() {
+    let _serial = serial();
     let validator = validator(POINTS);
     let bytes = validate_lazy(validator, r#"[{"x": "a"}]"#);
     assert_eq!(bytes[0], b'J');
