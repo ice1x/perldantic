@@ -121,6 +121,12 @@ docs/DIVERGENCES.md
 docs/MIGRATING_FROM_PYDANTIC.md
 docs/PLAN.md
 docs/RELEASING.md
+examples/01-models.pl
+examples/02-json.pl
+examples/03-validators.pl
+examples/04-types.pl
+examples/05-moo.pl
+examples/README.md
 ffi/.cargo/config.toml
 ffi/Cargo.toml
 ffi/README.md
@@ -198,6 +204,7 @@ t/40-enum.t
 t/41-validate-call.t
 t/42-prebuilt.t
 t/43-moo-moose.t
+t/44-examples.t
 t/conformance.t
 t/lib/Perldantic/Test/CaseJSON.pm
 tests/conformance/upstream/tests/serializers/test_any.json
