@@ -130,6 +130,10 @@ sub _tagged ($tag, $payload, $in_schema) {
         return Perldantic::Wire::Enum->new(
             class => $class, name => $name, value => $walk->($value), mixin => $mixin, str_is_value => $str_is_value);
     }
+    if ($tag eq '$args_kwargs') {
+        my ($args, $kwargs) = @$payload;
+        return Perldantic::Arguments->new(args => $walk->($args), kwargs => defined $kwargs ? $walk->($kwargs) : undef);
+    }
     if ($tag eq '$model') {
         my $extra = node_get($payload, 'extra');
         return Perldantic::Wire::Model->new(

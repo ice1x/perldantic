@@ -101,6 +101,15 @@ no_leaks_ok {
     Leak::Paint->model_validate_json('{"color": "red"}', lazy => 1)->color;
 } 'enum members';
 no_leaks_ok { local $@; eval { Leak::Paint->new(color => 'pink') } } 'enum errors';
+my $call_args = Perldantic::FFI::Validator->new({type => 'arguments', arguments_schema => [
+    {name => 'a', schema => {type => 'int'}}]});
+$call_args->validate([1]);
+no_leaks_ok {
+    $call_args->validate(Perldantic::Arguments->new(args => [1]));
+    $call_args->validate({a => 2});
+    local $@;
+    eval { $call_args->validate(Perldantic::Arguments->new(args => [1], kwargs => {b => 1})) };
+} 'arguments';
 my $other = Perldantic::FFI::Validator->new({type => 'enum', cls => 'Leak::Other',
     members => [Perldantic::Wire::Enum->new(class => 'Leak::Other', name => 'A', value => 1)]});
 $other->validate(1);

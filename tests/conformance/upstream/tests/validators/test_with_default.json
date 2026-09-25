@@ -63,7 +63,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     2
+    ],
+    null
+   ]
   },
   "options": {},
   "expected": {

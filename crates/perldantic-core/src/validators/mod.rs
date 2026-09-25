@@ -15,6 +15,7 @@ use crate::recursion_guard::RecursionState;
 use crate::value::{Dict, Value};
 
 mod any;
+mod arguments;
 mod bool;
 mod bytes;
 mod chain;
@@ -317,6 +318,7 @@ macro_rules! validators {
 // One validator per line; braces keep rustfmt from reflowing the list.
 validators! {
     any::AnyValidator,
+    arguments::ArgumentsValidator,
     bool::BoolValidator,
     bytes::BytesValidator,
     chain::ChainValidator,
@@ -381,6 +383,8 @@ fn failed_to_build_validator(val_type: &str, err: &CoreError) -> CoreError {
 #[enum_dispatch]
 pub enum CombinedValidator {
     Any(any::AnyValidator),
+    // Boxed: large and rarely used.
+    Arguments(Box<arguments::ArgumentsValidator>),
     Bool(bool::BoolValidator),
     Bytes(bytes::BytesValidator),
     ConstrainedBytes(bytes::BytesConstrainedValidator),

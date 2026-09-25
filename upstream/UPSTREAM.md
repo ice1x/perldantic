@@ -44,7 +44,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 
 | Upstream file | Perldantic file | Priority | Status | Notes |
 |---|---|---|---|---|
-| `argument_markers.rs` | - | drop | dropped | Python argument marker classes |
+| `argument_markers.rs` | `crates/perldantic-core/src/value.rs` | P2 | partial | `ArgsKwargs` is `Value::ArgsKwargs`; `PydanticUndefined` is dropped |
 | `build_tools.rs` | `crates/perldantic-core/src/build_tools.rs` | P0 | ported | `SchemaError` class belongs to the host; `SchemaDict` merged in from `tools.rs` |
 | `common/counter.rs` | - | drop | dropped | Python-only type |
 | `common/deque.rs` | - | drop | dropped | Python-only type |
@@ -116,7 +116,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `serializers/type_serializers/named_tuple.rs` | - | drop | dropped | Python-only type |
 | `serializers/type_serializers/nullable.rs` | `crates/perldantic-core/src/serializers/type_serializers/nullable.rs` | P0 | ported |  |
 | `serializers/type_serializers/ordered_dict.rs` | - | drop | dropped | Python-only type |
-| `serializers/type_serializers/other.rs` | `crates/perldantic-core/src/serializers/type_serializers/other.rs` | P1 | partial | `chain`, `custom-error`, `lax-or-strict`; `call`, `arguments`, `is-instance`, `is-subclass`, `callable` come with their validators |
+| `serializers/type_serializers/other.rs` | `crates/perldantic-core/src/serializers/type_serializers/other.rs` | P1 | partial | `chain`, `custom-error`, `lax-or-strict`, `arguments`, `is-instance`; `call`, `is-subclass`, `callable` come with their validators |
 | `serializers/type_serializers/set_frozenset.rs` | `crates/perldantic-core/src/serializers/type_serializers/set.rs` | P1 | done | Perl arrays accepted for Perl data (DIVERGENCES #19) |
 | `serializers/type_serializers/simple.rs` | `crates/perldantic-core/src/serializers/type_serializers/simple.rs` | P0 | ported |  |
 | `serializers/type_serializers/string.rs` | `crates/perldantic-core/src/serializers/type_serializers/string.rs` | P0 | ported |  |
@@ -130,7 +130,7 @@ Status: `pending` → `partial` → `ported` (or `dropped`).
 | `tools.rs` | `crates/perldantic-core/src/tools.rs` | P0 | partial | truncation helpers ported; `SchemaDict` lives in `build_tools.rs` |
 | `url.rs` | `crates/perldantic-core/src/url.rs` | P1 | done | `Url` / `MultiHostUrl` accessors without `build` (the Perl classes build URL text); `pd_url_parts` exposes the accessors |
 | `validators/any.rs` | `crates/perldantic-core/src/validators/any.rs` | P0 | ported |  |
-| `validators/arguments.rs` | `crates/perldantic-core/src/validators/arguments.rs` | P2 | pending |  |
+| `validators/arguments.rs` | `crates/perldantic-core/src/validators/arguments.rs` | P2 | done | input comes through `Input::validate_args` (Perl arrays and hashes as positional and keyword arguments, `Value::ArgsKwargs`) |
 | `validators/arguments_v3.rs` | `crates/perldantic-core/src/validators/arguments_v3.rs` | P2 | pending |  |
 | `validators/bool.rs` | `crates/perldantic-core/src/validators/bool.rs` | P0 | ported |  |
 | `validators/bytes.rs` | `crates/perldantic-core/src/validators/bytes.rs` | P0 | ported |  |

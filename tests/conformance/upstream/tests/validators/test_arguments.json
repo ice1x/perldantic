@@ -18,7 +18,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "Foo": 1
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -57,7 +62,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": 1
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -73,7 +83,12 @@
      ],
      "msg": "Missing required argument",
      "input": {
-      "$object": "ArgsKwargs"
+      "$args_kwargs": [
+       [],
+       {
+        "a": 1
+       }
+      ]
      }
     },
     {
@@ -107,7 +122,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1
+    ],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -147,7 +167,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "Foo": 1
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -187,7 +212,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": 1,
+     "Foo": 2
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -228,7 +259,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": 1,
+     "b": 2
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -269,7 +306,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": 1
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -309,7 +351,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1
+    ],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -599,7 +646,16 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     2,
+     3
+    ],
+    {
+     "a": 1
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -931,7 +987,17 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     "a"
+    ],
+    {
+     "a": "true",
+     "b": "bb",
+     "c": 3
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -1002,7 +1068,17 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     "a",
+     "true"
+    ],
+    {
+     "b": "bb",
+     "c": 3
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -1073,7 +1149,19 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     "a",
+     "true",
+     4,
+     5
+    ],
+    {
+     "b": "bb",
+     "c": 3
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -1121,7 +1209,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -1160,7 +1253,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -1197,7 +1295,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -1235,7 +1338,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -1273,7 +1381,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -1312,7 +1425,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -1351,7 +1469,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -1389,7 +1512,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -1428,7 +1556,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -1466,7 +1599,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -1503,7 +1641,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -1541,7 +1684,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -1580,7 +1728,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -1618,7 +1771,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -1657,7 +1815,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -1696,7 +1859,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": false,
@@ -1734,7 +1902,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": false,
@@ -1773,7 +1946,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": false,
@@ -1811,7 +1989,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -1850,7 +2033,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -1887,7 +2075,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -1925,7 +2118,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -1964,7 +2162,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -2002,7 +2205,55 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[None-None-True-None]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[None-None-True-None]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -2041,7 +2292,56 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[None-None-True-True]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[None-None-True-True]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -2080,7 +2380,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -2118,7 +2423,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -2157,7 +2467,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -2195,7 +2510,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -2232,7 +2552,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -2270,7 +2595,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -2309,7 +2639,56 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[None-True-True-False]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[None-True-True-False]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -2347,7 +2726,55 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[None-True-True-None]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[None-True-True-None]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -2386,7 +2813,56 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": null
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[None-True-True-True]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[None-True-True-True]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -2425,7 +2901,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": false,
@@ -2463,7 +2944,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": false,
@@ -2502,7 +2988,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": false,
@@ -2540,7 +3031,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": false,
@@ -2577,7 +3073,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": false,
@@ -2615,7 +3116,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": false,
@@ -2654,7 +3160,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": false,
@@ -2692,7 +3203,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": false,
@@ -2731,7 +3247,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": false,
@@ -2770,7 +3291,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -2808,7 +3334,55 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-None-False-None]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-None-False-None]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -2847,7 +3421,56 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-None-False-True]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-None-False-True]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -2885,7 +3508,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -2922,7 +3550,54 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-None-None-None]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-None-None-None]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -2960,7 +3635,55 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-None-None-True]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-None-None-True]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -2999,7 +3722,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -3037,7 +3765,55 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-None-True-None]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-None-True-None]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -3076,7 +3852,56 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": null,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-None-True-True]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-None-True-True]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": null,
@@ -3115,7 +3940,56 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-True-False-False]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-True-False-False]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false,
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -3153,7 +4027,55 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-True-False-None]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-True-False-None]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -3192,7 +4114,56 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-True-False-True]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-True-False-True]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": false,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -3230,7 +4201,55 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-True-None-False]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-True-None-False]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -3267,7 +4286,54 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-True-None-None]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-True-None-None]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -3305,7 +4371,55 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-True-None-True]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-True-None-True]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -3344,7 +4458,56 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-True-True-False]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-True-True-False]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -3382,7 +4545,55 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-True-True-None]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-True-True-None]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -3421,7 +4632,56 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "my_alias": 1
+    }
+   ]
+  },
+  "options": {
+   "by_alias": true,
+   "by_name": true
+  },
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "my_field": 1
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-True-True-True]#1",
+  "test": "tests/validators/test_arguments.py::test_by_alias_and_name_config_interaction[True-True-True-True]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "my_field",
+     "schema": {
+      "type": "int"
+     },
+     "alias": "my_alias"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "my_field": 1
+    }
+   ]
   },
   "options": {
    "by_alias": true,
@@ -3471,7 +4731,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": 1
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -3523,7 +4788,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     2
+    ],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -3575,7 +4846,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1
+    ],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -3628,7 +4904,14 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1
+    ],
+    {
+     "b": 3
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -3673,7 +4956,14 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1
+    ],
+    {
+     "b": "2"
+    }
+   ]
   },
   "options": {},
   "expected": {
@@ -3689,6 +4979,58 @@
      }
     ]
    }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_error_display#1",
+  "test": "tests/validators/test_arguments.py::test_error_display",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "int"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "a": 1
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "missing_argument",
+     "loc": [
+      "b"
+     ],
+     "msg": "Missing required argument",
+     "input": {
+      "$args_kwargs": [
+       [],
+       {
+        "a": 1
+       }
+      ]
+     }
+    }
+   ],
+   "title": "arguments"
   }
  },
  {
@@ -3723,7 +5065,14 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     2,
+     3
+    ],
+    null
+   ]
   },
   "options": {},
   "expected": {
@@ -3742,6 +5091,237 @@
   }
  },
  {
+  "id": "tests/validators/test_arguments.py::test_function_any#1",
+  "test": "tests/validators/test_arguments.py::test_function_any",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "any"
+     }
+    },
+    {
+     "name": "b",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "any"
+     }
+    },
+    {
+     "name": "c",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "any"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "a": 1,
+     "b": 2,
+     "c": 3
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": 1,
+      "b": 2,
+      "c": 3
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_function_any#2",
+  "test": "tests/validators/test_arguments.py::test_function_any",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "any"
+     }
+    },
+    {
+     "name": "b",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "any"
+     }
+    },
+    {
+     "name": "c",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "any"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [
+     1
+    ],
+    {
+     "b": 2,
+     "c": 3
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1
+      ]
+     },
+     {
+      "b": 2,
+      "c": 3
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_function_any#3",
+  "test": "tests/validators/test_arguments.py::test_function_any",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "any"
+     }
+    },
+    {
+     "name": "b",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "any"
+     }
+    },
+    {
+     "name": "c",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "any"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [
+     1,
+     2,
+     3,
+     4
+    ],
+    null
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "unexpected_positional_argument",
+     "loc": [
+      3
+     ],
+     "msg": "Unexpected positional argument",
+     "input": 4
+    }
+   ],
+   "title": "arguments"
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_function_any#4",
+  "test": "tests/validators/test_arguments.py::test_function_any",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "any"
+     }
+    },
+    {
+     "name": "b",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "any"
+     }
+    },
+    {
+     "name": "c",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "any"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [
+     1,
+     2,
+     3
+    ],
+    {
+     "d": 4
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "unexpected_keyword_argument",
+     "loc": [
+      "d"
+     ],
+     "msg": "Unexpected keyword argument",
+     "input": 4
+    }
+   ],
+   "title": "arguments"
+  }
+ },
+ {
   "id": "tests/validators/test_arguments.py::test_function_args_kwargs#0",
   "test": "tests/validators/test_arguments.py::test_function_args_kwargs",
   "schema": {
@@ -3757,7 +5337,17 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     2,
+     3
+    ],
+    {
+     "a": 4,
+     "b": 5
+    }
+   ]
   },
   "options": {},
   "expected": {
@@ -3774,6 +5364,121 @@
       "a": 4,
       "b": 5
      }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_function_args_kwargs#1",
+  "test": "tests/validators/test_arguments.py::test_function_args_kwargs",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [],
+   "var_args_schema": {
+    "type": "any"
+   },
+   "var_kwargs_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [
+     1,
+     2,
+     3
+    ],
+    null
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       2,
+       3
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_function_args_kwargs#2",
+  "test": "tests/validators/test_arguments.py::test_function_args_kwargs",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [],
+   "var_args_schema": {
+    "type": "any"
+   },
+   "var_kwargs_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "a": 1,
+     "b": 2,
+     "c": 3
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": 1,
+      "b": 2,
+      "c": 3
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_function_args_kwargs#3",
+  "test": "tests/validators/test_arguments.py::test_function_args_kwargs",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [],
+   "var_args_schema": {
+    "type": "any"
+   },
+   "var_kwargs_schema": {
+    "type": "any"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    null
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {}
     ]
    }
   }
@@ -3806,7 +5511,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     "1",
+     2
+    ],
+    null
+   ]
   },
   "options": {},
   "expected": {
@@ -3819,6 +5530,116 @@
       ]
      },
      {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_function_positional_kwargs#1",
+  "test": "tests/validators/test_arguments.py::test_function_positional_kwargs",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "mode": "positional_only",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "mode": "positional_only",
+     "schema": {
+      "type": "int"
+     }
+    }
+   ],
+   "var_kwargs_schema": {
+    "type": "bool"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [
+     "1",
+     2
+    ],
+    {
+     "c": true
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     {
+      "c": true
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_function_positional_kwargs#2",
+  "test": "tests/validators/test_arguments.py::test_function_positional_kwargs",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "mode": "positional_only",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "mode": "positional_only",
+     "schema": {
+      "type": "int"
+     }
+    }
+   ],
+   "var_kwargs_schema": {
+    "type": "bool"
+   }
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [
+     "1",
+     2
+    ],
+    {
+     "a": "false"
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     {
+      "a": false
+     }
     ]
    }
   }
@@ -3855,7 +5676,14 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     "1",
+     2,
+     3
+    ],
+    null
+   ]
   },
   "options": {},
   "expected": {
@@ -3902,13 +5730,18 @@
     }
    ]
   },
-  "config": {
-   "title": "func",
-   "extra_fields_behavior": "allow"
-  },
+  "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     "1",
+     2
+    ],
+    {
+     "c": 3
+    }
+   ]
   },
   "options": {},
   "expected": {
@@ -3956,13 +5789,160 @@
     }
    ]
   },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [
+     "1"
+    ],
+    {
+     "b": 2,
+     "c": 3
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "missing_positional_only_argument",
+     "loc": [
+      1
+     ],
+     "msg": "Missing required positional only argument",
+     "input": {
+      "$args_kwargs": [
+       [
+        "1"
+       ],
+       {
+        "b": 2,
+        "c": 3
+       }
+      ]
+     }
+    },
+    {
+     "type": "unexpected_keyword_argument",
+     "loc": [
+      "b"
+     ],
+     "msg": "Unexpected keyword argument",
+     "input": 2
+    }
+   ],
+   "title": "arguments"
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_function_positional_only#3",
+  "test": "tests/validators/test_arguments.py::test_function_positional_only",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "mode": "positional_only",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "mode": "positional_only",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "c",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "int"
+     }
+    }
+   ]
+  },
+  "config": {
+   "title": "func",
+   "extra_fields_behavior": "allow"
+  },
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [
+     "1",
+     "2"
+    ],
+    {
+     "c": 3,
+     "d": 4
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       2
+      ]
+     },
+     {
+      "c": 3
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_function_positional_only#4",
+  "test": "tests/validators/test_arguments.py::test_function_positional_only",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "mode": "positional_only",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "mode": "positional_only",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "c",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "int"
+     }
+    }
+   ]
+  },
   "config": {
    "title": "func",
    "extra_fields_behavior": "ignore"
   },
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     "1",
+     "2"
+    ],
+    {
+     "c": 3,
+     "d": 4
+    }
+   ]
   },
   "options": {},
   "expected": {
@@ -4010,7 +5990,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     "1",
+     2
+    ],
+    null
+   ]
   },
   "options": {},
   "expected": {
@@ -4020,6 +6006,57 @@
       "$tuple": [
        1,
        2
+      ]
+     },
+     {}
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_function_positional_only_default#1",
+  "test": "tests/validators/test_arguments.py::test_function_positional_only_default",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "mode": "positional_only",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "mode": "positional_only",
+     "schema": {
+      "type": "default",
+      "schema": {
+       "type": "int"
+      },
+      "default": 42
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [
+     "1"
+    ],
+    null
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": [
+       1,
+       42
       ]
      },
      {}
@@ -4059,7 +6096,15 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     2
+    ],
+    {
+     "c": "3"
+    }
+   ]
   },
   "options": {},
   "expected": {
@@ -4076,6 +6121,272 @@
      }
     ]
    }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_function_types#1",
+  "test": "tests/validators/test_arguments.py::test_function_types",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "c",
+     "mode": "keyword_only",
+     "schema": {
+      "type": "int"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "a": 1,
+     "b": "2",
+     "c": 3
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "output": {
+    "$tuple": [
+     {
+      "$tuple": []
+     },
+     {
+      "a": 1,
+      "b": 2,
+      "c": 3
+     }
+    ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_function_types#2",
+  "test": "tests/validators/test_arguments.py::test_function_types",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "c",
+     "mode": "keyword_only",
+     "schema": {
+      "type": "int"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [
+     1,
+     2,
+     3
+    ],
+    null
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "missing_keyword_only_argument",
+     "loc": [
+      "c"
+     ],
+     "msg": "Missing required keyword only argument",
+     "input": {
+      "$args_kwargs": [
+       [
+        1,
+        2,
+        3
+       ],
+       null
+      ]
+     }
+    },
+    {
+     "type": "unexpected_positional_argument",
+     "loc": [
+      2
+     ],
+     "msg": "Unexpected positional argument",
+     "input": 3
+    }
+   ],
+   "title": "arguments"
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_function_types#3",
+  "test": "tests/validators/test_arguments.py::test_function_types",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "c",
+     "mode": "keyword_only",
+     "schema": {
+      "type": "int"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [
+     1,
+     "b"
+    ],
+    null
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "b"
+    },
+    {
+     "type": "missing_keyword_only_argument",
+     "loc": [
+      "c"
+     ],
+     "msg": "Missing required keyword only argument",
+     "input": {
+      "$args_kwargs": [
+       [
+        1,
+        "b"
+       ],
+       null
+      ]
+     }
+    }
+   ],
+   "title": "arguments"
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_function_types#4",
+  "test": "tests/validators/test_arguments.py::test_function_types",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "b",
+     "mode": "positional_or_keyword",
+     "schema": {
+      "type": "int"
+     }
+    },
+    {
+     "name": "c",
+     "mode": "keyword_only",
+     "schema": {
+      "type": "int"
+     }
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [
+     1,
+     "b"
+    ],
+    {
+     "c": "c"
+    }
+   ]
+  },
+  "options": {},
+  "expected": {
+   "errors": [
+    {
+     "type": "int_parsing",
+     "loc": [
+      1
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "b"
+    },
+    {
+     "type": "int_parsing",
+     "loc": [
+      "c"
+     ],
+     "msg": "Input should be a valid integer, unable to parse string as an integer",
+     "input": "c"
+    }
+   ],
+   "title": "arguments"
   }
  },
  {
@@ -4358,7 +6669,10 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -4374,7 +6688,10 @@
      ],
      "msg": "Missing required keyword only argument",
      "input": {
-      "$object": "ArgsKwargs"
+      "$args_kwargs": [
+       [],
+       null
+      ]
      }
     },
     {
@@ -4384,7 +6701,10 @@
      ],
      "msg": "Missing required keyword only argument",
      "input": {
-      "$object": "ArgsKwargs"
+      "$args_kwargs": [
+       [],
+       null
+      ]
      }
     },
     {
@@ -4394,7 +6714,10 @@
      ],
      "msg": "Missing required keyword only argument",
      "input": {
-      "$object": "ArgsKwargs"
+      "$args_kwargs": [
+       [],
+       null
+      ]
      }
     }
    ],
@@ -4433,7 +6756,14 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": "1",
+     "b": "a",
+     "c": "True"
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -4487,7 +6817,14 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": "x",
+     "b": "a",
+     "c": "wrong"
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -4548,7 +6885,15 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": 1,
+     "b": "a",
+     "c": true,
+     "d": "wrong"
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -4601,7 +6946,14 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": 1,
+     "b": "a",
+     "c": true
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -4655,7 +7007,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": 1,
+     "b": "a"
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -4671,7 +7029,13 @@
      ],
      "msg": "Missing required keyword only argument",
      "input": {
-      "$object": "ArgsKwargs"
+      "$args_kwargs": [
+       [],
+       {
+        "a": 1,
+        "b": "a"
+       }
+      ]
      }
     }
    ],
@@ -4710,7 +7074,16 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1
+    ],
+    {
+     "a": 1,
+     "b": "a",
+     "c": true
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -5331,7 +7704,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "x": 1
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -5386,7 +7764,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "x": 1.0
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -5442,7 +7825,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "x": 1,
+     "z": "str"
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -5498,7 +7887,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "x": 1,
+     "y": "str"
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -5547,7 +7942,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     2
+    ],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -5596,7 +7997,15 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     2
+    ],
+    {
+     "x": "abc"
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -5647,7 +8056,15 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1
+    ],
+    {
+     "b": "4",
+     "c": "a"
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -5764,7 +8181,10 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -5792,7 +8212,14 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1
+    ],
+    {
+     "a": 2
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -5929,7 +8356,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "FieldA": "hello"
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -5947,6 +8379,67 @@
      }
     ]
    }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_only_allow_alias[python]#1",
+  "test": "tests/validators/test_arguments.py::test_only_allow_alias[python]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "str"
+     },
+     "alias": "FieldA"
+    }
+   ],
+   "validate_by_name": false,
+   "validate_by_alias": true
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "a": "hello"
+    }
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing_argument",
+     "loc": [
+      "FieldA"
+     ],
+     "msg": "Missing required argument",
+     "input": {
+      "$args_kwargs": [
+       [],
+       {
+        "a": "hello"
+       }
+      ]
+     }
+    },
+    {
+     "type": "unexpected_keyword_argument",
+     "loc": [
+      "a"
+     ],
+     "msg": "Unexpected keyword argument",
+     "input": "hello"
+    }
+   ],
+   "title": "arguments"
   }
  },
  {
@@ -5969,7 +8462,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": "hello"
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -5987,6 +8485,67 @@
      }
     ]
    }
+  }
+ },
+ {
+  "id": "tests/validators/test_arguments.py::test_only_validate_by_name[python]#1",
+  "test": "tests/validators/test_arguments.py::test_only_validate_by_name[python]",
+  "schema": {
+   "type": "arguments",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "str"
+     },
+     "alias": "FieldA"
+    }
+   ],
+   "validate_by_name": true,
+   "validate_by_alias": false
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [],
+    {
+     "FieldA": "hello"
+    }
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "errors": [
+    {
+     "type": "missing_argument",
+     "loc": [
+      "a"
+     ],
+     "msg": "Missing required argument",
+     "input": {
+      "$args_kwargs": [
+       [],
+       {
+        "FieldA": "hello"
+       }
+      ]
+     }
+    },
+    {
+     "type": "unexpected_keyword_argument",
+     "loc": [
+      "FieldA"
+     ],
+     "msg": "Unexpected keyword argument",
+     "input": "hello"
+    }
+   ],
+   "title": "arguments"
   }
  },
  {
@@ -6051,7 +8610,10 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -6093,7 +8655,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": 1
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -6854,7 +9421,10 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -6870,7 +9440,10 @@
      ],
      "msg": "Missing required positional only argument",
      "input": {
-      "$object": "ArgsKwargs"
+      "$args_kwargs": [
+       [],
+       null
+      ]
      }
     },
     {
@@ -6880,7 +9453,10 @@
      ],
      "msg": "Missing required positional only argument",
      "input": {
-      "$object": "ArgsKwargs"
+      "$args_kwargs": [
+       [],
+       null
+      ]
      }
     },
     {
@@ -6890,7 +9466,10 @@
      ],
      "msg": "Missing required positional only argument",
      "input": {
-      "$object": "ArgsKwargs"
+      "$args_kwargs": [
+       [],
+       null
+      ]
      }
     }
    ],
@@ -6929,7 +9508,14 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     "a",
+     true
+    ],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -6983,7 +9569,16 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     "a",
+     true
+    ],
+    {
+     "x": 1
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -7494,7 +10089,14 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": 1,
+     "b": "bb",
+     "c": true
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -7547,7 +10149,17 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     "b1"
+    ],
+    {
+     "a": 11,
+     "b": "b2",
+     "c": true
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -7607,7 +10219,15 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     "bb"
+    ],
+    {
+     "c": true
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -7661,7 +10281,17 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     "bb",
+     "cc"
+    ],
+    {
+     "b": "bb",
+     "c": true
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -7721,7 +10351,16 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1
+    ],
+    {
+     "a": 11,
+     "b": "bb",
+     "c": true
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -7773,7 +10412,15 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1
+    ],
+    {
+     "b": "bb",
+     "c": true
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -7957,7 +10604,14 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     2,
+     3
+    ],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -7992,7 +10646,16 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     2,
+     3
+    ],
+    {
+     "a": 1
+    }
+   ]
   },
   "options": {
    "strict": null,

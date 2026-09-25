@@ -873,6 +873,9 @@ impl ErrorType {
             Self::TimeDeltaType { .. } => "Input should be a valid duration",
             Self::TimeDeltaParsing { .. } => "Input should be a valid duration, {error}",
             Self::CallableType { .. } => "Input should be a code reference",
+            Self::ArgumentsType { .. } => {
+                "Arguments must be an array reference, a hash reference or a Perldantic::Arguments object"
+            }
             Self::JsonType { .. } => "JSON input should be a string",
             Self::UrlType { .. } => "URL input should be a string or a Perldantic::Url object",
             Self::UuidType { .. } => {

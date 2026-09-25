@@ -22,15 +22,17 @@
 //!   ([`crate::host`]); a function the host did not give is written without `id`;
 //! - `{"$enum": {"class", "name", "value", "mixin", "str_is_value"}}` for enum members
 //!   (`mixin`, the builtin type an `IntEnum` or `StrEnum` member also is, and `str_is_value`
-//!   may be left out).
+//!   may be left out);
+//! - `{"$args_kwargs": [args, kwargs]}` for the arguments of a call: a list of positional
+//!   arguments and a dict of keyword arguments (or `null`).
 
 use std::fmt::Write as _;
 
 use base64::Engine;
 use base64::engine::general_purpose::STANDARD;
 use perldantic_core::{
-    CoreError, CoreResult, Decimal, Dict, EnumMember, EnumMixin, Function, HostObject, Model,
-    MultiHostUrl, Url, Value, speedate, temporal, uuid,
+    ArgsKwargs, CoreError, CoreResult, Decimal, Dict, EnumMember, EnumMixin, Function, HostObject,
+    Model, MultiHostUrl, Url, Value, speedate, temporal, uuid,
 };
 
 /// Parse wire JSON into a value.
@@ -119,6 +121,7 @@ fn decode_tag(tag: &str, payload: Value) -> CoreResult<Value> {
         }
         "model" => decode_model(payload)?,
         "enum" => decode_enum(payload)?,
+        "args_kwargs" => decode_args_kwargs(payload)?,
         "function" => decode_function(payload)?,
         "host" => decode_host(payload)?,
         "bigint" => match &payload {
@@ -264,6 +267,24 @@ fn decode_function(payload: Value) -> CoreResult<Value> {
             &payload,
         )),
     }
+}
+
+fn decode_args_kwargs(payload: Value) -> CoreResult<Value> {
+    const WHAT: &str = "$args_kwargs takes a list of arguments and a dict of keyword arguments";
+    let payload = untag(payload)?;
+    let Value::List(mut parts) = payload else {
+        return Err(invalid(WHAT, &payload));
+    };
+    let (kwargs, args) = match (parts.pop(), parts.pop(), parts.is_empty()) {
+        (Some(Value::Dict(kwargs)), Some(Value::List(args)), true) => (kwargs, args),
+        (Some(Value::None), Some(Value::List(args)), true) => (Dict::new(), args),
+        (kwargs, args, _) => {
+            parts.extend(args);
+            parts.extend(kwargs);
+            return Err(invalid(WHAT, &Value::List(parts)));
+        }
+    };
+    Ok(Value::ArgsKwargs(Box::new(ArgsKwargs::new(args, kwargs))))
 }
 
 fn decode_enum(payload: Value) -> CoreResult<Value> {
@@ -452,6 +473,16 @@ fn write_value(value: &Value, out: &mut String) {
         Value::MultiHostUrl(u) => {
             write_tagged("multi_host_url", out, |out| write_str(&u.as_str(), out));
         }
+        Value::ArgsKwargs(arguments) => write_tagged("args_kwargs", out, |out| {
+            out.push('[');
+            write_items(&arguments.args, out);
+            out.push(',');
+            match &arguments.kwargs {
+                Some(kwargs) => write_dict(kwargs, out),
+                None => out.push_str("null"),
+            }
+            out.push(']');
+        }),
         Value::Model(model) => write_tagged("model", out, |out| {
             out.push_str("{\"class\":");
             write_str(&model.class, out);
@@ -668,6 +699,23 @@ mod tests {
                 .unwrap_err()
                 .to_string(),
             "Invalid wire value: $function needs an `id` (a non-negative integer) and a `name`, got {'id': -1, 'name': 'check'}"
+        );
+    }
+
+    #[test]
+    fn args_kwargs_carry_both_kinds_of_arguments() {
+        let mut kwargs = Dict::new();
+        kwargs.insert(Value::from("b"), Value::Tuple(vec![Value::Int(2)]));
+        let value = Value::ArgsKwargs(Box::new(ArgsKwargs::new(vec![Value::Int(1)], kwargs)));
+        let json = r#"{"$args_kwargs":[[1],{"b":{"$tuple":[2]}}]}"#;
+        assert_eq!(encode(&value), json);
+        assert_eq!(decode(json).unwrap(), value);
+        let empty = Value::ArgsKwargs(Box::new(ArgsKwargs::new(vec![], Dict::new())));
+        assert_eq!(encode(&empty), r#"{"$args_kwargs":[[],null]}"#);
+        assert_eq!(decode(r#"{"$args_kwargs": [[], {}]}"#).unwrap(), empty);
+        assert_eq!(
+            decode(r#"{"$args_kwargs": [1]}"#).unwrap_err().to_string(),
+            "Invalid wire value: $args_kwargs takes a list of arguments and a dict of keyword arguments, got [1]"
         );
     }
 

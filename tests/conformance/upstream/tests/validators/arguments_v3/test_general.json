@@ -130,7 +130,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": 1
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -182,7 +187,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     2
+    ],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -234,7 +245,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1
+    ],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -287,7 +303,14 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1
+    ],
+    {
+     "b": 3
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -533,7 +556,19 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     "t",
+     2,
+     3,
+     4
+    ],
+    {
+     "c": true,
+     "other": 1
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -675,7 +710,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1,
+     2
+    ],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -693,6 +734,57 @@
      },
      {}
     ]
+   }
+  }
+ },
+ {
+  "id": "tests/validators/arguments_v3/test_general.py::test_internal_error[python]#1",
+  "test": "tests/validators/arguments_v3/test_general.py::test_internal_error[python]",
+  "schema": {
+   "type": "arguments-v3",
+   "arguments_schema": [
+    {
+     "name": "a",
+     "schema": {
+      "type": "int"
+     },
+     "mode": "positional_only"
+    },
+    {
+     "name": "b",
+     "schema": {
+      "type": "function-plain",
+      "function": {
+       "type": "no-info",
+       "function": {
+        "$function": "double_or_bust"
+       }
+      }
+     },
+     "mode": "positional_only"
+    }
+   ]
+  },
+  "config": null,
+  "mode": "python",
+  "input": {
+   "$args_kwargs": [
+    [
+     1,
+     1
+    ],
+    null
+   ]
+  },
+  "options": {
+   "strict": null,
+   "context": null,
+   "extra": null
+  },
+  "expected": {
+   "exception": {
+    "type": "RuntimeError",
+    "message": "bust"
    }
   }
  },
@@ -732,7 +824,10 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -786,7 +881,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [
+     1
+    ],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -817,7 +917,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": 1
+    }
+   ]
   },
   "options": {
    "strict": null,

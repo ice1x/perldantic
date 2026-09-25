@@ -15,9 +15,9 @@ use std::path::{Path, PathBuf};
 use base64::Engine;
 use base64::engine::general_purpose::STANDARD;
 use perldantic_core::{
-    Decimal, Dict, EnumMember, EnumMixin, ErrorDetails, ErrorsOptions, ExtraBehavior, HostData,
-    HostInput, HostKind, InputType, JsonOptions, LocItem, Model, MultiHostUrl, PartialMode,
-    SchemaSerializer, SchemaValidator, SerMode, SerializeOptions, Url, ValidateError,
+    ArgsKwargs, Decimal, Dict, EnumMember, EnumMixin, ErrorDetails, ErrorsOptions, ExtraBehavior,
+    HostData, HostInput, HostKind, InputType, JsonOptions, LocItem, Model, MultiHostUrl,
+    PartialMode, SchemaSerializer, SchemaValidator, SerMode, SerializeOptions, Url, ValidateError,
     ValidateOptions, Value, WarningsMode, speedate, temporal, uuid,
 };
 use serde_json::Value as Json;
@@ -148,6 +148,13 @@ fn decode_tag(tag: &str, payload: &Json, in_schema: bool) -> Result<Value, Skip>
         "multi_host_url" => Value::MultiHostUrl(Box::new(
             MultiHostUrl::parse(payload.as_str().unwrap(), true).unwrap(),
         )),
+        "args_kwargs" => Value::ArgsKwargs(Box::new(ArgsKwargs::new(
+            items(&payload[0])?,
+            match &payload[1] {
+                Json::Null => Dict::new(),
+                kwargs => dict(kwargs)?,
+            },
+        ))),
         other => return Err(Skip(format!("value ${other}"))),
     })
 }
@@ -703,6 +710,11 @@ fn decoder_handles_every_representable_tag() {
     assert_eq!(model.class, "M");
     assert_eq!(model.fields_set, vec![Value::from("a")]);
     assert_eq!(model.extra, None);
+    let arguments: Json = serde_json::from_str(r#"{"$args_kwargs": [[1], {"a": 2}]}"#).unwrap();
+    assert_eq!(
+        decode(&arguments).unwrap().repr(),
+        "ArgsKwargs((1,), {'a': 2})"
+    );
 }
 
 #[test]

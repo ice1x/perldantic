@@ -124,7 +124,13 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": 1,
+     "b": true
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -174,7 +180,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": 1
+    }
+   ]
   },
   "options": {
    "strict": null,
@@ -351,7 +362,10 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    null
+   ]
   },
   "options": {
    "strict": null,
@@ -367,7 +381,10 @@
      ],
      "msg": "Missing required keyword only argument",
      "input": {
-      "$object": "ArgsKwargs"
+      "$args_kwargs": [
+       [],
+       null
+      ]
      }
     }
    ],
@@ -466,7 +483,12 @@
   "config": null,
   "mode": "python",
   "input": {
-   "$object": "ArgsKwargs"
+   "$args_kwargs": [
+    [],
+    {
+     "a": "not_an_int"
+    }
+   ]
   },
   "options": {
    "strict": null,

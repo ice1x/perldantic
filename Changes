@@ -5,6 +5,8 @@ Revision history for Perldantic
       are its own objects; the class name is a type (core `enum` schema), fields hold
       members, members are plain defaults, and dumps to JSON write their values.
     - Strict validation of Perl data takes only enum members, not their values.
+    - `arguments` core schemas (Perldantic::FFI) and Perldantic::Arguments, pydantic-core's
+      ArgsKwargs: the positional and named arguments of a call.
 
 0.01  2026-09-24
     - First release: pydantic's data validation for Perl, on a Python-free Rust port of

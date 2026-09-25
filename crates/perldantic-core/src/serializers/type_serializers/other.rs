@@ -1,6 +1,6 @@
 //! Serializers taken from part of their schema. Port of upstream `type_serializers/other.rs`:
 //! a `chain` serializes as its last step, `custom-error` as its inner schema and
-//! `lax-or-strict` as its strict schema.
+//! `lax-or-strict` as its strict schema. `arguments` has no serializer of its own.
 
 use std::sync::Arc;
 
@@ -28,6 +28,22 @@ impl BuildSerializer for ChainBuilder {
             )
         })?;
         CombinedSerializer::build(as_dict(last)?, config, definitions)
+    }
+}
+
+pub struct ArgumentsBuilder;
+
+impl BuildSerializer for ArgumentsBuilder {
+    const EXPECTED_TYPE: &'static str = "arguments";
+
+    fn build(
+        _schema: &Dict,
+        _config: Option<&Dict>,
+        _definitions: &mut DefinitionsBuilder<Arc<CombinedSerializer>>,
+    ) -> CoreResult<Arc<CombinedSerializer>> {
+        Err(crate::core_error::CoreError::Schema(
+            "`arguments` validators require a custom serializer".to_owned(),
+        ))
     }
 }
 
