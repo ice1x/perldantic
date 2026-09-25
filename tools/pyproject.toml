@@ -1,5 +1,5 @@
 # Configuration for perldantic's development tooling (not a distributed package).
 
 [tool.pytest.ini_options]
-testpaths = ["conformance/tests", "json_schema/tests"]
+testpaths = ["conformance/tests", "json_schema/tests", "upstream/tests"]
 pythonpath = ["."]

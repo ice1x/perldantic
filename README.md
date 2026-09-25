@@ -112,11 +112,11 @@ numbers and where the time goes: [docs/BENCHMARKS.md](docs/BENCHMARKS.md); repro
   - [x] 00068 — POD for all modules
   - [x] 00069 — `docs/MIGRATING_FROM_PYDANTIC.md`
   - [ ] 00070 — CPAN release `Perldantic-0.01`, tag `v0.1.0`
-- [ ] 00071 — Backlog (post-0.1)
+- [x] 00071 — Backlog (post-0.1)
   - [x] 00072 — `arguments` / `call`: Perl sub signature validation (`Perldantic::Call`'s `validate_call`)
   - [x] 00073 — Moo/Moose integration: Perldantic types as `isa` (and coercions) in Moo classes, and as Type::Tiny types (Type::API protocol) in Moose
   - [x] 00074 — Prebuilt binaries: the core library built for Linux and macOS by the release workflow, fetched and checksum-checked by Makefile.PL when Rust is missing
-  - [ ] 00075 — Automated upstream sync
+  - [x] 00075 — Automated upstream sync: a weekly report of pydantic-core changes since the base commit, mapped to the port (`tools/upstream/report.py`, kept in an `upstream-sync` issue)
   - [x] 00080 — No JSON at the boundary: a binary wire format, and validation reading Perl data in place (docs/BENCHMARKS.md)
   - [x] 00079 — Perl enum classes: declare enum members in a Perl package and validate them with the core `enum` schema (the core and the wire already carry enum members)
   - [x] 00081 — Lazy model objects, opt-in (`lazy => 1` per call, `model_config lazy => 1`, or a TypeAdapter's config): validated data stays in the core until an object is read (validation ~10x faster than Moo); not the default, since such objects hold nothing until read (Moo compatibility)
