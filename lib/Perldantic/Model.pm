@@ -56,7 +56,7 @@ my %CONFIG_KEY = (
     validate_default     => 'validate_default',
 );
 # Settings of the Perl layer only; the core never sees them.
-my %PERL_SETTING = map { $_ => 1 } qw(temporal_class);
+my %PERL_SETTING = map { $_ => 1 } qw(temporal_class lazy);
 
 my %CONFIG_FLAG = map { $_ => 1 }
     qw(strict str_strip_whitespace str_to_lower str_to_upper validate_by_name validate_by_alias serialize_by_alias
@@ -78,6 +78,8 @@ sub _changed ($class) {
     # the field names the native encoder writes models with
     %Perldantic::Wire::DIRECT = ();
     %Perldantic::Wire::BLESS = ();
+    %Perldantic::Wire::LAZY = ();
+    %Perldantic::Wire::LAZY_DUMP = ();
     for my $user (keys %DEPENDS_ON) {
         next if !$DEPENDS_ON{$user}{$class};
         delete $VALIDATOR{$user};
@@ -193,6 +195,7 @@ sub _install_accessors ($class, $spec) {
     if ($spec->{is} ne 'bare') {
         my $rw = $spec->{is} eq 'rw';
         _install($class, $name, sub ($self, @value) {
+            _realize($self) if !exists $self->{$name};
             if (@value) {
                 _usage("$name is a read-only accessor of " . ref $self) if !$rw;
                 _set($self, $spec, $value[0]);
@@ -203,14 +206,17 @@ sub _install_accessors ($class, $spec) {
     }
     _install($class, "_set_$name", sub ($self, $value) { _set($self, $spec, $value) })
         if $spec->{is} eq 'rwp';
-    _install($class, $spec->{predicate}, sub ($self) { exists $self->{$name} }) if $spec->{predicate};
+    _install($class, $spec->{predicate}, sub ($self) { _realize($self) if !exists $self->{$name}; exists $self->{$name} })
+        if $spec->{predicate};
     _install($class, $spec->{clearer}, sub ($self) {
+        _realize($self);
         delete _fields_set($self)->{$name};
         delete $self->{$name};
     }) if $spec->{clearer};
 }
 
 sub _set ($self, $spec, $value) {
+    _realize($self);
     $self->{$spec->{name}} = $value;
     _fields_set($self)->{$spec->{name}} = 1;
     $spec->{trigger}->($self, $value) if $spec->{trigger};
@@ -219,11 +225,13 @@ sub _set ($self, $spec, $value) {
 # An object without state (the common case of one built with every field given and no extra
 # fields) has set exactly the fields it holds.
 sub _held_fields ($self) {
+    _realize($self);
     return grep { exists $self->{$_} } @{_plan(ref $self)->{names}};
 }
 
 # The names of the fields set, as a hash one may change.
 sub _fields_set ($self) {
+    _realize($self);
     my $state = $STATE{$self};
     return ($STATE{$self} = {fields_set => {map { $_ => 1 } _held_fields($self)}})->{fields_set} if !$state;
     my $set = $state->{fields_set};
@@ -233,6 +241,7 @@ sub _fields_set ($self) {
 
 # The names of the fields set, sorted.
 sub _fields_set_names ($self) {
+    _realize($self);
     my $state = $STATE{$self} // return sort(_held_fields($self));
     my $set = $state->{fields_set} // return ();
     return sort(ref $set eq 'ARRAY' ? @$set : keys %$set);
@@ -240,8 +249,32 @@ sub _fields_set_names ($self) {
 
 # The extra fields, if the object has any.
 sub _extra ($self) {
+    _realize($self);
     my $state = $STATE{$self};
     return $state ? $state->{extra} : undef;
+}
+
+# Read a lazy object's fields in from the core (Perldantic.xs, lazy_expand); other objects are
+# left as they are. Fields stored in the hash directly before are kept.
+sub _realize ($self) {
+    return if !$Perldantic::Wire::XS;
+    my ($fields, $fields_set, $extra) = Perldantic::XS::lazy_expand($self, \&Perldantic::Wire::decode) or return;
+    exists $self->{$_} or $self->{$_} = $fields->{$_} for keys %$fields;
+    _inflate_object(ref $self, $self, $fields_set, $extra);
+    return;
+}
+
+# Whether objects of a class may be lazy, for the native decoder meeting a class first.
+sub _lazy_plan ($class) {
+    if (_is_model($class)) { _plan($class) }
+    else                   { $Perldantic::Wire::LAZY{$class} = 0 }
+    return;
+}
+
+# Whether a validation returns lazy objects: the call's `lazy` option, else the class's config.
+sub _lazy_option ($class, $options) {
+    return delete $options->{lazy} if exists $options->{lazy};
+    return _plan($class)->{lazy};
 }
 
 sub _fill_lazy ($self, $spec) {
@@ -746,7 +779,7 @@ sub _untrack ($value) {
 sub new ($class, @args) {
     _usage('new is a class method') if ref $class;
     my $args = $class->BUILDARGS(@args);
-    return _validate_tracked(sub { $class->_validator->validate($args) }, $args);
+    return _validate_tracked(sub { $class->_validator->validate($args, undef, _plan($class)->{lazy}) }, $args);
 }
 
 sub does ($self, $role) { Role::Tiny::does_role($self, $role) }
@@ -772,15 +805,27 @@ sub _plan ($class) {
     else {
         delete $Perldantic::Wire::BLESS{$class};
     }
+    # Objects that may be lazy: nothing to run when built (code defaults and builders of fields
+    # not given run when the object is first read). Without those, the core's model is what the
+    # object holds but for the fields it leaves out.
+    my @unset = grep { $_->{lazy} || !$_->{default} } @fields;
+    $Perldantic::Wire::LAZY{$class} = $Perldantic::Wire::BLESS{$class} ? 1 : 0;
+    if ($Perldantic::Wire::BLESS{$class} && !grep { !$_->{lazy} && ($_->{default_code} || $_->{builder}) } @unset) {
+        $Perldantic::Wire::LAZY_DUMP{$class} = [map { $_->{name} } @unset];
+    }
+    else {
+        delete $Perldantic::Wire::LAZY_DUMP{$class};
+    }
     return $PLAN{$class} = {
         generation => $GENERATION,
         fields     => \@fields,
         names      => [map { $_->{name} } @fields],
         # fields with something to do when they were given (a trigger) or not
         triggers   => [grep { $_->{trigger} } @fields],
-        unset      => [grep { $_->{lazy} || !$_->{default} } @fields],
+        unset      => \@unset,
         temporal   => $config->{temporal_class} // 'Perldantic',
         revalidate => ($config->{revalidate_instances} // 'never') eq 'always',
+        lazy       => !!$config->{lazy},
         builds     => \@builds,
     };
 }
@@ -800,41 +845,7 @@ sub _inflate ($value, $args = undef) {
                 last;
             }
         }
-        my $class = $value->{class};
-        my $plan  = $PLAN{$class};
-        $plan = _plan($class) if !$plan || $plan->{generation} != $GENERATION;
-        my $self = $value->{fields};
-        $args //= {%$self} if @{$plan->{builds}};
-        for my $field (values %$self) {
-            $field = _inflate($field) if ref $field;
-        }
-        if ($plan->{temporal} ne 'Perldantic') {
-            $_ = Perldantic::Temporal::_convert_deep($_, $plan->{temporal}) for values %$self;
-        }
-        bless $self, $class;
-
-        # Without extra fields the set names are field names: as many as there are fields means
-        # every field was given, and the object needs no state (see _held_fields).
-        my $all_set = !defined $value->{extra} && @$fields_set >= @{$plan->{fields}};
-        $STATE{$self} = {fields_set => $fields_set, extra => $value->{extra}} if !$all_set;
-        if (@{$plan->{triggers}} || (!$all_set && @{$plan->{unset}})) {
-            my %set;
-            @set{@$fields_set} = ();
-            for my $spec (@{$plan->{triggers}}) {
-                $spec->{trigger}->($self, $self->{$spec->{name}}) if exists $set{$spec->{name}};
-            }
-            for my $spec ($all_set ? () : @{$plan->{unset}}) {
-                next if exists $set{$spec->{name}};
-                if ($spec->{lazy} || (!$spec->{default_code} && !$spec->{builder})) {
-                    delete $self->{$spec->{name}};
-                }
-                else {
-                    _fill_lazy($self, $spec);
-                }
-            }
-        }
-        $self->$_($args) for @{$plan->{builds}};
-        return $self;
+        return _inflate_object($value->{class}, $value->{fields}, $fields_set, $value->{extra}, $args);
     }
     if ($ref eq 'ARRAY') {
         ref and $_ = _inflate($_) for @$value;
@@ -845,6 +856,43 @@ sub _inflate ($value, $args = undef) {
         return $value;
     }
     return $value;
+}
+
+# Make a validated model's fields hash the object of its class.
+sub _inflate_object ($class, $self, $fields_set, $extra, $args = undef) {
+    my $plan = $PLAN{$class};
+    $plan = _plan($class) if !$plan || $plan->{generation} != $GENERATION;
+    $args //= {%$self} if @{$plan->{builds}};
+    for my $field (values %$self) {
+        $field = _inflate($field) if ref $field;
+    }
+    if ($plan->{temporal} ne 'Perldantic') {
+        $_ = Perldantic::Temporal::_convert_deep($_, $plan->{temporal}) for values %$self;
+    }
+    bless $self, $class;
+
+    # Without extra fields the set names are field names: as many as there are fields means
+    # every field was given, and the object needs no state (see _held_fields).
+    my $all_set = !defined $extra && @$fields_set >= @{$plan->{fields}};
+    $STATE{$self} = {fields_set => $fields_set, extra => $extra} if !$all_set;
+    if (@{$plan->{triggers}} || (!$all_set && @{$plan->{unset}})) {
+        my %set;
+        @set{@$fields_set} = ();
+        for my $spec (@{$plan->{triggers}}) {
+            $spec->{trigger}->($self, $self->{$spec->{name}}) if exists $set{$spec->{name}};
+        }
+        for my $spec ($all_set ? () : @{$plan->{unset}}) {
+            next if exists $set{$spec->{name}};
+            if ($spec->{lazy} || (!$spec->{default_code} && !$spec->{builder})) {
+                delete $self->{$spec->{name}};
+            }
+            else {
+                _fill_lazy($self, $spec);
+            }
+        }
+    }
+    $self->$_($args) for @{$plan->{builds}};
+    return $self;
 }
 
 sub _build ($self, $args) {
@@ -882,18 +930,21 @@ sub _dump_options ($name, @options) {
 sub model_validate ($class, $data, @options) {
     _class_method('model_validate', $class);
     my $options = _options('model_validate', @options);
-    return _validate_tracked(sub { $class->_validator->validate($data, $options) });
+    my $lazy = _lazy_option($class, $options);
+    return _validate_tracked(sub { $class->_validator->validate($data, $options, $lazy) });
 }
 
 sub model_validate_json ($class, $json, @options) {
     _class_method('model_validate_json', $class);
     my $options = _options('model_validate_json', @options);
-    return _validate_tracked(sub { $class->_validator->validate_json($json, $options) });
+    my $lazy = _lazy_option($class, $options);
+    return _validate_tracked(sub { $class->_validator->validate_json($json, $options, $lazy) });
 }
 
 sub model_check ($class, $data, @options) {
     _class_method('model_check', $class);
     my $options = _options('model_check', @options);
+    delete $options->{lazy};
     return _check_tracked(sub { $class->_validator->check($data, $options) });
 }
 
@@ -936,6 +987,7 @@ sub _deep_copy ($value) {
 
 sub model_copy ($self, %options) {
     _object_method('model_copy', $self);
+    _realize($self);
     for my $key (sort keys %options) {
         _usage("model_copy: unknown option '$key'") if $key ne 'update' && $key ne 'deep';
     }
@@ -966,6 +1018,7 @@ sub model_copy ($self, %options) {
 # The wire JSON of the object, written directly (what encoding _perldantic_wire's result
 # gives, without building it).
 sub _wire_json ($self) {
+    _realize($self);
     my $plan = _plan(ref $self);
     my $fields = Perldantic::Wire::_object_any([map { exists $self->{$_} ? ($_ => $self->{$_}) : () } @{$plan->{names}}]);
     my @set = _fields_set_names($self);
@@ -981,6 +1034,7 @@ sub _wire_json ($self) {
 }
 
 sub _perldantic_wire ($self) {
+    _realize($self);
     my $plan = _plan(ref $self);
     my @names = @{$plan->{names}};
     my @token;
@@ -1061,13 +1115,15 @@ With C<< for_json_schema => 1 >>, fields that have no plain default show none.
 =head2 model_validate($data, %options), model_validate_json($json, %options)
 
 Class methods: validate Perl data or JSON text (bytes or characters) into an object. Options
-are pydantic's: C<strict>, C<extra>, C<from_attributes>, C<context>, C<by_alias>, C<by_name>.
+are pydantic's: C<strict>, C<extra>, C<from_attributes>, C<context>, C<by_alias>, C<by_name>;
+and C<lazy>, true for lazy objects (see L</LAZY OBJECTS>), false for objects built in full,
+whatever C<model_config> says.
 
 =head2 model_check($data, %options)
 
 Class method: whether C<$data> would make a valid object, as a Perl boolean, without building
 the object (the fastest way to test input). Invalid input is false, not an error; options are
-those of C<model_validate>.
+those of C<model_validate> (C<lazy> makes no difference).
 
 =head2 model_dump(%options), model_dump_json(%options)
 
@@ -1105,6 +1161,52 @@ A model object given as input (to C<new>, C<model_validate> or a
 L<Perldantic::TypeAdapter>) is kept as it is, as in pydantic, unless its class sets
 C<< revalidate_instances => 'always' >>; then a validated copy is made.
 
+
+=head1 LAZY OBJECTS
+
+Building Perl objects is most of the time a validation takes. A lazy object leaves the validated
+data in the core until the object is used: validation returns objects of the class that hold
+nothing yet, and the first accessor call (or C<model_fields_set>, C<model_extra>,
+C<model_copy>, a predicate, a writer) reads the object's fields in. Models in those fields are
+lazy objects in turn, so reading C<< $order->items >> builds the items but none of their
+fields.
+
+    my $order = Shop::Order->model_validate($data, lazy => 1);   # validated, nothing built
+    say $order->items->[0]->sku;          # builds the order, then that one item
+
+    package Shop::Order { use Perldantic; model_config lazy => 1; ... }   # always lazy
+
+Lazy objects are off by default. The C<lazy> option of a call wins over C<< model_config lazy
+=> 1 >> (which also makes C<new> lazy), which wins over the C<config> of a
+L<Perldantic::TypeAdapter>; one call makes every object it returns lazy or none.
+
+Dumping a lazy object that was not read serializes the core's data as it is, without reading
+the object in, unless its class fills fields in Perl (code defaults, builders).
+
+Validating 200 orders of 10 items is about ten times faster than building Moo objects, and
+dumping lazy objects is faster than dumping built ones. Reading every field of every object
+afterwards costs more than building the objects in the first place, so lazy objects pay off
+when only some of the data is read, or when validated data is passed on or dumped.
+
+Caveats:
+
+=over
+
+=item * Code that looks inside the object sees fields only once one was read: C<<
+$object->{field} >>, C<keys %$object>, Data::Dumper, and Storable's C<dclone> (whose copy stays
+empty). Read an accessor first, or use C<model_dump>.
+
+=item * Code defaults (C<< default => sub {...} >>) and builders of fields not given run when
+the object is first read, not when it is validated.
+
+=item * Classes with C<BUILD> methods, triggers or a C<temporal_class> other than
+C<Perldantic> are always built in full; so are objects given as input, which are kept as they
+are.
+
+=item * Lazy objects need the native (XS) part of Perldantic; without it, objects are built in
+full.
+
+=back
 
 =head1 SEE ALSO
 

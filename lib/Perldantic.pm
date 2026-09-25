@@ -164,7 +164,9 @@ pydantic's model config: C<title>, C<strict>, C<extra> (C<allow>, C<ignore> or C
 C<str_strip_whitespace>, C<str_to_lower>, C<str_to_upper>, C<str_min_length>,
 C<str_max_length>, C<validate_by_name>, C<validate_by_alias>, C<serialize_by_alias>,
 C<revalidate_instances>, C<url_preserve_empty_path>, C<validate_default> and C<json_schema_extra>; and, for the Perl
-layer only, C<temporal_class> (see L<Perldantic::Temporal>).
+layer only, C<temporal_class> (see L<Perldantic::Temporal>) and C<lazy> (C<new>,
+C<model_validate> and C<model_validate_json> return lazy objects, see
+L<Perldantic::Model/LAZY OBJECTS>).
 
 =head2 field_validator $name | [@names] => (mode => $mode) => sub {...}
 

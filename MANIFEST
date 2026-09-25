@@ -127,6 +127,7 @@ ffi/include/perldantic.h
 ffi/src/binary.rs
 ffi/src/host.rs
 ffi/src/host_input.rs
+ffi/src/lazy.rs
 ffi/src/lib.rs
 ffi/src/options.rs
 ffi/src/wire.rs
@@ -134,6 +135,7 @@ ffi/tests/abi.rs
 ffi/tests/binary_abi.rs
 ffi/tests/callbacks.rs
 ffi/tests/header.rs
+ffi/tests/lazy_abi.rs
 lib/Perldantic.pm
 lib/Perldantic/Error.pm
 lib/Perldantic/FFI.pm
@@ -185,6 +187,7 @@ t/35-perl-vocabulary.t
 t/36-pod.t
 t/37-migrating-guide.t
 t/38-distribution.t
+t/39-lazy.t
 t/conformance.t
 t/lib/Perldantic/Test/CaseJSON.pm
 tests/conformance/upstream/tests/serializers/test_any.json
