@@ -96,6 +96,8 @@ pub enum HostCall<'a> {
         handler: &'a mut dyn SerializerHandler,
         info: Option<SerializationInfo>,
     },
+    /// The function of a `call` schema: `f(*args, **kwargs)` with the validated arguments.
+    Call { args: Vec<Value>, kwargs: Dict },
 }
 
 /// What upstream passes to validator functions that take `info` (`ValidationInfo`).
@@ -262,6 +264,26 @@ impl HostError {
                 crate::serializers::SerializeError::Core(error) => error,
                 other => CoreError::Value(other.py_display()),
             }),
+        }
+    }
+}
+
+impl HostError {
+    /// What the function of a `call` schema raised: upstream calls it outside any validation
+    /// error handling, so the exception reaches the caller as it is, not as a validation error.
+    pub(crate) fn into_call_error(self) -> ValError {
+        match self {
+            Self::Value(message) | Self::Assertion(message) => {
+                ValError::InternalErr(CoreError::Value(message))
+            }
+            Self::Validation(error) => ValError::LineErrors(error.into_line_errors()),
+            Self::Omit => ValError::Omit,
+            Self::UseDefault => ValError::UseDefault,
+            Self::Core(error) => ValError::InternalErr(error),
+            Self::Other(exception) => ValError::InternalErr(CoreError::Host(exception)),
+            other @ (Self::Custom { .. } | Self::Known(_) | Self::Serialization(_)) => {
+                ValError::InternalErr(CoreError::Value(other.to_string()))
+            }
         }
     }
 }

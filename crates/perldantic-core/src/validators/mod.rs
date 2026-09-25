@@ -18,6 +18,7 @@ mod any;
 mod arguments;
 mod bool;
 mod bytes;
+mod call;
 mod chain;
 pub(crate) mod config;
 pub(crate) use config::TemporalUnitMode;
@@ -321,6 +322,7 @@ validators! {
     arguments::ArgumentsValidator,
     bool::BoolValidator,
     bytes::BytesValidator,
+    call::CallValidator,
     chain::ChainValidator,
     custom_error::CustomErrorValidator,
     date::DateValidator,
@@ -389,6 +391,7 @@ pub enum CombinedValidator {
     Bytes(bytes::BytesValidator),
     ConstrainedBytes(bytes::BytesConstrainedValidator),
     Chain(chain::ChainValidator),
+    FunctionCall(Box<call::CallValidator>),
     CustomError(custom_error::CustomErrorValidator),
     Date(date::DateValidator),
     Datetime(datetime::DateTimeValidator),

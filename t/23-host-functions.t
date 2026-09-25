@@ -2,6 +2,7 @@ use v5.36;
 use Test2::V0;
 
 use Scalar::Util qw(weaken);
+use Perldantic::Arguments;
 use Perldantic::FFI;
 use Perldantic::Error;
 
@@ -219,6 +220,32 @@ subtest 'handlers only work while their function runs' => sub {
     });
     is $items->to_perl([1, 2, 3], {exclude => [1]}), [1, 'Perldantic::Omit', 3],
         'items filtered out by index raise Perldantic::Omit';
+};
+
+subtest 'called functions' => sub {
+    my $schema = sub ($function) {
+        return {type => 'call', function => $function, arguments_schema => {type => 'arguments', arguments_schema => [
+            {name => 'a', mode => 'positional_only', schema => {type => 'int'}},
+            {name => 'scale', mode => 'keyword_only', schema => {type => 'default', schema => {type => 'int'}, default => 1}},
+        ]}, return_schema => {type => 'int', lt => 100}};
+    };
+    my @got;
+    my $v = Perldantic::FFI::Validator->new($schema->(sub (@args) { @got = @args; my %named = @args[1 .. $#args]; $args[0] * $named{scale} }));
+    is $v->validate(['7']), 7, 'the result';
+    is \@got, [7, scale => 1], 'positional arguments, then named ones as pairs';
+    is $v->validate(Perldantic::Arguments->new(args => [2], kwargs => {scale => '3'})), 6;
+    my $e = dies { $v->validate(Perldantic::Arguments->new(args => [20], kwargs => {scale => 10})) };
+    is [map { [$_->{type}, $_->{loc}] } @{$e->errors}], [['less_than', ['return']]], 'the result is validated';
+
+    my $dying = Perldantic::FFI::Validator->new($schema->(sub (@) { die "no luck\n" }));
+    $e = dies { $dying->validate([1]) };
+    is $e, "no luck\n", 'what the function raises reaches the caller as it is';
+    my $object = bless {}, 'Test::Kaput';
+    my $raising = Perldantic::FFI::Validator->new($schema->(sub (@) { die $object }));
+    ref_is dies { $raising->validate([1]) }, $object;
+    my $invalid = Perldantic::FFI::Validator->new({type => 'int'});
+    my $nested = Perldantic::FFI::Validator->new($schema->(sub (@) { $invalid->validate('x') }));
+    isa_ok dies { $nested->validate([1]) }, ['Perldantic::ValidationError'], 'validation errors too';
 };
 
 subtest 'functions live as long as their validators' => sub {
