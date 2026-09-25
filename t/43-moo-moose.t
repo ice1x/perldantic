@@ -28,6 +28,11 @@ subtest 'the constraint protocol' => sub {
     is $ints->coercion->(['3']), [3], 'coercion: the same as a code reference';
     my $point = InstanceOf ['Mm::Point'];
     isa_ok $point->coerce({x => 1, y => 2}), ['Mm::Point'], 'models are built';
+    ok !$point->check({x => 1, y => 2}), 'what validation converts is for the coercion';
+    like $point->get_message({x => 1, y => 2}), qr/coerce it first/;
+    ok $point->check(Mm::Point->new(x => 1, y => 2)), 'objects of the model are values';
+    is $ints->get_message([1]), undef;
+    ok !(Perldantic::Types::Num())->check('1.50'), 'a number that validation writes differently';
 };
 
 subtest 'as a code reference: Moo isa' => sub {
@@ -71,6 +76,8 @@ subtest 'Type::Tiny' => sub {
     ok $tt->check([1]);
     ok !$tt->check(['x']);
     is $tt->coerce(['2']), [2];
+    my $point = Types::TypeTiny::to_TypeTiny(InstanceOf ['Mm::Point']);
+    isa_ok $point->coerce({x => 1, y => 2}), ['Mm::Point'], 'Type::Tiny coerces what does not pass';
     like dies { $tt->assert_valid(['x']) }, qr/validation error for ArrayRef\[Int\]/;
 };
 
