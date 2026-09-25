@@ -18,6 +18,35 @@ cpanm Perldantic
 [Perldantic](lib/Perldantic.pm)'s documentation (`perldoc Perldantic`), or with
 [docs/MIGRATING_FROM_PYDANTIC.md](docs/MIGRATING_FROM_PYDANTIC.md) if you know pydantic.
 
+## Quick start
+
+```perl
+package Ticket;
+use Perldantic;                          # instead of `use Moo;`
+
+has id     => (is => 'ro', isa => Int, required => 1, gt => 0);
+has title  => (is => 'ro', isa => Str, required => 1, max_length => 200);
+has status => (is => 'ro', isa => Enum[qw(open done)], default => 'open');
+has tags   => (is => 'ro', isa => ArrayRef[Str], default => sub { [] });
+
+package main;
+
+my $ticket = Ticket->new(id => '42', title => 'Login fails');   # "42" becomes 42
+say $ticket->model_dump_json;   # {"id":42,"title":"Login fails","status":"open","tags":[]}
+
+my $copy = Ticket->model_validate_json('{"id": 7, "title": "Crash"}');
+my $schema = Ticket->model_json_schema;                          # JSON Schema
+
+eval { Ticket->new(id => 0) };
+say "@{$_->{loc}}: $_->{msg}" for @{$@->errors};
+# id: Input should be greater than 0
+# title: Field required
+```
+
+More in [examples/](examples/) (models, JSON, validators, enum classes, `validate_call`, Moo
+classes), in `perldoc Perldantic`, and, for pydantic users, in
+[docs/MIGRATING_FROM_PYDANTIC.md](docs/MIGRATING_FROM_PYDANTIC.md).
+
 ## Performance
 
 Against Moo + Type::Tiny (Type::Tiny::XS installed) on the same models, 200 orders of 10 items
