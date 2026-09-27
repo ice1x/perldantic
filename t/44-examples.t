@@ -31,10 +31,10 @@ for my $script (@scripts) {
 subtest 'README quick start' => sub {
     open my $fh, '<:encoding(UTF-8)', 'README.md' or die "README.md: $!";
     my $readme = do { local $/; <$fh> };
-    my ($code) = $readme =~ /^## Quick start\n\n```perl\n(.*?)^```$/ms or return fail 'no quick start';
+    my ($code) = $readme =~ /^## Quick start\n.*?^```perl\n(.*?)^```$/ms or return fail 'no quick start';
     require File::Temp;
     my ($out, $path) = File::Temp::tempfile(SUFFIX => '.pl', UNLINK => 1);
-    print $out "use v5.36;\n$code";
+    print $out $code;
     close $out;
     my $output = `"$^X" "-I$lib" "-I$arch" "$path" 2>&1`;
     is $output, qq({"id":42,"title":"Login fails","status":"open","tags":[]}\n)
