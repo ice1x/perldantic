@@ -20,25 +20,33 @@ cpanm Perldantic
 
 ## Quick start
 
+A model is a package with `use Perldantic`: its `has` lines are the schema, and Perldantic
+validates every object against it.
+
 ```perl
-package Ticket;
-use Perldantic;                          # instead of `use Moo;`
+use v5.36;
 
-has id     => (is => 'ro', isa => Int, required => 1, gt => 0);
-has title  => (is => 'ro', isa => Str, required => 1, max_length => 200);
-has status => (is => 'ro', isa => Enum[qw(open done)], default => 'open');
-has tags   => (is => 'ro', isa => ArrayRef[Str], default => sub { [] });
+package Ticket {
+    use Perldantic;    # makes Ticket a Perldantic model; imports `has` and the types (Int, Str, ...)
 
-package main;
+    # a type and pydantic's constraints per field
+    has id     => (is => 'ro', isa => Int, required => 1, gt => 0);
+    has title  => (is => 'ro', isa => Str, required => 1, max_length => 200);
+    has status => (is => 'ro', isa => Enum[qw(open done)], default => 'open');
+    has tags   => (is => 'ro', isa => ArrayRef[Str], default => sub { [] });
+}
 
-my $ticket = Ticket->new(id => '42', title => 'Login fails');   # "42" becomes 42
+# new validates and converts: the string "42" becomes the number 42
+my $ticket = Ticket->new(id => '42', title => 'Login fails');
+
+# pydantic's model methods
 say $ticket->model_dump_json;   # {"id":42,"title":"Login fails","status":"open","tags":[]}
+my $copy   = Ticket->model_validate_json('{"id": 7, "title": "Crash"}');
+my $schema = Ticket->model_json_schema;    # JSON Schema, as Perl data
 
-my $copy = Ticket->model_validate_json('{"id": 7, "title": "Crash"}');
-my $schema = Ticket->model_json_schema;                          # JSON Schema
-
+# invalid input dies with a Perldantic::ValidationError listing every problem
 eval { Ticket->new(id => 0) };
-say "@{$_->{loc}}: $_->{msg}" for @{$@->errors};
+say "$_->{loc}[0]: $_->{msg}" for @{$@->errors};
 # id: Input should be greater than 0
 # title: Field required
 ```
