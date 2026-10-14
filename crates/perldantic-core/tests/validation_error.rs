@@ -73,7 +73,7 @@ fn errors_list_matches_pydantic_error_details() {
     assert_eq!(details.len(), 1);
     let d = &details[0];
     assert_eq!(d.type_, "string_too_short");
-    assert!(d.loc.is_empty());
+    assert_eq!(d.loc, Vec::<perldantic_core::LocItem>::new());
     assert_eq!(d.msg, "String should have at least 3 characters");
     assert_eq!(d.input, Some(Value::from("12")));
     let mut ctx = Dict::new();

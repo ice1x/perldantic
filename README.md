@@ -4,14 +4,17 @@ Pydantic for Perl, with its philosophy inherited, on a Python-free port of the `
 
 ## Installation
 
-Perldantic needs Perl 5.36 or newer and a C compiler. Its core is built with Rust (`cargo`, 1.88
-or newer) when that is installed; releases also ship the core prebuilt for Linux (x86_64 and
-aarch64, glibc 2.28 or newer) and macOS (Apple silicon and Intel), which installation fetches
-and checks otherwise:
+Perldantic needs Perl 5.36 or newer and a C compiler. It is not on CPAN yet; install a release
+from [GitHub](https://github.com/ice1x/perldantic/releases):
 
 ```sh
-cpanm Perldantic
+cpanm https://github.com/ice1x/perldantic/releases/download/v0.1.0/Perldantic-0.01.tar.gz
 ```
+
+Its core is built with Rust (`cargo`, 1.88 or newer) when that is installed. From the next
+release on, releases also ship the core prebuilt for Linux (x86_64 and aarch64, glibc 2.28 or
+newer) and macOS (Apple silicon and Intel), which installation fetches and checks otherwise;
+0.01 needs Rust.
 
 `PERLDANTIC_BUILD=source` or `PERLDANTIC_BUILD=prebuilt` chooses. From a checkout:
 `perl Makefile.PL && make && make test && make install`. Start with
